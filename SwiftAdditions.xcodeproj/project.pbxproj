@@ -64,9 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				5577287719ABE259008328D0 /* MacTypesAdditions.swift */,
+				550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */,
 				550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */,
 				550FBAC119A7ADC500EFBD3D /* Supporting Files */,
-				550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */,
 			);
 			path = SwiftAdditions;
 			sourceTree = "<group>";
