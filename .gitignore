@@ -6,3 +6,7 @@
 #
 # Pods/
 
+.DS_Store
+
+**/xcuserdata/
+**/project.xcworkspace/
