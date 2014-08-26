@@ -143,7 +143,7 @@ extension OSType: StringLiteralConvertible {
 		let val1 = OSType(toInit.1)
 		let val2 = OSType(toInit.2)
 		let val3 = OSType(toInit.3)
-		self = OSType(val0 << 24) | (val1 << 16) | (val2 << 8) | (val3)
+		self = OSType((val0 << 24) | (val1 << 16) | (val2 << 8) | (val3))
 	}
 
 	public func toFourChar() -> (Int8, Int8, Int8, Int8) {
@@ -171,7 +171,6 @@ extension OSType: StringLiteralConvertible {
 		var tmpStr = String.convertFromExtendedGraphemeClusterLiteral(value)
 		return self.convertFromStringLiteral(tmpStr)
 	}
-
 }
 
 extension Boolean : BooleanLiteralConvertible, BooleanType {

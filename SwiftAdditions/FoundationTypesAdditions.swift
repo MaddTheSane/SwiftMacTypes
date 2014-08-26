@@ -16,12 +16,16 @@ extension NSRange: Equatable, StringLiteralConvertible {
 	public init(string: String) {
 		self = NSRangeFromString(string)
 	}
-
+	
+	public var notFound: Bool { get {
+		return location == NSNotFound
+	}}
+	
 	public func locationIsInRange(loc: Int) -> Bool {
 		return NSLocationInRange(loc, self)
 	}
 
-	public var max: Int {get {
+	public var max: Int { get {
 		return NSMaxRange(self)
 	}}
 
@@ -56,7 +60,6 @@ extension NSRange: Equatable, StringLiteralConvertible {
 }
 
 extension NSPoint: StringLiteralConvertible {
-
 	public init(string: String) {
 		self = NSPointFromString(string)
 	}
@@ -73,11 +76,9 @@ extension NSPoint: StringLiteralConvertible {
 		let tmpStr = String.convertFromExtendedGraphemeClusterLiteral(value)
 		return self.convertFromStringLiteral(tmpStr)
 	}
-
 }
 
 extension NSSize: StringLiteralConvertible {
-
 	public init(string: String) {
 		self = NSSizeFromString(string)
 	}
@@ -97,11 +98,11 @@ extension NSSize: StringLiteralConvertible {
 }
 
 extension NSRect: StringLiteralConvertible {
-	@availability(OSX, introduced=10.0) public func integralRect() -> NSRect {
+	public func integralRect() -> NSRect {
 		return NSIntegralRect(self)
 	}
 
-	@availability(OSX, introduced=10.0) public func integralRect(#options: NSAlignmentOptions) -> NSRect {
+	@availability(OSX, introduced=10.7) public func integralRect(#options: NSAlignmentOptions) -> NSRect {
 		return NSIntegralRectWithOptions(self, options)
 	}
 
