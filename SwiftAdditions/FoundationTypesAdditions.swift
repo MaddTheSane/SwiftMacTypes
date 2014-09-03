@@ -8,6 +8,14 @@
 
 import Foundation
 
+internal func CFStringToString(cfStr: CFString) -> String {
+	return cfStr as NSString as String
+}
+
+internal func StringToCFString(string: String) -> CFString {
+	return string as NSString as CFString
+}
+
 public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
 	return NSEqualRanges(rhs, lhs)
 }
@@ -102,7 +110,7 @@ extension NSRect: StringLiteralConvertible {
 		return NSIntegralRect(self)
 	}
 
-	@availability(OSX, introduced=10.7) public func integralRect(#options: NSAlignmentOptions) -> NSRect {
+	public func integralRect(#options: NSAlignmentOptions) -> NSRect {
 		return NSIntegralRectWithOptions(self, options)
 	}
 

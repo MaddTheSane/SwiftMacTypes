@@ -13,7 +13,7 @@ import CoreServices
 extension String {
 	public init(pascalString pStr: StringPtr, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
 		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding)
-		self = theStr as NSString
+		self = CFStringToString(theStr)
 	}
 	
 	public init(pascalString pStr: Str255, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
@@ -23,8 +23,8 @@ extension String {
 			let aChar = mirror[i].1.value as UInt8
 			unwrapped.append(aChar)
 		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, &unwrapped, encoding)
-		self = theStr as NSString
+		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
+		self = CFStringToString(theStr)
 	}
 	
 	public init(pascalString pStr: Str63, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
@@ -34,8 +34,8 @@ extension String {
 			let aChar = mirror[i].1.value as UInt8
 			unwrapped.append(aChar)
 		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, &unwrapped, encoding)
-		self = theStr as NSString
+		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
+		self = CFStringToString(theStr)
 	}
 	
 	public init(pascalString pStr: Str32, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
@@ -45,8 +45,8 @@ extension String {
 			let aChar = mirror[i].1.value as UInt8
 			unwrapped.append(aChar)
 		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, &unwrapped, encoding)
-		self = theStr as NSString
+		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
+		self = CFStringToString(theStr)
 	}
 
 	public init(pascalString pStr: Str31, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
@@ -56,8 +56,8 @@ extension String {
 			let aChar = mirror[i].1.value as UInt8
 			unwrapped.append(aChar)
 		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, &unwrapped, encoding)
-		self = theStr as NSString
+		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
+		self = CFStringToString(theStr)
 	}
 	
 	public init(pascalString pStr: Str27, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
@@ -67,8 +67,8 @@ extension String {
 			let aChar = mirror[i].1.value as UInt8
 			unwrapped.append(aChar)
 		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, &unwrapped, encoding)
-		self = theStr as NSString
+		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
+		self = CFStringToString(theStr)
 	}
 	
 	public init(pascalString pStr: Str15, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
@@ -78,8 +78,8 @@ extension String {
 			let aChar = mirror[i].1.value as UInt8
 			unwrapped.append(aChar)
 		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, &unwrapped, encoding)
-		self = theStr as NSString
+		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
+		self = CFStringToString(theStr)
 	}
 	
 	public init(pascalString pStr: Str32Field, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
@@ -91,8 +91,8 @@ extension String {
 			var aChar = mirror[i].1.value as UInt8
 			unwrapped.append(aChar)
 		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, &unwrapped, encoding)
-		self = theStr as NSString
+		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
+		self = CFStringToString(theStr)
 	}
 	
 	public init(_ pStr: StringPtr) {
@@ -131,8 +131,12 @@ extension String {
 extension OSType: StringLiteralConvertible {
 	public var stringValue: String { get {
 		let toRet = UTCreateStringForOSType(self).takeRetainedValue()
-		return toRet as NSString as String
+		return CFStringToString(toRet)
 	}}
+	
+	public var rawStringValue: String { get {
+		return self.description
+		}}
 	
 	public init(_ toInit: (Int8, Int8, Int8, Int8, Int8)) {
 		self = OSType((toInit.0, toInit.1, toInit.2, toInit.3))
@@ -160,7 +164,7 @@ extension OSType: StringLiteralConvertible {
 	}
 
 	public init(_ toInit: String) {
-		self = UTGetOSTypeFromString(toInit as NSString as CFString)
+		self = UTGetOSTypeFromString(StringToCFString(toInit))
 	}
 	
 	public static func convertFromStringLiteral(value: String) -> OSType {
