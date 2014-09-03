@@ -17,7 +17,7 @@ internal func StringToCFString(string: String) -> CFString {
 }
 
 public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
-	return NSEqualRanges(rhs, lhs)
+	return (rhs.location == lhs.location && rhs.length == lhs.length)
 }
 
 extension NSRange: Equatable, StringLiteralConvertible {
@@ -30,11 +30,11 @@ extension NSRange: Equatable, StringLiteralConvertible {
 	}}
 	
 	public func locationIsInRange(loc: Int) -> Bool {
-		return NSLocationInRange(loc, self)
+		return (!(loc < location) && (loc - location) < length) ? true : false
 	}
 
 	public var max: Int { get {
-		return NSMaxRange(self)
+		return location + length
 	}}
 
 	public func rangeByIntersecting(otherRange: NSRange) -> NSRange {

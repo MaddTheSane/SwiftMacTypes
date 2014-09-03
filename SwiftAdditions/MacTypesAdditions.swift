@@ -129,14 +129,10 @@ extension String {
 }
 
 extension OSType: StringLiteralConvertible {
-	public var stringValue: String { get {
+	public var stringValueUsingOSType: String { get {
 		let toRet = UTCreateStringForOSType(self).takeRetainedValue()
 		return CFStringToString(toRet)
 	}}
-	
-	public var rawStringValue: String { get {
-		return self.description
-		}}
 	
 	public init(_ toInit: (Int8, Int8, Int8, Int8, Int8)) {
 		self = OSType((toInit.0, toInit.1, toInit.2, toInit.3))
