@@ -10,13 +10,24 @@ import Darwin.MacTypes
 import Foundation
 import CoreServices
 
+private let macRomanEncoding = CFStringBuiltInEncodings.MacRoman.rawValue
+
+public func OSTypeToString(theType: OSType) -> String {
+	let toRet = UTCreateStringForOSType(theType).takeRetainedValue()
+	return CFStringToString(toRet)
+}
+
+public func StringToOSType(theString: String) -> OSType {
+	return UTGetOSTypeFromString(StringToCFString(theString))
+}
+
 extension String {
-	public init(pascalString pStr: StringPtr, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
+	public init(pascalString pStr: StringPtr, encoding: CFStringEncoding = macRomanEncoding) {
 		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding)
 		self = CFStringToString(theStr)
 	}
 	
-	public init(pascalString pStr: Str255, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
+	public init(pascalString pStr: Str255, encoding: CFStringEncoding = macRomanEncoding) {
 		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
 		for i in 0..<mirror.count {
@@ -27,7 +38,7 @@ extension String {
 		self = CFStringToString(theStr)
 	}
 	
-	public init(pascalString pStr: Str63, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
+	public init(pascalString pStr: Str63, encoding: CFStringEncoding = macRomanEncoding) {
 		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
 		for i in 0..<mirror.count {
@@ -38,7 +49,7 @@ extension String {
 		self = CFStringToString(theStr)
 	}
 	
-	public init(pascalString pStr: Str32, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
+	public init(pascalString pStr: Str32, encoding: CFStringEncoding = macRomanEncoding) {
 		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
 		for i in 0..<mirror.count {
@@ -49,7 +60,7 @@ extension String {
 		self = CFStringToString(theStr)
 	}
 
-	public init(pascalString pStr: Str31, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
+	public init(pascalString pStr: Str31, encoding: CFStringEncoding = macRomanEncoding) {
 		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
 		for i in 0..<mirror.count {
@@ -60,7 +71,7 @@ extension String {
 		self = CFStringToString(theStr)
 	}
 	
-	public init(pascalString pStr: Str27, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
+	public init(pascalString pStr: Str27, encoding: CFStringEncoding = macRomanEncoding) {
 		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
 		for i in 0..<mirror.count {
@@ -71,7 +82,7 @@ extension String {
 		self = CFStringToString(theStr)
 	}
 	
-	public init(pascalString pStr: Str15, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
+	public init(pascalString pStr: Str15, encoding: CFStringEncoding = macRomanEncoding) {
 		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
 		for i in 0..<mirror.count {
@@ -82,7 +93,7 @@ extension String {
 		self = CFStringToString(theStr)
 	}
 	
-	public init(pascalString pStr: Str32Field, encoding: CFStringEncoding = CFStringEncoding(CFStringBuiltInEncodings.MacRoman.toRaw())) {
+	public init(pascalString pStr: Str32Field, encoding: CFStringEncoding = macRomanEncoding) {
 		var unwrapped = [UInt8]()
 		var mirror = reflect(pStr)
 		// We skip the last byte because it's not used
@@ -128,11 +139,12 @@ extension String {
 	}
 }
 
-extension OSType: StringLiteralConvertible {
-	public var stringValueUsingOSType: String { get {
-		let toRet = UTCreateStringForOSType(self).takeRetainedValue()
-		return CFStringToString(toRet)
-	}}
+extension OSType {
+	public var stringValueUsingOSType: String {
+		get {
+			return OSTypeToString(self)
+		}
+	}
 	
 	public init(_ toInit: (Int8, Int8, Int8, Int8, Int8)) {
 		self = OSType((toInit.0, toInit.1, toInit.2, toInit.3))
@@ -160,16 +172,11 @@ extension OSType: StringLiteralConvertible {
 	}
 
 	public init(_ toInit: String) {
-		self = UTGetOSTypeFromString(StringToCFString(toInit))
+		self = StringToOSType(toInit)
 	}
 	
 	public static func convertFromStringLiteral(value: String) -> OSType {
 		return OSType(value)
-	}
-	
-	public static func convertFromExtendedGraphemeClusterLiteral(value: String) -> OSType {
-		var tmpStr = String.convertFromExtendedGraphemeClusterLiteral(value)
-		return self.convertFromStringLiteral(tmpStr)
 	}
 }
 

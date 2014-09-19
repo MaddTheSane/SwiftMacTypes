@@ -10,6 +10,7 @@
 		550FBAC419A7ADC500EFBD3D /* SwiftAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		550FBACE19A7ADC500EFBD3D /* SwiftAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */; };
 		550FBADA19A7AE6F00EFBD3D /* FoundationTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */; };
+		556E82F919CC8C2A00ED8ED3 /* AudioFileExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */; };
 		5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577287719ABE259008328D0 /* MacTypesAdditions.swift */; };
 /* End PBXBuildFile section */
 
@@ -21,6 +22,7 @@
 		550FBACC19A7ADC500EFBD3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftAdditionsTests.swift; sourceTree = "<group>"; };
 		550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationTypesAdditions.swift; sourceTree = "<group>"; };
+		556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileExt.swift; sourceTree = "<group>"; };
 		5577287719ABE259008328D0 /* MacTypesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacTypesAdditions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +65,7 @@
 		550FBAC019A7ADC500EFBD3D /* SwiftAdditions */ = {
 			isa = PBXGroup;
 			children = (
+				556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */,
 				5577287719ABE259008328D0 /* MacTypesAdditions.swift */,
 				550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */,
 				550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */,
@@ -204,6 +207,7 @@
 			files = (
 				550FBADA19A7AE6F00EFBD3D /* FoundationTypesAdditions.swift in Sources */,
 				5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */,
+				556E82F919CC8C2A00ED8ED3 /* AudioFileExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

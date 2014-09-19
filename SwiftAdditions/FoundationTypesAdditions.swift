@@ -20,22 +20,26 @@ public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
 	return (rhs.location == lhs.location && rhs.length == lhs.length)
 }
 
-extension NSRange: Equatable, StringLiteralConvertible {
+extension NSRange: Equatable {
 	public init(string: String) {
 		self = NSRangeFromString(string)
 	}
 	
-	public var notFound: Bool { get {
-		return location == NSNotFound
-	}}
+	public var notFound: Bool {
+		get {
+			return location == NSNotFound
+		}
+	}
 	
 	public func locationIsInRange(loc: Int) -> Bool {
 		return (!(loc < location) && (loc - location) < length) ? true : false
 	}
 
-	public var max: Int { get {
-		return location + length
-	}}
+	public var max: Int {
+		get {
+			return location + length
+		}
+	}
 
 	public func rangeByIntersecting(otherRange: NSRange) -> NSRange {
 		return NSIntersectionRange(self, otherRange)
@@ -45,9 +49,11 @@ extension NSRange: Equatable, StringLiteralConvertible {
 		self = NSIntersectionRange(self, otherRange)
 	}
 
-	public var stringValue: String? { get {
-		return NSStringFromRange(self)
-	}}
+	public var stringValue: String {
+		get {
+			return NSStringFromRange(self)
+		}
+	}
 
 	public func rangeByUnion(otherRange: NSRange) -> NSRange {
 		return NSUnionRange(self, otherRange)
@@ -67,14 +73,16 @@ extension NSRange: Equatable, StringLiteralConvertible {
 	}
 }
 
-extension NSPoint: StringLiteralConvertible {
+extension NSPoint {
 	public init(string: String) {
 		self = NSPointFromString(string)
 	}
 
-	var stringValue: String? {get {
-		return NSStringFromPoint(self)
-	}}
+	public var stringValue: String {
+		get {
+			return NSStringFromPoint(self)
+		}
+	}
 
 	public static func convertFromStringLiteral(value: String) -> NSPoint {
 		return NSPoint(string: value)
@@ -86,14 +94,16 @@ extension NSPoint: StringLiteralConvertible {
 	}
 }
 
-extension NSSize: StringLiteralConvertible {
+extension NSSize {
 	public init(string: String) {
 		self = NSSizeFromString(string)
 	}
 
-	var stringValue: String? {get {
-		return NSStringFromSize(self)
-	}}
+	public var stringValue: String {
+		get {
+			return NSStringFromSize(self)
+		}
+	}
 
 	public static func convertFromStringLiteral(value: String) -> NSSize {
 		return NSSize(string: value)
@@ -105,7 +115,7 @@ extension NSSize: StringLiteralConvertible {
 	}
 }
 
-extension NSRect: StringLiteralConvertible {
+extension NSRect {
 	public func integralRect() -> NSRect {
 		return NSIntegralRect(self)
 	}
@@ -118,9 +128,11 @@ extension NSRect: StringLiteralConvertible {
 		self = NSRectFromString(string)
 	}
 
-	var stringValue: String? {get {
-		return NSStringFromRect(self)
-	}}
+	var stringValue: String {
+		get {
+			return NSStringFromRect(self)
+		}
+	}
 
 	public func mouseIn(location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
