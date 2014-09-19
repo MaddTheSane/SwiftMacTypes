@@ -128,7 +128,7 @@ extension NSRect {
 		self = NSRectFromString(string)
 	}
 
-	var stringValue: String {
+	public var stringValue: String {
 		get {
 			return NSStringFromRect(self)
 		}
