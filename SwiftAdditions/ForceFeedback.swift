@@ -9,7 +9,7 @@
 import Foundation
 import ForceFeedback
 
-public enum ForceFeedbackError: HRESULT {
+public enum ForceFeedbackResult: HRESULT {
 	case OK = 0
 	case False = 1
 	case DownloadSkipped = 3
@@ -22,23 +22,41 @@ public enum ForceFeedbackError: HRESULT {
 	case OutOfMemory = -2147483646
 	case Unsupported = -2147483647
 	case DeviceFull = -2147220991
-	case FFERR_MOREDATA = -2147220990
+	case MoreData = -2147220990
 	case NotDownloaded = -2147220989
 	case HasEffects = -2147220988
 	case IncompleteEffect = -2147220986
 	case EffectPlaying = -2147220984
 	case Unplugged = -2147220983
 	// MARK: Mac OS X-specific
-	case FFERR_INVALIDDOWNLOADID = -2147220736
-	case FFERR_DEVICEPAUSED = -2147220735
-	case FFERR_INTERNAL = -2147220734
-	case FFERR_EFFECTTYPEMISMATCH = -2147220733
-	case FFERR_UNSUPPORTEDAXIS = -2147220732
-	case FFERR_NOTINITIALIZED = -2147220731
-	case FFERR_DEVICERELEASED = -2147220729
-	case FFERR_EFFECTTYPENOTSUPPORTED = -2147220730
+	case InvalidDownloadID = -2147220736
+	case DevicePaused = -2147220735
+	case Internal = -2147220734
+	case EffectTypeMismatch = -2147220733
+	case UnsupportedAxis = -2147220732
+	case NotInitialized = -2147220731
+	case DeviceReleased = -2147220729
+	case EffectTypeNotSupported = -2147220730
+	private static func fromHResult(inResult: HRESULT) -> ForceFeedbackResult {
+		if let unwrapped = ForceFeedbackResult(rawValue: inResult) {
+			return unwrapped
+		} else {
+			if inResult > 0 {
+				return .OK
+			} else {
+				return .Generic
+			}
+		}
+	}
+	
+	public func isSuccess() -> Bool {
+		return rawValue >= 0
+	}
+	
+	public func isFailure() -> Bool {
+		return rawValue < 0
+	}
 }
-
 
 public struct ForceFeedbackCommand : RawOptionSetType {
 	public typealias RawValue = UInt32
@@ -112,7 +130,6 @@ public struct ForceFeedbackCapabilitiesEffectSubType : RawOptionSetType {
 	public static var Vibration: ForceFeedbackCapabilitiesEffectSubType { return ForceFeedbackCapabilitiesEffectSubType(1 << 1) }
 }
 
-
 public struct ForceFeedbackCoordinateSystem : RawOptionSetType {
 	public typealias RawValue = UInt32
 	private var value: RawValue = 0
@@ -127,7 +144,6 @@ public struct ForceFeedbackCoordinateSystem : RawOptionSetType {
 	public static var Polar: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x20) }
 	public static var Spherical: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x40) }
 }
-
 
 public struct ForceFeedbackEffectParameter : RawOptionSetType {
 	public typealias RawValue = UInt32
@@ -158,7 +174,6 @@ public struct ForceFeedbackEffectParameter : RawOptionSetType {
 	public static var NoTrigger: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(0xFFFFFFFF) }
 }
 
-
 public struct ForceFeedbackEffectStart : RawOptionSetType {
 	public typealias RawValue = UInt32
 	private var value: RawValue = 0
@@ -176,7 +191,7 @@ public struct ForceFeedbackEffectStart : RawOptionSetType {
 public struct ForceFeedbackEffectStatus : RawOptionSetType {
 	public typealias RawValue = UInt32
 	private var value: RawValue = 0
-	init(_ value: RawValue) { self.value = value }
+	public init(_ value: RawValue) { self.value = value }
 	public init(rawValue value: RawValue) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackEffectStatus { return self(0) }
@@ -196,7 +211,7 @@ public enum ForceFeedbackProperty: UInt32 {
 public struct ForceFeedbackState : RawOptionSetType {
 	public typealias RawValue = UInt32
 	private var value: RawValue = 0
-	init(_ value: RawValue) { self.value = value }
+	public init(_ value: RawValue) { self.value = value }
 	public init(rawValue value: RawValue) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackState { return self(0) }
@@ -236,18 +251,18 @@ public class ForceFeedbackDevice {
 		let iErr = FFIsForceFeedback(device)
 		if iErr == 0 {
 			return true
-		} else if iErr == -2147483644 {
+		} else if iErr == ForceFeedbackResult.NoInterface.rawValue {
 			return false
 		} else {
 			return nil
 		}
 	}
 	
-	public func sendEscape(inout theEscape: FFEFFESCAPE) -> HRESULT {
-		return FFDeviceEscape(rawDevice, &theEscape)
+	public func sendEscape(inout theEscape: FFEFFESCAPE) -> ForceFeedbackResult {
+		return ForceFeedbackResult.fromHResult(FFDeviceEscape(rawDevice, &theEscape))
 	}
 	
-	public func sendEscape(#command: DWORD, inData: NSData) -> HRESULT {
+	public func sendEscape(#command: DWORD, inData: NSData) -> ForceFeedbackResult {
 		let curDataSize = inData.length
 		var tmpMutBytes = malloc(UInt(curDataSize))
 		memcpy(&tmpMutBytes, inData.bytes, UInt(curDataSize))
@@ -260,7 +275,7 @@ public class ForceFeedbackDevice {
 		return toRet
 	}
 	
-	public func sendEscape(#command: DWORD, inData: NSData, inout outDataLength: Int) -> (result: HRESULT, outData: NSData) {
+	public func sendEscape(#command: DWORD, inData: NSData, inout outDataLength: Int) -> (result: ForceFeedbackResult, outData: NSData) {
 		if let ourMutableData = NSMutableData(length: outDataLength) {
 			let curDataSize = inData.length
 			var tmpMutBytes = malloc(UInt(curDataSize))
@@ -274,7 +289,7 @@ public class ForceFeedbackDevice {
 			
 			return (toRet, NSData(data: ourMutableData))
 		} else {
-			return (-1, NSData())
+			return (.Generic, NSData())
 		}
 	}
 	
@@ -287,8 +302,8 @@ public class ForceFeedbackDevice {
 		}
 	}
 	
-	public func sendForceFeedbackCommand(command: ForceFeedbackCommand) -> HRESULT {
-		return FFDeviceSendForceFeedbackCommand(rawDevice, command.rawValue)
+	public func sendForceFeedbackCommand(command: ForceFeedbackCommand) -> ForceFeedbackResult {
+		return ForceFeedbackResult.fromHResult(FFDeviceSendForceFeedbackCommand(rawDevice, command.rawValue))
 	}
 	
 	public var autocenter: Bool {
@@ -303,12 +318,12 @@ public class ForceFeedbackDevice {
 		}
 	}
 	
-	private func setProperty(property: ForceFeedbackProperty, value: UnsafeMutablePointer<Void>) -> HRESULT {
-		return FFDeviceSetForceFeedbackProperty(rawDevice, property.rawValue, value)
+	private func setProperty(property: ForceFeedbackProperty, value: UnsafeMutablePointer<Void>) -> ForceFeedbackResult {
+		return ForceFeedbackResult.fromHResult(FFDeviceSetForceFeedbackProperty(rawDevice, property.rawValue, value))
 	}
 	
-	private func getProperty(property: ForceFeedbackProperty, value: UnsafeMutablePointer<Void>, valueSize: IOByteCount) -> HRESULT {
-		return FFDeviceGetForceFeedbackProperty(rawDevice, property.rawValue, value, valueSize)
+	private func getProperty(property: ForceFeedbackProperty, value: UnsafeMutablePointer<Void>, valueSize: IOByteCount) -> ForceFeedbackResult {
+		return ForceFeedbackResult.fromHResult(FFDeviceGetForceFeedbackProperty(rawDevice, property.rawValue, value, valueSize))
 	}
 	
 	deinit {
@@ -320,7 +335,7 @@ public class ForceFeedbackDevice {
 
 public class ForceFeedbackEffect {
 	private let rawEffect: FFEffectObjectReference
-	unowned private let deviceReference: ForceFeedbackDevice
+	unowned let deviceReference: ForceFeedbackDevice
 	// E559C460-C5CD-11D6-8A1C-00039353BD00
 	/*!
 	@defined kFFEffectType_ConstantForce_ID
@@ -470,25 +485,17 @@ public class ForceFeedbackEffect {
 		}
 	}
 	
+	public func start(iterations: Int = 1, flags: ForceFeedbackEffectStart = ForceFeedbackEffectStart.Solo) -> ForceFeedbackResult {
+		return ForceFeedbackResult.fromHResult(FFEffectStart(rawEffect, UInt32(iterations), flags.rawValue))
+	}
+	
+	public func stop() -> ForceFeedbackResult {
+		return ForceFeedbackResult.fromHResult(FFEffectStop(rawEffect))
+	}
+	
 	deinit {
 		if rawEffect != nil {
 			FFDeviceReleaseEffect(deviceReference.rawDevice, rawEffect)
 		}
 	}
 }
-
-/*
-func FFEffectStart(effectReference: FFEffectObjectReference, iterations: UInt32, flags: ForceFeedbackEffectStartFlag) -> HRESULT {
-	return FFEffectStart(effectReference, iterations, flags.rawValue)
-}
-func FFDeviceGetForceFeedbackProperty(deviceReference: FFDeviceObjectReference, property: ForceFeedbackProperty, pValue: UnsafeMutablePointer<Void>, valueSize: IOByteCount) -> HRESULT {
-	return FFDeviceGetForceFeedbackProperty(deviceReference, property.rawValue, pValue, valueSize)
-}
-
-func FFDeviceSetForceFeedbackProperty(deviceReference: FFDeviceObjectReference, property: ForceFeedbackProperty, pValue: UnsafeMutablePointer<Void>) -> HRESULT {
-	return FFDeviceSetForceFeedbackProperty(deviceReference, property.rawValue, pValue)
-}
-
-func FFEffectGetParameters(effectReference: FFEffectObjectReference, pFFEffect: UnsafeMutablePointer<FFEFFECT>, flags: ForceFeedbackEffectParameterFlag) -> HRESULT {
-	
-}*/
