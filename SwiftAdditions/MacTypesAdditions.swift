@@ -8,18 +8,61 @@
 
 import Darwin.MacTypes
 import Foundation
+#if os(OSX)
 import CoreServices
+#endif
 
 private let macRomanEncoding = CFStringBuiltInEncodings.MacRoman.rawValue
 
-public func OSTypeToString(theType: OSType) -> String {
-	let toRet = UTCreateStringForOSType(theType).takeRetainedValue()
-	return CFStringToString(toRet)
-}
-
-public func StringToOSType(theString: String) -> OSType {
-	return UTGetOSTypeFromString(StringToCFString(theString))
-}
+#if os(OSX)
+	
+	public func OSTypeToString(theType: OSType) -> String? {
+		if let toRet = UTCreateStringForOSType(theType) {
+			return CFStringToString(toRet.takeRetainedValue())
+		} else {
+			return nil
+		}
+	}
+	
+	public func StringToOSType(theString: String) -> OSType {
+		return UTGetOSTypeFromString(StringToCFString(theString))
+	}
+#else
+	
+	private func Ptr2OSType(aChar: [Int8]) -> OSType {
+		return 0
+	}
+	
+	private func OSType2Ptr(aOSType: OSType, inout aChar: [Int8]) {
+	
+	}
+	
+	public func OSTypeToString(theType: MADFourChar) -> String? {
+	var ourOSType = [Int8](count: 5, repeatedValue: 0)
+	
+	OSType2Ptr(theType, &ourOSType)
+	return NSString(bytes: ourOSType, length: 4, encoding: NSMacOSRomanStringEncoding);
+	}
+	
+	public func StringToOSType(theString: String) -> MADFourChar {
+	var ourOSType = [Int8](count: 5, repeatedValue: 0)
+	let anNSStr = theString as NSString
+	var ourLen = anNSStr.lengthOfBytesUsingEncoding(NSMacOSRomanStringEncoding)
+	if ourLen > 4 {
+	ourLen = 4
+	} else if ourLen == 0 {
+	return 0
+	}
+	
+	let aData = anNSStr.cStringUsingEncoding(NSMacOSRomanStringEncoding)
+	
+	for i in 0 ..< ourLen {
+	ourOSType[i] = aData[i]
+	}
+	
+	return Ptr2OSType(ourOSType)
+	}
+#endif
 
 extension String {
 	public init(pascalString pStr: StringPtr, encoding: CFStringEncoding = macRomanEncoding) {
@@ -139,17 +182,33 @@ extension String {
 	}
 }
 
-extension OSType {
-	public var stringValueUsingOSType: String {
-		get {
-			return OSTypeToString(self)
-		}
+extension OSType: StringLiteralConvertible {
+	public init(_ toInit: String) {
+		self = StringToOSType(toInit)
+	}
+	
+	public init(unicodeScalarLiteral usl: String) {
+		let tmpUnscaled = String(unicodeScalarLiteral: usl)
+		self = StringToOSType(tmpUnscaled)
+	}
+	
+	public init(extendedGraphemeClusterLiteral egcl: String) {
+		let tmpUnscaled = String(extendedGraphemeClusterLiteral: egcl)
+		self.init(tmpUnscaled)
+	}
+	
+	public init(stringLiteral toInit: String) {
+		self = StringToOSType(toInit)
 	}
 	
 	public init(_ toInit: (Int8, Int8, Int8, Int8, Int8)) {
 		self = OSType((toInit.0, toInit.1, toInit.2, toInit.3))
 	}
-
+	
+	public var OSTypeStringValue: String? {
+		return OSTypeToString(self)
+	}
+	
 	public init(_ toInit: (Int8, Int8, Int8, Int8)) {
 		let val0 = OSType(toInit.0)
 		let val1 = OSType(toInit.1)
@@ -157,7 +216,7 @@ extension OSType {
 		let val3 = OSType(toInit.3)
 		self = OSType((val0 << 24) | (val1 << 16) | (val2 << 8) | (val3))
 	}
-
+	
 	public func toFourChar() -> (Int8, Int8, Int8, Int8) {
 		let var1 = (self >> 24) & 0xFF
 		let var2 = (self >> 16) & 0xFF
@@ -170,18 +229,10 @@ extension OSType {
 		let outVar: (Int8, Int8, Int8, Int8) = toFourChar()
 		return (outVar.0, outVar.1, outVar.2, outVar.3, 0)
 	}
-
-	public init(_ toInit: String) {
-		self = StringToOSType(toInit)
-	}
-	
-	public static func convertFromStringLiteral(value: String) -> OSType {
-		return OSType(value)
-	}
 }
 
 extension Boolean : BooleanLiteralConvertible, BooleanType {
-	public init(_ v : BooleanType) {
+	public init(booleanLiteral v : Bool) {
 		if v.boolValue {
 			self = 1
 		} else {
@@ -197,11 +248,11 @@ extension Boolean : BooleanLiteralConvertible, BooleanType {
 		}
 	}
 	
-	public var boolValue: Bool { get {
+	public var boolValue: Bool {
 		if (self == 0) {
 			return false
 		} else {
 			return true
-		}}
+		}
 	}
 }

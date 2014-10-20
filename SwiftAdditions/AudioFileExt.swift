@@ -31,12 +31,9 @@ public enum AudioFileType: OSType {
 	case threeGP2			= 862416946
 	case AMR				= 1634562662
 	
-	
-	#if os(OSX)
-	func stringValue() -> String {
-		return OSTypeToString(self.rawValue)
+	public func stringValue() -> String {
+		return OSTypeToString(self.rawValue)!
 	}
-	#endif
 }
 
 public enum AudioFileFlags: UInt32 {
@@ -87,13 +84,11 @@ public enum AudioFormat: OSType {
 	case Audible				= 1096107074
 	case iLBC					= 1768710755
 	case AES3					= 1634038579
-	#if os(OSX)
-	func stringValue() -> String {
-		return OSTypeToString(self.rawValue)
+	
+	public func stringValue() -> String {
+		return OSTypeToString(self.rawValue)!
 	}
-	#endif
 }
-
 
 public struct AudioFormatFlag : RawOptionSetType {
 	private var value: UInt32 = 0
@@ -105,7 +100,7 @@ public struct AudioFormatFlag : RawOptionSetType {
 	public init(rawValue value: UInt32) { self.value = value }
 	public static var allZeros: AudioFormatFlag { return self(rawValue: 0) }
 	public static func fromMask(raw: UInt32) -> AudioFormatFlag { return self(rawValue: raw) }
-	public static func convertFromNilLiteral() -> AudioFormatFlag { return FlagsAreAllClear }
+	public init(nilLiteral: ()) { self = AudioFormatFlag.FlagsAreAllClear }
 	
 	public static var NativeFloatPacked: AudioFormatFlag {
 		return Float | NativeEndian | Packed
@@ -142,7 +137,7 @@ public struct LinearPCMFormatFlag : RawOptionSetType {
 	public init(rawValue value: UInt32) { self.value = value }
 	public static var allZeros: LinearPCMFormatFlag { return self(rawValue: 0) }
 	public static func fromMask(raw: UInt32) -> LinearPCMFormatFlag { return self(rawValue: raw) }
-	public static func convertFromNilLiteral() -> LinearPCMFormatFlag { return FlagsAreAllClear }
+	public init(nilLiteral: ()) { self = LinearPCMFormatFlag.FlagsAreAllClear }
 	
 	public static var NativeFloatPacked: LinearPCMFormatFlag {
 		return Float | NativeEndian | Packed
@@ -221,7 +216,7 @@ public extension AudioStreamBasicDescription {
 		mBytesPerPacket = mBytesPerFrame * mFramesPerPacket
 		mReserved = 0
 	}
-
+	
 	public init(sampleRate: Float64, formatID: Int, formatFlags: Int, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
 		mSampleRate = sampleRate
 		mFormatID = UInt32(formatID)
