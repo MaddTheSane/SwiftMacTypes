@@ -9,38 +9,69 @@
 import Foundation
 import ForceFeedback
 
-public struct ForceFeedbackCommandFlag : RawOptionSetType {
-	public typealias RawValue = UInt32
-	private var value: RawValue = 0
-	public init(_ value: RawValue) { self.value = value }
-	public init(rawValue value: RawValue) { self.value = value }
-	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: ForceFeedbackCommandFlag { return self(0) }
-	public static func fromMask(raw: RawValue) -> ForceFeedbackCommandFlag { return self(raw) }
-	public var rawValue: RawValue { return self.value }
-	
-	public static var Reset: ForceFeedbackCommandFlag { return ForceFeedbackCommandFlag(1 << 0) }
-	public static var StopAll: ForceFeedbackCommandFlag { return ForceFeedbackCommandFlag(1 << 1) }
-	public static var Pause: ForceFeedbackCommandFlag { return ForceFeedbackCommandFlag(1 << 2) }
-	public static var Continue: ForceFeedbackCommandFlag { return ForceFeedbackCommandFlag(1 << 3) }
-	public static var SetActuatorsOn: ForceFeedbackCommandFlag { return ForceFeedbackCommandFlag(1 << 4) }
-	public static var SetActuatorsOff: ForceFeedbackCommandFlag { return ForceFeedbackCommandFlag(1 << 5) }
+public enum ForceFeedbackError: HRESULT {
+	case OK = 0
+	case False = 1
+	case DownloadSkipped = 3
+	case EffectRestarted = 4
+	case Truncated = 8
+	case TruncatedAndRestarted = 12
+	case InvalidParam = -2147483645
+	case NoInterface = -2147483644
+	case Generic = -2147483640
+	case OutOfMemory = -2147483646
+	case Unsupported = -2147483647
+	case DeviceFull = -2147220991
+	case FFERR_MOREDATA = -2147220990
+	case NotDownloaded = -2147220989
+	case HasEffects = -2147220988
+	case IncompleteEffect = -2147220986
+	case EffectPlaying = -2147220984
+	case Unplugged = -2147220983
+	// MARK: Mac OS X-specific
+	case FFERR_INVALIDDOWNLOADID = -2147220736
+	case FFERR_DEVICEPAUSED = -2147220735
+	case FFERR_INTERNAL = -2147220734
+	case FFERR_EFFECTTYPEMISMATCH = -2147220733
+	case FFERR_UNSUPPORTEDAXIS = -2147220732
+	case FFERR_NOTINITIALIZED = -2147220731
+	case FFERR_DEVICERELEASED = -2147220729
+	case FFERR_EFFECTTYPENOTSUPPORTED = -2147220730
 }
 
-public struct ForceFeedbackCooperativeLevelFlag : RawOptionSetType {
+
+public struct ForceFeedbackCommand : RawOptionSetType {
 	public typealias RawValue = UInt32
 	private var value: RawValue = 0
 	public init(_ value: RawValue) { self.value = value }
 	public init(rawValue value: RawValue) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: ForceFeedbackCooperativeLevelFlag { return self(0) }
-	public static func fromMask(raw: RawValue) -> ForceFeedbackCooperativeLevelFlag { return self(raw) }
+	public static var allZeros: ForceFeedbackCommand { return self(0) }
+	public static func fromMask(raw: RawValue) -> ForceFeedbackCommand { return self(raw) }
 	public var rawValue: RawValue { return self.value }
 	
-	public static var Exclusive: ForceFeedbackCooperativeLevelFlag { return ForceFeedbackCooperativeLevelFlag(1 << 0) }
-	public static var NonExclusive: ForceFeedbackCooperativeLevelFlag { return ForceFeedbackCooperativeLevelFlag(1 << 1) }
-	public static var Foreground: ForceFeedbackCooperativeLevelFlag { return ForceFeedbackCooperativeLevelFlag(1 << 2) }
-	public static var Background: ForceFeedbackCooperativeLevelFlag { return ForceFeedbackCooperativeLevelFlag(1 << 3) }
+	public static var Reset: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 0) }
+	public static var StopAll: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 1) }
+	public static var Pause: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 2) }
+	public static var Continue: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 3) }
+	public static var SetActuatorsOn: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 4) }
+	public static var SetActuatorsOff: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 5) }
+}
+
+public struct ForceFeedbackCooperativeLevel : RawOptionSetType {
+	public typealias RawValue = UInt32
+	private var value: RawValue = 0
+	public init(_ value: RawValue) { self.value = value }
+	public init(rawValue value: RawValue) { self.value = value }
+	public init(nilLiteral: ()) { self.value = 0 }
+	public static var allZeros: ForceFeedbackCooperativeLevel { return self(0) }
+	public static func fromMask(raw: RawValue) -> ForceFeedbackCooperativeLevel { return self(raw) }
+	public var rawValue: RawValue { return self.value }
+	
+	public static var Exclusive: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 0) }
+	public static var NonExclusive: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 1) }
+	public static var Foreground: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 2) }
+	public static var Background: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 3) }
 }
 
 public struct ForceFeedbackCapabilitiesEffectType : RawOptionSetType {
@@ -82,79 +113,79 @@ public struct ForceFeedbackCapabilitiesEffectSubType : RawOptionSetType {
 }
 
 
-public struct ForceFeedbackCoordinateSystemFlag : RawOptionSetType {
+public struct ForceFeedbackCoordinateSystem : RawOptionSetType {
 	public typealias RawValue = UInt32
 	private var value: RawValue = 0
 	public init(_ value: RawValue) { self.value = value }
 	public init(rawValue value: RawValue) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: ForceFeedbackCoordinateSystemFlag { return self(0) }
-	public static func fromMask(raw: RawValue) -> ForceFeedbackCoordinateSystemFlag { return self(raw) }
+	public static var allZeros: ForceFeedbackCoordinateSystem { return self(0) }
+	public static func fromMask(raw: RawValue) -> ForceFeedbackCoordinateSystem { return self(raw) }
 	public var rawValue: RawValue { return self.value }
 	
-	public static var Cartesian: ForceFeedbackCoordinateSystemFlag { return ForceFeedbackCoordinateSystemFlag(0x10) }
-	public static var Polar: ForceFeedbackCoordinateSystemFlag { return ForceFeedbackCoordinateSystemFlag(0x20) }
-	public static var Spherical: ForceFeedbackCoordinateSystemFlag { return ForceFeedbackCoordinateSystemFlag(0x40) }
+	public static var Cartesian: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x10) }
+	public static var Polar: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x20) }
+	public static var Spherical: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x40) }
 }
 
 
-public struct ForceFeedbackEffectParameterFlag : RawOptionSetType {
+public struct ForceFeedbackEffectParameter : RawOptionSetType {
 	public typealias RawValue = UInt32
 	private var value: RawValue = 0
 	public init(_ value: RawValue) { self.value = value }
 	public init(rawValue value: RawValue) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: ForceFeedbackEffectParameterFlag { return self(0) }
-	public static func fromMask(raw: RawValue) -> ForceFeedbackEffectParameterFlag { return self(raw) }
+	public static var allZeros: ForceFeedbackEffectParameter { return self(0) }
+	public static func fromMask(raw: RawValue) -> ForceFeedbackEffectParameter { return self(raw) }
 	public var rawValue: RawValue { return self.value }
 	
-	public static var Duration: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(1 << 0) }
-	public static var SamplePeriod: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(1 << 1) }
-	public static var Gain: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(1 << 2) }
-	public static var TriggerButton: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(1 << 3) }
-	public static var TriggerRepeatInterval: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(1 << 4) }
-	public static var Axes: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(1 << 5) }
-	public static var Direction: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(1 << 6) }
-	public static var Envelope: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(1 << 7) }
-	public static var TypeSpecificParamaters: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(1 << 8) }
-	public static var StartDelay: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(1 << 9) }
+	public static var Duration: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 0) }
+	public static var SamplePeriod: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 1) }
+	public static var Gain: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 2) }
+	public static var TriggerButton: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 3) }
+	public static var TriggerRepeatInterval: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 4) }
+	public static var Axes: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 5) }
+	public static var Direction: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 6) }
+	public static var Envelope: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 7) }
+	public static var TypeSpecificParamaters: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 8) }
+	public static var StartDelay: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 9) }
 	
-	public static var AllParamaters: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(0x000003FF) }
+	public static var AllParamaters: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(0x000003FF) }
 	
-	public static var Start: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(0x20000000) }
-	public static var NoRestart: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(0x40000000) }
-	public static var NoDownload: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(0x80000000) }
-	public static var NoTrigger: ForceFeedbackEffectParameterFlag { return ForceFeedbackEffectParameterFlag(0xFFFFFFFF) }
+	public static var Start: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(0x20000000) }
+	public static var NoRestart: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(0x40000000) }
+	public static var NoDownload: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(0x80000000) }
+	public static var NoTrigger: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(0xFFFFFFFF) }
 }
 
 
-public struct ForceFeedbackEffectStartFlag : RawOptionSetType {
+public struct ForceFeedbackEffectStart : RawOptionSetType {
 	public typealias RawValue = UInt32
 	private var value: RawValue = 0
 	public init(_ value: RawValue) { self.value = value }
 	public init(rawValue value: RawValue) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: ForceFeedbackEffectStartFlag { return self(0) }
-	public static func fromMask(raw: RawValue) -> ForceFeedbackEffectStartFlag { return self(raw) }
+	public static var allZeros: ForceFeedbackEffectStart { return self(0) }
+	public static func fromMask(raw: RawValue) -> ForceFeedbackEffectStart { return self(raw) }
 	public var rawValue: RawValue { return self.value }
 	
-	public static var Solo: ForceFeedbackEffectStartFlag { return ForceFeedbackEffectStartFlag(0x01) }
-	public static var NoDownload: ForceFeedbackEffectStartFlag { return ForceFeedbackEffectStartFlag(0x80000000) }
+	public static var Solo: ForceFeedbackEffectStart { return ForceFeedbackEffectStart(0x01) }
+	public static var NoDownload: ForceFeedbackEffectStart { return ForceFeedbackEffectStart(0x80000000) }
 }
 
-struct ForceFeedbackEffectStatusFlag : RawOptionSetType {
-	typealias RawValue = UInt32
+public struct ForceFeedbackEffectStatus : RawOptionSetType {
+	public typealias RawValue = UInt32
 	private var value: RawValue = 0
 	init(_ value: RawValue) { self.value = value }
-	init(rawValue value: RawValue) { self.value = value }
-	init(nilLiteral: ()) { self.value = 0 }
-	static var allZeros: ForceFeedbackEffectStatusFlag { return self(0) }
-	static func fromMask(raw: RawValue) -> ForceFeedbackEffectStatusFlag { return self(raw) }
-	var rawValue: RawValue { return self.value }
+	public init(rawValue value: RawValue) { self.value = value }
+	public init(nilLiteral: ()) { self.value = 0 }
+	public static var allZeros: ForceFeedbackEffectStatus { return self(0) }
+	public static func fromMask(raw: RawValue) -> ForceFeedbackEffectStatus { return self(raw) }
+	public var rawValue: RawValue { return self.value }
 	
-	static var NotPlaying: ForceFeedbackEffectStatusFlag { return self(0) }
-	static var Playing: ForceFeedbackEffectStatusFlag { return ForceFeedbackEffectStatusFlag(1 << 0) }
-	static var Emulated: ForceFeedbackEffectStatusFlag { return ForceFeedbackEffectStatusFlag(1 << 1) }
+	public static var NotPlaying: ForceFeedbackEffectStatus { return self(0) }
+	public static var Playing: ForceFeedbackEffectStatus { return ForceFeedbackEffectStatus(1 << 0) }
+	public static var Emulated: ForceFeedbackEffectStatus { return ForceFeedbackEffectStatus(1 << 1) }
 }
 
 public enum ForceFeedbackProperty: UInt32 {
@@ -165,7 +196,7 @@ public enum ForceFeedbackProperty: UInt32 {
 public struct ForceFeedbackState : RawOptionSetType {
 	public typealias RawValue = UInt32
 	private var value: RawValue = 0
-	public init(_ value: RawValue) { self.value = value }
+	init(_ value: RawValue) { self.value = value }
 	public init(rawValue value: RawValue) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackState { return self(0) }
@@ -212,9 +243,77 @@ public class ForceFeedbackDevice {
 		}
 	}
 	
+	public func sendEscape(inout theEscape: FFEFFESCAPE) -> HRESULT {
+		return FFDeviceEscape(rawDevice, &theEscape)
+	}
+	
+	public func sendEscape(#command: DWORD, inData: NSData) -> HRESULT {
+		let curDataSize = inData.length
+		var tmpMutBytes = malloc(UInt(curDataSize))
+		memcpy(&tmpMutBytes, inData.bytes, UInt(curDataSize))
+		var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(DWORD.Type)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
+		
+		let toRet = sendEscape(&ourEscape)
+		
+		free(tmpMutBytes)
+		
+		return toRet
+	}
+	
+	public func sendEscape(#command: DWORD, inData: NSData, inout outDataLength: Int) -> (result: HRESULT, outData: NSData) {
+		if let ourMutableData = NSMutableData(length: outDataLength) {
+			let curDataSize = inData.length
+			var tmpMutBytes = malloc(UInt(curDataSize))
+			memcpy(&tmpMutBytes, inData.bytes, UInt(curDataSize))
+			var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(DWORD.Type)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutableData.mutableBytes, cbOutBuffer: DWORD(outDataLength))
+			
+			let toRet = sendEscape(&ourEscape)
+			
+			free(tmpMutBytes)
+			ourMutableData.length = Int(ourEscape.cbOutBuffer)
+			
+			return (toRet, NSData(data: ourMutableData))
+		} else {
+			return (-1, NSData())
+		}
+	}
+	
+	public var state: ForceFeedbackState {
+		var ourState: FFState = 0
+		if FFDeviceGetForceFeedbackState(rawDevice, &ourState) >= 0 {
+			return ForceFeedbackState(ourState)
+		} else {
+			return ForceFeedbackState(0)
+		}
+	}
+	
+	public func sendForceFeedbackCommand(command: ForceFeedbackCommand) -> HRESULT {
+		return FFDeviceSendForceFeedbackCommand(rawDevice, command.rawValue)
+	}
+	
+	public var autocenter: Bool {
+		get {
+			var theVal: UInt32 = 0
+			var iErr = getProperty(.Autocenter, value: &theVal, valueSize: IOByteCount(sizeof(UInt32.Type)))
+			return theVal == 1
+		}
+		set {
+			var theVal: UInt32 = newValue == true ? 1 : 0
+			var iErr = setProperty(.Autocenter, value: &theVal)
+		}
+	}
+	
+	private func setProperty(property: ForceFeedbackProperty, value: UnsafeMutablePointer<Void>) -> HRESULT {
+		return FFDeviceSetForceFeedbackProperty(rawDevice, property.rawValue, value)
+	}
+	
+	private func getProperty(property: ForceFeedbackProperty, value: UnsafeMutablePointer<Void>, valueSize: IOByteCount) -> HRESULT {
+		return FFDeviceGetForceFeedbackProperty(rawDevice, property.rawValue, value, valueSize)
+	}
+	
 	deinit {
 		if rawDevice != nil {
-		FFReleaseDevice(rawDevice)
+			FFReleaseDevice(rawDevice)
 		}
 	}
 }
@@ -379,22 +478,6 @@ public class ForceFeedbackEffect {
 }
 
 /*
-func FFDeviceGetForceFeedbackState(deviceReference: FFDeviceObjectReference) -> (state: ForceFeedbackState, result: HRESULT) {
-	var state: FFState = 0
-	
-	let toRet = FFDeviceGetForceFeedbackState(deviceReference, &state)
-	
-	return (ForceFeedbackState(state), toRet)
-}
-
-func FFEffectGetEffectStatus(effectReference: FFEffectObjectReference) -> (result: HRESULT, status: ForceFeedbackEffectStatusFlag) {
-	var status: FFEffectStatusFlag = 0
-	
-	let toRet = FFEffectGetEffectStatus(effectReference, &status)
-	
-	return (toRet, ForceFeedbackEffectStatusFlag(status))
-}
-
 func FFEffectStart(effectReference: FFEffectObjectReference, iterations: UInt32, flags: ForceFeedbackEffectStartFlag) -> HRESULT {
 	return FFEffectStart(effectReference, iterations, flags.rawValue)
 }
