@@ -78,91 +78,61 @@ private let macRomanEncoding = CFStringBuiltInEncodings.MacRoman.rawValue
 #endif
 
 extension String {
-	public init(pascalString pStr: StringPtr, encoding: CFStringEncoding = macRomanEncoding) {
+	public init(pascalString pStr: ConstStringPtr, encoding: CFStringEncoding = macRomanEncoding) {
 		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding)
 		self = CFStringToString(theStr)
 	}
 	
 	public init(pascalString pStr: Str255, encoding: CFStringEncoding = macRomanEncoding) {
-		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
-		for i in 0..<mirror.count {
-			let aChar = mirror[i].1.value as UInt8
-			unwrapped.append(aChar)
-		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
-		self = CFStringToString(theStr)
+		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
 	public init(pascalString pStr: Str63, encoding: CFStringEncoding = macRomanEncoding) {
-		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
-		for i in 0..<mirror.count {
-			let aChar = mirror[i].1.value as UInt8
-			unwrapped.append(aChar)
-		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
-		self = CFStringToString(theStr)
+		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
 	public init(pascalString pStr: Str32, encoding: CFStringEncoding = macRomanEncoding) {
-		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
-		for i in 0..<mirror.count {
-			let aChar = mirror[i].1.value as UInt8
-			unwrapped.append(aChar)
-		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
-		self = CFStringToString(theStr)
+		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 
 	public init(pascalString pStr: Str31, encoding: CFStringEncoding = macRomanEncoding) {
-		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
-		for i in 0..<mirror.count {
-			let aChar = mirror[i].1.value as UInt8
-			unwrapped.append(aChar)
-		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
-		self = CFStringToString(theStr)
+		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
 	public init(pascalString pStr: Str27, encoding: CFStringEncoding = macRomanEncoding) {
-		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
-		for i in 0..<mirror.count {
-			let aChar = mirror[i].1.value as UInt8
-			unwrapped.append(aChar)
-		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
-		self = CFStringToString(theStr)
+		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
 	public init(pascalString pStr: Str15, encoding: CFStringEncoding = macRomanEncoding) {
-		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
-		for i in 0..<mirror.count {
-			let aChar = mirror[i].1.value as UInt8
-			unwrapped.append(aChar)
-		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
-		self = CFStringToString(theStr)
+		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
 	public init(pascalString pStr: Str32Field, encoding: CFStringEncoding = macRomanEncoding) {
 		var unwrapped = [UInt8]()
 		var mirror = reflect(pStr)
+		// And this is why this version can't use GetArrayFromMirror...
 		// We skip the last byte because it's not used
 		// and may, in fact, be garbage.
 		for i in 0..<(mirror.count - 1) {
 			var aChar = mirror[i].1.value as UInt8
 			unwrapped.append(aChar)
 		}
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, unwrapped, encoding)
-		self = CFStringToString(theStr)
+		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init(_ pStr: StringPtr) {
+	public init(_ pStr: ConstStringPtr) {
 		self.init(pascalString: pStr)
 	}
 

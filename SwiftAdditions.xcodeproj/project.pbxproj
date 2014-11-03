@@ -13,6 +13,7 @@
 		556E82F919CC8C2A00ED8ED3 /* AudioFileExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */; };
 		5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577287719ABE259008328D0 /* MacTypesAdditions.swift */; };
 		55B2B64419F564FC00A716BC /* ForceFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B2B64319F564FC00A716BC /* ForceFeedback.swift */; };
+		55C1A6AF1A07223B00C7A733 /* AdditionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileExt.swift; sourceTree = "<group>"; };
 		5577287719ABE259008328D0 /* MacTypesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacTypesAdditions.swift; sourceTree = "<group>"; };
 		55B2B64319F564FC00A716BC /* ForceFeedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForceFeedback.swift; sourceTree = "<group>"; };
+		55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalAdditions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */,
 				5577287719ABE259008328D0 /* MacTypesAdditions.swift */,
 				550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */,
+				55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */,
 				550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */,
 				550FBAC119A7ADC500EFBD3D /* Supporting Files */,
 			);
@@ -208,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55C1A6AF1A07223B00C7A733 /* AdditionalAdditions.swift in Sources */,
 				550FBADA19A7AE6F00EFBD3D /* FoundationTypesAdditions.swift in Sources */,
 				5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */,
 				55B2B64419F564FC00A716BC /* ForceFeedback.swift in Sources */,
