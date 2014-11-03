@@ -51,19 +51,19 @@ public struct AudioFileFlags : RawOptionSetType {
 	public static var DontPageAlignAudioData: AudioFileFlags { return AudioFileFlags(1 << 1) }
 }
 
-public func AudioFileCreate(withURL inFileRef: CFURL, fileType inFileType: AudioFileType, inout format inFormat: AudioStreamBasicDescription, flags inFlags: AudioFileFlags, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
-	return AudioFileCreateWithURL(inFileRef, inFileType.rawValue, &inFormat, inFlags.rawValue, &outAudioFile)
+public func AudioFileCreate(withURL inFileRef: CFURL, fileType inFileType: AudioFileType, inout #format: AudioStreamBasicDescription, #flags: AudioFileFlags, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+	return AudioFileCreateWithURL(inFileRef, inFileType.rawValue, &format, flags.rawValue, &outAudioFile)
 }
 
-public func AudioFileOpenURL(withURL inFileRef: CFURL, #permissions: Int8, #fileTypeHint: AudioFileType?, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+public func AudioFileOpenURL(withURL inFileRef: CFURL, #permissions: Int8, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
 	return AudioFileOpenURL(inFileRef, permissions, fileTypeHint != nil ? fileTypeHint!.rawValue : 0, &outAudioFile)
 }
 
-public func AudioFileReadBytes(#audioFile: AudioFileID, #useCache: Bool, #startingByte: Int64, inout #numberBytes: UInt32, #buffer: UnsafeMutablePointer<Void>) -> OSStatus {
+public func AudioFileReadBytes(#audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, inout #numberBytes: UInt32, #buffer: UnsafeMutablePointer<Void>) -> OSStatus {
 	return AudioFileReadBytes(audioFile, useCache == true ? 1 : 0, startingByte, &numberBytes, buffer)
 }
 
-public func AudioFileWriteBytes(#audioFile: AudioFileID, #useCache: Bool, #startingByte: Int64, inout #numberBytes: UInt32, #buffer: UnsafePointer<Void>) -> OSStatus {
+public func AudioFileWriteBytes(#audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, inout #numberBytes: UInt32, #buffer: UnsafePointer<Void>) -> OSStatus {
 	return AudioFileWriteBytes(audioFile, useCache == true ? 1 : 0, startingByte, &numberBytes, buffer)
 }
 
