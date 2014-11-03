@@ -67,7 +67,6 @@ public func AudioFileWriteBytes(#audioFile: AudioFileID, #useCache: Bool, #start
 	return AudioFileWriteBytes(audioFile, useCache == true ? 1 : 0, startingByte, &numberBytes, buffer)
 }
 
-
 // MARK: Audio Format
 
 public enum AudioFormat: OSType {
@@ -139,11 +138,11 @@ public struct AudioFormatFlag : RawOptionSetType {
 	public static var NonMixable:		AudioFormatFlag { return self(rawValue: 1 << 6) }
 	public static var FlagsAreAllClear:	AudioFormatFlag { return self(rawValue: 1 << 31) }
 	public static var NativeEndian:		AudioFormatFlag {
-		#if __BIG_ENDIAN__
-			return IsBigEndian
-		#else
+		if isLittleEndian {
 			return self(rawValue: 0)
-		#endif
+		} else {
+			return BigEndian
+		}
 	}
 	
 	public init(_ value: LinearPCMFormatFlag) {
@@ -176,11 +175,11 @@ public struct LinearPCMFormatFlag : RawOptionSetType {
 	public static var NonMixable:		LinearPCMFormatFlag { return self(rawValue: 1 << 6) }
 	public static var FlagsAreAllClear:	LinearPCMFormatFlag { return self(rawValue: 1 << 31) }
 	public static var NativeEndian:		LinearPCMFormatFlag {
-		#if __BIG_ENDIAN__
-			return BigEndian
-		#else
+		if isLittleEndian {
 			return self(rawValue: 0)
-		#endif
+		} else {
+			return BigEndian
+		}
 	}
 	public static var FlagsSampleFractionShift: LinearPCMFormatFlag { return self(rawValue: 7) }
 	public static var FlagsSampleFractionMask : LinearPCMFormatFlag { return self(rawValue: 0x3F << FlagsSampleFractionShift.rawValue) }
