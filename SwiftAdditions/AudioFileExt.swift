@@ -13,6 +13,7 @@ import CoreAudio
 // MARK: Audio File
 
 public enum AudioFileType: OSType {
+	case Unknown			= 0
 	case AIFF				= 1095321158
 	case AIFC				= 1095321155
 	case WAVE				= 1463899717
@@ -32,22 +33,45 @@ public enum AudioFileType: OSType {
 	case AMR				= 1634562662
 	
 	public func stringValue() -> String {
-		return OSTypeToString(self.rawValue)!
+		return OSTypeToString(self.rawValue) ?? "    "
 	}
 }
 
-public enum AudioFileFlags: UInt32 {
-	case EraseFile				= 1
-	case DontPageAlignAudioData	= 2
+public struct AudioFileFlags : RawOptionSetType {
+	public typealias RawValue = UInt32
+	private var value: RawValue = 0
+	public init(_ value: RawValue) { self.value = value }
+	public init(rawValue value: RawValue) { self.value = value }
+	public init(nilLiteral: ()) { self.value = 0 }
+	public static var allZeros: AudioFileFlags { return self(0) }
+	public static func fromMask(raw: RawValue) -> AudioFileFlags { return self(raw) }
+	public var rawValue: RawValue { return self.value }
+	
+	public static var EraseFile: AudioFileFlags { return AudioFileFlags(1 << 0) }
+	public static var DontPageAlignAudioData: AudioFileFlags { return AudioFileFlags(1 << 1) }
 }
 
 public func AudioFileCreate(withURL inFileRef: CFURL, fileType inFileType: AudioFileType, inout format inFormat: AudioStreamBasicDescription, flags inFlags: AudioFileFlags, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
 	return AudioFileCreateWithURL(inFileRef, inFileType.rawValue, &inFormat, inFlags.rawValue, &outAudioFile)
 }
 
+public func AudioFileOpenURL(withURL inFileRef: CFURL, #permissions: Int8, #fileTypeHint: AudioFileType?, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+	return AudioFileOpenURL(inFileRef, permissions, fileTypeHint != nil ? fileTypeHint!.rawValue : 0, &outAudioFile)
+}
+
+public func AudioFileReadBytes(#audioFile: AudioFileID, #useCache: Bool, #startingByte: Int64, inout #numberBytes: UInt32, #buffer: UnsafeMutablePointer<Void>) -> OSStatus {
+	return AudioFileReadBytes(audioFile, useCache == true ? 1 : 0, startingByte, &numberBytes, buffer)
+}
+
+public func AudioFileWriteBytes(#audioFile: AudioFileID, #useCache: Bool, #startingByte: Int64, inout #numberBytes: UInt32, #buffer: UnsafePointer<Void>) -> OSStatus {
+	return AudioFileWriteBytes(audioFile, useCache == true ? 1 : 0, startingByte, &numberBytes, buffer)
+}
+
+
 // MARK: Audio Format
 
 public enum AudioFormat: OSType {
+	case Unknown				= 0
 	case DVIIntelIMA			= 0x6D730011
 	case MicrosoftGSM			= 0x6D730031
 	case LinearPCM				= 1819304813
@@ -86,7 +110,7 @@ public enum AudioFormat: OSType {
 	case AES3					= 1634038579
 	
 	public func stringValue() -> String {
-		return OSTypeToString(self.rawValue)!
+		return OSTypeToString(self.rawValue) ?? "    "
 	}
 }
 
@@ -177,7 +201,11 @@ public extension AudioStreamBasicDescription {
 	
 	public var formatID: AudioFormat {
 		get {
-			return AudioFormat(rawValue: mFormatID)!
+			if let aFormat = AudioFormat(rawValue: mFormatID) {
+				return aFormat
+			} else {
+				return .Unknown
+			}
 		}
 		set {
 			mFormatID = newValue.rawValue
