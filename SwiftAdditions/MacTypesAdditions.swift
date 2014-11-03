@@ -30,37 +30,50 @@ private let macRomanEncoding = CFStringBuiltInEncodings.MacRoman.rawValue
 #else
 	
 	private func Ptr2OSType(aChar: [Int8]) -> OSType {
-		return 0
+		let val0 = UInt32(aChar[0])
+		let val1 = UInt32(aChar[1])
+		let val2 = UInt32(aChar[2])
+		let val3 = UInt32(aChar[3])
+		return OSType((val0 << 24) | (val1 << 16) | (val2 << 8) | (val3))
 	}
 	
 	private func OSType2Ptr(aOSType: OSType, inout aChar: [Int8]) {
-	
+		let var1 = (aOSType >> 24) & 0xFF
+		let var2 = (aOSType >> 16) & 0xFF
+		let var3 = (aOSType >> 8) & 0xFF
+		let var4 = (aOSType) & 0xFF
+		
+		aChar[0] = Int8(var1)
+		aChar[1] = Int8(var2)
+		aChar[2] = Int8(var3)
+		aChar[3] = Int8(var4)
+		aChar[4] = 0
 	}
 	
-	public func OSTypeToString(theType: MADFourChar) -> String? {
-	var ourOSType = [Int8](count: 5, repeatedValue: 0)
+	public func OSTypeToString(theType: OSType) -> String? {
+		var ourOSType = [Int8](count: 5, repeatedValue: 0)
 	
-	OSType2Ptr(theType, &ourOSType)
-	return NSString(bytes: ourOSType, length: 4, encoding: NSMacOSRomanStringEncoding);
+		OSType2Ptr(theType, &ourOSType)
+		return NSString(bytes: ourOSType, length: 4, encoding: NSMacOSRomanStringEncoding);
 	}
 	
-	public func StringToOSType(theString: String) -> MADFourChar {
-	var ourOSType = [Int8](count: 5, repeatedValue: 0)
-	let anNSStr = theString as NSString
-	var ourLen = anNSStr.lengthOfBytesUsingEncoding(NSMacOSRomanStringEncoding)
-	if ourLen > 4 {
-	ourLen = 4
-	} else if ourLen == 0 {
-	return 0
-	}
+	public func StringToOSType(theString: String) -> OSType {
+		var ourOSType = [Int8](count: 5, repeatedValue: 0)
+		let anNSStr = theString as NSString
+		var ourLen = anNSStr.lengthOfBytesUsingEncoding(NSMacOSRomanStringEncoding)
+		if ourLen > 4 {
+			ourLen = 4
+		} else if ourLen == 0 {
+			return 0
+		}
 	
-	let aData = anNSStr.cStringUsingEncoding(NSMacOSRomanStringEncoding)
-	
-	for i in 0 ..< ourLen {
-	ourOSType[i] = aData[i]
-	}
-	
-	return Ptr2OSType(ourOSType)
+		let aData = anNSStr.cStringUsingEncoding(NSMacOSRomanStringEncoding)
+		
+		for i in 0 ..< ourLen {
+			ourOSType[i] = aData[i]
+		}
+		
+		return Ptr2OSType(ourOSType)
 	}
 #endif
 

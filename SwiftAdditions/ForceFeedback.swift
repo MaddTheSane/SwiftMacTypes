@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 C.W. Betts. All rights reserved.
 //
 
+#if os(OSX)
 import Foundation
 import ForceFeedback
 
@@ -499,3 +500,4 @@ public class ForceFeedbackEffect {
 		}
 	}
 }
+#endif

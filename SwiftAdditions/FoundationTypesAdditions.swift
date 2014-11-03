@@ -78,6 +78,7 @@ extension NSRange: Equatable, StringLiteralConvertible {
 	}
 }
 
+#if os(OSX)
 extension NSPoint: StringLiteralConvertible {
 	public init(string: String) {
 		self = NSPointFromString(string)
@@ -167,3 +168,4 @@ extension NSRect: StringLiteralConvertible {
 		self.init(string: tmpStr)
 	}
 }
+#endif
