@@ -290,7 +290,7 @@ public class ForceFeedbackDevice {
 			
 			return (toRet, NSData(data: ourMutableData))
 		} else {
-			return (.Generic, NSData())
+			return (.OutOfMemory, NSData())
 		}
 	}
 	
@@ -319,6 +319,25 @@ public class ForceFeedbackDevice {
 		}
 	}
 	
+	public var gain: UInt32 {
+		get {
+			var theVal: UInt32 = 0
+			var iErr = getProperty(.Gain, value: &theVal, valueSize: IOByteCount(sizeof(UInt32.Type)))
+			return theVal
+		}
+		set {
+			var theVal = newValue
+			var iErr = setProperty(.Gain, value: &theVal)
+		}
+	}
+	
+	/*!
+	 *	function is unimplemented in version 1.0 of Apple's FF API.
+	 */
+	public func setCooperativeLevel(taskIdentifier: UnsafeMutablePointer<Void>, flags: ForceFeedbackCooperativeLevel) -> ForceFeedbackResult {
+		return ForceFeedbackResult.fromHResult(FFDeviceSetCooperativeLevel(rawDevice, taskIdentifier, flags.rawValue))
+	}
+	
 	private func setProperty(property: ForceFeedbackProperty, value: UnsafeMutablePointer<Void>) -> ForceFeedbackResult {
 		return ForceFeedbackResult.fromHResult(FFDeviceSetForceFeedbackProperty(rawDevice, property.rawValue, value))
 	}
@@ -336,7 +355,7 @@ public class ForceFeedbackDevice {
 
 public class ForceFeedbackEffect {
 	private let rawEffect: FFEffectObjectReference
-	unowned let deviceReference: ForceFeedbackDevice
+	public unowned let deviceReference: ForceFeedbackDevice
 	// E559C460-C5CD-11D6-8A1C-00039353BD00
 	/*!
 	@defined kFFEffectType_ConstantForce_ID
@@ -492,6 +511,18 @@ public class ForceFeedbackEffect {
 	
 	public func stop() -> ForceFeedbackResult {
 		return ForceFeedbackResult.fromHResult(FFEffectStop(rawEffect))
+	}
+	
+	public func download() -> ForceFeedbackResult{
+		return ForceFeedbackResult.fromHResult(FFEffectDownload(rawEffect))
+	}
+	
+	public func getParameters(inout effect: FFEFFECT, flags: ForceFeedbackEffectParameter) -> ForceFeedbackResult {
+		return ForceFeedbackResult.fromHResult(FFEffectGetParameters(rawEffect, &effect, flags.rawValue))
+	}
+	
+	public func setParameters(inout effect: FFEFFECT, flags: ForceFeedbackEffectParameter) -> ForceFeedbackResult {
+		return ForceFeedbackResult.fromHResult(FFEffectSetParameters(rawEffect, &effect, flags.rawValue))
 	}
 	
 	deinit {
