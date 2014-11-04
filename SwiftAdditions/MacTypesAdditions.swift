@@ -18,14 +18,14 @@ private let macRomanEncoding = CFStringBuiltInEncodings.MacRoman.rawValue
 	
 	public func OSTypeToString(theType: OSType) -> String? {
 		if let toRet = UTCreateStringForOSType(theType) {
-			return CFStringToString(toRet.takeRetainedValue())
+			return toRet.takeRetainedValue()
 		} else {
 			return nil
 		}
 	}
 	
 	public func StringToOSType(theString: String) -> OSType {
-		return UTGetOSTypeFromString(StringToCFString(theString))
+		return UTGetOSTypeFromString(theString)
 	}
 #else
 	
@@ -80,7 +80,7 @@ private let macRomanEncoding = CFStringBuiltInEncodings.MacRoman.rawValue
 extension String {
 	public init(pascalString pStr: ConstStringPtr, encoding: CFStringEncoding = macRomanEncoding) {
 		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding)
-		self = CFStringToString(theStr)
+		self = theStr
 	}
 	
 	public init(pascalString pStr: Str255, encoding: CFStringEncoding = macRomanEncoding) {

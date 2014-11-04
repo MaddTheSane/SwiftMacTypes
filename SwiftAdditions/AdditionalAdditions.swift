@@ -10,14 +10,6 @@ import Foundation
 
 internal let isLittleEndian = Int(OSHostByteOrder()) == OSLittleEndian
 
-internal func CFStringToString(cfStr: CFString) -> String {
-	return cfStr as NSString as String
-}
-
-internal func StringToCFString(string: String) -> CFString {
-	return string as NSString as CFString
-}
-
 internal func GetArrayFromMirror<X>(mirror: MirrorType) -> [X] {
 	var anArray = [X]()
 	for i in 0..<mirror.count {
