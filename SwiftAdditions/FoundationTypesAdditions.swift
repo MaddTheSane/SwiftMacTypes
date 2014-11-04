@@ -8,27 +8,17 @@
 
 import Foundation
 
-internal func CFStringToString(cfStr: CFString) -> String {
-	return cfStr as NSString as String
-}
-
-internal func StringToCFString(string: String) -> CFString {
-	return string as NSString as CFString
-}
-
 public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
 	return (rhs.location == lhs.location && rhs.length == lhs.length)
 }
 
-extension NSRange: Equatable, StringLiteralConvertible {
+extension NSRange: Equatable {
 	public init(string: String) {
 		self = NSRangeFromString(string)
 	}
 	
 	public var notFound: Bool {
-		get {
-			return location == NSNotFound
-		}
+		return location == NSNotFound
 	}
 	
 	public func locationIsInRange(loc: Int) -> Bool {
@@ -36,9 +26,7 @@ extension NSRange: Equatable, StringLiteralConvertible {
 	}
 
 	public var max: Int {
-		get {
-			return location + length
-		}
+		return location + length
 	}
 
 	public func rangeByIntersecting(otherRange: NSRange) -> NSRange {
@@ -50,9 +38,7 @@ extension NSRange: Equatable, StringLiteralConvertible {
 	}
 
 	public var stringValue: String {
-		get {
-			return NSStringFromRange(self)
-		}
+		return NSStringFromRange(self)
 	}
 
 	public func rangeByUnion(otherRange: NSRange) -> NSRange {
@@ -62,76 +48,30 @@ extension NSRange: Equatable, StringLiteralConvertible {
 	public mutating func union(otherRange: NSRange) {
 		self = NSUnionRange(self, otherRange)
 	}
-
-	public init(stringLiteral value: String) {
-		self.init(string: value)
-	}
-
-	public init(extendedGraphemeClusterLiteral value: String) {
-		let tmpStr = String(extendedGraphemeClusterLiteral: value)
-		self.init(string: tmpStr)
-	}
-	
-	public init(unicodeScalarLiteral value: String) {
-		let tmpStr = String(unicodeScalarLiteral: value)
-		self.init(string: tmpStr)
-	}
 }
 
 #if os(OSX)
-extension NSPoint: StringLiteralConvertible {
+extension NSPoint {
 	public init(string: String) {
 		self = NSPointFromString(string)
 	}
 
 	public var stringValue: String {
-		get {
-			return NSStringFromPoint(self)
-		}
-	}
-
-	public init(stringLiteral value: String) {
-		self.init(string: value)
-	}
-	
-	public init(extendedGraphemeClusterLiteral value: String) {
-		let tmpStr = String(extendedGraphemeClusterLiteral: value)
-		self.init(string: tmpStr)
-	}
-	
-	public init(unicodeScalarLiteral value: String) {
-		let tmpStr = String(unicodeScalarLiteral: value)
-		self.init(string: tmpStr)
+		return NSStringFromPoint(self)
 	}
 }
 
-extension NSSize: StringLiteralConvertible {
+extension NSSize {
 	public init(string: String) {
 		self = NSSizeFromString(string)
 	}
 
 	public var stringValue: String {
-		get {
-			return NSStringFromSize(self)
-		}
-	}
-
-	public init(stringLiteral value: String) {
-		self.init(string: value)
-	}
-	
-	public init(extendedGraphemeClusterLiteral value: String) {
-		let tmpStr = String(extendedGraphemeClusterLiteral: value)
-		self.init(string: tmpStr)
-	}
-	
-	public init(unicodeScalarLiteral value: String) {
-		let tmpStr = String(unicodeScalarLiteral: value)
-		self.init(string: tmpStr)
+		return NSStringFromSize(self)
 	}
 }
 
-extension NSRect: StringLiteralConvertible {
+extension NSRect {
 	public func integralRect() -> NSRect {
 		return NSIntegralRect(self)
 	}
@@ -145,27 +85,11 @@ extension NSRect: StringLiteralConvertible {
 	}
 
 	public var stringValue: String {
-		get {
-			return NSStringFromRect(self)
-		}
+		return NSStringFromRect(self)
 	}
 
 	public func mouseIn(location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
-	}
-
-	public init(stringLiteral value: String) {
-		self.init(string: value)
-	}
-	
-	public init(extendedGraphemeClusterLiteral value: String) {
-		let tmpStr = String(extendedGraphemeClusterLiteral: value)
-		self.init(string: tmpStr)
-	}
-	
-	public init(unicodeScalarLiteral value: String) {
-		let tmpStr = String(unicodeScalarLiteral: value)
-		self.init(string: tmpStr)
 	}
 }
 #endif
