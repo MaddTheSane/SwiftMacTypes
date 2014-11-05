@@ -88,7 +88,7 @@ extension NSRect {
 		return NSStringFromRect(self)
 	}
 
-	public func mouseIn(location: NSPoint, flipped: Bool = false) -> Bool {
+	public func mouseInLocation(location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
 	}
 }
