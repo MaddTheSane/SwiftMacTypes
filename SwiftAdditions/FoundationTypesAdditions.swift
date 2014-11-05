@@ -9,7 +9,7 @@
 import Foundation
 
 public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
-	return (rhs.location == lhs.location && rhs.length == lhs.length)
+	return NSEqualRanges(rhs, lhs)
 }
 
 extension NSRange: Equatable {
@@ -22,11 +22,11 @@ extension NSRange: Equatable {
 	}
 	
 	public func locationIsInRange(loc: Int) -> Bool {
-		return (!(loc < location) && (loc - location) < length) ? true : false
+		return NSLocationInRange(loc, self)
 	}
 
 	public var max: Int {
-		return location + length
+		return NSMaxRange(self)
 	}
 
 	public func rangeByIntersecting(otherRange: NSRange) -> NSRange {
