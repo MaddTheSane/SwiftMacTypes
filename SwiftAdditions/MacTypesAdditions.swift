@@ -72,48 +72,67 @@ private let macRomanEncoding = CFStringBuiltInEncodings.MacRoman.rawValue
 #endif
 
 extension String {
-	public init(pascalString pStr: ConstStringPtr, encoding: CFStringEncoding = macRomanEncoding) {
-		let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding)
-		self = theStr
+	public init?(pascalString pStr: ConstStringPtr, encoding: CFStringEncoding = macRomanEncoding) {
+		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding) {
+			self = theStr
+		} else {
+			return nil
+		}
 	}
 	
-	public init(pascalString pStr: Str255, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str255, encoding: CFStringEncoding = macRomanEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init(pascalString pStr: Str63, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str63, encoding: CFStringEncoding = macRomanEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		if unwrapped[0] > 63 {
+			return nil
+		}
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init(pascalString pStr: Str32, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str32, encoding: CFStringEncoding = macRomanEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		if unwrapped[0] > 32 {
+			return nil
+		}
+
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 
-	public init(pascalString pStr: Str31, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str31, encoding: CFStringEncoding = macRomanEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		if unwrapped[0] > 31 {
+			return nil
+		}
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init(pascalString pStr: Str27, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str27, encoding: CFStringEncoding = macRomanEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		if unwrapped[0] > 27 {
+			return nil
+		}
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init(pascalString pStr: Str15, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str15, encoding: CFStringEncoding = macRomanEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		if unwrapped[0] > 15 {
+			return nil
+		}
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init(pascalString pStr: Str32Field, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str32Field, encoding: CFStringEncoding = macRomanEncoding) {
 		var unwrapped = [UInt8]()
 		var mirror = reflect(pStr)
 		// And this is why this version can't use GetArrayFromMirror...
@@ -123,38 +142,41 @@ extension String {
 			var aChar = mirror[i].1.value as UInt8
 			unwrapped.append(aChar)
 		}
+		if unwrapped[0] > 32 {
+			return nil
+		}
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init(_ pStr: ConstStringPtr) {
+	public init?(_ pStr: ConstStringPtr) {
 		self.init(pascalString: pStr)
 	}
 
-	public init(_ pStr: Str255) {
+	public init?(_ pStr: Str255) {
 		self.init(pascalString: pStr)
 	}
 	
-	public init(_ pStr: Str63) {
+	public init?(_ pStr: Str63) {
 		self.init(pascalString: pStr)
 	}
 	
-	public init(_ pStr: Str32) {
+	public init?(_ pStr: Str32) {
 		self.init(pascalString: pStr)
 	}
 	
-	public init(_ pStr: Str31) {
+	public init?(_ pStr: Str31) {
 		self.init(pascalString: pStr)
 	}
 	
-	public init(_ pStr: Str27) {
+	public init?(_ pStr: Str27) {
 		self.init(pascalString: pStr)
 	}
 	
-	public init(_ pStr: Str15) {
+	public init?(_ pStr: Str15) {
 		self.init(pascalString: pStr)
 	}
 	
-	public init(_ pStr: Str32Field) {
+	public init?(_ pStr: Str32Field) {
 		self.init(pascalString: pStr)
 	}
 }
