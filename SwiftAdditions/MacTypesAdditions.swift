@@ -15,7 +15,6 @@ import CoreServices
 private let macRomanEncoding = CFStringBuiltInEncodings.MacRoman.rawValue
 
 #if os(OSX)
-	
 	public func OSTypeToString(theType: OSType) -> String? {
 		if let toRet = UTCreateStringForOSType(theType) {
 			return toRet.takeRetainedValue()
@@ -28,36 +27,31 @@ private let macRomanEncoding = CFStringBuiltInEncodings.MacRoman.rawValue
 		return UTGetOSTypeFromString(theString)
 	}
 #else
-	
-	private func Ptr2OSType(aChar: [Int8]) -> OSType {
-		let val0 = UInt32(aChar[0])
-		let val1 = UInt32(aChar[1])
-		let val2 = UInt32(aChar[2])
-		let val3 = UInt32(aChar[3])
-		return OSType((val0 << 24) | (val1 << 16) | (val2 << 8) | (val3))
-	}
-	
-	private func OSType2Ptr(aOSType: OSType, inout aChar: [Int8]) {
-		let var1 = (aOSType >> 24) & 0xFF
-		let var2 = (aOSType >> 16) & 0xFF
-		let var3 = (aOSType >> 8) & 0xFF
-		let var4 = (aOSType) & 0xFF
-		
-		aChar[0] = Int8(var1)
-		aChar[1] = Int8(var2)
-		aChar[2] = Int8(var3)
-		aChar[3] = Int8(var4)
-		aChar[4] = 0
-	}
-	
 	public func OSTypeToString(theType: OSType) -> String? {
-		var ourOSType = [Int8](count: 5, repeatedValue: 0)
+		func OSType2Ptr(type: OSType) -> [CChar] {
+			var ourOSType = [Int8](count: 5, repeatedValue: 0)
+			var intType = type.bigEndian
+			memcpy(&ourOSType, &intType, 4)
+			
+			return ourOSType
+		}
 	
-		OSType2Ptr(theType, &ourOSType)
+		let ourOSType = OSType2Ptr(theType)
 		return NSString(bytes: ourOSType, length: 4, encoding: NSMacOSRomanStringEncoding);
 	}
 	
 	public func StringToOSType(theString: String) -> OSType {
+		func Ptr2OSType(str: [CChar]) -> OSType {
+			var type: OSType = 0x20202020 // four spaces. Can't really be represented the same way as it is in C
+			var i = countElements(str) - 1
+			if i > 4 {
+				i = 4
+			}
+			memcpy(&type, str, UInt(i))
+			type = type.bigEndian
+			
+			return type
+		}
 		var ourOSType = [Int8](count: 5, repeatedValue: 0)
 		let anNSStr = theString as NSString
 		var ourLen = anNSStr.lengthOfBytesUsingEncoding(NSMacOSRomanStringEncoding)
