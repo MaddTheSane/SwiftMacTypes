@@ -51,12 +51,28 @@ public struct AudioFileFlags : RawOptionSetType {
 	public static var DontPageAlignAudioData: AudioFileFlags { return AudioFileFlags(1 << 1) }
 }
 
-public func AudioFileCreate(withURL inFileRef: CFURL, fileType inFileType: AudioFileType, inout #format: AudioStreamBasicDescription, #flags: AudioFileFlags, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+public func AudioFileCreate(URL inFileRef: CFURL, fileType inFileType: AudioFileType, inout #format: AudioStreamBasicDescription, #flags: AudioFileFlags, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
 	return AudioFileCreateWithURL(inFileRef, inFileType.rawValue, &format, flags.rawValue, &outAudioFile)
 }
 
-public func AudioFileOpenURL(withURL inFileRef: CFURL, #permissions: Int8, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+public func AudioFileCreate(#path: String, fileType inFileType: AudioFileType, inout #format: AudioStreamBasicDescription, #flags: AudioFileFlags, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+	if let inFileRef = NSURL(fileURLWithPath: path) {
+		return AudioFileCreate(URL: inFileRef, fileType: inFileType, format: &format, flags: flags, audioFile: &outAudioFile)
+	} else {
+		return -43 // fnfErr
+	}
+}
+
+public func AudioFileOpen(URL inFileRef: CFURL, #permissions: Int8, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
 	return AudioFileOpenURL(inFileRef, permissions, fileTypeHint != nil ? fileTypeHint!.rawValue : 0, &outAudioFile)
+}
+
+public func AudioFileOpen(#path: String, #permissions: Int8, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+	if let inFileRef = NSURL(fileURLWithPath: path) {
+		return AudioFileOpen(URL: inFileRef, permissions: permissions, fileTypeHint: fileTypeHint, audioFile: &outAudioFile)
+	} else {
+		return -43 // fnfErr
+	}
 }
 
 public func AudioFileReadBytes(#audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, inout #numberBytes: UInt32, #buffer: UnsafeMutablePointer<Void>) -> OSStatus {
