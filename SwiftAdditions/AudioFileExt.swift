@@ -144,15 +144,15 @@ public struct AudioFormatFlag : RawOptionSetType {
 		return Float | NativeEndian | Packed
 	}
 	
-	public static let Float =				AudioFormatFlag(rawValue: 1 << 0)
-	public static let BigEndian =			AudioFormatFlag(rawValue: 1 << 1)
-	public static let SignedInteger =		AudioFormatFlag(rawValue: 1 << 2)
-	public static let Packed =				AudioFormatFlag(rawValue: 1 << 3)
-	public static let AlignedHigh =			AudioFormatFlag(rawValue: 1 << 4)
-	public static let NonInterleaved =		AudioFormatFlag(rawValue: 1 << 5)
-	public static let NonMixable =			AudioFormatFlag(rawValue: 1 << 6)
-	public static let FlagsAreAllClear =	AudioFormatFlag(rawValue: 1 << 31)
-	public static var NativeEndian:			AudioFormatFlag {
+	public static var Float:			AudioFormatFlag { return self(rawValue: 1 << 0) }
+	public static var BigEndian:		AudioFormatFlag { return self(rawValue: 1 << 1) }
+	public static var SignedInteger:	AudioFormatFlag { return self(rawValue: 1 << 2) }
+	public static var Packed:			AudioFormatFlag { return self(rawValue: 1 << 3) }
+	public static var AlignedHigh:		AudioFormatFlag { return self(rawValue: 1 << 4) }
+	public static var NonInterleaved:	AudioFormatFlag { return self(rawValue: 1 << 5) }
+	public static var NonMixable:		AudioFormatFlag { return self(rawValue: 1 << 6) }
+	public static var FlagsAreAllClear:	AudioFormatFlag { return self(rawValue: 1 << 31) }
+	public static var NativeEndian:		AudioFormatFlag {
 		if isLittleEndian {
 			return self(rawValue: 0)
 		} else {
@@ -180,15 +180,15 @@ public struct LinearPCMFormatFlag : RawOptionSetType {
 		return Float | NativeEndian | Packed
 	}
 	
-	public static let Float =				LinearPCMFormatFlag(rawValue: 1 << 0)
-	public static let BigEndian =			LinearPCMFormatFlag(rawValue: 1 << 1)
-	public static let SignedInteger =		LinearPCMFormatFlag(rawValue: 1 << 2)
-	public static let Packed =				LinearPCMFormatFlag(rawValue: 1 << 3)
-	public static let AlignedHigh =			LinearPCMFormatFlag(rawValue: 1 << 4)
-	public static let NonInterleaved =		LinearPCMFormatFlag(rawValue: 1 << 5)
-	public static let NonMixable =			LinearPCMFormatFlag(rawValue: 1 << 6)
-	public static let FlagsAreAllClear =	LinearPCMFormatFlag(rawValue: 1 << 31)
-	public static var NativeEndian:			LinearPCMFormatFlag {
+	public static var Float:			LinearPCMFormatFlag { return self(rawValue: 1 << 0) }
+	public static var BigEndian:		LinearPCMFormatFlag { return self(rawValue: 1 << 1) }
+	public static var SignedInteger:	LinearPCMFormatFlag { return self(rawValue: 1 << 2) }
+	public static var Packed:			LinearPCMFormatFlag { return self(rawValue: 1 << 3) }
+	public static var AlignedHigh:		LinearPCMFormatFlag { return self(rawValue: 1 << 4) }
+	public static var NonInterleaved:	LinearPCMFormatFlag { return self(rawValue: 1 << 5) }
+	public static var NonMixable:		LinearPCMFormatFlag { return self(rawValue: 1 << 6) }
+	public static var FlagsAreAllClear:	LinearPCMFormatFlag { return self(rawValue: 1 << 31) }
+	public static var NativeEndian:		LinearPCMFormatFlag {
 		if isLittleEndian {
 			return self(rawValue: 0)
 		} else {
