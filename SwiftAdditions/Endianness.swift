@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 C.W. Betts. All rights reserved.
 //
 
-import Foundation
+import Darwin.libkern.OSByteOrder
 
 public enum ByteOrder {
 	case Little
