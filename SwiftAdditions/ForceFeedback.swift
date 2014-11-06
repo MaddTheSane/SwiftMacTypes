@@ -7,6 +7,7 @@
 //
 
 #if os(OSX)
+import CoreFoundation
 import Foundation
 import ForceFeedback
 
@@ -357,6 +358,61 @@ public class ForceFeedbackEffect {
 	private let rawEffect: FFEffectObjectReference
 	public unowned let deviceReference: ForceFeedbackDevice
 	
+	public enum EffectType {
+		case ConstantForce
+		case RampForce
+		case Square
+		case Sine
+		case Triangle
+		case SawtoothUp
+		case SawtoothDown
+		case Spring
+		case Damper
+		case Inertia
+		case Friction
+		case Custom
+		
+		public var UUIDValue: CFUUID {
+			switch self {
+			case .ConstantForce:
+				return ForceFeedbackEffect.ConstantForce
+				
+			case .RampForce:
+				return ForceFeedbackEffect.RampForce
+				
+			case .Square:
+				return ForceFeedbackEffect.Square
+				
+			case .Sine:
+				return ForceFeedbackEffect.Sine
+				
+			case .Triangle:
+				return ForceFeedbackEffect.Triangle
+				
+			case .SawtoothUp:
+				return ForceFeedbackEffect.SawtoothUp
+
+			case .SawtoothDown:
+				return ForceFeedbackEffect.SawtoothDown
+
+			case .Spring:
+				return ForceFeedbackEffect.Spring
+
+			case .Damper:
+				return ForceFeedbackEffect.Damper
+
+			case .Inertia:
+				return ForceFeedbackEffect.Inertia
+				
+			case .Friction:
+				return ForceFeedbackEffect.Friction
+
+			case .Custom:
+				return ForceFeedbackEffect.CustomForce
+			}
+		}
+	}
+	
 	// E559C460-C5CD-11D6-8A1C-00039353BD00
 	/*!
 	@defined ConstantForce
@@ -491,6 +547,12 @@ public class ForceFeedbackEffect {
 	
 	public convenience init?(device: ForceFeedbackDevice, UUID: NSUUID, inout effectDefinition: FFEFFECT) {
 		let ourUUID = CFUUIDCreateFromString(kCFAllocatorDefault, UUID.UUIDString)!
+		
+		self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
+	}
+	
+	public convenience init?(device: ForceFeedbackDevice, effect: EffectType, inout effectDefinition: FFEFFECT) {
+		let ourUUID = effect.UUIDValue
 		
 		self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
 	}
