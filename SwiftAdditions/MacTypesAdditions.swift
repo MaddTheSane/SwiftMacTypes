@@ -71,6 +71,10 @@ private let macRomanEncoding = CFStringBuiltInEncodings.MacRoman.rawValue
 	}
 #endif
 
+public var CurrentMacStringEncoding: CFStringEncoding {
+	return CFStringGetMostCompatibleMacStringEncoding(CFStringGetSystemEncoding())
+}
+
 extension String {
 	public init?(pascalString pStr: ConstStringPtr, encoding: CFStringEncoding = macRomanEncoding) {
 		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding) {
@@ -204,7 +208,7 @@ extension OSType: StringLiteralConvertible {
 		self = OSType((toInit.0, toInit.1, toInit.2, toInit.3))
 	}
 	
-	public var OSTypeStringValue: String? {
+	public var stringValue: String? {
 		return OSTypeToString(self)
 	}
 	
@@ -236,14 +240,6 @@ extension Boolean : BooleanLiteralConvertible, BooleanType {
 			self = 1
 		} else {
 			self = 0
-		}
-	}
-	
-	public static func convertFromBooleanLiteral(value: BooleanLiteralType) -> Boolean {
-		if (value == true) {
-			return 1
-		} else {
-			return 0
 		}
 	}
 	

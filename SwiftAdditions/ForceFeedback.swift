@@ -356,9 +356,10 @@ public class ForceFeedbackDevice {
 public class ForceFeedbackEffect {
 	private let rawEffect: FFEffectObjectReference
 	public unowned let deviceReference: ForceFeedbackDevice
+	
 	// E559C460-C5CD-11D6-8A1C-00039353BD00
 	/*!
-	@defined kFFEffectType_ConstantForce_ID
+	@defined ConstantForce
 	@discussion UUID for a constant force effect type
  */
 	public class var ConstantForce: CFUUID {
@@ -369,7 +370,7 @@ public class ForceFeedbackEffect {
 	
 	// E559C461-C5CD-11D6-8A1C-00039353BD00
 	/*!
-	@defined kFFEffectType_RampForce_ID
+	@defined RampForce
 	@discussion UUID for a ramp force effect type
  */
 	public class var RampForce: CFUUID {
@@ -380,7 +381,7 @@ public class ForceFeedbackEffect {
 	
 	// E559C462-C5CD-11D6-8A1C-00039353BD00
 	/*!
-	@defined kFFEffectType_Square_ID
+	@defined Square
 	@discussion UUID for a square wave effect type
  */
 	public class var Square: CFUUID {
@@ -391,7 +392,7 @@ public class ForceFeedbackEffect {
 	
 	// E559C463-C5CD-11D6-8A1C-00039353BD00
 	/*!
-	@defined kFFEffectType_Sine_ID
+	@defined Sine
 	@discussion UUID for a sine wave effect type
  */
 	public class var Sine: CFUUID {
@@ -402,7 +403,7 @@ public class ForceFeedbackEffect {
 	
 	// E559C464-C5CD-11D6-8A1C-00039353BD00
 	/*!
-	@defined kFFEffectType_Triangle_ID
+	@defined Triangle
 	@discussion UUID for a triangle wave effect type
  */
 	public class var Triangle: CFUUID {
@@ -413,7 +414,7 @@ public class ForceFeedbackEffect {
 	
 	// E559C465-C5CD-11D6-8A1C-00039353BD00
 	/*!
-	@defined kFFEffectType_SawtoothUp_ID
+	@defined SawtoothUp
 	@discussion UUID for a upwards sawtooth wave effect type
  */
 	public class var SawtoothUp: CFUUID {
@@ -424,7 +425,7 @@ public class ForceFeedbackEffect {
 	
 	// E559C466-C5CD-11D6-8A1C-00039353BD00
 	/*!
-	@defined kFFEffectType_SawtoothDown_ID
+	@defined SawtoothDown
 	@discussion UUID for a downwards sawtooth wave effect type
  */
 	public class var SawtoothDown: CFUUID {
@@ -435,7 +436,7 @@ public class ForceFeedbackEffect {
 	
 	// E559C467-C5CD-11D6-8A1C-00039353BD00
 	/*!
-	@defined kFFEffectType_Spring_ID
+	@defined Spring
 	@discussion UUID for a spring effect type
  */
 	public class var Spring: CFUUID {
@@ -446,7 +447,7 @@ public class ForceFeedbackEffect {
 	
 	// E559C468-C5CD-11D6-8A1C-00039353BD00
 	/*!
-	@defined kFFEffectType_Damper_ID
+	@defined Damper
 	@discussion UUID for a damper effect type
  */
 	public class var Damper: CFUUID {
@@ -457,7 +458,7 @@ public class ForceFeedbackEffect {
 	
 	// E559C469-C5CD-11D6-8A1C-00039353BD00
 	/*!
-	@defined kFFEffectType_Inertia_ID
+	@defined Inertia
 	@discussion UUID for an inertia effect type
  */
 	public class var Inertia: CFUUID {
@@ -468,7 +469,7 @@ public class ForceFeedbackEffect {
 	
 	// E559C46A-C5CD-11D6-8A1C-00039353BD00
 	/*!
-	@defined kFFEffectType_Friction_ID
+	@defined Friction
 	@discussion UUID for a friction effect type
  */
 	public class var Friction: CFUUID {
@@ -479,7 +480,7 @@ public class ForceFeedbackEffect {
 	
 	// E559C46B-C5CD-11D6-8A1C-00039353BD00
 	/*!
-	@defined kFFEffectType_CustomForce_ID
+	@defined CustomForce
 	@discussion UUID for a custom force effect type
  */
 	public class var CustomForce: CFUUID {
