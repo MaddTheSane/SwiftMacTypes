@@ -6,8 +6,8 @@
 //
 //
 
-import Darwin.MacTypes
 import Foundation
+import Darwin.MacTypes
 #if os(OSX)
 import CoreServices
 #endif
@@ -253,5 +253,73 @@ extension Boolean : BooleanLiteralConvertible, BooleanType {
 		} else {
 			return true
 		}
+	}
+}
+
+extension NumVersion: Printable {
+	public init(_ version: UInt32) {
+		// FIXME: endian issues?
+		nonRelRev = UInt8((version >> 0) & 0xFF)
+		stage = UInt8((version >> 8) & 0xFF)
+		minorAndBugRev = UInt8((version >> 16) & 0xFF)
+		majorRev = UInt8((version >> 24) & 0xFF)
+	}
+	
+	public enum Stage: UInt8 {
+		case Develop	= 0x20
+		case Alpha		= 0x40
+		case Beta		= 0x60
+		case Final		= 0x80
+	}
+	
+	public var bugRev: UInt8 {
+		var aBugRev = minorAndBugRev & 0x0F
+		return aBugRev
+	}
+	
+	public var minorRev: UInt8 {
+		return minorAndBugRev >> 4
+	}
+	
+	public init(major: UInt8, minor: UInt8, bug: UInt8, stage: Stage, nonRelease: UInt8) {
+		majorRev = major
+		minorAndBugRev = (minor << 4) & 0xF0 | bug & 0x0F
+		self.stage = stage.rawValue
+		nonRelRev = nonRelease
+	}
+	
+	public var developmentStage: Stage? {
+		let toRet = stage & 0xF0
+		return Stage(rawValue: toRet)
+	}
+	
+	public var rawValue: UInt32 {
+		// FIXME: endian issues?
+		var a = UInt32(nonRelRev)
+		var b = UInt32(stage)
+		var c = UInt32(minorAndBugRev)
+		var d = UInt32(majorRev)
+		
+		return d << 24 | c << 16 | b << 8 | a
+	}
+	
+	public var description: String {
+		var ourStage = developmentStage ?? Stage.Develop
+		var ourStrStage: String
+		switch ourStage {
+		case .Develop:
+			ourStrStage = "Develop"
+			
+		case .Alpha:
+			ourStrStage = "Alpha"
+			
+		case .Beta:
+			ourStrStage = "Beta"
+			
+		case .Final:
+			ourStrStage = "Final"
+		}
+		let blankStr = ""
+		return "\(majorRev).\(minorRev).\(bugRev) \(ourStrStage)\(nonRelRev == 0 ? blankStr : nonRelRev.description)"
 	}
 }
