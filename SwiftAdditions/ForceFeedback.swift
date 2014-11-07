@@ -238,6 +238,22 @@ public struct ForceFeedbackState : RawOptionSetType {
 public class ForceFeedbackDevice {
 	private let rawDevice: FFDeviceObjectReference
 	
+	public class var Infinite: UInt32 {
+		return 0xFFFFFFFF
+	}
+	
+	public class var Degrees: Int {
+		return 100
+	}
+	
+	public class var NominalMax: Int {
+		return 10000
+	}
+	
+	private class var Seconds: Int {
+		return 1000000
+	}
+	
 	public init?(device: io_service_t) {
 		var tmpDevice: FFDeviceObjectReference = nil
 		var iErr = FFCreateDevice(device, &tmpDevice)
@@ -268,7 +284,7 @@ public class ForceFeedbackDevice {
 		let curDataSize = inData.length
 		var tmpMutBytes = malloc(UInt(curDataSize))
 		memcpy(&tmpMutBytes, inData.bytes, UInt(curDataSize))
-		var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(DWORD.Type)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
+		var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE.Type)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
 		
 		let toRet = sendEscape(&ourEscape)
 		
@@ -282,7 +298,7 @@ public class ForceFeedbackDevice {
 			let curDataSize = inData.length
 			var tmpMutBytes = malloc(UInt(curDataSize))
 			memcpy(&tmpMutBytes, inData.bytes, UInt(curDataSize))
-			var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(DWORD.Type)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutableData.mutableBytes, cbOutBuffer: DWORD(outDataLength))
+			var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE.Type)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutableData.mutableBytes, cbOutBuffer: DWORD(outDataLength))
 			
 			let toRet = sendEscape(&ourEscape)
 			
