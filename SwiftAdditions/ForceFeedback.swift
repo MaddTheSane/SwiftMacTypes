@@ -347,6 +347,14 @@ public class ForceFeedbackDevice {
 		return ForceFeedbackResult.fromHResult(FFDeviceGetForceFeedbackProperty(rawDevice, property.rawValue, value, valueSize))
 	}
 	
+	public func setProperty(property: UInt32, value: UnsafeMutablePointer<Void>) -> ForceFeedbackResult {
+		return ForceFeedbackResult.fromHResult(FFDeviceSetForceFeedbackProperty(rawDevice, property, value))
+	}
+	
+	public func getProperty(property: UInt32, value: UnsafeMutablePointer<Void>, valueSize: IOByteCount) -> ForceFeedbackResult {
+		return ForceFeedbackResult.fromHResult(FFDeviceGetForceFeedbackProperty(rawDevice, property, value, valueSize))
+	}
+	
 	deinit {
 		if rawDevice != nil {
 			FFReleaseDevice(rawDevice)
