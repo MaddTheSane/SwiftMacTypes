@@ -585,7 +585,7 @@ public class ForceFeedbackEffect {
 		deviceReference = device
 		var tmpEffect: FFEffectObjectReference = nil
 		let iErr = FFDeviceCreateEffect(device.rawDevice, UUID, &effectDefinition, &tmpEffect)
-		if iErr == 0 {
+		if iErr >= 0 {
 			rawEffect = tmpEffect
 		} else {
 			rawEffect = nil
