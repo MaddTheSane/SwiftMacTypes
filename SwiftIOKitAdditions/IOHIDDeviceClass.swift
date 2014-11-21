@@ -10,7 +10,48 @@ import Foundation
 import IOKit
 import IOKit.hid
 import IOKit.usb.IOUSBLib
+import SwiftAdditions
 
-class IOHIDDeviceClass {
-	private var interfaceStruct: UnsafeMutablePointer<IOCFPlugInInterfaceStruct> = nil
+public typealias IOCFPlugInInterfaceHandle = UnsafeMutablePointer<UnsafeMutablePointer<IOCFPlugInInterface>>
+
+public class IOHIDDeviceClass {
+	private var interfaceStruct: IOCFPlugInInterfaceHandle = nil
+	
+	public init?(plugInInterface: IOCFPlugInInterfaceHandle) {
+		if plugInInterface == nil {
+			return nil
+		}
+		interfaceStruct = plugInInterface
+		SARetain(plugInInterface)
+	}
+	
+	deinit {
+		if interfaceStruct != nil {
+			SARelease(interfaceStruct)
+		}
+	}
+	
+	private var unwrappedInterface: IOCFPlugInInterface {
+		return interfaceStruct.memory.memory
+	}
+	
+	public var version: UInt16 {
+		return unwrappedInterface.version
+	}
+	
+	public var revision: UInt16 {
+		return unwrappedInterface.revision
+	}
+	
+	public func stop() -> IOReturn {
+		return SAIOStop(interfaceStruct)
+	}
+	
+	public func start(#propertyTable: NSDictionary, service: io_service_t) -> IOReturn {
+		return SAIOStart(interfaceStruct, propertyTable, service)
+	}
+	
+	public func probe(#propertyTable: NSDictionary, service: io_service_t, inout order: Int32) -> IOReturn {
+		return SAIOProbe(interfaceStruct, propertyTable, service, &order)
+	}
 }

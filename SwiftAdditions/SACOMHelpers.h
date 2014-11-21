@@ -7,16 +7,19 @@
 //
 
 /*!
- * @header Helper functions to call common COM functions
+ * @header Helper functions to call common COM functions in Swift
  */
 
-#import <Foundation/Foundation.h>
 #import <CoreFoundation/CFPlugInCOM.h>
+#import <Foundation/Foundation.h>
+
+typedef IUnknownVTbl **IUnknownHandle;
 
 extern HRESULT SAQueryInterface(void *thisPointer, REFIID uuid, void *ppv);
 extern ULONG SARetain(void *thisPointer);
 extern ULONG SARelease(void *thisPointer);
 
+/// This has the same naming conventions as COM
 static inline ULONG SAAddRef(void *thisPointer)
 {
 	return SARetain(thisPointer);

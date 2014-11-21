@@ -20,7 +20,6 @@ ULONG SARetain(void *thisPointer)
 	IUnknownVTbl **interface = thisPointer;
 	
 	return (*interface)->AddRef(interface);
-
 }
 
 ULONG SARelease(void *thisPointer)
@@ -28,6 +27,5 @@ ULONG SARelease(void *thisPointer)
 	IUnknownVTbl **interface = thisPointer;
 	
 	return (*interface)->Release(interface);
-
 }
 
