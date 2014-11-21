@@ -74,3 +74,19 @@ public var kIOUSBInterfaceUserClientTypeID: CFUUID {
 		0xad, 0x51, 0x00, 0x0a, 0x27, 0x05, 0x28, 0x61)
 }
 
+public func QueryInterface<X where X: IUnknown>(thisPointer: X, UUID: NSUUID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
+	let cfBytes = UUID.UUIDString
+	let bytes = CFUUIDCreateFromString(kCFAllocatorDefault, cfBytes)
+	
+	return QueryInterface(thisPointer, bytes, ppv)
+}
+
+public func QueryInterface<X where X: IUnknown>(thisPointer: X, UUID: CFUUID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
+	let bytes = CFUUIDGetUUIDBytes(UUID)
+	
+	return thisPointer.queryInterface(bytes, ppv: ppv)
+}
+
+public protocol IUnknown {
+	func queryInterface(iid: REFIID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT
+}

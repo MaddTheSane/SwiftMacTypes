@@ -14,7 +14,7 @@ import SwiftAdditions
 
 public typealias IOCFPlugInInterfaceHandle = UnsafeMutablePointer<UnsafeMutablePointer<IOCFPlugInInterface>>
 
-public class IOHIDDeviceClass {
+public class IOHIDDeviceClass: IUnknown {
 	private var interfaceStruct: IOCFPlugInInterfaceHandle = nil
 	
 	public init?(plugInInterface: IOCFPlugInInterfaceHandle) {
@@ -53,5 +53,9 @@ public class IOHIDDeviceClass {
 	
 	public func probe(#propertyTable: NSDictionary, service: io_service_t, inout order: Int32) -> IOReturn {
 		return SAIOProbe(interfaceStruct, propertyTable, service, &order)
+	}
+	
+	public func queryInterface(iid: REFIID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
+		return SAQueryInterface(interfaceStruct, iid, ppv)
 	}
 }
