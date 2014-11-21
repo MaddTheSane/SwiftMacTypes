@@ -14,7 +14,7 @@ import SwiftAdditions
 
 public typealias IOCFPlugInInterfaceHandle = UnsafeMutablePointer<UnsafeMutablePointer<IOCFPlugInInterface>>
 
-public class IOHIDDeviceClass: IUnknown {
+public class IOCFPlugInInterfaceClass: IUnknown {
 	private var interfaceStruct: IOCFPlugInInterfaceHandle = nil
 	
 	public init?(plugInInterface: IOCFPlugInInterfaceHandle) {

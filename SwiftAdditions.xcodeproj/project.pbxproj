@@ -16,7 +16,7 @@
 		55706D941A1EC2440000FD93 /* SwiftIOKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55706D9A1A1EC2440000FD93 /* SwiftIOKitAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55706D8F1A1EC2440000FD93 /* SwiftIOKitAdditions.framework */; };
 		55706DA11A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55706DA01A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift */; };
-		55706DA91A1EC2880000FD93 /* IOHIDDeviceClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55706DA81A1EC2880000FD93 /* IOHIDDeviceClass.swift */; };
+		55706DA91A1EC2880000FD93 /* IOCFPlugInClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55706DA81A1EC2880000FD93 /* IOCFPlugInClass.swift */; };
 		55706DAC1A1EC3BC0000FD93 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		55706DAF1A1EC4400000FD93 /* SACOMHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 55706DAD1A1EC4400000FD93 /* SACOMHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55706DB01A1EC4400000FD93 /* SACOMHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 55706DAE1A1EC4400000FD93 /* SACOMHelpers.m */; };
@@ -63,7 +63,7 @@
 		55706D991A1EC2440000FD93 /* SwiftIOKitAdditionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftIOKitAdditionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55706D9F1A1EC2450000FD93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55706DA01A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftIOKitAdditionsTests.swift; sourceTree = "<group>"; };
-		55706DA81A1EC2880000FD93 /* IOHIDDeviceClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOHIDDeviceClass.swift; sourceTree = "<group>"; };
+		55706DA81A1EC2880000FD93 /* IOCFPlugInClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOCFPlugInClass.swift; sourceTree = "<group>"; };
 		55706DAD1A1EC4400000FD93 /* SACOMHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SACOMHelpers.h; sourceTree = "<group>"; };
 		55706DAE1A1EC4400000FD93 /* SACOMHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SACOMHelpers.m; sourceTree = "<group>"; };
 		55706DB21A1ECAEB0000FD93 /* SAIOCOMHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAIOCOMHelpers.h; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 		55706D901A1EC2440000FD93 /* SwiftIOKitAdditions */ = {
 			isa = PBXGroup;
 			children = (
-				55706DA81A1EC2880000FD93 /* IOHIDDeviceClass.swift */,
+				55706DA81A1EC2880000FD93 /* IOCFPlugInClass.swift */,
 				55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */,
 				55706DB21A1ECAEB0000FD93 /* SAIOCOMHelpers.h */,
 				55706DB31A1ECAEB0000FD93 /* SAIOCOMHelpers.m */,
@@ -413,7 +413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55706DA91A1EC2880000FD93 /* IOHIDDeviceClass.swift in Sources */,
+				55706DA91A1EC2880000FD93 /* IOCFPlugInClass.swift in Sources */,
 				55706DB51A1ECAEB0000FD93 /* SAIOCOMHelpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -714,6 +714,7 @@
 				55706DA31A1EC2450000FD93 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		55706DA71A1EC2450000FD93 /* Build configuration list for PBXNativeTarget "SwiftIOKitAdditionsTests" */ = {
 			isa = XCConfigurationList;
@@ -722,6 +723,7 @@
 				55706DA51A1EC2450000FD93 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
