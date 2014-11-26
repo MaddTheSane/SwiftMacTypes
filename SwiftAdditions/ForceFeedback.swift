@@ -436,6 +436,42 @@ extension FFEFFESCAPE {
 	}
 }
 
+public var ForceFeedbackOffsetX : UInt8 {
+	return 0
+}
+
+public var ForceFeedbackOffsetY : UInt8 {
+	return 4
+}
+
+public var ForceFeedbackOffsetZ : UInt8 {
+	return 8
+}
+
+public var ForceFeedbackOffsetRX : UInt8 {
+	return 12
+}
+
+public var ForceFeedbackOffsetRY : UInt8 {
+	return 16
+}
+
+public var ForceFeedbackOffsetRZ : UInt8 {
+	return 20
+}
+
+public func ForceFeedbackOffsetSlider(n: UInt8) -> UInt8 {
+	return UInt8(24 + Int(n) * sizeof(LONG))
+}
+
+public func ForceFeedbackOffsetPOV(n: UInt8) -> UInt8 {
+	return UInt8(32 + Int(n) * sizeof(DWORD))
+}
+
+public func ForceFeedbackOffsetButton(n: UInt8) -> UInt8 {
+	return (48 + (n))
+}
+
 extension FFCAPABILITIES {
 	public init() {
 		ffSpecVer = NumVersion()
@@ -451,15 +487,23 @@ extension FFCAPABILITIES {
 		ffAxes = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 	}
 	
-	var supportedEffectTypes: ForceFeedbackCapabilitiesEffectType {
+	public var axes: [UInt8] {
+		var axesArray: [UInt8] = GetArrayFromMirror(reflect(ffAxes))
+		if Int(numFfAxes) < axesArray.count {
+			axesArray.removeRange(Int(numFfAxes - 1)..<axesArray.count)
+		}
+		return axesArray
+	}
+	
+	public var supportedEffectTypes: ForceFeedbackCapabilitiesEffectType {
 		return ForceFeedbackCapabilitiesEffectType(supportedEffects)
 	}
 	
-	var emulatedEffectTypes: ForceFeedbackCapabilitiesEffectType {
+	public var emulatedEffectTypes: ForceFeedbackCapabilitiesEffectType {
 		return ForceFeedbackCapabilitiesEffectType(emulatedEffects)
 	}
 	
-	var effectSubType: ForceFeedbackCapabilitiesEffectSubType {
+	public var effectSubType: ForceFeedbackCapabilitiesEffectSubType {
 		return ForceFeedbackCapabilitiesEffectSubType(subType)
 	}
 }
