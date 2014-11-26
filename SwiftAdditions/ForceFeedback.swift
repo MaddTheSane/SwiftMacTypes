@@ -60,6 +60,410 @@ public enum ForceFeedbackResult: HRESULT {
 	}
 }
 
+extension FFCONSTANTFORCE {
+	public init() {
+		lMagnitude = 0
+	}
+	
+	public var magnitude: Int32 {
+		get {
+			return lMagnitude
+		}
+		set {
+			lMagnitude = newValue
+		}
+	}
+}
+
+extension FFRAMPFORCE {
+	public init() {
+		lStart = 0
+		lEnd = 0
+	}
+	
+	public var start: Int32 {
+		get {
+			return lStart
+		}
+		set {
+			lStart = newValue
+		}
+	}
+	
+	public var end: Int32 {
+		get {
+			return lEnd
+		}
+		set {
+			lEnd = newValue
+		}
+	}
+}
+
+extension FFEFFECT {
+	public init() {
+		dwSize = 0
+		dwFlags = 0
+		dwDuration = 0
+		dwSamplePeriod = 0
+		dwGain = 0
+		dwTriggerButton = 0
+		dwTriggerRepeatInterval = 0
+		cAxes = 0
+		rgdwAxes = nil
+		rglDirection = nil
+		cbTypeSpecificParams = 0
+		lpvTypeSpecificParams = nil
+		dwStartDelay = 0
+		lpEnvelope = nil
+	}
+	
+	// MARK: More name-friendly getters/setters
+	public var size: UInt32 {
+		get {
+			return dwSize
+		}
+		set {
+			dwSize = newValue
+		}
+	}
+	
+	public var flags: UInt32 {
+		get {
+			return dwFlags
+		}
+		set {
+			dwFlags = newValue
+		}
+	}
+	
+	public var duration: UInt32 {
+		get {
+			return dwDuration
+		}
+		set {
+			dwDuration = newValue
+		}
+	}
+	public var samplePeriod: UInt32 {
+		get {
+			return dwSamplePeriod;
+		}
+		set {
+			dwSamplePeriod = newValue
+		}
+	}
+	
+	public var gain: UInt32 {
+		get {
+			return dwGain
+		}
+		set {
+			dwGain = newValue
+		}
+	}
+	
+	public var triggerButton: UInt32 {
+		get {
+			return dwTriggerButton
+		}
+		set {
+			dwTriggerButton = newValue
+		}
+	}
+	
+	public var typeSpecificParams: (size: UInt32, value: UnsafeMutablePointer<Void>) {
+		get {
+			return (cbTypeSpecificParams, lpvTypeSpecificParams)
+		}
+		set {
+			let aNew = newValue
+			cbTypeSpecificParams = aNew.size
+			lpvTypeSpecificParams = aNew.value
+		}
+	}
+	
+	public var envelope: PFFENVELOPE {
+		get {
+			return lpEnvelope
+		}
+		set {
+			lpEnvelope = newValue
+		}
+	}
+	
+	//FIXME: all axes values
+	var axes: UInt32 {
+		get {
+			return cAxes
+		}
+		set {
+			cAxes = newValue
+		}
+	}
+	
+	public var startDelay: UInt32 {
+		get {
+			return dwStartDelay
+		}
+		set {
+			dwStartDelay = newValue
+		}
+	}
+}
+
+extension FFENVELOPE {
+	public init() {
+		dwSize = 0
+		dwAttackLevel = 0
+		dwAttackTime = 0
+		dwFadeLevel = 0
+		dwFadeTime = 0
+	}
+	
+	var size: UInt32 {
+		get {
+			return dwSize
+		}
+		set {
+			dwSize = newValue
+		}
+	}
+	var attackLevel: UInt32 {
+		get {
+			return dwAttackLevel
+		}
+		set {
+			dwAttackLevel = newValue
+		}
+	}
+	var attackTime: UInt32 {
+		get {
+			return dwAttackTime
+		}
+		set {
+			dwAttackTime = newValue
+		}
+	}
+	var fadeLevel: UInt32 {
+		get {
+			return dwFadeLevel
+		}
+		set {
+			dwFadeLevel = newValue
+		}
+	}
+	var fadeTime: UInt32 {
+		get {
+			return dwFadeTime
+		}
+		set {
+			dwFadeTime = newValue
+		}
+	}
+}
+
+extension FFCONDITION {
+	public init() {
+		lOffset = 0
+		lPositiveCoefficient = 0
+		lNegativeCoefficient = 0
+		dwPositiveSaturation = 0
+		dwNegativeSaturation = 0
+		lDeadBand = 0
+	}
+	
+	public var offset: Int32 {
+		get {
+			return lOffset
+		}
+		set {
+			lOffset = newValue
+		}
+	}
+	
+	public var coefficients: (positive: Int32, negative: Int32) {
+		get {
+			return (lPositiveCoefficient, lNegativeCoefficient)
+		}
+		set {
+			lPositiveCoefficient = newValue.positive
+			lNegativeCoefficient = newValue.negative
+		}
+	}
+	
+	public var saturation: (positive: UInt32, negative: UInt32) {
+		get {
+			return (dwPositiveSaturation, dwNegativeSaturation)
+		}
+		set {
+			dwPositiveSaturation = newValue.positive
+			dwNegativeSaturation = newValue.negative
+		}
+	}
+	
+	public var deadBand: Int32 {
+		get {
+			return lDeadBand
+		}
+		set {
+			lDeadBand = newValue
+		}
+	}
+}
+
+extension FFCUSTOMFORCE {
+	public init() {
+		cChannels = 0
+		dwSamplePeriod = 0
+		cSamples = 0
+		rglForceData = nil
+	}
+	
+	public var samplePeriod: UInt32 {
+		get {
+			return dwSamplePeriod
+		}
+		set {
+			dwSamplePeriod = newValue
+		}
+	}
+	
+	/// Returns true if the data sent in is valid
+	public mutating func setData(#channels: DWORD, samples: DWORD, forceData: LPLONG) -> Bool {
+		if channels == 1 {
+			cChannels = channels
+			cSamples = samples
+			rglForceData = forceData
+			return true
+		} else if channels == 0 {
+			cChannels = channels
+			cSamples = samples
+			rglForceData = forceData
+			return true
+		} else if (samples % channels) == 0 {
+			cChannels = channels
+			cSamples = samples
+			rglForceData = forceData
+			return true
+		}
+		
+		return false
+	}
+}
+
+extension FFPERIODIC {
+	public init() {
+		dwMagnitude = 0
+		lOffset = 0
+		dwPhase = 0
+		dwPeriod = 0
+	}
+	
+	public var magnitude: UInt32 {
+		get {
+			return dwMagnitude
+		}
+		set {
+			dwMagnitude = newValue
+		}
+	}
+	
+	public var offset: Int32 {
+		get {
+			return lOffset
+		}
+		set {
+			lOffset = newValue
+		}
+	}
+	
+	public var phase: UInt32 {
+		get {
+			return dwPhase
+		}
+		set {
+			dwPhase = newValue
+		}
+	}
+	
+	public var period: UInt32 {
+		get {
+			return dwPeriod
+		}
+		set {
+			dwPeriod = newValue
+		}
+	}
+}
+
+extension FFEFFESCAPE {
+	public init() {
+		dwSize = 0
+		dwCommand = 0
+		lpvInBuffer = nil
+		cbInBuffer = 0
+		lpvOutBuffer = nil
+		cbOutBuffer = 0
+	}
+	
+	public var inBuffer: (size: UInt32, data: UnsafeMutablePointer<Void>) {
+		get {
+			return (cbInBuffer, lpvInBuffer)
+		}
+		set {
+			cbInBuffer = newValue.size
+			lpvInBuffer = newValue.data
+		}
+	}
+	public var outBuffer: (size: UInt32, data: UnsafeMutablePointer<Void>) {
+		get {
+			return (cbOutBuffer, lpvOutBuffer)
+		}
+		set {
+			cbOutBuffer = newValue.size
+			lpvOutBuffer = newValue.data
+		}
+	}
+	
+	public var command: UInt32 {
+		get {
+			return dwCommand
+		}
+		set {
+			dwCommand = newValue
+		}
+	}
+}
+
+extension FFCAPABILITIES {
+	public init() {
+		ffSpecVer = NumVersion()
+		supportedEffects = 0
+		emulatedEffects = 0
+		subType = 0
+		numFfAxes = 0
+		storageCapacity = 0
+		playbackCapacity = 0
+		firmwareVer = NumVersion()
+		hardwareVer = NumVersion()
+		driverVer = NumVersion()
+		ffAxes = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+	}
+	
+	var supportedEffectTypes: ForceFeedbackCapabilitiesEffectType {
+		return ForceFeedbackCapabilitiesEffectType(supportedEffects)
+	}
+	
+	var emulatedEffectTypes: ForceFeedbackCapabilitiesEffectType {
+		return ForceFeedbackCapabilitiesEffectType(emulatedEffects)
+	}
+	
+	var effectSubType: ForceFeedbackCapabilitiesEffectSubType {
+		return ForceFeedbackCapabilitiesEffectSubType(subType)
+	}
+}
+	
 public struct ForceFeedbackCommand : RawOptionSetType {
 	public typealias RawValue = UInt32
 	private var value: RawValue = 0

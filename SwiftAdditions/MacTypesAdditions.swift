@@ -261,6 +261,10 @@ extension NumVersion: Printable {
 		majorRev = UInt8((version >> 24) & 0xFF)
 	}
 	
+	public init() {
+		self.init(0)
+	}
+	
 	public enum Stage: UInt8 {
 		case Develop	= 0x20
 		case Alpha		= 0x40
