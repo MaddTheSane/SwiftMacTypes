@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if os(iOS)
+	import UIKit
+#endif
 
 public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
 	return NSEqualRanges(rhs, lhs)
@@ -50,46 +53,72 @@ extension NSRange: Equatable {
 	}
 }
 
-#if os(OSX)
-extension NSPoint {
+extension CGPoint {
 	public init(string: String) {
-		self = NSPointFromString(string)
+		#if os(OSX)
+			self = NSPointFromString(string)
+		#elseif os(iOS)
+			self = CGPointFromString(string)
+		#endif
 	}
 
 	public var stringValue: String {
-		return NSStringFromPoint(self)
+		#if os(OSX)
+			return NSStringFromPoint(self)
+		#elseif os(iOS)
+			return NSStringFromCGPoint(self)
+		#endif
 	}
 }
 
-extension NSSize {
+extension CGSize {
 	public init(string: String) {
-		self = NSSizeFromString(string)
+		#if os(OSX)
+			self = NSSizeFromString(string)
+		#elseif os(iOS)
+			self = CGSizeFromString(string)
+		#endif
 	}
 
 	public var stringValue: String {
-		return NSStringFromSize(self)
+		#if os(OSX)
+			return NSStringFromSize(self)
+		#elseif os(iOS)
+			return NSStringFromCGSize(self)
+		#endif
 	}
 }
 
-extension NSRect {
-	public func integralRect() -> NSRect {
-		return NSIntegralRect(self)
+extension CGRect {
+	public func integralRect() -> CGRect {
+		return CGRectIntegral(self)
 	}
 
+	#if os(OSX)
 	public func integralRect(#options: NSAlignmentOptions) -> NSRect {
 		return NSIntegralRectWithOptions(self, options)
 	}
+	#endif
 
 	public init(string: String) {
-		self = NSRectFromString(string)
+		#if os(OSX)
+			self = NSRectFromString(string)
+		#elseif os(iOS)
+			self = CGRectFromString(string)
+		#endif
 	}
 
 	public var stringValue: String {
-		return NSStringFromRect(self)
+		#if os(OSX)
+			return NSStringFromRect(self)
+		#elseif os(iOS)
+			return NSStringFromCGRect(self)
+		#endif
 	}
 
+	#if os(OSX)
 	public func mouseInLocation(location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
 	}
+	#endif
 }
-#endif
