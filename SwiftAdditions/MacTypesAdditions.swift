@@ -12,8 +12,6 @@ import Darwin.MacTypes
 import CoreServices
 #endif
 
-private let macRomanEncoding = CFStringBuiltInEncodings.MacRoman.rawValue
-
 #if os(OSX)
 	public func OSTypeToString(theType: OSType) -> String? {
 		if let toRet = UTCreateStringForOSType(theType) {
@@ -71,12 +69,19 @@ private let macRomanEncoding = CFStringBuiltInEncodings.MacRoman.rawValue
 	}
 #endif
 
-public var CurrentMacStringEncoding: CFStringEncoding {
+public var CurrentCFMacStringEncoding: CFStringEncoding {
 	return CFStringGetMostCompatibleMacStringEncoding(CFStringGetSystemEncoding())
 }
 
+/// The current system encoding that is the most like a Mac Classic encoding
+public var CurrentMacStringEncoding: NSStringEncoding {
+	return CFStringConvertEncodingToNSStringEncoding(CurrentCFMacStringEncoding)
+}
+
+/// Pascal String extensions
+/// The init functions will return nil if the Pascal string says its length is longer than
 extension String {
-	public init?(pascalString pStr: ConstStringPtr, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: ConstStringPtr, encoding: CFStringEncoding) {
 		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding) {
 			self = theStr
 		} else {
@@ -84,13 +89,25 @@ extension String {
 		}
 	}
 	
-	public init?(pascalString pStr: Str255, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: ConstStringPtr, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let CFEncoding = CFStringConvertNSStringEncodingToEncoding(encoding)
+		if CFEncoding == kCFStringEncodingInvalidId {
+			return nil
+		}
+		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, CFEncoding) {
+			self = theStr
+		} else {
+			return nil
+		}
+	}
+	
+	public init?(pascalString pStr: Str255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str63, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str63, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
 		if unwrapped[0] > 63 {
@@ -99,7 +116,7 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str32, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str32, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
 		if unwrapped[0] > 32 {
@@ -109,7 +126,7 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 
-	public init?(pascalString pStr: Str31, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str31, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
 		if unwrapped[0] > 31 {
@@ -118,7 +135,7 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str27, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str27, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
 		if unwrapped[0] > 27 {
@@ -127,7 +144,7 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str15, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str15, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
 		if unwrapped[0] > 15 {
@@ -136,7 +153,7 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str32Field, encoding: CFStringEncoding = macRomanEncoding) {
+	public init?(pascalString pStr: Str32Field, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		var unwrapped = [UInt8]()
 		var mirror = reflect(pStr)
 		// And this is why this version can't use GetArrayFromMirror...
