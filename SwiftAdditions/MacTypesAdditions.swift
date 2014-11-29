@@ -80,6 +80,7 @@ public var CurrentMacStringEncoding: NSStringEncoding {
 
 /// Pascal String extensions
 /// The init functions will return nil if the Pascal string says its length is longer than
+/// the enclosing type
 extension String {
 	public init?(pascalString pStr: ConstStringPtr, encoding: CFStringEncoding) {
 		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding) {

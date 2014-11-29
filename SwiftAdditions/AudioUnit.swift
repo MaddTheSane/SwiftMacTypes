@@ -23,5 +23,11 @@ public enum AudioUnitType: OSType {
 }
 
 extension AudioComponentDescription {
-	
+	public init() {
+		componentType = 0
+		componentSubType = 0
+		componentManufacturer = 0
+		componentFlags = 0
+		componentFlagsMask = 0
+	}
 }
