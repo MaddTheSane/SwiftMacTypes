@@ -104,13 +104,13 @@ extension String {
 	
 	public init?(pascalString pStr: Str255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
 	public init?(pascalString pStr: Str63, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
 		if unwrapped[0] > 63 {
 			return nil
 		}
@@ -119,7 +119,7 @@ extension String {
 	
 	public init?(pascalString pStr: Str32, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
 		if unwrapped[0] > 32 {
 			return nil
 		}
@@ -129,7 +129,7 @@ extension String {
 
 	public init?(pascalString pStr: Str31, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
 		if unwrapped[0] > 31 {
 			return nil
 		}
@@ -138,7 +138,7 @@ extension String {
 	
 	public init?(pascalString pStr: Str27, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
 		if unwrapped[0] > 27 {
 			return nil
 		}
@@ -147,7 +147,7 @@ extension String {
 	
 	public init?(pascalString pStr: Str15, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)
+		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
 		if unwrapped[0] > 15 {
 			return nil
 		}
@@ -341,3 +341,12 @@ extension NumVersion: Printable {
 		return "\(majorRev).\(minorRev).\(bugRev) \(ourStrStage)\(nonRelRev == 0 ? blankStr : nonRelRev.description)"
 	}
 }
+
+#if os(OSX)
+extension String {
+	public init(HFSUniStr: HFSUniStr255) {
+		let uniStr: [UInt16] = GetArrayFromMirror(reflect(HFSUniStr.unicode))!
+		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding)!
+	}
+}
+#endif

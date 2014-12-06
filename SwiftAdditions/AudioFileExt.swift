@@ -51,7 +51,7 @@ public struct AudioFileFlags : RawOptionSetType {
 	public static var DontPageAlignAudioData: AudioFileFlags { return AudioFileFlags(1 << 1) }
 }
 
-public func AudioFileCreate(URL inFileRef: CFURL, fileType inFileType: AudioFileType, inout #format: AudioStreamBasicDescription, #flags: AudioFileFlags, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+public func AudioFileCreate(URL inFileRef: NSURL, fileType inFileType: AudioFileType, inout #format: AudioStreamBasicDescription, #flags: AudioFileFlags, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
 	return AudioFileCreateWithURL(inFileRef, inFileType.rawValue, &format, flags.rawValue, &outAudioFile)
 }
 
@@ -63,7 +63,7 @@ public func AudioFileCreate(#path: String, fileType inFileType: AudioFileType, i
 	}
 }
 
-public func AudioFileOpen(URL inFileRef: CFURL, #permissions: Int8, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+public func AudioFileOpen(URL inFileRef: NSURL, #permissions: Int8, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
 	return AudioFileOpenURL(inFileRef, permissions, fileTypeHint != nil ? fileTypeHint!.rawValue : 0, &outAudioFile)
 }
 

@@ -436,6 +436,7 @@ extension FFEFFESCAPE {
 	}
 }
 
+//TODO: put these in an enum, or struct, or something...
 public var ForceFeedbackOffsetX : UInt8 {
 	return 0
 }
@@ -488,7 +489,7 @@ extension FFCAPABILITIES {
 	}
 	
 	public var axes: [UInt8] {
-		var axesArray: [UInt8] = GetArrayFromMirror(reflect(ffAxes))
+		var axesArray: [UInt8] = GetArrayFromMirror(reflect(ffAxes))!
 		if Int(numFfAxes) < axesArray.count {
 			axesArray.removeRange(Int(numFfAxes)..<axesArray.count)
 		}
