@@ -9,11 +9,16 @@
 import Foundation
 
 /// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
+/// returns a blank array if any type in the mirror doesn't match `X`
 public func GetArrayFromMirror<X>(mirror: MirrorType) -> [X] {
 	var anArray = [X]()
 	for i in 0..<mirror.count {
-		var aChar = mirror[i].1.value as X
-		anArray.append(aChar)
+		if let aChar = mirror[i].1.value as? X {
+			anArray.append(aChar)
+		} else {
+			assert(false, "Value at \(i) (\(mirror[i].0)) does not match type \(X.self)")
+			return []
+		}
 	}
 	
 	return anArray
