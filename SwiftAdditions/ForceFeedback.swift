@@ -789,9 +789,7 @@ public class ForceFeedbackDevice {
 		}
 	}
 	
-	/*!
-	 *	function is unimplemented in version 1.0 of Apple's FF API.
-	 */
+	/// function is unimplemented in version 1.0 of Apple's FF API.
 	public func setCooperativeLevel(taskIdentifier: UnsafeMutablePointer<Void>, flags: ForceFeedbackCooperativeLevel) -> ForceFeedbackResult {
 		return ForceFeedbackResult.fromHResult(FFDeviceSetCooperativeLevel(rawDevice, taskIdentifier, flags.rawValue))
 	}
