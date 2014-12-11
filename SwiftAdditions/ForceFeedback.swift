@@ -222,7 +222,7 @@ extension FFENVELOPE {
 		dwFadeTime = 0
 	}
 	
-	var size: UInt32 {
+	public var size: UInt32 {
 		get {
 			return dwSize
 		}
@@ -231,7 +231,7 @@ extension FFENVELOPE {
 		}
 	}
 	
-	var attackLevel: UInt32 {
+	public var attackLevel: UInt32 {
 		get {
 			return dwAttackLevel
 		}
@@ -240,7 +240,7 @@ extension FFENVELOPE {
 		}
 	}
 	
-	var attackTime: UInt32 {
+	public var attackTime: UInt32 {
 		get {
 			return dwAttackTime
 		}
@@ -249,7 +249,7 @@ extension FFENVELOPE {
 		}
 	}
 	
-	var fadeLevel: UInt32 {
+	public var fadeLevel: UInt32 {
 		get {
 			return dwFadeLevel
 		}
@@ -258,7 +258,7 @@ extension FFENVELOPE {
 		}
 	}
 	
-	var fadeTime: UInt32 {
+	public var fadeTime: UInt32 {
 		get {
 			return dwFadeTime
 		}
