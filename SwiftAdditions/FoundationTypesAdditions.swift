@@ -90,20 +90,20 @@ extension CGSize {
 }
 
 extension CGRect {
-	public mutating func integralRect() {
+	public mutating func integral() {
 		self = CGRectIntegral(self)
 	}
 
-	public var rectFromIntegralRect: CGRect {
+	public var rectFromIntegral: CGRect {
 		return CGRectIntegral(self)
 	}
 	
 	#if os(OSX)
-	public mutating func integralRect(#options: NSAlignmentOptions) {
+	public mutating func integral(#options: NSAlignmentOptions) {
 		self = NSIntegralRectWithOptions(self, options)
 	}
 	
-	public func rectFromIntegralRect(#options: NSAlignmentOptions) -> NSRect {
+	public func rectFromIntegral(#options: NSAlignmentOptions) -> NSRect {
 		return NSIntegralRectWithOptions(self, options)
 	}
 	#endif

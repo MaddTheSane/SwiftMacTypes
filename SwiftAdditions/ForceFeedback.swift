@@ -145,6 +145,7 @@ extension FFEFFECT {
 			dwDuration = newValue
 		}
 	}
+	
 	public var samplePeriod: UInt32 {
 		get {
 			return dwSamplePeriod;
@@ -229,6 +230,7 @@ extension FFENVELOPE {
 			dwSize = newValue
 		}
 	}
+	
 	var attackLevel: UInt32 {
 		get {
 			return dwAttackLevel
@@ -237,6 +239,7 @@ extension FFENVELOPE {
 			dwAttackLevel = newValue
 		}
 	}
+	
 	var attackTime: UInt32 {
 		get {
 			return dwAttackTime
@@ -245,6 +248,7 @@ extension FFENVELOPE {
 			dwAttackTime = newValue
 		}
 	}
+	
 	var fadeLevel: UInt32 {
 		get {
 			return dwFadeLevel
@@ -253,6 +257,7 @@ extension FFENVELOPE {
 			dwFadeLevel = newValue
 		}
 	}
+	
 	var fadeTime: UInt32 {
 		get {
 			return dwFadeTime
@@ -416,6 +421,7 @@ extension FFEFFESCAPE {
 			lpvInBuffer = newValue.data
 		}
 	}
+	
 	public var outBuffer: (size: UInt32, data: UnsafeMutablePointer<Void>) {
 		get {
 			return (cbOutBuffer, lpvOutBuffer)
@@ -436,7 +442,7 @@ extension FFEFFESCAPE {
 	}
 }
 
-//TODO: put these in an enum, or struct, or something...
+// TODO: put these in an enum, or struct, or something...
 public var ForceFeedbackOffsetX : UInt8 {
 	return 0
 }
@@ -1038,6 +1044,7 @@ public class ForceFeedbackEffect {
 			rawEffect = tmpEffect
 		} else {
 			rawEffect = nil
+			return nil
 		}
 	}
 	
