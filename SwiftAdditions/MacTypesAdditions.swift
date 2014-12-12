@@ -82,6 +82,9 @@ public var CurrentMacStringEncoding: NSStringEncoding {
 /// The init functions will return nil if the Pascal string says its length is longer than
 /// the enclosing type
 extension String {
+	/// The base initializer for the Pascal String types.
+	/// Gets passed a CFStringEncoding because the underlying function used to generate
+	/// strings uses that
 	public init?(pascalString pStr: ConstStringPtr, encoding: CFStringEncoding) {
 		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding) {
 			self = theStr
@@ -90,6 +93,8 @@ extension String {
 		}
 	}
 	
+	/// The main initializer. Converts the encoding to a CFStringEncoding for use
+	/// in the base initializer.
 	public init?(pascalString pStr: ConstStringPtr, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let CFEncoding = CFStringConvertNSStringEncodingToEncoding(encoding)
 		if CFEncoding == kCFStringEncodingInvalidId {
@@ -105,6 +110,8 @@ extension String {
 	public init?(pascalString pStr: Str255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		// a UInt8 can't reference any number greater than 255,
+		// so we just pass it to the main initializer
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
@@ -154,9 +161,11 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
+	/// The last byte in a Str32Field is unused,
+	/// so the last byte isn't read.
 	public init?(pascalString pStr: Str32Field, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		var unwrapped = [UInt8]()
-		var mirror = reflect(pStr)
+		let mirror = reflect(pStr)
 		// And this is why this version can't use GetArrayFromMirror...
 		// We skip the last byte because it's not used
 		// and may, in fact, be garbage.
@@ -170,34 +179,42 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
+	/// Convenience initializer, passing a ConstStringPtr (or UnsafePointer<UInt8>).
 	public init?(_ pStr: ConstStringPtr) {
 		self.init(pascalString: pStr)
 	}
 
+	/// Convenience initializer, passing a Str255 (or a tuple with 256(!) UInt8s)
 	public init?(_ pStr: Str255) {
 		self.init(pascalString: pStr)
 	}
 	
+	/// Convenience initializer, passing a Str63 (or a tuple with 66 UInt8s)
 	public init?(_ pStr: Str63) {
 		self.init(pascalString: pStr)
 	}
 	
+	/// Convenience initializer, passing a Str32 (or a tuple with 33 UInt8s)
 	public init?(_ pStr: Str32) {
 		self.init(pascalString: pStr)
 	}
 	
+	/// Convenience initializer, passing a Str31 (or a tuple with 32 UInt8s)
 	public init?(_ pStr: Str31) {
 		self.init(pascalString: pStr)
 	}
 	
+	/// Convenience initializer, passing a Str27 (or a tuple with 28 UInt8s)
 	public init?(_ pStr: Str27) {
 		self.init(pascalString: pStr)
 	}
 	
+	/// Convenience initializer, passing a Str15 (or a tuple with 16 UInt8s)
 	public init?(_ pStr: Str15) {
 		self.init(pascalString: pStr)
 	}
 	
+	/// Convenience initializer, passing a Str32Field (or a tuple with 34 UInt8s, with the last byte ignored)
 	public init?(_ pStr: Str32Field) {
 		self.init(pascalString: pStr)
 	}
@@ -210,7 +227,7 @@ extension OSType: StringLiteralConvertible {
 	
 	public init(unicodeScalarLiteral usl: String) {
 		let tmpUnscaled = String(unicodeScalarLiteral: usl)
-		self = StringToOSType(tmpUnscaled)
+		self.init(tmpUnscaled)
 	}
 	
 	public init(extendedGraphemeClusterLiteral egcl: String) {
