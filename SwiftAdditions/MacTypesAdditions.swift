@@ -189,7 +189,7 @@ extension String {
 		self.init(pascalString: pStr)
 	}
 	
-	/// Convenience initializer, passing a Str63 (or a tuple with 66 UInt8s)
+	/// Convenience initializer, passing a Str63 (or a tuple with 64 UInt8s)
 	public init?(_ pStr: Str63) {
 		self.init(pascalString: pStr)
 	}

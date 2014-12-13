@@ -178,9 +178,8 @@ extension FFEFFECT {
 			return (cbTypeSpecificParams, lpvTypeSpecificParams)
 		}
 		set {
-			let aNew = newValue
-			cbTypeSpecificParams = aNew.size
-			lpvTypeSpecificParams = aNew.value
+			cbTypeSpecificParams = newValue.size
+			lpvTypeSpecificParams = newValue.value
 		}
 	}
 	
