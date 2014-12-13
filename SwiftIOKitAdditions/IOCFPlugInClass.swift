@@ -20,6 +20,8 @@ public class IOCFPlugInInterfaceClass: IUnknown {
 	public init?(plugInInterface: IOCFPlugInInterfaceHandle) {
 		if plugInInterface == nil {
 			return nil
+		} else if plugInInterface.memory == nil {
+			return nil
 		}
 		interfaceStruct = plugInInterface
 		SARetain(plugInInterface)

@@ -130,3 +130,19 @@ extension CGRect {
 	}
 	#endif
 }
+
+#if os(OSX)
+extension NSEdgeInsets: Equatable {
+	#if false
+	@availability(OSX, introduced=10.10)
+	public static var zero: NSEdgeInsets {
+		return NSEdgeInsetsZero
+	}
+	#endif
+}
+
+@availability(OSX, introduced=10.10)
+public func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
+	return NSEdgeInsetsEqual(rhs, lhs)
+}
+#endif

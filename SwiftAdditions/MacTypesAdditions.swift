@@ -308,7 +308,7 @@ extension NumVersion: Printable {
 	}
 	
 	public var bugRev: UInt8 {
-		var aBugRev = minorAndBugRev & 0x0F
+		let aBugRev = minorAndBugRev & 0x0F
 		return aBugRev
 	}
 	
@@ -339,7 +339,7 @@ extension NumVersion: Printable {
 	}
 	
 	public var description: String {
-		var ourStage = developmentStage ?? Stage.Develop
+		let ourStage = developmentStage ?? Stage.Develop
 		var ourStrStage: String
 		switch ourStage {
 		case .Develop:

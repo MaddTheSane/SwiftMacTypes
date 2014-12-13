@@ -16,7 +16,7 @@ public var IUnknownUUID: CFUUID {
 
 public func QueryInterface<X where X: IUnknown>(thisPointer: X, UUID: NSUUID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
 	let cfBytes = UUID.UUIDString
-	let bytes = CFUUIDCreateFromString(kCFAllocatorDefault, cfBytes)
+	let bytes = CFUUIDCreateFromString(kCFAllocatorDefault, cfBytes)!
 	
 	return QueryInterface(thisPointer, bytes, ppv)
 }
