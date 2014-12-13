@@ -193,7 +193,7 @@ extension FFEFFECT {
 		}
 	}
 	
-	//FIXME: all axes values
+	//TODO: all axes values
 	var axes: UInt32 {
 		get {
 			return cAxes
@@ -706,9 +706,12 @@ public class ForceFeedbackDevice {
 		}
 	}
 	
+	/// Returns true if device is capable of Force feedback.
+	/// Returns false if it isn't.
+	/// Returns nil if there was an error.
 	public class func deviceIsForceFeedback(device: io_service_t) -> Bool? {
 		let iErr = FFIsForceFeedback(device)
-		if iErr == 0 {
+		if iErr >= 0 {
 			return true
 		} else if iErr == ForceFeedbackResult.NoInterface.rawValue {
 			return false
