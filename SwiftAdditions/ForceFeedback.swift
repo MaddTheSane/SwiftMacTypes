@@ -647,6 +647,7 @@ public struct ForceFeedbackEffectStatus : RawOptionSetType {
 
 public class ForceFeedbackDevice {
 	private let rawDevice: FFDeviceObjectReference
+	public private(set) var lastReturnValue: ForceFeedbackResult = .OK
 	
 	public enum Property: UInt32 {
 		case Gain = 1
@@ -720,7 +721,9 @@ public class ForceFeedbackDevice {
 	}
 	
 	public func sendEscape(inout theEscape: FFEFFESCAPE) -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFDeviceEscape(rawDevice, &theEscape))
+		let aReturn = ForceFeedbackResult.fromHResult(FFDeviceEscape(rawDevice, &theEscape))
+		lastReturnValue = aReturn
+		return aReturn
 	}
 	
 	public func sendEscape(#command: DWORD, inData: NSData) -> ForceFeedbackResult {
@@ -730,6 +733,7 @@ public class ForceFeedbackDevice {
 		var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE.Type)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
 		
 		let toRet = sendEscape(&ourEscape)
+		lastReturnValue = toRet
 		
 		free(tmpMutBytes)
 		
@@ -747,16 +751,20 @@ public class ForceFeedbackDevice {
 			
 			free(tmpMutBytes)
 			ourMutableData.length = Int(ourEscape.cbOutBuffer)
+			lastReturnValue = toRet
 			
 			return (toRet, NSData(data: ourMutableData))
 		} else {
+			lastReturnValue = .OutOfMemory
 			return (.OutOfMemory, NSData())
 		}
 	}
 	
 	public var state: State {
 		var ourState: FFState = 0
-		if FFDeviceGetForceFeedbackState(rawDevice, &ourState) >= 0 {
+		let errVal = ForceFeedbackResult.fromHResult(FFDeviceGetForceFeedbackState(rawDevice, &ourState))
+		lastReturnValue = errVal
+		if lastReturnValue.isSuccess() {
 			return State(ourState)
 		} else {
 			return State(0)
@@ -764,52 +772,70 @@ public class ForceFeedbackDevice {
 	}
 	
 	public func sendForceFeedbackCommand(command: ForceFeedbackCommand) -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFDeviceSendForceFeedbackCommand(rawDevice, command.rawValue))
+		let iErr = ForceFeedbackResult.fromHResult(FFDeviceSendForceFeedbackCommand(rawDevice, command.rawValue))
+		lastReturnValue = iErr
+		return iErr
 	}
 	
+	/// Calls getProperty/setProperty, which may return failure info.
+	/// Use lastReturnValue to check if the getter/setter were successful.
 	public var autocenter: Bool {
 		get {
 			var theVal: UInt32 = 0
-			var iErr = getProperty(.Autocenter, value: &theVal, valueSize: IOByteCount(sizeof(UInt32.Type)))
-			return theVal == 1
+			let iErr = getProperty(.Autocenter, value: &theVal, valueSize: IOByteCount(sizeof(UInt32.Type)))
+			lastReturnValue = iErr
+			return theVal != 0
 		}
 		set {
 			var theVal: UInt32 = newValue == true ? 1 : 0
-			var iErr = setProperty(.Autocenter, value: &theVal)
+			lastReturnValue = setProperty(.Autocenter, value: &theVal)
 		}
 	}
 	
+	/// Calls getProperty/setProperty, which may return failure info.
+	/// Use lastReturnValue to check if the getter/setter were successful.
 	public var gain: UInt32 {
 		get {
 			var theVal: UInt32 = 0
 			var iErr = getProperty(.Gain, value: &theVal, valueSize: IOByteCount(sizeof(UInt32.Type)))
+			lastReturnValue = iErr
 			return theVal
 		}
 		set {
 			var theVal = newValue
-			var iErr = setProperty(.Gain, value: &theVal)
+			lastReturnValue = setProperty(.Gain, value: &theVal)
 		}
 	}
 	
-	/// function is unimplemented in version 1.0 of Apple's FF API.
+	/// Function is unimplemented in version 1.0 of Apple's FF API.
 	public func setCooperativeLevel(taskIdentifier: UnsafeMutablePointer<Void>, flags: ForceFeedbackCooperativeLevel) -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFDeviceSetCooperativeLevel(rawDevice, taskIdentifier, flags.rawValue))
+		let iErr = ForceFeedbackResult.fromHResult(FFDeviceSetCooperativeLevel(rawDevice, taskIdentifier, flags.rawValue))
+		lastReturnValue = iErr
+		return iErr
 	}
 	
-	private func setProperty(property: Property, value: UnsafeMutablePointer<Void>) -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFDeviceSetForceFeedbackProperty(rawDevice, property.rawValue, value))
+	public func setProperty(property: Property, value: UnsafeMutablePointer<Void>) -> ForceFeedbackResult {
+		let iErr = ForceFeedbackResult.fromHResult(FFDeviceSetForceFeedbackProperty(rawDevice, property.rawValue, value))
+		lastReturnValue = iErr
+		return iErr
 	}
 	
-	private func getProperty(property: Property, value: UnsafeMutablePointer<Void>, valueSize: IOByteCount) -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFDeviceGetForceFeedbackProperty(rawDevice, property.rawValue, value, valueSize))
+	public func getProperty(property: Property, value: UnsafeMutablePointer<Void>, valueSize: IOByteCount) -> ForceFeedbackResult {
+		let iErr = ForceFeedbackResult.fromHResult(FFDeviceGetForceFeedbackProperty(rawDevice, property.rawValue, value, valueSize))
+		lastReturnValue = iErr
+		return iErr
 	}
 	
 	public func setProperty(property: UInt32, value: UnsafeMutablePointer<Void>) -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFDeviceSetForceFeedbackProperty(rawDevice, property, value))
+		let iErr = ForceFeedbackResult.fromHResult(FFDeviceSetForceFeedbackProperty(rawDevice, property, value))
+		lastReturnValue = iErr
+		return iErr
 	}
 	
 	public func getProperty(property: UInt32, value: UnsafeMutablePointer<Void>, valueSize: IOByteCount) -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFDeviceGetForceFeedbackProperty(rawDevice, property, value, valueSize))
+		let iErr = ForceFeedbackResult.fromHResult(FFDeviceGetForceFeedbackProperty(rawDevice, property, value, valueSize))
+		lastReturnValue = iErr
+		return iErr
 	}
 	
 	deinit {
@@ -892,132 +918,96 @@ public class ForceFeedbackEffect {
 		}
 	}
 	
-	// E559C460-C5CD-11D6-8A1C-00039353BD00
-	/*!
-	@defined ConstantForce
-	@discussion UUID for a constant force effect type
- */
+	/// E559C460-C5CD-11D6-8A1C-00039353BD00
+	/// UUID for a constant force effect type
 	public class var ConstantForce: CFUUID {
 		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x60, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	}
 	
-	// E559C461-C5CD-11D6-8A1C-00039353BD00
-	/*!
-	@defined RampForce
-	@discussion UUID for a ramp force effect type
- */
+	/// E559C461-C5CD-11D6-8A1C-00039353BD00
+	/// UUID for a ramp force effect type
 	public class var RampForce: CFUUID {
 		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x61, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	}
 	
-	// E559C462-C5CD-11D6-8A1C-00039353BD00
-	/*!
-	@defined Square
-	@discussion UUID for a square wave effect type
- */
+	/// E559C462-C5CD-11D6-8A1C-00039353BD00
+	/// UUID for a square wave effect type
 	public class var Square: CFUUID {
 		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x62, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	}
 	
-	// E559C463-C5CD-11D6-8A1C-00039353BD00
-	/*!
-	@defined Sine
-	@discussion UUID for a sine wave effect type
- */
+	/// E559C463-C5CD-11D6-8A1C-00039353BD00
+	/// UUID for a sine wave effect type
 	public class var Sine: CFUUID {
 		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x63, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	}
 	
-	// E559C464-C5CD-11D6-8A1C-00039353BD00
-	/*!
-	@defined Triangle
-	@discussion UUID for a triangle wave effect type
- */
+	/// E559C464-C5CD-11D6-8A1C-00039353BD00
+	/// UUID for a triangle wave effect type
 	public class var Triangle: CFUUID {
 		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x64, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	}
 	
-	// E559C465-C5CD-11D6-8A1C-00039353BD00
-	/*!
-	@defined SawtoothUp
-	@discussion UUID for a upwards sawtooth wave effect type
- */
+	/// E559C465-C5CD-11D6-8A1C-00039353BD00
+	/// UUID for a upwards sawtooth wave effect type
 	public class var SawtoothUp: CFUUID {
 		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x65, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	}
 	
-	// E559C466-C5CD-11D6-8A1C-00039353BD00
-	/*!
-	@defined SawtoothDown
-	@discussion UUID for a downwards sawtooth wave effect type
- */
+	/// E559C466-C5CD-11D6-8A1C-00039353BD00
+	/// UUID for a downwards sawtooth wave effect type
 	public class var SawtoothDown: CFUUID {
 		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x66, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	}
 	
-	// E559C467-C5CD-11D6-8A1C-00039353BD00
-	/*!
-	@defined Spring
-	@discussion UUID for a spring effect type
- */
+	/// E559C467-C5CD-11D6-8A1C-00039353BD00
+	/// UUID for a spring effect type
 	public class var Spring: CFUUID {
 		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x67, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	}
 	
-	// E559C468-C5CD-11D6-8A1C-00039353BD00
-	/*!
-	@defined Damper
-	@discussion UUID for a damper effect type
- */
+	/// E559C468-C5CD-11D6-8A1C-00039353BD00
+	/// UUID for a damper effect type
 	public class var Damper: CFUUID {
 		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x68, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	}
 	
-	// E559C469-C5CD-11D6-8A1C-00039353BD00
-	/*!
-	@defined Inertia
-	@discussion UUID for an inertia effect type
- */
+	/// E559C469-C5CD-11D6-8A1C-00039353BD00
+	/// UUID for an inertia effect type
 	public class var Inertia: CFUUID {
 		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x69, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	}
 	
-	// E559C46A-C5CD-11D6-8A1C-00039353BD00
-	/*!
-	@defined Friction
-	@discussion UUID for a friction effect type
- */
+	/// E559C46A-C5CD-11D6-8A1C-00039353BD00
+	/// UUID for a friction effect type
 	public class var Friction: CFUUID {
 		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x6A, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	}
 	
-	// E559C46B-C5CD-11D6-8A1C-00039353BD00
-	/*!
-	@defined CustomForce
-	@discussion UUID for a custom force effect type
- */
+	/// E559C46B-C5CD-11D6-8A1C-00039353BD00
+	/// UUID for a custom force effect type
 	public class var CustomForce: CFUUID {
 		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x6B, 0xC5, 0xCD, 0x11, 0xD6,

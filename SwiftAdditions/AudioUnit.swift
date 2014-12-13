@@ -222,7 +222,6 @@ public enum AudioComponentType {
 			
 		default:
 			return (0,0)
-			
 		}
 	}
 }
