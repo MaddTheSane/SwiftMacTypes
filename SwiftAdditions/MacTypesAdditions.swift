@@ -11,6 +11,23 @@ import Darwin.MacTypes
 #if os(OSX)
 import CoreServices
 #endif
+import CoreGraphics
+
+public func ==(lhs: NumVersion, rhs: NumVersion) -> Bool {
+	if lhs.nonRelRev != rhs.nonRelRev {
+		return false
+	}
+	if lhs.stage != rhs.stage {
+		return false
+	}
+	if lhs.minorAndBugRev != rhs.minorAndBugRev {
+		return false
+	}
+	if lhs.majorRev != rhs.majorRev {
+		return false
+	}
+	return true
+}
 
 #if os(OSX)
 	public func OSTypeToString(theType: OSType) -> String? {
@@ -287,7 +304,7 @@ extension Boolean : BooleanLiteralConvertible, BooleanType {
 	}
 }
 
-extension NumVersion: Printable {
+extension NumVersion: Printable, Equatable {
 	public init(_ version: UInt32) {
 		// FIXME: endian issues?
 		nonRelRev = UInt8((version >> 0) & 0xFF)
@@ -356,6 +373,49 @@ extension NumVersion: Printable {
 		}
 		let blankStr = ""
 		return "\(majorRev).\(minorRev).\(bugRev) \(ourStrStage)\(nonRelRev == 0 ? blankStr : nonRelRev.description)"
+	}
+}
+
+private func FixedToFloat(aFixed: Fixed) -> Float {
+	let fixed1: Fixed = 0x00010000
+	let ffixed1 = Float(fixed1)
+	let faFixed = Float(aFixed)
+	return faFixed / ffixed1
+}
+
+private func FixedToDouble(aFixed: Fixed) -> Double {
+	let fixed1: Fixed = 0x00010000
+	let ffixed1 = Double(fixed1)
+	let faFixed = Double(aFixed)
+	return faFixed / ffixed1
+}
+
+private func FixedToCGFloat(aFixed: Fixed) -> CGFloat {
+	let fixed1: Fixed = 0x00010000
+	let ffixed1 = CGFloat(fixed1)
+	let faFixed = CGFloat(aFixed)
+	return faFixed / ffixed1
+}
+
+extension CGRect {
+	public init(CarbonRect rect: Rect) {
+		self.init(x: Int(rect.left), y: Int(rect.top), width: Int(rect.right - rect.left), height: Int(rect.bottom - rect.top))
+	}
+	
+	public init(CarbonFixedRect rect: FixedRect) {
+		let floatLeft = FixedToCGFloat(rect.left)
+		let floatTop = FixedToCGFloat(rect.top)
+		self.init(x: floatLeft, y: floatTop, width: FixedToCGFloat(rect.right) - floatLeft, height: FixedToCGFloat(rect.bottom) - floatTop)
+	}
+}
+
+extension CGPoint {
+	public init(CarbonPoint point: Point) {
+		self.init(x: Int(point.v), y: Int(point.h))
+	}
+	
+	public init(CarbonFixedPoint fixedPoint: FixedPoint) {
+		self.init(x: FixedToCGFloat(fixedPoint.x), y: FixedToCGFloat(fixedPoint.y))
 	}
 }
 
