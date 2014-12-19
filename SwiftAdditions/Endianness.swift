@@ -28,9 +28,9 @@ private func GetCurrentByteOrder() -> ByteOrder {
 }
 
 /// The current byte-order of the machine
-public let CurrentByteOrder = GetCurrentByteOrder()
+public let currentByteOrder = GetCurrentByteOrder()
 
 /// Is the byte-order little-endian?
-public let isLittleEndian = CurrentByteOrder == .Little
+public let isLittleEndian = currentByteOrder == .Little
 /// Is the byte-order big-endian?
-public let isBigEndian = CurrentByteOrder == .Big
+public let isBigEndian = currentByteOrder == .Big
