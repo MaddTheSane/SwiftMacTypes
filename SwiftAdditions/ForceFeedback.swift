@@ -411,7 +411,7 @@ extension FFEFFESCAPE {
 		cbOutBuffer = 0
 	}
 	
-	public var inBuffer: (size: UInt32, data: UnsafeMutablePointer<Void>) {
+	public var bufferIn: (size: UInt32, data: UnsafeMutablePointer<Void>) {
 		get {
 			return (cbInBuffer, lpvInBuffer)
 		}
@@ -421,7 +421,7 @@ extension FFEFFESCAPE {
 		}
 	}
 	
-	public var outBuffer: (size: UInt32, data: UnsafeMutablePointer<Void>) {
+	public var bufferOut: (size: UInt32, data: UnsafeMutablePointer<Void>) {
 		get {
 			return (cbOutBuffer, lpvOutBuffer)
 		}
@@ -515,14 +515,14 @@ extension FFCAPABILITIES {
 }
 	
 public struct ForceFeedbackCommand : RawOptionSetType {
-	public typealias RawValue = UInt32
-	private var value: RawValue = 0
-	public init(_ value: RawValue) { self.value = value }
-	public init(rawValue value: RawValue) { self.value = value }
+	typealias RawValue = UInt32
+	private var value: UInt32 = 0
+	public init(_ value: UInt32) { self.value = value }
+	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackCommand { return self(0) }
-	public static func fromMask(raw: RawValue) -> ForceFeedbackCommand { return self(raw) }
-	public var rawValue: RawValue { return self.value }
+	public static func fromMask(raw: UInt32) -> ForceFeedbackCommand { return self(raw) }
+	public var rawValue: UInt32 { return self.value }
 	
 	public static var Reset: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 0) }
 	public static var StopAll: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 1) }
@@ -533,14 +533,14 @@ public struct ForceFeedbackCommand : RawOptionSetType {
 }
 
 public struct ForceFeedbackCooperativeLevel : RawOptionSetType {
-	public typealias RawValue = UInt32
-	private var value: RawValue = 0
-	public init(_ value: RawValue) { self.value = value }
-	public init(rawValue value: RawValue) { self.value = value }
+	typealias RawValue = UInt32
+	private var value: UInt32 = 0
+	public init(_ value: UInt32) { self.value = value }
+	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackCooperativeLevel { return self(0) }
-	public static func fromMask(raw: RawValue) -> ForceFeedbackCooperativeLevel { return self(raw) }
-	public var rawValue: RawValue { return self.value }
+	public static func fromMask(raw: UInt32) -> ForceFeedbackCooperativeLevel { return self(raw) }
+	public var rawValue: UInt32 { return self.value }
 	
 	public static var Exclusive: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 0) }
 	public static var NonExclusive: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 1) }
@@ -550,13 +550,13 @@ public struct ForceFeedbackCooperativeLevel : RawOptionSetType {
 
 public struct ForceFeedbackCapabilitiesEffectType : RawOptionSetType {
 	public typealias RawValue = UInt32
-	private var value: RawValue = 0
-	public init(_ value: RawValue) { self.value = value }
-	public init(rawValue value: RawValue) { self.value = value }
+	private var value: UInt32 = 0
+	public init(_ value: UInt32) { self.value = value }
+	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackCapabilitiesEffectType { return self(0) }
-	public static func fromMask(raw: RawValue) -> ForceFeedbackCapabilitiesEffectType { return self(raw) }
-	public var rawValue: RawValue { return self.value }
+	public static func fromMask(raw: UInt32) -> ForceFeedbackCapabilitiesEffectType { return self(raw) }
+	public var rawValue: UInt32 { return self.value }
 	
 	public static var ConstantForce: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 0) }
 	public static var RampForce: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 1) }
@@ -573,28 +573,28 @@ public struct ForceFeedbackCapabilitiesEffectType : RawOptionSetType {
 }
 
 public struct ForceFeedbackCapabilitiesEffectSubType : RawOptionSetType {
-	public typealias RawValue = UInt32
-	private var value: RawValue = 0
-	public init(_ value: RawValue) { self.value = value }
-	public init(rawValue value: RawValue) { self.value = value }
+	typealias RawValue = UInt32
+	private var value: UInt32 = 0
+	public init(_ value: UInt32) { self.value = value }
+	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackCapabilitiesEffectSubType { return self(0) }
-	public static func fromMask(raw: RawValue) -> ForceFeedbackCapabilitiesEffectSubType { return self(raw) }
-	public var rawValue: RawValue { return self.value }
+	public static func fromMask(raw: UInt32) -> ForceFeedbackCapabilitiesEffectSubType { return self(raw) }
+	public var rawValue: UInt32 { return self.value }
 	
 	public static var Kinesthetic: ForceFeedbackCapabilitiesEffectSubType { return ForceFeedbackCapabilitiesEffectSubType(1 << 0) }
 	public static var Vibration: ForceFeedbackCapabilitiesEffectSubType { return ForceFeedbackCapabilitiesEffectSubType(1 << 1) }
 }
 
 public struct ForceFeedbackCoordinateSystem : RawOptionSetType {
-	public typealias RawValue = UInt32
-	private var value: RawValue = 0
-	public init(_ value: RawValue) { self.value = value }
-	public init(rawValue value: RawValue) { self.value = value }
+	typealias RawValue = UInt32
+	private var value: UInt32 = 0
+	public init(_ value: UInt32) { self.value = value }
+	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackCoordinateSystem { return self(0) }
-	public static func fromMask(raw: RawValue) -> ForceFeedbackCoordinateSystem { return self(raw) }
-	public var rawValue: RawValue { return self.value }
+	public static func fromMask(raw: UInt32) -> ForceFeedbackCoordinateSystem { return self(raw) }
+	public var rawValue: UInt32 { return self.value }
 	
 	public static var Cartesian: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x10) }
 	public static var Polar: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x20) }
@@ -602,14 +602,14 @@ public struct ForceFeedbackCoordinateSystem : RawOptionSetType {
 }
 
 public struct ForceFeedbackEffectParameter : RawOptionSetType {
-	public typealias RawValue = UInt32
-	private var value: RawValue = 0
-	public init(_ value: RawValue) { self.value = value }
-	public init(rawValue value: RawValue) { self.value = value }
+	typealias RawValue = UInt32
+	private var value: UInt32 = 0
+	public init(_ value: UInt32) { self.value = value }
+	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackEffectParameter { return self(0) }
-	public static func fromMask(raw: RawValue) -> ForceFeedbackEffectParameter { return self(raw) }
-	public var rawValue: RawValue { return self.value }
+	public static func fromMask(raw: UInt32) -> ForceFeedbackEffectParameter { return self(raw) }
+	public var rawValue: UInt32 { return self.value }
 	
 	public static var Duration: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 0) }
 	public static var SamplePeriod: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 1) }
@@ -631,14 +631,14 @@ public struct ForceFeedbackEffectParameter : RawOptionSetType {
 }
 
 public struct ForceFeedbackEffectStatus : RawOptionSetType {
-	public typealias RawValue = UInt32
-	private var value: RawValue = 0
-	public init(_ value: RawValue) { self.value = value }
-	public init(rawValue value: RawValue) { self.value = value }
+	typealias RawValue = UInt32
+	private var value: UInt32 = 0
+	public init(_ value: UInt32) { self.value = value }
+	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackEffectStatus { return self(0) }
-	public static func fromMask(raw: RawValue) -> ForceFeedbackEffectStatus { return self(raw) }
-	public var rawValue: RawValue { return self.value }
+	public static func fromMask(raw: UInt32) -> ForceFeedbackEffectStatus { return self(raw) }
+	public var rawValue: UInt32 { return self.value }
 	
 	public static var NotPlaying: ForceFeedbackEffectStatus { return self(0) }
 	public static var Playing: ForceFeedbackEffectStatus { return ForceFeedbackEffectStatus(1 << 0) }
@@ -655,14 +655,14 @@ public class ForceFeedbackDevice {
 	}
 	
 	public struct State : RawOptionSetType {
-		public typealias RawValue = UInt32
-		private var value: RawValue = 0
-		public init(_ value: RawValue) { self.value = value }
-		public init(rawValue value: RawValue) { self.value = value }
+		typealias RawValue = UInt32
+		private var value: UInt32 = 0
+		public init(_ value: UInt32) { self.value = value }
+		public init(rawValue value: UInt32) { self.value = value }
 		public init(nilLiteral: ()) { self.value = 0 }
 		public static var allZeros: State { return self(0) }
-		public static func fromMask(raw: RawValue) -> State { return self(raw) }
-		public var rawValue: RawValue { return self.value }
+		public static func fromMask(raw: UInt32) -> State { return self(raw) }
+		public var rawValue: UInt32 { return self.value }
 		
 		public static var Empty: State { return State(1 << 0) }
 		public static var Stopped: State { return State(1 << 1) }
@@ -850,14 +850,14 @@ public class ForceFeedbackEffect {
 	public unowned let deviceReference: ForceFeedbackDevice
 	
 	public struct EffectStart : RawOptionSetType {
-		public typealias RawValue = UInt32
-		private var value: RawValue = 0
-		public init(_ value: RawValue) { self.value = value }
-		public init(rawValue value: RawValue) { self.value = value }
+		typealias RawValue = UInt32
+		private var value: UInt32 = 0
+		public init(_ value: UInt32) { self.value = value }
+		public init(rawValue value: UInt32) { self.value = value }
 		public init(nilLiteral: ()) { self.value = 0 }
 		public static var allZeros: EffectStart { return self(0) }
-		public static func fromMask(raw: RawValue) -> EffectStart { return self(raw) }
-		public var rawValue: RawValue { return self.value }
+		public static func fromMask(raw: UInt32) -> EffectStart { return self(raw) }
+		public var rawValue: UInt32 { return self.value }
 		
 		public static var Solo: EffectStart { return EffectStart(0x01) }
 		public static var NoDownload: EffectStart { return EffectStart(0x80000000) }
