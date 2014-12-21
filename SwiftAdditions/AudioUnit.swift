@@ -121,7 +121,7 @@ public enum AudioComponentType {
 	public enum AUOutput: OSType {
 		case Generic = 0x67656E72
 		case HAL = 0x6168616C
-		case Default = 64656620
+		case Default = 0x64656620
 		case System = 0x73797320
 		case VoiceProcessingIO = 0x7670696F
 	}
