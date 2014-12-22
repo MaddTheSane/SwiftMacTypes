@@ -131,6 +131,20 @@ extension CGRect {
 	#endif
 }
 
+extension NSUUID {
+	public convenience init!(_ cfUUID: CFUUID) {
+		let tmpStr: String = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)!
+		
+		self.init(UUIDString: tmpStr)
+	}
+	
+	public var cfUUID: CFUUID {
+		let tmpStr = self.UUIDString
+		
+		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr)
+	}
+}
+
 #if os(OSX)
 extension NSEdgeInsets: Equatable {
 	#if false
