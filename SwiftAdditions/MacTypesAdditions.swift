@@ -29,20 +29,14 @@ public func ==(lhs: NumVersion, rhs: NumVersion) -> Bool {
 	return true
 }
 
-#if os(OSX)
-	public func OSTypeToString(theType: OSType) -> String? {
+public func OSTypeToString(theType: OSType) -> String? {
+	#if os(OSX)
 		if let toRet = UTCreateStringForOSType(theType) {
 			return toRet.takeRetainedValue()
 		} else {
 			return nil
 		}
-	}
-	
-	public func StringToOSType(theString: String) -> OSType {
-		return UTGetOSTypeFromString(theString)
-	}
-#else
-	public func OSTypeToString(theType: OSType) -> String? {
+		#else
 		func OSType2Ptr(type: OSType) -> [CChar] {
 			var ourOSType = [Int8](count: 5, repeatedValue: 0)
 			var intType = type.bigEndian
@@ -50,12 +44,32 @@ public func ==(lhs: NumVersion, rhs: NumVersion) -> Bool {
 			
 			return ourOSType
 		}
-	
+		
 		let ourOSType = OSType2Ptr(theType)
 		return NSString(bytes: ourOSType, length: 4, encoding: NSMacOSRomanStringEncoding);
+	#endif
+}
+
+public func OSTypeToString(theType: OSType, useHexIfInvalid: ()) -> String {
+	if let ourStr = OSTypeToString(theType) {
+		return ourStr
+	} else {
+		return NSString(format: "0x%08X", theType)
 	}
-	
-	public func StringToOSType(theString: String) -> OSType {
+}
+
+public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType {
+	let elementsCount = countElements(theString)
+	if elementsCount > 4 && detectHex {
+		let aScann = NSScanner(string: theString)
+		var tmpnum: UInt32 = 0
+		if aScann.scanHexInt(&tmpnum) {
+			return tmpnum
+		}
+	}
+	#if os(OSX)
+		return UTGetOSTypeFromString(theString)
+		#else
 		func Ptr2OSType(str: [CChar]) -> OSType {
 			var type: OSType = 0x20202020 // four spaces. Can't really be represented the same way as it is in C
 			var i = countElements(str) - 1
@@ -75,7 +89,7 @@ public func ==(lhs: NumVersion, rhs: NumVersion) -> Bool {
 		} else if ourLen == 0 {
 			return 0
 		}
-	
+		
 		let aData = anNSStr.cStringUsingEncoding(NSMacOSRomanStringEncoding)
 		
 		for i in 0 ..< ourLen {
@@ -83,8 +97,8 @@ public func ==(lhs: NumVersion, rhs: NumVersion) -> Bool {
 		}
 		
 		return Ptr2OSType(ourOSType)
-	}
-#endif
+	#endif
+}
 
 public var CurrentCFMacStringEncoding: CFStringEncoding {
 	return CFStringGetMostCompatibleMacStringEncoding(CFStringGetSystemEncoding())
