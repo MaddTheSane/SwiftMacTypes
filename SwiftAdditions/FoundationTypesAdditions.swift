@@ -160,3 +160,14 @@ public func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
 	return NSEdgeInsetsEqual(rhs, lhs)
 }
 #endif
+
+extension NSUserDefaults {
+	public subscript(key: String) -> AnyObject? {
+		get {
+			return objectForKey(key)
+		}
+		set {
+			setObject(newValue, forKey: key)
+		}
+	}
+}
