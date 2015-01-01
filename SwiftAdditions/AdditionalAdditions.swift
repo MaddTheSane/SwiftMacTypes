@@ -43,3 +43,11 @@ public func RunOnMainThreadSync(block: dispatch_block_t) {
 		dispatch_sync(dispatch_get_main_queue(), block)
 	}
 }
+
+// Code taken from http://stackoverflow.com/a/24052094/1975001
+public func +=<K, V> (inout left: Dictionary<K, V>, right: Dictionary<K, V>) -> Dictionary<K, V> {
+	for (k, v) in right {
+		left.updateValue(v, forKey: k)
+	}
+	return left
+}
