@@ -64,7 +64,7 @@ public func AudioFileCreate(#path: String, fileType inFileType: AudioFileType, i
 }
 
 public func AudioFileOpen(URL inFileRef: NSURL, #permissions: Int8, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
-	return AudioFileOpenURL(inFileRef, permissions, fileTypeHint != nil ? fileTypeHint!.rawValue : 0, &outAudioFile)
+	return AudioFileOpenURL(inFileRef, permissions, fileTypeHint?.rawValue ?? 0, &outAudioFile)
 }
 
 public func AudioFileOpen(#path: String, #permissions: Int8, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {

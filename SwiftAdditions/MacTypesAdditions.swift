@@ -210,11 +210,6 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	/// Convenience initializer, passing a ConstStringPtr (or UnsafePointer<UInt8>).
-	public init?(_ pStr: ConstStringPtr) {
-		self.init(pascalString: pStr)
-	}
-
 	/// Convenience initializer, passing a Str255 (or a tuple with 256(!) UInt8s)
 	public init?(_ pStr: Str255) {
 		self.init(pascalString: pStr)
