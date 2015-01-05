@@ -295,9 +295,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55706DA61A1EC2450000FD93 /* Build configuration list for PBXNativeTarget "SwiftIOKitAdditions" */;
 			buildPhases = (
+				55706D8C1A1EC2440000FD93 /* Headers */,
 				55706D8A1A1EC2440000FD93 /* Sources */,
 				55706D8B1A1EC2440000FD93 /* Frameworks */,
-				55706D8C1A1EC2440000FD93 /* Headers */,
 				55706D8D1A1EC2440000FD93 /* Resources */,
 			);
 			buildRules = (
