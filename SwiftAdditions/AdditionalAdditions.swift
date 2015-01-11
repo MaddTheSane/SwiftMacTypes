@@ -54,14 +54,14 @@ public func +=<K, V> (inout left: Dictionary<K, V>, right: Dictionary<K, V>) -> 
 
 extension Array {
 	// Code taken from http://stackoverflow.com/a/26174259/1975001
-	mutating func removeAtIndexes(indexes: NSIndexSet) {
+	public mutating func removeAtIndexes(indexes: NSIndexSet) {
 		for var i = indexes.lastIndex; i != NSNotFound; i = indexes.indexLessThanIndex(i) {
 			self.removeAtIndex(i)
 		}
 	}
 	
 	// Code taken from http://stackoverflow.com/a/26308410/1975001
-	mutating func removeAtIndexes (ixs:[Int]) -> () {
+	public mutating func removeAtIndexes(ixs:[Int]) {
 		for i in ixs.sorted(>) {
 			self.removeAtIndex(i)
 		}
