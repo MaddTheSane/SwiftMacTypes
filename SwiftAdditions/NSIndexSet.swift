@@ -12,6 +12,7 @@ public struct IndexSetGenerator: GeneratorType {
 	private var intIndexSet: NSIndexSet
 	private var index: Int
 	init(indexSet: NSIndexSet) {
+		//Just in case we get sent a mutable index set.
 		intIndexSet = NSIndexSet(indexSet: indexSet)
 		index = intIndexSet.firstIndex
 	}
