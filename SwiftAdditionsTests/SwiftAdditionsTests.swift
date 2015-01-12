@@ -11,16 +11,16 @@ import XCTest
 import SwiftAdditions
 
 class SwiftAdditionsTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
+	
+	override func setUp() {
+		super.setUp()
+		// Put setup code here. This method is called before the invocation of each test method in the class.
+	}
+	
+	override func tearDown() {
+		// Put teardown code here. This method is called after the invocation of each test method in the class.
+		super.tearDown()
+	}
 	
 	func testByteOrder() {
 		let bo = Int(OSHostByteOrder())
@@ -52,7 +52,7 @@ class SwiftAdditionsTests: XCTestCase {
 		idxSet.addIndex(200)
 		idxSet.addIndex(10)
 		idxSet.addIndex(5)
-
+		
 		for i in idxSet {
 			intTest.append(i)
 		}

@@ -52,27 +52,36 @@ public func +=<K, V> (inout left: Dictionary<K, V>, right: Dictionary<K, V>) -> 
 	return left
 }
 
-public func RemoveObjects<T>(inout anArray: Array<T>, atIndexes indexes: NSIndexSet) {
-	anArray.removeAtIndexes(indexes)
+/// Removes objects in an array that are in the specified NSIndexSet
+/// Returns objects that were removed
+public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
+	return anArray.removeAtIndexes(indexes)
 }
 
-public func RemoveObjects<T>(inout anArray: Array<T>, atIndexes indexes: [Int]) {
-	anArray.removeAtIndexes(indexes)
+/// Removes objects in an array that are in the specified integer array
+/// Returns objects that were removed
+public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: [Int]) -> [T] {
+	return anArray.removeAtIndexes(indexes)
 }
 
 
 extension Array {
 	// Code taken from http://stackoverflow.com/a/26174259/1975001
-	mutating func removeAtIndexes(indexes: NSIndexSet) {
+	mutating func removeAtIndexes(indexes: NSIndexSet) -> [T] {
+		var toRet = [T]()
 		for var i = indexes.lastIndex; i != NSNotFound; i = indexes.indexLessThanIndex(i) {
-			self.removeAtIndex(i)
+			toRet.append(self.removeAtIndex(i))
 		}
+		
+		return toRet
 	}
 	
 	// Code taken from http://stackoverflow.com/a/26308410/1975001
-	mutating func removeAtIndexes(ixs:[Int]) {
+	mutating func removeAtIndexes(ixs:[Int]) -> [T] {
+		var toRet = [T]()
 		for i in ixs.sorted(>) {
-			self.removeAtIndex(i)
+			toRet.append(self.removeAtIndex(i))
 		}
+		return toRet
 	}
 }
