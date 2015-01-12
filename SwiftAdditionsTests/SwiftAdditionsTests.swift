@@ -8,6 +8,7 @@
 
 import Cocoa
 import XCTest
+import SwiftAdditions
 
 class SwiftAdditionsTests: XCTestCase {
     
@@ -20,17 +21,40 @@ class SwiftAdditionsTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
+	
+	func testByteOrder() {
+		let bo = Int(OSHostByteOrder())
+		var inferredBo: Int
+		
+		switch currentByteOrder {
+		case .Big:
+			inferredBo = OSBigEndian
+			break
+			
+		case .Little:
+			inferredBo = OSLittleEndian
+			break
+			
+		case .Unknown:
+			inferredBo = OSUnknownByteOrder
+			break
+		}
+		XCTAssert(inferredBo == bo)
+	}
+	
+	func testIndexSetGenerator() {
+		var intTest = [Int]()
+		
+		let idxSet = NSMutableIndexSet(indexesInRange: NSRange(1..<8))
+		
+		idxSet.addIndex(100)
+		idxSet.addIndex(80)
+		idxSet.addIndex(200)
+		idxSet.addIndex(10)
+		idxSet.addIndex(5)
+
+		for i in idxSet {
+			intTest.append(i)
+		}
+	}
 }
