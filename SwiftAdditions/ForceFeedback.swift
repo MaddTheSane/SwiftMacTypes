@@ -673,19 +673,19 @@ public class ForceFeedbackDevice {
 		public static var DeviceLost: State { return State(0x80000000) }
 	}
 	
-	public class var Infinite: UInt32 {
+	public class var infinite: UInt32 {
 		return 0xFFFFFFFF
 	}
 	
-	public class var Degrees: Int {
+	public class var degrees: Int {
 		return 100
 	}
 	
-	public class var NominalMax: Int {
+	public class var nominalMax: Int {
 		return 10000
 	}
 	
-	private class var Seconds: Int {
+	public class var seconds: Int {
 		return 1000000
 	}
 	
