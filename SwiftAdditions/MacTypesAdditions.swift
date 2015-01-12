@@ -50,7 +50,7 @@ public func OSTypeToString(theType: OSType) -> String? {
 	#endif
 }
 
-public func OSTypeToString(theType: OSType, useHexIfInvalid: ()) -> String {
+public func OSTypeToString(theType: OSType, #useHexIfInvalid: ()) -> String {
 	if let ourStr = OSTypeToString(theType) {
 		return ourStr
 	} else {
@@ -248,7 +248,7 @@ extension String {
 
 extension OSType: StringLiteralConvertible {
 	public init(_ toInit: String) {
-		self = StringToOSType(toInit)
+		self = StringToOSType(toInit, detectHex: true)
 	}
 	
 	public init(unicodeScalarLiteral usl: String) {
@@ -262,15 +262,15 @@ extension OSType: StringLiteralConvertible {
 	}
 	
 	public init(stringLiteral toInit: String) {
-		self = StringToOSType(toInit)
+		self.init(toInit)
 	}
 	
 	public init(_ toInit: (Int8, Int8, Int8, Int8, Int8)) {
 		self = OSType((toInit.0, toInit.1, toInit.2, toInit.3))
 	}
 	
-	public var stringValue: String? {
-		return OSTypeToString(self)
+	public var stringValue: String {
+		return OSTypeToString(self, useHexIfInvalid: ())
 	}
 	
 	public init(_ toInit: (Int8, Int8, Int8, Int8)) {
@@ -430,6 +430,7 @@ extension CGPoint {
 
 #if os(OSX)
 extension String {
+	/// HFSUniStr255 is declared internally on OS X, but not on iOS
 	public init(HFSUniStr: HFSUniStr255) {
 		let uniStr: [UInt16] = GetArrayFromMirror(reflect(HFSUniStr.unicode))!
 		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding)!

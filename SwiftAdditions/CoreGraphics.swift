@@ -15,7 +15,7 @@ extension CGBitmapInfo {
 		return CGImageAlphaInfo(rawValue: tmpInfo.rawValue)
 	}
 	
-	public init(alphaInfo: CGImageAlphaInfo, additionalInfo: CGBitmapInfo = CGBitmapInfo(0)) {
+	public init(alphaInfo: CGImageAlphaInfo, additionalInfo: CGBitmapInfo = nil) {
 		let ordValue = alphaInfo.rawValue | additionalInfo.rawValue
 		self = CGBitmapInfo(rawValue: ordValue)
 	}

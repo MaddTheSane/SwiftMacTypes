@@ -235,6 +235,13 @@ extension AudioComponentDescription {
 		componentFlagsMask = 0
 	}
 	
+	public init(component: AudioComponentType) {
+		(componentType, componentSubType) = component.types
+		componentManufacturer = AudioUnitManufacturer_Apple
+		componentFlags = 0
+		componentFlagsMask = 0
+	}
+	
 	public var flag: AudioComponentFlag {
 		get {
 			return AudioComponentFlag(componentFlags)
@@ -249,9 +256,7 @@ extension AudioComponentDescription {
 			return AudioComponentType(AUType: componentType, AUSubtype: componentSubType)
 		}
 		set {
-			let aType = newValue.types
-			componentType = aType.AUType
-			componentSubType = aType.AUSubtype
+			(componentType, componentSubType) = newValue.types
 		}
 	}
 }
