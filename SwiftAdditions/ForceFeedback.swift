@@ -178,8 +178,7 @@ extension FFEFFECT {
 			return (cbTypeSpecificParams, lpvTypeSpecificParams)
 		}
 		set {
-			cbTypeSpecificParams = newValue.size
-			lpvTypeSpecificParams = newValue.value
+			(cbTypeSpecificParams, lpvTypeSpecificParams) = newValue
 		}
 	}
 	
@@ -192,14 +191,13 @@ extension FFEFFECT {
 		}
 	}
 	
-	//TODO: all axes values
-	var axes: UInt32 {
-		get {
-			return cAxes
+	public var axes: [UInt32] {
+		var retAxes = [UInt32]()
+		for i in 0..<cAxes {
+			retAxes.append(rgdwAxes[Int(i)])
 		}
-		set {
-			cAxes = newValue
-		}
+		
+		return retAxes
 	}
 	
 	public var startDelay: UInt32 {
@@ -291,8 +289,7 @@ extension FFCONDITION {
 			return (lPositiveCoefficient, lNegativeCoefficient)
 		}
 		set {
-			lPositiveCoefficient = newValue.positive
-			lNegativeCoefficient = newValue.negative
+			(lPositiveCoefficient, lNegativeCoefficient) = newValue
 		}
 	}
 	
@@ -301,8 +298,7 @@ extension FFCONDITION {
 			return (dwPositiveSaturation, dwNegativeSaturation)
 		}
 		set {
-			dwPositiveSaturation = newValue.positive
-			dwNegativeSaturation = newValue.negative
+			(dwPositiveSaturation, dwNegativeSaturation) = newValue
 		}
 	}
 	
@@ -416,8 +412,7 @@ extension FFEFFESCAPE {
 			return (cbInBuffer, lpvInBuffer)
 		}
 		set {
-			cbInBuffer = newValue.size
-			lpvInBuffer = newValue.data
+			(cbInBuffer, lpvInBuffer) = newValue
 		}
 	}
 	
@@ -426,8 +421,7 @@ extension FFEFFESCAPE {
 			return (cbOutBuffer, lpvOutBuffer)
 		}
 		set {
-			cbOutBuffer = newValue.size
-			lpvOutBuffer = newValue.data
+			(cbOutBuffer, lpvOutBuffer) = newValue
 		}
 	}
 	
@@ -1038,8 +1032,8 @@ public class ForceFeedbackEffect {
 		}
 	}
 	
-	public func start(iterations: Int = 1, flags: EffectStart = EffectStart.Solo) -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFEffectStart(rawEffect, UInt32(iterations), flags.rawValue))
+	public func start(iterations: UInt32 = 1, flags: EffectStart = EffectStart.Solo) -> ForceFeedbackResult {
+		return ForceFeedbackResult.fromHResult(FFEffectStart(rawEffect, iterations, flags.rawValue))
 	}
 	
 	public func stop() -> ForceFeedbackResult {
