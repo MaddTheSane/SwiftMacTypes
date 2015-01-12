@@ -52,16 +52,25 @@ public func +=<K, V> (inout left: Dictionary<K, V>, right: Dictionary<K, V>) -> 
 	return left
 }
 
+public func RemoveObjects<T>(inout anArray: Array<T>, atIndexes indexes: NSIndexSet) {
+	anArray.removeAtIndexes(indexes)
+}
+
+public func RemoveObjects<T>(inout anArray: Array<T>, atIndexes indexes: [Int]) {
+	anArray.removeAtIndexes(indexes)
+}
+
+
 extension Array {
 	// Code taken from http://stackoverflow.com/a/26174259/1975001
-	public mutating func removeAtIndexes(indexes: NSIndexSet) {
+	mutating func removeAtIndexes(indexes: NSIndexSet) {
 		for var i = indexes.lastIndex; i != NSNotFound; i = indexes.indexLessThanIndex(i) {
 			self.removeAtIndex(i)
 		}
 	}
 	
 	// Code taken from http://stackoverflow.com/a/26308410/1975001
-	public mutating func removeAtIndexes(ixs:[Int]) {
+	mutating func removeAtIndexes(ixs:[Int]) {
 		for i in ixs.sorted(>) {
 			self.removeAtIndex(i)
 		}
