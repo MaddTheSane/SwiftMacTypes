@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 C.W. Betts. All rights reserved.
 //
 
-import Foundation
+import CoreFoundation
+import Foundation.NSUUID
 
 public var IUnknownUUID: CFUUID {
 	return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSystemDefault,

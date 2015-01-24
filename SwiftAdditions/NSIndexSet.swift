@@ -9,7 +9,7 @@
 import Foundation
 
 public struct IndexSetGenerator: GeneratorType {
-	private var intIndexSet: NSIndexSet
+	private let intIndexSet: NSIndexSet
 	private var index: Int
 	init(indexSet: NSIndexSet) {
 		//Just in case we get sent a mutable index set.

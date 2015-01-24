@@ -131,11 +131,7 @@ extension String {
 		if CFEncoding == kCFStringEncodingInvalidId {
 			return nil
 		}
-		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, CFEncoding) {
-			self = theStr
-		} else {
-			return nil
-		}
+		self.init(pascalString: pStr, encoding: CFEncoding)
 	}
 	
 	public init?(pascalString pStr: Str255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
@@ -385,6 +381,7 @@ extension NumVersion: Printable, Equatable {
 	}
 }
 
+#if false
 private func FixedToFloat(aFixed: Fixed) -> Float {
 	let fixed1: Fixed = 0x00010000
 	let ffixed1 = Float(fixed1)
@@ -398,6 +395,7 @@ private func FixedToDouble(aFixed: Fixed) -> Double {
 	let faFixed = Double(aFixed)
 	return faFixed / ffixed1
 }
+#endif
 
 private func FixedToCGFloat(aFixed: Fixed) -> CGFloat {
 	let fixed1: Fixed = 0x00010000
@@ -436,4 +434,26 @@ extension String {
 		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding)!
 	}
 }
+	
+public enum CarbonToolbarIcons: OSType {
+	case Customize = 0x74637573
+	case Delete = 0x7464656C
+	case Favorite = 0x74666176
+	case Home = 0x74686F6D
+	case Advanced = 0x74626176
+	case Info = 0x7462696E
+	case Labels = 0x74626C62
+	case ApplicationFolder = 0x74417073
+	case DocumentsFolder = 0x74446F63
+	case MoviesFolder = 0x744D6F76
+	case MusicFolder = 0x744D7573
+	case PicturesFolder = 0x74506963
+	case PublicFolder = 0x74507562
+	case DesktopFolder = 0x7444736B
+	case DownloadsFolder = 0x7444776E
+	case LibraryFolder = 0x744C6962
+	case UtilitiesFolder = 0x7455746C
+	case SitesFolder = 0x74537473
+}
+
 #endif

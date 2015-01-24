@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 C.W. Betts. All rights reserved.
 //
 
-#if os(OSX)
 import CoreFoundation
 import Foundation
 import ForceFeedback
+import SwiftAdditions
 
 public enum ForceFeedbackResult: HRESULT {
 	case OK = 0
@@ -489,10 +489,8 @@ extension FFCAPABILITIES {
 	
 	public var axes: [UInt8] {
 		var axesArray: [UInt8] = GetArrayFromMirror(reflect(ffAxes))!
-		if Int(numFfAxes) < axesArray.count {
-			axesArray.removeRange(Int(numFfAxes)..<axesArray.count)
-		}
-		return axesArray
+		
+		return axesArray[0..<Int(numFfAxes)]
 	}
 	
 	public var supportedEffectTypes: ForceFeedbackCapabilitiesEffectType {
@@ -1058,4 +1056,3 @@ public class ForceFeedbackEffect {
 		}
 	}
 }
-#endif

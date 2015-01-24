@@ -45,11 +45,10 @@ public func RunOnMainThreadSync(block: dispatch_block_t) {
 }
 
 // Code taken from http://stackoverflow.com/a/24052094/1975001
-public func +=<K, V> (inout left: Dictionary<K, V>, right: Dictionary<K, V>) -> Dictionary<K, V> {
+public func +=<K, V> (inout left: Dictionary<K, V>, right: Dictionary<K, V>) {
 	for (k, v) in right {
 		left.updateValue(v, forKey: k)
 	}
-	return left
 }
 
 /// Removes objects in an array that are in the specified NSIndexSet
