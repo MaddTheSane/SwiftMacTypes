@@ -235,9 +235,9 @@ extension AudioComponentDescription {
 		componentFlagsMask = 0
 	}
 	
-	public init(component: AudioComponentType) {
+	public init(component: AudioComponentType, manufacturer: OSType = AudioUnitManufacturer_Apple) {
 		(componentType, componentSubType) = component.types
-		componentManufacturer = AudioUnitManufacturer_Apple
+		componentManufacturer = manufacturer
 		componentFlags = 0
 		componentFlagsMask = 0
 	}
