@@ -10,9 +10,19 @@ import Foundation
 import CoreGraphics
 
 extension CGBitmapInfo {
-	public var alphaInfo: CGImageAlphaInfo? {
-		let tmpInfo = self & .AlphaInfoMask
-		return CGImageAlphaInfo(rawValue: tmpInfo.rawValue)
+	public var alphaInfo: CGImageAlphaInfo {
+		get {
+			let tmpInfo = self & .AlphaInfoMask
+			return CGImageAlphaInfo(rawValue: tmpInfo.rawValue) ?? .None
+		}
+		set {
+			let aRaw = newValue.rawValue
+			//Clear the alpha info
+			self &= ~CGBitmapInfo.AlphaInfoMask
+			let toMerge = CGBitmapInfo(rawValue: aRaw)
+			
+			self |= toMerge
+		}
 	}
 	
 	public init(alphaInfo: CGImageAlphaInfo, additionalInfo: CGBitmapInfo = nil) {
