@@ -20,6 +20,7 @@ extension NSRange: Equatable {
 		self = NSRangeFromString(string)
 	}
 	
+	/// is true if the location is equal to NSNotFound
 	public var notFound: Bool {
 		return location == NSNotFound
 	}
@@ -28,6 +29,7 @@ extension NSRange: Equatable {
 		return NSLocationInRange(loc, self)
 	}
 
+	/// The maximum range of an NSRange
 	public var max: Int {
 		return NSMaxRange(self)
 	}
@@ -159,6 +161,7 @@ extension NSUUID {
 		self.init(UUIDBytes: anotherUUID)
 	}
 	
+	/// gets a CoreFoundation UUID from the current UUID
 	public var cfUUID: CFUUID {
 		let tmpStr = self.UUIDString
 		

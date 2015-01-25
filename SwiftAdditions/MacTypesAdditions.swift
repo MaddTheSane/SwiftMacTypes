@@ -29,6 +29,7 @@ public func ==(lhs: NumVersion, rhs: NumVersion) -> Bool {
 	return true
 }
 
+/// Converts an OSType to a String value. May return nil
 public func OSTypeToString(theType: OSType) -> String? {
 	#if os(OSX)
 		if let toRet = UTCreateStringForOSType(theType) {
@@ -50,6 +51,7 @@ public func OSTypeToString(theType: OSType) -> String? {
 	#endif
 }
 
+/// Converts an OSType to a String value. May return a hexadecimal string.
 public func OSTypeToString(theType: OSType, #useHexIfInvalid: ()) -> String {
 	if let ourStr = OSTypeToString(theType) {
 		return ourStr
@@ -115,7 +117,7 @@ public var CurrentMacStringEncoding: NSStringEncoding {
 extension String {
 	/// The base initializer for the Pascal String types.
 	/// Gets passed a CFStringEncoding because the underlying function used to generate
-	/// strings uses that
+	/// strings uses that.
 	public init?(pascalString pStr: ConstStringPtr, encoding: CFStringEncoding) {
 		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding) {
 			self = theStr
@@ -126,6 +128,7 @@ extension String {
 	
 	/// The main initializer. Converts the encoding to a CFStringEncoding for use
 	/// in the base initializer.
+	/// The default encoding is NSMacOSRomanStringEncoding.
 	public init?(pascalString pStr: ConstStringPtr, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let CFEncoding = CFStringConvertNSStringEncodingToEncoding(encoding)
 		if CFEncoding == kCFStringEncodingInvalidId {
@@ -455,5 +458,4 @@ public enum CarbonToolbarIcons: OSType {
 	case UtilitiesFolder = 0x7455746C
 	case SitesFolder = 0x74537473
 }
-
 #endif

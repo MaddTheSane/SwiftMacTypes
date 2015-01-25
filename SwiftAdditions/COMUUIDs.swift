@@ -9,6 +9,7 @@
 import CoreFoundation
 import Foundation.NSUUID
 
+/// The IUnknown UUID used by COM APIs.
 public var IUnknownUUID: CFUUID {
 	return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSystemDefault,
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
