@@ -29,7 +29,7 @@ public func ==(lhs: NumVersion, rhs: NumVersion) -> Bool {
 	return true
 }
 
-/// Converts an OSType to a String value. May return nil
+/// Converts an OSType to a String value. May return nil.
 public func OSTypeToString(theType: OSType) -> String? {
 	#if os(OSX)
 		if let toRet = UTCreateStringForOSType(theType) {
@@ -60,9 +60,10 @@ public func OSTypeToString(theType: OSType, #useHexIfInvalid: ()) -> String {
 	}
 }
 
+/// Converts a string value to an OSType, truncating to the first four characters.
 public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType {
 	let elementsCount = countElements(theString)
-	if elementsCount > 4 && detectHex {
+	if detectHex && elementsCount > 4 {
 		let aScann = NSScanner(string: theString)
 		var tmpnum: UInt32 = 0
 		if aScann.scanHexInt(&tmpnum) {
@@ -268,6 +269,8 @@ extension OSType: StringLiteralConvertible {
 		self = OSType((toInit.0, toInit.1, toInit.2, toInit.3))
 	}
 	
+	/// Returns a string representation of the OSType.
+	/// It may be encoded as a hexadecimal string.
 	public var stringValue: String {
 		return OSTypeToString(self, useHexIfInvalid: ())
 	}
@@ -280,6 +283,7 @@ extension OSType: StringLiteralConvertible {
 		self = OSType((val0 << 24) | (val1 << 16) | (val2 << 8) | (val3))
 	}
 	
+	/// Returns a tuple with four values
 	public func toFourChar() -> (Int8, Int8, Int8, Int8) {
 		let var1 = (self >> 24) & 0xFF
 		let var2 = (self >> 16) & 0xFF
@@ -288,6 +292,7 @@ extension OSType: StringLiteralConvertible {
 		return (Int8(var1), Int8(var2), Int8(var3), Int8(var4))
 	}
 	
+	/// Returns a tuple with five values, the last one being zero
 	public func toFourChar() -> (Int8, Int8, Int8, Int8, Int8) {
 		let outVar: (Int8, Int8, Int8, Int8) = toFourChar()
 		return (outVar.0, outVar.1, outVar.2, outVar.3, 0)
@@ -295,6 +300,7 @@ extension OSType: StringLiteralConvertible {
 }
 
 extension Boolean : BooleanLiteralConvertible, BooleanType {
+	///Sets the value to 1 if true, otherwise 0.
 	public init(booleanLiteral v : Bool) {
 		if v.boolValue {
 			self = 1
@@ -303,6 +309,7 @@ extension Boolean : BooleanLiteralConvertible, BooleanType {
 		}
 	}
 	
+	/// Returns true if the value is non-zero
 	public var boolValue: Bool {
 		if (self == 0) {
 			return false
