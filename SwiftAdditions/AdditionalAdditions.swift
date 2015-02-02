@@ -51,6 +51,19 @@ public func +=<K, V> (inout left: Dictionary<K, V>, right: Dictionary<K, V>) {
 	}
 }
 
+public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>)
+	-> Dictionary<K,V>
+{
+	var map = Dictionary<K,V>()
+	for (k, v) in left {
+		map[k] = v
+	}
+	for (k, v) in right {
+		map[k] = v
+	}
+	return map
+}
+
 /// Removes objects in an array that are in the specified NSIndexSet
 /// Returns objects that were removed
 public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
