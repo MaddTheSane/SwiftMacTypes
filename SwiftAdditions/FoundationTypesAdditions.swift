@@ -16,7 +16,7 @@ public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
 }
 
 extension NSRange: Equatable {
-	public static var notFoundRange: NSRange {
+	public static var notFound: NSRange {
 		return NSRange(location: NSNotFound, length: 0)
 	}
 	
