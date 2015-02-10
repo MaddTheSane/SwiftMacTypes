@@ -12,7 +12,6 @@
 		550FBACE19A7ADC500EFBD3D /* SwiftAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */; };
 		550FBADA19A7AE6F00EFBD3D /* FoundationTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */; };
 		5523029F1A6061DB0059254F /* NSIndexSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5523029E1A6061DB0059254F /* NSIndexSet.swift */; };
-		552302A01A6061DB0059254F /* NSIndexSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5523029E1A6061DB0059254F /* NSIndexSet.swift */; };
 		553C2B9A1A0C4B0500700F83 /* AudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C2B991A0C4B0500700F83 /* AudioUnit.swift */; };
 		55403A061A745003007A488E /* ForceFeedbackAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55403A051A745003007A488E /* ForceFeedbackAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55403A0C1A745003007A488E /* ForceFeedbackAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55403A011A745003007A488E /* ForceFeedbackAdditions.framework */; };
@@ -605,7 +604,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				552302A01A6061DB0059254F /* NSIndexSet.swift in Sources */,
 				55706DA91A1EC2880000FD93 /* IOCFPlugInClass.swift in Sources */,
 				55706DB51A1ECAEB0000FD93 /* SAIOCOMHelpers.m in Sources */,
 				55DAF5931A337C91008281ED /* COMUUIDs.swift in Sources */,
