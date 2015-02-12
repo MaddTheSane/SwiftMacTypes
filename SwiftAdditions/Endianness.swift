@@ -31,6 +31,6 @@ private func GetCurrentByteOrder() -> ByteOrder {
 public let currentByteOrder = GetCurrentByteOrder()
 
 /// Is the byte-order little-endian?
-public var isLittleEndian: Bool {return currentByteOrder == .Little}
+public let isLittleEndian = currentByteOrder == .Little
 /// Is the byte-order big-endian?
-public var isBigEndian: Bool {return currentByteOrder == .Big}
+public let isBigEndian =  currentByteOrder == .Big
