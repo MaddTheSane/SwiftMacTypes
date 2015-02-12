@@ -13,6 +13,7 @@ import CoreServices
 #endif
 import CoreGraphics
 
+/*
 public func ==(lhs: NumVersion, rhs: NumVersion) -> Bool {
 	if lhs.nonRelRev != rhs.nonRelRev {
 		return false
@@ -28,12 +29,13 @@ public func ==(lhs: NumVersion, rhs: NumVersion) -> Bool {
 	}
 	return true
 }
+	*/
 
 /// Converts an OSType to a String value. May return nil.
 public func OSTypeToString(theType: OSType) -> String? {
 	#if os(OSX)
 		if let toRet = UTCreateStringForOSType(theType) {
-			return toRet.takeRetainedValue()
+			return toRet.takeRetainedValue() as String
 		} else {
 			return nil
 		}
@@ -47,7 +49,7 @@ public func OSTypeToString(theType: OSType) -> String? {
 		}
 		
 		let ourOSType = OSType2Ptr(theType)
-		return NSString(bytes: ourOSType, length: 4, encoding: NSMacOSRomanStringEncoding);
+		return NSString(bytes: ourOSType, length: 4, encoding: NSMacOSRomanStringEncoding) as? String
 	#endif
 }
 
@@ -56,13 +58,13 @@ public func OSTypeToString(theType: OSType, #useHexIfInvalid: ()) -> String {
 	if let ourStr = OSTypeToString(theType) {
 		return ourStr
 	} else {
-		return NSString(format: "0x%08X", theType)
+		return String(format: "0x%08X", theType)
 	}
 }
 
 /// Converts a string value to an OSType, truncating to the first four characters.
 public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType {
-	let elementsCount = countElements(theString)
+	let elementsCount = count(theString)
 	if detectHex && elementsCount > 4 {
 		let aScann = NSScanner(string: theString)
 		var tmpnum: UInt32 = 0
@@ -75,7 +77,7 @@ public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType
 		#else
 		func Ptr2OSType(str: [CChar]) -> OSType {
 			var type: OSType = 0x20202020 // four spaces. Can't really be represented the same way as it is in C
-			var i = countElements(str) - 1
+			var i = count(str) - 1
 			if i > 4 {
 				i = 4
 			}
@@ -119,9 +121,9 @@ extension String {
 	/// The base initializer for the Pascal String types.
 	/// Gets passed a CFStringEncoding because the underlying function used to generate
 	/// strings uses that.
-	public init?(pascalString pStr: ConstStringPtr, encoding: CFStringEncoding) {
+	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: CFStringEncoding) {
 		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding) {
-			self = theStr
+			self = theStr as! String
 		} else {
 			return nil
 		}
@@ -130,7 +132,7 @@ extension String {
 	/// The main initializer. Converts the encoding to a CFStringEncoding for use
 	/// in the base initializer.
 	/// The default encoding is NSMacOSRomanStringEncoding.
-	public init?(pascalString pStr: ConstStringPtr, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let CFEncoding = CFStringConvertNSStringEncodingToEncoding(encoding)
 		if CFEncoding == kCFStringEncodingInvalidId {
 			return nil
@@ -138,6 +140,7 @@ extension String {
 		self.init(pascalString: pStr, encoding: CFEncoding)
 	}
 	
+	/*
 	public init?(pascalString pStr: Str255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
 		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
@@ -243,7 +246,7 @@ extension String {
 	/// Convenience initializer, passing a Str32Field (or a tuple with 34 UInt8s, with the last byte ignored)
 	public init?(_ pStr: Str32Field) {
 		self.init(pascalString: pStr)
-	}
+	}*/
 }
 
 extension OSType: StringLiteralConvertible {
@@ -319,6 +322,7 @@ extension Boolean : BooleanLiteralConvertible, BooleanType {
 	}
 }
 
+/*
 extension NumVersion: Printable, Equatable {
 	public init(_ version: UInt32) {
 		// FIXME: endian issues?
@@ -390,58 +394,13 @@ extension NumVersion: Printable, Equatable {
 		return "\(majorRev).\(minorRev).\(bugRev) \(ourStrStage)\(nonRelRev == 0 ? blankStr : nonRelRev.description)"
 	}
 }
-
-#if false
-private func FixedToFloat(aFixed: Fixed) -> Float {
-	let fixed1: Fixed = 0x00010000
-	let ffixed1 = Float(fixed1)
-	let faFixed = Float(aFixed)
-	return faFixed / ffixed1
-}
-
-private func FixedToDouble(aFixed: Fixed) -> Double {
-	let fixed1: Fixed = 0x00010000
-	let ffixed1 = Double(fixed1)
-	let faFixed = Double(aFixed)
-	return faFixed / ffixed1
-}
-#endif
-
-private func FixedToCGFloat(aFixed: Fixed) -> CGFloat {
-	let fixed1: Fixed = 0x00010000
-	let ffixed1 = CGFloat(fixed1)
-	let faFixed = CGFloat(aFixed)
-	return faFixed / ffixed1
-}
-
-extension CGRect {
-	public init(CarbonRect rect: Rect) {
-		self.init(x: Int(rect.left), y: Int(rect.top), width: Int(rect.right - rect.left), height: Int(rect.bottom - rect.top))
-	}
-	
-	public init(CarbonFixedRect rect: FixedRect) {
-		let floatLeft = FixedToCGFloat(rect.left)
-		let floatTop = FixedToCGFloat(rect.top)
-		self.init(x: floatLeft, y: floatTop, width: FixedToCGFloat(rect.right) - floatLeft, height: FixedToCGFloat(rect.bottom) - floatTop)
-	}
-}
-
-extension CGPoint {
-	public init(CarbonPoint point: Point) {
-		self.init(x: Int(point.v), y: Int(point.h))
-	}
-	
-	public init(CarbonFixedPoint fixedPoint: FixedPoint) {
-		self.init(x: FixedToCGFloat(fixedPoint.x), y: FixedToCGFloat(fixedPoint.y))
-	}
-}
-
+*/
 #if os(OSX)
 extension String {
 	/// HFSUniStr255 is declared internally on OS X, but not on iOS
 	public init(HFSUniStr: HFSUniStr255) {
 		let uniStr: [UInt16] = GetArrayFromMirror(reflect(HFSUniStr.unicode))!
-		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding)!
+		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding)! as! String
 	}
 }
 	
