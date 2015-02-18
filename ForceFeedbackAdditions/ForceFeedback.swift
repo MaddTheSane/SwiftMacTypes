@@ -61,10 +61,6 @@ public enum ForceFeedbackResult: HRESULT {
 }
 
 extension FFCONSTANTFORCE {
-	public init() {
-		lMagnitude = 0
-	}
-	
 	public var magnitude: Int32 {
 		get {
 			return lMagnitude
@@ -76,11 +72,6 @@ extension FFCONSTANTFORCE {
 }
 
 extension FFRAMPFORCE {
-	public init() {
-		lStart = 0
-		lEnd = 0
-	}
-	
 	public var start: Int32 {
 		get {
 			return lStart
@@ -101,23 +92,6 @@ extension FFRAMPFORCE {
 }
 
 extension FFEFFECT {
-	public init() {
-		dwSize = 0
-		dwFlags = 0
-		dwDuration = 0
-		dwSamplePeriod = 0
-		dwGain = 0
-		dwTriggerButton = 0
-		dwTriggerRepeatInterval = 0
-		cAxes = 0
-		rgdwAxes = nil
-		rglDirection = nil
-		cbTypeSpecificParams = 0
-		lpvTypeSpecificParams = nil
-		dwStartDelay = 0
-		lpEnvelope = nil
-	}
-	
 	// MARK: More name-friendly getters/setters
 	public var size: UInt32 {
 		get {
@@ -211,14 +185,6 @@ extension FFEFFECT {
 }
 
 extension FFENVELOPE {
-	public init() {
-		dwSize = 0
-		dwAttackLevel = 0
-		dwAttackTime = 0
-		dwFadeLevel = 0
-		dwFadeTime = 0
-	}
-	
 	public var size: UInt32 {
 		get {
 			return dwSize
@@ -266,15 +232,6 @@ extension FFENVELOPE {
 }
 
 extension FFCONDITION {
-	public init() {
-		lOffset = 0
-		lPositiveCoefficient = 0
-		lNegativeCoefficient = 0
-		dwPositiveSaturation = 0
-		dwNegativeSaturation = 0
-		lDeadBand = 0
-	}
-	
 	public var offset: Int32 {
 		get {
 			return lOffset
@@ -313,13 +270,6 @@ extension FFCONDITION {
 }
 
 extension FFCUSTOMFORCE {
-	public init() {
-		cChannels = 0
-		dwSamplePeriod = 0
-		cSamples = 0
-		rglForceData = nil
-	}
-	
 	public var samplePeriod: UInt32 {
 		get {
 			return dwSamplePeriod
@@ -353,13 +303,6 @@ extension FFCUSTOMFORCE {
 }
 
 extension FFPERIODIC {
-	public init() {
-		dwMagnitude = 0
-		lOffset = 0
-		dwPhase = 0
-		dwPeriod = 0
-	}
-	
 	public var magnitude: UInt32 {
 		get {
 			return dwMagnitude
@@ -398,15 +341,6 @@ extension FFPERIODIC {
 }
 
 extension FFEFFESCAPE {
-	public init() {
-		dwSize = 0
-		dwCommand = 0
-		lpvInBuffer = nil
-		cbInBuffer = 0
-		lpvOutBuffer = nil
-		cbOutBuffer = 0
-	}
-	
 	public var bufferIn: (size: UInt32, data: UnsafeMutablePointer<Void>) {
 		get {
 			return (cbInBuffer, lpvInBuffer)
@@ -460,7 +394,7 @@ public var ForceFeedbackOffsetRY : UInt8 {
 public var ForceFeedbackOffsetRZ : UInt8 {
 	return 20
 }
-
+	#endif
 public func ForceFeedbackOffsetSlider(n: UInt8) -> UInt8 {
 	return UInt8(24 + Int(n) * sizeof(LONG))
 }
@@ -472,10 +406,8 @@ public func ForceFeedbackOffsetPOV(n: UInt8) -> UInt8 {
 public func ForceFeedbackOffsetButton(n: UInt8) -> UInt8 {
 	return (48 + (n))
 }
-	#endif
 
 extension FFCAPABILITIES {
-	
 	public var axes: [UInt8] {
 		var axesArray: [UInt8] = GetArrayFromMirror(reflect(ffAxes))
 		
