@@ -8,18 +8,6 @@
 
 import Foundation
 
-public var kQLReturnMask: OSStatus {
-	return 0xaf00
-}
-
-public var kQLReturnNoErr: OSStatus {
-	return noErr
-}
-
-public var kQLReturnHasMore: OSStatus {
-	return (kQLReturnMask | 10)
-}
-
 public enum QLPreviewPDFStyle: Int {
 	case Standard = 0
 	case PagesWithThumbnailsOnRight = 3
