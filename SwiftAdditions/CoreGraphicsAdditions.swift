@@ -25,11 +25,13 @@ extension CGBitmapInfo {
 		}
 	}
 	
+	#if false
 	/// Inits a CGBitmapInfo value from an alpha value,
 	public init(alphaInfo: CGImageAlphaInfo, additionalInfo: CGBitmapInfo = nil) {
 		let ordValue = alphaInfo.rawValue | additionalInfo.rawValue
 		self = CGBitmapInfo(rawValue: ordValue)
 	}
+	#endif
 	
 	/// The native 16-bit byte order
 	public static var ByteOrder16Host: CGBitmapInfo {

@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 C.W. Betts. All rights reserved.
 //
 
-import Foundation
-#if os(OSX)
+//#if os(OSX)
+#if false
 import Cocoa
 
 	// MARK: CGWindowLevel values

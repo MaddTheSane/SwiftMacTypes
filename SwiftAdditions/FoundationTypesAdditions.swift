@@ -160,7 +160,7 @@ extension NSUUID {
 		aUUID.14 = tmpuid.byte14
 		aUUID.15 = tmpuid.byte15
 
-		let anotherUUID: [UInt8] = GetArrayFromMirror(reflect(aUUID))!
+		let anotherUUID: [UInt8] = GetArrayFromMirror(reflect(aUUID))
 		
 		self.init(UUIDBytes: anotherUUID)
 	}

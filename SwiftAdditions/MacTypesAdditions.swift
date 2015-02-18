@@ -105,6 +105,7 @@ public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType
 	#endif
 }
 
+#if false
 public var CurrentCFMacStringEncoding: CFStringEncoding {
 	return CFStringGetMostCompatibleMacStringEncoding(CFStringGetSystemEncoding())
 }
@@ -113,6 +114,7 @@ public var CurrentCFMacStringEncoding: CFStringEncoding {
 public var CurrentMacStringEncoding: NSStringEncoding {
 	return CFStringConvertEncodingToNSStringEncoding(CurrentCFMacStringEncoding)
 }
+	#endif
 
 /// Pascal String extensions
 /// The init functions will return nil if the Pascal string says its length is longer than
@@ -399,7 +401,7 @@ extension NumVersion: Printable, Equatable {
 extension String {
 	/// HFSUniStr255 is declared internally on OS X, but not on iOS
 	public init(HFSUniStr: HFSUniStr255) {
-		let uniStr: [UInt16] = GetArrayFromMirror(reflect(HFSUniStr.unicode))!
+		let uniStr: [UInt16] = GetArrayFromMirror(reflect(HFSUniStr.unicode))
 		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding)! as! String
 	}
 }

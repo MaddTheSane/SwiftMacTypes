@@ -435,6 +435,7 @@ extension FFEFFESCAPE {
 	}
 }
 
+#if false
 // TODO: put these in an enum, or struct, or something...
 public var ForceFeedbackOffsetX : UInt8 {
 	return 0
@@ -471,26 +472,14 @@ public func ForceFeedbackOffsetPOV(n: UInt8) -> UInt8 {
 public func ForceFeedbackOffsetButton(n: UInt8) -> UInt8 {
 	return (48 + (n))
 }
+	#endif
 
 extension FFCAPABILITIES {
-	public init() {
-		ffSpecVer = NumVersion()
-		supportedEffects = 0
-		emulatedEffects = 0
-		subType = 0
-		numFfAxes = 0
-		storageCapacity = 0
-		playbackCapacity = 0
-		firmwareVer = NumVersion()
-		hardwareVer = NumVersion()
-		driverVer = NumVersion()
-		ffAxes = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-	}
 	
 	public var axes: [UInt8] {
-		var axesArray: [UInt8] = GetArrayFromMirror(reflect(ffAxes))!
+		var axesArray: [UInt8] = GetArrayFromMirror(reflect(ffAxes))
 		
-		return axesArray[0..<Int(numFfAxes)]
+		return [UInt8](axesArray[0..<Int(numFfAxes)])
 	}
 	
 	public var supportedEffectTypes: ForceFeedbackCapabilitiesEffectType {
