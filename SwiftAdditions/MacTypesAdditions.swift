@@ -56,7 +56,7 @@ public func OSTypeToString(theType: OSType, #useHexIfInvalid: ()) -> String {
 	if let ourStr = OSTypeToString(theType) {
 		return ourStr
 	} else {
-		return NSString(format: "0x%08X", theType)
+		return String(format: "0x%08X", theType)
 	}
 }
 
