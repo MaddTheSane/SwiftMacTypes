@@ -64,8 +64,7 @@ public func OSTypeToString(theType: OSType, #useHexIfInvalid: ()) -> String {
 
 /// Converts a string value to an OSType, truncating to the first four characters.
 public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType {
-	let elementsCount = count(theString)
-	if detectHex && elementsCount > 4 {
+	if detectHex && count(theString) > 4 {
 		let aScann = NSScanner(string: theString)
 		var tmpnum: UInt32 = 0
 		if aScann.scanHexInt(&tmpnum) {
