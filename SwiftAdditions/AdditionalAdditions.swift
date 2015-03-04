@@ -9,7 +9,7 @@
 import Foundation
 
 /// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
-/// returns nil if any type in the mirror doesn't match `X`
+/// Will crash if any type in the mirror doesn't match `X`
 public func GetArrayFromMirror<X>(mirror: MirrorType) -> [X] {
 	var anArray = [X]()
 	for i in 0..<mirror.count {
@@ -80,12 +80,11 @@ extension Array {
 		return toRet
 	}
 	
-	// Code taken from http://stackoverflow.com/a/26308410/1975001
 	mutating func removeAtIndexes(ixs:[Int]) -> [T] {
-		var toRet = [T]()
-		for i in ixs.sorted(>) {
-			toRet.append(self.removeAtIndex(i))
+		var idxSet = NSMutableIndexSet()
+		for i in ixs {
+			idxSet.addIndex(i)
 		}
-		return toRet
+		return removeAtIndexes(idxSet)
 	}
 }

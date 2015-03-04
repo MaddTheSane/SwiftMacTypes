@@ -641,8 +641,8 @@ public class ForceFeedbackDevice {
 	
 	public func sendEscape(#command: DWORD, inData: NSData) -> ForceFeedbackResult {
 		let curDataSize = inData.length
-		var tmpMutBytes = malloc(UInt(curDataSize))
-		memcpy(&tmpMutBytes, inData.bytes, UInt(curDataSize))
+		var tmpMutBytes = malloc(curDataSize)
+		memcpy(&tmpMutBytes, inData.bytes, curDataSize)
 		var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE.Type)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
 		
 		let toRet = sendEscape(&ourEscape)
@@ -656,8 +656,8 @@ public class ForceFeedbackDevice {
 	public func sendEscape(#command: DWORD, inData: NSData, inout outDataLength: Int) -> (result: ForceFeedbackResult, outData: NSData) {
 		if let ourMutableData = NSMutableData(length: outDataLength) {
 			let curDataSize = inData.length
-			var tmpMutBytes = malloc(UInt(curDataSize))
-			memcpy(&tmpMutBytes, inData.bytes, UInt(curDataSize))
+			var tmpMutBytes = malloc(curDataSize)
+			memcpy(&tmpMutBytes, inData.bytes, curDataSize)
 			var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE.Type)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutableData.mutableBytes, cbOutBuffer: DWORD(outDataLength))
 			
 			let toRet = sendEscape(&ourEscape)

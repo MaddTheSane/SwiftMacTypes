@@ -11,13 +11,13 @@
 		550FBAC419A7ADC500EFBD3D /* SwiftAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		550FBACE19A7ADC500EFBD3D /* SwiftAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */; };
 		550FBADA19A7AE6F00EFBD3D /* FoundationTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */; };
-		553C2B9A1A0C4B0500700F83 /* AudioUnitAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C2B991A0C4B0500700F83 /* AudioUnitAdditions.swift */; };
+		553C2B9A1A0C4B0500700F83 /* AudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C2B991A0C4B0500700F83 /* AudioUnit.swift */; };
 		55403A061A745003007A488E /* ForceFeedbackAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55403A051A745003007A488E /* ForceFeedbackAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55403A0C1A745003007A488E /* ForceFeedbackAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55403A011A745003007A488E /* ForceFeedbackAdditions.framework */; };
 		55403A131A745003007A488E /* ForceFeedbackAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55403A121A745003007A488E /* ForceFeedbackAdditionsTests.swift */; };
 		55403A1A1A74502B007A488E /* ForceFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B2B64319F564FC00A716BC /* ForceFeedback.swift */; };
 		55403A1D1A745283007A488E /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
-		55654A5A1A6B1148008E9315 /* QuickLookAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55654A591A6B1148008E9315 /* QuickLookAdditions.swift */; };
+		55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55654A591A6B1148008E9315 /* QuickLook.swift */; };
 		556E82F919CC8C2A00ED8ED3 /* AudioFileExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */; };
 		55706D941A1EC2440000FD93 /* SwiftIOKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55706D9A1A1EC2440000FD93 /* SwiftIOKitAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55706D8F1A1EC2440000FD93 /* SwiftIOKitAdditions.framework */; };
@@ -30,9 +30,9 @@
 		55706DB51A1ECAEB0000FD93 /* SAIOCOMHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 55706DB31A1ECAEB0000FD93 /* SAIOCOMHelpers.m */; };
 		5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577287719ABE259008328D0 /* MacTypesAdditions.swift */; };
 		5587E0C01A0A115D00CA1400 /* Endianness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5587E0BF1A0A115D00CA1400 /* Endianness.swift */; };
-		55ABE82F1A0815FA006B6AF9 /* CoreGraphicsAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ABE82E1A0815FA006B6AF9 /* CoreGraphicsAdditions.swift */; };
+		55ABE82F1A0815FA006B6AF9 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */; };
 		55C1A6AF1A07223B00C7A733 /* AdditionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */; };
-		55D8DD861A7EE48B0046C1F7 /* AppKitAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8DD851A7EE48B0046C1F7 /* AppKitAdditions.swift */; };
+		55D8DD861A7EE48B0046C1F7 /* AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8DD851A7EE48B0046C1F7 /* AppKit.swift */; };
 		55DAF5931A337C91008281ED /* COMUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DAF5921A337C91008281ED /* COMUUIDs.swift */; };
 		55E18FC91A43AC2B00834004 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E18FC71A43AC2B00834004 /* CoreFoundation.framework */; };
 		55E18FCA1A43AC2B00834004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E18FC81A43AC2B00834004 /* Foundation.framework */; };
@@ -78,14 +78,14 @@
 		550FBACC19A7ADC500EFBD3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftAdditionsTests.swift; sourceTree = "<group>"; };
 		550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationTypesAdditions.swift; sourceTree = "<group>"; };
-		553C2B991A0C4B0500700F83 /* AudioUnitAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUnitAdditions.swift; sourceTree = "<group>"; };
+		553C2B991A0C4B0500700F83 /* AudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUnit.swift; sourceTree = "<group>"; };
 		55403A011A745003007A488E /* ForceFeedbackAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ForceFeedbackAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55403A041A745003007A488E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55403A051A745003007A488E /* ForceFeedbackAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForceFeedbackAdditions.h; sourceTree = "<group>"; };
 		55403A0B1A745003007A488E /* ForceFeedbackAdditionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ForceFeedbackAdditionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55403A111A745003007A488E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55403A121A745003007A488E /* ForceFeedbackAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceFeedbackAdditionsTests.swift; sourceTree = "<group>"; };
-		55654A591A6B1148008E9315 /* QuickLookAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickLookAdditions.swift; sourceTree = "<group>"; };
+		55654A591A6B1148008E9315 /* QuickLook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickLook.swift; sourceTree = "<group>"; };
 		556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileExt.swift; sourceTree = "<group>"; };
 		55706D8F1A1EC2440000FD93 /* SwiftIOKitAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftIOKitAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55706D921A1EC2440000FD93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -100,10 +100,10 @@
 		55706DB31A1ECAEB0000FD93 /* SAIOCOMHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAIOCOMHelpers.m; sourceTree = "<group>"; };
 		5577287719ABE259008328D0 /* MacTypesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacTypesAdditions.swift; sourceTree = "<group>"; };
 		5587E0BF1A0A115D00CA1400 /* Endianness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endianness.swift; sourceTree = "<group>"; };
-		55ABE82E1A0815FA006B6AF9 /* CoreGraphicsAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphicsAdditions.swift; sourceTree = "<group>"; };
+		55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		55B2B64319F564FC00A716BC /* ForceFeedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForceFeedback.swift; sourceTree = "<group>"; };
 		55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalAdditions.swift; sourceTree = "<group>"; };
-		55D8DD851A7EE48B0046C1F7 /* AppKitAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKitAdditions.swift; sourceTree = "<group>"; };
+		55D8DD851A7EE48B0046C1F7 /* AppKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKit.swift; sourceTree = "<group>"; };
 		55DAF5921A337C91008281ED /* COMUUIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COMUUIDs.swift; sourceTree = "<group>"; };
 		55E18FC71A43AC2B00834004 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		55E18FC81A43AC2B00834004 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -191,15 +191,15 @@
 		550FBAC019A7ADC500EFBD3D /* SwiftAdditions */ = {
 			isa = PBXGroup;
 			children = (
-				55654A591A6B1148008E9315 /* QuickLookAdditions.swift */,
-				55D8DD851A7EE48B0046C1F7 /* AppKitAdditions.swift */,
+				55654A591A6B1148008E9315 /* QuickLook.swift */,
+				55D8DD851A7EE48B0046C1F7 /* AppKit.swift */,
 				5587E0BF1A0A115D00CA1400 /* Endianness.swift */,
 				556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */,
 				5577287719ABE259008328D0 /* MacTypesAdditions.swift */,
 				550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */,
 				55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */,
-				55ABE82E1A0815FA006B6AF9 /* CoreGraphicsAdditions.swift */,
-				553C2B991A0C4B0500700F83 /* AudioUnitAdditions.swift */,
+				55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */,
+				553C2B991A0C4B0500700F83 /* AudioUnit.swift */,
 				550B049F1A0D5932002BD56E /* COMUUIDs.swift */,
 				550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */,
 				55706DAD1A1EC4400000FD93 /* SACOMHelpers.h */,
@@ -558,13 +558,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55D8DD861A7EE48B0046C1F7 /* AppKitAdditions.swift in Sources */,
+				55D8DD861A7EE48B0046C1F7 /* AppKit.swift in Sources */,
 				55C1A6AF1A07223B00C7A733 /* AdditionalAdditions.swift in Sources */,
-				55ABE82F1A0815FA006B6AF9 /* CoreGraphicsAdditions.swift in Sources */,
+				55ABE82F1A0815FA006B6AF9 /* CoreGraphics.swift in Sources */,
 				550FBADA19A7AE6F00EFBD3D /* FoundationTypesAdditions.swift in Sources */,
 				5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */,
-				55654A5A1A6B1148008E9315 /* QuickLookAdditions.swift in Sources */,
-				553C2B9A1A0C4B0500700F83 /* AudioUnitAdditions.swift in Sources */,
+				55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */,
+				553C2B9A1A0C4B0500700F83 /* AudioUnit.swift in Sources */,
 				550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */,
 				556E82F919CC8C2A00ED8ED3 /* AudioFileExt.swift in Sources */,
 				5587E0C01A0A115D00CA1400 /* Endianness.swift in Sources */,

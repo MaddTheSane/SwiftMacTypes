@@ -33,4 +33,4 @@ public let currentByteOrder = GetCurrentByteOrder()
 /// Is the byte-order little-endian?
 public let isLittleEndian = currentByteOrder == .Little
 /// Is the byte-order big-endian?
-public let isBigEndian =  currentByteOrder == .Big
+public let isBigEndian = currentByteOrder == .Big
