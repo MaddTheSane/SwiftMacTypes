@@ -10,7 +10,7 @@ import Foundation
 
 /// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
 /// Will crash if any type in the mirror doesn't match `X`
-public func GetArrayFromMirror<X>(mirror: MirrorType) -> [X] {
+public func getArrayFromMirror<X>(mirror: MirrorType) -> [X] {
 	var anArray = [X]()
 	for i in 0..<mirror.count {
 		let aChar = mirror[i].1.value as! X
@@ -21,14 +21,14 @@ public func GetArrayFromMirror<X>(mirror: MirrorType) -> [X] {
 }
 
 /// Best used for a fixed-size C array that expects to be NULL-terminated, like a C string.
-public func GetArrayFromMirror<X>(mirror: MirrorType, appendLastObject lastObj: X) -> [X] {
-	var anArray: [X] = GetArrayFromMirror(mirror)
+public func getArrayFromMirror<X>(mirror: MirrorType, appendLastObject lastObj: X) -> [X] {
+	var anArray: [X] = getArrayFromMirror(mirror)
 	anArray.append(lastObj)
 	return anArray
 }
 
 /// Useful to force a function to run on the main thread, but you don't know if you ARE on the main thread.
-public func RunOnMainThreadSync(block: dispatch_block_t) {
+public func runOnMainThreadSync(block: dispatch_block_t) {
 	if NSThread.isMainThread() {
 		block()
 	} else {

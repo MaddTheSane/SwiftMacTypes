@@ -141,27 +141,38 @@ extension String {
 		self.init(pascalString: pStr, encoding: CFEncoding)
 	}
 	
+	public typealias Str255 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	public typealias Str63 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	public typealias Str32 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	public typealias Str31 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	public typealias Str27 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	public typealias Str15 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	public typealias Str32Field = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+
 	/*
-	public init?(pascalString pStr: Str255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	/// Convenience initializer, passing a Str255 (or a tuple with 256(!) UInt8s)
+	public init?(pascalString pStr: MacPascalStrings.Str255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
 		// a UInt8 can't reference any number greater than 255,
 		// so we just pass it to the main initializer
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str63, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	/// Convenience initializer, passing a Str63 (or a tuple with 64 UInt8s)
+	public init?(pascalString pStr: MacPascalStrings.Str63, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
 		if unwrapped[0] > 63 {
 			return nil
 		}
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str32, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	/// Convenience initializer, passing a Str32 (or a tuple with 33 UInt8s)
+	public init?(pascalString pStr: MacPascalStrings.Str32, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
 		if unwrapped[0] > 32 {
 			return nil
 		}
@@ -169,27 +180,30 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 
-	public init?(pascalString pStr: Str31, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	/// Convenience initializer, passing a Str31 (or a tuple with 32 UInt8s)
+	public init?(pascalString pStr: MacPascalStrings.Str31, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
 		if unwrapped[0] > 31 {
 			return nil
 		}
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str27, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	/// Convenience initializer, passing a Str27 (or a tuple with 28 UInt8s)
+	public init?(pascalString pStr: MacPascalStrings.Str27, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
 		if unwrapped[0] > 27 {
 			return nil
 		}
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str15, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	/// Convenience initializer, passing a Str15 (or a tuple with 16 UInt8s)
+	public init?(pascalString pStr: MacPascalStrings.Str15, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
 		if unwrapped[0] > 15 {
 			return nil
 		}
@@ -198,55 +212,20 @@ extension String {
 	
 	/// The last byte in a Str32Field is unused,
 	/// so the last byte isn't read.
-	public init?(pascalString pStr: Str32Field, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	public init?(pascalString pStr: MacPascalStrings.Str32Field, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		var unwrapped = [UInt8]()
 		let mirror = reflect(pStr)
 		// And this is why this version can't use GetArrayFromMirror...
 		// We skip the last byte because it's not used
 		// and may, in fact, be garbage.
 		for i in 0..<(mirror.count - 1) {
-			var aChar = mirror[i].1.value as UInt8
+			var aChar = mirror[i].1.value as! UInt8
 			unwrapped.append(aChar)
 		}
 		if unwrapped[0] > 32 {
 			return nil
 		}
 		self.init(pascalString: unwrapped, encoding: encoding)
-	}
-	
-	/// Convenience initializer, passing a Str255 (or a tuple with 256(!) UInt8s)
-	public init?(_ pStr: Str255) {
-		self.init(pascalString: pStr)
-	}
-	
-	/// Convenience initializer, passing a Str63 (or a tuple with 64 UInt8s)
-	public init?(_ pStr: Str63) {
-		self.init(pascalString: pStr)
-	}
-	
-	/// Convenience initializer, passing a Str32 (or a tuple with 33 UInt8s)
-	public init?(_ pStr: Str32) {
-		self.init(pascalString: pStr)
-	}
-	
-	/// Convenience initializer, passing a Str31 (or a tuple with 32 UInt8s)
-	public init?(_ pStr: Str31) {
-		self.init(pascalString: pStr)
-	}
-	
-	/// Convenience initializer, passing a Str27 (or a tuple with 28 UInt8s)
-	public init?(_ pStr: Str27) {
-		self.init(pascalString: pStr)
-	}
-	
-	/// Convenience initializer, passing a Str15 (or a tuple with 16 UInt8s)
-	public init?(_ pStr: Str15) {
-		self.init(pascalString: pStr)
-	}
-	
-	/// Convenience initializer, passing a Str32Field (or a tuple with 34 UInt8s, with the last byte ignored)
-	public init?(_ pStr: Str32Field) {
-		self.init(pascalString: pStr)
 	}*/
 }
 
@@ -400,7 +379,7 @@ extension NumVersion: Printable, Equatable {
 extension String {
 	/// HFSUniStr255 is declared internally on OS X, but not on iOS
 	public init(HFSUniStr: HFSUniStr255) {
-		let uniStr: [UInt16] = GetArrayFromMirror(reflect(HFSUniStr.unicode))
+		let uniStr: [UInt16] = getArrayFromMirror(reflect(HFSUniStr.unicode))
 		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding)! as! String
 	}
 }
