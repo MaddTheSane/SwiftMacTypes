@@ -62,8 +62,7 @@ public func OSTypeToString(theType: OSType, #useHexIfInvalid: ()) -> String {
 
 /// Converts a string value to an OSType, truncating to the first four characters.
 public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType {
-	let elementsCount = countElements(theString)
-	if detectHex && elementsCount > 4 {
+	if detectHex && countElements(theString) > 4 {
 		let aScann = NSScanner(string: theString)
 		var tmpnum: UInt32 = 0
 		if aScann.scanHexInt(&tmpnum) {
@@ -140,7 +139,7 @@ extension String {
 	
 	public init?(pascalString pStr: Str255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
 		// a UInt8 can't reference any number greater than 255,
 		// so we just pass it to the main initializer
 		self.init(pascalString: unwrapped, encoding: encoding)
@@ -148,7 +147,7 @@ extension String {
 	
 	public init?(pascalString pStr: Str63, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
 		if unwrapped[0] > 63 {
 			return nil
 		}
@@ -157,7 +156,7 @@ extension String {
 	
 	public init?(pascalString pStr: Str32, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
 		if unwrapped[0] > 32 {
 			return nil
 		}
@@ -167,7 +166,7 @@ extension String {
 
 	public init?(pascalString pStr: Str31, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
 		if unwrapped[0] > 31 {
 			return nil
 		}
@@ -176,7 +175,7 @@ extension String {
 	
 	public init?(pascalString pStr: Str27, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
 		if unwrapped[0] > 27 {
 			return nil
 		}
@@ -185,7 +184,7 @@ extension String {
 	
 	public init?(pascalString pStr: Str15, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
 		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = GetArrayFromMirror(mirror)!
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
 		if unwrapped[0] > 15 {
 			return nil
 		}
@@ -208,41 +207,6 @@ extension String {
 			return nil
 		}
 		self.init(pascalString: unwrapped, encoding: encoding)
-	}
-	
-	/// Convenience initializer, passing a Str255 (or a tuple with 256(!) UInt8s)
-	public init?(_ pStr: Str255) {
-		self.init(pascalString: pStr)
-	}
-	
-	/// Convenience initializer, passing a Str63 (or a tuple with 64 UInt8s)
-	public init?(_ pStr: Str63) {
-		self.init(pascalString: pStr)
-	}
-	
-	/// Convenience initializer, passing a Str32 (or a tuple with 33 UInt8s)
-	public init?(_ pStr: Str32) {
-		self.init(pascalString: pStr)
-	}
-	
-	/// Convenience initializer, passing a Str31 (or a tuple with 32 UInt8s)
-	public init?(_ pStr: Str31) {
-		self.init(pascalString: pStr)
-	}
-	
-	/// Convenience initializer, passing a Str27 (or a tuple with 28 UInt8s)
-	public init?(_ pStr: Str27) {
-		self.init(pascalString: pStr)
-	}
-	
-	/// Convenience initializer, passing a Str15 (or a tuple with 16 UInt8s)
-	public init?(_ pStr: Str15) {
-		self.init(pascalString: pStr)
-	}
-	
-	/// Convenience initializer, passing a Str32Field (or a tuple with 34 UInt8s, with the last byte ignored)
-	public init?(_ pStr: Str32Field) {
-		self.init(pascalString: pStr)
 	}
 }
 
@@ -440,7 +404,7 @@ extension CGPoint {
 extension String {
 	/// HFSUniStr255 is declared internally on OS X, but not on iOS
 	public init(HFSUniStr: HFSUniStr255) {
-		let uniStr: [UInt16] = GetArrayFromMirror(reflect(HFSUniStr.unicode))!
+		let uniStr: [UInt16] = getArrayFromMirror(reflect(HFSUniStr.unicode))
 		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding)!
 	}
 }

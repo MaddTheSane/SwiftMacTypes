@@ -9,34 +9,26 @@
 import Foundation
 
 /// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
-/// returns nil if any type in the mirror doesn't match `X`
-public func GetArrayFromMirror<X>(mirror: MirrorType) -> [X]? {
+/// Will crash if any type in the mirror doesn't match `X`
+public func getArrayFromMirror<X>(mirror: MirrorType) -> [X] {
 	var anArray = [X]()
 	for i in 0..<mirror.count {
-		if let aChar = mirror[i].1.value as? X {
-			anArray.append(aChar)
-		} else {
-			assert(false, "Value at \(i) (\(mirror[i].0)) does not match type \(X.self)")
-			return nil
-		}
+		let aChar = mirror[i].1.value as X
+		anArray.append(aChar)
 	}
 	
 	return anArray
 }
 
 /// Best used for a fixed-size C array that expects to be NULL-terminated, like a C string.
-public func GetArrayFromMirror<X>(mirror: MirrorType, appendLastObject lastObj: X) -> [X]? {
-	if let bArray: [X] = GetArrayFromMirror(mirror) {
-		var anArray = bArray
-		anArray.append(lastObj)
-		return anArray
-	} else {
-		return nil
-	}
+public func getArrayFromMirror<X>(mirror: MirrorType, appendLastObject lastObj: X) -> [X] {
+	var anArray: [X] = getArrayFromMirror(mirror)
+	anArray.append(lastObj)
+	return anArray
 }
 
 /// Useful to force a function to run on the main thread, but you don't know if you ARE on the main thread.
-public func RunOnMainThreadSync(block: dispatch_block_t) {
+public func runOnMainThreadSync(block: dispatch_block_t) {
 	if NSThread.isMainThread() {
 		block()
 	} else {
@@ -88,12 +80,11 @@ extension Array {
 		return toRet
 	}
 	
-	// Code taken from http://stackoverflow.com/a/26308410/1975001
 	mutating func removeAtIndexes(ixs:[Int]) -> [T] {
-		var toRet = [T]()
-		for i in ixs.sorted(>) {
-			toRet.append(self.removeAtIndex(i))
+		var idxSet = NSMutableIndexSet()
+		for i in ixs {
+			idxSet.addIndex(i)
 		}
-		return toRet
+		return removeAtIndexes(idxSet)
 	}
 }

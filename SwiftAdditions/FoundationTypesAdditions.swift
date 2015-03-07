@@ -16,9 +16,7 @@ public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
 }
 
 extension NSRange: Equatable {
-	public static var notFound: NSRange {
-		return NSRange(location: NSNotFound, length: 0)
-	}
+	public static let notFound = NSRange(location: NSNotFound, length: 0)
 	
 	public init(string: String) {
 		self = NSRangeFromString(string)
@@ -160,7 +158,7 @@ extension NSUUID {
 		aUUID.14 = tmpuid.byte14
 		aUUID.15 = tmpuid.byte15
 
-		let anotherUUID: [UInt8] = GetArrayFromMirror(reflect(aUUID))!
+		let anotherUUID: [UInt8] = getArrayFromMirror(reflect(aUUID))
 		
 		self.init(UUIDBytes: anotherUUID)
 	}
