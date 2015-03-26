@@ -404,4 +404,14 @@ public enum CarbonToolbarIcons: OSType {
 	case UtilitiesFolder = 0x7455746C
 	case SitesFolder = 0x74537473
 }
+
+public enum CarbonFolderIcons: OSType {
+	case Generic = 0x666C6472
+	case Drop = 0x64626F78
+	case Mounted = 0x6D6E7464
+	case Open = 0x6F666C64
+	case Owned = 0x6F776E64
+	case Private = 0x70727666
+	case Shared = 0x7368666C
+}
 #endif
