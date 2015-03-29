@@ -10,12 +10,11 @@ import CoreFoundation
 import Foundation.NSUUID
 
 /// The IUnknown UUID used by COM APIs.
-/*
 public var IUnknownUUID: CFUUID {
 	return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSystemDefault,
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 		0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46)
-}*/
+}
 
 public func QueryInterface<X where X: IUnknown>(thisPointer: X, UUID: NSUUID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
 	let bytes = UUID.cfUUID

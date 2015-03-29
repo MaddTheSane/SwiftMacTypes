@@ -226,15 +226,7 @@ public enum AudioComponentType {
 	}
 }
 
-extension AudioComponentDescription {
-	public init() {
-		componentType = 0
-		componentSubType = 0
-		componentManufacturer = 0
-		componentFlags = 0
-		componentFlagsMask = 0
-	}
-	
+extension AudioComponentDescription {	
 	public init(component: AudioComponentType, manufacturer: OSType = AudioUnitManufacturer_Apple) {
 		(componentType, componentSubType) = component.types
 		componentManufacturer = manufacturer

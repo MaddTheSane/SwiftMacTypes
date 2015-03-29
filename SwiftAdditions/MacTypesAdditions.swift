@@ -13,23 +13,6 @@ import CoreServices
 #endif
 import CoreGraphics
 
-/*
-public func ==(lhs: NumVersion, rhs: NumVersion) -> Bool {
-	if lhs.nonRelRev != rhs.nonRelRev {
-		return false
-	}
-	if lhs.stage != rhs.stage {
-		return false
-	}
-	if lhs.minorAndBugRev != rhs.minorAndBugRev {
-		return false
-	}
-	if lhs.majorRev != rhs.majorRev {
-		return false
-	}
-	return true
-}
-	*/
 
 /// Converts an OSType to a String value. May return nil.
 public func OSTypeToString(theType: OSType) -> String? {
@@ -140,93 +123,6 @@ extension String {
 		}
 		self.init(pascalString: pStr, encoding: CFEncoding)
 	}
-	
-	public typealias Str255 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	public typealias Str63 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	public typealias Str32 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	public typealias Str31 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	public typealias Str27 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	public typealias Str15 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	public typealias Str32Field = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-
-	/*
-	/// Convenience initializer, passing a Str255 (or a tuple with 256(!) UInt8s)
-	public init?(pascalString pStr: MacPascalStrings.Str255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
-		// a UInt8 can't reference any number greater than 255,
-		// so we just pass it to the main initializer
-		self.init(pascalString: unwrapped, encoding: encoding)
-	}
-	
-	/// Convenience initializer, passing a Str63 (or a tuple with 64 UInt8s)
-	public init?(pascalString pStr: MacPascalStrings.Str63, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
-		if unwrapped[0] > 63 {
-			return nil
-		}
-		self.init(pascalString: unwrapped, encoding: encoding)
-	}
-	
-	/// Convenience initializer, passing a Str32 (or a tuple with 33 UInt8s)
-	public init?(pascalString pStr: MacPascalStrings.Str32, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
-		if unwrapped[0] > 32 {
-			return nil
-		}
-
-		self.init(pascalString: unwrapped, encoding: encoding)
-	}
-
-	/// Convenience initializer, passing a Str31 (or a tuple with 32 UInt8s)
-	public init?(pascalString pStr: MacPascalStrings.Str31, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
-		if unwrapped[0] > 31 {
-			return nil
-		}
-		self.init(pascalString: unwrapped, encoding: encoding)
-	}
-	
-	/// Convenience initializer, passing a Str27 (or a tuple with 28 UInt8s)
-	public init?(pascalString pStr: MacPascalStrings.Str27, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
-		if unwrapped[0] > 27 {
-			return nil
-		}
-		self.init(pascalString: unwrapped, encoding: encoding)
-	}
-	
-	/// Convenience initializer, passing a Str15 (or a tuple with 16 UInt8s)
-	public init?(pascalString pStr: MacPascalStrings.Str15, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = reflect(pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
-		if unwrapped[0] > 15 {
-			return nil
-		}
-		self.init(pascalString: unwrapped, encoding: encoding)
-	}
-	
-	/// The last byte in a Str32Field is unused,
-	/// so the last byte isn't read.
-	public init?(pascalString pStr: MacPascalStrings.Str32Field, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		var unwrapped = [UInt8]()
-		let mirror = reflect(pStr)
-		// And this is why this version can't use GetArrayFromMirror...
-		// We skip the last byte because it's not used
-		// and may, in fact, be garbage.
-		for i in 0..<(mirror.count - 1) {
-			var aChar = mirror[i].1.value as! UInt8
-			unwrapped.append(aChar)
-		}
-		if unwrapped[0] > 32 {
-			return nil
-		}
-		self.init(pascalString: unwrapped, encoding: encoding)
-	}*/
 }
 
 extension OSType: StringLiteralConvertible {
@@ -302,79 +198,6 @@ extension Boolean : BooleanLiteralConvertible, BooleanType {
 	}
 }
 
-/*
-extension NumVersion: Printable, Equatable {
-	public init(_ version: UInt32) {
-		// FIXME: endian issues?
-		nonRelRev = UInt8((version >> 0) & 0xFF)
-		stage = UInt8((version >> 8) & 0xFF)
-		minorAndBugRev = UInt8((version >> 16) & 0xFF)
-		majorRev = UInt8((version >> 24) & 0xFF)
-	}
-	
-	public init() {
-		self.init(0)
-	}
-	
-	public enum Stage: UInt8 {
-		case Develop	= 0x20
-		case Alpha		= 0x40
-		case Beta		= 0x60
-		case Final		= 0x80
-	}
-	
-	public var bugRev: UInt8 {
-		let aBugRev = minorAndBugRev & 0x0F
-		return aBugRev
-	}
-	
-	public var minorRev: UInt8 {
-		return minorAndBugRev >> 4
-	}
-	
-	public init(major: UInt8, minor: UInt8, bug: UInt8, stage: Stage, nonRelease: UInt8) {
-		majorRev = major
-		minorAndBugRev = (minor << 4) & 0xF0 | bug & 0x0F
-		self.stage = stage.rawValue
-		nonRelRev = nonRelease
-	}
-	
-	public var developmentStage: Stage? {
-		let toRet = stage & 0xF0
-		return Stage(rawValue: toRet)
-	}
-	
-	public var rawValue: UInt32 {
-		// FIXME: endian issues?
-		var a = UInt32(nonRelRev)
-		var b = UInt32(stage)
-		var c = UInt32(minorAndBugRev)
-		var d = UInt32(majorRev)
-		
-		return d << 24 | c << 16 | b << 8 | a
-	}
-	
-	public var description: String {
-		let ourStage = developmentStage ?? Stage.Develop
-		var ourStrStage: String
-		switch ourStage {
-		case .Develop:
-			ourStrStage = "Develop"
-			
-		case .Alpha:
-			ourStrStage = "Alpha"
-			
-		case .Beta:
-			ourStrStage = "Beta"
-			
-		case .Final:
-			ourStrStage = "Final"
-		}
-		let blankStr = ""
-		return "\(majorRev).\(minorRev).\(bugRev) \(ourStrStage)\(nonRelRev == 0 ? blankStr : nonRelRev.description)"
-	}
-}
-*/
 #if os(OSX)
 extension String {
 	/// HFSUniStr255 is declared internally on OS X, but not on iOS

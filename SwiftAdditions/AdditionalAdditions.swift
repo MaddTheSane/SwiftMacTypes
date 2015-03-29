@@ -27,7 +27,7 @@ public func getArrayFromMirror<X>(mirror: MirrorType, appendLastObject lastObj: 
 	return anArray
 }
 
-/// Useful to force a function to run on the main thread, but you don't know if you ARE on the main thread.
+/// Useful to force a function to run on the main thread, but you don't know if you *are* on the main thread.
 public func runOnMainThreadSync(block: dispatch_block_t) {
 	if NSThread.isMainThread() {
 		block()
@@ -56,18 +56,23 @@ public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>)
 	return map
 }
 
-/// Removes objects in an array that are in the specified NSIndexSet
-/// Returns objects that were removed
+/// Removes objects in an array that are in the specified `NSIndexSet`.
+/// Returns objects that were removed.
 public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
 	return anArray.removeAtIndexes(indexes)
 }
 
-/// Removes objects in an array that are in the specified integer array
-/// Returns objects that were removed
+/// Removes objects in an array that are in the specified integer array.
+/// Returns objects that were removed.
 public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: [Int]) -> [T] {
 	return anArray.removeAtIndexes(indexes)
 }
 
+/// Removes objects in an array that are in the specified integer set.
+/// Returns objects that were removed.
+public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: Set<Int>) -> [T] {
+	return anArray.removeAtIndexes(indexes)
+}
 
 extension Array {
 	// Code taken from http://stackoverflow.com/a/26174259/1975001
@@ -80,7 +85,16 @@ extension Array {
 		return toRet
 	}
 	
+	///Internally creates an index set so there are no duplicates.
 	mutating func removeAtIndexes(ixs:[Int]) -> [T] {
+		var idxSet = NSMutableIndexSet()
+		for i in ixs {
+			idxSet.addIndex(i)
+		}
+		return removeAtIndexes(idxSet)
+	}
+	
+	mutating func removeAtIndexes(ixs: Set<Int>) -> [T] {
 		var idxSet = NSMutableIndexSet()
 		for i in ixs {
 			idxSet.addIndex(i)

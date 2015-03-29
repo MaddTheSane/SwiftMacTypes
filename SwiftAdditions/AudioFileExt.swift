@@ -232,18 +232,6 @@ public extension AudioStreamBasicDescription {
 		}
 	}
 	
-	public init() {
-		mSampleRate = 0
-		mFormatID = 0
-		mFormatFlags = 0
-		mBytesPerPacket = 0
-		mFramesPerPacket = 1
-		mBytesPerFrame = 1
-		mChannelsPerFrame = 1
-		mBitsPerChannel = 1
-		mReserved = 0
-	}
-	
 	public init(sampleRate: Float64, formatID: AudioFormat = .LinearPCM, formatFlags: AudioFormatFlag = .NativeFloatPacked, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
 		mSampleRate = sampleRate
 		mFormatID = formatID.rawValue
