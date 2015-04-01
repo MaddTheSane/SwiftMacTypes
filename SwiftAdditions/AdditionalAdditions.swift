@@ -27,7 +27,9 @@ public func getArrayFromMirror<X>(mirror: MirrorType, appendLastObject lastObj: 
 	return anArray
 }
 
-/// Useful to force a function to run on the main thread, but you don't know if you *are* on the main thread.
+///Useful to force a closure to run on the main thread, but you don't know if you *are* on the main thread.
+///
+///This assumes that `NSThread`'s main thread is the same as GCD's main queue.
 public func runOnMainThreadSync(block: dispatch_block_t) {
 	if NSThread.isMainThread() {
 		block()
@@ -35,6 +37,18 @@ public func runOnMainThreadSync(block: dispatch_block_t) {
 		dispatch_sync(dispatch_get_main_queue(), block)
 	}
 }
+
+///Runs the closure on the main thread immediately on the main thread if ran from the main thread, or queues it on the main Dispatch queue if on another thread.
+///
+///This assumes that `NSThread`'s main thread is the same as GCD's main queue.
+public func runOnMainThreadAsync(block: dispatch_block_t) {
+	if NSThread.isMainThread() {
+		block()
+	} else {
+		dispatch_async(dispatch_get_main_queue(), block)
+	}
+}
+
 
 // Code taken from http://stackoverflow.com/a/24052094/1975001
 public func +=<K, V> (inout left: Dictionary<K, V>, right: Dictionary<K, V>) {
