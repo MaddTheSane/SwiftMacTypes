@@ -9,7 +9,7 @@
 import Foundation
 
 /// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
-/// Will crash if any type in the mirror doesn't match `X`
+/// Will crash if any type in the mirror doesn't match `X`.
 public func getArrayFromMirror<X>(mirror: MirrorType) -> [X] {
 	var anArray = [X]()
 	for i in 0..<mirror.count {

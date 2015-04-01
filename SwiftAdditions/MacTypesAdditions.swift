@@ -58,7 +58,7 @@ public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType
 		return UTGetOSTypeFromString(theString)
 		#else
 		func Ptr2OSType(str: [CChar]) -> OSType {
-			var type: OSType = 0x20202020 // four spaces. Can't really be represented the same way as it is in C
+			var type: OSType = 0x20202020 // four spaces. Can't really be represented the same way as in C
 			var i = count(str) - 1
 			if i > 4 {
 				i = 4
@@ -99,13 +99,14 @@ public var CurrentMacStringEncoding: NSStringEncoding {
 	#endif
 
 /// Pascal String extensions
-/// The init functions will return nil if the Pascal string says its length is longer than
-/// the enclosing type
 extension String {
 	/// The base initializer for the Pascal String types.
 	/// Gets passed a CFStringEncoding because the underlying function used to generate
 	/// strings uses that.
-	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: CFStringEncoding) {
+	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: CFStringEncoding, maximumLength: UInt8 = 255) {
+		if pStr.memory > maximumLength {
+			return nil
+		}
 		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding) {
 			self = theStr as! String
 		} else {
@@ -113,15 +114,20 @@ extension String {
 		}
 	}
 	
+	/// Converts a pointer to a Pascal string into a Swift string.
+	///
+	/// :param: pStr a pointer to the Pascal string in question. You may need to use `getArrayFromMirror` if the value is a Tuple.
+	/// :param: encoding The encoding of the pascal stiring. The default is `NSMacOSRomanStringEncoding`.
+	/// :param: maximumLength The maximum length of the Pascal string. The default is `255`. If the first byte is larger than this value, the constructor returns `nil`.
+	///
 	/// The main initializer. Converts the encoding to a CFStringEncoding for use
 	/// in the base initializer.
-	/// The default encoding is NSMacOSRomanStringEncoding.
-	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: NSStringEncoding = NSMacOSRomanStringEncoding, maximumLength: UInt8 = 255) {
 		let CFEncoding = CFStringConvertNSStringEncodingToEncoding(encoding)
 		if CFEncoding == kCFStringEncodingInvalidId {
 			return nil
 		}
-		self.init(pascalString: pStr, encoding: CFEncoding)
+		self.init(pascalString: pStr, encoding: CFEncoding, maximumLength: maximumLength)
 	}
 }
 
@@ -200,7 +206,7 @@ extension Boolean : BooleanLiteralConvertible, BooleanType {
 
 #if os(OSX)
 extension String {
-	/// HFSUniStr255 is declared internally on OS X, but not on iOS
+	/// HFSUniStr255 is declared internally on OS X as part of the HFS headers. iOS doesn't use any version of HFS, so it doesn't have this function.
 	public init(HFSUniStr: HFSUniStr255) {
 		let uniStr: [UInt16] = getArrayFromMirror(reflect(HFSUniStr.unicode))
 		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding)! as! String
