@@ -63,7 +63,7 @@ public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType
 			if i > 4 {
 				i = 4
 			}
-			memcpy(&type, str, UInt(i))
+			memcpy(&type, str, i)
 			type = type.bigEndian
 			
 			return type

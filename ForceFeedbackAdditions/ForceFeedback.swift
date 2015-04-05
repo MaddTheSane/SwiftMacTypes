@@ -409,7 +409,7 @@ public func ForceFeedbackOffsetButton(n: UInt8) -> UInt8 {
 
 extension FFCAPABILITIES {
 	public var axes: [UInt8] {
-		var axesArray: [UInt8] = GetArrayFromMirror(reflect(ffAxes))
+		var axesArray: [UInt8] = getArrayFromMirror(reflect(ffAxes))
 		
 		return [UInt8](axesArray[0..<Int(numFfAxes)])
 	}
@@ -558,7 +558,7 @@ public struct ForceFeedbackEffectStatus : RawOptionSetType {
 	public static var Emulated: ForceFeedbackEffectStatus { return ForceFeedbackEffectStatus(1 << 1) }
 }
 
-public class ForceFeedbackDevice {
+public final class ForceFeedbackDevice {
 	private let rawDevice: FFDeviceObjectReference
 	public private(set) var lastReturnValue: ForceFeedbackResult = .OK
 	
@@ -758,9 +758,9 @@ public class ForceFeedbackDevice {
 	}
 }
 
-public class ForceFeedbackEffect {
+public final class ForceFeedbackEffect {
 	private let rawEffect: FFEffectObjectReference
-	public unowned let deviceReference: ForceFeedbackDevice
+	public let deviceReference: ForceFeedbackDevice
 	
 	public struct EffectStart : RawOptionSetType {
 		typealias RawValue = UInt32
@@ -789,6 +789,36 @@ public class ForceFeedbackEffect {
 		case Inertia
 		case Friction
 		case Custom
+		
+		public init?(UUID: CFUUID) {
+			if CFEqual(UUID, ForceFeedbackEffect.ConstantForce) {
+				self = .ConstantForce
+			} else if CFEqual(UUID, ForceFeedbackEffect.RampForce) {
+				self = .RampForce
+			} else if CFEqual(UUID, ForceFeedbackEffect.Square) {
+				self = .Square
+			} else if CFEqual(UUID, ForceFeedbackEffect.Sine) {
+				self = .Sine
+			} else if CFEqual(UUID, ForceFeedbackEffect.Triangle) {
+				self = .Triangle
+			} else if CFEqual(UUID, ForceFeedbackEffect.SawtoothUp) {
+				self = .SawtoothUp
+			} else if CFEqual(UUID, ForceFeedbackEffect.SawtoothDown) {
+				self = .SawtoothDown
+			} else if CFEqual(UUID, ForceFeedbackEffect.Spring) {
+				self = .Spring
+			} else if CFEqual(UUID, ForceFeedbackEffect.Damper) {
+				self = .Damper
+			} else if CFEqual(UUID, ForceFeedbackEffect.Inertia) {
+				self = .Inertia
+			} else if CFEqual(UUID, ForceFeedbackEffect.Friction) {
+				self = .Friction
+			} else if CFEqual(UUID, ForceFeedbackEffect.CustomForce) {
+				self = .Custom
+			} else {
+				return nil
+			}
+		}
 		
 		public var UUIDValue: CFUUID {
 			switch self {
