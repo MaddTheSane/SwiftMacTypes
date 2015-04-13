@@ -70,6 +70,8 @@ public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>)
 	return map
 }
 
+// MARK: - Array additions
+
 /// Removes objects in an array that are in the specified `NSIndexSet`.
 /// Returns objects that were removed.
 public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
@@ -115,4 +117,11 @@ extension Array {
 		}
 		return removeAtIndexes(idxSet)
 	}
+}
+
+///Sort a Swift array using an array of `NSSortDescriptor`.
+public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
+	let sortedArray = (anArray as NSArray).sortedArrayUsingDescriptors(descriptors)
+	
+	return sortedArray
 }
