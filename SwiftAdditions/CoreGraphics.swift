@@ -10,6 +10,7 @@ import Foundation
 import CoreGraphics
 
 extension CGBitmapInfo {
+	///The alpha info of the current `CGBitmapInfo`.
 	public var alphaInfo: CGImageAlphaInfo {
 		get {
 			let tmpInfo = self & .AlphaInfoMask

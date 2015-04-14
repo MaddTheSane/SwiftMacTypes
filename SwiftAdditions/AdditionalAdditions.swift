@@ -57,6 +57,8 @@ public func +=<K, V> (inout left: Dictionary<K, V>, right: Dictionary<K, V>) {
 	}
 }
 
+///Adds two dictionaries together, returning the result.
+///Any value in both `left` and `right`, the value in `right` is used.
 public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>)
 	-> Dictionary<K,V>
 {
@@ -120,6 +122,8 @@ extension Array {
 }
 
 ///Sort a Swift array using an array of `NSSortDescriptor`.
+///
+///This may be expensive, in both memory and computation!
 public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
 	let sortedArray = (anArray as NSArray).sortedArrayUsingDescriptors(descriptors)
 	
