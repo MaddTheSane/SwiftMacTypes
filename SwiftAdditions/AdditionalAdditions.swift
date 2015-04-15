@@ -8,6 +8,13 @@
 
 import Foundation
 
+///Clamps a variable between `minimum` and `maximum`.
+///
+///Having a `minimum` value greater than the `maximum` value is undefined.
+public func clamp<x: Comparable>(value: x, #minimum: x, #maximum: x) -> x {
+	return max(min(value, maximum), minimum)
+}
+
 /// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
 /// Will crash if any type in the mirror doesn't match `X`.
 public func getArrayFromMirror<X>(mirror: MirrorType) -> [X] {
@@ -123,7 +130,7 @@ extension Array {
 
 ///Sort a Swift array using an array of `NSSortDescriptor`.
 ///
-///This may be expensive, in both memory and computation!
+///This *may* be expensive, in both memory and computation!
 public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
 	let sortedArray = (anArray as NSArray).sortedArrayUsingDescriptors(descriptors)
 	
