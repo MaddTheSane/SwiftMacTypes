@@ -36,6 +36,7 @@
 		55DAF5931A337C91008281ED /* COMUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DAF5921A337C91008281ED /* COMUUIDs.swift */; };
 		55E18FC91A43AC2B00834004 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E18FC71A43AC2B00834004 /* CoreFoundation.framework */; };
 		55E18FCA1A43AC2B00834004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E18FC81A43AC2B00834004 /* Foundation.framework */; };
+		55E56C141AE2C716006B7276 /* ExtAudioFileExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E56C131AE2C716006B7276 /* ExtAudioFileExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		55DAF5921A337C91008281ED /* COMUUIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COMUUIDs.swift; sourceTree = "<group>"; };
 		55E18FC71A43AC2B00834004 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		55E18FC81A43AC2B00834004 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		55E56C131AE2C716006B7276 /* ExtAudioFileExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtAudioFileExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 				55D8DD851A7EE48B0046C1F7 /* AppKit.swift */,
 				5587E0BF1A0A115D00CA1400 /* Endianness.swift */,
 				556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */,
+				55E56C131AE2C716006B7276 /* ExtAudioFileExt.swift */,
 				5577287719ABE259008328D0 /* MacTypesAdditions.swift */,
 				550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */,
 				55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */,
@@ -566,6 +569,7 @@
 				55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */,
 				553C2B9A1A0C4B0500700F83 /* AudioUnit.swift in Sources */,
 				550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */,
+				55E56C141AE2C716006B7276 /* ExtAudioFileExt.swift in Sources */,
 				556E82F919CC8C2A00ED8ED3 /* AudioFileExt.swift in Sources */,
 				5587E0C01A0A115D00CA1400 /* Endianness.swift in Sources */,
 				55706DB01A1EC4400000FD93 /* SACOMHelpers.m in Sources */,
