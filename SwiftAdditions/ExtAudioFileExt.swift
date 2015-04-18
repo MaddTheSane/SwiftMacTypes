@@ -67,10 +67,21 @@ public enum ExtendedAudioFilePropertyID: OSType {
 	case PacketTable = 0x78707469
 }
 
-public func ExtAudioFileCreate(URL inURL: NSURL, fileType inFileType: AudioFileType, streamDescription inStreamDesc: UnsafePointer<AudioStreamBasicDescription>, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout> = nil, flags: AudioFileFlags = nil, audioFile outAudioFile: UnsafeMutablePointer<ExtAudioFileRef>) -> OSStatus {
-	return ExtAudioFileCreateWithURL(inURL, inFileType.rawValue, inStreamDesc, inChannelLayout, flags.rawValue, outAudioFile)
+public func ExtAudioFileCreate(URL inURL: NSURL, fileType inFileType: AudioFileType, inout streamDescription inStreamDesc: AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout> = nil, flags: AudioFileFlags = nil, inout audioFile outAudioFile: ExtAudioFileRef) -> OSStatus {
+	return ExtAudioFileCreateWithURL(inURL, inFileType.rawValue, &inStreamDesc, inChannelLayout, flags.rawValue, &outAudioFile)
 }
 
 public func ExtAudioFileSetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtendedAudioFilePropertyID, dataSize propertyDataSize: UInt32, data propertyData: UnsafePointer<Void>) -> OSStatus {
 	return ExtAudioFileSetProperty(inExtAudioFile, inPropertyID.rawValue, propertyDataSize, propertyData)
+}
+
+public func ExtAudioFileGetPropertyInfo(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtendedAudioFilePropertyID, inout size outSize: UInt32, inout writable outWritable: Bool) -> OSStatus {
+	var ouWritable: Boolean = 0
+	let aRet = ExtAudioFileGetPropertyInfo(inExtAudioFile, inPropertyID.rawValue, &outSize, &ouWritable)
+	outWritable = ouWritable.boolValue
+	return aRet
+}
+
+func ExtAudioFileGetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtendedAudioFilePropertyID, inout propertyDataSize ioPropertyDataSize: UInt32, propertyData outPropertyData: UnsafeMutablePointer<Void>) -> OSStatus {
+	return ExtAudioFileGetProperty(inExtAudioFile, inPropertyID.rawValue, &ioPropertyDataSize, outPropertyData)
 }
