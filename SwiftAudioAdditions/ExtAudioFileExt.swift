@@ -8,6 +8,7 @@
 
 import Foundation
 import AudioToolbox
+import SwiftAdditions
 
 public enum ExtendedAudioFilePropertyID: OSType {
 	/// An `AudioStreamBasicDescription`. Represents the file's actual

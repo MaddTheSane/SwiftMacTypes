@@ -11,14 +11,12 @@
 		550FBAC419A7ADC500EFBD3D /* SwiftAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		550FBACE19A7ADC500EFBD3D /* SwiftAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */; };
 		550FBADA19A7AE6F00EFBD3D /* FoundationTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */; };
-		553C2B9A1A0C4B0500700F83 /* AudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C2B991A0C4B0500700F83 /* AudioUnit.swift */; };
 		55403A061A745003007A488E /* ForceFeedbackAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55403A051A745003007A488E /* ForceFeedbackAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55403A0C1A745003007A488E /* ForceFeedbackAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55403A011A745003007A488E /* ForceFeedbackAdditions.framework */; };
 		55403A131A745003007A488E /* ForceFeedbackAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55403A121A745003007A488E /* ForceFeedbackAdditionsTests.swift */; };
 		55403A1A1A74502B007A488E /* ForceFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B2B64319F564FC00A716BC /* ForceFeedback.swift */; };
 		55403A1D1A745283007A488E /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55654A591A6B1148008E9315 /* QuickLook.swift */; };
-		556E82F919CC8C2A00ED8ED3 /* AudioFileExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */; };
 		55706D941A1EC2440000FD93 /* SwiftIOKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55706D9A1A1EC2440000FD93 /* SwiftIOKitAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55706D8F1A1EC2440000FD93 /* SwiftIOKitAdditions.framework */; };
 		55706DA11A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55706DA01A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift */; };
@@ -34,9 +32,14 @@
 		55C1A6AF1A07223B00C7A733 /* AdditionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */; };
 		55D8DD861A7EE48B0046C1F7 /* AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8DD851A7EE48B0046C1F7 /* AppKit.swift */; };
 		55DAF5931A337C91008281ED /* COMUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DAF5921A337C91008281ED /* COMUUIDs.swift */; };
+		55E11DE61AE7114000815555 /* SwiftAudioAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E11DE51AE7114000815555 /* SwiftAudioAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55E11DEC1AE7114000815555 /* SwiftAudioAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DE11AE7114000815555 /* SwiftAudioAdditions.framework */; };
+		55E11DF31AE7114000815555 /* SwiftAudioAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E11DF21AE7114000815555 /* SwiftAudioAdditionsTests.swift */; };
+		55E11DFA1AE711C600815555 /* AudioFileExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */; };
+		55E11DFB1AE711C600815555 /* ExtAudioFileExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E56C131AE2C716006B7276 /* ExtAudioFileExt.swift */; };
+		55E11DFC1AE711C600815555 /* AudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C2B991A0C4B0500700F83 /* AudioUnit.swift */; };
 		55E18FC91A43AC2B00834004 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E18FC71A43AC2B00834004 /* CoreFoundation.framework */; };
 		55E18FCA1A43AC2B00834004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E18FC81A43AC2B00834004 /* Foundation.framework */; };
-		55E56C141AE2C716006B7276 /* ExtAudioFileExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E56C131AE2C716006B7276 /* ExtAudioFileExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +70,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
 			remoteInfo = SwiftAdditions;
+		};
+		55E11DED1AE7114000815555 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55E11DE01AE7114000815555;
+			remoteInfo = SwiftAudioAdditions;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -106,6 +116,12 @@
 		55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalAdditions.swift; sourceTree = "<group>"; };
 		55D8DD851A7EE48B0046C1F7 /* AppKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKit.swift; sourceTree = "<group>"; };
 		55DAF5921A337C91008281ED /* COMUUIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COMUUIDs.swift; sourceTree = "<group>"; };
+		55E11DE11AE7114000815555 /* SwiftAudioAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftAudioAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		55E11DE41AE7114000815555 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55E11DE51AE7114000815555 /* SwiftAudioAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftAudioAdditions.h; sourceTree = "<group>"; };
+		55E11DEB1AE7114000815555 /* SwiftAudioAdditionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftAudioAdditionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		55E11DF11AE7114000815555 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55E11DF21AE7114000815555 /* SwiftAudioAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftAudioAdditionsTests.swift; sourceTree = "<group>"; };
 		55E18FC71A43AC2B00834004 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		55E18FC81A43AC2B00834004 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55E56C131AE2C716006B7276 /* ExtAudioFileExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtAudioFileExt.swift; sourceTree = "<group>"; };
@@ -160,6 +176,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55E11DDD1AE7114000815555 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55E11DE81AE7114000815555 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55E11DEC1AE7114000815555 /* SwiftAudioAdditions.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -172,6 +203,8 @@
 				55706D9D1A1EC2450000FD93 /* SwiftIOKitAdditionsTests */,
 				55403A021A745003007A488E /* ForceFeedbackAdditions */,
 				55403A0F1A745003007A488E /* ForceFeedbackAdditionsTests */,
+				55E11DE21AE7114000815555 /* SwiftAudioAdditions */,
+				55E11DEF1AE7114000815555 /* SwiftAudioAdditionsTests */,
 				55E18FCB1A43AC3300834004 /* Frameworks */,
 				550FBABF19A7ADC500EFBD3D /* Products */,
 			);
@@ -186,6 +219,8 @@
 				55706D991A1EC2440000FD93 /* SwiftIOKitAdditionsTests.xctest */,
 				55403A011A745003007A488E /* ForceFeedbackAdditions.framework */,
 				55403A0B1A745003007A488E /* ForceFeedbackAdditionsTests.xctest */,
+				55E11DE11AE7114000815555 /* SwiftAudioAdditions.framework */,
+				55E11DEB1AE7114000815555 /* SwiftAudioAdditionsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -196,13 +231,10 @@
 				55654A591A6B1148008E9315 /* QuickLook.swift */,
 				55D8DD851A7EE48B0046C1F7 /* AppKit.swift */,
 				5587E0BF1A0A115D00CA1400 /* Endianness.swift */,
-				556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */,
-				55E56C131AE2C716006B7276 /* ExtAudioFileExt.swift */,
 				5577287719ABE259008328D0 /* MacTypesAdditions.swift */,
 				550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */,
 				55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */,
 				55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */,
-				553C2B991A0C4B0500700F83 /* AudioUnit.swift */,
 				550B049F1A0D5932002BD56E /* COMUUIDs.swift */,
 				550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */,
 				55706DAD1A1EC4400000FD93 /* SACOMHelpers.h */,
@@ -310,6 +342,43 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		55E11DE21AE7114000815555 /* SwiftAudioAdditions */ = {
+			isa = PBXGroup;
+			children = (
+				556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */,
+				55E56C131AE2C716006B7276 /* ExtAudioFileExt.swift */,
+				553C2B991A0C4B0500700F83 /* AudioUnit.swift */,
+				55E11DE51AE7114000815555 /* SwiftAudioAdditions.h */,
+				55E11DE31AE7114000815555 /* Supporting Files */,
+			);
+			path = SwiftAudioAdditions;
+			sourceTree = "<group>";
+		};
+		55E11DE31AE7114000815555 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				55E11DE41AE7114000815555 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		55E11DEF1AE7114000815555 /* SwiftAudioAdditionsTests */ = {
+			isa = PBXGroup;
+			children = (
+				55E11DF21AE7114000815555 /* SwiftAudioAdditionsTests.swift */,
+				55E11DF01AE7114000815555 /* Supporting Files */,
+			);
+			path = SwiftAudioAdditionsTests;
+			sourceTree = "<group>";
+		};
+		55E11DF01AE7114000815555 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				55E11DF11AE7114000815555 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		55E18FCB1A43AC3300834004 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,6 +414,14 @@
 			files = (
 				55706DB41A1ECAEB0000FD93 /* SAIOCOMHelpers.h in Headers */,
 				55706D941A1EC2440000FD93 /* SwiftIOKitAdditions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55E11DDE1AE7114000815555 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55E11DE61AE7114000815555 /* SwiftAudioAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +537,42 @@
 			productReference = 55706D991A1EC2440000FD93 /* SwiftIOKitAdditionsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		55E11DE01AE7114000815555 /* SwiftAudioAdditions */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55E11DF81AE7114000815555 /* Build configuration list for PBXNativeTarget "SwiftAudioAdditions" */;
+			buildPhases = (
+				55E11DDC1AE7114000815555 /* Sources */,
+				55E11DDD1AE7114000815555 /* Frameworks */,
+				55E11DDE1AE7114000815555 /* Headers */,
+				55E11DDF1AE7114000815555 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftAudioAdditions;
+			productName = SwiftAudioAdditions;
+			productReference = 55E11DE11AE7114000815555 /* SwiftAudioAdditions.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		55E11DEA1AE7114000815555 /* SwiftAudioAdditionsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55E11DF91AE7114000815555 /* Build configuration list for PBXNativeTarget "SwiftAudioAdditionsTests" */;
+			buildPhases = (
+				55E11DE71AE7114000815555 /* Sources */,
+				55E11DE81AE7114000815555 /* Frameworks */,
+				55E11DE91AE7114000815555 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55E11DEE1AE7114000815555 /* PBXTargetDependency */,
+			);
+			name = SwiftAudioAdditionsTests;
+			productName = SwiftAudioAdditionsTests;
+			productReference = 55E11DEB1AE7114000815555 /* SwiftAudioAdditionsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -487,6 +600,12 @@
 					55706D981A1EC2440000FD93 = {
 						CreatedOnToolsVersion = 6.1;
 					};
+					55E11DE01AE7114000815555 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					55E11DEA1AE7114000815555 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
 				};
 			};
 			buildConfigurationList = 550FBAB819A7ADC500EFBD3D /* Build configuration list for PBXProject "SwiftAdditions" */;
@@ -507,6 +626,8 @@
 				55706D981A1EC2440000FD93 /* SwiftIOKitAdditionsTests */,
 				55403A001A745003007A488E /* ForceFeedbackAdditions */,
 				55403A0A1A745003007A488E /* ForceFeedbackAdditionsTests */,
+				55E11DE01AE7114000815555 /* SwiftAudioAdditions */,
+				55E11DEA1AE7114000815555 /* SwiftAudioAdditionsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -554,6 +675,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55E11DDF1AE7114000815555 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55E11DE91AE7114000815555 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -567,10 +702,7 @@
 				550FBADA19A7AE6F00EFBD3D /* FoundationTypesAdditions.swift in Sources */,
 				5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */,
 				55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */,
-				553C2B9A1A0C4B0500700F83 /* AudioUnit.swift in Sources */,
 				550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */,
-				55E56C141AE2C716006B7276 /* ExtAudioFileExt.swift in Sources */,
-				556E82F919CC8C2A00ED8ED3 /* AudioFileExt.swift in Sources */,
 				5587E0C01A0A115D00CA1400 /* Endianness.swift in Sources */,
 				55706DB01A1EC4400000FD93 /* SACOMHelpers.m in Sources */,
 			);
@@ -618,6 +750,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55E11DDC1AE7114000815555 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55E11DFC1AE711C600815555 /* AudioUnit.swift in Sources */,
+				55E11DFB1AE711C600815555 /* ExtAudioFileExt.swift in Sources */,
+				55E11DFA1AE711C600815555 /* AudioFileExt.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55E11DE71AE7114000815555 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55E11DF31AE7114000815555 /* SwiftAudioAdditionsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -640,6 +790,11 @@
 			isa = PBXTargetDependency;
 			target = 550FBABD19A7ADC500EFBD3D /* SwiftAdditions */;
 			targetProxy = 55706DAA1A1EC3B60000FD93 /* PBXContainerItemProxy */;
+		};
+		55E11DEE1AE7114000815555 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55E11DE01AE7114000815555 /* SwiftAudioAdditions */;
+			targetProxy = 55E11DED1AE7114000815555 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -952,6 +1107,92 @@
 			};
 			name = Release;
 		};
+		55E11DF41AE7114000815555 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SwiftAudioAdditions/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
+			};
+			name = Debug;
+		};
+		55E11DF51AE7114000815555 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = SwiftAudioAdditions/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
+			};
+			name = Release;
+		};
+		55E11DF61AE7114000815555 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SwiftAudioAdditionsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		55E11DF71AE7114000815555 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = SwiftAudioAdditionsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1017,6 +1258,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		55E11DF81AE7114000815555 /* Build configuration list for PBXNativeTarget "SwiftAudioAdditions" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55E11DF41AE7114000815555 /* Debug */,
+				55E11DF51AE7114000815555 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		55E11DF91AE7114000815555 /* Build configuration list for PBXNativeTarget "SwiftAudioAdditionsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55E11DF61AE7114000815555 /* Debug */,
+				55E11DF71AE7114000815555 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

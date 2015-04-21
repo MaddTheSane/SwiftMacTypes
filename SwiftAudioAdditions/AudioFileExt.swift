@@ -9,6 +9,7 @@
 import Foundation
 import AudioToolbox
 import CoreAudio
+import SwiftAdditions
 
 // MARK: Audio File
 
