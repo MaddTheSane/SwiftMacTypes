@@ -83,6 +83,6 @@ public func ExtAudioFileGetPropertyInfo(inExtAudioFile: ExtAudioFileRef, propert
 	return aRet
 }
 
-func ExtAudioFileGetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtendedAudioFilePropertyID, inout propertyDataSize ioPropertyDataSize: UInt32, propertyData outPropertyData: UnsafeMutablePointer<Void>) -> OSStatus {
+public func ExtAudioFileGetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtendedAudioFilePropertyID, inout propertyDataSize ioPropertyDataSize: UInt32, propertyData outPropertyData: UnsafeMutablePointer<Void>) -> OSStatus {
 	return ExtAudioFileGetProperty(inExtAudioFile, inPropertyID.rawValue, &ioPropertyDataSize, outPropertyData)
 }
