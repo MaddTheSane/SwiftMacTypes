@@ -22,7 +22,7 @@ extension NSRange: Equatable {
 		self = NSRangeFromString(string)
 	}
 	
-	/// is true if the location is equal to NSNotFound
+	/// Is true if `location` is equal to `NSNotFound`.
 	public var notFound: Bool {
 		return location == NSNotFound
 	}
@@ -31,7 +31,7 @@ extension NSRange: Equatable {
 		return NSLocationInRange(loc, self)
 	}
 
-	/// The maximum range of an NSRange
+	/// The maximum value from the range.
 	public var max: Int {
 		return NSMaxRange(self)
 	}
@@ -48,10 +48,12 @@ extension NSRange: Equatable {
 		return NSStringFromRange(self)
 	}
 
+	/// Make a new `NSRange` from a union of this range and another.
 	public func rangeByUnion(otherRange: NSRange) -> NSRange {
 		return NSUnionRange(self, otherRange)
 	}
 
+	/// Set the current `NSRange` to a union of this range and another.
 	public mutating func union(otherRange: NSRange) {
 		self = NSUnionRange(self, otherRange)
 	}
@@ -136,6 +138,7 @@ extension CGRect {
 }
 
 extension NSUUID {
+	/// Create a new `NSUUID` from a `CFUUID`.
 	public convenience init(_ cfUUID: CFUUID) {
 		let tmpuid = CFUUIDGetUUIDBytes(cfUUID)
 		var aUUID: uuid_t = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -163,11 +166,34 @@ extension NSUUID {
 		self.init(UUIDBytes: anotherUUID)
 	}
 	
-	/// gets a CoreFoundation UUID from the current UUID
+	/// gets a CoreFoundation UUID from the current UUID.
 	public var cfUUID: CFUUID {
 		let tmpStr = self.UUIDString
 		
 		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr)
+	}
+}
+
+extension NSData {
+	public convenience init(byteArray: [UInt8]) {
+		self.init(bytes: byteArray, length: byteArray.count)
+	}
+	
+	public var arrayOfBytes: [UInt8] {
+		let count = length / sizeof(UInt8)
+		var bytesArray = [UInt8](count: count, repeatedValue: 0)
+		getBytes(&bytesArray, length:count * sizeof(UInt8))
+		return bytesArray
+	}
+}
+
+extension NSMutableData {
+	public func appendByteArray(byteArray: [UInt]) {
+		appendBytes(byteArray, length: byteArray.count)
+	}
+	
+	public func replaceBytesInRange(range: NSRange, withByteArray replacementBytes: [UInt]) {
+		replaceBytesInRange(range, withBytes: replacementBytes, length: replacementBytes.count)
 	}
 }
 
