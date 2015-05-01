@@ -17,20 +17,18 @@ public func clamp<x: Comparable>(value: x, #minimum: x, #maximum: x) -> x {
 
 /// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
 /// Will crash if any type in the mirror doesn't match `X`.
-public func getArrayFromMirror<X>(mirror: MirrorType) -> [X] {
+///
+/// :param: mirror The `MirrorType` to get the reflected values from.
+/// :param: lastObj Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
+public func getArrayFromMirror<X>(mirror: MirrorType, appendLastObject lastObj: X? = nil) -> [X] {
 	var anArray = [X]()
 	for i in 0..<mirror.count {
 		let aChar = mirror[i].1.value as! X
 		anArray.append(aChar)
 	}
-	
-	return anArray
-}
-
-/// Best used for a fixed-size C array that expects to be NULL-terminated, like a C string.
-public func getArrayFromMirror<X>(mirror: MirrorType, appendLastObject lastObj: X) -> [X] {
-	var anArray: [X] = getArrayFromMirror(mirror)
-	anArray.append(lastObj)
+	if let lastObj = lastObj {
+		anArray.append(lastObj)
+	}
 	return anArray
 }
 
