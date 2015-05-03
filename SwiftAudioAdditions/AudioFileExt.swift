@@ -138,7 +138,6 @@ public struct AudioFormatFlag : RawOptionSetType {
 	}
 	public init(rawValue value: UInt32) { self.value = value }
 	public static var allZeros: AudioFormatFlag { return self(rawValue: 0) }
-	public static func fromMask(raw: UInt32) -> AudioFormatFlag { return self(rawValue: raw) }
 	public init(nilLiteral: ()) { self = AudioFormatFlag.FlagsAreAllClear }
 	
 	public static var NativeFloatPacked: AudioFormatFlag {
@@ -174,7 +173,6 @@ public struct LinearPCMFormatFlag : RawOptionSetType {
 	}
 	public init(rawValue value: UInt32) { self.value = value }
 	public static var allZeros: LinearPCMFormatFlag { return self(rawValue: 0) }
-	public static func fromMask(raw: UInt32) -> LinearPCMFormatFlag { return self(rawValue: raw) }
 	public init(nilLiteral: ()) { self = LinearPCMFormatFlag.FlagsAreAllClear }
 	
 	public static var NativeFloatPacked: LinearPCMFormatFlag {
@@ -226,7 +224,7 @@ public extension AudioStreamBasicDescription {
 	
 	public var formatFlags: AudioFormatFlag {
 		get {
-			return AudioFormatFlag.fromMask(mFormatFlags)
+			return AudioFormatFlag(rawValue: mFormatFlags)
 		}
 		set {
 			mFormatFlags = newValue.rawValue
