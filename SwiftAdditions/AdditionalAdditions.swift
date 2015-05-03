@@ -99,7 +99,7 @@ public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes:
 
 extension Array {
 	// Code taken from http://stackoverflow.com/a/26174259/1975001
-	mutating func removeAtIndexes(indexes: NSIndexSet) -> [T] {
+	private mutating func removeAtIndexes(indexes: NSIndexSet) -> [T] {
 		var toRet = [T]()
 		for var i = indexes.lastIndex; i != NSNotFound; i = indexes.indexLessThanIndex(i) {
 			toRet.append(self.removeAtIndex(i))
@@ -109,7 +109,7 @@ extension Array {
 	}
 	
 	///Internally creates an index set so there are no duplicates.
-	mutating func removeAtIndexes(ixs:[Int]) -> [T] {
+	private mutating func removeAtIndexes(ixs:[Int]) -> [T] {
 		var idxSet = NSMutableIndexSet()
 		for i in ixs {
 			idxSet.addIndex(i)
@@ -117,7 +117,7 @@ extension Array {
 		return removeAtIndexes(idxSet)
 	}
 	
-	mutating func removeAtIndexes(ixs: Set<Int>) -> [T] {
+	private mutating func removeAtIndexes(ixs: Set<Int>) -> [T] {
 		var idxSet = NSMutableIndexSet()
 		for i in ixs {
 			idxSet.addIndex(i)

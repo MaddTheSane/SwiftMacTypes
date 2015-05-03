@@ -51,11 +51,11 @@ public enum ForceFeedbackResult: HRESULT {
 		}
 	}
 	
-	public func isSuccess() -> Bool {
+	public var isSuccess: Bool {
 		return rawValue >= 0
 	}
 	
-	public func isFailure() -> Bool {
+	public var isFailure: Bool {
 		return rawValue < 0
 	}
 }
@@ -280,7 +280,7 @@ extension FFCUSTOMFORCE {
 	}
 	
 	/// Returns true if the data sent in is valid
-	public mutating func setData(#channels: DWORD, samples: DWORD, forceData: LPLONG) -> Bool {
+	public mutating func setData(#channels: UInt32, samples: UInt32, forceData: LPLONG) -> Bool {
 		if channels == 1 {
 			cChannels = channels
 			cSamples = samples
@@ -369,7 +369,6 @@ extension FFEFFESCAPE {
 	}
 }
 
-#if false
 // TODO: put these in an enum, or struct, or something...
 public var ForceFeedbackOffsetX : UInt8 {
 	return 0
@@ -394,7 +393,7 @@ public var ForceFeedbackOffsetRY : UInt8 {
 public var ForceFeedbackOffsetRZ : UInt8 {
 	return 20
 }
-	#endif
+
 public func ForceFeedbackOffsetSlider(n: UInt8) -> UInt8 {
 	return UInt8(24 + Int(n) * sizeof(LONG))
 }
@@ -411,7 +410,7 @@ extension FFCAPABILITIES {
 	public var axes: [UInt8] {
 		var axesArray: [UInt8] = getArrayFromMirror(reflect(ffAxes))
 		
-		return [UInt8](axesArray[0..<Int(numFfAxes)])
+		return [UInt8](axesArray[0..<min(Int(numFfAxes), axesArray.count)])
 	}
 	
 	public var supportedEffectTypes: ForceFeedbackCapabilitiesEffectType {
@@ -434,7 +433,6 @@ public struct ForceFeedbackCommand : RawOptionSetType {
 	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackCommand { return self(0) }
-	public static func fromMask(raw: UInt32) -> ForceFeedbackCommand { return self(raw) }
 	public var rawValue: UInt32 { return self.value }
 	
 	public static var Reset: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 0) }
@@ -452,7 +450,6 @@ public struct ForceFeedbackCooperativeLevel : RawOptionSetType {
 	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackCooperativeLevel { return self(0) }
-	public static func fromMask(raw: UInt32) -> ForceFeedbackCooperativeLevel { return self(raw) }
 	public var rawValue: UInt32 { return self.value }
 	
 	public static var Exclusive: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 0) }
@@ -468,7 +465,6 @@ public struct ForceFeedbackCapabilitiesEffectType : RawOptionSetType {
 	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackCapabilitiesEffectType { return self(0) }
-	public static func fromMask(raw: UInt32) -> ForceFeedbackCapabilitiesEffectType { return self(raw) }
 	public var rawValue: UInt32 { return self.value }
 	
 	public static var ConstantForce: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 0) }
@@ -492,7 +488,6 @@ public struct ForceFeedbackCapabilitiesEffectSubType : RawOptionSetType {
 	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackCapabilitiesEffectSubType { return self(0) }
-	public static func fromMask(raw: UInt32) -> ForceFeedbackCapabilitiesEffectSubType { return self(raw) }
 	public var rawValue: UInt32 { return self.value }
 	
 	public static var Kinesthetic: ForceFeedbackCapabilitiesEffectSubType { return ForceFeedbackCapabilitiesEffectSubType(1 << 0) }
@@ -506,7 +501,6 @@ public struct ForceFeedbackCoordinateSystem : RawOptionSetType {
 	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackCoordinateSystem { return self(0) }
-	public static func fromMask(raw: UInt32) -> ForceFeedbackCoordinateSystem { return self(raw) }
 	public var rawValue: UInt32 { return self.value }
 	
 	public static var Cartesian: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x10) }
@@ -521,7 +515,6 @@ public struct ForceFeedbackEffectParameter : RawOptionSetType {
 	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackEffectParameter { return self(0) }
-	public static func fromMask(raw: UInt32) -> ForceFeedbackEffectParameter { return self(raw) }
 	public var rawValue: UInt32 { return self.value }
 	
 	public static var Duration: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 0) }
@@ -550,7 +543,6 @@ public struct ForceFeedbackEffectStatus : RawOptionSetType {
 	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: ForceFeedbackEffectStatus { return self(0) }
-	public static func fromMask(raw: UInt32) -> ForceFeedbackEffectStatus { return self(raw) }
 	public var rawValue: UInt32 { return self.value }
 	
 	public static var NotPlaying: ForceFeedbackEffectStatus { return self(0) }
@@ -574,7 +566,6 @@ public final class ForceFeedbackDevice {
 		public init(rawValue value: UInt32) { self.value = value }
 		public init(nilLiteral: ()) { self.value = 0 }
 		public static var allZeros: State { return self(0) }
-		public static func fromMask(raw: UInt32) -> State { return self(raw) }
 		public var rawValue: UInt32 { return self.value }
 		
 		public static var Empty: State { return State(1 << 0) }
@@ -643,7 +634,7 @@ public final class ForceFeedbackDevice {
 		let curDataSize = inData.length
 		var tmpMutBytes = malloc(curDataSize)
 		memcpy(&tmpMutBytes, inData.bytes, curDataSize)
-		var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE.Type)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
+		var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
 		
 		let toRet = sendEscape(&ourEscape)
 		lastReturnValue = toRet
@@ -658,7 +649,7 @@ public final class ForceFeedbackDevice {
 			let curDataSize = inData.length
 			var tmpMutBytes = malloc(curDataSize)
 			memcpy(&tmpMutBytes, inData.bytes, curDataSize)
-			var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE.Type)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutableData.mutableBytes, cbOutBuffer: DWORD(outDataLength))
+			var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutableData.mutableBytes, cbOutBuffer: DWORD(outDataLength))
 			
 			let toRet = sendEscape(&ourEscape)
 			
@@ -677,7 +668,7 @@ public final class ForceFeedbackDevice {
 		var ourState: FFState = 0
 		let errVal = ForceFeedbackResult.fromHResult(FFDeviceGetForceFeedbackState(rawDevice, &ourState))
 		lastReturnValue = errVal
-		if lastReturnValue.isSuccess() {
+		if lastReturnValue.isSuccess {
 			return State(ourState)
 		} else {
 			return State(0)
@@ -769,7 +760,6 @@ public final class ForceFeedbackEffect {
 		public init(rawValue value: UInt32) { self.value = value }
 		public init(nilLiteral: ()) { self.value = 0 }
 		public static var allZeros: EffectStart { return self(0) }
-		public static func fromMask(raw: UInt32) -> EffectStart { return self(raw) }
 		public var rawValue: UInt32 { return self.value }
 		
 		public static var Solo: EffectStart { return EffectStart(0x01) }

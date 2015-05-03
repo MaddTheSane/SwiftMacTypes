@@ -45,7 +45,6 @@ public struct AudioFileFlags : RawOptionSetType {
 	public init(rawValue value: RawValue) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: AudioFileFlags { return self(0) }
-	public static func fromMask(raw: RawValue) -> AudioFileFlags { return self(raw) }
 	public var rawValue: RawValue { return self.value }
 	
 	public static var EraseFile: AudioFileFlags { return AudioFileFlags(1 << 0) }

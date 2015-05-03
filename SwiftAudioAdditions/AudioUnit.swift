@@ -18,7 +18,6 @@ public struct AudioComponentFlag : RawOptionSetType {
 	public init(rawValue value: UInt32) { self.value = value }
 	public init(nilLiteral: ()) { self.value = 0 }
 	public static var allZeros: AudioComponentFlag { return self(0) }
-	public static func fromMask(raw: UInt32) -> AudioComponentFlag { return self(raw) }
 	public var rawValue: UInt32 { return self.value }
 	
 	public static var None: AudioComponentFlag { return self(0) }
