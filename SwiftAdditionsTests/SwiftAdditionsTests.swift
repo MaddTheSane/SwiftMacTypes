@@ -56,5 +56,8 @@ class SwiftAdditionsTests: XCTestCase {
 		for i in idxSet {
 			intTest.append(i)
 		}
+		
+		var aUUID = NSUUID().cfUUID
+		var bUUID = NSUUID(aUUID)
 	}
 }

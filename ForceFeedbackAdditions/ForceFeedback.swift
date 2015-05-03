@@ -407,40 +407,59 @@ public func ForceFeedbackOffsetButton(n: UInt8) -> UInt8 {
 }
 
 extension FFCAPABILITIES {
+	public struct CapabilityEffectTypes : RawOptionSetType {
+		public typealias RawValue = UInt32
+		private var value: UInt32 = 0
+		public init(_ value: UInt32) { self.value = value }
+		public init(rawValue value: UInt32) { self.value = value }
+		public init(nilLiteral: ()) { self.value = 0 }
+		public static var allZeros: CapabilityEffectTypes { return self(0) }
+		public var rawValue: UInt32 { return self.value }
+		
+		public static var ConstantForce: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 0) }
+		public static var RampForce: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 1) }
+		public static var Square: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 2) }
+		public static var Sine: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 3) }
+		public static var Triangle: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 4) }
+		public static var SawtoothUp: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 5) }
+		public static var SawtoothDown: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 6) }
+		public static var Spring: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 7) }
+		public static var Damper: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 8) }
+		public static var Inertia: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 9) }
+		public static var Friction: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 10) }
+		public static var CustomForce: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 11) }
+	}
+	
+	public struct CapabilityEffectSubtypes : RawOptionSetType {
+		typealias RawValue = UInt32
+		private var value: UInt32 = 0
+		public init(_ value: UInt32) { self.value = value }
+		public init(rawValue value: UInt32) { self.value = value }
+		public init(nilLiteral: ()) { self.value = 0 }
+		public static var allZeros: CapabilityEffectSubtypes { return self(0) }
+		public var rawValue: UInt32 { return self.value }
+		
+		public static var Kinesthetic: CapabilityEffectSubtypes { return CapabilityEffectSubtypes(1 << 0) }
+		public static var Vibration: CapabilityEffectSubtypes { return CapabilityEffectSubtypes(1 << 1) }
+	}
+	
 	public var axes: [UInt8] {
 		var axesArray: [UInt8] = getArrayFromMirror(reflect(ffAxes))
 		
 		return [UInt8](axesArray[0..<min(Int(numFfAxes), axesArray.count)])
 	}
 	
-	public var supportedEffectTypes: ForceFeedbackCapabilitiesEffectType {
-		return ForceFeedbackCapabilitiesEffectType(supportedEffects)
+	public var supportedEffectTypes: CapabilityEffectTypes {
+		return CapabilityEffectTypes(supportedEffects)
 	}
 	
-	public var emulatedEffectTypes: ForceFeedbackCapabilitiesEffectType {
-		return ForceFeedbackCapabilitiesEffectType(emulatedEffects)
+	public var emulatedEffectTypes: CapabilityEffectTypes {
+		return CapabilityEffectTypes(emulatedEffects)
 	}
 	
-	public var effectSubType: ForceFeedbackCapabilitiesEffectSubType {
-		return ForceFeedbackCapabilitiesEffectSubType(subType)
+	public var effectSubType: CapabilityEffectSubtypes {
+		return CapabilityEffectSubtypes(subType)
 	}
-}
-	
-public struct ForceFeedbackCommand : RawOptionSetType {
-	typealias RawValue = UInt32
-	private var value: UInt32 = 0
-	public init(_ value: UInt32) { self.value = value }
-	public init(rawValue value: UInt32) { self.value = value }
-	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: ForceFeedbackCommand { return self(0) }
-	public var rawValue: UInt32 { return self.value }
-	
-	public static var Reset: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 0) }
-	public static var StopAll: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 1) }
-	public static var Pause: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 2) }
-	public static var Continue: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 3) }
-	public static var SetActuatorsOn: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 4) }
-	public static var SetActuatorsOff: ForceFeedbackCommand { return ForceFeedbackCommand(1 << 5) }
 }
 
 public struct ForceFeedbackCooperativeLevel : RawOptionSetType {
@@ -456,42 +475,6 @@ public struct ForceFeedbackCooperativeLevel : RawOptionSetType {
 	public static var NonExclusive: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 1) }
 	public static var Foreground: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 2) }
 	public static var Background: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 3) }
-}
-
-public struct ForceFeedbackCapabilitiesEffectType : RawOptionSetType {
-	public typealias RawValue = UInt32
-	private var value: UInt32 = 0
-	public init(_ value: UInt32) { self.value = value }
-	public init(rawValue value: UInt32) { self.value = value }
-	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: ForceFeedbackCapabilitiesEffectType { return self(0) }
-	public var rawValue: UInt32 { return self.value }
-	
-	public static var ConstantForce: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 0) }
-	public static var RampForce: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 1) }
-	public static var Square: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 2) }
-	public static var Sine: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 3) }
-	public static var Triangle: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 4) }
-	public static var SawtoothUp: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 5) }
-	public static var SawtoothDown: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 6) }
-	public static var Spring: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 7) }
-	public static var Damper: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 8) }
-	public static var Inertia: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 9) }
-	public static var Friction: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 10) }
-	public static var CustomForce: ForceFeedbackCapabilitiesEffectType { return ForceFeedbackCapabilitiesEffectType(1 << 11) }
-}
-
-public struct ForceFeedbackCapabilitiesEffectSubType : RawOptionSetType {
-	typealias RawValue = UInt32
-	private var value: UInt32 = 0
-	public init(_ value: UInt32) { self.value = value }
-	public init(rawValue value: UInt32) { self.value = value }
-	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: ForceFeedbackCapabilitiesEffectSubType { return self(0) }
-	public var rawValue: UInt32 { return self.value }
-	
-	public static var Kinesthetic: ForceFeedbackCapabilitiesEffectSubType { return ForceFeedbackCapabilitiesEffectSubType(1 << 0) }
-	public static var Vibration: ForceFeedbackCapabilitiesEffectSubType { return ForceFeedbackCapabilitiesEffectSubType(1 << 1) }
 }
 
 public struct ForceFeedbackCoordinateSystem : RawOptionSetType {
@@ -557,6 +540,23 @@ public final class ForceFeedbackDevice {
 	public enum Property: UInt32 {
 		case Gain = 1
 		case Autocenter = 3
+	}
+	
+	public struct Command : RawOptionSetType {
+		typealias RawValue = UInt32
+		private var value: UInt32 = 0
+		public init(_ value: UInt32) { self.value = value }
+		public init(rawValue value: UInt32) { self.value = value }
+		public init(nilLiteral: ()) { self.value = 0 }
+		public static var allZeros: Command { return self(0) }
+		public var rawValue: UInt32 { return self.value }
+		
+		public static var Reset: Command { return Command(1 << 0) }
+		public static var StopAll: Command { return Command(1 << 1) }
+		public static var Pause: Command { return Command(1 << 2) }
+		public static var Continue: Command { return Command(1 << 3) }
+		public static var SetActuatorsOn: Command { return Command(1 << 4) }
+		public static var SetActuatorsOff: Command { return Command(1 << 5) }
 	}
 	
 	public struct State : RawOptionSetType {
@@ -675,7 +675,7 @@ public final class ForceFeedbackDevice {
 		}
 	}
 	
-	public func sendForceFeedbackCommand(command: ForceFeedbackCommand) -> ForceFeedbackResult {
+	public func sendCommand(command: Command) -> ForceFeedbackResult {
 		let iErr = ForceFeedbackResult.fromHResult(FFDeviceSendForceFeedbackCommand(rawDevice, command.rawValue))
 		lastReturnValue = iErr
 		return iErr
@@ -853,102 +853,78 @@ public final class ForceFeedbackEffect {
 	
 	/// E559C460-C5CD-11D6-8A1C-00039353BD00
 	/// UUID for a constant force effect type
-	public class var ConstantForce: CFUUID {
-		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let ConstantForce: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x60, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
-	}
 	
 	/// E559C461-C5CD-11D6-8A1C-00039353BD00
 	/// UUID for a ramp force effect type
-	public class var RampForce: CFUUID {
-		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let RampForce: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x61, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
-	}
 	
 	/// E559C462-C5CD-11D6-8A1C-00039353BD00
 	/// UUID for a square wave effect type
-	public class var Square: CFUUID {
-		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let Square: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x62, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
-	}
 	
 	/// E559C463-C5CD-11D6-8A1C-00039353BD00
 	/// UUID for a sine wave effect type
-	public class var Sine: CFUUID {
-		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let Sine: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x63, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
-	}
 	
 	/// E559C464-C5CD-11D6-8A1C-00039353BD00
 	/// UUID for a triangle wave effect type
-	public class var Triangle: CFUUID {
-		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let Triangle: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x64, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
-	}
 	
 	/// E559C465-C5CD-11D6-8A1C-00039353BD00
 	/// UUID for a upwards sawtooth wave effect type
-	public class var SawtoothUp: CFUUID {
-		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let SawtoothUp: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x65, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
-	}
 	
 	/// E559C466-C5CD-11D6-8A1C-00039353BD00
 	/// UUID for a downwards sawtooth wave effect type
-	public class var SawtoothDown: CFUUID {
-		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let SawtoothDown: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x66, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
-	}
 	
 	/// E559C467-C5CD-11D6-8A1C-00039353BD00
 	/// UUID for a spring effect type
-	public class var Spring: CFUUID {
-		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let Spring: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x67, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
-	}
 	
 	/// E559C468-C5CD-11D6-8A1C-00039353BD00
 	/// UUID for a damper effect type
-	public class var Damper: CFUUID {
-		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let Damper: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x68, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
-	}
 	
 	/// E559C469-C5CD-11D6-8A1C-00039353BD00
 	/// UUID for an inertia effect type
-	public class var Inertia: CFUUID {
-		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let Inertia: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x69, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
-	}
 	
 	/// E559C46A-C5CD-11D6-8A1C-00039353BD00
 	/// UUID for a friction effect type
-	public class var Friction: CFUUID {
-		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let Friction: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x6A, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
-	}
 	
 	/// E559C46B-C5CD-11D6-8A1C-00039353BD00
 	/// UUID for a custom force effect type
-	public class var CustomForce: CFUUID {
-		return CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let CustomForce: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x6B, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
-	}
 	
 	public convenience init?(device: ForceFeedbackDevice, UUID: NSUUID, inout effectDefinition: FFEFFECT) {
-		let ourUUID = CFUUIDCreateFromString(kCFAllocatorDefault, UUID.UUIDString)!
+		let ourUUID = UUID.cfUUID
 		
 		self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
 	}

@@ -141,27 +141,8 @@ extension NSUUID {
 	/// Create a new `NSUUID` from a `CFUUID`.
 	public convenience init(_ cfUUID: CFUUID) {
 		let tmpuid = CFUUIDGetUUIDBytes(cfUUID)
-		var aUUID: uuid_t = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-		//TODO: make this look better
-		aUUID.0 = tmpuid.byte0
-		aUUID.1 = tmpuid.byte1
-		aUUID.2 = tmpuid.byte2
-		aUUID.3 = tmpuid.byte3
-		aUUID.4 = tmpuid.byte4
-		aUUID.5 = tmpuid.byte5
-		aUUID.6 = tmpuid.byte6
-		aUUID.7 = tmpuid.byte7
-		aUUID.8 = tmpuid.byte8
-		aUUID.9 = tmpuid.byte9
-		aUUID.10 = tmpuid.byte10
-		aUUID.11 = tmpuid.byte11
-		aUUID.12 = tmpuid.byte12
-		aUUID.13 = tmpuid.byte13
-		aUUID.14 = tmpuid.byte14
-		aUUID.15 = tmpuid.byte15
-
-		let anotherUUID: [UInt8] = getArrayFromMirror(reflect(aUUID))
+		let anotherUUID: [UInt8] = getArrayFromMirror(reflect(tmpuid))
 		
 		self.init(UUIDBytes: anotherUUID)
 	}
