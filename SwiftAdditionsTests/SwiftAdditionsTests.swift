@@ -39,25 +39,13 @@ class SwiftAdditionsTests: XCTestCase {
 			inferredBo = OSUnknownByteOrder
 			break
 		}
-		XCTAssert(inferredBo == bo)
+		XCTAssertEqual(inferredBo, bo)
 	}
 	
-	func testIndexSetGenerator() {
-		var intTest = [Int]()
-		
-		let idxSet = NSMutableIndexSet(indexesInRange: NSRange(1..<8))
-		
-		idxSet.addIndex(100)
-		idxSet.addIndex(80)
-		idxSet.addIndex(200)
-		idxSet.addIndex(10)
-		idxSet.addIndex(5)
-		
-		for i in idxSet {
-			intTest.append(i)
-		}
-		
-		var aUUID = NSUUID().cfUUID
-		var bUUID = NSUUID(aUUID)
+	func testUUIDTranslators() {
+		let aUUID = NSUUID()
+		let aCFUUID = aUUID.cfUUID
+		let bUUID = NSUUID(aCFUUID)
+		XCTAssertEqual(aUUID, bUUID)
 	}
 }

@@ -16,6 +16,7 @@ public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
 }
 
 extension NSRange: Equatable {
+	/// An `NSRange` with a location of `NSNotFound` and a length of `0`.
 	public static let notFound = NSRange(location: NSNotFound, length: 0)
 	
 	public init(string: String) {
@@ -27,7 +28,7 @@ extension NSRange: Equatable {
 		return location == NSNotFound
 	}
 	
-	public func locationIsInRange(loc: Int) -> Bool {
+	public func locationInRange(loc: Int) -> Bool {
 		return NSLocationInRange(loc, self)
 	}
 
@@ -36,14 +37,17 @@ extension NSRange: Equatable {
 		return NSMaxRange(self)
 	}
 
+	/// Make a new `NSRange` by intersecting this range and another.
 	public func rangeByIntersecting(otherRange: NSRange) -> NSRange {
 		return NSIntersectionRange(self, otherRange)
 	}
 
+	/// Set the current `NSRange` to an intersection of this range and another.
 	public mutating func intersect(otherRange: NSRange) {
 		self = NSIntersectionRange(self, otherRange)
 	}
-
+	
+	/// A string representation of the current range.
 	public var stringValue: String {
 		return NSStringFromRange(self)
 	}
@@ -57,6 +61,24 @@ extension NSRange: Equatable {
 	public mutating func union(otherRange: NSRange) {
 		self = NSUnionRange(self, otherRange)
 	}
+	
+	// MARK: - CFRange interop.
+	
+	/// Initializes an `NSRange` struct from a `CFRange` struct.
+	public init(_ range: CFRange) {
+		location = range.location
+		length = range.length
+	}
+	
+	/// Initializes an `NSRange` struct from a `CFRange` struct.
+	public init(range: CFRange) {
+		self.init(range)
+	}
+	
+	/// The current range, represented as a `CFRange`.
+	public var cfRange: CFRange {
+		return CFRange(location: location, length: length)
+	}
 }
 
 extension CGPoint {
@@ -68,6 +90,7 @@ extension CGPoint {
 		#endif
 	}
 
+	/// A string representation of the current point.
 	public var stringValue: String {
 		#if os(OSX)
 			return NSStringFromPoint(self)
@@ -86,6 +109,7 @@ extension CGSize {
 		#endif
 	}
 
+	/// A string representation of the current size.
 	public var stringValue: String {
 		#if os(OSX)
 			return NSStringFromSize(self)
@@ -96,10 +120,12 @@ extension CGSize {
 }
 
 extension CGRect {
+	/// Set the current rect to an integral of the current rect.
 	public mutating func integral() {
 		self = CGRectIntegral(self)
 	}
 
+	/// An integral rect of the current rect.
 	public var rectFromIntegral: CGRect {
 		return CGRectIntegral(self)
 	}
@@ -122,6 +148,7 @@ extension CGRect {
 		#endif
 	}
 
+	/// A string representation of the current rect.
 	public var stringValue: String {
 		#if os(OSX)
 			return NSStringFromRect(self)
@@ -169,11 +196,11 @@ extension NSData {
 }
 
 extension NSMutableData {
-	public func appendByteArray(byteArray: [UInt]) {
+	public func appendByteArray(byteArray: [UInt8]) {
 		appendBytes(byteArray, length: byteArray.count)
 	}
 	
-	public func replaceBytesInRange(range: NSRange, withByteArray replacementBytes: [UInt]) {
+	public func replaceBytesInRange(range: NSRange, withByteArray replacementBytes: [UInt8]) {
 		replaceBytesInRange(range, withBytes: replacementBytes, length: replacementBytes.count)
 	}
 }

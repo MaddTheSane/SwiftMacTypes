@@ -11,7 +11,7 @@ import Foundation
 ///Clamps a variable between `minimum` and `maximum`.
 ///
 ///Having a `minimum` value greater than the `maximum` value is undefined.
-public func clamp<x: Comparable>(value: x, #minimum: x, #maximum: x) -> x {
+public func clamp<X: Comparable>(value: X, #minimum: X, #maximum: X) -> X {
 	return max(min(value, maximum), minimum)
 }
 

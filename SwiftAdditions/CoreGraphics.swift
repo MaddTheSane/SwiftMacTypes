@@ -26,15 +26,13 @@ extension CGBitmapInfo {
 		}
 	}
 	
-	#if false
-	/// Inits a CGBitmapInfo value from an alpha value,
-	public init(alphaInfo: CGImageAlphaInfo, additionalInfo: CGBitmapInfo = nil) {
-		let ordValue = alphaInfo.rawValue | additionalInfo.rawValue
+	/// Inits a `CGBitmapInfo` value from a `CGImageAlphaInfo`.
+	public init(alphaInfo: CGImageAlphaInfo) {
+		let ordValue = alphaInfo.rawValue
 		self = CGBitmapInfo(rawValue: ordValue)
 	}
-	#endif
 	
-	/// The native 16-bit byte order
+	/// The native 16-bit byte order format.
 	public static var ByteOrder16Host: CGBitmapInfo {
 		if isLittleEndian {
 			return .ByteOrder16Little
@@ -43,7 +41,7 @@ extension CGBitmapInfo {
 		}
 	}
 	
-	/// The native 32-bit byte order
+	/// The native 32-bit byte order format.
 	public static var ByteOrder32Host: CGBitmapInfo {
 		if isLittleEndian {
 			return .ByteOrder32Little
