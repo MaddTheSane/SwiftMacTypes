@@ -50,7 +50,7 @@ public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType
 	if detectHex && count(theString) > 4 {
 		let aScann = NSScanner(string: theString)
 		var tmpnum: UInt32 = 0
-		if aScann.scanHexInt(&tmpnum) {
+		if aScann.scanHexInt(&tmpnum) && tmpnum != UInt32.max {
 			return tmpnum
 		}
 	}
