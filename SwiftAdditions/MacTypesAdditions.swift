@@ -17,8 +17,8 @@ import CoreGraphics
 /// Converts an OSType to a String value. May return nil.
 public func OSTypeToString(theType: OSType) -> String? {
 	#if os(OSX)
-		if let toRet = UTCreateStringForOSType(theType) {
-			return toRet.takeRetainedValue() as String
+		if let toRet = UTCreateStringForOSType(theType)?.takeRetainedValue() {
+			return toRet as String
 		} else {
 			return nil
 		}
@@ -87,7 +87,6 @@ public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType
 	#endif
 }
 
-#if false
 public var CurrentCFMacStringEncoding: CFStringEncoding {
 	return CFStringGetMostCompatibleMacStringEncoding(CFStringGetSystemEncoding())
 }
@@ -96,7 +95,6 @@ public var CurrentCFMacStringEncoding: CFStringEncoding {
 public var CurrentMacStringEncoding: NSStringEncoding {
 	return CFStringConvertEncodingToNSStringEncoding(CurrentCFMacStringEncoding)
 }
-	#endif
 
 /// Pascal String extensions
 extension String {
@@ -212,7 +210,7 @@ extension String {
 		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding) as! String
 	}
 }
-	
+
 public enum CarbonToolbarIcons: OSType {
 	case Customize = 0x74637573
 	case Delete = 0x7464656C
@@ -232,6 +230,10 @@ public enum CarbonToolbarIcons: OSType {
 	case LibraryFolder = 0x744C6962
 	case UtilitiesFolder = 0x7455746C
 	case SitesFolder = 0x74537473
+	
+	public var stringValue: String {
+		return OSTypeToString(self.rawValue) ?? "    "
+	}
 }
 
 public enum CarbonFolderIcons: OSType {
@@ -242,5 +244,9 @@ public enum CarbonFolderIcons: OSType {
 	case Owned = 0x6F776E64
 	case Private = 0x70727666
 	case Shared = 0x7368666C
+	
+	public var stringValue: String {
+		return OSTypeToString(self.rawValue) ?? "    "
+	}
 }
 #endif

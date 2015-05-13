@@ -76,6 +76,19 @@ public func ExtAudioFileSetProperty(inExtAudioFile: ExtAudioFileRef, propertyID 
 	return ExtAudioFileSetProperty(inExtAudioFile, inPropertyID.rawValue, propertyDataSize, propertyData)
 }
 
+public func ExtAudioFileSetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtendedAudioFilePropertyID, dataSize propertyDataSize: Int, data propertyData: UnsafePointer<Void>) -> OSStatus {
+	return ExtAudioFileSetProperty(inExtAudioFile, inPropertyID.rawValue, UInt32(propertyDataSize), propertyData)
+}
+
+public func ExtAudioFileGetPropertyInfo(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtendedAudioFilePropertyID, inout size outSize: Int, inout writable outWritable: Bool) -> OSStatus {
+	var ouSize = UInt32(outSize)
+	var ouWritable: Boolean = 0
+	let aRet = ExtAudioFileGetPropertyInfo(inExtAudioFile, inPropertyID.rawValue, &ouSize, &ouWritable)
+	outWritable = ouWritable.boolValue
+	outSize = Int(ouSize)
+	return aRet
+}
+
 public func ExtAudioFileGetPropertyInfo(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtendedAudioFilePropertyID, inout size outSize: UInt32, inout writable outWritable: Bool) -> OSStatus {
 	var ouWritable: Boolean = 0
 	let aRet = ExtAudioFileGetPropertyInfo(inExtAudioFile, inPropertyID.rawValue, &outSize, &ouWritable)

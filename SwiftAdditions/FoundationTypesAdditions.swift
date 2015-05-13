@@ -166,7 +166,7 @@ extension CGRect {
 
 extension NSUUID {
 	/// Create a new `NSUUID` from a `CFUUID`.
-	public convenience init(_ cfUUID: CFUUID) {
+	@objc(initWithCFUUID:) public convenience init(_ cfUUID: CFUUID) {
 		let tmpuid = CFUUIDGetUUIDBytes(cfUUID)
 
 		let anotherUUID: [UInt8] = getArrayFromMirror(reflect(tmpuid))

@@ -33,7 +33,7 @@ public enum AudioFileType: OSType {
 	case threeGP2			= 862416946
 	case AMR				= 1634562662
 	
-	public func stringValue() -> String {
+	public var stringValue: String {
 		return OSTypeToString(self.rawValue) ?? "    "
 	}
 }
@@ -124,7 +124,7 @@ public enum AudioFormat: OSType {
 	case iLBC					= 1768710755
 	case AES3					= 1634038579
 	
-	public func stringValue() -> String {
+	public var stringValue: String {
 		return OSTypeToString(self.rawValue) ?? "    "
 	}
 }
@@ -198,14 +198,20 @@ public struct LinearPCMFormatFlag : RawOptionSetType {
 }
 
 public extension AudioStreamBasicDescription {
-	public var audioFormatNativeEndian: Bool {
+	
+	///Is the current `AudioStreamBasicDescription` in the native endian format?
+	///
+	///:returns: `true` if the audio is in the native endian, `false` if not, and `nil` if the `formatID` isn't `.LinearPCM`.
+	public var audioFormatNativeEndian: Bool? {
 		if (formatID == .LinearPCM) {
 			let ourFlags = formatFlags & .BigEndian
 			if ourFlags == .NativeEndian {
 				return true
+			} else {
+				return false
 			}
 		}
-		return false
+		return nil
 	}
 	
 	public var formatID: AudioFormat {

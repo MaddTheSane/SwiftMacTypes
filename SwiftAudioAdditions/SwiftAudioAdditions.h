@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 C.W. Betts. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for SwiftAudioAdditions.
 FOUNDATION_EXPORT double SwiftAudioAdditionsVersionNumber;
