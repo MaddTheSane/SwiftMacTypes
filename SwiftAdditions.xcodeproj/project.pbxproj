@@ -6,6 +6,35 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		5518A41B1B03E920005AF928 /* All Additions */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5518A41E1B03E920005AF928 /* Build configuration list for PBXAggregateTarget "All Additions" */;
+			buildPhases = (
+			);
+			dependencies = (
+				5518A4201B03E931005AF928 /* PBXTargetDependency */,
+				5518A4221B03E931005AF928 /* PBXTargetDependency */,
+				5518A4241B03E931005AF928 /* PBXTargetDependency */,
+				5518A4261B03E931005AF928 /* PBXTargetDependency */,
+			);
+			name = "All Additions";
+			productName = "All Additions";
+		};
+		5518A4271B03F190005AF928 /* All Additions-iOS */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5518A4301B03F190005AF928 /* Build configuration list for PBXAggregateTarget "All Additions-iOS" */;
+			buildPhases = (
+			);
+			dependencies = (
+				5518A4281B03F190005AF928 /* PBXTargetDependency */,
+				5518A42E1B03F190005AF928 /* PBXTargetDependency */,
+			);
+			name = "All Additions-iOS";
+			productName = "All Additions";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550B049F1A0D5932002BD56E /* COMUUIDs.swift */; };
 		550FBAC419A7ADC500EFBD3D /* SwiftAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -43,6 +72,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5518A41F1B03E931005AF928 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
+			remoteInfo = SwiftAdditions;
+		};
+		5518A4211B03E931005AF928 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55706D8E1A1EC2440000FD93;
+			remoteInfo = SwiftIOKitAdditions;
+		};
+		5518A4231B03E931005AF928 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55403A001A745003007A488E;
+			remoteInfo = ForceFeedbackAdditions;
+		};
+		5518A4251B03E931005AF928 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55E11DE01AE7114000815555;
+			remoteInfo = SwiftAudioAdditions;
+		};
+		5518A4291B03F190005AF928 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
+			remoteInfo = SwiftAdditions;
+		};
+		5518A42F1B03F190005AF928 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55E11DE01AE7114000815555;
+			remoteInfo = SwiftAudioAdditions;
+		};
 		55403A0D1A745003007A488E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
@@ -588,6 +659,9 @@
 					550FBAC819A7ADC500EFBD3D = {
 						CreatedOnToolsVersion = 6.0;
 					};
+					5518A41B1B03E920005AF928 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
 					55403A001A745003007A488E = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
@@ -628,6 +702,8 @@
 				55403A0A1A745003007A488E /* ForceFeedbackAdditionsTests */,
 				55E11DE01AE7114000815555 /* SwiftAudioAdditions */,
 				55E11DEA1AE7114000815555 /* SwiftAudioAdditionsTests */,
+				5518A41B1B03E920005AF928 /* All Additions */,
+				5518A4271B03F190005AF928 /* All Additions-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -771,6 +847,36 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5518A4201B03E931005AF928 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 550FBABD19A7ADC500EFBD3D /* SwiftAdditions */;
+			targetProxy = 5518A41F1B03E931005AF928 /* PBXContainerItemProxy */;
+		};
+		5518A4221B03E931005AF928 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55706D8E1A1EC2440000FD93 /* SwiftIOKitAdditions */;
+			targetProxy = 5518A4211B03E931005AF928 /* PBXContainerItemProxy */;
+		};
+		5518A4241B03E931005AF928 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55403A001A745003007A488E /* ForceFeedbackAdditions */;
+			targetProxy = 5518A4231B03E931005AF928 /* PBXContainerItemProxy */;
+		};
+		5518A4261B03E931005AF928 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55E11DE01AE7114000815555 /* SwiftAudioAdditions */;
+			targetProxy = 5518A4251B03E931005AF928 /* PBXContainerItemProxy */;
+		};
+		5518A4281B03F190005AF928 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 550FBABD19A7ADC500EFBD3D /* SwiftAdditions */;
+			targetProxy = 5518A4291B03F190005AF928 /* PBXContainerItemProxy */;
+		};
+		5518A42E1B03F190005AF928 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55E11DE01AE7114000815555 /* SwiftAudioAdditions */;
+			targetProxy = 5518A42F1B03F190005AF928 /* PBXContainerItemProxy */;
+		};
 		55403A0E1A745003007A488E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 55403A001A745003007A488E /* ForceFeedbackAdditions */;
@@ -954,6 +1060,36 @@
 				INFOPLIST_FILE = SwiftAdditionsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		5518A41C1B03E920005AF928 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5518A41D1B03E920005AF928 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		5518A4311B03F190005AF928 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "All Additions copy";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		5518A4321B03F190005AF928 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "All Additions copy";
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
@@ -1207,6 +1343,23 @@
 			buildConfigurations = (
 				550FBAD519A7ADC500EFBD3D /* Debug */,
 				550FBAD619A7ADC500EFBD3D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5518A41E1B03E920005AF928 /* Build configuration list for PBXAggregateTarget "All Additions" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5518A41C1B03E920005AF928 /* Debug */,
+				5518A41D1B03E920005AF928 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		5518A4301B03F190005AF928 /* Build configuration list for PBXAggregateTarget "All Additions-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5518A4311B03F190005AF928 /* Debug */,
+				5518A4321B03F190005AF928 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

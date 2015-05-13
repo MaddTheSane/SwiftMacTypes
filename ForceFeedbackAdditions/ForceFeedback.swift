@@ -194,6 +194,15 @@ extension FFENVELOPE {
 		}
 	}
 	
+	public var attack: (level: UInt32, time: UInt32) {
+		get {
+			return (dwAttackLevel, dwAttackTime)
+		}
+		set {
+			(dwAttackLevel, dwAttackTime) = newValue
+		}
+	}
+	
 	public var attackLevel: UInt32 {
 		get {
 			return dwAttackLevel
@@ -209,6 +218,15 @@ extension FFENVELOPE {
 		}
 		set {
 			dwAttackTime = newValue
+		}
+	}
+	
+	public var fade: (level: UInt32, time: UInt32) {
+		get {
+			return (dwFadeLevel, dwFadeTime)
+		}
+		set {
+			(dwFadeLevel, dwFadeTime) = newValue
 		}
 	}
 	
@@ -370,29 +388,12 @@ extension FFEFFESCAPE {
 }
 
 // TODO: put these in an enum, or struct, or something...
-public var ForceFeedbackOffsetX : UInt8 {
-	return 0
-}
-
-public var ForceFeedbackOffsetY : UInt8 {
-	return 4
-}
-
-public var ForceFeedbackOffsetZ : UInt8 {
-	return 8
-}
-
-public var ForceFeedbackOffsetRX : UInt8 {
-	return 12
-}
-
-public var ForceFeedbackOffsetRY : UInt8 {
-	return 16
-}
-
-public var ForceFeedbackOffsetRZ : UInt8 {
-	return 20
-}
+public let ForceFeedbackOffsetX : UInt8 = 0
+public let ForceFeedbackOffsetY : UInt8 = 4
+public let ForceFeedbackOffsetZ : UInt8 = 8
+public let ForceFeedbackOffsetRX : UInt8 = 12
+public let ForceFeedbackOffsetRY : UInt8 = 16
+public let ForceFeedbackOffsetRZ : UInt8 = 20
 
 public func ForceFeedbackOffsetSlider(n: UInt8) -> UInt8 {
 	return UInt8(24 + Int(n) * sizeof(LONG))
@@ -407,40 +408,40 @@ public func ForceFeedbackOffsetButton(n: UInt8) -> UInt8 {
 }
 
 extension FFCAPABILITIES {
-	public struct CapabilityEffectTypes : RawOptionSetType {
+	public struct EffectTypes : RawOptionSetType {
 		public typealias RawValue = UInt32
 		private var value: UInt32 = 0
 		public init(_ value: UInt32) { self.value = value }
 		public init(rawValue value: UInt32) { self.value = value }
 		public init(nilLiteral: ()) { self.value = 0 }
-		public static var allZeros: CapabilityEffectTypes { return self(0) }
+		public static var allZeros: EffectTypes { return self(0) }
 		public var rawValue: UInt32 { return self.value }
 		
-		public static var ConstantForce: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 0) }
-		public static var RampForce: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 1) }
-		public static var Square: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 2) }
-		public static var Sine: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 3) }
-		public static var Triangle: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 4) }
-		public static var SawtoothUp: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 5) }
-		public static var SawtoothDown: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 6) }
-		public static var Spring: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 7) }
-		public static var Damper: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 8) }
-		public static var Inertia: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 9) }
-		public static var Friction: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 10) }
-		public static var CustomForce: CapabilityEffectTypes { return CapabilityEffectTypes(1 << 11) }
+		public static var ConstantForce: EffectTypes { return EffectTypes(1 << 0) }
+		public static var RampForce: EffectTypes { return EffectTypes(1 << 1) }
+		public static var Square: EffectTypes { return EffectTypes(1 << 2) }
+		public static var Sine: EffectTypes { return EffectTypes(1 << 3) }
+		public static var Triangle: EffectTypes { return EffectTypes(1 << 4) }
+		public static var SawtoothUp: EffectTypes { return EffectTypes(1 << 5) }
+		public static var SawtoothDown: EffectTypes { return EffectTypes(1 << 6) }
+		public static var Spring: EffectTypes { return EffectTypes(1 << 7) }
+		public static var Damper: EffectTypes { return EffectTypes(1 << 8) }
+		public static var Inertia: EffectTypes { return EffectTypes(1 << 9) }
+		public static var Friction: EffectTypes { return EffectTypes(1 << 10) }
+		public static var CustomForce: EffectTypes { return EffectTypes(1 << 11) }
 	}
 	
-	public struct CapabilityEffectSubtypes : RawOptionSetType {
+	public struct EffectSubtypes : RawOptionSetType {
 		typealias RawValue = UInt32
 		private var value: UInt32 = 0
 		public init(_ value: UInt32) { self.value = value }
 		public init(rawValue value: UInt32) { self.value = value }
 		public init(nilLiteral: ()) { self.value = 0 }
-		public static var allZeros: CapabilityEffectSubtypes { return self(0) }
+		public static var allZeros: EffectSubtypes { return self(0) }
 		public var rawValue: UInt32 { return self.value }
 		
-		public static var Kinesthetic: CapabilityEffectSubtypes { return CapabilityEffectSubtypes(1 << 0) }
-		public static var Vibration: CapabilityEffectSubtypes { return CapabilityEffectSubtypes(1 << 1) }
+		public static var Kinesthetic: EffectSubtypes { return EffectSubtypes(1 << 0) }
+		public static var Vibration: EffectSubtypes { return EffectSubtypes(1 << 1) }
 	}
 	
 	public var axes: [UInt8] {
@@ -449,32 +450,17 @@ extension FFCAPABILITIES {
 		return [UInt8](axesArray[0..<min(Int(numFfAxes), axesArray.count)])
 	}
 	
-	public var supportedEffectTypes: CapabilityEffectTypes {
-		return CapabilityEffectTypes(supportedEffects)
+	public var supportedEffectTypes: EffectTypes {
+		return EffectTypes(supportedEffects)
 	}
 	
-	public var emulatedEffectTypes: CapabilityEffectTypes {
-		return CapabilityEffectTypes(emulatedEffects)
+	public var emulatedEffectTypes: EffectTypes {
+		return EffectTypes(emulatedEffects)
 	}
 	
-	public var effectSubType: CapabilityEffectSubtypes {
-		return CapabilityEffectSubtypes(subType)
+	public var effectSubType: EffectSubtypes {
+		return EffectSubtypes(subType)
 	}
-}
-
-public struct ForceFeedbackCooperativeLevel : RawOptionSetType {
-	typealias RawValue = UInt32
-	private var value: UInt32 = 0
-	public init(_ value: UInt32) { self.value = value }
-	public init(rawValue value: UInt32) { self.value = value }
-	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: ForceFeedbackCooperativeLevel { return self(0) }
-	public var rawValue: UInt32 { return self.value }
-	
-	public static var Exclusive: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 0) }
-	public static var NonExclusive: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 1) }
-	public static var Foreground: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 2) }
-	public static var Background: ForceFeedbackCooperativeLevel { return ForceFeedbackCooperativeLevel(1 << 3) }
 }
 
 public struct ForceFeedbackCoordinateSystem : RawOptionSetType {
@@ -489,48 +475,6 @@ public struct ForceFeedbackCoordinateSystem : RawOptionSetType {
 	public static var Cartesian: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x10) }
 	public static var Polar: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x20) }
 	public static var Spherical: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x40) }
-}
-
-public struct ForceFeedbackEffectParameter : RawOptionSetType {
-	typealias RawValue = UInt32
-	private var value: UInt32 = 0
-	public init(_ value: UInt32) { self.value = value }
-	public init(rawValue value: UInt32) { self.value = value }
-	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: ForceFeedbackEffectParameter { return self(0) }
-	public var rawValue: UInt32 { return self.value }
-	
-	public static var Duration: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 0) }
-	public static var SamplePeriod: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 1) }
-	public static var Gain: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 2) }
-	public static var TriggerButton: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 3) }
-	public static var TriggerRepeatInterval: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 4) }
-	public static var Axes: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 5) }
-	public static var Direction: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 6) }
-	public static var Envelope: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 7) }
-	public static var TypeSpecificParamaters: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 8) }
-	public static var StartDelay: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(1 << 9) }
-	
-	public static var AllParamaters: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(0x000003FF) }
-	
-	public static var Start: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(0x20000000) }
-	public static var NoRestart: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(0x40000000) }
-	public static var NoDownload: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(0x80000000) }
-	public static var NoTrigger: ForceFeedbackEffectParameter { return ForceFeedbackEffectParameter(0xFFFFFFFF) }
-}
-
-public struct ForceFeedbackEffectStatus : RawOptionSetType {
-	typealias RawValue = UInt32
-	private var value: UInt32 = 0
-	public init(_ value: UInt32) { self.value = value }
-	public init(rawValue value: UInt32) { self.value = value }
-	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: ForceFeedbackEffectStatus { return self(0) }
-	public var rawValue: UInt32 { return self.value }
-	
-	public static var NotPlaying: ForceFeedbackEffectStatus { return self(0) }
-	public static var Playing: ForceFeedbackEffectStatus { return ForceFeedbackEffectStatus(1 << 0) }
-	public static var Emulated: ForceFeedbackEffectStatus { return ForceFeedbackEffectStatus(1 << 1) }
 }
 
 public final class ForceFeedbackDevice {
@@ -712,7 +656,7 @@ public final class ForceFeedbackDevice {
 	}
 	
 	/// Function is unimplemented in version 1.0 of Apple's FF API.
-	public func setCooperativeLevel(taskIdentifier: UnsafeMutablePointer<Void>, flags: ForceFeedbackCooperativeLevel) -> ForceFeedbackResult {
+	public func setCooperativeLevel(taskIdentifier: UnsafeMutablePointer<Void>, flags: CooperativeLevel) -> ForceFeedbackResult {
 		let iErr = ForceFeedbackResult.fromHResult(FFDeviceSetCooperativeLevel(rawDevice, taskIdentifier, flags.rawValue))
 		lastReturnValue = iErr
 		return iErr
@@ -746,6 +690,21 @@ public final class ForceFeedbackDevice {
 		if rawDevice != nil {
 			FFReleaseDevice(rawDevice)
 		}
+	}
+	
+	public struct CooperativeLevel : RawOptionSetType {
+		typealias RawValue = UInt32
+		private var value: UInt32 = 0
+		public init(_ value: UInt32) { self.value = value }
+		public init(rawValue value: UInt32) { self.value = value }
+		public init(nilLiteral: ()) { self.value = 0 }
+		public static var allZeros: CooperativeLevel { return self(0) }
+		public var rawValue: UInt32 { return self.value }
+		
+		public static var Exclusive: CooperativeLevel { return CooperativeLevel(1 << 0) }
+		public static var NonExclusive: CooperativeLevel { return CooperativeLevel(1 << 1) }
+		public static var Foreground: CooperativeLevel { return CooperativeLevel(1 << 2) }
+		public static var Background: CooperativeLevel { return CooperativeLevel(1 << 3) }
 	}
 }
 
@@ -955,21 +914,75 @@ public final class ForceFeedbackEffect {
 		return ForceFeedbackResult.fromHResult(FFEffectStop(rawEffect))
 	}
 	
-	public func download() -> ForceFeedbackResult{
+	public func download() -> ForceFeedbackResult {
 		return ForceFeedbackResult.fromHResult(FFEffectDownload(rawEffect))
 	}
 	
-	public func getParameters(inout effect: FFEFFECT, flags: ForceFeedbackEffectParameter) -> ForceFeedbackResult {
+	public func getParameters(inout effect: FFEFFECT, flags: EffectParamater) -> ForceFeedbackResult {
 		return ForceFeedbackResult.fromHResult(FFEffectGetParameters(rawEffect, &effect, flags.rawValue))
 	}
 	
-	public func setParameters(inout effect: FFEFFECT, flags: ForceFeedbackEffectParameter) -> ForceFeedbackResult {
+	public func setParameters(inout effect: FFEFFECT, flags: EffectParamater) -> ForceFeedbackResult {
 		return ForceFeedbackResult.fromHResult(FFEffectSetParameters(rawEffect, &effect, flags.rawValue))
+	}
+	
+	//func FFEffectGetEffectStatus(effectReference: FFEffectObjectReference, pFlags: UnsafeMutablePointer<FFEffectStatusFlag>) -> HRESULT
+	///:returns: A `Status` bit mask, or `nil` on error.
+	public var status: Status? {
+		var statFlag: FFEffectStatusFlag = 0
+		let retVal = FFEffectGetEffectStatus(rawEffect, &statFlag)
+		if retVal == 0 {
+			return Status(statFlag)
+		} else {
+			return nil
+		}
 	}
 	
 	deinit {
 		if rawEffect != nil {
 			FFDeviceReleaseEffect(deviceReference.rawDevice, rawEffect)
 		}
+	}
+	
+	public struct Status : RawOptionSetType {
+		typealias RawValue = UInt32
+		private var value: UInt32 = 0
+		public init(_ value: UInt32) { self.value = value }
+		public init(rawValue value: UInt32) { self.value = value }
+		public init(nilLiteral: ()) { self.value = 0 }
+		public static var allZeros: Status { return self(0) }
+		public var rawValue: UInt32 { return self.value }
+		
+		public static var NotPlaying: Status { return self(0) }
+		public static var Playing: Status { return Status(1 << 0) }
+		public static var Emulated: Status { return Status(1 << 1) }
+	}
+	
+	public struct EffectParamater : RawOptionSetType {
+		typealias RawValue = UInt32
+		private var value: UInt32 = 0
+		public init(_ value: UInt32) { self.value = value }
+		public init(rawValue value: UInt32) { self.value = value }
+		public init(nilLiteral: ()) { self.value = 0 }
+		public static var allZeros: EffectParamater { return self(0) }
+		public var rawValue: UInt32 { return self.value }
+		
+		public static var Duration: EffectParamater { return EffectParamater(1 << 0) }
+		public static var SamplePeriod: EffectParamater { return EffectParamater(1 << 1) }
+		public static var Gain: EffectParamater { return EffectParamater(1 << 2) }
+		public static var TriggerButton: EffectParamater { return EffectParamater(1 << 3) }
+		public static var TriggerRepeatInterval: EffectParamater { return EffectParamater(1 << 4) }
+		public static var Axes: EffectParamater { return EffectParamater(1 << 5) }
+		public static var Direction: EffectParamater { return EffectParamater(1 << 6) }
+		public static var Envelope: EffectParamater { return EffectParamater(1 << 7) }
+		public static var TypeSpecificParamaters: EffectParamater { return EffectParamater(1 << 8) }
+		public static var StartDelay: EffectParamater { return EffectParamater(1 << 9) }
+		
+		public static var AllParamaters: EffectParamater { return EffectParamater(0x000003FF) }
+		
+		public static var Start: EffectParamater { return EffectParamater(0x20000000) }
+		public static var NoRestart: EffectParamater { return EffectParamater(0x40000000) }
+		public static var NoDownload: EffectParamater { return EffectParamater(0x80000000) }
+		public static var NoTrigger: EffectParamater { return EffectParamater(0xFFFFFFFF) }
 	}
 }
