@@ -8,7 +8,6 @@
 
 import Foundation
 import OpenAL.AL
-import OpenAL.ALC
 
 final public class ALSource {
 	private(set) var source: ALuint = 0

@@ -64,6 +64,8 @@
 		5597146A1B17B1BD0015AED0 /* ALSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559714691B17B1BD0015AED0 /* ALSource.swift */; };
 		5597146E1B17BC7F0015AED0 /* ALBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597146D1B17BC7F0015AED0 /* ALBuffer.swift */; };
 		559714701B17C1890015AED0 /* ALBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597146F1B17C1890015AED0 /* ALBase.swift */; };
+		559714721B17C3F80015AED0 /* ALContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559714711B17C3F80015AED0 /* ALContext.swift */; };
+		559714741B17C63E0015AED0 /* ALDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559714731B17C63E0015AED0 /* ALDevice.swift */; };
 		55ABE82F1A0815FA006B6AF9 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */; };
 		55C1A6AF1A07223B00C7A733 /* AdditionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */; };
 		55D8DD861A7EE48B0046C1F7 /* AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8DD851A7EE48B0046C1F7 /* AppKit.swift */; };
@@ -219,6 +221,8 @@
 		559714691B17B1BD0015AED0 /* ALSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALSource.swift; sourceTree = "<group>"; };
 		5597146D1B17BC7F0015AED0 /* ALBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALBuffer.swift; sourceTree = "<group>"; };
 		5597146F1B17C1890015AED0 /* ALBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALBase.swift; sourceTree = "<group>"; };
+		559714711B17C3F80015AED0 /* ALContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALContext.swift; sourceTree = "<group>"; };
+		559714731B17C63E0015AED0 /* ALDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALDevice.swift; sourceTree = "<group>"; };
 		55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		55B2B64319F564FC00A716BC /* ForceFeedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForceFeedback.swift; sourceTree = "<group>"; };
 		55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalAdditions.swift; sourceTree = "<group>"; };
@@ -477,6 +481,8 @@
 				5597146F1B17C1890015AED0 /* ALBase.swift */,
 				559714691B17B1BD0015AED0 /* ALSource.swift */,
 				5597146D1B17BC7F0015AED0 /* ALBuffer.swift */,
+				559714711B17C3F80015AED0 /* ALContext.swift */,
+				559714731B17C63E0015AED0 /* ALDevice.swift */,
 				559714521B17B17B0015AED0 /* Supporting Files */,
 			);
 			path = ALAdditions;
@@ -992,6 +998,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				559714741B17C63E0015AED0 /* ALDevice.swift in Sources */,
+				559714721B17C3F80015AED0 /* ALContext.swift in Sources */,
 				5597146E1B17BC7F0015AED0 /* ALBuffer.swift in Sources */,
 				559714701B17C1890015AED0 /* ALBase.swift in Sources */,
 				5597146A1B17B1BD0015AED0 /* ALSource.swift in Sources */,
