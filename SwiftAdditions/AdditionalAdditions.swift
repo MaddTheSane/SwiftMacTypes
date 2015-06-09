@@ -10,8 +10,11 @@ import Foundation
 
 ///Clamps a variable between `minimum` and `maximum`.
 ///
-///Having a `minimum` value greater than the `maximum` value is undefined.
+///If `minimum` is greater than `maximum`, the original value is returned.
 public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
+	if minimum > maximum {
+		return value
+	}
 	return max(min(value, maximum), minimum)
 }
 

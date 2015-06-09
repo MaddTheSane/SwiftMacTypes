@@ -64,7 +64,7 @@ import Cocoa
 	public let kCGUtilityWindowLevel: CGWindowLevel =
 		CGWindowLevelForKey(CGWindowLevelKey.UtilityWindowLevelKey)
 	
-	public var kCGDesktopIconWindowLevel: CGWindowLevel =
+	public let kCGDesktopIconWindowLevel: CGWindowLevel =
 		CGWindowLevelForKey(CGWindowLevelKey.DesktopIconWindowLevelKey)
 	
 	public let kCGCursorWindowLevel: CGWindowLevel =

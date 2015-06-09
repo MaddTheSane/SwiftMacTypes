@@ -61,7 +61,9 @@ public func ==(lhs: CGAffineTransform, rhs: CGAffineTransform) -> Bool {
 }
 
 extension CGAffineTransform: Equatable {
-	public static let identityTransform = CGAffineTransformIdentity
+	public static var identityTransform: CGAffineTransform {
+		return CGAffineTransformIdentity
+	}
 	
 	public init(translationWithTx tx: CGFloat, ty: CGFloat) {
 		self = CGAffineTransformMakeTranslation(tx, ty)
