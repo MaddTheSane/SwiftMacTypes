@@ -68,7 +68,7 @@ public enum ExtendedAudioFilePropertyID: OSType {
 	case PacketTable = 0x78707469
 }
 
-public func ExtAudioFileCreate(URL inURL: NSURL, fileType inFileType: AudioFileType, inout streamDescription inStreamDesc: AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout> = nil, flags: AudioFileFlags = nil, inout audioFile outAudioFile: ExtAudioFileRef) -> OSStatus {
+public func ExtAudioFileCreate(URL inURL: NSURL, fileType inFileType: AudioFileType, inout streamDescription inStreamDesc: AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout> = nil, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), inout audioFile outAudioFile: ExtAudioFileRef) -> OSStatus {
 	return ExtAudioFileCreateWithURL(inURL, inFileType.rawValue, &inStreamDesc, inChannelLayout, flags.rawValue, &outAudioFile)
 }
 

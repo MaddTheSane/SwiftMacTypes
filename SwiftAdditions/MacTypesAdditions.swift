@@ -17,11 +17,7 @@ import CoreGraphics
 /// Converts an OSType to a String value. May return nil.
 public func OSTypeToString(theType: OSType) -> String? {
 	#if os(OSX)
-		if let toRet = UTCreateStringForOSType(theType)?.takeRetainedValue() {
-			return toRet as String
-		} else {
-			return nil
-		}
+		return UTCreateStringForOSType(theType).takeRetainedValue() as String
 		#else
 		func OSType2Ptr(type: OSType) -> [CChar] {
 			var ourOSType = [Int8](count: 5, repeatedValue: 0)
@@ -37,7 +33,7 @@ public func OSTypeToString(theType: OSType) -> String? {
 }
 
 /// Converts an OSType to a String value. May return a hexadecimal string.
-public func OSTypeToString(theType: OSType, #useHexIfInvalid: ()) -> String {
+public func OSTypeToString(theType: OSType, useHexIfInvalid: ()) -> String {
 	if let ourStr = OSTypeToString(theType) {
 		return ourStr
 	} else {
@@ -47,7 +43,7 @@ public func OSTypeToString(theType: OSType, #useHexIfInvalid: ()) -> String {
 
 /// Converts a string value to an OSType, truncating to the first four characters.
 public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType {
-	if detectHex && count(theString) > 4 {
+	if detectHex && theString.characters.count > 4 {
 		let aScann = NSScanner(string: theString)
 		var tmpnum: UInt32 = 0
 		if aScann.scanHexInt(&tmpnum) && tmpnum != UInt32.max {
@@ -106,7 +102,7 @@ extension String {
 			return nil
 		}
 		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding) {
-			self = theStr as! String
+			self = theStr as String
 		} else {
 			return nil
 		}
@@ -114,9 +110,9 @@ extension String {
 	
 	/// Converts a pointer to a Pascal string into a Swift string.
 	///
-	/// :param: pStr a pointer to the Pascal string in question. You may need to use `getArrayFromMirror` if the value is a Tuple.
-	/// :param: encoding The encoding of the pascal stiring. The default is `NSMacOSRomanStringEncoding`.
-	/// :param: maximumLength The maximum length of the Pascal string. The default is `255`. If the first byte is larger than this value, the constructor returns `nil`.
+	/// - parameter pStr: a pointer to the Pascal string in question. You may need to use `getArrayFromMirror` if the value is a Tuple.
+	/// - parameter encoding: The encoding of the pascal stiring. The default is `NSMacOSRomanStringEncoding`.
+	/// - parameter maximumLength: The maximum length of the Pascal string. The default is `255`. If the first byte is larger than this value, the constructor returns `nil`.
 	///
 	/// The main initializer. Converts the encoding to a CFStringEncoding for use
 	/// in the base initializer.
@@ -130,22 +126,26 @@ extension String {
 }
 
 extension OSType: StringLiteralConvertible {
+	public init(stringValue toInit: String) {
+		self = StringToOSType(toInit, detectHex: true)
+	}
+	
 	public init(_ toInit: String) {
 		self = StringToOSType(toInit, detectHex: true)
 	}
 	
 	public init(unicodeScalarLiteral usl: String) {
 		let tmpUnscaled = String(unicodeScalarLiteral: usl)
-		self.init(tmpUnscaled)
+		self.init(stringValue: tmpUnscaled)
 	}
 	
 	public init(extendedGraphemeClusterLiteral egcl: String) {
 		let tmpUnscaled = String(extendedGraphemeClusterLiteral: egcl)
-		self.init(tmpUnscaled)
+		self.init(stringValue: tmpUnscaled)
 	}
 	
 	public init(stringLiteral toInit: String) {
-		self.init(toInit)
+		self.init(stringValue: toInit)
 	}
 	
 	public init(_ toInit: (Int8, Int8, Int8, Int8, Int8)) {

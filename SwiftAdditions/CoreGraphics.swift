@@ -13,16 +13,21 @@ extension CGBitmapInfo {
 	///The alpha info of the current `CGBitmapInfo`.
 	public var alphaInfo: CGImageAlphaInfo {
 		get {
-			let tmpInfo = self & .AlphaInfoMask
-			return CGImageAlphaInfo(rawValue: tmpInfo.rawValue) ?? .None
+			let tmpInfo = (self.rawValue & CGBitmapInfo.AlphaInfoMask.rawValue)
+			return CGImageAlphaInfo(rawValue: tmpInfo) ?? .None
 		}
 		set {
+			// why...
+			//let safe: CGBitmapInfo = [.FloatComponents, .ByteOrder16Little]
+			
 			let aRaw = newValue.rawValue
 			//Clear the alpha info
-			self &= ~CGBitmapInfo.AlphaInfoMask
-			let toMerge = CGBitmapInfo(rawValue: aRaw)
+			//intersectInPlace([.FloatComponents, .ByteOrderMask])
 			
-			self |= toMerge
+			self.remove(CGBitmapInfo.AlphaInfoMask)
+			
+			let toMerge = CGBitmapInfo(rawValue: aRaw)
+			insert(toMerge)
 		}
 	}
 	
@@ -98,19 +103,19 @@ extension CGAffineTransform: Equatable {
 		return CGAffineTransformRotate(self, angle)
 	}
 	
-	public mutating func scale(#sx: CGFloat, sy: CGFloat) {
+	public mutating func scale(sx sx: CGFloat, sy: CGFloat) {
 		self = CGAffineTransformScale(self, sx, sy)
 	}
 	
-	public func transformWithScale(#sx: CGFloat, sy: CGFloat) -> CGAffineTransform {
+	public func transformWithScale(sx sx: CGFloat, sy: CGFloat) -> CGAffineTransform {
 		return CGAffineTransformScale(self, sx, sy)
 	}
 	
-	public mutating func translate(#tx: CGFloat, ty: CGFloat) {
+	public mutating func translate(tx tx: CGFloat, ty: CGFloat) {
 		self = CGAffineTransformTranslate(self, tx, ty)
 	}
 	
-	public func transformWithTranslate(#tx: CGFloat, ty: CGFloat) -> CGAffineTransform {
+	public func transformWithTranslate(tx tx: CGFloat, ty: CGFloat) -> CGAffineTransform {
 		return CGAffineTransformTranslate(self, tx, ty)
 	}
 	

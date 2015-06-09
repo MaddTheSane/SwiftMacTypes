@@ -49,11 +49,11 @@ public class IOCFPlugInInterfaceClass: IUnknown {
 		return SAIOStop(interfaceStruct)
 	}
 	
-	public func start(#propertyTable: NSDictionary, service: io_service_t) -> IOReturn {
+	public func start(propertyTable propertyTable: NSDictionary, service: io_service_t) -> IOReturn {
 		return SAIOStart(interfaceStruct, propertyTable, service)
 	}
 	
-	public func probe(#propertyTable: NSDictionary, service: io_service_t, inout order: Int32) -> IOReturn {
+	public func probe(propertyTable propertyTable: NSDictionary, service: io_service_t, inout order: Int32) -> IOReturn {
 		return SAIOProbe(interfaceStruct, propertyTable, service, &order)
 	}
 	

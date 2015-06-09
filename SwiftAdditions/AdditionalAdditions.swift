@@ -11,24 +11,32 @@ import Foundation
 ///Clamps a variable between `minimum` and `maximum`.
 ///
 ///Having a `minimum` value greater than the `maximum` value is undefined.
-public func clamp<X: Comparable>(value: X, #minimum: X, #maximum: X) -> X {
+public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 	return max(min(value, maximum), minimum)
 }
 
 /// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
 /// Will crash if any type in the mirror doesn't match `X`.
 ///
-/// :param: mirror The `MirrorType` to get the reflected values from.
-/// :param: lastObj Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
-public func getArrayFromMirror<X>(mirror: MirrorType, appendLastObject lastObj: X? = nil) -> [X] {
+/// - parameter mirror: The `MirrorType` to get the reflected values from.
+/// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
+public func getArrayFromMirror<X>(mirror: MirrorType) -> [X] {
 	var anArray = [X]()
 	for i in 0..<mirror.count {
 		let aChar = mirror[i].1.value as! X
 		anArray.append(aChar)
 	}
-	if let lastObj = lastObj {
-		anArray.append(lastObj)
-	}
+	
+	return anArray
+}
+
+/// Best used for a fixed-size C array that expects to be NULL-terminated, like a C string.
+///
+/// - parameter mirror: The `MirrorType` to get the reflected values from.
+/// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
+public func getArrayFromMirror<X>(mirror: MirrorType, appendLastObject lastObj: X) -> [X] {
+	var anArray: [X] = getArrayFromMirror(mirror)
+	anArray.append(lastObj)
 	return anArray
 }
 
@@ -110,7 +118,7 @@ extension Array {
 	
 	///Internally creates an index set so there are no duplicates.
 	private mutating func removeAtIndexes(ixs:[Int]) -> [T] {
-		var idxSet = NSMutableIndexSet()
+		let idxSet = NSMutableIndexSet()
 		for i in ixs {
 			idxSet.addIndex(i)
 		}
@@ -118,7 +126,7 @@ extension Array {
 	}
 	
 	private mutating func removeAtIndexes(ixs: Set<Int>) -> [T] {
-		var idxSet = NSMutableIndexSet()
+		let idxSet = NSMutableIndexSet()
 		for i in ixs {
 			idxSet.addIndex(i)
 		}

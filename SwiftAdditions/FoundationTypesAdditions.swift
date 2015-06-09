@@ -131,11 +131,11 @@ extension CGRect {
 	}
 	
 	#if os(OSX)
-	public mutating func integral(#options: NSAlignmentOptions) {
+	public mutating func integral(options options: NSAlignmentOptions) {
 		self = NSIntegralRectWithOptions(self, options)
 	}
 	
-	public func rectFromIntegral(#options: NSAlignmentOptions) -> NSRect {
+	public func rectFromIntegral(options options: NSAlignmentOptions) -> NSRect {
 		return NSIntegralRectWithOptions(self, options)
 	}
 	#endif
@@ -205,17 +205,17 @@ extension NSMutableData {
 	}
 }
 
-#if os(OSX)
+#if false
 extension NSEdgeInsets: Equatable {
 	#if false
-	@availability(OSX, introduced=10.10)
+	@available(OSX, introduced=10.10)
 	public static var zero: NSEdgeInsets {
 		return NSEdgeInsetsZero
 	}
 	#endif
 }
 
-@availability(OSX, introduced=10.10)
+@available(OSX, introduced=10.10)
 public func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
 	return NSEdgeInsetsEqual(rhs, lhs)
 }

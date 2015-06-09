@@ -298,7 +298,7 @@ extension FFCUSTOMFORCE {
 	}
 	
 	/// Returns true if the data sent in is valid
-	public mutating func setData(#channels: UInt32, samples: UInt32, forceData: LPLONG) -> Bool {
+	public mutating func setData(channels channels: UInt32, samples: UInt32, forceData: LPLONG) -> Bool {
 		if channels == 1 {
 			cChannels = channels
 			cSamples = samples
@@ -408,7 +408,7 @@ public func ForceFeedbackOffsetButton(n: UInt8) -> UInt8 {
 }
 
 extension FFCAPABILITIES {
-	public struct EffectTypes : RawOptionSetType {
+	public struct EffectTypes : OptionSetType {
 		public typealias RawValue = UInt32
 		private var value: UInt32 = 0
 		public init(_ value: UInt32) { self.value = value }
@@ -431,7 +431,7 @@ extension FFCAPABILITIES {
 		public static var CustomForce: EffectTypes { return EffectTypes(1 << 11) }
 	}
 	
-	public struct EffectSubtypes : RawOptionSetType {
+	public struct EffectSubtypes : OptionSetType {
 		typealias RawValue = UInt32
 		private var value: UInt32 = 0
 		public init(_ value: UInt32) { self.value = value }
@@ -463,7 +463,7 @@ extension FFCAPABILITIES {
 	}
 }
 
-public struct ForceFeedbackCoordinateSystem : RawOptionSetType {
+public struct ForceFeedbackCoordinateSystem : OptionSetType {
 	typealias RawValue = UInt32
 	private var value: UInt32 = 0
 	public init(_ value: UInt32) { self.value = value }
@@ -486,7 +486,7 @@ public final class ForceFeedbackDevice {
 		case Autocenter = 3
 	}
 	
-	public struct Command : RawOptionSetType {
+	public struct Command : OptionSetType {
 		typealias RawValue = UInt32
 		private var value: UInt32 = 0
 		public init(_ value: UInt32) { self.value = value }
@@ -503,7 +503,7 @@ public final class ForceFeedbackDevice {
 		public static var SetActuatorsOff: Command { return Command(1 << 5) }
 	}
 	
-	public struct State : RawOptionSetType {
+	public struct State : OptionSetType {
 		typealias RawValue = UInt32
 		private var value: UInt32 = 0
 		public init(_ value: UInt32) { self.value = value }
@@ -545,7 +545,7 @@ public final class ForceFeedbackDevice {
 	
 	public init?(device: io_service_t) {
 		var tmpDevice: FFDeviceObjectReference = nil
-		var iErr = FFCreateDevice(device, &tmpDevice)
+		let iErr = FFCreateDevice(device, &tmpDevice)
 		if iErr > -1 {
 			rawDevice = tmpDevice
 		} else {
@@ -574,7 +574,7 @@ public final class ForceFeedbackDevice {
 		return aReturn
 	}
 	
-	public func sendEscape(#command: DWORD, inData: NSData) -> ForceFeedbackResult {
+	public func sendEscape(command command: DWORD, inData: NSData) -> ForceFeedbackResult {
 		let curDataSize = inData.length
 		var tmpMutBytes = malloc(curDataSize)
 		memcpy(&tmpMutBytes, inData.bytes, curDataSize)
@@ -588,7 +588,7 @@ public final class ForceFeedbackDevice {
 		return toRet
 	}
 	
-	public func sendEscape(#command: DWORD, inData: NSData, inout outDataLength: Int) -> (result: ForceFeedbackResult, outData: NSData) {
+	public func sendEscape(command command: DWORD, inData: NSData, inout outDataLength: Int) -> (result: ForceFeedbackResult, outData: NSData) {
 		if let ourMutableData = NSMutableData(length: outDataLength) {
 			let curDataSize = inData.length
 			var tmpMutBytes = malloc(curDataSize)
@@ -645,7 +645,7 @@ public final class ForceFeedbackDevice {
 	public var gain: UInt32 {
 		get {
 			var theVal: UInt32 = 0
-			var iErr = getProperty(.Gain, value: &theVal, valueSize: IOByteCount(sizeof(UInt32.Type)))
+			let iErr = getProperty(.Gain, value: &theVal, valueSize: IOByteCount(sizeof(UInt32.Type)))
 			lastReturnValue = iErr
 			return theVal
 		}
@@ -692,7 +692,7 @@ public final class ForceFeedbackDevice {
 		}
 	}
 	
-	public struct CooperativeLevel : RawOptionSetType {
+	public struct CooperativeLevel : OptionSetType {
 		typealias RawValue = UInt32
 		private var value: UInt32 = 0
 		public init(_ value: UInt32) { self.value = value }
@@ -712,7 +712,7 @@ public final class ForceFeedbackEffect {
 	private let rawEffect: FFEffectObjectReference
 	public let deviceReference: ForceFeedbackDevice
 	
-	public struct EffectStart : RawOptionSetType {
+	public struct EffectStart : OptionSetType {
 		typealias RawValue = UInt32
 		private var value: UInt32 = 0
 		public init(_ value: UInt32) { self.value = value }
@@ -927,7 +927,7 @@ public final class ForceFeedbackEffect {
 	}
 	
 	//func FFEffectGetEffectStatus(effectReference: FFEffectObjectReference, pFlags: UnsafeMutablePointer<FFEffectStatusFlag>) -> HRESULT
-	///:returns: A `Status` bit mask, or `nil` on error.
+	///- returns: A `Status` bit mask, or `nil` on error.
 	public var status: Status? {
 		var statFlag: FFEffectStatusFlag = 0
 		let retVal = FFEffectGetEffectStatus(rawEffect, &statFlag)
@@ -944,7 +944,7 @@ public final class ForceFeedbackEffect {
 		}
 	}
 	
-	public struct Status : RawOptionSetType {
+	public struct Status : OptionSetType {
 		typealias RawValue = UInt32
 		private var value: UInt32 = 0
 		public init(_ value: UInt32) { self.value = value }
@@ -958,7 +958,7 @@ public final class ForceFeedbackEffect {
 		public static var Emulated: Status { return Status(1 << 1) }
 	}
 	
-	public struct EffectParamater : RawOptionSetType {
+	public struct EffectParamater : OptionSetType {
 		typealias RawValue = UInt32
 		private var value: UInt32 = 0
 		public init(_ value: UInt32) { self.value = value }
