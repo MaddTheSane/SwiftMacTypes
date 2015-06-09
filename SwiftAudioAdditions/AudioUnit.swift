@@ -218,9 +218,6 @@ public enum AudioComponentType {
 			
 		case let .Unknown(AUType: aType, AUSubtype: aSubtype):
 			return (aType, aSubtype)
-			
-		default:
-			return (0,0)
 		}
 	}
 }
