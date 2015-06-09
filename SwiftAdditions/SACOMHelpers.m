@@ -8,24 +8,3 @@
 
 #import "SACOMHelpers.h"
 
-HRESULT SAQueryInterface(void *thisPointer, REFIID uuid, void *ppv)
-{
-	IUnknownVTbl **interface = thisPointer;
-	
-	return (*interface)->QueryInterface(interface, uuid, ppv);
-}
-
-ULONG SARetain(void *thisPointer)
-{
-	IUnknownVTbl **interface = thisPointer;
-	
-	return (*interface)->AddRef(interface);
-}
-
-ULONG SARelease(void *thisPointer)
-{
-	IUnknownVTbl **interface = thisPointer;
-	
-	return (*interface)->Release(interface);
-}
-
