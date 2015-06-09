@@ -11,20 +11,6 @@ import AudioUnit
 
 public let AudioUnitManufacturer_Apple: OSType = 0x6170706C
 
-public struct AudioComponentFlag : RawOptionSetType {
-	typealias RawValue = UInt32
-	private var value: UInt32 = 0
-	init(_ value: UInt32) { self.value = value }
-	public init(rawValue value: UInt32) { self.value = value }
-	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: AudioComponentFlag { return self(0) }
-	public var rawValue: UInt32 { return self.value }
-	
-	public static var None: AudioComponentFlag { return self(0) }
-	public static var Unsearchable: AudioComponentFlag { return AudioComponentFlag(1 << 0) }
-	public static var SandboxSafe: AudioComponentFlag { return AudioComponentFlag(1 << 1) }
-}
-
 public enum AudioComponentType {
 	case Output(AUOutput)
 	case MusicDevice(AUInstrument)
@@ -230,9 +216,9 @@ extension AudioComponentDescription {
 		componentFlagsMask = 0
 	}
 	
-	public var flag: AudioComponentFlag {
+	public var flag: AudioComponentFlags {
 		get {
-			return AudioComponentFlag(componentFlags)
+			return AudioComponentFlags(rawValue: componentFlags)
 		}
 		set {
 			componentFlags = newValue.rawValue
