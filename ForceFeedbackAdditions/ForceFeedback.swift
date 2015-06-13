@@ -409,39 +409,31 @@ public func ForceFeedbackOffsetButton(n: UInt8) -> UInt8 {
 
 extension FFCAPABILITIES {
 	public struct EffectTypes : OptionSetType {
-		public typealias RawValue = UInt32
-		private var value: UInt32 = 0
-		public init(_ value: UInt32) { self.value = value }
-		public init(rawValue value: UInt32) { self.value = value }
-		public init(nilLiteral: ()) { self.value = 0 }
-		public static var allZeros: EffectTypes { return self(0) }
-		public var rawValue: UInt32 { return self.value }
+		public let rawValue: UInt32
+		private init(_ value: UInt32) { self.rawValue = value }
+		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static var ConstantForce: EffectTypes { return EffectTypes(1 << 0) }
-		public static var RampForce: EffectTypes { return EffectTypes(1 << 1) }
-		public static var Square: EffectTypes { return EffectTypes(1 << 2) }
-		public static var Sine: EffectTypes { return EffectTypes(1 << 3) }
-		public static var Triangle: EffectTypes { return EffectTypes(1 << 4) }
-		public static var SawtoothUp: EffectTypes { return EffectTypes(1 << 5) }
-		public static var SawtoothDown: EffectTypes { return EffectTypes(1 << 6) }
-		public static var Spring: EffectTypes { return EffectTypes(1 << 7) }
-		public static var Damper: EffectTypes { return EffectTypes(1 << 8) }
-		public static var Inertia: EffectTypes { return EffectTypes(1 << 9) }
-		public static var Friction: EffectTypes { return EffectTypes(1 << 10) }
-		public static var CustomForce: EffectTypes { return EffectTypes(1 << 11) }
+		public static let ConstantForce	= EffectTypes(1 << 0)
+		public static let RampForce		= EffectTypes(1 << 1)
+		public static let Square		= EffectTypes(1 << 2)
+		public static let Sine			= EffectTypes(1 << 3)
+		public static let Triangle		= EffectTypes(1 << 4)
+		public static let SawtoothUp	= EffectTypes(1 << 5)
+		public static let SawtoothDown	= EffectTypes(1 << 6)
+		public static let Spring		= EffectTypes(1 << 7)
+		public static let Damper		= EffectTypes(1 << 8)
+		public static let Inertia		= EffectTypes(1 << 9)
+		public static let Friction		= EffectTypes(1 << 10)
+		public static let CustomForce	= EffectTypes(1 << 11)
 	}
 	
 	public struct EffectSubtypes : OptionSetType {
-		typealias RawValue = UInt32
-		private var value: UInt32 = 0
-		public init(_ value: UInt32) { self.value = value }
-		public init(rawValue value: UInt32) { self.value = value }
-		public init(nilLiteral: ()) { self.value = 0 }
-		public static var allZeros: EffectSubtypes { return self(0) }
-		public var rawValue: UInt32 { return self.value }
+		public let rawValue: UInt32
+		private init(_ value: UInt32) { self.rawValue = value }
+		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static var Kinesthetic: EffectSubtypes { return EffectSubtypes(1 << 0) }
-		public static var Vibration: EffectSubtypes { return EffectSubtypes(1 << 1) }
+		public static let Kinesthetic	= EffectSubtypes(1 << 0)
+		public static let Vibration		= EffectSubtypes(1 << 1)
 	}
 	
 	public var axes: [UInt8] {
@@ -464,17 +456,13 @@ extension FFCAPABILITIES {
 }
 
 public struct ForceFeedbackCoordinateSystem : OptionSetType {
-	typealias RawValue = UInt32
-	private var value: UInt32 = 0
-	public init(_ value: UInt32) { self.value = value }
-	public init(rawValue value: UInt32) { self.value = value }
-	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: ForceFeedbackCoordinateSystem { return self(0) }
-	public var rawValue: UInt32 { return self.value }
+	public let rawValue: UInt32
+	private init(_ value: UInt32) { self.rawValue = value }
+	public init(rawValue value: UInt32) { self.rawValue = value }
 	
-	public static var Cartesian: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x10) }
-	public static var Polar: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x20) }
-	public static var Spherical: ForceFeedbackCoordinateSystem { return ForceFeedbackCoordinateSystem(0x40) }
+	public static let Cartesian	= ForceFeedbackCoordinateSystem(0x10)
+	public static let Polar		= ForceFeedbackCoordinateSystem(0x20)
+	public static let Spherical	= ForceFeedbackCoordinateSystem(0x40)
 }
 
 public final class ForceFeedbackDevice {
@@ -487,44 +475,36 @@ public final class ForceFeedbackDevice {
 	}
 	
 	public struct Command : OptionSetType {
-		typealias RawValue = UInt32
-		private var value: UInt32 = 0
-		public init(_ value: UInt32) { self.value = value }
-		public init(rawValue value: UInt32) { self.value = value }
-		public init(nilLiteral: ()) { self.value = 0 }
-		public static var allZeros: Command { return self(0) }
-		public var rawValue: UInt32 { return self.value }
+		public let rawValue: UInt32
+		private init(_ value: UInt32) { self.rawValue = value }
+		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static var Reset: Command { return Command(1 << 0) }
-		public static var StopAll: Command { return Command(1 << 1) }
-		public static var Pause: Command { return Command(1 << 2) }
-		public static var Continue: Command { return Command(1 << 3) }
-		public static var SetActuatorsOn: Command { return Command(1 << 4) }
-		public static var SetActuatorsOff: Command { return Command(1 << 5) }
+		public static let Reset				= Command(1 << 0)
+		public static let StopAll			= Command(1 << 1)
+		public static let Pause				= Command(1 << 2)
+		public static let Continue			= Command(1 << 3)
+		public static let SetActuatorsOn	= Command(1 << 4)
+		public static let SetActuatorsOff	= Command(1 << 5)
 	}
 	
 	public struct State : OptionSetType {
-		typealias RawValue = UInt32
-		private var value: UInt32 = 0
-		public init(_ value: UInt32) { self.value = value }
-		public init(rawValue value: UInt32) { self.value = value }
-		public init(nilLiteral: ()) { self.value = 0 }
-		public static var allZeros: State { return self(0) }
-		public var rawValue: UInt32 { return self.value }
+		public let rawValue: UInt32
+		private init(_ value: UInt32) { self.rawValue = value }
+		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static var Empty: State { return State(1 << 0) }
-		public static var Stopped: State { return State(1 << 1) }
-		public static var Paused: State { return State(1 << 2) }
+		public static let Empty		= State(1 << 0)
+		public static let Stopped	= State(1 << 1)
+		public static let Paused	= State(1 << 2)
 		
-		public static var ActuatorsOn: State { return State(1 << 4) }
-		public static var ActuatorsOff: State { return State(1 << 5) }
-		public static var PowerOn: State { return State(1 << 6) }
-		public static var PowerOff: State { return State(1 << 7) }
-		public static var SafetySwitchOn: State { return State(1 << 8) }
-		public static var SafetySwitchOff: State { return State(1 << 9) }
-		public static var UserSwitchOn: State { return State(1 << 10) }
-		public static var UserSwitchOff: State { return State(1 << 11) }
-		public static var DeviceLost: State { return State(0x80000000) }
+		public static let ActuatorsOn		= State(1 << 4)
+		public static let ActuatorsOff		= State(1 << 5)
+		public static let PowerOn			= State(1 << 6)
+		public static let PowerOff			= State(1 << 7)
+		public static let SafetySwitchOn	= State(1 << 8)
+		public static let SafetySwitchOff	= State(1 << 9)
+		public static let UserSwitchOn		= State(1 << 10)
+		public static let UserSwitchOff		= State(1 << 11)
+		public static let DeviceLost		= State(0x80000000)
 	}
 	
 	public class var infinite: UInt32 {
@@ -693,18 +673,14 @@ public final class ForceFeedbackDevice {
 	}
 	
 	public struct CooperativeLevel : OptionSetType {
-		typealias RawValue = UInt32
-		private var value: UInt32 = 0
-		public init(_ value: UInt32) { self.value = value }
-		public init(rawValue value: UInt32) { self.value = value }
-		public init(nilLiteral: ()) { self.value = 0 }
-		public static var allZeros: CooperativeLevel { return self(0) }
-		public var rawValue: UInt32 { return self.value }
+		public let rawValue: UInt32
+		private init(_ value: UInt32) { self.rawValue = value }
+		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static var Exclusive: CooperativeLevel { return CooperativeLevel(1 << 0) }
-		public static var NonExclusive: CooperativeLevel { return CooperativeLevel(1 << 1) }
-		public static var Foreground: CooperativeLevel { return CooperativeLevel(1 << 2) }
-		public static var Background: CooperativeLevel { return CooperativeLevel(1 << 3) }
+		public static let Exclusive		= CooperativeLevel(1 << 0)
+		public static let NonExclusive	= CooperativeLevel(1 << 1)
+		public static let Foreground	= CooperativeLevel(1 << 2)
+		public static let Background	= CooperativeLevel(1 << 3)
 	}
 }
 
@@ -713,16 +689,12 @@ public final class ForceFeedbackEffect {
 	public let deviceReference: ForceFeedbackDevice
 	
 	public struct EffectStart : OptionSetType {
-		typealias RawValue = UInt32
-		private var value: UInt32 = 0
-		public init(_ value: UInt32) { self.value = value }
-		public init(rawValue value: UInt32) { self.value = value }
-		public init(nilLiteral: ()) { self.value = 0 }
-		public static var allZeros: EffectStart { return self(0) }
-		public var rawValue: UInt32 { return self.value }
+		public let rawValue: UInt32
+		private init(_ value: UInt32) { self.rawValue = value }
+		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static var Solo: EffectStart { return EffectStart(0x01) }
-		public static var NoDownload: EffectStart { return EffectStart(0x80000000) }
+		public static let Solo			= EffectStart(0x01)
+		public static let NoDownload	= EffectStart(0x80000000)
 	}
 	
 	public enum EffectType {
@@ -945,44 +917,36 @@ public final class ForceFeedbackEffect {
 	}
 	
 	public struct Status : OptionSetType {
-		typealias RawValue = UInt32
-		private var value: UInt32 = 0
-		public init(_ value: UInt32) { self.value = value }
-		public init(rawValue value: UInt32) { self.value = value }
-		public init(nilLiteral: ()) { self.value = 0 }
-		public static var allZeros: Status { return self(0) }
-		public var rawValue: UInt32 { return self.value }
+		public let rawValue: UInt32
+		private init(_ value: UInt32) { self.rawValue = value }
+		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static var NotPlaying: Status { return self(0) }
-		public static var Playing: Status { return Status(1 << 0) }
-		public static var Emulated: Status { return Status(1 << 1) }
+		public static let NotPlaying	= Status(0)
+		public static let Playing		= Status(1 << 0)
+		public static let Emulated		= Status(1 << 1)
 	}
 	
 	public struct EffectParamater : OptionSetType {
-		typealias RawValue = UInt32
-		private var value: UInt32 = 0
-		public init(_ value: UInt32) { self.value = value }
-		public init(rawValue value: UInt32) { self.value = value }
-		public init(nilLiteral: ()) { self.value = 0 }
-		public static var allZeros: EffectParamater { return self(0) }
-		public var rawValue: UInt32 { return self.value }
+		public let rawValue: UInt32
+		private init(_ value: UInt32) { self.rawValue = value }
+		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static var Duration: EffectParamater { return EffectParamater(1 << 0) }
-		public static var SamplePeriod: EffectParamater { return EffectParamater(1 << 1) }
-		public static var Gain: EffectParamater { return EffectParamater(1 << 2) }
-		public static var TriggerButton: EffectParamater { return EffectParamater(1 << 3) }
-		public static var TriggerRepeatInterval: EffectParamater { return EffectParamater(1 << 4) }
-		public static var Axes: EffectParamater { return EffectParamater(1 << 5) }
-		public static var Direction: EffectParamater { return EffectParamater(1 << 6) }
-		public static var Envelope: EffectParamater { return EffectParamater(1 << 7) }
-		public static var TypeSpecificParamaters: EffectParamater { return EffectParamater(1 << 8) }
-		public static var StartDelay: EffectParamater { return EffectParamater(1 << 9) }
+		public static let Duration					= EffectParamater(1 << 0)
+		public static let SamplePeriod				= EffectParamater(1 << 1)
+		public static let Gain						= EffectParamater(1 << 2)
+		public static let TriggerButton				= EffectParamater(1 << 3)
+		public static let TriggerRepeatInterval		= EffectParamater(1 << 4)
+		public static let Axes						= EffectParamater(1 << 5)
+		public static let Direction					= EffectParamater(1 << 6)
+		public static let Envelope					= EffectParamater(1 << 7)
+		public static let TypeSpecificParamaters	= EffectParamater(1 << 8)
+		public static let StartDelay				= EffectParamater(1 << 9)
 		
-		public static var AllParamaters: EffectParamater { return EffectParamater(0x000003FF) }
+		public static let AllParamaters		= EffectParamater(0x000003FF)
 		
-		public static var Start: EffectParamater { return EffectParamater(0x20000000) }
-		public static var NoRestart: EffectParamater { return EffectParamater(0x40000000) }
-		public static var NoDownload: EffectParamater { return EffectParamater(0x80000000) }
-		public static var NoTrigger: EffectParamater { return EffectParamater(0xFFFFFFFF) }
+		public static let Start			= EffectParamater(0x20000000)
+		public static let NoRestart		= EffectParamater(0x40000000)
+		public static let NoDownload	= EffectParamater(0x80000000)
+		public static let NoTrigger		= EffectParamater(0xFFFFFFFF)
 	}
 }

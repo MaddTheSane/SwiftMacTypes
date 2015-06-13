@@ -111,50 +111,34 @@ public enum AudioFormat: OSType {
 }
 
 public struct AudioFormatFlag : OptionSetType {
-	typealias RawValue = UInt32
-	private var value: UInt32 = 0
-	public var rawValue: UInt32 {
-		return value
-	}
-	public init(rawValue value: UInt32) { self.value = value }
-	public static var allZeros: AudioFormatFlag { return self(rawValue: 0) }
-	public init(nilLiteral: ()) { self = AudioFormatFlag.FlagsAreAllClear }
-	
+	public let rawValue: UInt32
+
+	public init(rawValue value: UInt32) { self.rawValue = value }
 	public static var NativeFloatPacked: AudioFormatFlag {
 		return [Float, NativeEndian, Packed]
 	}
-	
-	public static var Float:			AudioFormatFlag { return self(rawValue: 1 << 0) }
-	public static var BigEndian:		AudioFormatFlag { return self(rawValue: 1 << 1) }
-	public static var SignedInteger:	AudioFormatFlag { return self(rawValue: 1 << 2) }
-	public static var Packed:			AudioFormatFlag { return self(rawValue: 1 << 3) }
-	public static var AlignedHigh:		AudioFormatFlag { return self(rawValue: 1 << 4) }
-	public static var NonInterleaved:	AudioFormatFlag { return self(rawValue: 1 << 5) }
-	public static var NonMixable:		AudioFormatFlag { return self(rawValue: 1 << 6) }
-	public static var FlagsAreAllClear:	AudioFormatFlag { return self(rawValue: 1 << 31) }
-	public static var NativeEndian:		AudioFormatFlag {
+
+	public static let Float				= AudioFormatFlag(rawValue: 1 << 0)
+	public static let BigEndian			= AudioFormatFlag(rawValue: 1 << 1)
+	public static let SignedInteger		= AudioFormatFlag(rawValue: 1 << 2)
+	public static let Packed			= AudioFormatFlag(rawValue: 1 << 3)
+	public static let AlignedHigh		= AudioFormatFlag(rawValue: 1 << 4)
+	public static let NonInterleaved	= AudioFormatFlag(rawValue: 1 << 5)
+	public static let NonMixable		= AudioFormatFlag(rawValue: 1 << 6)
+	public static let FlagsAreAllClear	= AudioFormatFlag(rawValue: 1 << 31)
+	public static var NativeEndian: AudioFormatFlag {
 		if isLittleEndian {
 			return self(rawValue: 0)
 		} else {
 			return BigEndian
 		}
 	}
-	
-	public init(_ value: LinearPCMFormatFlag) {
-		self.value = value.rawValue
-	}
 }
 
 public struct LinearPCMFormatFlag : OptionSetType {
-	typealias RawValue = UInt32
-	private var value: UInt32 = 0
-	public var rawValue: UInt32 {
-		return value
-	}
-	public init(rawValue value: UInt32) { self.value = value }
-	public static var allZeros: LinearPCMFormatFlag { return self(rawValue: 0) }
-	public init(nilLiteral: ()) { self = LinearPCMFormatFlag.FlagsAreAllClear }
-	
+	public let rawValue: UInt32
+
+	public init(rawValue value: UInt32) { self.rawValue = value }
 	public static var NativeFloatPacked: LinearPCMFormatFlag {
 		return [Float, NativeEndian, Packed]
 	}
