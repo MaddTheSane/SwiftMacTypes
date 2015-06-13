@@ -55,7 +55,7 @@ public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType
 		#else
 		func Ptr2OSType(str: [CChar]) -> OSType {
 			var type: OSType = 0x20202020 // four spaces. Can't really be represented the same way as in C
-			var i = count(str) - 1
+			var i = str.count - 1
 			if i > 4 {
 				i = 4
 			}
