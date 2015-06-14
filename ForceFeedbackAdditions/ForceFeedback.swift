@@ -534,9 +534,9 @@ public final class ForceFeedbackDevice {
 		}
 	}
 	
-	/// Returns true if device is capable of Force feedback.
-	/// Returns false if it isn't.
-	/// Returns nil if there was an error.
+	/// Returns `true` if device is capable of Force feedback.
+	/// Returns `false` if it isn't.
+	/// Returns `nil` if there was an error.
 	public class func deviceIsForceFeedback(device: io_service_t) -> Bool? {
 		let iErr = FFIsForceFeedback(device)
 		if iErr >= 0 {
@@ -605,8 +605,8 @@ public final class ForceFeedbackDevice {
 		return iErr
 	}
 	
-	/// Calls getProperty/setProperty, which may return failure info.
-	/// Use lastReturnValue to check if the getter/setter were successful.
+	/// Calls `getProperty`/`setProperty`, which may return failure info.
+	/// Use `lastReturnValue` to check if the getter/setter were successful.
 	public var autocenter: Bool {
 		get {
 			var theVal: UInt32 = 0
@@ -620,8 +620,8 @@ public final class ForceFeedbackDevice {
 		}
 	}
 	
-	/// Calls getProperty/setProperty, which may return failure info.
-	/// Use lastReturnValue to check if the getter/setter were successful.
+	/// Calls `getProperty`/`setProperty`, which may return failure info.
+	/// Use `lastReturnValue` to check if the getter/setter were successful.
 	public var gain: UInt32 {
 		get {
 			var theVal: UInt32 = 0
