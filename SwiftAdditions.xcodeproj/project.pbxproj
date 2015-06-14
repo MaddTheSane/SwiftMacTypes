@@ -78,6 +78,7 @@
 		55E11DFC1AE711C600815555 /* AudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C2B991A0C4B0500700F83 /* AudioUnit.swift */; };
 		55E18FC91A43AC2B00834004 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E18FC71A43AC2B00834004 /* CoreFoundation.framework */; };
 		55E18FCA1A43AC2B00834004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E18FC81A43AC2B00834004 /* Foundation.framework */; };
+		55F4FBBB1B2E35E50038BEFB /* ALListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F4FBBA1B2E35E50038BEFB /* ALListener.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,6 +238,7 @@
 		55E18FC71A43AC2B00834004 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		55E18FC81A43AC2B00834004 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55E56C131AE2C716006B7276 /* ExtAudioFileExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtAudioFileExt.swift; sourceTree = "<group>"; };
+		55F4FBBA1B2E35E50038BEFB /* ALListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALListener.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -483,6 +485,7 @@
 				5597146D1B17BC7F0015AED0 /* ALBuffer.swift */,
 				559714711B17C3F80015AED0 /* ALContext.swift */,
 				559714731B17C63E0015AED0 /* ALDevice.swift */,
+				55F4FBBA1B2E35E50038BEFB /* ALListener.swift */,
 				559714521B17B17B0015AED0 /* Supporting Files */,
 			);
 			path = ALAdditions;
@@ -1002,6 +1005,7 @@
 				559714721B17C3F80015AED0 /* ALContext.swift in Sources */,
 				5597146E1B17BC7F0015AED0 /* ALBuffer.swift in Sources */,
 				559714701B17C1890015AED0 /* ALBase.swift in Sources */,
+				55F4FBBB1B2E35E50038BEFB /* ALListener.swift in Sources */,
 				5597146A1B17B1BD0015AED0 /* ALSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1694,6 +1698,7 @@
 				559714641B17B17C0015AED0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		559714681B17B17C0015AED0 /* Build configuration list for PBXNativeTarget "ALAdditionsTests" */ = {
 			isa = XCConfigurationList;
@@ -1702,6 +1707,7 @@
 				559714661B17B17C0015AED0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		55E11DF81AE7114000815555 /* Build configuration list for PBXNativeTarget "SwiftAudioAdditions" */ = {
 			isa = XCConfigurationList;

@@ -10,19 +10,33 @@ import Foundation
 import OpenAL.AL
 
 final public class OpenAL {
-	class func enableCapability(avar: ALenum) {
+	public class func enableCapability(avar: ALenum) {
 		alEnable(avar)
 	}
 	
-	class func disableCapability(avar: ALenum) {
+	public class func disableCapability(avar: ALenum) {
 		alDisable(avar)
 	}
 	
-	class func capabilityEnabled(avar: ALenum) -> Bool {
+	public class func capabilityEnabled(avar: ALenum) -> Bool {
 		return alIsEnabled(avar) != 0
 	}
 	
-	class func stringForParameter(avar: ALenum) -> String? {
-		return String(UTF8String: alGetString(avar))
+	public class func stringForParameter(avar: ALenum) -> String? {
+		let tmpStr = alGetString(avar)
+		if tmpStr == nil {
+			return nil
+		}
+		return String(UTF8String: tmpStr)
 	}
+	
+	public class func extensionIsPresent(extname: String) -> Bool {
+		return alIsExtensionPresent(extname) != 0
+	}
+	
+	public class func alEnumValue(ename: String) -> ALenum {
+		return alGetEnumValue(ename)
+	}
+	
+	//AL_API void* AL_APIENTRY alGetProcAddress( const ALchar* fname );
 }

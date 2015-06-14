@@ -11,6 +11,11 @@ import OpenAL.AL
 
 final public class ALSource {
 	private(set) var source: ALuint = 0
+	public var buffer: ALBuffer? {
+		didSet {
+			
+		}
+	}
 	
 	init() {
 		alGenSources(1, &source)
