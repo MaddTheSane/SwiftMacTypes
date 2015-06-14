@@ -610,7 +610,7 @@ public final class ForceFeedbackDevice {
 	public var autocenter: Bool {
 		get {
 			var theVal: UInt32 = 0
-			let iErr = getProperty(.Autocenter, value: &theVal, valueSize: IOByteCount(sizeof(UInt32.Type)))
+			let iErr = getProperty(.Autocenter, value: &theVal, valueSize: IOByteCount(sizeof(UInt32)))
 			lastReturnValue = iErr
 			return theVal != 0
 		}
@@ -625,7 +625,7 @@ public final class ForceFeedbackDevice {
 	public var gain: UInt32 {
 		get {
 			var theVal: UInt32 = 0
-			let iErr = getProperty(.Gain, value: &theVal, valueSize: IOByteCount(sizeof(UInt32.Type)))
+			let iErr = getProperty(.Gain, value: &theVal, valueSize: IOByteCount(sizeof(UInt32)))
 			lastReturnValue = iErr
 			return theVal
 		}
