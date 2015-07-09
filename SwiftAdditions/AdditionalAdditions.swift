@@ -23,23 +23,15 @@ public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 ///
 /// - parameter mirror: The `MirrorType` to get the reflected values from.
 /// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
-public func getArrayFromMirror<X>(mirror: MirrorType) -> [X] {
+public func getArrayFromMirror<X>(mirror: MirrorType, appendLastObject lastObj: X? = nil) -> [X] {
 	var anArray = [X]()
 	for i in 0..<mirror.count {
 		let aChar = mirror[i].1.value as! X
 		anArray.append(aChar)
 	}
-	
-	return anArray
-}
-
-/// Best used for a fixed-size C array that expects to be NULL-terminated, like a C string.
-///
-/// - parameter mirror: The `MirrorType` to get the reflected values from.
-/// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
-public func getArrayFromMirror<X>(mirror: MirrorType, appendLastObject lastObj: X) -> [X] {
-	var anArray: [X] = getArrayFromMirror(mirror)
-	anArray.append(lastObj)
+	if let lastObj = lastObj {
+		anArray.append(lastObj)
+	}
 	return anArray
 }
 
@@ -110,8 +102,8 @@ public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes:
 
 extension Array {
 	// Code taken from http://stackoverflow.com/a/26174259/1975001
-	private mutating func removeAtIndexes(indexes: NSIndexSet) -> [T] {
-		var toRet = [T]()
+	public mutating func removeAtIndexes(indexes: NSIndexSet) -> [Element] {
+		var toRet = [Element]()
 		for var i = indexes.lastIndex; i != NSNotFound; i = indexes.indexLessThanIndex(i) {
 			toRet.append(self.removeAtIndex(i))
 		}
@@ -119,8 +111,8 @@ extension Array {
 		return toRet
 	}
 	
-	///Internally creates an index set so there are no duplicates.
-	private mutating func removeAtIndexes(ixs:[Int]) -> [T] {
+	/// Internally creates an `NSIndexSet` so there are no duplicates.
+	public mutating func removeAtIndexes(ixs:[Int]) -> [Element] {
 		let idxSet = NSMutableIndexSet()
 		for i in ixs {
 			idxSet.addIndex(i)
@@ -128,7 +120,9 @@ extension Array {
 		return removeAtIndexes(idxSet)
 	}
 	
-	private mutating func removeAtIndexes(ixs: Set<Int>) -> [T] {
+	/// Internally creates an `NSIndexSet` so there are no duplicates
+	/// and so the items are in order.
+	public mutating func removeAtIndexes(ixs: Set<Int>) -> [Element] {
 		let idxSet = NSMutableIndexSet()
 		for i in ixs {
 			idxSet.addIndex(i)
