@@ -26,7 +26,7 @@ public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 public func getArrayFromMirror<X>(mirror: Mirror, appendLastObject lastObj: X? = nil) -> [X] {
 	var anArray = [X]()
 	for val in mirror.children {
-		let aChar = val as! X
+		let aChar = val.value as! X
 		anArray.append(aChar)
 	}
 	if let lastObj = lastObj {
