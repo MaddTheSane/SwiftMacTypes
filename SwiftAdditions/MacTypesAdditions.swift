@@ -206,7 +206,7 @@ extension Boolean : BooleanLiteralConvertible, BooleanType {
 extension String {
 	/// HFSUniStr255 is declared internally on OS X as part of the HFS headers. iOS doesn't use any version of HFS, so it doesn't have this function.
 	public init(HFSUniStr: HFSUniStr255) {
-		let uniStr: [UInt16] = getArrayFromMirror(reflect(HFSUniStr.unicode))
+		let uniStr: [UInt16] = getArrayFromMirror(Mirror(reflecting: HFSUniStr.unicode))
 		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding) as! String
 	}
 }

@@ -128,7 +128,7 @@ public struct AudioFormatFlag : OptionSetType {
 	public static let FlagsAreAllClear	= AudioFormatFlag(rawValue: 1 << 31)
 	public static var NativeEndian: AudioFormatFlag {
 		if isLittleEndian {
-			return self(rawValue: 0)
+			return self.init(rawValue: 0)
 		} else {
 			return BigEndian
 		}
@@ -143,23 +143,23 @@ public struct LinearPCMFormatFlag : OptionSetType {
 		return [Float, NativeEndian, Packed]
 	}
 	
-	public static var Float:			LinearPCMFormatFlag { return self(rawValue: 1 << 0) }
-	public static var BigEndian:		LinearPCMFormatFlag { return self(rawValue: 1 << 1) }
-	public static var SignedInteger:	LinearPCMFormatFlag { return self(rawValue: 1 << 2) }
-	public static var Packed:			LinearPCMFormatFlag { return self(rawValue: 1 << 3) }
-	public static var AlignedHigh:		LinearPCMFormatFlag { return self(rawValue: 1 << 4) }
-	public static var NonInterleaved:	LinearPCMFormatFlag { return self(rawValue: 1 << 5) }
-	public static var NonMixable:		LinearPCMFormatFlag { return self(rawValue: 1 << 6) }
-	public static var FlagsAreAllClear:	LinearPCMFormatFlag { return self(rawValue: 1 << 31) }
+	public static var Float			= LinearPCMFormatFlag(rawValue: 1 << 0)
+	public static var BigEndian		= LinearPCMFormatFlag(rawValue: 1 << 1)
+	public static var SignedInteger	= LinearPCMFormatFlag(rawValue: 1 << 2)
+	public static var Packed			= LinearPCMFormatFlag(rawValue: 1 << 3)
+	public static var AlignedHigh		= LinearPCMFormatFlag(rawValue: 1 << 4)
+	public static var NonInterleaved	= LinearPCMFormatFlag(rawValue: 1 << 5)
+	public static var NonMixable		= LinearPCMFormatFlag(rawValue: 1 << 6)
+	public static var FlagsAreAllClear	= LinearPCMFormatFlag(rawValue: 1 << 31)
 	public static var NativeEndian:		LinearPCMFormatFlag {
 		if isLittleEndian {
-			return self(rawValue: 0)
+			return self.init(rawValue: 0)
 		} else {
 			return BigEndian
 		}
 	}
-	public static var FlagsSampleFractionShift: LinearPCMFormatFlag { return self(rawValue: 7) }
-	public static var FlagsSampleFractionMask : LinearPCMFormatFlag { return self(rawValue: 0x3F << FlagsSampleFractionShift.rawValue) }
+	public static var FlagsSampleFractionShift: LinearPCMFormatFlag { return self.init(rawValue: 7) }
+	public static var FlagsSampleFractionMask : LinearPCMFormatFlag { return self.init(rawValue: 0x3F << FlagsSampleFractionShift.rawValue) }
 }
 
 public extension AudioStreamBasicDescription {

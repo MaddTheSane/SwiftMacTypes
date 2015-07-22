@@ -169,7 +169,7 @@ extension NSUUID {
 	@objc(initWithCFUUID:) public convenience init(_ cfUUID: CFUUID) {
 		let tmpuid = CFUUIDGetUUIDBytes(cfUUID)
 
-		let anotherUUID: [UInt8] = getArrayFromMirror(reflect(tmpuid))
+		let anotherUUID: [UInt8] = getArrayFromMirror(Mirror(reflecting: tmpuid))
 		
 		self.init(UUIDBytes: anotherUUID)
 	}
