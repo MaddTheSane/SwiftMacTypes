@@ -57,11 +57,11 @@ public func AudioFileOpen(path path: String, permissions: AudioFilePermissions =
 }
 
 public func AudioFileReadBytes(audioFile audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, inout numberBytes: UInt32, buffer: UnsafeMutablePointer<Void>) -> OSStatus {
-	return AudioFileReadBytes(audioFile, useCache == true ? 1 : 0, startingByte, &numberBytes, buffer)
+	return AudioFileReadBytes(audioFile, useCache, startingByte, &numberBytes, buffer)
 }
 
 public func AudioFileWriteBytes(audioFile audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, inout numberBytes: UInt32, buffer: UnsafePointer<Void>) -> OSStatus {
-	return AudioFileWriteBytes(audioFile, useCache == true ? 1 : 0, startingByte, &numberBytes, buffer)
+	return AudioFileWriteBytes(audioFile, useCache, startingByte, &numberBytes, buffer)
 }
 
 // MARK: Audio Format

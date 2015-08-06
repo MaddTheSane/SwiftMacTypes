@@ -182,26 +182,6 @@ extension OSType: StringLiteralConvertible {
 	}
 }
 
-extension Boolean : BooleanLiteralConvertible, BooleanType {
-	///Sets the value to 1 if true, otherwise 0.
-	public init(booleanLiteral v : Bool) {
-		if v.boolValue {
-			self = 1
-		} else {
-			self = 0
-		}
-	}
-	
-	/// Returns true if the value is non-zero
-	public var boolValue: Bool {
-		if (self == 0) {
-			return false
-		} else {
-			return true
-		}
-	}
-}
-
 #if os(OSX)
 extension String {
 	/// HFSUniStr255 is declared internally on OS X as part of the HFS headers. iOS doesn't use any version of HFS, so it doesn't have this function.
