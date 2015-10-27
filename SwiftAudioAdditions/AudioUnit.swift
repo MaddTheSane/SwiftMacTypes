@@ -112,14 +112,21 @@ public enum AudioComponentType {
 	}
 	
 	public enum AUInstrument: OSType {
+		#if os(OSX)
 		case DLS = 0x646C7320
+		#endif
 		case Sampler = 0x73616D70
 		case MIDI = 0x6D73796E
 	}
 	
 	public enum AUConverter: OSType {
 		case AUConverter = 0x636F6E76
+		#if os(OSX)
 		case TimePitch = 0x746D7074
+		#endif
+		#if os(iOS)
+		case iPodTime = 0x6970746D
+		#endif
 		case Varispeed = 0x76617269
 		case DeferredRenderer = 0x64656672
 		case Splitter = 0x73706C74
@@ -136,18 +143,24 @@ public enum AudioComponentType {
 		case HighShelfFilter = 0x68736866
 		case LowShelfFilter = 0x6C736866
 		case ParametricEQ = 0x706D6571
-		case GraphicEQ = 0x67726571
 		case PeakLimiter = 0x6C6D7472
 		case DynamicsProcessor = 0x64636D70
+		case SampleDelay = 0x73646C79
+		case Distortion = 0x64697374
+		case NBandEQ = 0x6E626571
+		
+		#if os(OSX)
+		case GraphicEQ = 0x67726571
 		case MultiBandCompressor = 0x6D636D70
 		case MatrixReverb = 0x6D726576
-		case SampleDelay = 0x73646C79
 		case Pitch = 0x746D7074
 		case AUFilter = 0x66696C74
 		case NetSend = 0x6E736E64
-		case Distortion = 0x64697374
 		case RogerBeep = 0x726F6772
-		case NBandEQ = 0x6E626571
+		#elseif os(iOS)
+		case Reverb2 = 0x72766232
+		case iPodEQ = 0x69706571
+		#endif
 	}
 	
 	public enum AUMixer: OSType {
@@ -165,7 +178,7 @@ public enum AudioComponentType {
 	}
 	
 	public enum AUGenerator: OSType {
-		case NetRecieve = 0x6E726376
+		case NetReceive = 0x6E726376
 		case ScheduledSoundPlayer = 0x7373706C
 		case AudioFilePlayer = 0x6166706C
 	}

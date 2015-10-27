@@ -33,5 +33,4 @@ FOUNDATION_EXPORT double SwiftAdditionsVersionNumber;
 FOUNDATION_EXPORT const unsigned char SwiftAdditionsVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SwiftAdditions/PublicHeader.h>
-//#import <SwiftAdditions/SACOMHelpers.h>
 

@@ -98,7 +98,7 @@ import Cocoa
 	}
 	
 	extension NSAffineTransform {
-		convenience init(cgTransform: CGAffineTransform) {
+		public convenience init(cgTransform: CGAffineTransform) {
 			let preStruct = NSAffineTransformStruct(cgTransform)
 			self.init()
 			transformStruct = preStruct

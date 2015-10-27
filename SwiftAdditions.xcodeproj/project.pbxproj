@@ -302,15 +302,15 @@
 		550FBAC019A7ADC500EFBD3D /* SwiftAdditions */ = {
 			isa = PBXGroup;
 			children = (
-				55654A591A6B1148008E9315 /* QuickLook.swift */,
-				55D8DD851A7EE48B0046C1F7 /* AppKit.swift */,
-				5587E0BF1A0A115D00CA1400 /* Endianness.swift */,
-				5577287719ABE259008328D0 /* MacTypesAdditions.swift */,
-				550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */,
 				55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */,
-				55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */,
-				550B049F1A0D5932002BD56E /* COMUUIDs.swift */,
+				55D8DD851A7EE48B0046C1F7 /* AppKit.swift */,
 				552627A01BDF52A4005AAF63 /* Characters.swift */,
+				550B049F1A0D5932002BD56E /* COMUUIDs.swift */,
+				55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */,
+				5587E0BF1A0A115D00CA1400 /* Endianness.swift */,
+				550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */,
+				5577287719ABE259008328D0 /* MacTypesAdditions.swift */,
+				55654A591A6B1148008E9315 /* QuickLook.swift */,
 				550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */,
 				550FBAC119A7ADC500EFBD3D /* Supporting Files */,
 			);
@@ -1012,8 +1012,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
-				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx appletvsimulator appletvos watchsimulator watchos";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64 armv7k";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -1035,8 +1037,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
-				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx appletvsimulator appletvos watchsimulator watchos";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64 armv7k";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};

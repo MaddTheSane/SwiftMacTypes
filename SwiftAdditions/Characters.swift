@@ -159,13 +159,13 @@ public enum ASCIICharacter: Int8, Comparable {
 	
 	/// Takes a Swift `Character` and returns an ASCII character/code.
 	/// Returns `nil` if the value can't be represented in ASCII
-	init?(swiftCharacter: Character) {
+	public init?(swiftCharacter: Character) {
 		let srrChar = String(swiftCharacter)
-		let utfEnc = srrChar.utf8
+		let utfEnc = srrChar.utf16
 		
 		let ourChar = utfEnc.first!
 		
-		if (ourChar & 0x80) == 0 {
+		if (ourChar & 0xFF80) == 0 {
 			self = ASCIICharacter(rawValue: Int8(ourChar))!
 			return
 		}
@@ -174,7 +174,7 @@ public enum ASCIICharacter: Int8, Comparable {
 	}
 	
 	/// Takes a C-style char value and maps it to the ASCII table
-	init?(CCharacter: Int8) {
+	public init?(CCharacter: Int8) {
 		guard let aChar = ASCIICharacter(rawValue: CCharacter) else {
 			return nil
 		}
@@ -182,7 +182,7 @@ public enum ASCIICharacter: Int8, Comparable {
 	}
 	
 	/// Returns a Swift `Character` representing the current enum value.
-	var characterValue: Character {
+	public var characterValue: Character {
 		let numVal = self.rawValue
 		if numVal < 0 {
 			return "∅"

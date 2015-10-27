@@ -10,11 +10,13 @@ import Foundation
 import Darwin.MacTypes
 #if os(OSX)
 import CoreServices
+import AppKit.NSWorkspace
+import AppKit.NSImage
 #endif
 import CoreGraphics
 
 
-/// Converts an OSType to a String value. May return nil.
+/// Converts an `OSType` to a `String` value. May return `nil`.
 public func OSTypeToString(theType: OSType) -> String? {
 	#if os(OSX)
 		return UTCreateStringForOSType(theType).takeRetainedValue() as String?
@@ -32,7 +34,7 @@ public func OSTypeToString(theType: OSType) -> String? {
 	#endif
 }
 
-/// Converts an OSType to a String value. May return a hexadecimal string.
+/// Converts an `OSType` to a `String` value. May return a hexadecimal string.
 public func OSTypeToString(theType: OSType, useHexIfInvalid: ()) -> String {
 	if let ourStr = OSTypeToString(theType) {
 		return ourStr
@@ -41,7 +43,7 @@ public func OSTypeToString(theType: OSType, useHexIfInvalid: ()) -> String {
 	}
 }
 
-/// Converts a string value to an OSType, truncating to the first four characters.
+/// Converts a `String` value to an `OSType`, truncating to the first four characters.
 public func StringToOSType(theString: String, detectHex: Bool = false) -> OSType {
 	if detectHex && theString.characters.count > 4 {
 		let aScann = NSScanner(string: theString)
@@ -94,8 +96,16 @@ public var CurrentMacStringEncoding: NSStringEncoding {
 
 /// Pascal String extensions
 extension String {
+	public typealias Str255 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	public typealias Str63 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	public typealias Str32 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	public typealias Str31 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	public typealias Str27 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	public typealias Str15 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	public typealias Str32Field = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	
 	/// The base initializer for the Pascal String types.
-	/// Gets passed a CFStringEncoding because the underlying function used to generate
+	/// Gets passed a `CFStringEncoding` because the underlying function used to generate
 	/// strings uses that.
 	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: CFStringEncoding, maximumLength: UInt8 = 255) {
 		if pStr.memory > maximumLength {
@@ -114,7 +124,7 @@ extension String {
 	/// - parameter encoding: The encoding of the pascal stiring. The default is `NSMacOSRomanStringEncoding`.
 	/// - parameter maximumLength: The maximum length of the Pascal string. The default is `255`. If the first byte is larger than this value, the constructor returns `nil`.
 	///
-	/// The main initializer. Converts the encoding to a CFStringEncoding for use
+	/// The main initializer. Converts the encoding to a `CFStringEncoding` for use
 	/// in the base initializer.
 	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: NSStringEncoding = NSMacOSRomanStringEncoding, maximumLength: UInt8 = 255) {
 		let CFEncoding = CFStringConvertNSStringEncodingToEncoding(encoding)
@@ -123,14 +133,115 @@ extension String {
 		}
 		self.init(pascalString: pStr, encoding: CFEncoding, maximumLength: maximumLength)
 	}
+	
+	public init?(pascalString pStr: Str255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let mirror = Mirror(reflecting: pStr)
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+		// a UInt8 can't reference any number greater than 255,
+		// so we just pass it to the main initializer
+		self.init(pascalString: unwrapped, encoding: encoding)
+	}
+	
+	public init?(pascalString pStr: Str63, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let mirror = Mirror(reflecting: pStr)
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+		if unwrapped[0] > 63 {
+			return nil
+		}
+		self.init(pascalString: unwrapped, encoding: encoding)
+	}
+	
+	public init?(pascalString pStr: Str32, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let mirror = Mirror(reflecting: pStr)
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+		if unwrapped[0] > 32 {
+			return nil
+		}
+		
+		self.init(pascalString: unwrapped, encoding: encoding)
+	}
+	
+	public init?(pascalString pStr: Str31, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let mirror = Mirror(reflecting: pStr)
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+		if unwrapped[0] > 31 {
+			return nil
+		}
+		self.init(pascalString: unwrapped, encoding: encoding)
+	}
+	
+	public init?(pascalString pStr: Str27, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let mirror = Mirror(reflecting: pStr)
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+		if unwrapped[0] > 27 {
+			return nil
+		}
+		self.init(pascalString: unwrapped, encoding: encoding)
+	}
+	
+	public init?(pascalString pStr: Str15, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let mirror = Mirror(reflecting: pStr)
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+		if unwrapped[0] > 15 {
+			return nil
+		}
+		self.init(pascalString: unwrapped, encoding: encoding)
+	}
+	
+	/// The last byte in a Str32Field is unused,
+	/// so the last byte isn't read.
+	public init?(pascalString pStr: Str32Field, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let mirror = Mirror(reflecting: pStr)
+		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+		if unwrapped[0] > 32 {
+			return nil
+		}
+		
+		self.init(pascalString: unwrapped, encoding: encoding)
+	}
+	
+	/// Convenience initializer, passing a `Str255` (or a tuple with 256(!) `UInt8`s)
+	public init?(_ pStr: Str255) {
+		self.init(pascalString: pStr)
+	}
+	
+	/// Convenience initializer, passing a `Str63` (or a tuple with 64 `UInt8`s)
+	public init?(_ pStr: Str63) {
+		self.init(pascalString: pStr)
+	}
+	
+	/// Convenience initializer, passing a `Str32` (or a tuple with 33 `UInt8`s)
+	public init?(_ pStr: Str32) {
+		self.init(pascalString: pStr)
+	}
+	
+	/// Convenience initializer, passing a `Str31` (or a tuple with 32 `UInt8`s)
+	public init?(_ pStr: Str31) {
+		self.init(pascalString: pStr)
+	}
+	
+	/// Convenience initializer, passing a `Str27` (or a tuple with 28 `UInt8`s)
+	public init?(_ pStr: Str27) {
+		self.init(pascalString: pStr)
+	}
+	
+	/// Convenience initializer, passing a `Str15` (or a tuple with 16 `UInt8`s)
+	public init?(_ pStr: Str15) {
+		self.init(pascalString: pStr)
+	}
+	
+	/// Convenience initializer, passing a `Str32Field` (or a tuple with 34 `UInt8`s, with the last byte ignored)
+	public init?(_ pStr: Str32Field) {
+		self.init(pascalString: pStr)
+	}
 }
 
 extension OSType: StringLiteralConvertible {
+	/// Encodes the passed `String` value to an `OSType`.
+	/// The string value may be formatted as a hexadecimal string.
+	/// Only the first four characters are read.
+	/// The strings' characters must be present in the Mac Roman string encoding.
 	public init(stringValue toInit: String) {
-		self = StringToOSType(toInit, detectHex: true)
-	}
-	
-	public init(_ toInit: String) {
 		self = StringToOSType(toInit, detectHex: true)
 	}
 	
@@ -144,6 +255,10 @@ extension OSType: StringLiteralConvertible {
 		self.init(stringValue: tmpUnscaled)
 	}
 	
+	/// Encodes the passed string literal value to an `OSType`.
+	/// The string value may be formatted as a hexadecimal string.
+	/// Only the first four characters are read.
+	/// The strings' characters must be present in the Mac Roman string encoding.
 	public init(stringLiteral toInit: String) {
 		self.init(stringValue: toInit)
 	}
@@ -166,7 +281,7 @@ extension OSType: StringLiteralConvertible {
 		self = OSType((val0 << 24) | (val1 << 16) | (val2 << 8) | (val3))
 	}
 	
-	/// Returns a tuple with four values
+	/// Returns a tuple with four values.
 	public func toFourChar() -> (Int8, Int8, Int8, Int8) {
 		let var1 = (self >> 24) & 0xFF
 		let var2 = (self >> 16) & 0xFF
@@ -175,7 +290,7 @@ extension OSType: StringLiteralConvertible {
 		return (Int8(var1), Int8(var2), Int8(var3), Int8(var4))
 	}
 	
-	/// Returns a tuple with five values, the last one being zero
+	/// Returns a tuple with five values, the last one being zero for null-termination.
 	public func toFourChar() -> (Int8, Int8, Int8, Int8, Int8) {
 		let outVar: (Int8, Int8, Int8, Int8) = toFourChar()
 		return (outVar.0, outVar.1, outVar.2, outVar.3, 0)
@@ -212,7 +327,11 @@ public enum CarbonToolbarIcons: OSType {
 	case SitesFolder = 0x74537473
 	
 	public var stringValue: String {
-		return OSTypeToString(self.rawValue) ?? "    "
+		return OSTypeToString(rawValue) ?? "    "
+	}
+	
+	public var iconRepresentation: NSImage {
+		return NSWorkspace.sharedWorkspace().iconForFileType(NSFileTypeForHFSTypeCode(rawValue))
 	}
 }
 
@@ -226,7 +345,11 @@ public enum CarbonFolderIcons: OSType {
 	case Shared = 0x7368666C
 	
 	public var stringValue: String {
-		return OSTypeToString(self.rawValue) ?? "    "
+		return OSTypeToString(rawValue) ?? "    "
+	}
+	
+	public var iconRepresentation: NSImage {
+		return NSWorkspace.sharedWorkspace().iconForFileType(NSFileTypeForHFSTypeCode(rawValue))
 	}
 }
 #endif

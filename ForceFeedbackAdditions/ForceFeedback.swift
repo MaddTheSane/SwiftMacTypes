@@ -534,8 +534,8 @@ public final class ForceFeedbackDevice {
 		}
 	}
 	
-	/// Returns `true` if device is capable of Force feedback.
-	/// Returns `false` if it isn't.
+	/// Returns `true` if device is capable of Force feedback.<br>
+	/// Returns `false` if it isn't.<br>
 	/// Returns `nil` if there was an error.
 	public class func deviceIsForceFeedback(device: io_service_t) -> Bool? {
 		let iErr = FFIsForceFeedback(device)
@@ -782,73 +782,73 @@ public final class ForceFeedbackEffect {
 		}
 	}
 	
-	/// E559C460-C5CD-11D6-8A1C-00039353BD00
+	/// E559C460-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a constant force effect type
 	public static let ConstantForce: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x60, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	/// E559C461-C5CD-11D6-8A1C-00039353BD00
+	/// E559C461-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a ramp force effect type
 	public static let RampForce: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x61, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	/// E559C462-C5CD-11D6-8A1C-00039353BD00
+	/// E559C462-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a square wave effect type
 	public static let Square: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x62, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	/// E559C463-C5CD-11D6-8A1C-00039353BD00
+	/// E559C463-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a sine wave effect type
 	public static let Sine: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x63, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	/// E559C464-C5CD-11D6-8A1C-00039353BD00
+	/// E559C464-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a triangle wave effect type
 	public static let Triangle: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x64, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	/// E559C465-C5CD-11D6-8A1C-00039353BD00
+	/// E559C465-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a upwards sawtooth wave effect type
 	public static let SawtoothUp: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x65, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	/// E559C466-C5CD-11D6-8A1C-00039353BD00
+	/// E559C466-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a downwards sawtooth wave effect type
 	public static let SawtoothDown: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x66, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	/// E559C467-C5CD-11D6-8A1C-00039353BD00
+	/// E559C467-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a spring effect type
 	public static let Spring: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x67, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	/// E559C468-C5CD-11D6-8A1C-00039353BD00
+	/// E559C468-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a damper effect type
 	public static let Damper: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x68, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	/// E559C469-C5CD-11D6-8A1C-00039353BD00
+	/// E559C469-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for an inertia effect type
 	public static let Inertia: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x69, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	/// E559C46A-C5CD-11D6-8A1C-00039353BD00
+	/// E559C46A-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a friction effect type
 	public static let Friction: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x6A, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	/// E559C46B-C5CD-11D6-8A1C-00039353BD00
+	/// E559C46B-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a custom force effect type
 	public static let CustomForce: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
 			0xE5, 0x59, 0xC4, 0x6B, 0xC5, 0xCD, 0x11, 0xD6,
