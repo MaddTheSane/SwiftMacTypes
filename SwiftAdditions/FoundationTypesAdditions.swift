@@ -205,21 +205,17 @@ extension NSMutableData {
 	}
 }
 
-#if false
-extension NSEdgeInsets: Equatable {
-	#if false
-	@available(OSX, introduced=10.10)
+@available(OSX 10.10, *)
+extension NSEdgeInsets {
 	public static var zero: NSEdgeInsets {
 		return NSEdgeInsetsZero
 	}
-	#endif
 }
 
-@available(OSX, introduced=10.10)
+@available(OSX 10.10, *)
 public func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
 	return NSEdgeInsetsEqual(rhs, lhs)
 }
-#endif
 
 extension NSUserDefaults {
 	public subscript(key: String) -> AnyObject? {

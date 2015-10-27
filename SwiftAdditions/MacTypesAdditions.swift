@@ -17,7 +17,7 @@ import CoreGraphics
 /// Converts an OSType to a String value. May return nil.
 public func OSTypeToString(theType: OSType) -> String? {
 	#if os(OSX)
-		return UTCreateStringForOSType(theType).takeRetainedValue() as String
+		return UTCreateStringForOSType(theType).takeRetainedValue() as String?
 		#else
 		func OSType2Ptr(type: OSType) -> [CChar] {
 			var ourOSType = [Int8](count: 5, repeatedValue: 0)
