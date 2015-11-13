@@ -96,13 +96,66 @@ public var CurrentMacStringEncoding: NSStringEncoding {
 
 /// Pascal String extensions
 extension String {
-	public typealias Str255 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	public typealias Str63 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	public typealias Str32 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	public typealias Str31 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	public typealias Str27 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	public typealias Str15 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	public typealias Str32Field = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	/// A pascal string that is at least 256 bytes long, containing at least 255 characters.
+	public typealias PStr255 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	/// A pascal string that is at least 64 bytes long, containing at least 63 characters.
+	public typealias PStr63 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	/// A pascal string that is at least 33 bytes long, containing at least 32 characters.
+	public typealias PStr32 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	/// A pascal string that is at least 32 bytes long, containing at least 31 characters.
+	public typealias PStr31 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8)
+	/// A pascal string that is at least 28 bytes long, containing at least 27 characters.
+	public typealias PStr27 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8)
+	/// A pascal string that is at least 16 bytes long, containing at least 15 characters.
+	public typealias PStr15 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+	/// A pascal string that is at least 34 bytes long, containing at least 32 characters.
+	///
+	/// The last byte is unused as it was used for padding over a network.
+	public typealias PStr32Field = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
 	
 	/// The base initializer for the Pascal String types.
 	/// Gets passed a `CFStringEncoding` because the underlying function used to generate
@@ -120,7 +173,7 @@ extension String {
 	
 	/// Converts a pointer to a Pascal string into a Swift string.
 	///
-	/// - parameter pStr: a pointer to the Pascal string in question. You may need to use `getArrayFromMirror` if the value is a Tuple.
+	/// - parameter pStr: a pointer to the Pascal string in question. You may need to use `getArrayFromMirror` or `arrayFromObject` if the value is a Tuple.
 	/// - parameter encoding: The encoding of the pascal stiring. The default is `NSMacOSRomanStringEncoding`.
 	/// - parameter maximumLength: The maximum length of the Pascal string. The default is `255`. If the first byte is larger than this value, the constructor returns `nil`.
 	///
@@ -134,26 +187,23 @@ extension String {
 		self.init(pascalString: pStr, encoding: CFEncoding, maximumLength: maximumLength)
 	}
 	
-	public init?(pascalString pStr: Str255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = Mirror(reflecting: pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+	public init?(pascalString pStr: PStr255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		// a UInt8 can't reference any number greater than 255,
 		// so we just pass it to the main initializer
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str63, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = Mirror(reflecting: pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+	public init?(pascalString pStr: PStr63, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 63 {
 			return nil
 		}
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str32, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = Mirror(reflecting: pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+	public init?(pascalString pStr: PStr32, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 32 {
 			return nil
 		}
@@ -161,27 +211,24 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str31, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = Mirror(reflecting: pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+	public init?(pascalString pStr: PStr31, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 31 {
 			return nil
 		}
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str27, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = Mirror(reflecting: pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+	public init?(pascalString pStr: PStr27, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 27 {
 			return nil
 		}
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: Str15, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = Mirror(reflecting: pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+	public init?(pascalString pStr: PStr15, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 15 {
 			return nil
 		}
@@ -190,9 +237,8 @@ extension String {
 	
 	/// The last byte in a Str32Field is unused,
 	/// so the last byte isn't read.
-	public init?(pascalString pStr: Str32Field, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
-		let mirror = Mirror(reflecting: pStr)
-		let unwrapped: [UInt8] = getArrayFromMirror(mirror)
+	public init?(pascalString pStr: PStr32Field, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 32 {
 			return nil
 		}
@@ -200,38 +246,38 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	/// Convenience initializer, passing a `Str255` (or a tuple with 256(!) `UInt8`s)
-	public init?(_ pStr: Str255) {
+	/// Convenience initializer, passing a `PStr255` (or a tuple with *256* `UInt8`s)
+	public init?(_ pStr: PStr255) {
 		self.init(pascalString: pStr)
 	}
 	
-	/// Convenience initializer, passing a `Str63` (or a tuple with 64 `UInt8`s)
-	public init?(_ pStr: Str63) {
+	/// Convenience initializer, passing a `PStr63` (or a tuple with 64 `UInt8`s)
+	public init?(_ pStr: PStr63) {
 		self.init(pascalString: pStr)
 	}
 	
-	/// Convenience initializer, passing a `Str32` (or a tuple with 33 `UInt8`s)
-	public init?(_ pStr: Str32) {
+	/// Convenience initializer, passing a `PStr32` (or a tuple with 33 `UInt8`s)
+	public init?(_ pStr: PStr32) {
 		self.init(pascalString: pStr)
 	}
 	
-	/// Convenience initializer, passing a `Str31` (or a tuple with 32 `UInt8`s)
-	public init?(_ pStr: Str31) {
+	/// Convenience initializer, passing a `PStr31` (or a tuple with 32 `UInt8`s)
+	public init?(_ pStr: PStr31) {
 		self.init(pascalString: pStr)
 	}
 	
-	/// Convenience initializer, passing a `Str27` (or a tuple with 28 `UInt8`s)
-	public init?(_ pStr: Str27) {
+	/// Convenience initializer, passing a `PStr27` (or a tuple with 28 `UInt8`s)
+	public init?(_ pStr: PStr27) {
 		self.init(pascalString: pStr)
 	}
 	
-	/// Convenience initializer, passing a `Str15` (or a tuple with 16 `UInt8`s)
-	public init?(_ pStr: Str15) {
+	/// Convenience initializer, passing a `PStr15` (or a tuple with 16 `UInt8`s)
+	public init?(_ pStr: PStr15) {
 		self.init(pascalString: pStr)
 	}
 	
-	/// Convenience initializer, passing a `Str32Field` (or a tuple with 34 `UInt8`s, with the last byte ignored)
-	public init?(_ pStr: Str32Field) {
+	/// Convenience initializer, passing a `PStr32Field` (or a tuple with 34 `UInt8`s, with the last byte ignored)
+	public init?(_ pStr: PStr32Field) {
 		self.init(pascalString: pStr)
 	}
 }

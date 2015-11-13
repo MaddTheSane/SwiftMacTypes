@@ -437,7 +437,7 @@ extension FFCAPABILITIES {
 	}
 	
 	public var axes: [UInt8] {
-		var axesArray: [UInt8] = getArrayFromMirror(Mirror(reflecting: ffAxes))
+		var axesArray: [UInt8] = try! arrayFromObject(reflecting: ffAxes)
 		
 		return [UInt8](axesArray[0..<min(Int(numFfAxes), axesArray.count)])
 	}
