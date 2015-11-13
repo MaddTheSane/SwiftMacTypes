@@ -11,7 +11,7 @@ import Foundation
 import ForceFeedback
 import SwiftAdditions
 
-public enum ForceFeedbackResult: HRESULT {
+public enum ForceFeedbackResult: HRESULT, ErrorType {
 	case OK = 0
 	case False = 1
 	case DownloadSkipped = 3
@@ -523,15 +523,14 @@ public final class ForceFeedbackDevice {
 		return 1000000
 	}
 	
-	public init?(device: io_service_t) {
+	public init(device: io_service_t) throws {
 		var tmpDevice: FFDeviceObjectReference = nil
 		let iErr = FFCreateDevice(device, &tmpDevice)
-		if iErr > -1 {
-			rawDevice = tmpDevice
-		} else {
+		guard iErr == ForceFeedbackResult.OK.rawValue else {
 			rawDevice = nil
-			return nil
+			throw ForceFeedbackResult.fromHResult(iErr)
 		}
+		rawDevice = tmpDevice
 	}
 	
 	/// Returns `true` if device is capable of Force feedback.<br>
@@ -854,27 +853,27 @@ public final class ForceFeedbackEffect {
 			0xE5, 0x59, 0xC4, 0x6B, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	public convenience init?(device: ForceFeedbackDevice, UUID: NSUUID, inout effectDefinition: FFEFFECT) {
+	public convenience init?(device: ForceFeedbackDevice, UUID: NSUUID, inout effectDefinition: FFEFFECT) throws {
 		let ourUUID = UUID.cfUUID
 		
-		self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
+		try self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
 	}
 	
-	public convenience init?(device: ForceFeedbackDevice, effect: EffectType, inout effectDefinition: FFEFFECT) {
+	public convenience init(device: ForceFeedbackDevice, effect: EffectType, inout effectDefinition: FFEFFECT) throws {
 		let ourUUID = effect.UUIDValue
 		
-		self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
+		try self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
 	}
 	
-	public init?(device: ForceFeedbackDevice, UUID: CFUUID, inout effectDefinition: FFEFFECT) {
+	public init(device: ForceFeedbackDevice, UUID: CFUUID, inout effectDefinition: FFEFFECT) throws {
 		deviceReference = device
 		var tmpEffect: FFEffectObjectReference = nil
 		let iErr = FFDeviceCreateEffect(device.rawDevice, UUID, &effectDefinition, &tmpEffect)
-		if iErr >= 0 {
+		if iErr == ForceFeedbackResult.OK.rawValue {
 			rawEffect = tmpEffect
 		} else {
 			rawEffect = nil
-			return nil
+			throw ForceFeedbackResult.fromHResult(iErr)
 		}
 	}
 	
@@ -898,7 +897,6 @@ public final class ForceFeedbackEffect {
 		return ForceFeedbackResult.fromHResult(FFEffectSetParameters(rawEffect, &effect, flags.rawValue))
 	}
 	
-	//func FFEffectGetEffectStatus(effectReference: FFEffectObjectReference, pFlags: UnsafeMutablePointer<FFEffectStatusFlag>) -> HRESULT
 	///- returns: A `Status` bit mask, or `nil` on error.
 	public var status: Status? {
 		var statFlag: FFEffectStatusFlag = 0
