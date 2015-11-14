@@ -160,17 +160,29 @@ public enum ASCIICharacter: Int8, Comparable {
 	/// Takes a Swift `Character` and returns an ASCII character/code.
 	/// Returns `nil` if the value can't be represented in ASCII
 	public init?(swiftCharacter: Character) {
+		//This function is a big mess, far more than it needs to be.
+		//The Character type doesn't have any way to get the raw value from itself.
 		let srrChar = String(swiftCharacter)
-		let utfEnc = srrChar.utf16
+		let utfEnc = srrChar.unicodeScalars
 		
-		let ourChar = utfEnc.first!
+		let ourCharScalar = utfEnc.first!
 		
-		if (ourChar & 0xFF80) == 0 {
-			self = ASCIICharacter(rawValue: Int8(ourChar))!
-			return
+		var utf8Scalars = [UInt8]()
+		
+		UTF8.encode(ourCharScalar) { (cu) -> () in
+			utf8Scalars.append(cu)
+		}
+		if utf8Scalars.count > 1 {
+			return nil
 		}
 		
-		return nil
+		let ourChar = utf8Scalars.last!
+		
+		guard (ourChar & 0x80) == 0 else {
+			return nil
+		}
+		
+		self = ASCIICharacter(rawValue: Int8(ourChar))!
 	}
 	
 	/// Takes a C-style char value and maps it to the ASCII table
@@ -182,10 +194,11 @@ public enum ASCIICharacter: Int8, Comparable {
 	}
 	
 	/// Returns a Swift `Character` representing the current enum value.
+	/// Returns a null character representation (␀) if not a valid ASCII value.
 	public var characterValue: Character {
 		let numVal = self.rawValue
 		if numVal < 0 {
-			return "∅"
+			return "␀"
 		}
 		let unicodeVal = UInt8(numVal)
 		let hi = UnicodeScalar(unicodeVal)
@@ -200,5 +213,15 @@ extension String {
 			return cha.characterValue
 		}
 		self = String(asciiCharMap)
+	}
+	
+	public func toASCIICharacters() -> [ASCIICharacter]? {
+		guard let asciis = self.cStringUsingEncoding(NSASCIIStringEncoding) else {
+			return nil
+		}
+		
+		return asciis.map({ (aChar) -> ASCIICharacter in
+			return ASCIICharacter(CCharacter: aChar)!
+		})
 	}
 }
