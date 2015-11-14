@@ -45,7 +45,8 @@ public enum ReflectError: ErrorType {
 /// Will throw if any type in the mirror doesn't match `X`.
 ///
 /// - parameter obj: The base object to get the data from.
-/// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
+/// - parameter lastObj: Appends the element at the end of the array.<br>Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
+/// - returns: an array of `X` objects.
 /// - throws: `ReflectError` if any of the types don't match `X`.
 public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X? = nil) throws -> [X] {
 	var anArray = [X]()
@@ -92,8 +93,8 @@ public func +=<K, V> (inout left: Dictionary<K, V>, right: Dictionary<K, V>) {
 	}
 }
 
-///Adds two dictionaries together, returning the result.
-///Any value in both `left` and `right`, the value in `right` is used.
+/// Adds two dictionaries together, returning the result.
+/// Any key in both `left` and `right`, the value in `right` is used.
 public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>)
 	-> Dictionary<K,V>
 {
@@ -111,18 +112,24 @@ public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>)
 
 /// Removes objects in an array that are in the specified `NSIndexSet`.
 /// Returns objects that were removed.
+/// - parameter ixs: the index set containing the indexes of objects that will be removed
+/// - returns: any objects that were removed.
 public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
 	return anArray.removeAtIndexes(indexes)
 }
 
 /// Removes objects in an array that are in the specified integer array.
 /// Returns objects that were removed.
+/// - parameter ixs: the integer array containing the indexes of objects that will be removed
+/// - returns: any objects that were removed.
 public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: [Int]) -> [T] {
 	return anArray.removeAtIndexes(indexes)
 }
 
 /// Removes objects in an array that are in the specified integer set.
 /// Returns objects that were removed.
+/// - parameter ixs: the integer set containing the indexes of objects that will be removed
+/// - returns: any objects that were removed.
 public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: Set<Int>) -> [T] {
 	return anArray.removeAtIndexes(indexes)
 }
@@ -131,6 +138,8 @@ extension Array {
 	// Code taken from http://stackoverflow.com/a/26174259/1975001
 	/// Removes objects at indexes that are in the specified `NSIndexSet`.
 	/// Returns objects that were removed.
+	/// - parameter ixs: the index set containing the indexes of objects that will be removed
+	/// - returns: any objects that were removed.
 	public mutating func removeAtIndexes(indexes: NSIndexSet) -> [Element] {
 		var toRet = [Element]()
 		for var i = indexes.lastIndex; i != NSNotFound; i = indexes.indexLessThanIndex(i) {
@@ -145,6 +154,8 @@ extension Array {
 	///
 	/// Internally creates an `NSIndexSet` so there are no duplicates
 	/// and so the items are in order.
+	/// - parameter ixs: the integer array containing the indexes of objects that will be removed
+	/// - returns: any objects that were removed.
 	public mutating func removeAtIndexes(ixs: [Int]) -> [Element] {
 		let idxSet = NSMutableIndexSet()
 		for i in ixs {
@@ -157,6 +168,8 @@ extension Array {
 	/// Returns objects that were removed.
 	///
 	/// Internally creates an `NSIndexSet` so the items are in order.
+	/// - parameter ixs: the integer set containing the indexes of objects that will be removed
+	/// - returns: any objects that were removed.
 	public mutating func removeAtIndexes(ixs: Set<Int>) -> [Element] {
 		let idxSet = NSMutableIndexSet()
 		for i in ixs {
