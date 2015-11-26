@@ -23,7 +23,7 @@ extension NSRange: Equatable {
 		self = NSRangeFromString(string)
 	}
 	
-	/// Is true if `location` is equal to `NSNotFound`.
+	/// Is `true` if `location` is equal to `NSNotFound`.
 	public var notFound: Bool {
 		return location == NSNotFound
 	}
@@ -210,7 +210,7 @@ public func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
 #endif
 
 extension NSUserDefaults {
-	public subscript(key: String) -> AnyObject? {
+	@nonobjc public subscript(key: String) -> AnyObject? {
 		get {
 			return objectForKey(key)
 		}

@@ -297,7 +297,7 @@ extension FFCUSTOMFORCE {
 		}
 	}
 	
-	/// Returns true if the data sent in is valid
+	/// Returns `true` if the data sent in is valid, `false` otherwise.
 	public mutating func setData(channels channels: UInt32, samples: UInt32, forceData: LPLONG) -> Bool {
 		if channels == 1 {
 			cChannels = channels
@@ -710,6 +710,8 @@ public final class ForceFeedbackEffect {
 		case Friction
 		case Custom
 		
+		/// Returns an `EffectType` matching the supplied UUID.
+		/// Returns `nil` if there isn't a matching `EffectType`.
 		public init?(UUID: CFUUID) {
 			if CFEqual(UUID, ForceFeedbackEffect.ConstantForce) {
 				self = .ConstantForce
@@ -853,7 +855,7 @@ public final class ForceFeedbackEffect {
 			0xE5, 0x59, 0xC4, 0x6B, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	public convenience init?(device: ForceFeedbackDevice, UUID: NSUUID, inout effectDefinition: FFEFFECT) throws {
+	public convenience init(device: ForceFeedbackDevice, UUID: NSUUID, inout effectDefinition: FFEFFECT) throws {
 		let ourUUID = UUID.cfUUID
 		
 		try self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
