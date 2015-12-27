@@ -12,6 +12,7 @@ import ForceFeedback
 import SwiftAdditions
 
 public enum ForceFeedbackResult: HRESULT, ErrorType {
+	static public let cocoaErrorDomain = "com.github.maddthesane.ForceFeedbackAdditions.ForceFeedbackResult"
 	case OK = 0
 	case False = 1
 	case DownloadSkipped = 3
@@ -57,6 +58,14 @@ public enum ForceFeedbackResult: HRESULT, ErrorType {
 	
 	public var isFailure: Bool {
 		return rawValue < 0
+	}
+	
+	public var _code: Int {
+		return Int(rawValue)
+	}
+	
+	public var _domain: String {
+		return ForceFeedbackResult.cocoaErrorDomain
 	}
 }
 
