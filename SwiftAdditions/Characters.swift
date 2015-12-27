@@ -194,11 +194,11 @@ public enum ASCIICharacter: Int8, Comparable {
 	}
 	
 	/// Returns a Swift `Character` representing the current enum value.
-	/// Returns a null character representation (␀) if not a valid ASCII value.
+	/// Returns a blank replacement character (0xFFFD) if not a valid ASCII value.
 	public var characterValue: Character {
 		let numVal = self.rawValue
 		if numVal < 0 {
-			return "␀"
+			return "\u{FFFD}"
 		}
 		let unicodeVal = UInt8(numVal)
 		let hi = UnicodeScalar(unicodeVal)
