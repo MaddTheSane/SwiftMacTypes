@@ -7,14 +7,15 @@
 //
 
 import Foundation
-import OpenAL
-//import OpenAL.AL
-//import OpenAL.ALC
+import OpenAL.al
+import OpenAL.alc
 
 typealias ALCcontext = COpaquePointer
 typealias ALCdevice = COpaquePointer
 
-enum ALCErrors: ALCenum {
+public let ALCErrorDomain = "ALCError"
+
+public enum ALCErrors: ALCenum, ErrorType {
 	/// No error
 	case NoError = 0
 	
@@ -32,6 +33,14 @@ enum ALCErrors: ALCenum {
 	
 	/// Out of memory
 	case OutOfMemory = 0xA005
+	
+	public var _code: Int {
+		return Int(rawValue)
+	}
+	
+	public var _domain: String {
+		return ALCErrorDomain
+	}
 }
 
 final public class ALContext {

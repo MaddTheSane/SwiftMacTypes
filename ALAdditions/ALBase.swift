@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import OpenAL
-//import OpenAL.AL
+import OpenAL.al
 
 final public class OpenAL {
 	public class func enableCapability(avar: ALenum) {
@@ -28,7 +27,7 @@ final public class OpenAL {
 		if tmpStr == nil {
 			return nil
 		}
-		return String(UTF8String: tmpStr)
+		return String.fromCString(tmpStr)
 	}
 	
 	public class func extensionIsPresent(extname: String) -> Bool {

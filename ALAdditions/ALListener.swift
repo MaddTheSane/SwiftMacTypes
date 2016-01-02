@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import OpenAL
-//import OpenAL.AL
+import OpenAL.al
 
 public final class ALListener {
 	private enum Parameter: ALenum {

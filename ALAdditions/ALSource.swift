@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import OpenAL
-//import OpenAL.AL
+import OpenAL.al
 
 final public class ALSource {
 	private(set) var source: ALuint = 0
