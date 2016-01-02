@@ -7,7 +7,8 @@
 //
 
 import Foundation
-import OpenAL.AL
+import OpenAL
+//import OpenAL.AL
 
 final public class OpenAL {
 	public class func enableCapability(avar: ALenum) {

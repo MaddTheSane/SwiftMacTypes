@@ -7,8 +7,9 @@
 //
 
 import Foundation
-import OpenAL.AL
-import OpenAL.ALC
+import OpenAL
+//import OpenAL.AL
+//import OpenAL.ALC
 
 
 final public class ALDevice {

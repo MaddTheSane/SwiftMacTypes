@@ -47,6 +47,7 @@
 		55403A131A745003007A488E /* ForceFeedbackAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55403A121A745003007A488E /* ForceFeedbackAdditionsTests.swift */; };
 		55403A1A1A74502B007A488E /* ForceFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B2B64319F564FC00A716BC /* ForceFeedback.swift */; };
 		55403A1D1A745283007A488E /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
+		555849981C37A4C700C33719 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555849971C37A4C700C33719 /* OpenAL.framework */; };
 		55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55654A591A6B1148008E9315 /* QuickLook.swift */; };
 		55706D941A1EC2440000FD93 /* SwiftIOKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55706D9A1A1EC2440000FD93 /* SwiftIOKitAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55706D8F1A1EC2440000FD93 /* SwiftIOKitAdditions.framework */; };
@@ -196,6 +197,7 @@
 		55403A0B1A745003007A488E /* ForceFeedbackAdditionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ForceFeedbackAdditionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55403A111A745003007A488E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55403A121A745003007A488E /* ForceFeedbackAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceFeedbackAdditionsTests.swift; sourceTree = "<group>"; };
+		555849971C37A4C700C33719 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		55654A591A6B1148008E9315 /* QuickLook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickLook.swift; sourceTree = "<group>"; };
 		556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileExt.swift; sourceTree = "<group>"; };
 		55706D8F1A1EC2440000FD93 /* SwiftIOKitAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftIOKitAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -288,6 +290,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				555849981C37A4C700C33719 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +550,7 @@
 		55E18FCB1A43AC3300834004 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				555849971C37A4C700C33719 /* OpenAL.framework */,
 				55E18FC81A43AC2B00834004 /* Foundation.framework */,
 				55E18FC71A43AC2B00834004 /* CoreFoundation.framework */,
 			);
@@ -789,7 +793,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "C.W. Betts";
 				TargetAttributes = {
 					550FBABD19A7ADC500EFBD3D = {
@@ -1469,6 +1473,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1491,6 +1496,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -1512,6 +1518,7 @@
 				INFOPLIST_FILE = ALAdditionsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1529,6 +1536,7 @@
 				INFOPLIST_FILE = ALAdditionsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

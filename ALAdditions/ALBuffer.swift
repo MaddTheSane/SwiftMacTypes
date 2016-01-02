@@ -7,7 +7,8 @@
 //
 
 import Foundation
-import OpenAL.AL
+import OpenAL
+//import OpenAL.AL
 
 public final class ALBuffer {
 	private(set) var buffer: ALuint = 0
