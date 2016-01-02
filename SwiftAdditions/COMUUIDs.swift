@@ -7,6 +7,7 @@
 //
 
 import CoreFoundation
+import CoreFoundation.CFPlugInCOM
 import Foundation.NSUUID
 
 /// The IUnknown UUID used by COM APIs.
@@ -17,7 +18,7 @@ public let IUnknownUUID: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSys
 public func QueryInterface<X where X: IUnknown>(thisPointer: X, UUID: NSUUID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
 	let bytes = UUID.cfUUID
 	
-	return QueryInterface(thisPointer, bytes, ppv)
+	return QueryInterface(thisPointer, UUID: bytes, ppv: ppv)
 }
 
 public func QueryInterface<X where X: IUnknown>(thisPointer: X, UUID: CFUUID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {

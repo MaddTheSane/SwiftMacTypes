@@ -7,7 +7,7 @@
 //
 
 import Foundation
-#if os(iOS)
+#if !os(OSX)
 	import UIKit
 #endif
 
@@ -23,7 +23,7 @@ extension NSRange: Equatable {
 		self = NSRangeFromString(string)
 	}
 	
-	/// Is true if `location` is equal to `NSNotFound`.
+	/// Is `true` if `location` is equal to `NSNotFound`.
 	public var notFound: Bool {
 		return location == NSNotFound
 	}
@@ -38,12 +38,12 @@ extension NSRange: Equatable {
 	}
 
 	/// Make a new `NSRange` by intersecting this range and another.
-	public func rangeByIntersecting(otherRange: NSRange) -> NSRange {
+	public func intersect(otherRange: NSRange) -> NSRange {
 		return NSIntersectionRange(self, otherRange)
 	}
 
 	/// Set the current `NSRange` to an intersection of this range and another.
-	public mutating func intersect(otherRange: NSRange) {
+	public mutating func intersectInPlace(otherRange: NSRange) {
 		self = NSIntersectionRange(self, otherRange)
 	}
 	
@@ -53,12 +53,12 @@ extension NSRange: Equatable {
 	}
 
 	/// Make a new `NSRange` from a union of this range and another.
-	public func rangeByUnion(otherRange: NSRange) -> NSRange {
+	public func union(otherRange: NSRange) -> NSRange {
 		return NSUnionRange(self, otherRange)
 	}
 
 	/// Set the current `NSRange` to a union of this range and another.
-	public mutating func union(otherRange: NSRange) {
+	public mutating func unionInPlace(otherRange: NSRange) {
 		self = NSUnionRange(self, otherRange)
 	}
 	
@@ -85,7 +85,7 @@ extension CGPoint {
 	public init(string: String) {
 		#if os(OSX)
 			self = NSPointFromString(string)
-		#elseif os(iOS)
+		#else
 			self = CGPointFromString(string)
 		#endif
 	}
@@ -94,7 +94,7 @@ extension CGPoint {
 	public var stringValue: String {
 		#if os(OSX)
 			return NSStringFromPoint(self)
-		#elseif os(iOS)
+		#else
 			return NSStringFromCGPoint(self)
 		#endif
 	}
@@ -104,7 +104,7 @@ extension CGSize {
 	public init(string: String) {
 		#if os(OSX)
 			self = NSSizeFromString(string)
-		#elseif os(iOS)
+		#else
 			self = CGSizeFromString(string)
 		#endif
 	}
@@ -113,29 +113,19 @@ extension CGSize {
 	public var stringValue: String {
 		#if os(OSX)
 			return NSStringFromSize(self)
-		#elseif os(iOS)
+		#else
 			return NSStringFromCGSize(self)
 		#endif
 	}
 }
 
 extension CGRect {
-	/// Set the current rect to an integral of the current rect.
-	public mutating func integral() {
-		self = CGRectIntegral(self)
-	}
-
-	/// An integral rect of the current rect.
-	public var rectFromIntegral: CGRect {
-		return CGRectIntegral(self)
-	}
-	
 	#if os(OSX)
-	public mutating func integral(#options: NSAlignmentOptions) {
+	public mutating func integralInPlace(options options: NSAlignmentOptions) {
 		self = NSIntegralRectWithOptions(self, options)
 	}
 	
-	public func rectFromIntegral(#options: NSAlignmentOptions) -> NSRect {
+	public func integral(options options: NSAlignmentOptions) -> NSRect {
 		return NSIntegralRectWithOptions(self, options)
 	}
 	#endif
@@ -143,7 +133,7 @@ extension CGRect {
 	public init(string: String) {
 		#if os(OSX)
 			self = NSRectFromString(string)
-		#elseif os(iOS)
+		#else
 			self = CGRectFromString(string)
 		#endif
 	}
@@ -152,7 +142,7 @@ extension CGRect {
 	public var stringValue: String {
 		#if os(OSX)
 			return NSStringFromRect(self)
-		#elseif os(iOS)
+		#else
 			return NSStringFromCGRect(self)
 		#endif
 	}
@@ -169,7 +159,7 @@ extension NSUUID {
 	@objc(initWithCFUUID:) public convenience init(_ cfUUID: CFUUID) {
 		let tmpuid = CFUUIDGetUUIDBytes(cfUUID)
 
-		let anotherUUID: [UInt8] = getArrayFromMirror(reflect(tmpuid))
+		let anotherUUID: [UInt8] = try! arrayFromObject(reflecting: tmpuid)
 		
 		self.init(UUIDBytes: anotherUUID)
 	}
@@ -206,23 +196,21 @@ extension NSMutableData {
 }
 
 #if os(OSX)
-extension NSEdgeInsets: Equatable {
-	#if false
-	@availability(OSX, introduced=10.10)
+@available(OSX, introduced=10.10)
+extension NSEdgeInsets {
 	public static var zero: NSEdgeInsets {
 		return NSEdgeInsetsZero
 	}
-	#endif
 }
 
-@availability(OSX, introduced=10.10)
+@available(OSX, introduced=10.10)
 public func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
 	return NSEdgeInsetsEqual(rhs, lhs)
 }
 #endif
 
 extension NSUserDefaults {
-	public subscript(key: String) -> AnyObject? {
+	@nonobjc public subscript(key: String) -> AnyObject? {
 		get {
 			return objectForKey(key)
 		}

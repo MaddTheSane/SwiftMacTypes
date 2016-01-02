@@ -38,49 +38,30 @@ public enum AudioFileType: OSType {
 	}
 }
 
-public struct AudioFileFlags : RawOptionSetType {
-	public typealias RawValue = UInt32
-	private var value: RawValue = 0
-	public init(_ value: RawValue) { self.value = value }
-	public init(rawValue value: RawValue) { self.value = value }
-	public init(nilLiteral: ()) { self.value = 0 }
-	public static var allZeros: AudioFileFlags { return self(0) }
-	public var rawValue: RawValue { return self.value }
-	
-	public static var EraseFile: AudioFileFlags { return AudioFileFlags(1 << 0) }
-	public static var DontPageAlignAudioData: AudioFileFlags { return AudioFileFlags(1 << 1) }
+public func AudioFileCreate(URL inFileRef: NSURL, fileType inFileType: AudioFileType, inout format: AudioStreamBasicDescription, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+	return AudioFileCreateWithURL(inFileRef as CFURL, inFileType.rawValue, &format, flags, &outAudioFile)
 }
 
-public func AudioFileCreate(URL inFileRef: NSURL, fileType inFileType: AudioFileType, inout #format: AudioStreamBasicDescription, flags: AudioFileFlags = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
-	return AudioFileCreateWithURL(inFileRef, inFileType.rawValue, &format, flags.rawValue, &outAudioFile)
+public func AudioFileCreate(path path: String, fileType inFileType: AudioFileType, inout format: AudioStreamBasicDescription, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+	let inFileRef = NSURL(fileURLWithPath: path)
+	return AudioFileCreate(URL: inFileRef, fileType: inFileType, format: &format, flags: flags, audioFile: &outAudioFile)
 }
 
-public func AudioFileCreate(#path: String, fileType inFileType: AudioFileType, inout #format: AudioStreamBasicDescription, flags: AudioFileFlags = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
-	if let inFileRef = NSURL(fileURLWithPath: path) {
-		return AudioFileCreate(URL: inFileRef, fileType: inFileType, format: &format, flags: flags, audioFile: &outAudioFile)
-	} else {
-		return -43 // fnfErr
-	}
-}
-
-public func AudioFileOpen(URL inFileRef: NSURL, #permissions: Int8, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+public func AudioFileOpen(URL inFileRef: NSURL, permissions: AudioFilePermissions = .ReadPermission, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
 	return AudioFileOpenURL(inFileRef, permissions, fileTypeHint?.rawValue ?? 0, &outAudioFile)
 }
 
-public func AudioFileOpen(#path: String, #permissions: Int8, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
-	if let inFileRef = NSURL(fileURLWithPath: path) {
-		return AudioFileOpen(URL: inFileRef, permissions: permissions, fileTypeHint: fileTypeHint, audioFile: &outAudioFile)
-	} else {
-		return -43 // fnfErr
-	}
+public func AudioFileOpen(path path: String, permissions: AudioFilePermissions = .ReadPermission, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+	let inFileRef = NSURL(fileURLWithPath: path)
+	return AudioFileOpen(URL: inFileRef, permissions: permissions, fileTypeHint: fileTypeHint, audioFile: &outAudioFile)
 }
 
-public func AudioFileReadBytes(#audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, inout #numberBytes: UInt32, #buffer: UnsafeMutablePointer<Void>) -> OSStatus {
-	return AudioFileReadBytes(audioFile, useCache == true ? 1 : 0, startingByte, &numberBytes, buffer)
+public func AudioFileReadBytes(audioFile audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, inout numberBytes: UInt32, buffer: UnsafeMutablePointer<Void>) -> OSStatus {
+	return AudioFileReadBytes(audioFile, useCache, startingByte, &numberBytes, buffer)
 }
 
-public func AudioFileWriteBytes(#audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, inout #numberBytes: UInt32, #buffer: UnsafePointer<Void>) -> OSStatus {
-	return AudioFileWriteBytes(audioFile, useCache == true ? 1 : 0, startingByte, &numberBytes, buffer)
+public func AudioFileWriteBytes(audioFile audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, inout numberBytes: UInt32, buffer: UnsafePointer<Void>) -> OSStatus {
+	return AudioFileWriteBytes(audioFile, useCache, startingByte, &numberBytes, buffer)
 }
 
 // MARK: Audio Format
@@ -129,82 +110,66 @@ public enum AudioFormat: OSType {
 	}
 }
 
-public struct AudioFormatFlag : RawOptionSetType {
-	typealias RawValue = UInt32
-	private var value: UInt32 = 0
-	public var rawValue: UInt32 {
-		return value
-	}
-	public init(rawValue value: UInt32) { self.value = value }
-	public static var allZeros: AudioFormatFlag { return self(rawValue: 0) }
-	public init(nilLiteral: ()) { self = AudioFormatFlag.FlagsAreAllClear }
-	
+public struct AudioFormatFlag : OptionSetType {
+	public let rawValue: UInt32
+
+	public init(rawValue value: UInt32) { self.rawValue = value }
 	public static var NativeFloatPacked: AudioFormatFlag {
-		return Float | NativeEndian | Packed
+		return [Float, NativeEndian, Packed]
 	}
-	
-	public static var Float:			AudioFormatFlag { return self(rawValue: 1 << 0) }
-	public static var BigEndian:		AudioFormatFlag { return self(rawValue: 1 << 1) }
-	public static var SignedInteger:	AudioFormatFlag { return self(rawValue: 1 << 2) }
-	public static var Packed:			AudioFormatFlag { return self(rawValue: 1 << 3) }
-	public static var AlignedHigh:		AudioFormatFlag { return self(rawValue: 1 << 4) }
-	public static var NonInterleaved:	AudioFormatFlag { return self(rawValue: 1 << 5) }
-	public static var NonMixable:		AudioFormatFlag { return self(rawValue: 1 << 6) }
-	public static var FlagsAreAllClear:	AudioFormatFlag { return self(rawValue: 1 << 31) }
-	public static var NativeEndian:		AudioFormatFlag {
+
+	public static let Float				= AudioFormatFlag(rawValue: 1 << 0)
+	public static let BigEndian			= AudioFormatFlag(rawValue: 1 << 1)
+	public static let SignedInteger		= AudioFormatFlag(rawValue: 1 << 2)
+	public static let Packed			= AudioFormatFlag(rawValue: 1 << 3)
+	public static let AlignedHigh		= AudioFormatFlag(rawValue: 1 << 4)
+	public static let NonInterleaved	= AudioFormatFlag(rawValue: 1 << 5)
+	public static let NonMixable		= AudioFormatFlag(rawValue: 1 << 6)
+	public static let FlagsAreAllClear	= AudioFormatFlag(rawValue: 1 << 31)
+	public static var NativeEndian: AudioFormatFlag {
 		if isLittleEndian {
-			return self(rawValue: 0)
+			return self.init(rawValue: 0)
 		} else {
 			return BigEndian
 		}
-	}
-	
-	public init(_ value: LinearPCMFormatFlag) {
-		self.value = value.rawValue
 	}
 }
 
-public struct LinearPCMFormatFlag : RawOptionSetType {
-	typealias RawValue = UInt32
-	private var value: UInt32 = 0
-	public var rawValue: UInt32 {
-		return value
-	}
-	public init(rawValue value: UInt32) { self.value = value }
-	public static var allZeros: LinearPCMFormatFlag { return self(rawValue: 0) }
-	public init(nilLiteral: ()) { self = LinearPCMFormatFlag.FlagsAreAllClear }
-	
+public struct LinearPCMFormatFlag : OptionSetType {
+	public let rawValue: UInt32
+
+	public init(rawValue value: UInt32) { self.rawValue = value }
 	public static var NativeFloatPacked: LinearPCMFormatFlag {
-		return Float | NativeEndian | Packed
+		return [Float, NativeEndian, Packed]
 	}
 	
-	public static var Float:			LinearPCMFormatFlag { return self(rawValue: 1 << 0) }
-	public static var BigEndian:		LinearPCMFormatFlag { return self(rawValue: 1 << 1) }
-	public static var SignedInteger:	LinearPCMFormatFlag { return self(rawValue: 1 << 2) }
-	public static var Packed:			LinearPCMFormatFlag { return self(rawValue: 1 << 3) }
-	public static var AlignedHigh:		LinearPCMFormatFlag { return self(rawValue: 1 << 4) }
-	public static var NonInterleaved:	LinearPCMFormatFlag { return self(rawValue: 1 << 5) }
-	public static var NonMixable:		LinearPCMFormatFlag { return self(rawValue: 1 << 6) }
-	public static var FlagsAreAllClear:	LinearPCMFormatFlag { return self(rawValue: 1 << 31) }
+	public static var Float			= LinearPCMFormatFlag(rawValue: 1 << 0)
+	public static var BigEndian		= LinearPCMFormatFlag(rawValue: 1 << 1)
+	public static var SignedInteger	= LinearPCMFormatFlag(rawValue: 1 << 2)
+	public static var Packed			= LinearPCMFormatFlag(rawValue: 1 << 3)
+	public static var AlignedHigh		= LinearPCMFormatFlag(rawValue: 1 << 4)
+	public static var NonInterleaved	= LinearPCMFormatFlag(rawValue: 1 << 5)
+	public static var NonMixable		= LinearPCMFormatFlag(rawValue: 1 << 6)
+	public static var FlagsAreAllClear	= LinearPCMFormatFlag(rawValue: 1 << 31)
 	public static var NativeEndian:		LinearPCMFormatFlag {
 		if isLittleEndian {
-			return self(rawValue: 0)
+			return self.init(rawValue: 0)
 		} else {
 			return BigEndian
 		}
 	}
-	public static var FlagsSampleFractionShift: LinearPCMFormatFlag { return self(rawValue: 7) }
-	public static var FlagsSampleFractionMask : LinearPCMFormatFlag { return self(rawValue: 0x3F << FlagsSampleFractionShift.rawValue) }
+	public static var FlagsSampleFractionShift: LinearPCMFormatFlag { return self.init(rawValue: 7) }
+	public static var FlagsSampleFractionMask : LinearPCMFormatFlag { return self.init(rawValue: 0x3F << FlagsSampleFractionShift.rawValue) }
 }
 
 public extension AudioStreamBasicDescription {
 	
 	///Is the current `AudioStreamBasicDescription` in the native endian format?
 	///
-	///:returns: `true` if the audio is in the native endian, `false` if not, and `nil` if the `formatID` isn't `.LinearPCM`.
+	///- returns: `true` if the audio is in the native endian, `false` if not, and `nil` if the `formatID` isn't `.LinearPCM`.
 	public var audioFormatNativeEndian: Bool? {
 		if (formatID == .LinearPCM) {
-			let ourFlags = formatFlags & .BigEndian
+			let ourFlags = formatFlags.intersect(.BigEndian)
 			if ourFlags == .NativeEndian {
 				return true
 			} else {

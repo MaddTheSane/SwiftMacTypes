@@ -68,7 +68,7 @@ public enum ExtendedAudioFilePropertyID: OSType {
 	case PacketTable = 0x78707469
 }
 
-public func ExtAudioFileCreate(URL inURL: NSURL, fileType inFileType: AudioFileType, inout streamDescription inStreamDesc: AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout> = nil, flags: AudioFileFlags = nil, inout audioFile outAudioFile: ExtAudioFileRef) -> OSStatus {
+public func ExtAudioFileCreate(URL inURL: NSURL, fileType inFileType: AudioFileType, inout streamDescription inStreamDesc: AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout> = nil, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), inout audioFile outAudioFile: ExtAudioFileRef) -> OSStatus {
 	return ExtAudioFileCreateWithURL(inURL, inFileType.rawValue, &inStreamDesc, inChannelLayout, flags.rawValue, &outAudioFile)
 }
 
@@ -82,7 +82,7 @@ public func ExtAudioFileSetProperty(inExtAudioFile: ExtAudioFileRef, propertyID 
 
 public func ExtAudioFileGetPropertyInfo(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtendedAudioFilePropertyID, inout size outSize: Int, inout writable outWritable: Bool) -> OSStatus {
 	var ouSize = UInt32(outSize)
-	var ouWritable: Boolean = 0
+	var ouWritable: DarwinBoolean = false
 	let aRet = ExtAudioFileGetPropertyInfo(inExtAudioFile, inPropertyID.rawValue, &ouSize, &ouWritable)
 	outWritable = ouWritable.boolValue
 	outSize = Int(ouSize)
@@ -90,7 +90,7 @@ public func ExtAudioFileGetPropertyInfo(inExtAudioFile: ExtAudioFileRef, propert
 }
 
 public func ExtAudioFileGetPropertyInfo(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtendedAudioFilePropertyID, inout size outSize: UInt32, inout writable outWritable: Bool) -> OSStatus {
-	var ouWritable: Boolean = 0
+	var ouWritable: DarwinBoolean = false
 	let aRet = ExtAudioFileGetPropertyInfo(inExtAudioFile, inPropertyID.rawValue, &outSize, &ouWritable)
 	outWritable = ouWritable.boolValue
 	return aRet

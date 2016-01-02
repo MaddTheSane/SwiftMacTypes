@@ -11,67 +11,67 @@ import Cocoa
 
 	// MARK: CGWindowLevel values
 	public let kCGBaseWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGBaseWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.BaseWindowLevelKey)
 	
 	public let kCGMinimumWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGMinimumWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.MinimumWindowLevelKey)
 
 	public let kCGDesktopWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGDesktopWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.DesktopWindowLevelKey)
 	
 	public let kCGBackstopMenuLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGBackstopMenuLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.BackstopMenuLevelKey)
 	
 	public let kCGNormalWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGNormalWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.NormalWindowLevelKey)
 	
 	public let kCGFloatingWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGFloatingWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.FloatingWindowLevelKey)
 
 	public let kCGTornOffMenuWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGTornOffMenuWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.TornOffMenuWindowLevelKey)
 
 	public let kCGDockWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGDockWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.DockWindowLevelKey)
 
 	public let kCGMainMenuWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGMainMenuWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.MainMenuWindowLevelKey)
 
 	public let kCGStatusWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGStatusWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.StatusWindowLevelKey)
 
 	public let kCGModalPanelWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGModalPanelWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.ModalPanelWindowLevelKey)
 
 	public let kCGPopUpMenuWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGPopUpMenuWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.PopUpMenuWindowLevelKey)
 	
 	public let kCGDraggingWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGDraggingWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.DraggingWindowLevelKey)
 	
 	public let kCGScreenSaverWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGScreenSaverWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.ScreenSaverWindowLevelKey)
 	
 	public let kCGMaximumWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGMaximumWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.MaximumWindowLevelKey)
 	
 	public let kCGOverlayWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGOverlayWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.OverlayWindowLevelKey)
 	
 	public let kCGHelpWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGHelpWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.HelpWindowLevelKey)
 
 	public let kCGUtilityWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGUtilityWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.UtilityWindowLevelKey)
 	
-	public var kCGDesktopIconWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGDesktopIconWindowLevelKey))
+	public let kCGDesktopIconWindowLevel: CGWindowLevel =
+		CGWindowLevelForKey(CGWindowLevelKey.DesktopIconWindowLevelKey)
 	
 	public let kCGCursorWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGCursorWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.CursorWindowLevelKey)
 	
 	public let kCGAssistiveTechHighWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(Int32(kCGAssistiveTechHighWindowLevelKey))
+		CGWindowLevelForKey(CGWindowLevelKey.AssistiveTechHighWindowLevelKey)
 	
 	
 	// MARK: NSWindowLevel values
@@ -86,4 +86,23 @@ import Cocoa
 	public let NSPopUpMenuWindowLevel = Int(kCGPopUpMenuWindowLevel)
 	public let NSScreenSaverWindowLevel = Int(kCGScreenSaverWindowLevel)
 
+	extension NSAffineTransformStruct {
+		private init(_ cgAff: CGAffineTransform) {
+			m11 = cgAff.a
+			m12 = cgAff.b
+			m21 = cgAff.c
+			m22 = cgAff.d
+			tX = cgAff.tx
+			tY = cgAff.ty
+		}
+	}
+	
+	extension NSAffineTransform {
+		public convenience init(cgTransform: CGAffineTransform) {
+			let preStruct = NSAffineTransformStruct(cgTransform)
+			self.init()
+			transformStruct = preStruct
+		}
+	}
+	
 #endif

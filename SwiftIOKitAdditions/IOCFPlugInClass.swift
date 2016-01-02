@@ -24,12 +24,12 @@ public class IOCFPlugInInterfaceClass: IUnknown {
 			return nil
 		}
 		interfaceStruct = plugInInterface
-		SARetain(plugInInterface)
+		unwrappedInterface.AddRef(interfaceStruct)
 	}
 	
 	deinit {
 		if interfaceStruct != nil {
-			SARelease(interfaceStruct)
+			unwrappedInterface.Release(interfaceStruct)
 		}
 	}
 	
@@ -46,18 +46,18 @@ public class IOCFPlugInInterfaceClass: IUnknown {
 	}
 	
 	public func stop() -> IOReturn {
-		return SAIOStop(interfaceStruct)
+		return unwrappedInterface.Stop(interfaceStruct)
 	}
 	
-	public func start(#propertyTable: NSDictionary, service: io_service_t) -> IOReturn {
-		return SAIOStart(interfaceStruct, propertyTable, service)
+	public func start(propertyTable propertyTable: NSDictionary, service: io_service_t) -> IOReturn {
+		return unwrappedInterface.Start(interfaceStruct, propertyTable, service)
 	}
 	
-	public func probe(#propertyTable: NSDictionary, service: io_service_t, inout order: Int32) -> IOReturn {
-		return SAIOProbe(interfaceStruct, propertyTable, service, &order)
+	public func probe(propertyTable propertyTable: NSDictionary, service: io_service_t, inout order: Int32) -> IOReturn {
+		return unwrappedInterface.Probe(interfaceStruct, propertyTable, service, &order)
 	}
 	
 	public func queryInterface(iid: REFIID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
-		return SAQueryInterface(interfaceStruct, iid, ppv)
+		return unwrappedInterface.QueryInterface(interfaceStruct, iid, ppv)
 	}
 }
