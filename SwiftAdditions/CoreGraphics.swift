@@ -65,7 +65,7 @@ extension CGAffineTransform: Equatable {
 		return CGAffineTransformIdentity
 	}
 	
-	public init(translationWithTx tx: CGFloat, ty: CGFloat) {
+	public init(transformWithTx tx: CGFloat, ty: CGFloat) {
 		self = CGAffineTransformMakeTranslation(tx, ty)
 	}
 	
@@ -81,43 +81,43 @@ extension CGAffineTransform: Equatable {
 		return CGAffineTransformIsIdentity(self)
 	}
 	
-	public var inverted: CGAffineTransform {
+	public var invert: CGAffineTransform {
 		return CGAffineTransformInvert(self)
 	}
 	
-	public mutating func invert() {
+	public mutating func invertInPlace() {
 		self = CGAffineTransformInvert(self)
 	}
 	
-	public mutating func concat(other: CGAffineTransform) {
+	public mutating func concatInPlace(other: CGAffineTransform) {
 		self = CGAffineTransformConcat(self, other)
 	}
 	
-	public func transformWithConcat(other: CGAffineTransform) -> CGAffineTransform {
+	public func concat(other: CGAffineTransform) -> CGAffineTransform {
 		return CGAffineTransformConcat(self, other)
 	}
 	
-	public mutating func rotate(angle: CGFloat) {
+	public mutating func rotateInPlace(angle: CGFloat) {
 		self = CGAffineTransformRotate(self, angle)
 	}
 	
-	public func transformWithRotation(angle: CGFloat) -> CGAffineTransform {
+	public func rotate(angle: CGFloat) -> CGAffineTransform {
 		return CGAffineTransformRotate(self, angle)
 	}
 	
-	public mutating func scale(sx sx: CGFloat, sy: CGFloat) {
+	public mutating func scaleInPlace(sx sx: CGFloat, sy: CGFloat) {
 		self = CGAffineTransformScale(self, sx, sy)
 	}
 	
-	public func transformWithScale(sx sx: CGFloat, sy: CGFloat) -> CGAffineTransform {
+	public func scale(sx sx: CGFloat, sy: CGFloat) -> CGAffineTransform {
 		return CGAffineTransformScale(self, sx, sy)
 	}
 	
-	public mutating func translate(tx tx: CGFloat, ty: CGFloat) {
+	public mutating func translateInPlace(tx tx: CGFloat, ty: CGFloat) {
 		self = CGAffineTransformTranslate(self, tx, ty)
 	}
 	
-	public func transformWithTranslate(tx tx: CGFloat, ty: CGFloat) -> CGAffineTransform {
+	public func translate(tx tx: CGFloat, ty: CGFloat) -> CGAffineTransform {
 		return CGAffineTransformTranslate(self, tx, ty)
 	}
 	
