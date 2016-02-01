@@ -15,13 +15,13 @@ public let IUnknownUUID: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSys
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 		0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46)
 
-public func QueryInterface<X where X: IUnknown>(thisPointer: X, UUID: NSUUID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
-	let bytes = UUID.cfUUID
+public func queryInterface<X where X: IUnknown>(thisPointer: X, UUID: NSUUID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
+	let bytes = UUID.CFUUID
 	
-	return QueryInterface(thisPointer, UUID: bytes, ppv: ppv)
+	return queryInterface(thisPointer, UUID: bytes, ppv: ppv)
 }
 
-public func QueryInterface<X where X: IUnknown>(thisPointer: X, UUID: CFUUID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
+public func queryInterface<X where X: IUnknown>(thisPointer: X, UUID: CFUUID, ppv: UnsafeMutablePointer<LPVOID>) -> HRESULT {
 	let bytes = CFUUIDGetUUIDBytes(UUID)
 	
 	return thisPointer.queryInterface(bytes, ppv: ppv)

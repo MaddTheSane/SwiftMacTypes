@@ -65,19 +65,19 @@ extension NSRange: Equatable {
 	// MARK: - CFRange interop.
 	
 	/// Initializes an `NSRange` struct from a `CFRange` struct.
-	public init(_ range: CFRange) {
+	public init(_ range: CoreFoundation.CFRange) {
 		location = range.location
 		length = range.length
 	}
 	
 	/// Initializes an `NSRange` struct from a `CFRange` struct.
-	public init(range: CFRange) {
+	public init(range: CoreFoundation.CFRange) {
 		self.init(range)
 	}
 	
 	/// The current range, represented as a `CFRange`.
-	public var cfRange: CFRange {
-		return CFRange(location: location, length: length)
+	public var `CFRange`: CoreFoundation.CFRange {
+		return CoreFoundation.CFRange(location: location, length: length)
 	}
 }
 
@@ -156,16 +156,14 @@ extension CGRect {
 
 extension NSUUID {
 	/// Create a new `NSUUID` from a `CFUUID`.
-	@objc(initWithCFUUID:) public convenience init(_ cfUUID: CFUUID) {
-		let tmpuid = CFUUIDGetUUIDBytes(cfUUID)
-
-		let anotherUUID: [UInt8] = try! arrayFromObject(reflecting: tmpuid)
+	@objc(initWithCFUUID:) public convenience init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
+		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID) as NSString as String
 		
-		self.init(UUIDBytes: anotherUUID)
+		self.init(UUIDString:tempUIDStr)!
 	}
 	
 	/// gets a CoreFoundation UUID from the current UUID.
-	public var cfUUID: CFUUID {
+	public var `CFUUID`: CoreFoundation.CFUUID {
 		let tmpStr = self.UUIDString
 		
 		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr)
