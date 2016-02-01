@@ -99,3 +99,63 @@ public func ExtAudioFileGetPropertyInfo(inExtAudioFile: ExtAudioFileRef, propert
 public func ExtAudioFileGetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtendedAudioFilePropertyID, inout propertyDataSize ioPropertyDataSize: UInt32, propertyData outPropertyData: UnsafeMutablePointer<Void>) -> OSStatus {
 	return ExtAudioFileGetProperty(inExtAudioFile, inPropertyID.rawValue, &ioPropertyDataSize, outPropertyData)
 }
+
+final public class ExtAudioFile {
+	var internalPtr: ExtAudioFileRef = nil
+	
+	public init(openURL: NSURL) throws {
+		let iErr = ExtAudioFileOpenURL(openURL, &internalPtr)
+		
+		if iErr != noErr {
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		}
+	}
+	
+	public init(createURL inURL: NSURL, fileType inFileType: AudioFileType, inout streamDescription inStreamDesc: AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout> = nil, flags: AudioFileFlags = AudioFileFlags(rawValue: 0)) throws {
+		let iErr = ExtAudioFileCreate(URL: inURL, fileType: inFileType, streamDescription: &inStreamDesc, channelLayout: inChannelLayout, flags: flags, audioFile: &internalPtr)
+		
+		if iErr != noErr {
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		}
+	}
+	
+	public func write(frames: UInt32, data: UnsafePointer<AudioBufferList>) throws {
+		let iErr = ExtAudioFileWrite(internalPtr, frames, data)
+		
+		if iErr != noErr {
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		}
+	}
+	
+	/// N.B. Errors may occur after this call has returned. Such errors may be thrown
+	/// from subsequent calls to this function.
+	public func writeAsync(frames: UInt32, data: UnsafePointer<AudioBufferList>) throws {
+		let iErr = ExtAudioFileWriteAsync(internalPtr, frames, data)
+		
+		if iErr != noErr {
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		}
+	}
+	
+	deinit {
+		if internalPtr != nil {
+			ExtAudioFileDispose(internalPtr)
+		}
+	}
+	
+	public func getProperty(ID: ExtAudioFilePropertyID, inout dataSize: UInt32, data: UnsafeMutablePointer<Void>) throws {
+		let iErr = ExtAudioFileGetProperty(internalPtr, ID, &dataSize, data)
+		
+		if iErr != noErr {
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		}
+	}
+	
+	public func setProperty(ID: ExtAudioFilePropertyID, dataSize: UInt32, data: UnsafePointer<Void>) throws {
+		let iErr = ExtAudioFileSetProperty(internalPtr, ID, dataSize, data)
+		
+		if iErr != noErr {
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		}
+	}
+}
