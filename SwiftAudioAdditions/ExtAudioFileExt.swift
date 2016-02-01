@@ -128,7 +128,7 @@ final public class ExtAudioFile {
 	}
 	
 	/// N.B. Errors may occur after this call has returned. Such errors may be thrown
-	/// from subsequent calls to this function.
+	/// from subsequent calls to this method.
 	public func writeAsync(frames: UInt32, data: UnsafePointer<AudioBufferList>) throws {
 		let iErr = ExtAudioFileWriteAsync(internalPtr, frames, data)
 		
@@ -141,6 +141,19 @@ final public class ExtAudioFile {
 		if internalPtr != nil {
 			ExtAudioFileDispose(internalPtr)
 		}
+	}
+	
+	public func getPropertyInfo(ID: ExtAudioFilePropertyID) throws -> (size: UInt32, writeable: Bool) {
+		var outSize: UInt32 = 0
+		var outWritable: DarwinBoolean = false
+		
+		let iErr = ExtAudioFileGetPropertyInfo(internalPtr, ID, &outSize, &outWritable)
+		
+		if iErr != noErr {
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		}
+		
+		return (outSize, outWritable.boolValue)
 	}
 	
 	public func getProperty(ID: ExtAudioFilePropertyID, inout dataSize: UInt32, data: UnsafeMutablePointer<Void>) throws {
