@@ -171,4 +171,175 @@ final public class ExtAudioFile {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 	}
+	
+	public var fileDataFormat: AudioStreamBasicDescription {
+		get {
+			var toRet = AudioStreamBasicDescription()
+			var (size, _) = try! getPropertyInfo(kExtAudioFileProperty_FileDataFormat)
+			try! getProperty(kExtAudioFileProperty_FileDataFormat, dataSize: &size, data: &toRet)
+			return toRet
+		}
+	}
+	
+	public var fileChannelLayout: AudioChannelLayout {
+		get {
+			var toRet = AudioChannelLayout()
+			var (size, _) = try! getPropertyInfo(kExtAudioFileProperty_FileChannelLayout)
+			try! getProperty(kExtAudioFileProperty_FileChannelLayout, dataSize: &size, data: &toRet)
+			return toRet
+		}
+		/*
+		TODO: add throwable setter
+		set throws {
+		var newVal = newValue
+		let (size, writable) = try! getPropertyInfo(kExtAudioFileProperty_ClientDataFormat)
+		if !writable {
+		//paramErr
+		//throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+		fatalError(NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil).description)
+		}
+		try! setProperty(kExtAudioFileProperty_ClientDataFormat, dataSize: size, data: &newVal)
+		}*/
+	}
+	
+	public var clientDataFormat: AudioStreamBasicDescription {
+		get {
+			var toRet = AudioStreamBasicDescription()
+			var (size, _) = try! getPropertyInfo(kExtAudioFileProperty_ClientDataFormat)
+			try! getProperty(kExtAudioFileProperty_ClientDataFormat, dataSize: &size, data: &toRet)
+			return toRet
+		}
+		//TODO: add throwable setter
+		set {
+			var newVal = newValue
+			let (size, writable) = try! getPropertyInfo(kExtAudioFileProperty_ClientDataFormat)
+			if !writable {
+				//paramErr
+				//throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+				fatalError(NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil).description)
+			}
+			try! setProperty(kExtAudioFileProperty_ClientDataFormat, dataSize: size, data: &newVal)
+		}
+	}
+	
+	public var clientChannelLayout: AudioChannelLayout {
+		get {
+			var toRet = AudioChannelLayout()
+			var (size, _) = try! getPropertyInfo(kExtAudioFileProperty_ClientChannelLayout)
+			try! getProperty(kExtAudioFileProperty_ClientChannelLayout, dataSize: &size, data: &toRet)
+			return toRet
+		}
+		/*
+		TODO: add throwable setter
+		set throws {
+		var newVal = newValue
+		let (size, writable) = try! getPropertyInfo(kExtAudioFileProperty_ClientDataFormat)
+		if !writable {
+		//paramErr
+		//throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+		fatalError(NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil).description)
+		}
+		try! setProperty(kExtAudioFileProperty_ClientDataFormat, dataSize: size, data: &newVal)
+		}*/
+	}
+	
+	public var codecManufacturer: UInt32 {
+		get {
+			var toRet: UInt32 = 0
+			var (size, _) = try! getPropertyInfo(kExtAudioFileProperty_CodecManufacturer)
+			try! getProperty(kExtAudioFileProperty_CodecManufacturer, dataSize: &size, data: &toRet)
+			return toRet
+		}
+		/*
+		TODO: add throwable setter
+		set throws {
+		var newVal = newValue
+		let (size, writable) = try! getPropertyInfo(kExtAudioFileProperty_ClientDataFormat)
+		if !writable {
+		//paramErr
+		//throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+		fatalError(NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil).description)
+		}
+		try! setProperty(kExtAudioFileProperty_ClientDataFormat, dataSize: size, data: &newVal)
+		}*/
+	}
+	
+	// MARK: read-only
+	
+	public var audioConverter: AudioConverterRef {
+		var toRet: AudioConverterRef = nil
+		var (size, _) = try! getPropertyInfo(kExtAudioFileProperty_AudioConverter)
+		try! getProperty(kExtAudioFileProperty_AudioConverter, dataSize: &size, data: &toRet)
+		return toRet
+	}
+	
+	public var audioFile: AudioFileID {
+		var toRet: AudioFileID = nil
+		var (size, _) = try! getPropertyInfo(kExtAudioFileProperty_AudioFile)
+		try! getProperty(kExtAudioFileProperty_AudioFile, dataSize: &size, data: &toRet)
+		return toRet
+	}
+	
+	public var fileMaxPacketSize: UInt32 {
+		var toRet: UInt32 = 0
+		var (size, _) = try! getPropertyInfo(kExtAudioFileProperty_FileMaxPacketSize)
+		try! getProperty(kExtAudioFileProperty_FileMaxPacketSize, dataSize: &size, data: &toRet)
+		return toRet
+	}
+
+	public var clientMaxPacketSize: UInt32 {
+		var toRet: UInt32 = 0
+		var (size, _) = try! getPropertyInfo(kExtAudioFileProperty_ClientMaxPacketSize)
+		try! getProperty(kExtAudioFileProperty_ClientMaxPacketSize, dataSize: &size, data: &toRet)
+		return toRet
+	}
+	
+	public var fileLengthFrames: Int64 {
+		var toRet: Int64 = 0
+		var (size, _) = try! getPropertyInfo(kExtAudioFileProperty_FileLengthFrames)
+		try! getProperty(kExtAudioFileProperty_FileLengthFrames, dataSize: &size, data: &toRet)
+		return toRet
+	}
+	
+	//MARK: writable
+	
+	public func setConverterConfig(newVal: CFPropertyListRef?) throws {
+		var cOpaque = COpaquePointer()
+		if let newVal = newVal {
+			cOpaque = Unmanaged.passUnretained(newVal).toOpaque()
+		}
+			let (size, writable) = try getPropertyInfo(kExtAudioFileProperty_ConverterConfig)
+			if !writable {
+				//paramErr
+				throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+			}
+			try setProperty(kExtAudioFileProperty_ConverterConfig, dataSize: size, data: &cOpaque)
+	}
+	
+	public func setIOBufferSize(var bytes bytes: UInt32) throws {
+		let (size, writable) = try getPropertyInfo(kExtAudioFileProperty_IOBufferSizeBytes)
+		if !writable {
+			//paramErr
+			throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+		}
+		try setProperty(kExtAudioFileProperty_IOBufferSizeBytes, dataSize: size, data: &bytes)
+	}
+
+	public func setIOBuffer(newVal: UnsafeMutablePointer<Void>) throws {
+		let (size, writable) = try getPropertyInfo(kExtAudioFileProperty_IOBuffer)
+		if !writable {
+			//paramErr
+			throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+		}
+		try setProperty(kExtAudioFileProperty_IOBuffer, dataSize: size, data: newVal)
+	}
+	
+	public func setPacketTable(var newVal: AudioFilePacketTableInfo) throws {
+		let (size, writable) = try getPropertyInfo(kExtAudioFileProperty_PacketTable)
+		if !writable {
+			//paramErr
+			throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+		}
+		try setProperty(kExtAudioFileProperty_PacketTable, dataSize: size, data: &newVal)
+	}
 }
