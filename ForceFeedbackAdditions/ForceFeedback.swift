@@ -11,8 +11,10 @@ import Foundation
 import ForceFeedback
 import SwiftAdditions
 
+public let ForceFeedbackResultErrorDomain =
+"com.github.maddthesane.ForceFeedbackAdditions.ForceFeedbackResult"
+
 public enum ForceFeedbackResult: HRESULT, ErrorType {
-	static public let cocoaErrorDomain = "com.github.maddthesane.ForceFeedbackAdditions.ForceFeedbackResult"
 	case OK = 0
 	case False = 1
 	case DownloadSkipped = 3
@@ -65,7 +67,7 @@ public enum ForceFeedbackResult: HRESULT, ErrorType {
 	}
 	
 	public var _domain: String {
-		return ForceFeedbackResult.cocoaErrorDomain
+		return ForceFeedbackResultErrorDomain
 	}
 }
 
