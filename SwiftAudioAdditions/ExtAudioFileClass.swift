@@ -12,9 +12,29 @@ import SwiftAdditions
 
 final public class ExtAudioFile {
 	var internalPtr: ExtAudioFileRef = nil
+	private var strongAudioFileClass: AudioFile?
 	
 	public init(openURL: NSURL) throws {
 		let iErr = ExtAudioFileOpenURL(openURL, &internalPtr)
+		
+		if iErr != noErr {
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		}
+	}
+	
+	/// Internally retains `audioFile` so it doesn't get destroyed prematurely.
+	public convenience init(wrapAudioFile audioFile: AudioFile, forWriting: Bool) throws {
+		try self.init(wrapAudioFileID:audioFile.fileID, forWriting: forWriting)
+		strongAudioFileClass = audioFile
+	}
+	
+	/// The
+	/// client is responsible for keeping the `AudioFileID` open until the
+	/// `ExtAudioFile` is destroyed. Destroying the `ExtAudioFile` object will not close
+	/// the `AudioFileID` when this Wrap API call is used, so the client is also
+	/// responsible for closing the `AudioFileID` when finished with it.
+	public init(wrapAudioFileID audioFile: AudioFileID, forWriting: Bool) throws {
+		let iErr = ExtAudioFileWrapAudioFileID(audioFile, forWriting, &internalPtr)
 		
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
