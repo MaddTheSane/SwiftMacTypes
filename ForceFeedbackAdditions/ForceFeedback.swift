@@ -867,7 +867,7 @@ public final class ForceFeedbackEffect {
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
 	public convenience init(device: ForceFeedbackDevice, UUID: NSUUID, inout effectDefinition: FFEFFECT) throws {
-		let ourUUID = UUID.cfUUID
+		let ourUUID = UUID.CFUUID
 		
 		try self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
 	}

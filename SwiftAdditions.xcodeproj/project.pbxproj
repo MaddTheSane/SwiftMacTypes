@@ -48,6 +48,7 @@
 		55403A1A1A74502B007A488E /* ForceFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B2B64319F564FC00A716BC /* ForceFeedback.swift */; };
 		55403A1D1A745283007A488E /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55654A591A6B1148008E9315 /* QuickLook.swift */; };
+		5568C1021C63F1840050E2BA /* AppleScriptFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */; };
 		55706D941A1EC2440000FD93 /* SwiftIOKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55706D9A1A1EC2440000FD93 /* SwiftIOKitAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55706D8F1A1EC2440000FD93 /* SwiftIOKitAdditions.framework */; };
 		55706DA11A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55706DA01A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift */; };
@@ -176,6 +177,7 @@
 		55403A111A745003007A488E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55403A121A745003007A488E /* ForceFeedbackAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceFeedbackAdditionsTests.swift; sourceTree = "<group>"; };
 		55654A591A6B1148008E9315 /* QuickLook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickLook.swift; sourceTree = "<group>"; };
+		5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleScriptFoundation.swift; sourceTree = "<group>"; };
 		556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileExt.swift; sourceTree = "<group>"; };
 		55706D8F1A1EC2440000FD93 /* SwiftIOKitAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftIOKitAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55706D921A1EC2440000FD93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */,
 				5577287719ABE259008328D0 /* MacTypesAdditions.swift */,
 				55654A591A6B1148008E9315 /* QuickLook.swift */,
+				5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */,
 				550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */,
 				550FBAC119A7ADC500EFBD3D /* Supporting Files */,
 			);
@@ -786,6 +789,7 @@
 				55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */,
 				550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */,
 				5587E0C01A0A115D00CA1400 /* Endianness.swift in Sources */,
+				5568C1021C63F1840050E2BA /* AppleScriptFoundation.swift in Sources */,
 				552627A11BDF52A4005AAF63 /* Characters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
