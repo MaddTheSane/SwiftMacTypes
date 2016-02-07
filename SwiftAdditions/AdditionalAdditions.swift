@@ -65,12 +65,13 @@ public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X?
 	return anArray
 }
 
-///Runs the closure on the main thread immediately if ran from the main thread,
-///or puts it on the main dispatch queue and waits for it to complete.
+/// Runs the closure on the main thread immediately if ran from the main thread,
+/// or puts it on the main dispatch queue and waits for it to complete.
 ///
-///Useful to force a closure to run on the main thread, but you don't know if you *are* on the main thread.
+/// Useful to force a closure to run on the main thread, but you don't know if 
+/// you *are* on the main thread.
 ///
-///This assumes that `NSThread`'s main thread is the same as GCD's main queue.
+/// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
 public func runOnMainThreadSync(block: dispatch_block_t) {
 	if NSThread.isMainThread() {
 		block()
@@ -79,10 +80,10 @@ public func runOnMainThreadSync(block: dispatch_block_t) {
 	}
 }
 
-///Runs the closure on the main thread immediately if ran from the main thread,
-///or queues it on the main Dispatch queue if on another thread.
+/// Runs the closure on the main thread immediately if ran from the main thread,
+/// or queues it on the main Dispatch queue if on another thread.
 ///
-///This assumes that `NSThread`'s main thread is the same as GCD's main queue.
+/// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
 public func runOnMainThreadAsync(block: dispatch_block_t) {
 	if NSThread.isMainThread() {
 		block()
@@ -91,6 +92,17 @@ public func runOnMainThreadAsync(block: dispatch_block_t) {
 	}
 }
 
+// Code taken from http://stackoverflow.com/a/33957196/1975001
+extension Dictionary {
+	mutating func unionInPlace(dictionary: Dictionary) {
+		dictionary.forEach { self.updateValue($1, forKey: $0) }
+	}
+	
+	func union(var dictionary: Dictionary) -> Dictionary {
+		dictionary.unionInPlace(self)
+		return dictionary
+	}
+}
 
 // Code taken from http://stackoverflow.com/a/24052094/1975001
 public func +=<K, V> (inout left: Dictionary<K, V>, right: Dictionary<K, V>) {
