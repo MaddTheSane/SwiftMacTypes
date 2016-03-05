@@ -15,7 +15,8 @@ import SwiftAdditions
 public typealias IOCFPlugInInterfaceHandle = UnsafeMutablePointer<UnsafeMutablePointer<IOCFPlugInInterface>>
 
 public class IOCFPlugInInterfaceClass: IUnknown {
-	private var interfaceStruct: IOCFPlugInInterfaceHandle = nil
+	/// Should only be accessed by subclasses!
+	public private(set) var interfaceStruct: IOCFPlugInInterfaceHandle = nil
 	
 	public init?(plugInInterface: IOCFPlugInInterfaceHandle) {
 		if plugInInterface == nil {
