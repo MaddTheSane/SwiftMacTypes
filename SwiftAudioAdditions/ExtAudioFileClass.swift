@@ -41,7 +41,7 @@ final public class ExtAudioFile {
 		}
 	}
 	
-	public init(createURL inURL: NSURL, fileType inFileType: AudioFileType, inout streamDescription inStreamDesc: AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout> = nil, flags: AudioFileFlags = AudioFileFlags(rawValue: 0)) throws {
+	public init(createURL inURL: NSURL, fileType inFileType: AudioFileType, inout streamDescription inStreamDesc: AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout> = nil, flags: AudioFileFlags = []) throws {
 		let iErr = ExtAudioFileCreate(URL: inURL, fileType: inFileType, streamDescription: &inStreamDesc, channelLayout: inChannelLayout, flags: flags, audioFile: &internalPtr)
 		
 		if iErr != noErr {
@@ -49,7 +49,7 @@ final public class ExtAudioFile {
 		}
 	}
 	
-	public func write(frames: UInt32, data: UnsafePointer<AudioBufferList>) throws {
+	public func write(frames frames: UInt32, data: UnsafePointer<AudioBufferList>) throws {
 		let iErr = ExtAudioFileWrite(internalPtr, frames, data)
 		
 		if iErr != noErr {
@@ -59,8 +59,16 @@ final public class ExtAudioFile {
 	
 	/// N.B. Errors may occur after this call has returned. Such errors may be thrown
 	/// from subsequent calls to this method.
-	public func writeAsync(frames: UInt32, data: UnsafePointer<AudioBufferList>) throws {
+	public func writeAsync(frames frames: UInt32, data: UnsafePointer<AudioBufferList>) throws {
 		let iErr = ExtAudioFileWriteAsync(internalPtr, frames, data)
+		
+		if iErr != noErr {
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		}
+	}
+	
+	public func read(inout frames frames: UInt32, data: UnsafeMutablePointer<AudioBufferList>) throws {
+		let iErr = ExtAudioFileRead(internalPtr, &frames, data)
 		
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
