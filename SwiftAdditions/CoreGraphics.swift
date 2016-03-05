@@ -65,7 +65,7 @@ extension CGAffineTransform: Equatable {
 		return CGAffineTransformIdentity
 	}
 	
-	public init(transformWithTx tx: CGFloat, ty: CGFloat) {
+	public init(translationWithTx tx: CGFloat, ty: CGFloat) {
 		self = CGAffineTransformMakeTranslation(tx, ty)
 	}
 	

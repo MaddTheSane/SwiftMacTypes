@@ -185,7 +185,8 @@ public enum ASCIICharacter: Int8, Comparable {
 		self = ASCIICharacter(rawValue: Int8(ourChar))!
 	}
 	
-	/// Takes a C-style char value and maps it to the ASCII table
+	/// Takes a C-style char value and maps it to the ASCII table.
+	/// Returns `nil` if the value can't be represented as ASCII.
 	public init?(CCharacter: Int8) {
 		guard let aChar = ASCIICharacter(rawValue: CCharacter) else {
 			return nil

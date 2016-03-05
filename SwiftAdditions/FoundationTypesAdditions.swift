@@ -159,7 +159,7 @@ extension NSUUID {
 	@objc(initWithCFUUID:) public convenience init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID) as NSString as String
 		
-		self.init(UUIDString:tempUIDStr)!
+		self.init(UUIDString: tempUIDStr)!
 	}
 	
 	/// gets a CoreFoundation UUID from the current UUID.

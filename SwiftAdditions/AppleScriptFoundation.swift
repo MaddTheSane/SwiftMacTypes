@@ -8,6 +8,7 @@
 
 import Foundation
 
+#if os(OSX)
 private func getErrorFromDict(dict: NSDictionary?) -> NSError {
 	if var dict = dict as? [NSObject : AnyObject] {
 		let errNum = dict[NSAppleScriptErrorNumber] as? Int ?? errOSAScriptError
@@ -20,7 +21,6 @@ private func getErrorFromDict(dict: NSDictionary?) -> NSError {
 	}
 }
 
-#if os(OSX)
 	extension NSAppleScript {
 		//@nonobjc public convenience init(contentsOfURL url: NSURL) throws {
 		//	var errDict: NSDictionary?
