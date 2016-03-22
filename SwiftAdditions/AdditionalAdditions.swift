@@ -98,9 +98,10 @@ extension Dictionary {
 		dictionary.forEach { self.updateValue($1, forKey: $0) }
 	}
 	
-	func union(var dictionary: Dictionary) -> Dictionary {
-		dictionary.unionInPlace(self)
-		return dictionary
+	func union(dictionary: Dictionary) -> Dictionary {
+		var dict1 = dictionary
+		dict1.unionInPlace(self)
+		return dict1
 	}
 }
 
@@ -160,8 +161,10 @@ extension Array {
 	/// - returns: any objects that were removed.
 	public mutating func removeAtIndexes(indexes: NSIndexSet) -> [Element] {
 		var toRet = [Element]()
-		for var i = indexes.lastIndex; i != NSNotFound; i = indexes.indexLessThanIndex(i) {
+		var i = indexes.lastIndex
+		while i != NSNotFound {
 			toRet.append(self.removeAtIndex(i))
+			i = indexes.indexLessThanIndex(i)
 		}
 		
 		return toRet
