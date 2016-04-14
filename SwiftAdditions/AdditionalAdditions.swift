@@ -137,19 +137,12 @@ public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes:
 	return anArray.removeAtIndexes(indexes)
 }
 
-/// Removes objects in an array that are in the specified integer array.
-/// Returns objects that were removed.
-/// - parameter ixs: the integer array containing the indexes of objects that will be removed
-/// - returns: any objects that were removed.
-public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: [Int]) -> [T] {
-	return anArray.removeAtIndexes(indexes)
-}
-
 /// Removes objects in an array that are in the specified integer set.
 /// Returns objects that were removed.
-/// - parameter ixs: the integer set containing the indexes of objects that will be removed
+/// - parameter anArray: the array to modify.
+/// - parameter indexes: the integer set containing the indexes of objects that will be removed
 /// - returns: any objects that were removed.
-public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: Set<Int>) -> [T] {
+public func removeObjects<T, B: SequenceType where B.Generator.Element == Int>(inout inArray anArray: Array<T>, atIndexes indexes: B) -> [T] {
 	return anArray.removeAtIndexes(indexes)
 }
 
@@ -169,35 +162,6 @@ extension Array {
 		return toRet
 	}
 	
-	/// Removes objects at indexes that are in the specified integer array.
-	/// Returns objects that were removed.
-	///
-	/// Internally creates an `NSIndexSet` so there are no duplicates
-	/// and so the items are in order.
-	/// - parameter ixs: the integer array containing the indexes of objects that will be removed
-	/// - returns: any objects that were removed.
-	public mutating func removeAtIndexes(ixs: [Int]) -> [Element] {
-		let idxSet = NSMutableIndexSet()
-		for i in ixs {
-			idxSet.addIndex(i)
-		}
-		return removeAtIndexes(idxSet)
-	}
-	
-	/// Removes objects at indexes that are in the specified integer set.
-	/// Returns objects that were removed.
-	///
-	/// Internally creates an `NSIndexSet` so the items are in order.
-	/// - parameter ixs: the integer set containing the indexes of objects that will be removed
-	/// - returns: any objects that were removed.
-	public mutating func removeAtIndexes(ixs: Set<Int>) -> [Element] {
-		let idxSet = NSMutableIndexSet()
-		for i in ixs {
-			idxSet.addIndex(i)
-		}
-		return removeAtIndexes(idxSet)
-	}
-
 	/// Removes objects at indexes that are in the specified integer sequence.
 	/// Returns objects that were removed.
 	///
