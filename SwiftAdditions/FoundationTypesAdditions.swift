@@ -207,6 +207,16 @@ public func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
 }
 #endif
 
+extension NSIndexSet {
+	public convenience init<B: SequenceType where B.Generator.Element == Int>(indexes: B) {
+		let tmpIdxSet = NSMutableIndexSet()
+		for idx in indexes {
+			tmpIdxSet.addIndex(idx)
+		}
+		self.init(indexSet: tmpIdxSet)
+	}
+}
+
 extension NSUserDefaults {
 	@nonobjc public subscript(key: String) -> AnyObject? {
 		get {

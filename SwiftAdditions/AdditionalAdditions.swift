@@ -155,16 +155,15 @@ public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes:
 
 extension Array {
 	// Code taken from http://stackoverflow.com/a/26174259/1975001
+	// Further adapted to work with Swift 2.2
 	/// Removes objects at indexes that are in the specified `NSIndexSet`.
 	/// Returns objects that were removed.
-	/// - parameter ixs: the index set containing the indexes of objects that will be removed
+	/// - parameter indexes: the index set containing the indexes of objects that will be removed
 	/// - returns: any objects that were removed.
 	public mutating func removeAtIndexes(indexes: NSIndexSet) -> [Element] {
 		var toRet = [Element]()
-		var i = indexes.lastIndex
-		while i != NSNotFound {
+		for i in indexes.reverse() {
 			toRet.append(self.removeAtIndex(i))
-			i = indexes.indexLessThanIndex(i)
 		}
 		
 		return toRet
@@ -192,6 +191,20 @@ extension Array {
 	/// - parameter ixs: the integer set containing the indexes of objects that will be removed
 	/// - returns: any objects that were removed.
 	public mutating func removeAtIndexes(ixs: Set<Int>) -> [Element] {
+		let idxSet = NSMutableIndexSet()
+		for i in ixs {
+			idxSet.addIndex(i)
+		}
+		return removeAtIndexes(idxSet)
+	}
+
+	/// Removes objects at indexes that are in the specified integer sequence.
+	/// Returns objects that were removed.
+	///
+	/// Internally creates an `NSIndexSet` so the items are in order.
+	/// - parameter ixs: the integer sequence containing the indexes of objects that will be removed
+	/// - returns: any objects that were removed.
+	public mutating func removeAtIndexes<B: SequenceType where B.Generator.Element == Int>(ixs: B) -> [Element] {
 		let idxSet = NSMutableIndexSet()
 		for i in ixs {
 			idxSet.addIndex(i)
