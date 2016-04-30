@@ -164,9 +164,9 @@ public struct LinearPCMFormatFlag : OptionSetType {
 
 public extension AudioStreamBasicDescription {
 	
-	///Is the current `AudioStreamBasicDescription` in the native endian format?
+	/// Is the current `AudioStreamBasicDescription` in the native endian format?
 	///
-	///- returns: `true` if the audio is in the native endian, `false` if not, and `nil` if the `formatID` isn't `.LinearPCM`.
+	/// - returns: `true` if the audio is in the native endian, `false` if not, and `nil` if the `formatID` isn't `.LinearPCM`.
 	public var audioFormatNativeEndian: Bool? {
 		if (formatID == .LinearPCM) {
 			let ourFlags = formatFlags.intersect(.BigEndian)
@@ -224,4 +224,178 @@ public extension AudioStreamBasicDescription {
 		mBytesPerPacket = mBytesPerFrame * mFramesPerPacket
 		mReserved = 0
 	}
+	
+	// The following getters/functions are from Apple's CoreAudioUtilityClasses
+	
+	var	PCM: Bool {
+		return mFormatID == kAudioFormatLinearPCM
+	}
+
+	public var interleaved: Bool {
+		return !formatFlags.contains(.NonInterleaved)
+	}
+	
+	public var signedInteger: Bool {
+		return PCM && (mFormatFlags & kAudioFormatFlagIsSignedInteger) != 0
+	}
+	
+	public var float: Bool {
+		return PCM && (mFormatFlags & kAudioFormatFlagIsFloat) != 0
+	}
+	
+	public var interleavedChannels: UInt32 {
+		return interleaved ? mChannelsPerFrame : 1
+	}
+	
+	public var channelStreams: UInt32 {
+		return interleaved ? 1 : mChannelsPerFrame
+	}
+	
+	public var sampleWordSize: UInt32 {
+		return (mBytesPerFrame > 0 && interleavedChannels != 0) ? mBytesPerFrame / interleavedChannels :  0;
+	}
+	
+	public enum ASBDError: ErrorType {
+		case ReqiresPCMFormat
+	}
+	
+	public mutating func changeCountOfChannels(nChannels: UInt32, interleaved: Bool) throws {
+		guard PCM else {
+			throw ASBDError.ReqiresPCMFormat
+		}
+		let wordSize: UInt32 = { // get this before changing ANYTHING
+			var ws = sampleWordSize
+			if ws == 0 {
+				ws = (mBitsPerChannel + 7) / 8;
+			}
+			return ws
+		}()
+		mChannelsPerFrame = nChannels
+		mFramesPerPacket = 1
+		if interleaved {
+			let newBytes = nChannels * wordSize
+			mBytesPerPacket = newBytes
+			mBytesPerFrame = newBytes
+			formatFlags.remove(.NonInterleaved)
+		} else {
+			let newBytes = wordSize
+			mBytesPerPacket = newBytes
+			mBytesPerFrame = newBytes
+			formatFlags.insert(.NonInterleaved)
+		}
+	}
+	
+	/// This method returns false if there are sufficiently insane values in any field.
+	/// It is very conservative so even some very unlikely values will pass.
+	/// This is just meant to catch the case where the data from a file is corrupted.
+	public func checkSanity() -> Bool {
+		return
+			(mSampleRate >= 0)
+				&& (mSampleRate < 3e6)	// SACD sample rate is 2.8224 MHz
+				&& (mBytesPerPacket < 1000000)
+				&& (mFramesPerPacket < 1000000)
+				&& (mBytesPerFrame < 1000000)
+				&& (mChannelsPerFrame <= 1024)
+				&& (mBitsPerChannel <= 1024)
+				&& (mFormatID != 0)
+				&& !(mFormatID == kAudioFormatLinearPCM && (mFramesPerPacket != 1 || mBytesPerPacket != mBytesPerFrame));
+	}
+}
+
+extension AudioStreamBasicDescription: Comparable {
+	
+}
+
+public func ==(lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
+	if lhs.mBytesPerFrame != rhs.mBytesPerFrame {
+		return false
+	} else if lhs.mSampleRate != rhs.mSampleRate {
+		return false
+	} else if lhs.mFormatID != rhs.mFormatID {
+		return false
+	} else if lhs.mFormatFlags != rhs.mFormatFlags {
+		return false
+	} else if lhs.mFramesPerPacket != rhs.mFramesPerPacket {
+		return false
+	} else if lhs.mBytesPerPacket != rhs.mBytesPerPacket {
+		return false
+	} else if lhs.mChannelsPerFrame != rhs.mChannelsPerFrame {
+		return false
+	} else if lhs.mBitsPerChannel != rhs.mBitsPerChannel {
+		return false
+	} else {
+		return true
+	}
+}
+
+public func <(x: AudioStreamBasicDescription, y: AudioStreamBasicDescription) -> Bool {
+	var theAnswer = false;
+	var isDone = false;
+	
+	//	note that if either side is 0, that field is skipped
+	
+	//	format ID is the first order sort
+	if (!isDone) && ((x.mFormatID != 0) && (y.mFormatID != 0)) {
+		if x.mFormatID != y.mFormatID {
+			//	formats are sorted numerically except that linear
+			//	PCM is always first
+			if x.mFormatID == kAudioFormatLinearPCM {
+				theAnswer = true;
+			} else if y.mFormatID == kAudioFormatLinearPCM {
+				theAnswer = false;
+			} else {
+				theAnswer = x.mFormatID < y.mFormatID;
+			}
+			isDone = true;
+		}
+	}
+	
+	//  mixable is always better than non-mixable for linear PCM and should be the second order sort item
+	if (!isDone) && ((x.mFormatID == kAudioFormatLinearPCM) && (y.mFormatID == kAudioFormatLinearPCM)) {
+		if ((x.mFormatFlags & kAudioFormatFlagIsNonMixable) == 0) && ((y.mFormatFlags & kAudioFormatFlagIsNonMixable) != 0) {
+			theAnswer = true;
+			isDone = true;
+		} else if ((x.mFormatFlags & kAudioFormatFlagIsNonMixable) != 0) && ((y.mFormatFlags & kAudioFormatFlagIsNonMixable) == 0) {
+			theAnswer = false;
+			isDone = true;
+		}
+	}
+	
+	//	floating point vs integer for linear PCM only
+	if (!isDone) && (x.mFormatID == kAudioFormatLinearPCM && y.mFormatID == kAudioFormatLinearPCM) {
+		if (x.mFormatFlags & kAudioFormatFlagIsFloat) != (y.mFormatFlags & kAudioFormatFlagIsFloat) {
+			//	floating point is better than integer
+			theAnswer = (y.mFormatFlags & kAudioFormatFlagIsFloat) != 0
+			isDone = true;
+		}
+	}
+	
+	//	bit depth
+	if (!isDone) && (x.mBitsPerChannel != 0 && y.mBitsPerChannel != 0) {
+		if x.mBitsPerChannel != y.mBitsPerChannel {
+			//	deeper bit depths are higher quality
+			theAnswer = x.mBitsPerChannel < y.mBitsPerChannel;
+			isDone = true;
+		}
+	}
+	
+	//	sample rate
+	if (!isDone) && (x.mSampleRate != 0) && (y.mSampleRate != 0) {
+		if x.mSampleRate != y.mSampleRate {
+			//	higher sample rates are higher quality
+			theAnswer = x.mSampleRate < y.mSampleRate;
+			isDone = true;
+		}
+	}
+	
+	//	number of channels
+	if (!isDone) && (x.mChannelsPerFrame != 0 && y.mChannelsPerFrame != 0) {
+		if x.mChannelsPerFrame != y.mChannelsPerFrame {
+			//	more channels is higher quality
+			theAnswer = x.mChannelsPerFrame < y.mChannelsPerFrame;
+			//isDone = true;
+		}
+	}
+	
+	return theAnswer;
 }
