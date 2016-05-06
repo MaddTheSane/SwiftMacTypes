@@ -7,6 +7,9 @@
 //
 
 import Cocoa
+import AudioToolbox
+import CoreAudio
+@testable import SwiftAudioAdditions
 import XCTest
 
 class SwiftAudioAdditionsTests: XCTestCase {
@@ -21,16 +24,32 @@ class SwiftAudioAdditionsTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testASBDStringInit() {
         // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+		var asbd = AudioStreamBasicDescription(fromText: "BEI16@44100,2")
+        XCTAssert(asbd != nil, "Invalid asbd format?")
+		asbd = AudioStreamBasicDescription(fromText: "BEI16@44100,2D")
+		XCTAssert(asbd != nil, "Invalid asbd format?")
+		asbd = AudioStreamBasicDescription(fromText: "BEI16@44100,2I")
+		XCTAssert(asbd != nil, "Invalid asbd format?")
+		asbd = AudioStreamBasicDescription(fromText: "LEF16@48000,2")
+		XCTAssert(asbd != nil, "Invalid asbd format?")
+		asbd = AudioStreamBasicDescription(fromText: "aac@48000,2")
+		XCTAssert(asbd != nil, "Invalid asbd format?")
+		asbd = AudioStreamBasicDescription(fromText: "aac")
+		XCTAssertNotEqual(asbd, nil)
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
+	
+	func testInvalidASBDStringInits() {
+		var asbd: AudioStreamBasicDescription?
+		XCTAssertEqual(asbd, nil)
+		asbd = AudioStreamBasicDescription(fromText: "aac,D")
+		XCTAssertEqual(asbd, nil)
+		asbd = AudioStreamBasicDescription(fromText: "")
+		XCTAssertEqual(asbd, nil)
+		asbd = AudioStreamBasicDescription(fromText: "@441100")
+		XCTAssertEqual(asbd, nil)
+		asbd = AudioStreamBasicDescription(fromText: "\\x20\\x20")
+		XCTAssertEqual(asbd, nil)
+	}
 }

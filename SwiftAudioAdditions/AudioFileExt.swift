@@ -13,6 +13,14 @@ import SwiftAdditions
 
 // MARK: Audio File
 
+public var kLinearPCMFormatFlagNativeEndian: AudioFormatFlags {
+	if isBigEndian {
+		return kLinearPCMFormatFlagIsBigEndian
+	} else {
+		return 0
+	}
+}
+
 public enum AudioFileType: OSType {
 	case Unknown			= 0
 	case AIFF				= 1095321158
@@ -299,6 +307,247 @@ public extension AudioStreamBasicDescription {
 				&& (mBitsPerChannel <= 1024)
 				&& (mFormatID != 0)
 				&& !(mFormatID == kAudioFormatLinearPCM && (mFramesPerPacket != 1 || mBytesPerPacket != mBytesPerFrame));
+	}
+	
+	///	format[@sample_rate_hz][/format_flags][#frames_per_packet][:LHbytesPerFrame][,channelsDI].<br>
+	/// Format for PCM is [-][BE|LE]{F|I|UI}{bitdepth}; else a 4-char format code (e.g. `aac`, `alac`).
+	public init?(fromText: String) {
+		var charIterator = fromText.startIndex
+		
+		func numFromCurrentChar() -> Int? {
+			guard charIterator < fromText.endIndex else {
+				return nil
+			}
+			
+			return Int(String(fromText[charIterator]))
+		}
+		
+		func nextChar() -> Character? {
+			guard charIterator < fromText.endIndex else {
+				return nil
+			}
+			
+			return fromText[charIterator]
+		}
+		
+		if charIterator == fromText.endIndex {
+			return nil
+		}
+		
+		self.init()
+		
+		var isPCM = true;	// until proven otherwise
+		var pcmFlags = kAudioFormatFlagIsPacked | kAudioFormatFlagIsSignedInteger;
+		
+		if (fromText[charIterator] == "-") {	// previously we required a leading dash on PCM formats
+			charIterator = charIterator.successor();
+		}
+		
+		if fromText[charIterator] == "B" && fromText[charIterator.successor()] == "E" {
+			pcmFlags |= kLinearPCMFormatFlagIsBigEndian;
+			charIterator = charIterator.advancedBy(2)
+		} else if fromText[charIterator] == "L" && fromText[charIterator.successor()] == "E" {
+			charIterator = charIterator.advancedBy(2)
+		} else {
+			// default is native-endian
+			if isBigEndian {
+				pcmFlags |= kLinearPCMFormatFlagIsBigEndian;
+			}
+		}
+		if nextChar() == "F" {
+			pcmFlags = (pcmFlags & ~kAudioFormatFlagIsSignedInteger) | kAudioFormatFlagIsFloat
+			charIterator = charIterator.successor();
+		} else {
+			if nextChar() == "U" {
+				pcmFlags &= ~kAudioFormatFlagIsSignedInteger;
+				charIterator = charIterator.successor();
+			}
+			if nextChar() == "I" {
+				charIterator = charIterator.successor();
+			} else {
+				// it's not PCM; presumably some other format (NOT VALIDATED; use AudioFormat for that)
+				isPCM = false;
+				charIterator = fromText.startIndex;	// go back to the beginning
+				var buf = Array<Int8>(count: 4, repeatedValue: 0x20);
+				for (i, var aBuf) in buf.enumerate() {
+					if nextChar() != "\\" {
+						let wasAdvanced: Bool
+						if let cChar = nextChar() {
+							let bBuf = String(cChar).cStringUsingEncoding(NSMacOSRomanStringEncoding) ?? [0]
+							aBuf = bBuf[0]
+							charIterator = charIterator.successor()
+							wasAdvanced = true
+						} else {
+							aBuf = 0
+							wasAdvanced = false
+						}
+						buf[i] = aBuf
+						
+						if aBuf == 0 {
+							// special-case for 'aac'
+							if (i != 3) {
+								return nil;
+							}
+							if wasAdvanced {
+								charIterator = charIterator.predecessor();	// keep pointing at the terminating null
+							}
+							aBuf = 0x20;
+							buf[i] = aBuf
+							break;
+						}
+					} else {
+						// "\xNN" is a hex byte
+						charIterator = charIterator.successor()
+						if (nextChar() != "x") {
+							return nil;
+						}
+						var x: Int32 = 0
+						
+						if (withVaList([withUnsafeMutablePointer(&x, {return $0})], { (vaPtr) -> Int32 in
+							charIterator = charIterator.successor()
+							let str = fromText[charIterator ..< fromText.endIndex]
+							return vsscanf(str, "%02X", vaPtr)
+						}) != 1) {
+							return nil
+						}
+						
+						aBuf = Int8(truncatingBitPattern: x)
+						buf[i] = aBuf
+						charIterator = charIterator.advancedBy(2)
+					}
+				}
+				
+				if strchr("-@/#", Int32(buf[3])) != nil {
+					// further special-casing for 'aac'
+					buf[3] = 0x20;
+					charIterator = charIterator.predecessor();
+				}
+				
+				memcpy(&mFormatID, buf, 4);
+				mFormatID = CFSwapInt32BigToHost(mFormatID);
+			}
+		}
+		
+		if isPCM {
+			mFormatID = kAudioFormatLinearPCM;
+			mFormatFlags = pcmFlags;
+			mFramesPerPacket = 1;
+			mChannelsPerFrame = 1;
+			var bitdepth: UInt32 = 0
+			var fracbits: UInt32 = 0
+			while let aNum = numFromCurrentChar() {
+				bitdepth = 10 * bitdepth + UInt32(aNum)
+				charIterator = charIterator.successor();
+			}
+			if (nextChar() == ".") {
+				charIterator = charIterator.successor();
+				guard let _ = numFromCurrentChar() else {
+					print("Expected fractional bits following '.'");
+					return nil;
+				}
+				while let aNum = numFromCurrentChar() {
+					fracbits = 10 * fracbits + UInt32(aNum)
+					charIterator = charIterator.successor();
+				}
+				bitdepth += fracbits;
+				mFormatFlags |= (fracbits << kLinearPCMFormatFlagsSampleFractionShift);
+			}
+			mBitsPerChannel = bitdepth;
+			mBytesPerFrame = (bitdepth + 7) / 8;
+			mBytesPerPacket = mBytesPerFrame
+			if (bitdepth & 7) != 0 {
+				// assume unpacked. (packed odd bit depths are describable but not supported in AudioConverter.)
+				mFormatFlags &= ~kLinearPCMFormatFlagIsPacked
+				// alignment matters; default to high-aligned. use ':L_' for low.
+				mFormatFlags |= kLinearPCMFormatFlagIsAlignedHigh;
+			}
+		}
+		if nextChar() == "@" {
+			charIterator = charIterator.successor();
+			while let aNum = numFromCurrentChar() {
+				mSampleRate = 10 * mSampleRate + Float64(aNum)
+				charIterator = charIterator.successor();
+			}
+		}
+		if nextChar() == "/" {
+			var flags: UInt32 = 0;
+			while true {
+				charIterator = charIterator.successor()
+				guard charIterator < fromText.endIndex else {
+					break
+				}
+				guard let bChar = ASCIICharacter(swiftCharacter: fromText[charIterator]) else {
+					break
+				}
+				//Int(hex)
+				
+				if (bChar >= ASCIICharacter.NumberZero && bChar <= ASCIICharacter.NumberNine) {
+					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.NumberZero.rawValue);
+				} else if (bChar >= ASCIICharacter.LetterUppercaseA && bChar <= ASCIICharacter.LetterUppercaseF) {
+					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.LetterUppercaseA.rawValue + 10);
+				} else if (bChar >= ASCIICharacter.LetterLowercaseA && bChar <= ASCIICharacter.LetterLowercaseF) {
+					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.LetterLowercaseA.rawValue + 10);
+				} else {
+					break;
+				}
+			}
+			mFormatFlags = flags;
+		}
+		if (nextChar() == "#") {
+			charIterator = charIterator.successor()
+			while let aNum = numFromCurrentChar() {
+				mFramesPerPacket = 10 * mFramesPerPacket + UInt32(aNum)
+				charIterator = charIterator.successor();
+			}
+		}
+		if nextChar() == ":" {
+			charIterator = charIterator.successor()
+			mFormatFlags &= ~kLinearPCMFormatFlagIsPacked
+			if (fromText[charIterator] == "L") {
+				mFormatFlags &= ~kLinearPCMFormatFlagIsAlignedHigh
+			} else if (fromText[charIterator] == "H") {
+				mFormatFlags |= kLinearPCMFormatFlagIsAlignedHigh;
+			} else {
+				return nil;
+			}
+			charIterator = charIterator.successor()
+			var bytesPerFrame: UInt32 = 0;
+			while let aNum = numFromCurrentChar() {
+				bytesPerFrame = 10 * bytesPerFrame + UInt32(aNum)
+				charIterator = charIterator.successor();
+			}
+			mBytesPerPacket = bytesPerFrame
+			mBytesPerFrame = mBytesPerPacket
+		}
+		if nextChar() == "," {
+			charIterator = charIterator.successor()
+			var ch = 0;
+			while let aNum = numFromCurrentChar() {
+				ch = 10 * ch + aNum
+				charIterator = charIterator.successor();
+			}
+			mChannelsPerFrame = UInt32(ch);
+			if nextChar() == "D" {
+				charIterator = charIterator.successor()
+				guard mFormatID == kAudioFormatLinearPCM else {
+					print("non-interleaved flag invalid for non-PCM formats\n");
+					return nil;
+				}
+				mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
+			} else {
+				if nextChar() == "I" {
+					charIterator = charIterator.successor()
+				}	// default
+				if mFormatID == kAudioFormatLinearPCM {
+					mBytesPerFrame *= UInt32(ch)
+					mBytesPerPacket = mBytesPerFrame
+				}
+			}
+		}
+		if (charIterator != fromText.endIndex) {
+			print("extra characters at end of format string: \(fromText[charIterator..<fromText.endIndex])");
+			return nil
+		}
 	}
 }
 
