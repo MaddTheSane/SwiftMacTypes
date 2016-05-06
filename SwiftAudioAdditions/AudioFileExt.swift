@@ -330,7 +330,7 @@ public extension AudioStreamBasicDescription {
 			return fromText[charIterator]
 		}
 		
-		if charIterator == fromText.endIndex {
+		if fromText.characters.count < 3 {
 			return nil
 		}
 		

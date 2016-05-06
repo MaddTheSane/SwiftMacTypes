@@ -37,7 +37,7 @@ class SwiftAudioAdditionsTests: XCTestCase {
 		asbd = AudioStreamBasicDescription(fromText: "aac@48000,2")
 		XCTAssert(asbd != nil, "Invalid asbd format?")
 		asbd = AudioStreamBasicDescription(fromText: "aac")
-		XCTAssertNotEqual(asbd, nil)
+		XCTAssert(asbd != nil, "Invalid asbd format?")
     }
 	
 	func testInvalidASBDStringInits() {
@@ -50,6 +50,10 @@ class SwiftAudioAdditionsTests: XCTestCase {
 		asbd = AudioStreamBasicDescription(fromText: "@441100")
 		XCTAssertEqual(asbd, nil)
 		asbd = AudioStreamBasicDescription(fromText: "\\x20\\x20")
+		XCTAssertEqual(asbd, nil)
+		asbd = AudioStreamBasicDescription(fromText: "B")
+		XCTAssertEqual(asbd, nil)
+		asbd = AudioStreamBasicDescription(fromText: "BE")
 		XCTAssertEqual(asbd, nil)
 	}
 }
