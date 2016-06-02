@@ -9,21 +9,21 @@
 import Darwin.libkern.OSByteOrder
 
 public enum ByteOrder {
-	case Little
-	case Big
-	case Unknown
+	case little
+	case big
+	case unknown
 }
 
 private func GetCurrentByteOrder() -> ByteOrder {
 	switch Int(OSHostByteOrder()) {
 	case OSLittleEndian:
-		return .Little
+		return .little
 		
 	case OSBigEndian:
-		return .Big
+		return .big
 		
 	default:
-		return .Unknown
+		return .unknown
 	}
 }
 
@@ -31,6 +31,6 @@ private func GetCurrentByteOrder() -> ByteOrder {
 public let currentByteOrder = GetCurrentByteOrder()
 
 /// Is the byte-order little-endian?
-public let isLittleEndian = currentByteOrder == .Little
+public let isLittleEndian = currentByteOrder == .little
 /// Is the byte-order big-endian?
-public let isBigEndian = currentByteOrder == .Big
+public let isBigEndian = currentByteOrder == .big

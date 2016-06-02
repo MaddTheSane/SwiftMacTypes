@@ -24,7 +24,8 @@ public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 /// - parameter mirror: The `Mirror` to get the reflected values from.
 /// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
 ///
-/// **Deprecated:** Use `arrayFromObject(reflecting:, appendLastObject:)` instead
+/// **Deprecated:** Use `arrayFromObject(reflecting:, appendLastObject:) throws` instead
+@available(*, deprecated, message:"Use arrayFromObject(reflecting:, appendLastObject:) throws instead")
 public func getArrayFromMirror<X>(mirror: Mirror, appendLastObject lastObj: X? = nil) -> [X] {
 	var anArray = [X]()
 	for val in mirror.children {

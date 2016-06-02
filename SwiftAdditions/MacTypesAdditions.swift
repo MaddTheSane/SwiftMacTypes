@@ -22,14 +22,14 @@ public func OSTypeToString(_ theType: OSType) -> String? {
 		return UTCreateStringForOSType(theType).takeRetainedValue() as String?
 		#else
 		func OSType2Ptr(type: OSType) -> [CChar] {
-			var ourOSType = [Int8](count: 5, repeatedValue: 0)
+			var ourOSType = [Int8](repeating: 0, count: 5)
 			var intType = type.bigEndian
 			memcpy(&ourOSType, &intType, 4)
 			
 			return ourOSType
 		}
 		
-		let ourOSType = OSType2Ptr(theType)
+		let ourOSType = OSType2Ptr(type: theType)
 		return NSString(bytes: ourOSType, length: 4, encoding: NSMacOSRomanStringEncoding) as? String
 	#endif
 }
@@ -66,22 +66,22 @@ public func toOSType(string theString: String, detectHex: Bool = false) -> OSTyp
 			
 			return type
 		}
-		var ourOSType = [Int8](count: 5, repeatedValue: 0)
+		var ourOSType = [Int8](repeating: 0, count: 5)
 		let anNSStr = theString as NSString
-		var ourLen = anNSStr.lengthOfBytesUsingEncoding(NSMacOSRomanStringEncoding)
+		var ourLen = anNSStr.lengthOfBytes(using: NSMacOSRomanStringEncoding)
 		if ourLen > 4 {
 			ourLen = 4
 		} else if ourLen == 0 {
 			return 0
 		}
 		
-		let aData = anNSStr.cStringUsingEncoding(NSMacOSRomanStringEncoding)
+		let aData = anNSStr.cString(using: NSMacOSRomanStringEncoding)!
 		
 		for i in 0 ..< ourLen {
 			ourOSType[i] = aData[i]
 		}
 		
-		return Ptr2OSType(ourOSType)
+		return Ptr2OSType(str: ourOSType)
 	#endif
 }
 

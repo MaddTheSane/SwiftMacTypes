@@ -38,7 +38,7 @@ extension CGBitmapInfo {
 	}
 	
 	/// The native 16-bit byte order format.
-	public static var ByteOrder16Host: CGBitmapInfo {
+	public static var byteOrder16Host: CGBitmapInfo {
 		if isLittleEndian {
 			return .byteOrder16Little
 		} else {
@@ -47,7 +47,7 @@ extension CGBitmapInfo {
 	}
 	
 	/// The native 32-bit byte order format.
-	public static var ByteOrder32Host: CGBitmapInfo {
+	public static var byteOrder32Host: CGBitmapInfo {
 		if isLittleEndian {
 			return .byteOrder32Little
 		} else {
