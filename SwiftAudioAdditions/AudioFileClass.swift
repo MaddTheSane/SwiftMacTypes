@@ -12,30 +12,36 @@ import CoreAudio
 import SwiftAdditions
 
 public final class AudioFile {
-	private(set) var fileID: AudioFileID = nil
+	private(set) var fileID: ImplicitlyUnwrappedOptional<AudioFileID> = nil
 	
-	public init(createWithURL url: NSURL, fileType: AudioFileTypeID, inout format: AudioStreamBasicDescription, flags: AudioFileFlags = []) throws {
+	public init(createWithURL url: NSURL, fileType: AudioFileTypeID, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = []) throws {
+		var fileID: AudioFileID? = nil
 		let iErr = AudioFileCreateWithURL(url, fileType, &format, flags, &fileID)
 		
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
+		self.fileID = fileID
 	}
 	
-	public init(openURL: NSURL, permissions: AudioFilePermissions = .ReadPermission, fileTypeHint fileHint: AudioFileTypeID) throws {
+	public init(openURL: NSURL, permissions: AudioFilePermissions = .readPermission, fileTypeHint fileHint: AudioFileTypeID) throws {
+		var fileID: AudioFileID? = nil
 		let iErr = AudioFileOpenURL(openURL, permissions, fileHint, &fileID)
 		
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
+		self.fileID = fileID
 	}
 	
 	public init(callbacksWithReadFunction readFunc: AudioFile_ReadProc, writeFunction: AudioFile_WriteProc? = nil, getSizeFunction: AudioFile_GetSizeProc, setSizeFunction: AudioFile_SetSizeProc? = nil, clientData: UnsafeMutablePointer<Void>, fileTypeHint: AudioFileTypeID) throws {
+		var fileID: AudioFileID? = nil
 		let iErr = AudioFileOpenWithCallbacks(clientData, readFunc, writeFunction, getSizeFunction, setSizeFunction, fileTypeHint, &fileID)
 		
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
+		self.fileID = fileID
 	}
 	
 	public func optimize() throws {
@@ -46,7 +52,7 @@ public final class AudioFile {
 		}
 	}
 	
-	func readBytes(useCache: Bool = false, startingByte: Int64, inout byteCount: UInt32, outBuffer: UnsafeMutablePointer<Void>) throws {
+	func readBytes(useCache: Bool = false, startingByte: Int64, byteCount: inout UInt32, outBuffer: UnsafeMutablePointer<Void>) throws {
 		let iErr = AudioFileReadBytes(fileID, useCache, startingByte, &byteCount, outBuffer)
 		
 		if iErr != noErr {
@@ -54,7 +60,7 @@ public final class AudioFile {
 		}
 	}
 	
-	func writeBytes(useCache: Bool = false, startingByte: Int64, inout byteCount: UInt32, outBuffer: UnsafePointer<Void>) throws {
+	func writeBytes(useCache: Bool = false, startingByte: Int64, byteCount: inout UInt32, outBuffer: UnsafePointer<Void>) throws {
 		let iErr = AudioFileWriteBytes(fileID, useCache, startingByte, &byteCount, outBuffer)
 		
 		if iErr != noErr {

@@ -37,7 +37,7 @@ public func getArrayFromMirror<X>(mirror: Mirror, appendLastObject lastObj: X? =
 	return anArray
 }
 
-public enum ReflectError: ErrorType {
+public enum ReflectError: ErrorProtocol {
 	case UnexpectedType(Any.Type)
 }
 
@@ -94,7 +94,7 @@ public func runOnMainThreadAsync(block: dispatch_block_t) {
 
 // Code taken from http://stackoverflow.com/a/33957196/1975001
 extension Dictionary {
-	mutating func unionInPlace(dictionary: Dictionary) {
+	mutating func unionInPlace(_ dictionary: Dictionary) {
 		dictionary.forEach { self.updateValue($1, forKey: $0) }
 	}
 	
@@ -106,7 +106,7 @@ extension Dictionary {
 }
 
 // Code taken from http://stackoverflow.com/a/24052094/1975001
-public func +=<K, V> (inout left: Dictionary<K, V>, right: Dictionary<K, V>) {
+public func +=<K, V> ( left: inout Dictionary<K, V>, right: Dictionary<K, V>) {
 	for (k, v) in right {
 		left.updateValue(v, forKey: k)
 	}
@@ -133,8 +133,8 @@ public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>)
 /// Returns objects that were removed.
 /// - parameter ixs: the index set containing the indexes of objects that will be removed
 /// - returns: any objects that were removed.
-public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
-	return anArray.removeAtIndexes(indexes)
+public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
+	return anArray.remove(indexes: indexes)
 }
 
 /// Removes objects in an array that are in the specified integer set.
@@ -142,8 +142,8 @@ public func removeObjects<T>(inout inArray anArray: Array<T>, atIndexes indexes:
 /// - parameter anArray: the array to modify.
 /// - parameter indexes: the integer set containing the indexes of objects that will be removed
 /// - returns: any objects that were removed.
-public func removeObjects<T, B: SequenceType where B.Generator.Element == Int>(inout inArray anArray: Array<T>, atIndexes indexes: B) -> [T] {
-	return anArray.removeAtIndexes(indexes)
+public func removeObjects<T, B: Sequence where B.Iterator.Element == Int>( inArray anArray: inout Array<T>, atIndexes indexes: B) -> [T] {
+	return anArray.remove(indexes: indexes)
 }
 
 extension Array {
@@ -153,10 +153,10 @@ extension Array {
 	/// Returns objects that were removed.
 	/// - parameter indexes: the index set containing the indexes of objects that will be removed
 	/// - returns: any objects that were removed.
-	public mutating func removeAtIndexes(indexes: NSIndexSet) -> [Element] {
+	public mutating func remove(indexes: NSIndexSet) -> [Element] {
 		var toRet = [Element]()
-		for i in indexes.reverse() {
-			toRet.append(self.removeAtIndex(i))
+		for i in indexes.reversed() {
+			toRet.append(self.remove(at: i))
 		}
 		
 		return toRet
@@ -168,12 +168,12 @@ extension Array {
 	/// Internally creates an `NSIndexSet` so the items are in order.
 	/// - parameter ixs: the integer sequence containing the indexes of objects that will be removed
 	/// - returns: any objects that were removed.
-	public mutating func removeAtIndexes<B: SequenceType where B.Generator.Element == Int>(ixs: B) -> [Element] {
+	public mutating func remove<B: Sequence where B.Iterator.Element == Int>(indexes ixs: B) -> [Element] {
 		let idxSet = NSMutableIndexSet()
 		for i in ixs {
-			idxSet.addIndex(i)
+			idxSet.add(i)
 		}
-		return removeAtIndexes(idxSet)
+		return remove(indexes: idxSet)
 	}
 }
 
@@ -181,8 +181,8 @@ extension Array where Element: AnyObject {
 	///Returns a sorted array from the current array by using `NSSortDescriptor`s.
 	///
 	///This *may* be expensive, in both memory and computation!
-	@warn_unused_result public func sortUsingDescriptors(descriptors: [NSSortDescriptor]) -> [Element] {
-		let sortedArray = (self as NSArray).sortedArrayUsingDescriptors(descriptors)
+	@warn_unused_result public func sort(using descriptors: [NSSortDescriptor]) -> [Element] {
+		let sortedArray = (self as NSArray).sortedArray(using: descriptors)
 		
 		return sortedArray as! [Element]
 	}
@@ -191,7 +191,7 @@ extension Array where Element: AnyObject {
 	///
 	///This *may* be expensive, in both memory and computation!
 	public mutating func sortInPlaceUsingDescriptors(descriptors: [NSSortDescriptor]) {
-		self = sortUsingDescriptors(descriptors)
+		self = sort(using: descriptors)
 	}
 }
 
@@ -199,7 +199,7 @@ extension Array where Element: AnyObject {
 ///
 ///This *may* be expensive, in both memory and computation!
 @warn_unused_result public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
-	let sortedArray = anArray.sortUsingDescriptors(descriptors)
+	let sortedArray = anArray.sort(using: descriptors)
 	
 	return sortedArray
 }

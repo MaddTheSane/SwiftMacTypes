@@ -17,7 +17,7 @@ import CoreGraphics
 
 
 /// Converts an `OSType` to a `String` value. May return `nil`.
-public func OSTypeToString(theType: OSType) -> String? {
+public func OSTypeToString(_ theType: OSType) -> String? {
 	#if os(OSX)
 		return UTCreateStringForOSType(theType).takeRetainedValue() as String?
 		#else
@@ -35,7 +35,7 @@ public func OSTypeToString(theType: OSType) -> String? {
 }
 
 /// Converts an `OSType` to a `String` value. May return a hexadecimal string.
-public func OSTypeToString(theType: OSType, useHexIfInvalid: ()) -> String {
+public func OSTypeToString(_ theType: OSType, useHexIfInvalid: ()) -> String {
 	if let ourStr = OSTypeToString(theType) {
 		return ourStr
 	} else {
@@ -44,11 +44,11 @@ public func OSTypeToString(theType: OSType, useHexIfInvalid: ()) -> String {
 }
 
 /// Converts a `String` value to an `OSType`, truncating to the first four characters.
-public func stringToOSType(theString: String, detectHex: Bool = false) -> OSType {
+public func toOSType(string theString: String, detectHex: Bool = false) -> OSType {
 	if detectHex && theString.characters.count > 4 {
 		let aScann = NSScanner(string: theString)
 		var tmpnum: UInt32 = 0
-		if aScann.scanHexInt(&tmpnum) && tmpnum != UInt32.max {
+		if aScann.scanHexInt32(&tmpnum) && tmpnum != UInt32.max {
 			return tmpnum
 		}
 	}
@@ -161,7 +161,7 @@ extension String {
 	/// Gets passed a `CFStringEncoding` because the underlying function used to generate
 	/// strings uses that.
 	private init?(pascalString pStr: UnsafePointer<UInt8>, encoding: CFStringEncoding, maximumLength: UInt8 = 255) {
-		if pStr.memory > maximumLength {
+		if pStr.pointee > maximumLength {
 			return nil
 		}
 		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding) {
@@ -288,7 +288,7 @@ extension OSType: StringLiteralConvertible {
 	/// Only the first four characters are read.
 	/// The strings' characters must be present in the Mac Roman string encoding.
 	public init(stringValue toInit: String) {
-		self = stringToOSType(toInit, detectHex: true)
+		self = toOSType(string: toInit, detectHex: true)
 	}
 	
 	public init(unicodeScalarLiteral usl: String) {
@@ -345,7 +345,7 @@ extension OSType: StringLiteralConvertible {
 
 #if os(OSX)
 extension String {
-	/// HFSUniStr255 is declared internally on OS X as part of the HFS headers. iOS doesn't use any version of HFS, so it doesn't have this function.
+	/// HFSUniStr255 is declared internally on OS X as part of the HFS headers. iOS doesn't have this header.
 	public init(HFSUniStr: HFSUniStr255) {
 		let uniStr: [UInt16] = try! arrayFromObject(reflecting: HFSUniStr.unicode)
 		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding) as! String
@@ -377,7 +377,7 @@ public enum CarbonToolbarIcons: OSType {
 	}
 	
 	public var iconRepresentation: NSImage {
-		return NSWorkspace.sharedWorkspace().iconForFileType(NSFileTypeForHFSTypeCode(rawValue))
+		return NSWorkspace.shared().icon(forFileType: NSFileTypeForHFSTypeCode(rawValue))
 	}
 }
 
@@ -395,7 +395,7 @@ public enum CarbonFolderIcons: OSType {
 	}
 	
 	public var iconRepresentation: NSImage {
-		return NSWorkspace.sharedWorkspace().iconForFileType(NSFileTypeForHFSTypeCode(rawValue))
+		return NSWorkspace.shared().icon(forFileType: NSFileTypeForHFSTypeCode(rawValue))
 	}
 }
 #endif

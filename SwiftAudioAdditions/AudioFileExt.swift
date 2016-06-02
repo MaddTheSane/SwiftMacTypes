@@ -46,29 +46,29 @@ public enum AudioFileType: OSType {
 	}
 }
 
-public func AudioFileCreate(URL inFileRef: NSURL, fileType inFileType: AudioFileType, inout format: AudioStreamBasicDescription, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+public func AudioFileCreate(URL inFileRef: NSURL, fileType inFileType: AudioFileType, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
 	return AudioFileCreateWithURL(inFileRef as CFURL, inFileType.rawValue, &format, flags, &outAudioFile)
 }
 
-public func AudioFileCreate(path path: String, fileType inFileType: AudioFileType, inout format: AudioStreamBasicDescription, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+public func AudioFileCreate(path: String, fileType inFileType: AudioFileType, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
 	let inFileRef = NSURL(fileURLWithPath: path)
 	return AudioFileCreate(URL: inFileRef, fileType: inFileType, format: &format, flags: flags, audioFile: &outAudioFile)
 }
 
-public func AudioFileOpen(URL inFileRef: NSURL, permissions: AudioFilePermissions = .ReadPermission, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+public func AudioFileOpen(URL inFileRef: NSURL, permissions: AudioFilePermissions = .readPermission, fileTypeHint: AudioFileType? = nil, audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
 	return AudioFileOpenURL(inFileRef, permissions, fileTypeHint?.rawValue ?? 0, &outAudioFile)
 }
 
-public func AudioFileOpen(path path: String, permissions: AudioFilePermissions = .ReadPermission, fileTypeHint: AudioFileType? = nil, inout audioFile outAudioFile: AudioFileID) -> OSStatus {
+public func AudioFileOpen(path: String, permissions: AudioFilePermissions = .readPermission, fileTypeHint: AudioFileType? = nil, audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
 	let inFileRef = NSURL(fileURLWithPath: path)
 	return AudioFileOpen(URL: inFileRef, permissions: permissions, fileTypeHint: fileTypeHint, audioFile: &outAudioFile)
 }
 
-public func AudioFileReadBytes(audioFile audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, inout numberBytes: UInt32, buffer: UnsafeMutablePointer<Void>) -> OSStatus {
+public func AudioFileReadBytes(audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, numberBytes: inout UInt32, buffer: UnsafeMutablePointer<Void>) -> OSStatus {
 	return AudioFileReadBytes(audioFile, useCache, startingByte, &numberBytes, buffer)
 }
 
-public func AudioFileWriteBytes(audioFile audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, inout numberBytes: UInt32, buffer: UnsafePointer<Void>) -> OSStatus {
+public func AudioFileWriteBytes(audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, numberBytes: inout UInt32, buffer: UnsafePointer<Void>) -> OSStatus {
 	return AudioFileWriteBytes(audioFile, useCache, startingByte, &numberBytes, buffer)
 }
 
@@ -118,7 +118,7 @@ public enum AudioFormat: OSType {
 	}
 }
 
-public struct AudioFormatFlag : OptionSetType {
+public struct AudioFormatFlag : OptionSet {
 	public let rawValue: UInt32
 
 	public init(rawValue value: UInt32) { self.rawValue = value }
@@ -143,7 +143,7 @@ public struct AudioFormatFlag : OptionSetType {
 	}
 }
 
-public struct LinearPCMFormatFlag : OptionSetType {
+public struct LinearPCMFormatFlag : OptionSet {
 	public let rawValue: UInt32
 
 	public init(rawValue value: UInt32) { self.rawValue = value }
@@ -177,7 +177,7 @@ public extension AudioStreamBasicDescription {
 	/// - returns: `true` if the audio is in the native endian, `false` if not, and `nil` if the `formatID` isn't `.LinearPCM`.
 	public var audioFormatNativeEndian: Bool? {
 		if (formatID == .LinearPCM) {
-			let ourFlags = formatFlags.intersect(.BigEndian)
+			let ourFlags = formatFlags.intersection(.BigEndian)
 			if ourFlags == .NativeEndian {
 				return true
 			} else {
@@ -263,7 +263,7 @@ public extension AudioStreamBasicDescription {
 		return (mBytesPerFrame > 0 && interleavedChannels != 0) ? mBytesPerFrame / interleavedChannels :  0;
 	}
 	
-	public enum ASBDError: ErrorType {
+	public enum ASBDError: ErrorProtocol {
 		case ReqiresPCMFormat
 	}
 	
@@ -289,7 +289,7 @@ public extension AudioStreamBasicDescription {
 			let newBytes = wordSize
 			mBytesPerPacket = newBytes
 			mBytesPerFrame = newBytes
-			formatFlags.insert(.NonInterleaved)
+			_ = formatFlags.insert(.NonInterleaved)
 		}
 	}
 	
@@ -340,14 +340,14 @@ public extension AudioStreamBasicDescription {
 		var pcmFlags = kAudioFormatFlagIsPacked | kAudioFormatFlagIsSignedInteger;
 		
 		if (fromText[charIterator] == "-") {	// previously we required a leading dash on PCM formats
-			charIterator = charIterator.successor();
+			charIterator = fromText.index(after: charIterator)
 		}
 		
-		if fromText[charIterator] == "B" && fromText[charIterator.successor()] == "E" {
+		if fromText[charIterator] == "B" && fromText[fromText.index(after: charIterator)] == "E" {
 			pcmFlags |= kLinearPCMFormatFlagIsBigEndian;
-			charIterator = charIterator.advancedBy(2)
-		} else if fromText[charIterator] == "L" && fromText[charIterator.successor()] == "E" {
-			charIterator = charIterator.advancedBy(2)
+			charIterator = fromText.index(charIterator, offsetBy: 2)
+		} else if fromText[charIterator] == "L" && fromText[fromText.index(after: charIterator)] == "E" {
+			charIterator = fromText.index(charIterator, offsetBy: 2)
 		} else {
 			// default is native-endian
 			if isBigEndian {
@@ -356,26 +356,26 @@ public extension AudioStreamBasicDescription {
 		}
 		if nextChar() == "F" {
 			pcmFlags = (pcmFlags & ~kAudioFormatFlagIsSignedInteger) | kAudioFormatFlagIsFloat
-			charIterator = charIterator.successor();
+			charIterator = fromText.index(after: charIterator)
 		} else {
 			if nextChar() == "U" {
 				pcmFlags &= ~kAudioFormatFlagIsSignedInteger;
-				charIterator = charIterator.successor();
+				charIterator = fromText.index(after: charIterator)
 			}
 			if nextChar() == "I" {
-				charIterator = charIterator.successor();
+				charIterator = fromText.index(after: charIterator)
 			} else {
 				// it's not PCM; presumably some other format (NOT VALIDATED; use AudioFormat for that)
 				isPCM = false;
 				charIterator = fromText.startIndex;	// go back to the beginning
-				var buf = Array<Int8>(count: 4, repeatedValue: 0x20);
-				for (i, var aBuf) in buf.enumerate() {
+				var buf = Array<Int8>(repeating: 0x20, count: 4);
+				for (i, var aBuf) in buf.enumerated() {
 					if nextChar() != "\\" {
 						let wasAdvanced: Bool
 						if let cChar = nextChar() {
-							let bBuf = String(cChar).cStringUsingEncoding(NSMacOSRomanStringEncoding) ?? [0]
+							let bBuf = String(cChar).cString(using: NSMacOSRomanStringEncoding) ?? [0]
 							aBuf = bBuf[0]
-							charIterator = charIterator.successor()
+							charIterator = fromText.index(after: charIterator)
 							wasAdvanced = true
 						} else {
 							aBuf = 0
@@ -389,7 +389,7 @@ public extension AudioStreamBasicDescription {
 								return nil;
 							}
 							if wasAdvanced {
-								charIterator = charIterator.predecessor();	// keep pointing at the terminating null
+								charIterator = fromText.index(before: charIterator)	// keep pointing at the terminating null
 							}
 							aBuf = 0x20;
 							buf[i] = aBuf
@@ -397,14 +397,14 @@ public extension AudioStreamBasicDescription {
 						}
 					} else {
 						// "\xNN" is a hex byte
-						charIterator = charIterator.successor()
+						charIterator = fromText.index(after: charIterator)
 						if (nextChar() != "x") {
 							return nil;
 						}
 						var x: Int32 = 0
 						
-						if (withVaList([withUnsafeMutablePointer(&x, {return $0})], { (vaPtr) -> Int32 in
-							charIterator = charIterator.successor()
+						if (withVaList([withUnsafeMutablePointer(&x, {return $0})], invoke: { (vaPtr) -> Int32 in
+							charIterator = fromText.index(after: charIterator)
 							let str = fromText[charIterator ..< fromText.endIndex]
 							return vsscanf(str, "%02X", vaPtr)
 						}) != 1) {
@@ -413,14 +413,14 @@ public extension AudioStreamBasicDescription {
 						
 						aBuf = Int8(truncatingBitPattern: x)
 						buf[i] = aBuf
-						charIterator = charIterator.advancedBy(2)
+						charIterator = fromText.index(charIterator, offsetBy: 2)
 					}
 				}
 				
 				if strchr("-@/#", Int32(buf[3])) != nil {
 					// further special-casing for 'aac'
 					buf[3] = 0x20;
-					charIterator = charIterator.predecessor();
+					charIterator = fromText.index(before: charIterator)
 				}
 				
 				memcpy(&mFormatID, buf, 4);
@@ -437,17 +437,17 @@ public extension AudioStreamBasicDescription {
 			var fracbits: UInt32 = 0
 			while let aNum = numFromCurrentChar() {
 				bitdepth = 10 * bitdepth + UInt32(aNum)
-				charIterator = charIterator.successor();
+				charIterator = fromText.index(after: charIterator)
 			}
 			if (nextChar() == ".") {
-				charIterator = charIterator.successor();
+				charIterator = fromText.index(after: charIterator)
 				guard let _ = numFromCurrentChar() else {
 					print("Expected fractional bits following '.'");
 					return nil;
 				}
 				while let aNum = numFromCurrentChar() {
 					fracbits = 10 * fracbits + UInt32(aNum)
-					charIterator = charIterator.successor();
+					charIterator = fromText.index(after: charIterator)
 				}
 				bitdepth += fracbits;
 				mFormatFlags |= (fracbits << kLinearPCMFormatFlagsSampleFractionShift);
@@ -463,16 +463,16 @@ public extension AudioStreamBasicDescription {
 			}
 		}
 		if nextChar() == "@" {
-			charIterator = charIterator.successor();
+			charIterator = fromText.index(after: charIterator)
 			while let aNum = numFromCurrentChar() {
 				mSampleRate = 10 * mSampleRate + Float64(aNum)
-				charIterator = charIterator.successor();
+				charIterator = fromText.index(after: charIterator)
 			}
 		}
 		if nextChar() == "/" {
 			var flags: UInt32 = 0;
 			while true {
-				charIterator = charIterator.successor()
+				charIterator = fromText.index(after: charIterator)
 				guard charIterator < fromText.endIndex else {
 					break
 				}
@@ -494,14 +494,14 @@ public extension AudioStreamBasicDescription {
 			mFormatFlags = flags;
 		}
 		if (nextChar() == "#") {
-			charIterator = charIterator.successor()
+			charIterator = fromText.index(after: charIterator)
 			while let aNum = numFromCurrentChar() {
 				mFramesPerPacket = 10 * mFramesPerPacket + UInt32(aNum)
-				charIterator = charIterator.successor();
+				charIterator = fromText.index(after: charIterator)
 			}
 		}
 		if nextChar() == ":" {
-			charIterator = charIterator.successor()
+			charIterator = fromText.index(after: charIterator)
 			mFormatFlags &= ~kLinearPCMFormatFlagIsPacked
 			if (fromText[charIterator] == "L") {
 				mFormatFlags &= ~kLinearPCMFormatFlagIsAlignedHigh
@@ -510,25 +510,25 @@ public extension AudioStreamBasicDescription {
 			} else {
 				return nil;
 			}
-			charIterator = charIterator.successor()
+			charIterator = fromText.index(after: charIterator)
 			var bytesPerFrame: UInt32 = 0;
 			while let aNum = numFromCurrentChar() {
 				bytesPerFrame = 10 * bytesPerFrame + UInt32(aNum)
-				charIterator = charIterator.successor();
+				charIterator = fromText.index(after: charIterator)
 			}
 			mBytesPerPacket = bytesPerFrame
 			mBytesPerFrame = mBytesPerPacket
 		}
 		if nextChar() == "," {
-			charIterator = charIterator.successor()
+			charIterator = fromText.index(after: charIterator)
 			var ch = 0;
 			while let aNum = numFromCurrentChar() {
 				ch = 10 * ch + aNum
-				charIterator = charIterator.successor();
+				charIterator = fromText.index(after: charIterator)
 			}
 			mChannelsPerFrame = UInt32(ch);
 			if nextChar() == "D" {
-				charIterator = charIterator.successor()
+				charIterator = fromText.index(after: charIterator)
 				guard mFormatID == kAudioFormatLinearPCM else {
 					print("non-interleaved flag invalid for non-PCM formats\n");
 					return nil;
@@ -536,7 +536,7 @@ public extension AudioStreamBasicDescription {
 				mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
 			} else {
 				if nextChar() == "I" {
-					charIterator = charIterator.successor()
+					charIterator = fromText.index(after: charIterator)
 				}	// default
 				if mFormatID == kAudioFormatLinearPCM {
 					mBytesPerFrame *= UInt32(ch)

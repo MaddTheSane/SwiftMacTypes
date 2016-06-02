@@ -11,67 +11,67 @@ import Cocoa
 
 	// MARK: CGWindowLevel values
 	public let kCGBaseWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.BaseWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.baseWindow)
 	
 	public let kCGMinimumWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.MinimumWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.minimumWindow)
 
 	public let kCGDesktopWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.DesktopWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.desktopWindow)
 	
 	public let kCGBackstopMenuLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.BackstopMenuLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.backstopMenu)
 	
 	public let kCGNormalWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.NormalWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.normalWindow)
 	
 	public let kCGFloatingWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.FloatingWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.floatingWindow)
 
 	public let kCGTornOffMenuWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.TornOffMenuWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.tornOffMenuWindow)
 
 	public let kCGDockWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.DockWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.dockWindow)
 
 	public let kCGMainMenuWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.MainMenuWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.mainMenuWindow)
 
 	public let kCGStatusWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.StatusWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.statusWindow)
 
 	public let kCGModalPanelWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.ModalPanelWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.modalPanelWindow)
 
 	public let kCGPopUpMenuWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.PopUpMenuWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.popUpMenuWindow)
 	
 	public let kCGDraggingWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.DraggingWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.draggingWindow)
 	
 	public let kCGScreenSaverWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.ScreenSaverWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.screenSaverWindow)
 	
 	public let kCGMaximumWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.MaximumWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.maximumWindow)
 	
 	public let kCGOverlayWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.OverlayWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.overlayWindow)
 	
 	public let kCGHelpWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.HelpWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.helpWindow)
 
 	public let kCGUtilityWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.UtilityWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.utilityWindow)
 	
 	public let kCGDesktopIconWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.DesktopIconWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.desktopIconWindow)
 	
 	public let kCGCursorWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.CursorWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.cursorWindow)
 	
 	public let kCGAssistiveTechHighWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.AssistiveTechHighWindowLevelKey)
+		CGWindowLevelForKey(CGWindowLevelKey.assistiveTechHighWindow)
 	
 	
 	// MARK: NSWindowLevel values

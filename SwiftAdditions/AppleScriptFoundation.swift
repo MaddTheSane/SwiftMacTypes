@@ -9,7 +9,7 @@
 import Foundation
 
 #if os(OSX)
-	private func getErrorFromDict(dict: NSDictionary?) -> NSError {
+	private func getError(dict: NSDictionary?) -> NSError {
 		if var dict = dict as? [NSObject : AnyObject] {
 			let errNum = dict[NSAppleScriptErrorNumber] as? Int ?? errOSAScriptError
 			
@@ -37,7 +37,7 @@ import Foundation
 		@nonobjc public func compile() throws {
 			var errDict: NSDictionary?
 			if !compileAndReturnError(&errDict) {
-				throw getErrorFromDict(errDict)
+				throw getError(dict: errDict)
 			}
 		}
 		
@@ -52,7 +52,7 @@ import Foundation
 			if let descriptor = executeAndReturnError(&errDict) as NSAppleEventDescriptor? {
 				return descriptor
 			} else {
-				throw getErrorFromDict(errDict)
+				throw getError(dict: errDict)
 			}
 		}
 		
@@ -68,7 +68,7 @@ import Foundation
 			if let descriptor = executeAppleEvent(event, error: &errDict) as NSAppleEventDescriptor? {
 				return descriptor
 			} else {
-				throw getErrorFromDict(errDict)
+				throw getError(dict: errDict)
 			}
 		}
 	}

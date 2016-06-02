@@ -14,7 +14,7 @@ import SwiftAdditions
 public let ForceFeedbackResultErrorDomain =
 "com.github.maddthesane.ForceFeedbackAdditions.ForceFeedbackResult"
 
-public enum ForceFeedbackResult: HRESULT, ErrorType {
+public enum ForceFeedbackResult: HRESULT, ErrorProtocol {
 	case OK = 0
 	case False = 1
 	case DownloadSkipped = 3
@@ -42,7 +42,7 @@ public enum ForceFeedbackResult: HRESULT, ErrorType {
 	case NotInitialized = -2147220731
 	case DeviceReleased = -2147220729
 	case EffectTypeNotSupported = -2147220730
-	private static func fromHResult(inResult: HRESULT) -> ForceFeedbackResult {
+	private static func from(result inResult: HRESULT) -> ForceFeedbackResult {
 		if let unwrapped = ForceFeedbackResult(rawValue: inResult) {
 			return unwrapped
 		} else {
@@ -158,7 +158,7 @@ extension FFEFFECT {
 		}
 	}
 	
-	public var typeSpecificParams: (size: UInt32, value: UnsafeMutablePointer<Void>) {
+	public var typeSpecificParams: (size: UInt32, value: ImplicitlyUnwrappedOptional<UnsafeMutablePointer<Void>>) {
 		get {
 			return (cbTypeSpecificParams, lpvTypeSpecificParams)
 		}
@@ -309,7 +309,7 @@ extension FFCUSTOMFORCE {
 	}
 	
 	/// Returns `true` if the data sent in is valid, `false` otherwise.
-	public mutating func setData(channels channels: UInt32, samples: UInt32, forceData: LPLONG) -> Bool {
+	public mutating func setData(channels: UInt32, samples: UInt32, forceData: LPLONG) -> Bool {
 		if channels == 1 {
 			cChannels = channels
 			cSamples = samples
@@ -370,7 +370,7 @@ extension FFPERIODIC {
 }
 
 extension FFEFFESCAPE {
-	public var bufferIn: (size: UInt32, data: UnsafeMutablePointer<Void>) {
+	public var bufferIn: (size: UInt32, data: ImplicitlyUnwrappedOptional<UnsafeMutablePointer<Void>>) {
 		get {
 			return (cbInBuffer, lpvInBuffer)
 		}
@@ -379,7 +379,7 @@ extension FFEFFESCAPE {
 		}
 	}
 	
-	public var bufferOut: (size: UInt32, data: UnsafeMutablePointer<Void>) {
+	public var bufferOut: (size: UInt32, data: ImplicitlyUnwrappedOptional<UnsafeMutablePointer<Void>>) {
 		get {
 			return (cbOutBuffer, lpvOutBuffer)
 		}
@@ -419,7 +419,7 @@ public func ForceFeedbackOffsetButton(n: UInt8) -> UInt8 {
 }
 
 extension FFCAPABILITIES {
-	public struct EffectTypes : OptionSetType {
+	public struct EffectTypes : OptionSet {
 		public let rawValue: UInt32
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
@@ -438,7 +438,7 @@ extension FFCAPABILITIES {
 		public static let CustomForce	= EffectTypes(1 << 11)
 	}
 	
-	public struct EffectSubtypes : OptionSetType {
+	public struct EffectSubtypes : OptionSet {
 		public let rawValue: UInt32
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
@@ -466,7 +466,7 @@ extension FFCAPABILITIES {
 	}
 }
 
-public struct ForceFeedbackCoordinateSystem : OptionSetType {
+public struct ForceFeedbackCoordinateSystem : OptionSet {
 	public let rawValue: UInt32
 	private init(_ value: UInt32) { self.rawValue = value }
 	public init(rawValue value: UInt32) { self.rawValue = value }
@@ -477,7 +477,7 @@ public struct ForceFeedbackCoordinateSystem : OptionSetType {
 }
 
 public final class ForceFeedbackDevice {
-	private let rawDevice: FFDeviceObjectReference
+	private let rawDevice: ImplicitlyUnwrappedOptional<FFDeviceObjectReference>
 	public private(set) var lastReturnValue: ForceFeedbackResult = .OK
 	
 	public enum Property: UInt32 {
@@ -485,7 +485,7 @@ public final class ForceFeedbackDevice {
 		case Autocenter = 3
 	}
 	
-	public struct Command : OptionSetType {
+	public struct Command : OptionSet {
 		public let rawValue: UInt32
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
@@ -498,7 +498,7 @@ public final class ForceFeedbackDevice {
 		public static let SetActuatorsOff	= Command(1 << 5)
 	}
 	
-	public struct State : OptionSetType {
+	public struct State : OptionSet {
 		public let rawValue: UInt32
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
@@ -535,13 +535,13 @@ public final class ForceFeedbackDevice {
 	}
 	
 	public init(device: io_service_t) throws {
-		var tmpDevice: FFDeviceObjectReference = nil
+		var tmpDevice: FFDeviceObjectReference? = nil
 		let iErr = FFCreateDevice(device, &tmpDevice)
 		guard iErr == ForceFeedbackResult.OK.rawValue else {
 			rawDevice = nil
-			throw ForceFeedbackResult.fromHResult(iErr)
+			throw ForceFeedbackResult.from(result: iErr)
 		}
-		rawDevice = tmpDevice
+		rawDevice = tmpDevice!
 	}
 	
 	/// Returns `true` if device is capable of Force feedback.<br>
@@ -558,13 +558,13 @@ public final class ForceFeedbackDevice {
 		}
 	}
 	
-	public func sendEscape(inout theEscape: FFEFFESCAPE) -> ForceFeedbackResult {
-		let aReturn = ForceFeedbackResult.fromHResult(FFDeviceEscape(rawDevice, &theEscape))
+	public func sendEscape(_ theEscape: inout FFEFFESCAPE) -> ForceFeedbackResult {
+		let aReturn = ForceFeedbackResult.from(result: FFDeviceEscape(rawDevice, &theEscape))
 		lastReturnValue = aReturn
 		return aReturn
 	}
 	
-	public func sendEscape(command command: DWORD, inData: NSData) -> ForceFeedbackResult {
+	public func sendEscape(command: DWORD, inData: NSData) -> ForceFeedbackResult {
 		let curDataSize = inData.length
 		var tmpMutBytes = malloc(curDataSize)
 		memcpy(&tmpMutBytes, inData.bytes, curDataSize)
@@ -578,7 +578,7 @@ public final class ForceFeedbackDevice {
 		return toRet
 	}
 	
-	public func sendEscape(command command: DWORD, inData: NSData, inout outDataLength: Int) -> (result: ForceFeedbackResult, outData: NSData) {
+	public func sendEscape(command: DWORD, inData: NSData, outDataLength: inout Int) -> (result: ForceFeedbackResult, outData: NSData) {
 		if let ourMutableData = NSMutableData(length: outDataLength) {
 			let curDataSize = inData.length
 			var tmpMutBytes = malloc(curDataSize)
@@ -600,7 +600,7 @@ public final class ForceFeedbackDevice {
 	
 	public var state: State {
 		var ourState: FFState = 0
-		let errVal = ForceFeedbackResult.fromHResult(FFDeviceGetForceFeedbackState(rawDevice, &ourState))
+		let errVal = ForceFeedbackResult.from(result: FFDeviceGetForceFeedbackState(rawDevice, &ourState))
 		lastReturnValue = errVal
 		if lastReturnValue.isSuccess {
 			return State(ourState)
@@ -610,7 +610,7 @@ public final class ForceFeedbackDevice {
 	}
 	
 	public func sendCommand(command: Command) -> ForceFeedbackResult {
-		let iErr = ForceFeedbackResult.fromHResult(FFDeviceSendForceFeedbackCommand(rawDevice, command.rawValue))
+		let iErr = ForceFeedbackResult.from(result: FFDeviceSendForceFeedbackCommand(rawDevice, command.rawValue))
 		lastReturnValue = iErr
 		return iErr
 	}
@@ -620,13 +620,13 @@ public final class ForceFeedbackDevice {
 	public var autocenter: Bool {
 		get {
 			var theVal: UInt32 = 0
-			let iErr = getProperty(.Autocenter, value: &theVal, valueSize: IOByteCount(sizeof(UInt32)))
+			let iErr = get(property: .Autocenter, value: &theVal, valueSize: IOByteCount(sizeof(UInt32)))
 			lastReturnValue = iErr
 			return theVal != 0
 		}
 		set {
 			var theVal: UInt32 = newValue == true ? 1 : 0
-			lastReturnValue = setProperty(.Autocenter, value: &theVal)
+			lastReturnValue = set(property: .Autocenter, value: &theVal)
 		}
 	}
 	
@@ -635,43 +635,43 @@ public final class ForceFeedbackDevice {
 	public var gain: UInt32 {
 		get {
 			var theVal: UInt32 = 0
-			let iErr = getProperty(.Gain, value: &theVal, valueSize: IOByteCount(sizeof(UInt32)))
+			let iErr = get(property: .Gain, value: &theVal, valueSize: IOByteCount(sizeof(UInt32)))
 			lastReturnValue = iErr
 			return theVal
 		}
 		set {
 			var theVal = newValue
-			lastReturnValue = setProperty(.Gain, value: &theVal)
+			lastReturnValue = set(property: .Gain, value: &theVal)
 		}
 	}
 	
 	/// Function is unimplemented in version 1.0 of Apple's FF API.
 	public func setCooperativeLevel(taskIdentifier: UnsafeMutablePointer<Void>, flags: CooperativeLevel) -> ForceFeedbackResult {
-		let iErr = ForceFeedbackResult.fromHResult(FFDeviceSetCooperativeLevel(rawDevice, taskIdentifier, flags.rawValue))
+		let iErr = ForceFeedbackResult.from(result: FFDeviceSetCooperativeLevel(rawDevice, taskIdentifier, flags.rawValue))
 		lastReturnValue = iErr
 		return iErr
 	}
 	
-	public func setProperty(property: Property, value: UnsafeMutablePointer<Void>) -> ForceFeedbackResult {
-		let iErr = ForceFeedbackResult.fromHResult(FFDeviceSetForceFeedbackProperty(rawDevice, property.rawValue, value))
+	public func set(property: Property, value: UnsafeMutablePointer<Void>) -> ForceFeedbackResult {
+		let iErr = ForceFeedbackResult.from(result: FFDeviceSetForceFeedbackProperty(rawDevice, property.rawValue, value))
 		lastReturnValue = iErr
 		return iErr
 	}
 	
-	public func getProperty(property: Property, value: UnsafeMutablePointer<Void>, valueSize: IOByteCount) -> ForceFeedbackResult {
-		let iErr = ForceFeedbackResult.fromHResult(FFDeviceGetForceFeedbackProperty(rawDevice, property.rawValue, value, valueSize))
+	public func get(property: Property, value: UnsafeMutablePointer<Void>, valueSize: IOByteCount) -> ForceFeedbackResult {
+		let iErr = ForceFeedbackResult.from(result: FFDeviceGetForceFeedbackProperty(rawDevice, property.rawValue, value, valueSize))
 		lastReturnValue = iErr
 		return iErr
 	}
 	
-	public func setProperty(property: UInt32, value: UnsafeMutablePointer<Void>) -> ForceFeedbackResult {
-		let iErr = ForceFeedbackResult.fromHResult(FFDeviceSetForceFeedbackProperty(rawDevice, property, value))
+	public func set(property: UInt32, value: UnsafeMutablePointer<Void>) -> ForceFeedbackResult {
+		let iErr = ForceFeedbackResult.from(result: FFDeviceSetForceFeedbackProperty(rawDevice, property, value))
 		lastReturnValue = iErr
 		return iErr
 	}
 	
-	public func getProperty(property: UInt32, value: UnsafeMutablePointer<Void>, valueSize: IOByteCount) -> ForceFeedbackResult {
-		let iErr = ForceFeedbackResult.fromHResult(FFDeviceGetForceFeedbackProperty(rawDevice, property, value, valueSize))
+	public func get(property: UInt32, value: UnsafeMutablePointer<Void>, valueSize: IOByteCount) -> ForceFeedbackResult {
+		let iErr = ForceFeedbackResult.from(result: FFDeviceGetForceFeedbackProperty(rawDevice, property, value, valueSize))
 		lastReturnValue = iErr
 		return iErr
 	}
@@ -682,7 +682,7 @@ public final class ForceFeedbackDevice {
 		}
 	}
 	
-	public struct CooperativeLevel : OptionSetType {
+	public struct CooperativeLevel : OptionSet {
 		public let rawValue: UInt32
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
@@ -695,10 +695,10 @@ public final class ForceFeedbackDevice {
 }
 
 public final class ForceFeedbackEffect {
-	private let rawEffect: FFEffectObjectReference
+	private let rawEffect: ImplicitlyUnwrappedOptional<FFEffectObjectReference>
 	public let deviceReference: ForceFeedbackDevice
 	
-	public struct EffectStart : OptionSetType {
+	public struct EffectStart : OptionSet {
 		public let rawValue: UInt32
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
@@ -866,48 +866,48 @@ public final class ForceFeedbackEffect {
 			0xE5, 0x59, 0xC4, 0x6B, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
 	
-	public convenience init(device: ForceFeedbackDevice, UUID: NSUUID, inout effectDefinition: FFEFFECT) throws {
+	public convenience init(device: ForceFeedbackDevice, UUID: NSUUID, effectDefinition: inout FFEFFECT) throws {
 		let ourUUID = UUID.CFUUID
 		
 		try self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
 	}
 	
-	public convenience init(device: ForceFeedbackDevice, effect: EffectType, inout effectDefinition: FFEFFECT) throws {
+	public convenience init(device: ForceFeedbackDevice, effect: EffectType, effectDefinition: inout FFEFFECT) throws {
 		let ourUUID = effect.UUIDValue
 		
 		try self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
 	}
 	
-	public init(device: ForceFeedbackDevice, UUID: CFUUID, inout effectDefinition: FFEFFECT) throws {
+	public init(device: ForceFeedbackDevice, UUID: CFUUID, effectDefinition: inout FFEFFECT) throws {
 		deviceReference = device
-		var tmpEffect: FFEffectObjectReference = nil
+		var tmpEffect: FFEffectObjectReference? = nil
 		let iErr = FFDeviceCreateEffect(device.rawDevice, UUID, &effectDefinition, &tmpEffect)
 		if iErr == ForceFeedbackResult.OK.rawValue {
 			rawEffect = tmpEffect
 		} else {
 			rawEffect = nil
-			throw ForceFeedbackResult.fromHResult(iErr)
+			throw ForceFeedbackResult.from(result: iErr)
 		}
 	}
 	
 	public func start(iterations: UInt32 = 1, flags: EffectStart = EffectStart.Solo) -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFEffectStart(rawEffect, iterations, flags.rawValue))
+		return ForceFeedbackResult.from(result: FFEffectStart(rawEffect, iterations, flags.rawValue))
 	}
 	
 	public func stop() -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFEffectStop(rawEffect))
+		return ForceFeedbackResult.from(result: FFEffectStop(rawEffect))
 	}
 	
 	public func download() -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFEffectDownload(rawEffect))
+		return ForceFeedbackResult.from(result: FFEffectDownload(rawEffect))
 	}
 	
-	public func getParameters(inout effect: FFEFFECT, flags: EffectParamater) -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFEffectGetParameters(rawEffect, &effect, flags.rawValue))
+	public func getParameters(_ effect: inout FFEFFECT, flags: EffectParamater) -> ForceFeedbackResult {
+		return ForceFeedbackResult.from(result: FFEffectGetParameters(rawEffect, &effect, flags.rawValue))
 	}
 	
-	public func setParameters(inout effect: FFEFFECT, flags: EffectParamater) -> ForceFeedbackResult {
-		return ForceFeedbackResult.fromHResult(FFEffectSetParameters(rawEffect, &effect, flags.rawValue))
+	public func setParameters(_ effect: inout FFEFFECT, flags: EffectParamater) -> ForceFeedbackResult {
+		return ForceFeedbackResult.from(result: FFEffectSetParameters(rawEffect, &effect, flags.rawValue))
 	}
 	
 	///- returns: A `Status` bit mask, or `nil` on error.
@@ -927,7 +927,7 @@ public final class ForceFeedbackEffect {
 		}
 	}
 	
-	public struct Status : OptionSetType {
+	public struct Status : OptionSet {
 		public let rawValue: UInt32
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
@@ -937,7 +937,7 @@ public final class ForceFeedbackEffect {
 		public static let Emulated		= Status(1 << 1)
 	}
 	
-	public struct EffectParamater : OptionSetType {
+	public struct EffectParamater : OptionSet {
 		public let rawValue: UInt32
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
