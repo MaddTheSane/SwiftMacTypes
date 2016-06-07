@@ -59,6 +59,7 @@
 		55A02E311C61F07B00F75116 /* AudioFileClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A02E301C61F07B00F75116 /* AudioFileClass.swift */; };
 		55A02E331C61F09900F75116 /* ExtAudioFileClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A02E321C61F09900F75116 /* ExtAudioFileClass.swift */; };
 		55ABE82F1A0815FA006B6AF9 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */; };
+		55B713131D0775EF00F2EA1F /* CharacterAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B713121D0775EF00F2EA1F /* CharacterAdditionsTests.swift */; };
 		55C1A6AF1A07223B00C7A733 /* AdditionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */; };
 		55D8DD861A7EE48B0046C1F7 /* AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8DD851A7EE48B0046C1F7 /* AppKit.swift */; };
 		55DAF5931A337C91008281ED /* COMUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DAF5921A337C91008281ED /* COMUUIDs.swift */; };
@@ -192,6 +193,7 @@
 		55A02E321C61F09900F75116 /* ExtAudioFileClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtAudioFileClass.swift; sourceTree = "<group>"; };
 		55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		55B2B64319F564FC00A716BC /* ForceFeedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForceFeedback.swift; sourceTree = "<group>"; };
+		55B713121D0775EF00F2EA1F /* CharacterAdditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterAdditionsTests.swift; sourceTree = "<group>"; };
 		55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalAdditions.swift; sourceTree = "<group>"; };
 		55D8DD851A7EE48B0046C1F7 /* AppKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKit.swift; sourceTree = "<group>"; };
 		55DAF5921A337C91008281ED /* COMUUIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COMUUIDs.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */,
+				55B713121D0775EF00F2EA1F /* CharacterAdditionsTests.swift */,
 				550FBACB19A7ADC500EFBD3D /* Supporting Files */,
 			);
 			path = SwiftAdditionsTests;
@@ -799,6 +802,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				550FBACE19A7ADC500EFBD3D /* SwiftAdditionsTests.swift in Sources */,
+				55B713131D0775EF00F2EA1F /* CharacterAdditionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

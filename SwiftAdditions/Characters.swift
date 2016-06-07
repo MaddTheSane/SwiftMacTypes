@@ -201,10 +201,12 @@ public enum ASCIICharacter: Int8, Comparable {
 		if numVal < 0 {
 			return "\u{FFFD}"
 		}
-		let unicodeVal = UInt8(numVal)
-		let hi = UnicodeScalar(unicodeVal)
-		let aChar = Character(hi)
-		return aChar
+		let preUTF8 = [UInt8(numVal)]
+		var preScalar = [UnicodeScalar]()
+		
+		transcode(UTF8.self, UTF32.self, preUTF8.generate(), { preScalar.append(UnicodeScalar($0)) }, stopOnError: false)
+
+		return Character(preScalar.first!)
 	}
 }
 
@@ -216,6 +218,7 @@ extension String {
 		self = String(asciiCharMap)
 	}
 	
+	@warn_unused_result
 	public func toASCIICharacters() -> [ASCIICharacter]? {
 		guard let asciis = self.cStringUsingEncoding(NSASCIIStringEncoding) else {
 			return nil

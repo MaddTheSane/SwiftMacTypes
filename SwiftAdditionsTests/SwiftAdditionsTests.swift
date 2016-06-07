@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 C.W. Betts. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 import XCTest
-import SwiftAdditions
+@testable import SwiftAdditions
 
 class SwiftAdditionsTests: XCTestCase {
 	
