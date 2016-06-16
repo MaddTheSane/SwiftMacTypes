@@ -86,7 +86,7 @@ import Cocoa
 	public let NSPopUpMenuWindowLevel = Int(kCGPopUpMenuWindowLevel)
 	public let NSScreenSaverWindowLevel = Int(kCGScreenSaverWindowLevel)
 
-	extension NSAffineTransformStruct {
+	extension AffineTransform {
 		private init(_ cgAff: CGAffineTransform) {
 			m11 = cgAff.a
 			m12 = cgAff.b
@@ -99,7 +99,7 @@ import Cocoa
 	
 	extension NSAffineTransform {
 		public convenience init(cgTransform: CGAffineTransform) {
-			let preStruct = NSAffineTransformStruct(cgTransform)
+			let preStruct = AffineTransform(cgTransform)
 			self.init()
 			transformStruct = preStruct
 		}

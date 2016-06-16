@@ -373,7 +373,7 @@ public extension AudioStreamBasicDescription {
 					if nextChar() != "\\" {
 						let wasAdvanced: Bool
 						if let cChar = nextChar() {
-							let bBuf = String(cChar).cString(using: NSMacOSRomanStringEncoding) ?? [0]
+							let bBuf = String(cChar).cString(using: String.Encoding.macOSRoman) ?? [0]
 							aBuf = bBuf[0]
 							charIterator = fromText.index(after: charIterator)
 							wasAdvanced = true

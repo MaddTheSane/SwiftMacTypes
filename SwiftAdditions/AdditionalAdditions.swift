@@ -73,11 +73,11 @@ public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X?
 /// you *are* on the main thread.
 ///
 /// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
-public func runOnMainThreadSync(block: dispatch_block_t) {
-	if NSThread.isMainThread() {
+public func runOnMainThreadSync(block: () -> Void) {
+	if Thread.isMainThread() {
 		block()
 	} else {
-		dispatch_sync(dispatch_get_main_queue(), block)
+		DispatchQueue.main.sync(execute: block)
 	}
 }
 
@@ -85,11 +85,11 @@ public func runOnMainThreadSync(block: dispatch_block_t) {
 /// or queues it on the main Dispatch queue if on another thread.
 ///
 /// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
-public func runOnMainThreadAsync(block: dispatch_block_t) {
-	if NSThread.isMainThread() {
+public func runOnMainThreadAsync(block: () -> Void) {
+	if Thread.isMainThread() {
 		block()
 	} else {
-		dispatch_async(dispatch_get_main_queue(), block)
+		DispatchQueue.main.async(execute: block)
 	}
 }
 
@@ -182,7 +182,7 @@ extension Array where Element: AnyObject {
 	///Returns a sorted array from the current array by using `NSSortDescriptor`s.
 	///
 	///This *may* be expensive, in both memory and computation!
-	@warn_unused_result public func sort(using descriptors: [NSSortDescriptor]) -> [Element] {
+	@warn_unused_result public func sort(using descriptors: [SortDescriptor]) -> [Element] {
 		let sortedArray = (self as NSArray).sortedArray(using: descriptors)
 		
 		return sortedArray as! [Element]
@@ -191,7 +191,7 @@ extension Array where Element: AnyObject {
 	///Sorts the current array by using `NSSortDescriptor`s.
 	///
 	///This *may* be expensive, in both memory and computation!
-	public mutating func sortInPlaceUsingDescriptors(descriptors: [NSSortDescriptor]) {
+	public mutating func sortInPlaceUsingDescriptors(descriptors: [SortDescriptor]) {
 		self = sort(using: descriptors)
 	}
 }
@@ -199,7 +199,7 @@ extension Array where Element: AnyObject {
 ///Sort a Swift array using an array of `NSSortDescriptor`.
 ///
 ///This *may* be expensive, in both memory and computation!
-@warn_unused_result public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
+@warn_unused_result public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [SortDescriptor]) -> [AnyObject] {
 	let sortedArray = anArray.sort(using: descriptors)
 	
 	return sortedArray

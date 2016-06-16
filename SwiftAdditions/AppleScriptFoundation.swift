@@ -11,10 +11,10 @@ import Foundation
 #if os(OSX)
 	private func getError(dict: NSDictionary?) -> NSError {
 		if var dict = dict as? [NSObject : AnyObject] {
-			let errNum = dict[NSAppleScriptErrorNumber] as? Int ?? errOSAScriptError
+			let errNum = dict[NSAppleScript.errorNumber] as? Int ?? errOSAScriptError
 			
-			dict[NSLocalizedFailureReasonErrorKey] = dict[NSAppleScriptErrorMessage]
-			dict[NSLocalizedDescriptionKey] = dict[NSAppleScriptErrorBriefMessage]
+			dict[NSLocalizedFailureReasonErrorKey] = dict[NSAppleScript.errorMessage]
+			dict[NSLocalizedDescriptionKey] = dict[NSAppleScript.errorBriefMessage]
 			return NSError(domain: NSOSStatusErrorDomain, code: errNum, userInfo: dict)
 		} else {
 			return NSError(domain: NSOSStatusErrorDomain, code: errOSAScriptError, userInfo: nil)

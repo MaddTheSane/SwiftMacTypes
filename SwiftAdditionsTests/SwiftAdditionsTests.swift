@@ -27,15 +27,15 @@ class SwiftAdditionsTests: XCTestCase {
 		var inferredBo: Int
 		
 		switch currentByteOrder {
-		case .Big:
+		case .big:
 			inferredBo = OSBigEndian
 			break
 			
-		case .Little:
+		case .little:
 			inferredBo = OSLittleEndian
 			break
 			
-		case .Unknown:
+		case .unknown:
 			inferredBo = OSUnknownByteOrder
 			break
 		}

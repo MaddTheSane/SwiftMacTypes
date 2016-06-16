@@ -30,7 +30,7 @@ public func OSTypeToString(_ theType: OSType) -> String? {
 		}
 		
 		let ourOSType = OSType2Ptr(type: theType)
-		return NSString(bytes: ourOSType, length: 4, encoding: NSMacOSRomanStringEncoding) as? String
+		return String(bytes: ourOSType, length: 4, encoding: String.Encoding.macOSRoman)
 	#endif
 }
 
@@ -46,7 +46,7 @@ public func OSTypeToString(_ theType: OSType, useHexIfInvalid: ()) -> String {
 /// Converts a `String` value to an `OSType`, truncating to the first four characters.
 public func toOSType(string theString: String, detectHex: Bool = false) -> OSType {
 	if detectHex && theString.characters.count > 4 {
-		let aScann = NSScanner(string: theString)
+		let aScann = Scanner(string: theString)
 		var tmpnum: UInt32 = 0
 		if aScann.scanHexInt32(&tmpnum) && tmpnum != UInt32.max {
 			return tmpnum
@@ -54,7 +54,7 @@ public func toOSType(string theString: String, detectHex: Bool = false) -> OSTyp
 	}
 	#if os(OSX)
 		return UTGetOSTypeFromString(theString)
-		#else
+	#else
 		func Ptr2OSType(str: [CChar]) -> OSType {
 			var type: OSType = 0x20202020 // four spaces. Can't really be represented the same way as in C
 			var i = str.count - 1
@@ -67,15 +67,14 @@ public func toOSType(string theString: String, detectHex: Bool = false) -> OSTyp
 			return type
 		}
 		var ourOSType = [Int8](repeating: 0, count: 5)
-		let anNSStr = theString as NSString
-		var ourLen = anNSStr.lengthOfBytes(using: NSMacOSRomanStringEncoding)
+		var ourLen = theString.lengthOfBytes(using: String.Encoding.macOSRoman)
 		if ourLen > 4 {
 			ourLen = 4
 		} else if ourLen == 0 {
 			return 0
 		}
 		
-		let aData = anNSStr.cString(using: NSMacOSRomanStringEncoding)!
+		let aData = theString.cString(using: String.Encoding.macOSRoman)!
 		
 		for i in 0 ..< ourLen {
 			ourOSType[i] = aData[i]
@@ -90,8 +89,8 @@ public var CurrentCFMacStringEncoding: CFStringEncoding {
 }
 
 /// The current system encoding that is the most like a Mac Classic encoding
-public var CurrentMacStringEncoding: NSStringEncoding {
-	return CFStringConvertEncodingToNSStringEncoding(CurrentCFMacStringEncoding)
+public var CurrentMacStringEncoding: String.Encoding {
+	return String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding(CurrentCFMacStringEncoding))
 }
 
 /// Pascal String extensions
@@ -179,22 +178,22 @@ extension String {
 	///
 	/// The main initializer. Converts the encoding to a `CFStringEncoding` for use
 	/// in the base initializer.
-	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: NSStringEncoding = NSMacOSRomanStringEncoding, maximumLength: UInt8 = 255) {
-		let CFEncoding = CFStringConvertNSStringEncodingToEncoding(encoding)
+	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: String.Encoding = String.Encoding.macOSRoman, maximumLength: UInt8 = 255) {
+		let CFEncoding = CFStringConvertNSStringEncodingToEncoding(encoding.rawValue)
 		if CFEncoding == kCFStringEncodingInvalidId {
 			return nil
 		}
 		self.init(pascalString: pStr, encoding: CFEncoding, maximumLength: maximumLength)
 	}
 	
-	public init?(pascalString pStr: PStr255, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	public init?(pascalString pStr: PStr255, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		// a UInt8 can't reference any number greater than 255,
 		// so we just pass it to the main initializer
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: PStr63, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	public init?(pascalString pStr: PStr63, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 63 {
 			return nil
@@ -202,7 +201,7 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: PStr32, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	public init?(pascalString pStr: PStr32, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 32 {
 			return nil
@@ -211,7 +210,7 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: PStr31, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	public init?(pascalString pStr: PStr31, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 31 {
 			return nil
@@ -219,7 +218,7 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: PStr27, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	public init?(pascalString pStr: PStr27, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 27 {
 			return nil
@@ -227,7 +226,7 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	public init?(pascalString pStr: PStr15, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	public init?(pascalString pStr: PStr15, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 15 {
 			return nil
@@ -237,7 +236,7 @@ extension String {
 	
 	/// The last byte in a Str32Field is unused,
 	/// so the last byte isn't read.
-	public init?(pascalString pStr: PStr32Field, encoding: NSStringEncoding = NSMacOSRomanStringEncoding) {
+	public init?(pascalString pStr: PStr32Field, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 32 {
 			return nil
@@ -348,7 +347,7 @@ extension String {
 	/// HFSUniStr255 is declared internally on OS X as part of the HFS headers. iOS doesn't have this header.
 	public init(HFSUniStr: HFSUniStr255) {
 		let uniStr: [UInt16] = try! arrayFromObject(reflecting: HFSUniStr.unicode)
-		self = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: NSUTF16StringEncoding) as! String
+		self = String(bytes: uniStr, length: Int(HFSUniStr.length), encoding: String.Encoding.utf16) 
 	}
 }
 

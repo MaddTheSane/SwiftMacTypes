@@ -564,37 +564,38 @@ public final class ForceFeedbackDevice {
 		return aReturn
 	}
 	
-	public func sendEscape(command: DWORD, inData: NSData) -> ForceFeedbackResult {
-		let curDataSize = inData.length
-		var tmpMutBytes = malloc(curDataSize)
-		memcpy(&tmpMutBytes, inData.bytes, curDataSize)
-		var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
-		
-		let toRet = sendEscape(&ourEscape)
+	public func sendEscape(command: DWORD, inData: Data) -> ForceFeedbackResult {
+		let curDataSize = inData.count
+		var tmpMutBytes = inData
+		let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutablePointer<Void>) -> ForceFeedbackResult in
+			var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE)), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
+			
+			return sendEscape(&ourEscape)
+		}
 		lastReturnValue = toRet
-		
-		free(tmpMutBytes)
 		
 		return toRet
 	}
 	
-	public func sendEscape(command: DWORD, inData: NSData, outDataLength: inout Int) -> (result: ForceFeedbackResult, outData: NSData) {
+	public func sendEscape(command: DWORD, inData: Data, outDataLength: inout Int) -> (result: ForceFeedbackResult, outData: Data) {
 		if let ourMutableData = NSMutableData(length: outDataLength) {
-			let curDataSize = inData.length
-			var tmpMutBytes = malloc(curDataSize)
-			memcpy(&tmpMutBytes, inData.bytes, curDataSize)
-			var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE)), dwCommand: command, lpvInBuffer: tmpMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutableData.mutableBytes, cbOutBuffer: DWORD(outDataLength))
+			let curDataSize = inData.count
+			var tmpMutBytes = inData
+			let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutablePointer<Void>) -> ForceFeedbackResult in
+				var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE)), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutableData.mutableBytes, cbOutBuffer: DWORD(outDataLength))
+				
+				let ret1 = sendEscape(&ourEscape)
+				ourMutableData.length = Int(ourEscape.cbOutBuffer)
+				return ret1
+			}
+
 			
-			let toRet = sendEscape(&ourEscape)
-			
-			free(tmpMutBytes)
-			ourMutableData.length = Int(ourEscape.cbOutBuffer)
 			lastReturnValue = toRet
 			
-			return (toRet, NSData(data: ourMutableData))
+			return (toRet, ourMutableData as Data)
 		} else {
 			lastReturnValue = .OutOfMemory
-			return (.OutOfMemory, NSData())
+			return (.OutOfMemory, Data())
 		}
 	}
 	

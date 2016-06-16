@@ -121,11 +121,11 @@ extension CGSize {
 
 extension CGRect {
 	#if os(OSX)
-	public mutating func integralInPlace(options: NSAlignmentOptions) {
+	public mutating func integralInPlace(options: AlignmentOptions) {
 		self = NSIntegralRectWithOptions(self, options)
 	}
 	
-	public func integral(options: NSAlignmentOptions) -> NSRect {
+	public func integral(options: AlignmentOptions) -> NSRect {
 		return NSIntegralRectWithOptions(self, options)
 	}
 	#endif
@@ -148,6 +148,7 @@ extension CGRect {
 	}
 
 	#if os(OSX)
+	/// - parameter flipped: Specify `true` for flipped if the underlying view uses a flipped coordinate system. Default is `false`.
 	public func mouseInLocation(location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
 	}
@@ -195,14 +196,14 @@ extension NSMutableData {
 
 #if os(OSX)
 @available(OSX, introduced:10.10)
-extension NSEdgeInsets {
-	public static var zero: NSEdgeInsets {
+extension EdgeInsets {
+	public static var zero: EdgeInsets {
 		return NSEdgeInsetsZero
 	}
 }
 
 	@available(OSX, introduced:10.10)
-public func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
+public func ==(rhs: EdgeInsets, lhs: EdgeInsets) -> Bool {
 	return NSEdgeInsetsEqual(rhs, lhs)
 }
 #endif
@@ -213,11 +214,11 @@ extension NSIndexSet {
 		for idx in indexes {
 			tmpIdxSet.add(idx)
 		}
-		self.init(indexSet: tmpIdxSet)
+		self.init(indexSet: tmpIdxSet as IndexSet)
 	}
 }
 
-extension NSUserDefaults {
+extension UserDefaults {
 	@nonobjc public subscript(key: String) -> AnyObject? {
 		get {
 			return object(forKey: key)

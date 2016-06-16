@@ -217,7 +217,7 @@ extension String {
 	}
 	
 	public func toASCIICharacters() -> [ASCIICharacter]? {
-		guard let asciis = self.cString(using: NSASCIIStringEncoding) else {
+		guard let asciis = self.cString(using: String.Encoding.ascii) else {
 			return nil
 		}
 		
