@@ -25,3 +25,7 @@ public func ><A: CocoaComparable>(lhs: A, rhs: A) -> Bool {
 public func ==< A: CocoaComparable>(lhs:A, rhs: A) -> Bool {
 	return lhs.compare(rhs) == .OrderedSame
 }
+
+
+extension NSNumber: CocoaComparable {}
+extension NSIndexPath: CocoaComparable {}
