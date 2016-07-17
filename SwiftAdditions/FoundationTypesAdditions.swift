@@ -177,9 +177,9 @@ extension NSData {
 	}
 	
 	public var arrayOfBytes: [UInt8] {
-		let count = length / sizeof(UInt8)
+		let count = length / sizeof(UInt8.self)
 		var bytesArray = [UInt8](repeating: 0, count: count)
-		getBytes(&bytesArray, length:count * sizeof(UInt8))
+		getBytes(&bytesArray, length:count * sizeof(UInt8.self))
 		return bytesArray
 	}
 }

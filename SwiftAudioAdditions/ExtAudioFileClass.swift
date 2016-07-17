@@ -248,9 +248,9 @@ final public class ExtAudioFile {
 	//MARK: writable
 	
 	public func setConverterConfig(newVal: CFPropertyList?) throws {
-		var cOpaque: OpaquePointer? = nil
+		var cOpaque: UnsafeMutablePointer<Void>? = nil
 		if let newVal = newVal {
-			cOpaque = OpaquePointer(bitPattern: Unmanaged.passUnretained(newVal))
+			cOpaque = Unmanaged.passUnretained(newVal).toOpaque()
 		}
 		let (size, writable) = try get(propertyInfo: kExtAudioFileProperty_ConverterConfig)
 		if !writable {

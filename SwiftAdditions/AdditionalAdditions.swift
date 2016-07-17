@@ -74,7 +74,7 @@ public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X?
 ///
 /// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
 public func runOnMainThreadSync(block: () -> Void) {
-	if Thread.isMainThread() {
+	if Thread.isMainThread {
 		block()
 	} else {
 		DispatchQueue.main.sync(execute: block)
@@ -86,7 +86,7 @@ public func runOnMainThreadSync(block: () -> Void) {
 ///
 /// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
 public func runOnMainThreadAsync(block: () -> Void) {
-	if Thread.isMainThread() {
+	if Thread.isMainThread {
 		block()
 	} else {
 		DispatchQueue.main.async(execute: block)
@@ -182,7 +182,7 @@ extension Array where Element: AnyObject {
 	///Returns a sorted array from the current array by using `NSSortDescriptor`s.
 	///
 	///This *may* be expensive, in both memory and computation!
-	@warn_unused_result public func sort(using descriptors: [SortDescriptor]) -> [Element] {
+	public func sort(using descriptors: [SortDescriptor]) -> [Element] {
 		let sortedArray = (self as NSArray).sortedArray(using: descriptors)
 		
 		return sortedArray as! [Element]
@@ -199,7 +199,7 @@ extension Array where Element: AnyObject {
 ///Sort a Swift array using an array of `NSSortDescriptor`.
 ///
 ///This *may* be expensive, in both memory and computation!
-@warn_unused_result public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [SortDescriptor]) -> [AnyObject] {
+public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [SortDescriptor]) -> [AnyObject] {
 	let sortedArray = anArray.sort(using: descriptors)
 	
 	return sortedArray

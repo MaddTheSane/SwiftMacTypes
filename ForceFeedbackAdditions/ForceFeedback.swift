@@ -407,11 +407,11 @@ public let ForceFeedbackOffsetRY : UInt8 = 16
 public let ForceFeedbackOffsetRZ : UInt8 = 20
 
 public func ForceFeedbackOffsetSlider(n: UInt8) -> UInt8 {
-	return UInt8(24 + Int(n) * sizeof(LONG))
+	return UInt8(24 + Int(n) * sizeof(LONG.self))
 }
 
 public func ForceFeedbackOffsetPOV(n: UInt8) -> UInt8 {
-	return UInt8(32 + Int(n) * sizeof(DWORD))
+	return UInt8(32 + Int(n) * sizeof(DWORD.self))
 }
 
 public func ForceFeedbackOffsetButton(n: UInt8) -> UInt8 {
@@ -568,7 +568,7 @@ public final class ForceFeedbackDevice {
 		let curDataSize = inData.count
 		var tmpMutBytes = inData
 		let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutablePointer<Void>) -> ForceFeedbackResult in
-			var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE)), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
+			var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE.self)), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
 			
 			return sendEscape(&ourEscape)
 		}
@@ -582,7 +582,7 @@ public final class ForceFeedbackDevice {
 			let curDataSize = inData.count
 			var tmpMutBytes = inData
 			let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutablePointer<Void>) -> ForceFeedbackResult in
-				var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE)), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutableData.mutableBytes, cbOutBuffer: DWORD(outDataLength))
+				var ourEscape = FFEFFESCAPE(dwSize: DWORD(sizeof(FFEFFESCAPE.self)), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutableData.mutableBytes, cbOutBuffer: DWORD(outDataLength))
 				
 				let ret1 = sendEscape(&ourEscape)
 				ourMutableData.length = Int(ourEscape.cbOutBuffer)
@@ -621,7 +621,7 @@ public final class ForceFeedbackDevice {
 	public var autocenter: Bool {
 		get {
 			var theVal: UInt32 = 0
-			let iErr = get(property: .Autocenter, value: &theVal, valueSize: IOByteCount(sizeof(UInt32)))
+			let iErr = get(property: .Autocenter, value: &theVal, valueSize: IOByteCount(sizeof(UInt32.self)))
 			lastReturnValue = iErr
 			return theVal != 0
 		}
@@ -636,7 +636,7 @@ public final class ForceFeedbackDevice {
 	public var gain: UInt32 {
 		get {
 			var theVal: UInt32 = 0
-			let iErr = get(property: .Gain, value: &theVal, valueSize: IOByteCount(sizeof(UInt32)))
+			let iErr = get(property: .Gain, value: &theVal, valueSize: IOByteCount(sizeof(UInt32.self)))
 			lastReturnValue = iErr
 			return theVal
 		}
