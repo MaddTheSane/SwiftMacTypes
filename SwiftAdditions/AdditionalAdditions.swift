@@ -191,7 +191,7 @@ extension Array where Element: AnyObject {
 	///Sorts the current array by using `NSSortDescriptor`s.
 	///
 	///This *may* be expensive, in both memory and computation!
-	public mutating func sortInPlaceUsingDescriptors(descriptors: [SortDescriptor]) {
+	public mutating func sortInPlace(using descriptors: [SortDescriptor]) {
 		self = sort(using: descriptors)
 	}
 }
