@@ -8,7 +8,7 @@
 
 import Cocoa
 import XCTest
-import SwiftAdditions
+@testable import SwiftAdditions
 
 class SwiftAdditionsTests: XCTestCase {
 	
@@ -26,7 +26,7 @@ class SwiftAdditionsTests: XCTestCase {
 		let bo = Int(OSHostByteOrder())
 		var inferredBo: Int
 		
-		switch currentByteOrder {
+		switch ByteOrder.current {
 		case .big:
 			inferredBo = OSBigEndian
 			break
@@ -42,10 +42,17 @@ class SwiftAdditionsTests: XCTestCase {
 		XCTAssertEqual(inferredBo, bo)
 	}
 	
-	func testUUIDTranslators() {
+	func testNSUUIDTranslators() {
 		let aUUID = NSUUID()
 		let aCFUUID = aUUID.CFUUID
 		let bUUID = NSUUID(CFUUID: aCFUUID)
+		XCTAssertEqual(aUUID, bUUID)
+	}
+	
+	func testUUIDTranslators() {
+		let aUUID = UUID()
+		let aCFUUID = aUUID.CFUUID
+		let bUUID = UUID(CFUUID: aCFUUID)
 		XCTAssertEqual(aUUID, bUUID)
 	}
 }

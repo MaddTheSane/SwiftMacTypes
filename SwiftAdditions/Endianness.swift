@@ -12,25 +12,39 @@ public enum ByteOrder {
 	case little
 	case big
 	case unknown
-}
-
-private func GetCurrentByteOrder() -> ByteOrder {
-	switch Int(OSHostByteOrder()) {
-	case OSLittleEndian:
-		return .little
-		
-	case OSBigEndian:
-		return .big
-		
-	default:
-		return .unknown
+	
+	/// The current byte-order of the machine
+	public static let current: ByteOrder = {
+		switch Int(OSHostByteOrder()) {
+		case OSLittleEndian:
+			return .little
+			
+		case OSBigEndian:
+			return .big
+			
+		default:
+			return .unknown
+		}
+	}()
+	
+	/// Is the byte-order little-endian?
+	public static var isLittle: Bool {
+		return current == .little
+	}
+	
+	/// Is the byte-order big-endian?
+	public static var isBig: Bool {
+		return current == .big
 	}
 }
 
 /// The current byte-order of the machine
-public let currentByteOrder = GetCurrentByteOrder()
+@available(*, deprecated, message:"Use ByteOrder.current instead")
+public let currentByteOrder = ByteOrder.current
 
 /// Is the byte-order little-endian?
-public let isLittleEndian = currentByteOrder == .little
+@available(*, deprecated, message:"Use ByteOrder.isLittle instead")
+public let isLittleEndian = ByteOrder.isLittle
 /// Is the byte-order big-endian?
-public let isBigEndian = currentByteOrder == .big
+@available(*, deprecated, message:"Use ByteOrder.isBig instead")
+public let isBigEndian = ByteOrder.isBig

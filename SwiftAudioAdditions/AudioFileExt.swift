@@ -14,7 +14,7 @@ import SwiftAdditions
 // MARK: Audio File
 
 public var kLinearPCMFormatFlagNativeEndian: AudioFormatFlags {
-	if isBigEndian {
+	if ByteOrder.isLittle {
 		return kLinearPCMFormatFlagIsBigEndian
 	} else {
 		return 0
@@ -135,7 +135,7 @@ public struct AudioFormatFlag : OptionSet {
 	public static let NonMixable		= AudioFormatFlag(rawValue: 1 << 6)
 	public static let FlagsAreAllClear	= AudioFormatFlag(rawValue: 1 << 31)
 	public static var NativeEndian: AudioFormatFlag {
-		if isLittleEndian {
+		if ByteOrder.isLittle {
 			return self.init(rawValue: 0)
 		} else {
 			return BigEndian
@@ -160,7 +160,7 @@ public struct LinearPCMFormatFlag : OptionSet {
 	public static var NonMixable		= LinearPCMFormatFlag(rawValue: 1 << 6)
 	public static var FlagsAreAllClear	= LinearPCMFormatFlag(rawValue: 1 << 31)
 	public static var NativeEndian:		LinearPCMFormatFlag {
-		if isLittleEndian {
+		if ByteOrder.isLittle {
 			return self.init(rawValue: 0)
 		} else {
 			return BigEndian
@@ -350,7 +350,7 @@ public extension AudioStreamBasicDescription {
 			charIterator = fromText.index(charIterator, offsetBy: 2)
 		} else {
 			// default is native-endian
-			if isBigEndian {
+			if ByteOrder.isLittle {
 				pcmFlags |= kLinearPCMFormatFlagIsBigEndian;
 			}
 		}

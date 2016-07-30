@@ -25,7 +25,7 @@ public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 /// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
 ///
 /// **Deprecated:** Use `arrayFromObject(reflecting:, appendLastObject:) throws` instead
-@available(*, deprecated, message:"Use arrayFromObject(reflecting:, appendLastObject:) throws instead")
+@available(*, deprecated, message:"Use \"arrayFromObject(reflecting:, appendLastObject:) throws\" instead")
 public func getArrayFromMirror<X>(mirror: Mirror, appendLastObject lastObj: X? = nil) -> [X] {
 	var anArray = [X]()
 	for val in mirror.children {
@@ -39,7 +39,7 @@ public func getArrayFromMirror<X>(mirror: Mirror, appendLastObject lastObj: X? =
 }
 
 public enum ReflectError: ErrorProtocol {
-	case UnexpectedType(Any.Type)
+	case UnexpectedType(type: Any.Type, named: String?)
 }
 
 /// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
@@ -56,7 +56,7 @@ public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X?
 	let mirror = Mirror(reflecting: obj)
 	for val in mirror.children {
 		guard let aChar = val.value as? X else {
-			throw ReflectError.UnexpectedType(val.value.dynamicType)
+			throw ReflectError.UnexpectedType(type: val.value.dynamicType, named: val.label)
 		}
 		anArray.append(aChar)
 	}

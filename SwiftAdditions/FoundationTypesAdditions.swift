@@ -48,6 +48,8 @@ extension NSRange: Equatable {
 	}
 	
 	/// A string representation of the current range.
+	/// - returns: A string of the form *“{a, b}”*, where *a* and *b* are
+	/// non-negative integers representing `self`.
 	public var stringValue: String {
 		return NSStringFromRange(self)
 	}
@@ -82,6 +84,14 @@ extension NSRange: Equatable {
 }
 
 extension CGPoint {
+	/// Creates a point from a text-based representation.
+	/// - parameter string: A string of the form *"{x, y}"*.
+	///
+	/// If `string` is of the form *"{x, y}"*, the `CGPoint` structure
+	/// uses *x* and *y* as the `x` and `y` coordinates, in that order.<br>
+	/// If `string` only contains a single number, it is used as the `x` coordinate.
+	/// If `string` does not contain any numbers, creates an `CGPoint` object whose
+	/// `x` and `y` coordinates are both `0`.
 	public init(string: String) {
 		#if os(OSX)
 			self = NSPointFromString(string)
@@ -91,6 +101,8 @@ extension CGPoint {
 	}
 
 	/// A string representation of the current point.
+	/// - returns: A string of the form *"{a, b}"*, where *a* and *b* are the `x`
+	/// and `y` coordinates of `self`.
 	public var stringValue: String {
 		#if os(OSX)
 			return NSStringFromPoint(self)
@@ -101,6 +113,15 @@ extension CGPoint {
 }
 
 extension CGSize {
+	/// Creates a `CGSize` from a text-based representation.
+	///
+	/// Scans aString for two numbers which are used as the width and height,
+	/// in that order, to create a `CGSize` struct. If `string` only contains a
+	/// single number, it is used as the width. The `string` argument should be
+	/// formatted like the output of `NSStringFromSize(_:)`, `NSStringFromCGSize(_:)`,
+	/// or `CGSize.stringValue`, for example, `"{10,20}"`.
+	/// If `string` does not contain any numbers, this function returns a `CGSize`
+	/// struct whose width and height are both `0`.
 	public init(string: String) {
 		#if os(OSX)
 			self = NSSizeFromString(string)
@@ -110,6 +131,9 @@ extension CGSize {
 	}
 
 	/// A string representation of the current size.
+	///
+	/// - returns: A string of the form *"{a, b}"*, where *a* and *b* are the `width`
+	/// and `height`, respectively, of `self`.
 	public var stringValue: String {
 		#if os(OSX)
 			return NSStringFromSize(self)
@@ -121,15 +145,27 @@ extension CGSize {
 
 extension CGRect {
 	#if os(OSX)
+	/// Adjusts the sides of a rectangle to integral values using the specified options.
 	public mutating func integralInPlace(options: AlignmentOptions) {
 		self = NSIntegralRectWithOptions(self, options)
 	}
 	
+	/// Adjusts the sides of a rectangle to integral values using the specified options.
+	/// - returns: A copy of `self`, modified based on the options. The options are
+	/// defined in `NSAlignmentOptions`.
 	public func integral(options: AlignmentOptions) -> NSRect {
 		return NSIntegralRectWithOptions(self, options)
 	}
 	#endif
 
+	/// Creates a rectangle from a text-based representation.
+	///
+	/// Scans `string` for four numbers which are used as the x and y coordinates
+	/// and the width and height, in that order, to create a `CGRect` object. If
+	/// `string` does not contain four numbers, those numbers that were scanned are used,
+	/// and `0` is used for the remaining values. If `string` does not contain any
+	/// numbers, this function returns a `CGRect` object with a rectangle whose origin
+	/// is `(0, 0)` and width and height are both `0`.
 	public init(string: String) {
 		#if os(OSX)
 			self = NSRectFromString(string)
@@ -139,6 +175,9 @@ extension CGRect {
 	}
 
 	/// A string representation of the current rect.
+	///
+	/// - returns: a string of the form *"{{a, b}, {c, d}}"*, where *a*, *b*, *c*, and *d*
+	/// are the `x` and `y` coordinates and the `width` and `height`, respectively, of `self`.
 	public var stringValue: String {
 		#if os(OSX)
 			return NSStringFromRect(self)
@@ -148,7 +187,10 @@ extension CGRect {
 	}
 
 	#if os(OSX)
-	/// - parameter flipped: Specify `true` for flipped if the underlying view uses a flipped coordinate system. Default is `false`.
+	/// Returns a `Bool` value that indicates whether the point is in the specified rectangle.
+	/// - parameter flipped: Specify `true` for flipped if the underlying view uses a
+	/// flipped coordinate system. Default is `false`.
+	/// - returns: `true` if the hot spot of the cursor lies inside the rectangle, otherwise `false`.
 	public func mouseInLocation(location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
 	}
@@ -158,7 +200,7 @@ extension CGRect {
 extension NSUUID {
 	/// Create a new `NSUUID` from a `CFUUID`.
 	@objc(initWithCFUUID:) public convenience init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
-		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID) as NSString as String
+		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
 		self.init(uuidString: tempUIDStr)!
 	}
@@ -170,6 +212,23 @@ extension NSUUID {
 		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr)
 	}
 }
+
+extension UUID {
+	/// Create a new `Foundation.UUID` from a `CFUUID`.
+	public init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
+		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
+		
+		self.init(uuidString: tempUIDStr)!
+	}
+	
+	/// gets a CoreFoundation UUID from the current UUID.
+	public var `CFUUID`: CoreFoundation.CFUUID {
+		let tmpStr = self.uuidString
+		
+		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr)
+	}
+}
+
 
 extension NSData {
 	public convenience init(byteArray: [UInt8]) {
@@ -202,7 +261,7 @@ extension EdgeInsets {
 	}
 }
 
-	@available(OSX, introduced:10.10)
+@available(OSX, introduced:10.10)
 public func ==(rhs: EdgeInsets, lhs: EdgeInsets) -> Bool {
 	return NSEdgeInsetsEqual(rhs, lhs)
 }
@@ -210,13 +269,19 @@ public func ==(rhs: EdgeInsets, lhs: EdgeInsets) -> Bool {
 
 extension NSIndexSet {
 	public convenience init<B: Sequence where B.Iterator.Element == Int>(indexes: B) {
-		let tmpIdxSet = NSMutableIndexSet()
-		for idx in indexes {
-			tmpIdxSet.add(idx)
-		}
-		self.init(indexSet: tmpIdxSet as IndexSet)
+		self.init(indexSet: IndexSet(indexes: indexes))
 	}
 }
+
+extension IndexSet {
+	public init<B: Sequence where B.Iterator.Element == Int>(indexes: B) {
+		self.init()
+		for idx in indexes {
+			insert(idx)
+		}
+	}
+}
+
 
 extension UserDefaults {
 	@nonobjc public subscript(key: String) -> AnyObject? {

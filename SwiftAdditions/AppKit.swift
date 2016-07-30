@@ -87,7 +87,7 @@ import Cocoa
 	public let NSScreenSaverWindowLevel = Int(kCGScreenSaverWindowLevel)
 
 	extension AffineTransform {
-		private init(_ cgAff: CGAffineTransform) {
+		public init(CGTransform cgAff: CGAffineTransform) {
 			m11 = cgAff.a
 			m12 = cgAff.b
 			m21 = cgAff.c
@@ -98,8 +98,8 @@ import Cocoa
 	}
 	
 	extension NSAffineTransform {
-		public convenience init(cgTransform: CGAffineTransform) {
-			let preStruct = AffineTransform(cgTransform)
+		public convenience init(CGTransform cgTransform: CGAffineTransform) {
+			let preStruct = AffineTransform(CGTransform: cgTransform)
 			self.init()
 			transformStruct = preStruct
 		}

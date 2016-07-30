@@ -32,7 +32,7 @@ import Foundation
 		/// Compile the script, if it is not already compiled.
 		/// - throws: an `NSError` in the `NSOSStatusErrorDomain` domain 
 		/// if unsuccessful. If you need to get the dictionary that would
-		/// have been returned by `compileAndReturnError(_)`, the values 
+		/// have been returned by `compileAndReturnError(_:)`, the values
 		/// are stored in the `NSError`'s `userInfo`.
 		@nonobjc public func compile() throws {
 			var errDict: NSDictionary?
@@ -45,7 +45,7 @@ import Foundation
 		/// - returns: the result of executing the script.
 		/// - throws: an `NSError` in the `NSOSStatusErrorDomain` domain on 
 		/// failure. If you need to get the dictionary that would have 
-		/// been returned by `executeAndReturnError(_)`, the values are stored 
+		/// been returned by `executeAndReturnError(_:)`, the values are stored
 		/// in the `NSError`'s `userInfo`.
 		@nonobjc public func execute() throws -> NSAppleEventDescriptor {
 			var errDict: NSDictionary?

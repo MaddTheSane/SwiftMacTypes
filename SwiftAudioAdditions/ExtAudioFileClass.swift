@@ -8,6 +8,7 @@
 
 import Foundation
 import AudioToolbox
+import CoreAudio
 import SwiftAdditions
 
 final public class ExtAudioFile {
