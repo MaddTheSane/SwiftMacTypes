@@ -38,7 +38,7 @@ public func getArrayFromMirror<X>(mirror: Mirror, appendLastObject lastObj: X? =
 	return anArray
 }
 
-public enum ReflectError: ErrorProtocol {
+public enum ReflectError: Error {
 	case UnexpectedType(type: Any.Type, named: String?)
 }
 
@@ -182,7 +182,7 @@ extension Array where Element: AnyObject {
 	///Returns a sorted array from the current array by using `NSSortDescriptor`s.
 	///
 	///This *may* be expensive, in both memory and computation!
-	public func sort(using descriptors: [SortDescriptor]) -> [Element] {
+	public func sort(using descriptors: [NSSortDescriptor]) -> [Element] {
 		let sortedArray = (self as NSArray).sortedArray(using: descriptors)
 		
 		return sortedArray as! [Element]
@@ -191,7 +191,7 @@ extension Array where Element: AnyObject {
 	///Sorts the current array by using `NSSortDescriptor`s.
 	///
 	///This *may* be expensive, in both memory and computation!
-	public mutating func sortInPlace(using descriptors: [SortDescriptor]) {
+	public mutating func sortInPlace(using descriptors: [NSSortDescriptor]) {
 		self = sort(using: descriptors)
 	}
 }
@@ -199,7 +199,7 @@ extension Array where Element: AnyObject {
 ///Sort a Swift array using an array of `NSSortDescriptor`.
 ///
 ///This *may* be expensive, in both memory and computation!
-public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [SortDescriptor]) -> [AnyObject] {
+public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
 	let sortedArray = anArray.sort(using: descriptors)
 	
 	return sortedArray

@@ -263,7 +263,7 @@ public extension AudioStreamBasicDescription {
 		return (mBytesPerFrame > 0 && interleavedChannels != 0) ? mBytesPerFrame / interleavedChannels :  0;
 	}
 	
-	public enum ASBDError: ErrorProtocol {
+	public enum ASBDError: Error {
 		case ReqiresPCMFormat
 	}
 	
@@ -403,7 +403,7 @@ public extension AudioStreamBasicDescription {
 						}
 						var x: Int32 = 0
 						
-						if (withVaList([withUnsafeMutablePointer(&x, {return $0})], invoke: { (vaPtr) -> Int32 in
+						if (withVaList([withUnsafeMutablePointer(&x, {return $0})], { (vaPtr) -> Int32 in
 							charIterator = fromText.index(after: charIterator)
 							let str = fromText[charIterator ..< fromText.endIndex]
 							return vsscanf(str, "%02X", vaPtr)

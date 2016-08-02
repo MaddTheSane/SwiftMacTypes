@@ -281,7 +281,7 @@ extension String {
 	}
 }
 
-extension OSType: StringLiteralConvertible {
+extension OSType: ExpressibleByStringLiteral {
 	/// Encodes the passed `String` value to an `OSType`.
 	/// The string value may be formatted as a hexadecimal string.
 	/// Only the first four characters are read.
