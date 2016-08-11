@@ -203,3 +203,51 @@ extension Array where Element: AnyObject {
 	
 	return sortedArray
 }
+
+extension String {
+	/// Creates a new `String` with the contents of `self`
+	/// up to `len` UTF-8 characters long, truncating incomplete
+	/// Swift characters at the end.
+	public func substringWithLength(utf8 len: Int) -> String {
+		let ourUTF = utf8
+		guard ourUTF.count > len else {
+			return self
+		}
+		let from8 = ourUTF.startIndex
+		let to8 = from8.advancedBy(len, limit: ourUTF.endIndex)
+		if let to = String.Index(to8, within: self) {
+			return self[startIndex ..< to]
+		}
+		
+		//Oops, we ran into the middle of a code point!
+		let stripped = ourUTF[from8 ..< to8]
+		var preScalar = String.UnicodeScalarView()
+		// Stopping on error because there only error would be cut-off unicode scalars
+		transcode(UTF8.self, UTF32.self, stripped.generate(), { preScalar.append(UnicodeScalar($0)) }, stopOnError: true)
+
+		return String(preScalar)
+	}
+
+	/// Creates a new `String` with the contents of `self`
+	/// up to `len` UTF-16 characters long, truncating incomplete
+	/// Swift characters at the end.
+	public func substringWithLength(utf16 len: Int) -> String {
+		let ourUTF = utf16
+		guard ourUTF.count > len else {
+			return self
+		}
+		let from16 = ourUTF.startIndex
+		let to16 = from16.advancedBy(len, limit: ourUTF.endIndex)
+		if let to = String.Index(to16, within: self) {
+			return self[startIndex ..< to]
+		}
+		
+		//Oops, we ran into the middle of a code point!
+		let stripped = ourUTF[from16 ..< to16]
+		var preScalar = String.UnicodeScalarView()
+		// Stopping on error because there only error would be cut-off unicode scalars
+		transcode(UTF16.self, UTF32.self, stripped.generate(), { preScalar.append(UnicodeScalar($0)) }, stopOnError: true)
+		
+		return String(preScalar)
+	}
+}

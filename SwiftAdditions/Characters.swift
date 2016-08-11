@@ -194,6 +194,13 @@ public enum ASCIICharacter: Int8, Comparable {
 		self = aChar
 	}
 	
+	/// Takes a C-style char value and maps it to the ASCII table.
+	/// Returns `nil` if the value can't be represented as ASCII.
+	public init?(CCharacter cch: UInt8) {
+		self.init(CCharacter: Int8(bitPattern: cch))
+	}
+
+	
 	/// Returns a Swift `Character` representing the current enum value.
 	/// Returns a blank replacement character (0xFFFD) if not a valid ASCII value.
 	public var characterValue: Character {
