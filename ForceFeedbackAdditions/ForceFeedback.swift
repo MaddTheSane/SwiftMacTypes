@@ -14,7 +14,7 @@ import SwiftAdditions
 public let ForceFeedbackResultErrorDomain =
 "com.github.maddthesane.ForceFeedbackAdditions.ForceFeedbackResult"
 
-public enum ForceFeedbackResult: HRESULT, ErrorProtocol {
+public enum ForceFeedbackResult: HRESULT, Error {
 	case OK = 0
 	case False = 1
 	case DownloadSkipped = 3
