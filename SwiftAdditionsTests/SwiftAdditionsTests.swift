@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 C.W. Betts. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 import XCTest
 @testable import SwiftAdditions
 
@@ -54,5 +54,37 @@ class SwiftAdditionsTests: XCTestCase {
 		let aCFUUID = aUUID.CFUUID
 		let bUUID = UUID(CFUUID: aCFUUID)
 		XCTAssertEqual(aUUID, bUUID)
+	}
+	
+	func testSubStringFunction() {
+		//Simple ASCII string: both representations should be the same
+		var testString = "hi How are you today?"
+		var subString = testString.substringWithLength(utf8: 10)
+		var subString2 = testString.substringWithLength(utf16: 10)
+		XCTAssertEqual(subString, subString2)
+		
+		//Emoji-heavy string. UTF-16 gets more than UTF-8
+		testString = "hi 🙃🐱🦄  🌊🎮🎯🚵🏹"
+		subString = testString.substringWithLength(utf8: 10)
+		subString2 = testString.substringWithLength(utf16: 10)
+		XCTAssertNotEqual(subString, subString2)
+
+		//Simple, short non-ASCII string
+		testString = "Olé"
+		subString = testString.substringWithLength(utf8: 10)
+		XCTAssertEqual(testString, subString)
+		subString2 = testString.substringWithLength(utf16: 10)
+		XCTAssertEqual(testString, subString2)
+		XCTAssertEqual(subString2, subString)
+
+		//bounds testing
+		testString = "Résumé"
+		subString = testString.substringWithLength(utf8: 6)
+		subString2 = testString.substringWithLength(utf8: 7)
+		XCTAssertEqual(subString2, subString)
+		subString = testString.substringWithLength(utf16: 6)
+		subString2 = testString.substringWithLength(utf16: 7)
+		XCTAssertEqual(testString, subString2)
+		XCTAssertEqual(subString, subString2)
 	}
 }

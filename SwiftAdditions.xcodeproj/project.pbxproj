@@ -47,6 +47,7 @@
 		55403A131A745003007A488E /* ForceFeedbackAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55403A121A745003007A488E /* ForceFeedbackAdditionsTests.swift */; };
 		55403A1A1A74502B007A488E /* ForceFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B2B64319F564FC00A716BC /* ForceFeedback.swift */; };
 		55403A1D1A745283007A488E /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
+		555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */; };
 		55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55654A591A6B1148008E9315 /* QuickLook.swift */; };
 		5568C1021C63F1840050E2BA /* AppleScriptFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */; };
 		55706D941A1EC2440000FD93 /* SwiftIOKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -59,6 +60,7 @@
 		55A02E311C61F07B00F75116 /* AudioFileClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A02E301C61F07B00F75116 /* AudioFileClass.swift */; };
 		55A02E331C61F09900F75116 /* ExtAudioFileClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A02E321C61F09900F75116 /* ExtAudioFileClass.swift */; };
 		55ABE82F1A0815FA006B6AF9 /* CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */; };
+		55B713131D0775EF00F2EA1F /* CharacterAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B713121D0775EF00F2EA1F /* CharacterAdditionsTests.swift */; };
 		55C1A6AF1A07223B00C7A733 /* AdditionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */; };
 		55D8DD861A7EE48B0046C1F7 /* AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8DD851A7EE48B0046C1F7 /* AppKit.swift */; };
 		55DAF5931A337C91008281ED /* COMUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DAF5921A337C91008281ED /* COMUUIDs.swift */; };
@@ -150,6 +152,13 @@
 			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
 			remoteInfo = SwiftAdditions;
 		};
+		55ACBFD91D5A617900E4F677 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
+			remoteInfo = SwiftAdditions;
+		};
 		55E11DED1AE7114000815555 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
@@ -176,6 +185,7 @@
 		55403A0B1A745003007A488E /* ForceFeedbackAdditionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ForceFeedbackAdditionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55403A111A745003007A488E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55403A121A745003007A488E /* ForceFeedbackAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceFeedbackAdditionsTests.swift; sourceTree = "<group>"; };
+		555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaComparable.swift; sourceTree = "<group>"; };
 		55654A591A6B1148008E9315 /* QuickLook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickLook.swift; sourceTree = "<group>"; };
 		5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleScriptFoundation.swift; sourceTree = "<group>"; };
 		556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileExt.swift; sourceTree = "<group>"; };
@@ -192,6 +202,7 @@
 		55A02E321C61F09900F75116 /* ExtAudioFileClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtAudioFileClass.swift; sourceTree = "<group>"; };
 		55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		55B2B64319F564FC00A716BC /* ForceFeedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForceFeedback.swift; sourceTree = "<group>"; };
+		55B713121D0775EF00F2EA1F /* CharacterAdditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterAdditionsTests.swift; sourceTree = "<group>"; };
 		55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalAdditions.swift; sourceTree = "<group>"; };
 		55D8DD851A7EE48B0046C1F7 /* AppKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKit.swift; sourceTree = "<group>"; };
 		55DAF5921A337C91008281ED /* COMUUIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COMUUIDs.swift; sourceTree = "<group>"; };
@@ -311,6 +322,7 @@
 				55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */,
 				55D8DD851A7EE48B0046C1F7 /* AppKit.swift */,
 				552627A01BDF52A4005AAF63 /* Characters.swift */,
+				555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */,
 				550B049F1A0D5932002BD56E /* COMUUIDs.swift */,
 				55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */,
 				5587E0BF1A0A115D00CA1400 /* Endianness.swift */,
@@ -336,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */,
+				55B713121D0775EF00F2EA1F /* CharacterAdditionsTests.swift */,
 				550FBACB19A7ADC500EFBD3D /* Supporting Files */,
 			);
 			path = SwiftAdditionsTests;
@@ -535,6 +548,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				55ACBFDA1D5A617900E4F677 /* PBXTargetDependency */,
 			);
 			name = SwiftAdditionsTests;
 			productName = SwiftAdditionsTests;
@@ -790,6 +804,7 @@
 				550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */,
 				5587E0C01A0A115D00CA1400 /* Endianness.swift in Sources */,
 				5568C1021C63F1840050E2BA /* AppleScriptFoundation.swift in Sources */,
+				555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */,
 				552627A11BDF52A4005AAF63 /* Characters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -799,6 +814,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				550FBACE19A7ADC500EFBD3D /* SwiftAdditionsTests.swift in Sources */,
+				55B713131D0775EF00F2EA1F /* CharacterAdditionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -912,6 +928,11 @@
 			isa = PBXTargetDependency;
 			target = 550FBABD19A7ADC500EFBD3D /* SwiftAdditions */;
 			targetProxy = 55706DAA1A1EC3B60000FD93 /* PBXContainerItemProxy */;
+		};
+		55ACBFDA1D5A617900E4F677 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 550FBABD19A7ADC500EFBD3D /* SwiftAdditions */;
+			targetProxy = 55ACBFD91D5A617900E4F677 /* PBXContainerItemProxy */;
 		};
 		55E11DEE1AE7114000815555 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

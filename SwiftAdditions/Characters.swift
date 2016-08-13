@@ -194,6 +194,13 @@ public enum ASCIICharacter: Int8, Comparable {
 		self = aChar
 	}
 	
+	/// Takes a C-style char value and maps it to the ASCII table.
+	/// Returns `nil` if the value can't be represented as ASCII.
+	public init?(CCharacter cch: UInt8) {
+		self.init(CCharacter: Int8(bitPattern: cch))
+	}
+
+	
 	/// Returns a Swift `Character` representing the current enum value.
 	/// Returns a blank replacement character (`0xFFFD`) if not a valid ASCII value.
 	public var characterValue: Character {
@@ -201,10 +208,15 @@ public enum ASCIICharacter: Int8, Comparable {
 		if numVal < 0 {
 			return "\u{FFFD}"
 		}
-		let unicodeVal = UInt8(numVal)
-		let hi = UnicodeScalar(unicodeVal)
-		let aChar = Character(hi)
-		return aChar
+		let preUTF8 = [UInt8(numVal)]
+		var preScalar = [UnicodeScalar]()
+		
+		
+		_ = transcode(preUTF8.makeIterator(), from: UTF8.self, to: UTF32.self, stoppingOnError: false, into: ({
+			preScalar.append(UnicodeScalar($0))
+		}))
+
+		return Character(preScalar.first!)
 	}
 }
 
