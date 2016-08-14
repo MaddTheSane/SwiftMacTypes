@@ -95,13 +95,13 @@ public func runOnMainThreadAsync(block: () -> Void) {
 
 // Code taken from http://stackoverflow.com/a/33957196/1975001
 extension Dictionary {
-	mutating func union(_ dictionary: Dictionary) {
+	public mutating func formUnion(_ dictionary: Dictionary) {
 		dictionary.forEach { self.updateValue($1, forKey: $0) }
 	}
 	
-	func unioned(dictionary: Dictionary) -> Dictionary {
+	public func union(dictionary: Dictionary) -> Dictionary {
 		var dict1 = dictionary
-		dict1.unionInPlace(self)
+		dict1.formUnion(self)
 		return dict1
 	}
 }
@@ -134,6 +134,7 @@ public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>)
 /// Returns objects that were removed.
 /// - parameter ixs: the index set containing the indexes of objects that will be removed
 /// - returns: any objects that were removed.
+@available(*, unavailable, message:"Use \"Array.remove(indexes:)\" instead",renamed:"Array.remove(indexes:)")
 public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
 	return anArray.remove(indexes: indexes)
 }
@@ -143,6 +144,7 @@ public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes
 /// - parameter anArray: the array to modify.
 /// - parameter indexes: the integer set containing the indexes of objects that will be removed
 /// - returns: any objects that were removed.
+@available(*, unavailable, message:"Use \"Array.remove(indexes:)\" instead",renamed:"Array.remove(indexes:)")
 public func removeObjects<T, B: Sequence where B.Iterator.Element == Int>( inArray anArray: inout Array<T>, atIndexes indexes: B) -> [T] {
 	return anArray.remove(indexes: indexes)
 }
@@ -192,15 +194,16 @@ extension Array where Element: AnyObject {
 	///
 	///This *may* be expensive, in both memory and computation!
 	public mutating func sort(using descriptors: [NSSortDescriptor]) {
-		self = sort(using: descriptors)
+		self = sorted(using: descriptors)
 	}
 }
 
 ///Sort a Swift array using an array of `NSSortDescriptor`.
 ///
 ///This *may* be expensive, in both memory and computation!
+@available(*, unavailable, message:"Use \"Array.sorted(using:)\" instead",renamed:"Array.sorted(using:)")
 public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
-	let sortedArray = anArray.sort(using: descriptors)
+	let sortedArray = anArray.sorted(using: descriptors)
 	
 	return sortedArray
 }

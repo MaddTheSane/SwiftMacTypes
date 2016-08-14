@@ -28,8 +28,13 @@ extension NSRange: Equatable {
 		return location == NSNotFound
 	}
 	
+	@available(*, unavailable, message:"Use \"contains(_:)\" instead", renamed:"NSRange.contains(_:)")
 	public func locationInRange(_ loc: Int) -> Bool {
 		return NSLocationInRange(loc, self)
+	}
+	
+	public func contains(_ location: Int) -> Bool {
+		return NSLocationInRange(location, self)
 	}
 
 	/// The maximum value from the range.
@@ -55,12 +60,12 @@ extension NSRange: Equatable {
 	}
 
 	/// Make a new `NSRange` from a union of this range and another.
-	public func unioned(_ otherRange: NSRange) -> NSRange {
+	public func union(_ otherRange: NSRange) -> NSRange {
 		return NSUnionRange(self, otherRange)
 	}
 
 	/// Set the current `NSRange` to a union of this range and another.
-	public mutating func union(_ otherRange: NSRange) {
+	public mutating func formUnion(_ otherRange: NSRange) {
 		self = NSUnionRange(self, otherRange)
 	}
 	
@@ -303,7 +308,7 @@ extension String {
 	/// Make sure you have called `-[NSString rangeOfComposedCharacterSequencesForRange:]`
 	/// *before* calling this method, otherwise if the beginning or end of
 	/// `nsRange` is in between Unicode code points, this method will return `nil`.
-	func nsRange(from range: Range<String.Index>) -> NSRange {
+	public func nsRange(from range: Range<String.Index>) -> NSRange {
 		let utf16view = self.utf16
 		let from = range.lowerBound.samePosition(in: utf16view)
 		let to = range.upperBound.samePosition(in: utf16view)
@@ -311,7 +316,7 @@ extension String {
 		                   utf16view.distance(from: from, to: to))
 	}
 	
-	func range(from nsRange: NSRange) -> Range<String.Index>? {
+	public func range(from nsRange: NSRange) -> Range<String.Index>? {
 		guard
 			let from16 = utf16.index(utf16.startIndex, offsetBy: nsRange.location, limitedBy: utf16.endIndex),
 			let to16 = utf16.index(from16, offsetBy: nsRange.length, limitedBy: utf16.endIndex),

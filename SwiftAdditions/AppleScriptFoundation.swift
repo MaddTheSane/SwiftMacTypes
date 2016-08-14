@@ -22,12 +22,19 @@ import Foundation
 	}
 
 	extension NSAppleScript {
-		//@nonobjc public convenience init(contentsOfURL url: NSURL) throws {
-		//	var errDict: NSDictionary?
-		//	if let hi = self.init(contentsOfURL: url, error: &errDict) {
-		//
-		//	}
-		//}
+		/// Creates a newly allocated script instance from the source identified by the passed URL.
+		/// - parameter url: A URL that locates a script, in either text or compiled form.
+		/// - throws: an `NSError` in the `NSOSStatusErrorDomain` domain
+		/// if unsuccessful. If you need to get the dictionary that would
+		/// have been returned by `compileAndReturnError(_:)`, the values
+		/// are stored in the `NSError`'s `userInfo`.
+		@nonobjc public static func appleScript(contentsOf url: URL) throws -> NSAppleScript {
+			var errDict: NSDictionary?
+			if let hi = NSAppleScript(contentsOf: url, error: &errDict) {
+				return hi
+			}
+			throw getError(dict: errDict)
+		}
 		
 		/// Compile the script, if it is not already compiled.
 		/// - throws: an `NSError` in the `NSOSStatusErrorDomain` domain 
