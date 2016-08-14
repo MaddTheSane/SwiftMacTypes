@@ -95,11 +95,11 @@ public func runOnMainThreadAsync(block: () -> Void) {
 
 // Code taken from http://stackoverflow.com/a/33957196/1975001
 extension Dictionary {
-	mutating func unionInPlace(_ dictionary: Dictionary) {
+	mutating func union(_ dictionary: Dictionary) {
 		dictionary.forEach { self.updateValue($1, forKey: $0) }
 	}
 	
-	func union(dictionary: Dictionary) -> Dictionary {
+	func unioned(dictionary: Dictionary) -> Dictionary {
 		var dict1 = dictionary
 		dict1.unionInPlace(self)
 		return dict1
@@ -182,7 +182,7 @@ extension Array where Element: AnyObject {
 	///Returns a sorted array from the current array by using `NSSortDescriptor`s.
 	///
 	///This *may* be expensive, in both memory and computation!
-	public func sort(using descriptors: [NSSortDescriptor]) -> [Element] {
+	public func sorted(using descriptors: [NSSortDescriptor]) -> [Element] {
 		let sortedArray = (self as NSArray).sortedArray(using: descriptors)
 		
 		return sortedArray as! [Element]
@@ -191,7 +191,7 @@ extension Array where Element: AnyObject {
 	///Sorts the current array by using `NSSortDescriptor`s.
 	///
 	///This *may* be expensive, in both memory and computation!
-	public mutating func sortInPlace(using descriptors: [NSSortDescriptor]) {
+	public mutating func sort(using descriptors: [NSSortDescriptor]) {
 		self = sort(using: descriptors)
 	}
 }
