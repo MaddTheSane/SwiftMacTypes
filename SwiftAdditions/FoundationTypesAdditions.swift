@@ -38,12 +38,12 @@ extension NSRange: Equatable {
 	}
 
 	/// Make a new `NSRange` by intersecting this range and another.
-	public func intersect(_ otherRange: NSRange) -> NSRange {
+	public func intersection(_ otherRange: NSRange) -> NSRange {
 		return NSIntersectionRange(self, otherRange)
 	}
 
 	/// Set the current `NSRange` to an intersection of this range and another.
-	public mutating func intersectInPlace(_ otherRange: NSRange) {
+	public mutating func intersect(_ otherRange: NSRange) {
 		self = NSIntersectionRange(self, otherRange)
 	}
 	
@@ -55,12 +55,12 @@ extension NSRange: Equatable {
 	}
 
 	/// Make a new `NSRange` from a union of this range and another.
-	public func union(_ otherRange: NSRange) -> NSRange {
+	public func unioned(_ otherRange: NSRange) -> NSRange {
 		return NSUnionRange(self, otherRange)
 	}
 
 	/// Set the current `NSRange` to a union of this range and another.
-	public mutating func unionInPlace(_ otherRange: NSRange) {
+	public mutating func union(_ otherRange: NSRange) {
 		self = NSUnionRange(self, otherRange)
 	}
 	
