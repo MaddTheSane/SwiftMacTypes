@@ -14,7 +14,7 @@ import SwiftAdditions
 // MARK: Audio File
 
 public var kLinearPCMFormatFlagNativeEndian: AudioFormatFlags {
-	if ByteOrder.isLittle {
+	if ByteOrder.isBig {
 		return kLinearPCMFormatFlagIsBigEndian
 	} else {
 		return 0
@@ -126,14 +126,30 @@ public struct AudioFormatFlag : OptionSet {
 		return [Float, NativeEndian, Packed]
 	}
 
-	public static let Float				= AudioFormatFlag(rawValue: 1 << 0)
-	public static let BigEndian			= AudioFormatFlag(rawValue: 1 << 1)
-	public static let SignedInteger		= AudioFormatFlag(rawValue: 1 << 2)
-	public static let Packed			= AudioFormatFlag(rawValue: 1 << 3)
-	public static let AlignedHigh		= AudioFormatFlag(rawValue: 1 << 4)
-	public static let NonInterleaved	= AudioFormatFlag(rawValue: 1 << 5)
-	public static let NonMixable		= AudioFormatFlag(rawValue: 1 << 6)
-	public static let FlagsAreAllClear	= AudioFormatFlag(rawValue: 1 << 31)
+	public static var Float: AudioFormatFlag {
+		return AudioFormatFlag(rawValue: 1 << 0)
+	}
+	public static var BigEndian: AudioFormatFlag {
+		return AudioFormatFlag(rawValue: 1 << 1)
+	}
+	public static var SignedInteger: AudioFormatFlag {
+		return AudioFormatFlag(rawValue: 1 << 2)
+	}
+	public static var Packed: AudioFormatFlag {
+		return AudioFormatFlag(rawValue: 1 << 3)
+	}
+	public static var AlignedHigh: AudioFormatFlag {
+		return AudioFormatFlag(rawValue: 1 << 4)
+	}
+	public static var NonInterleaved: AudioFormatFlag {
+		return AudioFormatFlag(rawValue: 1 << 5)
+	}
+	public static var NonMixable: AudioFormatFlag {
+		return AudioFormatFlag(rawValue: 1 << 6)
+	}
+	public static var FlagsAreAllClear: AudioFormatFlag {
+		return AudioFormatFlag(rawValue: 1 << 31)
+	}
 	public static var NativeEndian: AudioFormatFlag {
 		if ByteOrder.isLittle {
 			return self.init(rawValue: 0)
@@ -151,14 +167,30 @@ public struct LinearPCMFormatFlag : OptionSet {
 		return [Float, NativeEndian, Packed]
 	}
 	
-	public static var Float			= LinearPCMFormatFlag(rawValue: 1 << 0)
-	public static var BigEndian		= LinearPCMFormatFlag(rawValue: 1 << 1)
-	public static var SignedInteger	= LinearPCMFormatFlag(rawValue: 1 << 2)
-	public static var Packed			= LinearPCMFormatFlag(rawValue: 1 << 3)
-	public static var AlignedHigh		= LinearPCMFormatFlag(rawValue: 1 << 4)
-	public static var NonInterleaved	= LinearPCMFormatFlag(rawValue: 1 << 5)
-	public static var NonMixable		= LinearPCMFormatFlag(rawValue: 1 << 6)
-	public static var FlagsAreAllClear	= LinearPCMFormatFlag(rawValue: 1 << 31)
+	public static var Float: LinearPCMFormatFlag {
+		return LinearPCMFormatFlag(rawValue: 1 << 0)
+	}
+	public static var BigEndian: LinearPCMFormatFlag {
+		return LinearPCMFormatFlag(rawValue: 1 << 1)
+	}
+	public static var SignedInteger: LinearPCMFormatFlag {
+		return LinearPCMFormatFlag(rawValue: 1 << 2)
+	}
+	public static var Packed: LinearPCMFormatFlag {
+		return LinearPCMFormatFlag(rawValue: 1 << 3)
+	}
+	public static var AlignedHigh: LinearPCMFormatFlag {
+		return LinearPCMFormatFlag(rawValue: 1 << 4)
+	}
+	public static var NonInterleaved: LinearPCMFormatFlag {
+		return LinearPCMFormatFlag(rawValue: 1 << 5)
+	}
+	public static var NonMixable: LinearPCMFormatFlag {
+		return LinearPCMFormatFlag(rawValue: 1 << 6)
+	}
+	public static var FlagsAreAllClear: LinearPCMFormatFlag {
+		return LinearPCMFormatFlag(rawValue: 1 << 31)
+	}
 	public static var NativeEndian:		LinearPCMFormatFlag {
 		if ByteOrder.isLittle {
 			return self.init(rawValue: 0)
@@ -166,8 +198,8 @@ public struct LinearPCMFormatFlag : OptionSet {
 			return BigEndian
 		}
 	}
-	public static var FlagsSampleFractionShift: LinearPCMFormatFlag { return self.init(rawValue: 7) }
-	public static var FlagsSampleFractionMask : LinearPCMFormatFlag { return self.init(rawValue: 0x3F << FlagsSampleFractionShift.rawValue) }
+	public static var FlagsSampleFractionShift: UInt32 { return 7 }
+	public static var FlagsSampleFractionMask : LinearPCMFormatFlag { return self.init(rawValue: 0x3F << FlagsSampleFractionShift) }
 }
 
 public extension AudioStreamBasicDescription {

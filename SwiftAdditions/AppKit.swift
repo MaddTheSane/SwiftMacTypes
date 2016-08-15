@@ -10,81 +10,120 @@
 import Cocoa
 
 	// MARK: CGWindowLevel values
-	public let kCGBaseWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.baseWindow)
+	public var kCGBaseWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.baseWindow)
+	}
 	
-	public let kCGMinimumWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.minimumWindow)
+	public var kCGMinimumWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.minimumWindow)
+	}
 
-	public let kCGDesktopWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.desktopWindow)
+	public var kCGDesktopWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.desktopWindow)
+	}
 	
-	public let kCGBackstopMenuLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.backstopMenu)
+	public var kCGBackstopMenuLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.backstopMenu)
+	}
 	
-	public let kCGNormalWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.normalWindow)
+	public var kCGNormalWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.normalWindow)
+	}
 	
-	public let kCGFloatingWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.floatingWindow)
+	public var kCGFloatingWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.floatingWindow)
+	}
+	
+	public var kCGTornOffMenuWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.tornOffMenuWindow)
+	}
+	
+	public var kCGDockWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.dockWindow)
+	}
+	
+	public var kCGMainMenuWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.mainMenuWindow)
+	}
+	
+	public var kCGStatusWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.statusWindow)
+	}
+	
+	public var kCGModalPanelWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.modalPanelWindow)
+	}
+	
+	public var kCGPopUpMenuWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.popUpMenuWindow)
+	}
+	
+	public var kCGDraggingWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.draggingWindow)
+	}
+	
+	public var kCGScreenSaverWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.screenSaverWindow)
+	}
+	
+	public var kCGMaximumWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.maximumWindow)
+	}
+	
+	public var kCGOverlayWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.overlayWindow)
+	}
+	
+	public var kCGHelpWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.helpWindow)
+	}
+	
+	public var kCGUtilityWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.utilityWindow)
+	}
+	
+	public var kCGDesktopIconWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.desktopIconWindow)
+	}
+	
+	public var kCGCursorWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.cursorWindow)
+	}
+	
+	public var kCGAssistiveTechHighWindowLevel: CGWindowLevel {
+		return CGWindowLevelForKey(CGWindowLevelKey.assistiveTechHighWindow)
+	}
 
-	public let kCGTornOffMenuWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.tornOffMenuWindow)
 
-	public let kCGDockWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.dockWindow)
-
-	public let kCGMainMenuWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.mainMenuWindow)
-
-	public let kCGStatusWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.statusWindow)
-
-	public let kCGModalPanelWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.modalPanelWindow)
-
-	public let kCGPopUpMenuWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.popUpMenuWindow)
-	
-	public let kCGDraggingWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.draggingWindow)
-	
-	public let kCGScreenSaverWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.screenSaverWindow)
-	
-	public let kCGMaximumWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.maximumWindow)
-	
-	public let kCGOverlayWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.overlayWindow)
-	
-	public let kCGHelpWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.helpWindow)
-
-	public let kCGUtilityWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.utilityWindow)
-	
-	public let kCGDesktopIconWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.desktopIconWindow)
-	
-	public let kCGCursorWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.cursorWindow)
-	
-	public let kCGAssistiveTechHighWindowLevel: CGWindowLevel =
-		CGWindowLevelForKey(CGWindowLevelKey.assistiveTechHighWindow)
-	
-	
 	// MARK: NSWindowLevel values
 	
-	public let NSNormalWindowLevel = Int(kCGNormalWindowLevel)
-	public let NSFloatingWindowLevel = Int(kCGFloatingWindowLevel)
-	public let NSSubmenuWindowLevel = Int(kCGTornOffMenuWindowLevel)
-	public let NSTornOffMenuWindowLevel = Int(kCGTornOffMenuWindowLevel)
-	public let NSMainMenuWindowLevel = Int(kCGMainMenuWindowLevel)
-	public let NSStatusWindowLevel = Int(kCGStatusWindowLevel)
-	public let NSModalPanelWindowLevel = Int(kCGModalPanelWindowLevel)
-	public let NSPopUpMenuWindowLevel = Int(kCGPopUpMenuWindowLevel)
-	public let NSScreenSaverWindowLevel = Int(kCGScreenSaverWindowLevel)
+	public var NSNormalWindowLevel: Int {
+		return Int(kCGNormalWindowLevel)
+	}
+	public var NSFloatingWindowLevel: Int {
+		return Int(kCGFloatingWindowLevel)
+	}
+	public var NSSubmenuWindowLevel: Int {
+		return Int(kCGTornOffMenuWindowLevel)
+	}
+	public var NSTornOffMenuWindowLevel: Int {
+		return Int(kCGTornOffMenuWindowLevel)
+	}
+	public var NSMainMenuWindowLevel: Int {
+		return Int(kCGMainMenuWindowLevel)
+	}
+	public var NSStatusWindowLevel: Int {
+		return Int(kCGStatusWindowLevel)
+	}
+	public var NSModalPanelWindowLevel: Int {
+		return Int(kCGModalPanelWindowLevel)
+	}
+	public var NSPopUpMenuWindowLevel: Int {
+		return Int(kCGPopUpMenuWindowLevel)
+	}
+	public var NSScreenSaverWindowLevel: Int {
+		return Int(kCGScreenSaverWindowLevel)
+	}
 
 	extension AffineTransform {
 		public init(CGTransform cgAff: CGAffineTransform) {

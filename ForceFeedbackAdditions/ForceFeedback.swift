@@ -424,18 +424,42 @@ extension FFCAPABILITIES {
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static let ConstantForce	= EffectTypes(1 << 0)
-		public static let RampForce		= EffectTypes(1 << 1)
-		public static let Square		= EffectTypes(1 << 2)
-		public static let Sine			= EffectTypes(1 << 3)
-		public static let Triangle		= EffectTypes(1 << 4)
-		public static let SawtoothUp	= EffectTypes(1 << 5)
-		public static let SawtoothDown	= EffectTypes(1 << 6)
-		public static let Spring		= EffectTypes(1 << 7)
-		public static let Damper		= EffectTypes(1 << 8)
-		public static let Inertia		= EffectTypes(1 << 9)
-		public static let Friction		= EffectTypes(1 << 10)
-		public static let CustomForce	= EffectTypes(1 << 11)
+		public static var constantForce: EffectTypes {
+			return EffectTypes(1 << 0)
+		}
+		public static var rampForce: EffectTypes {
+			return EffectTypes(1 << 1)
+		}
+		public static var square: EffectTypes {
+			return EffectTypes(1 << 2)
+		}
+		public static var sine: EffectTypes {
+			return EffectTypes(1 << 3)
+		}
+		public static var triangle: EffectTypes {
+			return EffectTypes(1 << 4)
+		}
+		public static var sawtoothUp: EffectTypes {
+			return EffectTypes(1 << 5)
+		}
+		public static var sawtoothDown: EffectTypes {
+			return EffectTypes(1 << 6)
+		}
+		public static var spring: EffectTypes {
+			return EffectTypes(1 << 7)
+		}
+		public static var damper: EffectTypes {
+			return EffectTypes(1 << 8)
+		}
+		public static var inertia: EffectTypes {
+			return EffectTypes(1 << 9)
+		}
+		public static var friction: EffectTypes {
+			return EffectTypes(1 << 10)
+		}
+		public static var customForce: EffectTypes {
+			return EffectTypes(1 << 11)
+		}
 	}
 	
 	public struct EffectSubtypes : OptionSet {
@@ -443,8 +467,12 @@ extension FFCAPABILITIES {
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static let Kinesthetic	= EffectSubtypes(1 << 0)
-		public static let Vibration		= EffectSubtypes(1 << 1)
+		public static var kinesthetic: EffectSubtypes {
+			return EffectSubtypes(1 << 0)
+		}
+		public static var vibration: EffectSubtypes {
+			return EffectSubtypes(1 << 1)
+		}
 	}
 	
 	public var axes: [UInt8] {
@@ -471,9 +499,15 @@ public struct ForceFeedbackCoordinateSystem : OptionSet {
 	private init(_ value: UInt32) { self.rawValue = value }
 	public init(rawValue value: UInt32) { self.rawValue = value }
 	
-	public static let Cartesian	= ForceFeedbackCoordinateSystem(0x10)
-	public static let Polar		= ForceFeedbackCoordinateSystem(0x20)
-	public static let Spherical	= ForceFeedbackCoordinateSystem(0x40)
+	public static var cartesian: ForceFeedbackCoordinateSystem {
+		return ForceFeedbackCoordinateSystem(0x10)
+	}
+	public static var polar: ForceFeedbackCoordinateSystem {
+		return ForceFeedbackCoordinateSystem(0x20)
+	}
+	public static var spherical: ForceFeedbackCoordinateSystem {
+		return ForceFeedbackCoordinateSystem(0x40)
+	}
 }
 
 public final class ForceFeedbackDevice {
@@ -490,12 +524,24 @@ public final class ForceFeedbackDevice {
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static let Reset				= Command(1 << 0)
-		public static let StopAll			= Command(1 << 1)
-		public static let Pause				= Command(1 << 2)
-		public static let Continue			= Command(1 << 3)
-		public static let SetActuatorsOn	= Command(1 << 4)
-		public static let SetActuatorsOff	= Command(1 << 5)
+		public static var reset: Command {
+			return Command(1 << 0)
+		}
+		public static var stopAll: Command {
+			return Command(1 << 1)
+		}
+		public static var pause: Command {
+			return Command(1 << 2)
+		}
+		public static var continueCommand: Command {
+			return Command(1 << 3)
+		}
+		public static var setActuatorsOn: Command {
+			return Command(1 << 4)
+		}
+		public static var setActuatorsOff: Command {
+			return Command(1 << 5)
+		}
 	}
 	
 	public struct State : OptionSet {
@@ -503,19 +549,43 @@ public final class ForceFeedbackDevice {
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static let Empty		= State(1 << 0)
-		public static let Stopped	= State(1 << 1)
-		public static let Paused	= State(1 << 2)
+		public static var empty: State {
+			return State(1 << 0)
+		}
+		public static var stopped: State {
+			return State(1 << 1)
+		}
+		public static var paused: State {
+			return State(1 << 2)
+		}
 		
-		public static let ActuatorsOn		= State(1 << 4)
-		public static let ActuatorsOff		= State(1 << 5)
-		public static let PowerOn			= State(1 << 6)
-		public static let PowerOff			= State(1 << 7)
-		public static let SafetySwitchOn	= State(1 << 8)
-		public static let SafetySwitchOff	= State(1 << 9)
-		public static let UserSwitchOn		= State(1 << 10)
-		public static let UserSwitchOff		= State(1 << 11)
-		public static let DeviceLost		= State(0x80000000)
+		public static var actuatorsOn: State {
+			return State(1 << 4)
+		}
+		public static var actuatorsOff: State {
+			return State(1 << 5)
+		}
+		public static var powerOn: State {
+			return State(1 << 6)
+		}
+		public static var powerOff: State {
+			return State(1 << 7)
+		}
+		public static var safetySwitchOn: State {
+			return State(1 << 8)
+		}
+		public static var safetySwitchOff: State {
+			return State(1 << 9)
+		}
+		public static var userSwitchOn: State {
+			return State(1 << 10)
+		}
+		public static var userSwitchOff: State {
+			return State(1 << 11)
+		}
+		public static var deviceLost: State {
+			return State(0x80000000)
+		}
 	}
 	
 	public class var infinite: UInt32 {
@@ -688,10 +758,18 @@ public final class ForceFeedbackDevice {
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static let Exclusive		= CooperativeLevel(1 << 0)
-		public static let NonExclusive	= CooperativeLevel(1 << 1)
-		public static let Foreground	= CooperativeLevel(1 << 2)
-		public static let Background	= CooperativeLevel(1 << 3)
+		public static var exclusive: CooperativeLevel {
+			return CooperativeLevel(1 << 0)
+		}
+		public static var nonExclusive: CooperativeLevel {
+			return CooperativeLevel(1 << 1)
+		}
+		public static var foreground: CooperativeLevel {
+			return CooperativeLevel(1 << 2)
+		}
+		public static var background: CooperativeLevel {
+			return CooperativeLevel(1 << 3)
+		}
 	}
 }
 
@@ -704,177 +782,181 @@ public final class ForceFeedbackEffect {
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static let Solo			= EffectStart(0x01)
-		public static let NoDownload	= EffectStart(0x80000000)
+		public static var solo: EffectStart {
+			return EffectStart(0x01)
+		}
+		public static var noDownload: EffectStart {
+			return EffectStart(0x80000000)
+		}
 	}
 	
 	public enum EffectType {
-		case ConstantForce
-		case RampForce
-		case Square
-		case Sine
-		case Triangle
-		case SawtoothUp
-		case SawtoothDown
-		case Spring
-		case Damper
-		case Inertia
-		case Friction
-		case Custom
+		case constantForce
+		case rampForce
+		case square
+		case sine
+		case triangle
+		case sawtoothUp
+		case sawtoothDown
+		case spring
+		case damper
+		case inertia
+		case friction
+		case custom
 		
 		/// Returns an `EffectType` matching the supplied UUID.
 		/// Returns `nil` if there isn't a matching `EffectType`.
-		public init?(UUID: CFUUID) {
-			if CFEqual(UUID, ForceFeedbackEffect.ConstantForce) {
-				self = .ConstantForce
-			} else if CFEqual(UUID, ForceFeedbackEffect.RampForce) {
-				self = .RampForce
-			} else if CFEqual(UUID, ForceFeedbackEffect.Square) {
-				self = .Square
-			} else if CFEqual(UUID, ForceFeedbackEffect.Sine) {
-				self = .Sine
-			} else if CFEqual(UUID, ForceFeedbackEffect.Triangle) {
-				self = .Triangle
-			} else if CFEqual(UUID, ForceFeedbackEffect.SawtoothUp) {
-				self = .SawtoothUp
-			} else if CFEqual(UUID, ForceFeedbackEffect.SawtoothDown) {
-				self = .SawtoothDown
-			} else if CFEqual(UUID, ForceFeedbackEffect.Spring) {
-				self = .Spring
-			} else if CFEqual(UUID, ForceFeedbackEffect.Damper) {
-				self = .Damper
-			} else if CFEqual(UUID, ForceFeedbackEffect.Inertia) {
-				self = .Inertia
-			} else if CFEqual(UUID, ForceFeedbackEffect.Friction) {
-				self = .Friction
-			} else if CFEqual(UUID, ForceFeedbackEffect.CustomForce) {
-				self = .Custom
+		public init?(uuid UUID: Foundation.UUID) {
+			if UUID == ForceFeedbackEffect.constantForce {
+				self = .constantForce
+			} else if UUID == ForceFeedbackEffect.rampForce {
+				self = .rampForce
+			} else if UUID == ForceFeedbackEffect.square {
+				self = .square
+			} else if UUID == ForceFeedbackEffect.sine {
+				self = .sine
+			} else if UUID == ForceFeedbackEffect.triangle {
+				self = .triangle
+			} else if UUID == ForceFeedbackEffect.sawtoothUp {
+				self = .sawtoothUp
+			} else if UUID == ForceFeedbackEffect.sawtoothDown {
+				self = .sawtoothDown
+			} else if UUID == ForceFeedbackEffect.spring {
+				self = .spring
+			} else if UUID == ForceFeedbackEffect.damper {
+				self = .damper
+			} else if UUID == ForceFeedbackEffect.inertia {
+				self = .inertia
+			} else if UUID == ForceFeedbackEffect.friction {
+				self = .friction
+			} else if UUID == ForceFeedbackEffect.customForce {
+				self = .custom
 			} else {
 				return nil
 			}
 		}
 		
-		public var UUIDValue: CFUUID {
+		public var uuidValue: UUID {
 			switch self {
-			case .ConstantForce:
-				return ForceFeedbackEffect.ConstantForce
+			case .constantForce:
+				return ForceFeedbackEffect.constantForce
 				
-			case .RampForce:
-				return ForceFeedbackEffect.RampForce
+			case .rampForce:
+				return ForceFeedbackEffect.rampForce
 				
-			case .Square:
-				return ForceFeedbackEffect.Square
+			case .square:
+				return ForceFeedbackEffect.square
 				
-			case .Sine:
-				return ForceFeedbackEffect.Sine
+			case .sine:
+				return ForceFeedbackEffect.sine
 				
-			case .Triangle:
-				return ForceFeedbackEffect.Triangle
+			case .triangle:
+				return ForceFeedbackEffect.triangle
 				
-			case .SawtoothUp:
-				return ForceFeedbackEffect.SawtoothUp
+			case .sawtoothUp:
+				return ForceFeedbackEffect.sawtoothUp
 
-			case .SawtoothDown:
-				return ForceFeedbackEffect.SawtoothDown
+			case .sawtoothDown:
+				return ForceFeedbackEffect.sawtoothDown
 
-			case .Spring:
-				return ForceFeedbackEffect.Spring
+			case .spring:
+				return ForceFeedbackEffect.spring
 
-			case .Damper:
-				return ForceFeedbackEffect.Damper
+			case .damper:
+				return ForceFeedbackEffect.damper
 
-			case .Inertia:
-				return ForceFeedbackEffect.Inertia
+			case .inertia:
+				return ForceFeedbackEffect.inertia
 				
-			case .Friction:
-				return ForceFeedbackEffect.Friction
+			case .friction:
+				return ForceFeedbackEffect.friction
 
-			case .Custom:
-				return ForceFeedbackEffect.CustomForce
+			case .custom:
+				return ForceFeedbackEffect.customForce
 			}
 		}
 	}
 	
 	/// E559C460-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a constant force effect type
-	public static let ConstantForce: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let constantForce: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x60, 0xC5, 0xCD, 0x11, 0xD6,
-			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
+			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
 	/// E559C461-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a ramp force effect type
-	public static let RampForce: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let rampForce: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x61, 0xC5, 0xCD, 0x11, 0xD6,
-			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
+			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
 	/// E559C462-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a square wave effect type
-	public static let Square: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let square: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x62, 0xC5, 0xCD, 0x11, 0xD6,
-			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
+			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
 	/// E559C463-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a sine wave effect type
-	public static let Sine: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let sine: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x63, 0xC5, 0xCD, 0x11, 0xD6,
-			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
+			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
 	/// E559C464-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a triangle wave effect type
-	public static let Triangle: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let triangle: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x64, 0xC5, 0xCD, 0x11, 0xD6,
-			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
+			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
 	/// E559C465-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a upwards sawtooth wave effect type
-	public static let SawtoothUp: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let sawtoothUp: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x65, 0xC5, 0xCD, 0x11, 0xD6,
-			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
+			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
 	/// E559C466-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a downwards sawtooth wave effect type
-	public static let SawtoothDown: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let sawtoothDown: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x66, 0xC5, 0xCD, 0x11, 0xD6,
-			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
+			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
 	/// E559C467-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a spring effect type
-	public static let Spring: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let spring: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x67, 0xC5, 0xCD, 0x11, 0xD6,
-			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
+			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
 	/// E559C468-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a damper effect type
-	public static let Damper: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let damper: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x68, 0xC5, 0xCD, 0x11, 0xD6,
-			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
+			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
 	/// E559C469-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for an inertia effect type
-	public static let Inertia: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let inertia: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x69, 0xC5, 0xCD, 0x11, 0xD6,
-			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
+			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
 	/// E559C46A-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a friction effect type
-	public static let Friction: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let friction: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x6A, 0xC5, 0xCD, 0x11, 0xD6,
-			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
+			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
 	/// E559C46B-C5CD-11D6-8A1C-00039353BD00<br>
 	/// UUID for a custom force effect type
-	public static let CustomForce: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorDefault,
+	public static let customForce: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x6B, 0xC5, 0xCD, 0x11, 0xD6,
-			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00)
+			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	public convenience init(device: ForceFeedbackDevice, UUID: NSUUID, effectDefinition: inout FFEFFECT) throws {
+	public convenience init(device: ForceFeedbackDevice, UUID: Foundation.UUID, effectDefinition: inout FFEFFECT) throws {
 		let ourUUID = UUID.CFUUID
 		
 		try self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
 	}
 	
 	public convenience init(device: ForceFeedbackDevice, effect: EffectType, effectDefinition: inout FFEFFECT) throws {
-		let ourUUID = effect.UUIDValue
+		let ourUUID = effect.uuidValue
 		
 		try self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
 	}
@@ -891,7 +973,7 @@ public final class ForceFeedbackEffect {
 		}
 	}
 	
-	public func start(iterations: UInt32 = 1, flags: EffectStart = EffectStart.Solo) -> ForceFeedbackResult {
+	public func start(iterations: UInt32 = 1, flags: EffectStart = EffectStart.solo) -> ForceFeedbackResult {
 		return ForceFeedbackResult.from(result: FFEffectStart(rawEffect, iterations, flags.rawValue))
 	}
 	
@@ -903,11 +985,11 @@ public final class ForceFeedbackEffect {
 		return ForceFeedbackResult.from(result: FFEffectDownload(rawEffect))
 	}
 	
-	public func getParameters(_ effect: inout FFEFFECT, flags: EffectParamater) -> ForceFeedbackResult {
+	public func getParameters(_ effect: inout FFEFFECT, flags: EffectParameter) -> ForceFeedbackResult {
 		return ForceFeedbackResult.from(result: FFEffectGetParameters(rawEffect, &effect, flags.rawValue))
 	}
 	
-	public func setParameters(_ effect: inout FFEFFECT, flags: EffectParamater) -> ForceFeedbackResult {
+	public func setParameters(_ effect: inout FFEFFECT, flags: EffectParameter) -> ForceFeedbackResult {
 		return ForceFeedbackResult.from(result: FFEffectSetParameters(rawEffect, &effect, flags.rawValue))
 	}
 	
@@ -933,32 +1015,68 @@ public final class ForceFeedbackEffect {
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static let NotPlaying	= Status(0)
-		public static let Playing		= Status(1 << 0)
-		public static let Emulated		= Status(1 << 1)
+		public static var notPlaying: Status {
+			return Status(0)
+		}
+		public static var playing: Status {
+			return Status(1 << 0)
+		}
+		public static var emulated: Status {
+			return Status(1 << 1)
+		}
 	}
 	
-	public struct EffectParamater : OptionSet {
+	public struct EffectParameter : OptionSet {
 		public let rawValue: UInt32
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static let Duration					= EffectParamater(1 << 0)
-		public static let SamplePeriod				= EffectParamater(1 << 1)
-		public static let Gain						= EffectParamater(1 << 2)
-		public static let TriggerButton				= EffectParamater(1 << 3)
-		public static let TriggerRepeatInterval		= EffectParamater(1 << 4)
-		public static let Axes						= EffectParamater(1 << 5)
-		public static let Direction					= EffectParamater(1 << 6)
-		public static let Envelope					= EffectParamater(1 << 7)
-		public static let TypeSpecificParamaters	= EffectParamater(1 << 8)
-		public static let StartDelay				= EffectParamater(1 << 9)
+		public static var duration: EffectParameter {
+			return EffectParameter(1 << 0)
+		}
+		public static var samplePeriod: EffectParameter {
+			return EffectParameter(1 << 1)
+		}
+		public static var gain: EffectParameter {
+			return EffectParameter(1 << 2)
+		}
+		public static var triggerButton: EffectParameter {
+			return EffectParameter(1 << 3)
+		}
+		public static var triggerRepeatInterval: EffectParameter {
+			return EffectParameter(1 << 4)
+		}
+		public static var axes: EffectParameter {
+			return EffectParameter(1 << 5)
+		}
+		public static var direction: EffectParameter {
+			return EffectParameter(1 << 6)
+		}
+		public static var envelope: EffectParameter {
+			return EffectParameter(1 << 7)
+		}
+		public static var typeSpecificParameters: EffectParameter {
+			return EffectParameter(1 << 8)
+		}
+		public static var startDelay: EffectParameter {
+			return EffectParameter(1 << 9)
+		}
 		
-		public static let AllParamaters		= EffectParamater(0x000003FF)
+		public static var allParamaters: EffectParameter {
+			return EffectParameter(0x000003FF)
+		}
 		
-		public static let Start			= EffectParamater(0x20000000)
-		public static let NoRestart		= EffectParamater(0x40000000)
-		public static let NoDownload	= EffectParamater(0x80000000)
-		public static let NoTrigger		= EffectParamater(0xFFFFFFFF)
+		public static var start: EffectParameter {
+			return EffectParameter(0x20000000)
+		}
+		public static var noRestart: EffectParameter {
+			return EffectParameter(0x40000000)
+		}
+		public static var noDownload: EffectParameter {
+			return EffectParameter(0x80000000)
+		}
+		public static var noTrigger: EffectParameter {
+			return EffectParameter(0xFFFFFFFF)
+		}
 	}
 }
