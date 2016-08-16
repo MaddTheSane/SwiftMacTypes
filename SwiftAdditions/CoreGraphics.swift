@@ -18,12 +18,10 @@ extension CGBitmapInfo {
 		}
 		set {
 			// why...
-			//let safe: CGBitmapInfo = [.FloatComponents, .ByteOrder16Little]
 			
 			let aRaw = newValue.rawValue
-			//Clear the alpha info
-			//intersectInPlace([.FloatComponents, .ByteOrderMask])
 			
+			//Clear the alpha info
 			self.remove(CGBitmapInfo.alphaInfoMask)
 			
 			let toMerge = CGBitmapInfo(rawValue: aRaw)
@@ -54,11 +52,4 @@ extension CGBitmapInfo {
 			return .byteOrder32Big
 		}
 	}
-}
-
-public func ==(lhs: CGAffineTransform, rhs: CGAffineTransform) -> Bool {
-	return lhs.equalTo(rhs)
-}
-
-extension CGAffineTransform: Equatable {
 }

@@ -10,7 +10,7 @@ import Foundation
 
 #if os(OSX)
 	private func getError(dict: NSDictionary?) -> NSError {
-		if var dict = dict as? [NSObject : AnyObject] {
+		if var dict = dict as? [String : AnyObject] {
 			let errNum = dict[NSAppleScript.errorNumber] as? Int ?? errOSAScriptError
 			
 			dict[NSLocalizedFailureReasonErrorKey] = dict[NSAppleScript.errorMessage]

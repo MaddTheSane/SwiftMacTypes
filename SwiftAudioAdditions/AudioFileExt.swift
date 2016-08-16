@@ -64,11 +64,11 @@ public func AudioFileOpen(path: String, permissions: AudioFilePermissions = .rea
 	return AudioFileOpen(URL: inFileRef, permissions: permissions, fileTypeHint: fileTypeHint, audioFile: &outAudioFile)
 }
 
-public func AudioFileReadBytes(audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, numberBytes: inout UInt32, buffer: UnsafeMutablePointer<Void>) -> OSStatus {
+public func AudioFileReadBytes(audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, numberBytes: inout UInt32, buffer: UnsafeMutableRawPointer) -> OSStatus {
 	return AudioFileReadBytes(audioFile, useCache, startingByte, &numberBytes, buffer)
 }
 
-public func AudioFileWriteBytes(audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, numberBytes: inout UInt32, buffer: UnsafePointer<Void>) -> OSStatus {
+public func AudioFileWriteBytes(audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, numberBytes: inout UInt32, buffer: UnsafeRawPointer) -> OSStatus {
 	return AudioFileWriteBytes(audioFile, useCache, startingByte, &numberBytes, buffer)
 }
 
@@ -435,7 +435,7 @@ public extension AudioStreamBasicDescription {
 						}
 						var x: Int32 = 0
 						
-						if (withVaList([withUnsafeMutablePointer(&x, {return $0})], { (vaPtr) -> Int32 in
+						if (withVaList([withUnsafeMutablePointer(to: &x, {return $0})], { (vaPtr) -> Int32 in
 							charIterator = fromText.index(after: charIterator)
 							let str = fromText[charIterator ..< fromText.endIndex]
 							return vsscanf(str, "%02X", vaPtr)

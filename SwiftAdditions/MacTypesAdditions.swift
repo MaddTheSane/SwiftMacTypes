@@ -53,7 +53,7 @@ public func toOSType(string theString: String, detectHex: Bool = false) -> OSTyp
 		}
 	}
 	#if os(OSX)
-		return UTGetOSTypeFromString(theString)
+		return UTGetOSTypeFromString(theString as NSString)
 	#else
 		func Ptr2OSType(str: [CChar]) -> OSType {
 			var type: OSType = 0x20202020 // four spaces. Can't really be represented the same way as in C
@@ -345,9 +345,13 @@ extension OSType: ExpressibleByStringLiteral {
 #if os(OSX)
 extension String {
 	/// HFSUniStr255 is declared internally on OS X as part of the HFS headers. iOS doesn't have this header.
-	public init(HFSUniStr: HFSUniStr255) {
+	public init?(HFSUniStr: HFSUniStr255) {
 		let uniStr: [UInt16] = try! arrayFromObject(reflecting: HFSUniStr.unicode)
-		self = String(bytes: uniStr, length: Int(HFSUniStr.length), encoding: String.Encoding.utf16) 
+		if let aStr = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: String.Encoding.utf16.rawValue) as? String {
+			self = aStr
+		} else {
+			return nil
+		}
 	}
 }
 

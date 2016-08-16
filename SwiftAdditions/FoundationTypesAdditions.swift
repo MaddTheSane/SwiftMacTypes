@@ -214,7 +214,7 @@ extension NSUUID {
 	public var `CFUUID`: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
-		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr)
+		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
 	}
 }
 
@@ -230,7 +230,7 @@ extension UUID {
 	public var `CFUUID`: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
-		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr)
+		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
 	}
 }
 
@@ -241,9 +241,9 @@ extension NSData {
 	}
 	
 	public var arrayOfBytes: [UInt8] {
-		let count = length / sizeof(UInt8.self)
+		let count = length / MemoryLayout<UInt8>.size
 		var bytesArray = [UInt8](repeating: 0, count: count)
-		getBytes(&bytesArray, length:count * sizeof(UInt8.self))
+		getBytes(&bytesArray, length:count * MemoryLayout<UInt8>.size)
 		return bytesArray
 	}
 }
@@ -273,13 +273,13 @@ public func ==(rhs: EdgeInsets, lhs: EdgeInsets) -> Bool {
 #endif
 
 extension NSIndexSet {
-	public convenience init<B: Sequence where B.Iterator.Element == Int>(indexes: B) {
+	public convenience init<B: Sequence>(indexes: B) where B.Iterator.Element == Int {
 		self.init(indexSet: IndexSet(indexes: indexes))
 	}
 }
 
 extension IndexSet {
-	public init<B: Sequence where B.Iterator.Element == Int>(indexes: B) {
+	public init<B: Sequence>(indexes: B) where B.Iterator.Element == Int {
 		self.init()
 		for idx in indexes {
 			insert(idx)
@@ -289,7 +289,7 @@ extension IndexSet {
 
 
 extension UserDefaults {
-	@nonobjc public subscript(key: String) -> AnyObject? {
+	@nonobjc public subscript(key: String) -> Any? {
 		get {
 			return object(forKey: key)
 		}

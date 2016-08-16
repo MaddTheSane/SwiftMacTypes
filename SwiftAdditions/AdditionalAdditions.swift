@@ -56,7 +56,7 @@ public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X?
 	let mirror = Mirror(reflecting: obj)
 	for val in mirror.children {
 		guard let aChar = val.value as? X else {
-			throw ReflectError.UnexpectedType(type: val.value.dynamicType, named: val.label)
+			throw ReflectError.UnexpectedType(type: type(of: val.value), named: val.label)
 		}
 		anArray.append(aChar)
 	}
@@ -85,7 +85,7 @@ public func runOnMainThreadSync(block: () -> Void) {
 /// or queues it on the main Dispatch queue if on another thread.
 ///
 /// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
-public func runOnMainThreadAsync(block: () -> Void) {
+public func runOnMainThreadAsync(block: @escaping () -> Void) {
 	if Thread.isMainThread {
 		block()
 	} else {
@@ -145,7 +145,7 @@ public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes
 /// - parameter indexes: the integer set containing the indexes of objects that will be removed
 /// - returns: any objects that were removed.
 @available(*, unavailable, message:"Use \"Array.remove(indexes:)\" instead",renamed:"Array.remove(indexes:)")
-public func removeObjects<T, B: Sequence where B.Iterator.Element == Int>( inArray anArray: inout Array<T>, atIndexes indexes: B) -> [T] {
+public func removeObjects<T, B: Sequence>( inArray anArray: inout Array<T>, atIndexes indexes: B) -> [T] where B.Iterator.Element == Int {
 	return anArray.remove(indexes: indexes)
 }
 
@@ -171,7 +171,7 @@ extension Array {
 	/// Internally creates an `NSIndexSet` so the items are in order.
 	/// - parameter ixs: the integer sequence containing the indexes of objects that will be removed
 	/// - returns: any objects that were removed.
-	public mutating func remove<B: Sequence where B.Iterator.Element == Int>(indexes ixs: B) -> [Element] {
+	public mutating func remove<B: Sequence>(indexes ixs: B) -> [Element] where B.Iterator.Element == Int {
 		let idxSet = NSMutableIndexSet()
 		for i in ixs {
 			idxSet.add(i)
@@ -227,7 +227,8 @@ extension String {
 		let stripped = Array(ourUTF[from8 ..< to8])
 		var preScalar = String.UnicodeScalarView()
 		// Stopping on error because there only error would be cut-off unicode scalars
-		_ = transcode(stripped.makeIterator(), from: UTF8.self, to: UTF32.self, stoppingOnError: true, into: { preScalar.append(UnicodeScalar($0)) })
+		//TODO: better conversion!
+		_ = transcode(stripped.makeIterator(), from: UTF8.self, to: UTF32.self, stoppingOnError: true, into: { preScalar.append(UnicodeScalar($0)!) })
 
 		return String(preScalar)
 	}
@@ -250,7 +251,8 @@ extension String {
 		let stripped = ourUTF[from16 ..< to16]
 		var preScalar = String.UnicodeScalarView()
 		// Stopping on error because there only error would be cut-off unicode scalars
-		_ = transcode(stripped.makeIterator(), from: UTF16.self, to: UTF32.self, stoppingOnError: true, into: { preScalar.append(UnicodeScalar($0)) })
+		//TODO: better conversion!
+		_ = transcode(stripped.makeIterator(), from: UTF16.self, to: UTF32.self, stoppingOnError: true, into: { preScalar.append(UnicodeScalar($0)!) })
 		
 		return String(preScalar)
 	}

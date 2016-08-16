@@ -34,7 +34,7 @@ public final class AudioFile {
 		self.fileID = fileID
 	}
 	
-	public init(callbacksWithReadFunction readFunc: AudioFile_ReadProc, writeFunction: AudioFile_WriteProc? = nil, getSizeFunction: AudioFile_GetSizeProc, setSizeFunction: AudioFile_SetSizeProc? = nil, clientData: UnsafeMutablePointer<Void>, fileTypeHint: AudioFileTypeID) throws {
+	public init(callbacksWithReadFunction readFunc: AudioFile_ReadProc, writeFunction: AudioFile_WriteProc? = nil, getSizeFunction: AudioFile_GetSizeProc, setSizeFunction: AudioFile_SetSizeProc? = nil, clientData: UnsafeMutableRawPointer, fileTypeHint: AudioFileTypeID) throws {
 		var fileID: AudioFileID? = nil
 		let iErr = AudioFileOpenWithCallbacks(clientData, readFunc, writeFunction, getSizeFunction, setSizeFunction, fileTypeHint, &fileID)
 		
@@ -52,7 +52,7 @@ public final class AudioFile {
 		}
 	}
 	
-	func readBytes(useCache: Bool = false, startingByte: Int64, byteCount: inout UInt32, outBuffer: UnsafeMutablePointer<Void>) throws {
+	func readBytes(useCache: Bool = false, startingByte: Int64, byteCount: inout UInt32, outBuffer: UnsafeMutableRawPointer) throws {
 		let iErr = AudioFileReadBytes(fileID, useCache, startingByte, &byteCount, outBuffer)
 		
 		if iErr != noErr {
@@ -60,7 +60,7 @@ public final class AudioFile {
 		}
 	}
 	
-	func writeBytes(useCache: Bool = false, startingByte: Int64, byteCount: inout UInt32, outBuffer: UnsafePointer<Void>) throws {
+	func writeBytes(useCache: Bool = false, startingByte: Int64, byteCount: inout UInt32, outBuffer: UnsafeRawPointer) throws {
 		let iErr = AudioFileWriteBytes(fileID, useCache, startingByte, &byteCount, outBuffer)
 		
 		if iErr != noErr {

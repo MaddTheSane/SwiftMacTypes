@@ -14,11 +14,11 @@ public func ExtAudioFileCreate(URL inURL: NSURL, fileType inFileType: AudioFileT
 	return ExtAudioFileCreateWithURL(inURL, inFileType.rawValue, &inStreamDesc, inChannelLayout, flags.rawValue, &outAudioFile)
 }
 
-public func ExtAudioFileSetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtAudioFilePropertyID, dataSize propertyDataSize: UInt32, data propertyData: UnsafePointer<Void>) -> OSStatus {
+public func ExtAudioFileSetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtAudioFilePropertyID, dataSize propertyDataSize: UInt32, data propertyData: UnsafeRawPointer) -> OSStatus {
 	return ExtAudioFileSetProperty(inExtAudioFile, inPropertyID, propertyDataSize, propertyData)
 }
 
-public func ExtAudioFileSetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtAudioFilePropertyID, dataSize propertyDataSize: Int, data propertyData: UnsafePointer<Void>) -> OSStatus {
+public func ExtAudioFileSetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtAudioFilePropertyID, dataSize propertyDataSize: Int, data propertyData: UnsafeRawPointer) -> OSStatus {
 	return ExtAudioFileSetProperty(inExtAudioFile, inPropertyID, UInt32(propertyDataSize), propertyData)
 }
 
@@ -38,6 +38,6 @@ public func ExtAudioFileGetPropertyInfo(inExtAudioFile: ExtAudioFileRef, propert
 	return aRet
 }
 
-public func ExtAudioFileGetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtAudioFilePropertyID, propertyDataSize ioPropertyDataSize: inout UInt32, propertyData outPropertyData: UnsafeMutablePointer<Void>) -> OSStatus {
+public func ExtAudioFileGetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtAudioFilePropertyID, propertyDataSize ioPropertyDataSize: inout UInt32, propertyData outPropertyData: UnsafeMutableRawPointer) -> OSStatus {
 	return ExtAudioFileGetProperty(inExtAudioFile, inPropertyID, &ioPropertyDataSize, outPropertyData)
 }

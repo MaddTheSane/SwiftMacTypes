@@ -213,7 +213,7 @@ public enum ASCIICharacter: Int8, Comparable {
 		
 		
 		_ = transcode(preUTF8.makeIterator(), from: UTF8.self, to: UTF32.self, stoppingOnError: false, into: ({
-			preScalar.append(UnicodeScalar($0))
+			preScalar.append(UnicodeScalar($0)!)
 		}))
 
 		return Character(preScalar.first!)
