@@ -346,12 +346,13 @@ extension OSType: ExpressibleByStringLiteral {
 extension String {
 	/// HFSUniStr255 is declared internally on OS X as part of the HFS headers. iOS doesn't have this header.
 	public init?(HFSUniStr: HFSUniStr255) {
-		let uniStr: [UInt16] = try! arrayFromObject(reflecting: HFSUniStr.unicode)
-		if let aStr = NSString(bytes: uniStr, length: Int(HFSUniStr.length), encoding: String.Encoding.utf16.rawValue) as? String {
-			self = aStr
-		} else {
+		let uniChars: [UInt16] = try! arrayFromObject(reflecting: HFSUniStr.unicode)
+		var uniStr = Array(uniChars[0 ..< Int(HFSUniStr.length)])
+		uniStr.append(0) // add null termination
+		guard let toRet = String.decodeCString(uniStr, as: UTF16.self, repairingInvalidCodeUnits: false) else {
 			return nil
 		}
+		self = toRet.result
 	}
 }
 

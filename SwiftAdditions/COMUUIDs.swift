@@ -11,9 +11,11 @@ import CoreFoundation.CFPlugInCOM
 import Foundation.NSUUID
 
 /// The IUnknown UUID used by COM APIs.
-public let IUnknownUUID: CFUUID = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSystemDefault,
+public var iUnknownUUID: UUID {
+	return UUID(uuid:(
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-		0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46)
+		0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46))
+}
 
 public protocol IUnknown {
 	func queryInterface(_ iid: REFIID, ppv: UnsafeMutablePointer<LPVOID?>?) -> HRESULT
@@ -26,7 +28,7 @@ extension IUnknown {
 		return queryInterface(bytes, ppv: ppv)
 	}
 	
-	public func queryInterface(UUID: NSUUID, ppv: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
+	public func queryInterface(UUID: UUID, ppv: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
 		let bytes = UUID.CFUUID
 		
 		return queryInterface(UUID: bytes, ppv: ppv)

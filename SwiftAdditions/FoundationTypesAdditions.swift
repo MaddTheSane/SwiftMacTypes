@@ -312,14 +312,15 @@ extension String {
 		let utf16view = self.utf16
 		let from = range.lowerBound.samePosition(in: utf16view)
 		let to = range.upperBound.samePosition(in: utf16view)
-		return NSMakeRange(utf16view.distance(from: utf16view.startIndex, to: from),
-		                   utf16view.distance(from: from, to: to))
+		return NSRange(location: utf16view.distance(from: utf16view.startIndex, to: from),
+		               length: utf16view.distance(from: from, to: to))
 	}
 	
 	public func range(from nsRange: NSRange) -> Range<String.Index>? {
 		guard
-			let from16 = utf16.index(utf16.startIndex, offsetBy: nsRange.location, limitedBy: utf16.endIndex),
-			let to16 = utf16.index(from16, offsetBy: nsRange.length, limitedBy: utf16.endIndex),
+			let preRange = nsRange.toRange(),
+			let from16 = utf16.index(utf16.startIndex, offsetBy: preRange.lowerBound, limitedBy: utf16.endIndex),
+			let to16 = utf16.index(utf16.startIndex, offsetBy: preRange.upperBound, limitedBy: utf16.endIndex),
 			let from = String.Index(from16, within: self),
 			let to = String.Index(to16, within: self)
 			else { return nil }

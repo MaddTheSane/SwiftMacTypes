@@ -39,12 +39,12 @@ public enum ByteOrder {
 }
 
 /// The current byte-order of the machine
-@available(*, deprecated, message:"Use ByteOrder.current instead")
+@available(*, unavailable, message:"Use ByteOrder.current instead", renamed:"ByteOrder.current")
 public let currentByteOrder = ByteOrder.current
 
 /// Is the byte-order little-endian?
-@available(*, deprecated, message:"Use ByteOrder.isLittle instead")
+@available(*, unavailable, message:"Use ByteOrder.isLittle instead", renamed:"ByteOrder.isLittle")
 public let isLittleEndian = ByteOrder.isLittle
 /// Is the byte-order big-endian?
-@available(*, deprecated, message:"Use ByteOrder.isBig instead")
+@available(*, unavailable, message:"Use ByteOrder.isBig instead", renamed:"ByteOrder.isBig")
 public let isBigEndian = ByteOrder.isBig
