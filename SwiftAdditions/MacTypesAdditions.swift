@@ -31,7 +31,7 @@ public func OSTypeToString(_ theType: OSType) -> String? {
 		}
 		
 		let ourOSType = OSType2Ptr(type: theType)
-		return String(bytes: ourOSType, length: 4, encoding: String.Encoding.macOSRoman)
+		return NSString(bytes: ourOSType, length: 4, encoding: String.Encoding.macOSRoman.rawValue) as String?
 	#endif
 }
 
