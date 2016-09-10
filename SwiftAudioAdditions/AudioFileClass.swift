@@ -34,7 +34,7 @@ public final class AudioFile {
 		self.fileID = fileID
 	}
 	
-	public init(callbacksWithReadFunction readFunc: AudioFile_ReadProc, writeFunction: AudioFile_WriteProc? = nil, getSizeFunction: AudioFile_GetSizeProc, setSizeFunction: AudioFile_SetSizeProc? = nil, clientData: UnsafeMutableRawPointer, fileTypeHint: AudioFileTypeID) throws {
+	public init(callbacksWithReadFunction readFunc: @escaping AudioFile_ReadProc, writeFunction: AudioFile_WriteProc? = nil, getSizeFunction: @escaping AudioFile_GetSizeProc, setSizeFunction: AudioFile_SetSizeProc? = nil, clientData: UnsafeMutableRawPointer, fileTypeHint: AudioFileTypeID) throws {
 		var fileID: AudioFileID? = nil
 		let iErr = AudioFileOpenWithCallbacks(clientData, readFunc, writeFunction, getSizeFunction, setSizeFunction, fileTypeHint, &fileID)
 		

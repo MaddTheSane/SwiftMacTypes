@@ -140,7 +140,7 @@ import Cocoa
 		public convenience init(CGTransform cgTransform: CGAffineTransform) {
 			let preStruct = AffineTransform(CGTransform: cgTransform)
 			self.init()
-			transformStruct = preStruct
+			transformStruct = (preStruct as NSAffineTransform).transformStruct
 		}
 	}
 	

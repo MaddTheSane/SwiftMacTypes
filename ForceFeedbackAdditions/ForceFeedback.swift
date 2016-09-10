@@ -427,15 +427,15 @@ public enum ForceFeedbackOffset {
 		return 20
 	}
 	
-	public static func slider(n: UInt8) -> UInt8 {
-		return UInt8(24 + Int(n) * sizeof(LONG))
+	public static func slider(_ n: UInt8) -> UInt8 {
+		return UInt8(24 + Int(n) * MemoryLayout<LONG>.size)
 	}
 	
-	public static func POV(n: UInt8) -> UInt8 {
-		return UInt8(32 + Int(n) * sizeof(DWORD))
+	public static func POV(_ n: UInt8) -> UInt8 {
+		return UInt8(32 + Int(n) * MemoryLayout<DWORD>.size)
 	}
 	
-	public static func button(n: UInt8) -> UInt8 {
+	public static func button(_ n: UInt8) -> UInt8 {
 		return (48 + (n))
 	}
 	
