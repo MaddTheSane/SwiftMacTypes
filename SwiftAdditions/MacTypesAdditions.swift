@@ -19,8 +19,9 @@ import CoreGraphics
 /// Converts an `OSType` to a `String` value. May return `nil`.
 public func OSTypeToString(_ theType: OSType) -> String? {
 	#if os(OSX)
-		return UTCreateStringForOSType(theType).takeRetainedValue() as String?
-		#else
+		let anUnmanaged = UTCreateStringForOSType(theType) as Unmanaged<CFString>?
+		return anUnmanaged?.takeRetainedValue() as String?
+	#else
 		func OSType2Ptr(type: OSType) -> [CChar] {
 			var ourOSType = [Int8](repeating: 0, count: 5)
 			var intType = type.bigEndian
@@ -84,18 +85,18 @@ public func toOSType(string theString: String, detectHex: Bool = false) -> OSTyp
 	#endif
 }
 
-public var CurrentCFMacStringEncoding: CFStringEncoding {
+public var currentCFMacStringEncoding: CFStringEncoding {
 	return CFStringGetMostCompatibleMacStringEncoding(CFStringGetSystemEncoding())
 }
 
 /// The current system encoding that is the most like a Mac Classic encoding
-public var CurrentMacStringEncoding: String.Encoding {
-	return String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding(CurrentCFMacStringEncoding))
+public var currentMacStringEncoding: String.Encoding {
+	return String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding(currentCFMacStringEncoding))
 }
 
 /// Pascal String extensions
 extension String {
-	/// A pascal string that is at least 256 bytes long, containing at least 255 characters.
+	/// A pascal string that is 256 bytes long, containing at least 255 characters.
 	public typealias PStr255 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
@@ -122,7 +123,7 @@ extension String {
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	/// A pascal string that is at least 64 bytes long, containing at least 63 characters.
+	/// A pascal string that is 64 bytes long, containing at least 63 characters.
 	public typealias PStr63 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
@@ -130,25 +131,25 @@ extension String {
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	/// A pascal string that is at least 33 bytes long, containing at least 32 characters.
+	/// A pascal string that is 33 bytes long, containing at least 32 characters.
 	public typealias PStr32 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	/// A pascal string that is at least 32 bytes long, containing at least 31 characters.
+	/// A pascal string that is 32 bytes long, containing at least 31 characters.
 	public typealias PStr31 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8)
-	/// A pascal string that is at least 28 bytes long, containing at least 27 characters.
+	/// A pascal string that is 28 bytes long, containing at least 27 characters.
 	public typealias PStr27 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8)
-	/// A pascal string that is at least 16 bytes long, containing at least 15 characters.
+	/// A pascal string that is 16 bytes long, containing at least 15 characters.
 	public typealias PStr15 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	/// A pascal string that is at least 34 bytes long, containing at least 32 characters.
+	/// A pascal string that is 34 bytes long, containing at least 32 characters.
 	///
 	/// The last byte is unused as it was used for padding over a network.
 	public typealias PStr32Field = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
@@ -158,7 +159,7 @@ extension String {
 	
 	/// The base initializer for the Pascal String types.
 	/// Gets passed a `CFStringEncoding` because the underlying function used to generate
-	/// strings uses that.
+	/// the string uses that.
 	private init?(pascalString pStr: UnsafePointer<UInt8>, encoding: CFStringEncoding, maximumLength: UInt8 = 255) {
 		if pStr.pointee > maximumLength {
 			return nil
@@ -186,6 +187,10 @@ extension String {
 		self.init(pascalString: pStr, encoding: CFEncoding, maximumLength: maximumLength)
 	}
 	
+	/// Converts a tuple of a Pascal string into a Swift string.
+	///
+	/// - parameter pStr: a tuple of the Pascal string in question.
+	/// - parameter encoding: The encoding of the pascal stiring. The default is `NSMacOSRomanStringEncoding`.
 	public init?(pascalString pStr: PStr255, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		// a UInt8 can't reference any number greater than 255,
@@ -193,6 +198,10 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
+	/// Converts a tuple of a Pascal string into a Swift string.
+	///
+	/// - parameter pStr: a tuple of the Pascal string in question.
+	/// - parameter encoding: The encoding of the pascal stiring. The default is `NSMacOSRomanStringEncoding`.
 	public init?(pascalString pStr: PStr63, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 63 {
@@ -201,6 +210,10 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
+	/// Converts a tuple of a Pascal string into a Swift string.
+	///
+	/// - parameter pStr: a tuple of the Pascal string in question.
+	/// - parameter encoding: The encoding of the pascal stiring. The default is `NSMacOSRomanStringEncoding`.
 	public init?(pascalString pStr: PStr32, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 32 {
@@ -210,6 +223,10 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
+	/// Converts a tuple of a Pascal string into a Swift string.
+	///
+	/// - parameter pStr: a tuple of the Pascal string in question.
+	/// - parameter encoding: The encoding of the pascal stiring. The default is `NSMacOSRomanStringEncoding`.
 	public init?(pascalString pStr: PStr31, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 31 {
@@ -218,6 +235,10 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
+	/// Converts a tuple of a Pascal string into a Swift string.
+	///
+	/// - parameter pStr: a tuple of the Pascal string in question.
+	/// - parameter encoding: The encoding of the pascal stiring. The default is `NSMacOSRomanStringEncoding`.
 	public init?(pascalString pStr: PStr27, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 27 {
@@ -226,6 +247,10 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
+	/// Converts a tuple of a Pascal string into a Swift string.
+	///
+	/// - parameter pStr: a tuple of the Pascal string in question.
+	/// - parameter encoding: The encoding of the pascal stiring. The default is `NSMacOSRomanStringEncoding`.
 	public init?(pascalString pStr: PStr15, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		if unwrapped[0] > 15 {
@@ -234,7 +259,12 @@ extension String {
 		self.init(pascalString: unwrapped, encoding: encoding)
 	}
 	
-	/// The last byte in a Str32Field is unused,
+	/// Converts a tuple of a Pascal string into a Swift string.
+	///
+	/// - parameter pStr: a tuple of the Pascal string in question.
+	/// - parameter encoding: The encoding of the pascal stiring. The default is `NSMacOSRomanStringEncoding`.
+	///
+	/// The last byte in a `Str32Field` is unused,
 	/// so the last byte isn't read.
 	public init?(pascalString pStr: PStr32Field, encoding: String.Encoding = String.Encoding.macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
@@ -344,7 +374,7 @@ extension OSType: ExpressibleByStringLiteral {
 
 #if os(OSX)
 extension String {
-	/// HFSUniStr255 is declared internally on OS X as part of the HFS headers. iOS doesn't have this header.
+	/// HFSUniStr255 is declared internally on OS X as part of the HFS headers. iOS doesn't have this struct public.
 	public init?(HFSUniStr: HFSUniStr255) {
 		let uniChars: [UInt16] = try! arrayFromObject(reflecting: HFSUniStr.unicode)
 		var uniStr = Array(uniChars[0 ..< Int(HFSUniStr.length)])
