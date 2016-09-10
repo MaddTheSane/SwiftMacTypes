@@ -11,6 +11,7 @@ import Foundation
 import ForceFeedback
 import SwiftAdditions
 
+/// The error domain of `ForceFeedbackResult`
 public let ForceFeedbackResultErrorDomain =
 "com.github.maddthesane.ForceFeedbackAdditions.ForceFeedbackResult"
 
@@ -54,10 +55,12 @@ public enum ForceFeedbackResult: HRESULT, ErrorType {
 		}
 	}
 	
+	/// is `true` if the raw value is greater than or equal to `0`.
 	public var isSuccess: Bool {
 		return rawValue >= 0
 	}
 	
+	/// is `true` if the raw value is less than `0`.
 	public var isFailure: Bool {
 		return rawValue < 0
 	}
@@ -398,24 +401,171 @@ extension FFEFFESCAPE {
 	}
 }
 
-// TODO: put these in an enum, or struct, or something...
-public let ForceFeedbackOffsetX : UInt8 = 0
-public let ForceFeedbackOffsetY : UInt8 = 4
-public let ForceFeedbackOffsetZ : UInt8 = 8
-public let ForceFeedbackOffsetRX : UInt8 = 12
-public let ForceFeedbackOffsetRY : UInt8 = 16
-public let ForceFeedbackOffsetRZ : UInt8 = 20
-
-public func ForceFeedbackOffsetSlider(n: UInt8) -> UInt8 {
-	return UInt8(24 + Int(n) * sizeof(LONG))
-}
-
-public func ForceFeedbackOffsetPOV(n: UInt8) -> UInt8 {
-	return UInt8(32 + Int(n) * sizeof(DWORD))
-}
-
-public func ForceFeedbackOffsetButton(n: UInt8) -> UInt8 {
-	return (48 + (n))
+/// Axis and Button field offsets, used in `FFEFFECT.dwTriggerButton` and `FFEFFECT.rgdwAxes[`<i>n</i>`]`.
+public enum ForceFeedbackOffset {
+	public static var x: UInt8 {
+		return 0
+	}
+	
+	public static var y: UInt8 {
+		return 4
+	}
+	
+	public static var z: UInt8 {
+		return 8
+	}
+	
+	public static var rx: UInt8 {
+		return 12
+	}
+	
+	public static var ry: UInt8 {
+		return 16
+	}
+	
+	public static var rz: UInt8 {
+		return 20
+	}
+	
+	public static func slider(n: UInt8) -> UInt8 {
+		return UInt8(24 + Int(n) * sizeof(LONG))
+	}
+	
+	public static func POV(n: UInt8) -> UInt8 {
+		return UInt8(32 + Int(n) * sizeof(DWORD))
+	}
+	
+	public static func button(n: UInt8) -> UInt8 {
+		return (48 + (n))
+	}
+	
+	public static var button0: UInt8 {
+		return button(0)
+	}
+	
+	public static var button1: UInt8 {
+		return button(1)
+	}
+	
+	public static var button2: UInt8 {
+		return button(2)
+	}
+	
+	public static var button3: UInt8 {
+		return button(3)
+	}
+	
+	public static var button4: UInt8 {
+		return button(4)
+	}
+	
+	public static var button5: UInt8 {
+		return button(5)
+	}
+	
+	public static var button6: UInt8 {
+		return button(6)
+	}
+	
+	public static var button7: UInt8 {
+		return button(7)
+	}
+	
+	public static var button8: UInt8 {
+		return button(8)
+	}
+	
+	public static var button9: UInt8 {
+		return button(9)
+	}
+	
+	public static var button10: UInt8 {
+		return button(10)
+	}
+	
+	public static var button11: UInt8 {
+		return button(11)
+	}
+	
+	public static var button12: UInt8 {
+		return button(12)
+	}
+	
+	public static var button13: UInt8 {
+		return button(13)
+	}
+	
+	public static var button14: UInt8 {
+		return button(14)
+	}
+	
+	public static var button15: UInt8 {
+		return button(15)
+	}
+	
+	public static var button16: UInt8 {
+		return button(16)
+	}
+	
+	public static var button17: UInt8 {
+		return button(17)
+	}
+	
+	public static var button18: UInt8 {
+		return button(18)
+	}
+	
+	public static var button19: UInt8 {
+		return button(19)
+	}
+	
+	public static var button20: UInt8 {
+		return button(20)
+	}
+	
+	public static var button21: UInt8 {
+		return button(21)
+	}
+	
+	public static var button22: UInt8 {
+		return button(22)
+	}
+	
+	public static var button23: UInt8 {
+		return button(23)
+	}
+	
+	public static var button24: UInt8 {
+		return button(24)
+	}
+	
+	public static var button25: UInt8 {
+		return button(25)
+	}
+	
+	public static var button26: UInt8 {
+		return button(26)
+	}
+	
+	public static var button27: UInt8 {
+		return button(27)
+	}
+	
+	public static var button28: UInt8 {
+		return button(28)
+	}
+	
+	public static var button29: UInt8 {
+		return button(29)
+	}
+	
+	public static var button30: UInt8 {
+		return button(0)
+	}
+	
+	public static var button31: UInt8 {
+		return button(31)
+	}
 }
 
 extension FFCAPABILITIES {
