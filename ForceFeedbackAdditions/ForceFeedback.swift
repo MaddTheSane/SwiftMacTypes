@@ -43,7 +43,7 @@ public enum ForceFeedbackResult: HRESULT, Error {
 	case NotInitialized = -2147220731
 	case DeviceReleased = -2147220729
 	case EffectTypeNotSupported = -2147220730
-	internal static func from(result inResult: HRESULT) -> ForceFeedbackResult {
+	fileprivate static func from(result inResult: HRESULT) -> ForceFeedbackResult {
 		if let unwrapped = ForceFeedbackResult(rawValue: inResult) {
 			return unwrapped
 		} else {
@@ -661,7 +661,7 @@ public struct ForceFeedbackCoordinateSystem : OptionSet {
 }
 
 public final class ForceFeedbackDevice {
-	internal let rawDevice: ImplicitlyUnwrappedOptional<FFDeviceObjectReference>
+	fileprivate let rawDevice: ImplicitlyUnwrappedOptional<FFDeviceObjectReference>
 	public private(set) var lastReturnValue: ForceFeedbackResult = .OK
 	
 	public enum Property: UInt32 {
