@@ -16,9 +16,17 @@ public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
 }
 
 extension NSRange: Equatable {
-	/// An `NSRange` with a location of `NSNotFound` and a length of `0`.
-	public static let notFound = NSRange(location: NSNotFound, length: 0)
-	
+	/// An `NSRange` with a `location` of `NSNotFound` and a `length` of `0`.
+	public static var notFound: NSRange {
+		return NSRange(location: NSNotFound, length: 0)
+	}
+	/// Returns a range from a textual representation.
+	///
+	/// Scans `string` for two integers which are used as the `location` 
+	/// and `length` values, in that order, to create an `NSRange` struct. 
+	/// If `string` only contains a single integer, it is used as the location 
+	/// value. If `string` does not contain any integers, this function returns 
+	/// an `NSRange` whose location and length values are both `0`.
 	public init(string: String) {
 		self = NSRangeFromString(string)
 	}
@@ -33,6 +41,8 @@ extension NSRange: Equatable {
 		return NSLocationInRange(loc, self)
 	}
 	
+	/// Returns a Boolean value that indicates whether a specified 
+	/// position is in a given range.
 	public func contains(_ location: Int) -> Bool {
 		return NSLocationInRange(location, self)
 	}
@@ -43,28 +53,32 @@ extension NSRange: Equatable {
 	}
 
 	/// Make a new `NSRange` by intersecting this range and another.
+	/// - parameter otherRange: the other range to intersect with.
 	public func intersection(_ otherRange: NSRange) -> NSRange {
 		return NSIntersectionRange(self, otherRange)
 	}
 
 	/// Set the current `NSRange` to an intersection of this range and another.
+	/// - parameter otherRange: the other range to intersect with.
 	public mutating func intersect(_ otherRange: NSRange) {
 		self = NSIntersectionRange(self, otherRange)
 	}
 	
 	/// A string representation of the current range.
-	/// - returns: A string of the form *“{a, b}”*, where *a* and *b* are
+	/// Returns a string of the form *“{a, b}”*, where *a* and *b* are
 	/// non-negative integers representing `self`.
 	public var stringValue: String {
 		return NSStringFromRange(self)
 	}
 
 	/// Make a new `NSRange` from a union of this range and another.
+	/// - parameter otherRange: the other range to create a union with.
 	public func union(_ otherRange: NSRange) -> NSRange {
 		return NSUnionRange(self, otherRange)
 	}
 
 	/// Set the current `NSRange` to a union of this range and another.
+	/// - parameter otherRange: the other range to create a union with.
 	public mutating func formUnion(_ otherRange: NSRange) {
 		self = NSUnionRange(self, otherRange)
 	}
@@ -72,12 +86,14 @@ extension NSRange: Equatable {
 	// MARK: - CFRange interop.
 	
 	/// Initializes an `NSRange` struct from a `CFRange` struct.
+	/// - parameter range: The `CFRange` to convert from.
 	public init(_ range: CoreFoundation.CFRange) {
 		location = range.location
 		length = range.length
 	}
 	
 	/// Initializes an `NSRange` struct from a `CFRange` struct.
+	/// - parameter range: The `CFRange` to convert from.
 	public init(range: CoreFoundation.CFRange) {
 		self.init(range)
 	}
@@ -97,6 +113,7 @@ extension CGPoint {
 	/// If `string` only contains a single number, it is used as the `x` coordinate.
 	/// If `string` does not contain any numbers, creates an `CGPoint` object whose
 	/// `x` and `y` coordinates are both `0`.
+	/// - parameter string: The string to decode the point from.
 	public init(string: String) {
 		#if os(OSX)
 			self = NSPointFromString(string)
@@ -106,7 +123,8 @@ extension CGPoint {
 	}
 
 	/// A string representation of the current point.
-	/// - returns: A string of the form *"{a, b}"*, where *a* and *b* are the `x`
+	/// 
+	//// Returns a string of the form *"{a, b}"*, where *a* and *b* are the `x`
 	/// and `y` coordinates of `self`.
 	public var stringValue: String {
 		#if os(OSX)
@@ -127,6 +145,7 @@ extension CGSize {
 	/// or `CGSize.stringValue`, for example, `"{10,20}"`.
 	/// If `string` does not contain any numbers, this function returns a `CGSize`
 	/// struct whose width and height are both `0`.
+	/// - parameter string: The string to decode the size from.
 	public init(string: String) {
 		#if os(OSX)
 			self = NSSizeFromString(string)
@@ -137,7 +156,7 @@ extension CGSize {
 
 	/// A string representation of the current size.
 	///
-	/// - returns: A string of the form *"{a, b}"*, where *a* and *b* are the `width`
+	/// Returns a string of the form *"{a, b}"*, where *a* and *b* are the `width`
 	/// and `height`, respectively, of `self`.
 	public var stringValue: String {
 		#if os(OSX)
@@ -171,6 +190,7 @@ extension CGRect {
 	/// and `0` is used for the remaining values. If `string` does not contain any
 	/// numbers, this function returns a `CGRect` object with a rectangle whose origin
 	/// is `(0, 0)` and width and height are both `0`.
+	/// - parameter string: The string to decode the rectangle from.
 	public init(string: String) {
 		#if os(OSX)
 			self = NSRectFromString(string)
@@ -181,7 +201,7 @@ extension CGRect {
 
 	/// A string representation of the current rect.
 	///
-	/// - returns: a string of the form *"{{a, b}, {c, d}}"*, where *a*, *b*, *c*, and *d*
+	/// Returns a string of the form *"{{a, b}, {c, d}}"*, where *a*, *b*, *c*, and *d*
 	/// are the `x` and `y` coordinates and the `width` and `height`, respectively, of `self`.
 	public var stringValue: String {
 		#if os(OSX)
@@ -193,8 +213,10 @@ extension CGRect {
 
 	#if os(OSX)
 	/// Returns a `Bool` value that indicates whether the point is in the specified rectangle.
+	/// - parameter location: The point to test for.
 	/// - parameter flipped: Specify `true` for flipped if the underlying view uses a
-	/// flipped coordinate system. Default is `false`.
+	/// flipped coordinate system.<br>
+	/// Default is `false`.
 	/// - returns: `true` if the hot spot of the cursor lies inside the rectangle, otherwise `false`.
 	public func mouseInLocation(location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
@@ -210,7 +232,7 @@ extension NSUUID {
 		self.init(uuidString: tempUIDStr)!
 	}
 	
-	/// gets a CoreFoundation UUID from the current UUID.
+	/// Get a CoreFoundation UUID from the current UUID.
 	public var `CFUUID`: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
@@ -226,7 +248,7 @@ extension UUID {
 		self.init(uuidString: tempUIDStr)!
 	}
 	
-	/// gets a CoreFoundation UUID from the current UUID.
+	/// Gets a CoreFoundation UUID from the current UUID.
 	public var `CFUUID`: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
