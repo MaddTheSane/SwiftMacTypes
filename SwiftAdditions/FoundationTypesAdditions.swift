@@ -17,9 +17,8 @@ public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
 
 extension NSRange: Equatable {
 	/// An `NSRange` with a `location` of `NSNotFound` and a `length` of `0`.
-	public static var notFound: NSRange {
-		return NSRange(location: NSNotFound, length: 0)
-	}
+	public static let notFound = NSRange(location: NSNotFound, length: 0)
+	
 	/// Returns a range from a textual representation.
 	///
 	/// Scans `string` for two integers which are used as the `location` 
@@ -323,13 +322,7 @@ extension UserDefaults {
 
 // Code taken from http://stackoverflow.com/a/30404532/1975001
 extension String {
-	/// Creates a `String` range from the passed in `NSRange`.
-	/// - parameter nsRange: An `NSRange` to convert to a `String` range.
-	/// - returns: a `String` range, or `nil` if `nsRange` could not be converted.
-	///
-	/// Make sure you have called `-[NSString rangeOfComposedCharacterSequencesForRange:]`
-	/// *before* calling this method, otherwise if the beginning or end of
-	/// `nsRange` is in between Unicode code points, this method will return `nil`.
+	/// Creates an `NSRange` from a comparable `String` range.
 	public func nsRange(from range: Range<String.Index>) -> NSRange {
 		let utf16view = self.utf16
 		let from = range.lowerBound.samePosition(in: utf16view)
@@ -338,6 +331,13 @@ extension String {
 		               length: utf16view.distance(from: from, to: to))
 	}
 	
+	/// Creates a `String` range from the passed in `NSRange`.
+	/// - parameter nsRange: An `NSRange` to convert to a `String` range.
+	/// - returns: a `String` range, or `nil` if `nsRange` could not be converted.
+	///
+	/// Make sure you have called `-[NSString rangeOfComposedCharacterSequencesForRange:]`
+	/// *before* calling this method, otherwise if the beginning or end of
+	/// `nsRange` is in between Unicode code points, this method will return `nil`.
 	public func range(from nsRange: NSRange) -> Range<String.Index>? {
 		guard
 			let preRange = nsRange.toRange(),
