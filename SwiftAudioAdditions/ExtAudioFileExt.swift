@@ -10,8 +10,8 @@ import Foundation
 import AudioToolbox
 import SwiftAdditions
 
-public func ExtAudioFileCreate(URL inURL: NSURL, fileType inFileType: AudioFileType, streamDescription inStreamDesc: inout AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout>? = nil, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), audioFile outAudioFile: inout ExtAudioFileRef?) -> OSStatus {
-	return ExtAudioFileCreateWithURL(inURL, inFileType.rawValue, &inStreamDesc, inChannelLayout, flags.rawValue, &outAudioFile)
+public func ExtAudioFileCreate(URL inURL: URL, fileType inFileType: AudioFileType, streamDescription inStreamDesc: inout AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout>? = nil, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), audioFile outAudioFile: inout ExtAudioFileRef?) -> OSStatus {
+	return ExtAudioFileCreateWithURL(inURL as NSURL, inFileType.rawValue, &inStreamDesc, inChannelLayout, flags.rawValue, &outAudioFile)
 }
 
 public func ExtAudioFileSetProperty(inExtAudioFile: ExtAudioFileRef, propertyID inPropertyID: ExtAudioFilePropertyID, dataSize propertyDataSize: UInt32, data propertyData: UnsafeRawPointer) -> OSStatus {

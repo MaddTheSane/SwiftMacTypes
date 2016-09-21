@@ -387,25 +387,25 @@ extension String {
 }
 
 public enum CarbonToolbarIcons: OSType {
-	case Customize = 0x74637573
-	case Delete = 0x7464656C
-	case Favorite = 0x74666176
-	case Home = 0x74686F6D
-	case Advanced = 0x74626176
-	case Info = 0x7462696E
-	case Labels = 0x74626C62
-	case ApplicationFolder = 0x74417073
-	case DocumentsFolder = 0x74446F63
-	case MoviesFolder = 0x744D6F76
-	case MusicFolder = 0x744D7573
-	case PicturesFolder = 0x74506963
-	case PublicFolder = 0x74507562
-	case DesktopFolder = 0x7444736B
-	case DownloadsFolder = 0x7444776E
-	case LibraryFolder = 0x744C6962
-	case UtilitiesFolder = 0x7455746C
-	case SitesFolder = 0x74537473
-	
+	case customize = 0x74637573
+	case delete = 0x7464656C
+	case favorite = 0x74666176
+	case home = 0x74686F6D
+	case advanced = 0x74626176
+	case info = 0x7462696E
+	case labels = 0x74626C62
+	case applicationFolder = 0x74417073
+	case documentsFolder = 0x74446F63
+	case moviesFolder = 0x744D6F76
+	case musicFolder = 0x744D7573
+	case picturesFolder = 0x74506963
+	case publicFolder = 0x74507562
+	case desktopFolder = 0x7444736B
+	case downloadsFolder = 0x7444776E
+	case libraryFolder = 0x744C6962
+	case utilitiesFolder = 0x7455746C
+	case sitesFolder = 0x74537473
+
 	public var stringValue: String {
 		return OSTypeToString(rawValue) ?? "    "
 	}
@@ -416,13 +416,13 @@ public enum CarbonToolbarIcons: OSType {
 }
 
 public enum CarbonFolderIcons: OSType {
-	case Generic = 0x666C6472
-	case Drop = 0x64626F78
-	case Mounted = 0x6D6E7464
-	case Open = 0x6F666C64
-	case Owned = 0x6F776E64
-	case Private = 0x70727666
-	case Shared = 0x7368666C
+	case generic = 0x666C6472
+	case drop = 0x64626F78
+	case mounted = 0x6D6E7464
+	case open = 0x6F666C64
+	case owned = 0x6F776E64
+	case `private` = 0x70727666
+	case shared = 0x7368666C
 	
 	public var stringValue: String {
 		return OSTypeToString(rawValue) ?? "    "
@@ -432,4 +432,115 @@ public enum CarbonFolderIcons: OSType {
 		return NSWorkspace.shared().icon(forFileType: NSFileTypeForHFSTypeCode(rawValue))
 	}
 }
+	
+	// MARK: - deprecated Swift 2 names
+
+	extension CarbonToolbarIcons {
+		@available(*, unavailable, message:"Use '.customize' instead", renamed: "customize")
+		public static var Customize: CarbonToolbarIcons {
+			return .customize
+		}
+		@available(*, unavailable, message:"Use '.delete' instead", renamed: "delete")
+		public static var Delete: CarbonToolbarIcons {
+			return .delete
+		}
+		@available(*, unavailable, message:"Use '.favorite' instead", renamed: "favorite")
+		public static var Favorite: CarbonToolbarIcons {
+			return .favorite
+		}
+		@available(*, unavailable, message:"Use '.home' instead", renamed: "home")
+		public static var Home: CarbonToolbarIcons {
+			return .home
+		}
+		@available(*, unavailable, message:"Use '.advanced' instead", renamed: "advanced")
+		public static var Advanced: CarbonToolbarIcons {
+			return .advanced
+		}
+		@available(*, unavailable, message:"Use '.info' instead", renamed: "info")
+		public static var Info: CarbonToolbarIcons {
+			return .info
+		}
+		@available(*, unavailable, message:"Use '.labels' instead", renamed: "labels")
+		public static var Labels: CarbonToolbarIcons {
+			return .labels
+		}
+		@available(*, unavailable, message:"Use '.applicationFolder' instead", renamed: "applicationFolder")
+		public static var ApplicationFolder: CarbonToolbarIcons {
+			return .applicationFolder
+		}
+		@available(*, unavailable, message:"Use '.documentsFolder' instead", renamed: "documentsFolder")
+		public static var DocumentsFolder: CarbonToolbarIcons {
+			return .documentsFolder
+		}
+		@available(*, unavailable, message:"Use '.moviesFolder' instead", renamed: "moviesFolder")
+		public static var MoviesFolder: CarbonToolbarIcons {
+			return .moviesFolder
+		}
+		@available(*, unavailable, message:"Use '.musicFolder' instead", renamed: "musicFolder")
+		public static var MusicFolder: CarbonToolbarIcons {
+			return .musicFolder
+		}
+		@available(*, unavailable, message:"Use '.picturesFolder' instead", renamed: "picturesFolder")
+		public static var PicturesFolder: CarbonToolbarIcons {
+			return .picturesFolder
+		}
+		@available(*, unavailable, message:"Use '.publicFolder' instead", renamed: "publicFolder")
+		public static var PublicFolder: CarbonToolbarIcons {
+			return .publicFolder
+		}
+		@available(*, unavailable, message:"Use '.desktopFolder' instead", renamed: "desktopFolder")
+		public static var DesktopFolder: CarbonToolbarIcons {
+			return .desktopFolder
+		}
+		@available(*, unavailable, message:"Use '.downloadsFolder' instead", renamed: "downloadsFolder")
+		public static var DownloadsFolder: CarbonToolbarIcons {
+			return .downloadsFolder
+		}
+		@available(*, unavailable, message:"Use '.libraryFolder' instead", renamed: "libraryFolder")
+		public static var LibraryFolder: CarbonToolbarIcons {
+			return .libraryFolder
+		}
+		@available(*, unavailable, message:"Use '.utilitiesFolder' instead", renamed: "utilitiesFolder")
+		public static var UtilitiesFolder: CarbonToolbarIcons {
+			return .utilitiesFolder
+		}
+		@available(*, unavailable, message:"Use '.sitesFolder' instead", renamed: "sitesFolder")
+		public static var SitesFolder: CarbonToolbarIcons {
+			return .sitesFolder
+		}
+	}
+	
+	extension CarbonFolderIcons {
+		@available(*, unavailable, message:"Use '.generic' instead", renamed: "generic")
+		public static var Generic: CarbonFolderIcons {
+			return .generic
+		}
+		@available(*, unavailable, message:"Use '.drop' instead", renamed: "drop")
+		public static var Drop: CarbonFolderIcons {
+			return .drop
+		}
+		@available(*, unavailable, message:"Use '.mounted' instead", renamed: "mounted")
+		public static var Mounted: CarbonFolderIcons {
+			return .mounted
+		}
+		@available(*, unavailable, message:"Use '.open' instead", renamed: "open")
+		public static var Open: CarbonFolderIcons {
+			return .open
+		}
+		@available(*, unavailable, message:"Use '.owned' instead", renamed: "owned")
+		public static var Owned: CarbonFolderIcons {
+			return .owned
+		}
+		@available(*, unavailable, message:"Use '.private' instead", renamed: "private")
+		public static var Private: CarbonFolderIcons {
+			return .private
+		}
+		@available(*, unavailable, message:"Use '.shared' instead", renamed: "shared")
+		public static var Shared: CarbonFolderIcons {
+			return .shared
+		}
+	}
+	
+	// MARK: -
+
 #endif

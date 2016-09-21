@@ -14,9 +14,9 @@ import SwiftAdditions
 public final class AudioFile {
 	private(set) var fileID: ImplicitlyUnwrappedOptional<AudioFileID> = nil
 	
-	public init(createWithURL url: NSURL, fileType: AudioFileTypeID, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = []) throws {
+	public init(createWithURL url: URL, fileType: AudioFileTypeID, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = []) throws {
 		var fileID: AudioFileID? = nil
-		let iErr = AudioFileCreateWithURL(url, fileType, &format, flags, &fileID)
+		let iErr = AudioFileCreateWithURL(url as NSURL, fileType, &format, flags, &fileID)
 		
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
@@ -24,9 +24,9 @@ public final class AudioFile {
 		self.fileID = fileID
 	}
 	
-	public init(openURL: NSURL, permissions: AudioFilePermissions = .readPermission, fileTypeHint fileHint: AudioFileTypeID) throws {
+	public init(openURL: URL, permissions: AudioFilePermissions = .readPermission, fileTypeHint fileHint: AudioFileTypeID) throws {
 		var fileID: AudioFileID? = nil
-		let iErr = AudioFileOpenURL(openURL, permissions, fileHint, &fileID)
+		let iErr = AudioFileOpenURL(openURL as NSURL, permissions, fileHint, &fileID)
 		
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
@@ -78,7 +78,7 @@ public final class AudioFile {
 		return Int(outNumberItems)
 	}
 	
-	func sizeOfUserData(ID inUserDataID: UInt32, index: Int) throws -> Int {
+	func sizeOf(userDataID inUserDataID: UInt32, index: Int) throws -> Int {
 		var outNumberSize: UInt32 = 0
 		let iErr = AudioFileGetUserDataSize(fileID, inUserDataID, UInt32(index), &outNumberSize)
 		if iErr != noErr {

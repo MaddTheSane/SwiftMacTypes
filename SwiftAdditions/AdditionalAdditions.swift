@@ -25,7 +25,7 @@ public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 /// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
 ///
 /// **Deprecated:** Use `arrayFromObject(reflecting:, appendLastObject:) throws` instead
-@available(*, deprecated, message:"Use \"arrayFromObject(reflecting:, appendLastObject:) throws\" instead")
+@available(*, deprecated, message:"Use 'arrayFromObject(reflecting:, appendLastObject:) throws' instead", renamed: "arrayFromObject(reflecting:appendLastObject:)")
 public func getArrayFromMirror<X>(mirror: Mirror, appendLastObject lastObj: X? = nil) -> [X] {
 	var anArray = [X]()
 	for val in mirror.children {
@@ -134,7 +134,7 @@ public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>)
 /// Returns objects that were removed.
 /// - parameter ixs: the index set containing the indexes of objects that will be removed
 /// - returns: any objects that were removed.
-@available(*, unavailable, message:"Use \"Array.remove(indexes:)\" instead",renamed:"Array.remove(indexes:)")
+@available(*, unavailable, message:"Use 'Array.remove(indexes:)' instead", renamed: "Array.remove(indexes:)")
 public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
 	return anArray.remove(indexes: indexes)
 }
@@ -144,7 +144,7 @@ public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes
 /// - parameter anArray: the array to modify.
 /// - parameter indexes: the integer set containing the indexes of objects that will be removed
 /// - returns: any objects that were removed.
-@available(*, unavailable, message:"Use \"Array.remove(indexes:)\" instead",renamed:"Array.remove(indexes:)")
+@available(*, unavailable, message:"Use 'Array.remove(indexes:)' instead", renamed: "Array.remove(indexes:)")
 public func removeObjects<T, B: Sequence>( inArray anArray: inout Array<T>, atIndexes indexes: B) -> [T] where B.Iterator.Element == Int {
 	return anArray.remove(indexes: indexes)
 }
@@ -201,7 +201,7 @@ extension Array where Element: AnyObject {
 ///Sort a Swift array using an array of `NSSortDescriptor`.
 ///
 ///This *may* be expensive, in both memory and computation!
-@available(*, unavailable, message:"Use \"Array.sorted(using:)\" instead",renamed:"Array.sorted(using:)")
+@available(*, unavailable, message:"Use 'Array.sorted(using:)' instead", renamed: "Array.sorted(using:)")
 public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
 	let sortedArray = anArray.sorted(using: descriptors)
 	

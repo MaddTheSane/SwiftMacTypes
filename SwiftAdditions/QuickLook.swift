@@ -11,9 +11,9 @@ import Foundation
 #if os(OSX)
 
 public enum QLPreviewPDFStyle: Int {
-	case Standard = 0
-	case PagesWithThumbnailsOnRight = 3
-	case PagesWithThumbnailsOnLeft = 4
+	case standard = 0
+	case pagesWithThumbnailsOnRight = 3
+	case pagesWithThumbnailsOnLeft = 4
 }
 
 #endif

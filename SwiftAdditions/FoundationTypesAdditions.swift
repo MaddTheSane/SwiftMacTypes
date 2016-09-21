@@ -35,13 +35,13 @@ extension NSRange: Equatable {
 		return location == NSNotFound
 	}
 	
-	@available(*, unavailable, message:"Use \"contains(_:)\" instead", renamed:"NSRange.contains(_:)")
+	@available(*, unavailable, message:"Use 'contains(_:)' instead", renamed:"NSRange.contains(_:)")
 	public func locationInRange(_ loc: Int) -> Bool {
 		return NSLocationInRange(loc, self)
 	}
 	
 	/// Returns a Boolean value that indicates whether a specified 
-	/// position is in a given range.
+	/// position is in the given range.
 	public func contains(_ location: Int) -> Bool {
 		return NSLocationInRange(location, self)
 	}
@@ -123,7 +123,7 @@ extension CGPoint {
 
 	/// A string representation of the current point.
 	/// 
-	//// Returns a string of the form *"{a, b}"*, where *a* and *b* are the `x`
+	/// Returns a string of the form *"{a, b}"*, where *a* and *b* are the `x`
 	/// and `y` coordinates of `self`.
 	public var stringValue: String {
 		#if os(OSX)
@@ -141,7 +141,7 @@ extension CGSize {
 	/// in that order, to create a `CGSize` struct. If `string` only contains a
 	/// single number, it is used as the width. The `string` argument should be
 	/// formatted like the output of `NSStringFromSize(_:)`, `NSStringFromCGSize(_:)`,
-	/// or `CGSize.stringValue`, for example, `"{10,20}"`.
+	/// or `CGSize.stringValue`, for example, `"{10,20}"`.<br>
 	/// If `string` does not contain any numbers, this function returns a `CGSize`
 	/// struct whose width and height are both `0`.
 	/// - parameter string: The string to decode the size from.
@@ -169,9 +169,15 @@ extension CGSize {
 extension CGRect {
 	#if os(OSX)
 	/// Adjusts the sides of a rectangle to integral values using the specified options.
+	public mutating func formIntegral(options: AlignmentOptions) {
+		self = NSIntegralRectWithOptions(self, options)
+	}
+	
+	@available(*, unavailable, message: "Use 'formIntegral(options:)' instead", renamed: "CGRect.formIntegral(options:)")
 	public mutating func integralInPlace(options: AlignmentOptions) {
 		self = NSIntegralRectWithOptions(self, options)
 	}
+
 	
 	/// Adjusts the sides of a rectangle to integral values using the specified options.
 	/// - returns: A copy of `self`, modified based on the options. The options are
@@ -247,7 +253,7 @@ extension UUID {
 		self.init(uuidString: tempUIDStr)!
 	}
 	
-	/// Gets a CoreFoundation UUID from the current UUID.
+	/// Get a CoreFoundation UUID from the current UUID.
 	public var `CFUUID`: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
@@ -281,7 +287,7 @@ extension NSMutableData {
 
 #if os(OSX)
 @available(OSX, introduced:10.10)
-extension EdgeInsets {
+extension EdgeInsets: Equatable {
 	public static var zero: EdgeInsets {
 		return NSEdgeInsetsZero
 	}
@@ -294,12 +300,14 @@ public func ==(rhs: EdgeInsets, lhs: EdgeInsets) -> Bool {
 #endif
 
 extension NSIndexSet {
+	/// Creates an index set from a sequence of `Int`s.
 	public convenience init<B: Sequence>(indexes: B) where B.Iterator.Element == Int {
 		self.init(indexSet: IndexSet(indexes: indexes))
 	}
 }
 
 extension IndexSet {
+	/// Creates an index set from a sequence of `Int`s.
 	public init<B: Sequence>(indexes: B) where B.Iterator.Element == Int {
 		self.init()
 		for idx in indexes {

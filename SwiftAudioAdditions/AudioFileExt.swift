@@ -22,12 +22,12 @@ public var kLinearPCMFormatFlagNativeEndian: AudioFormatFlags {
 }
 
 public enum AudioFileType: OSType {
-	case Unknown			= 0
+	case unknown			= 0
 	case AIFF				= 1095321158
 	case AIFC				= 1095321155
 	case WAVE				= 1463899717
-	case SoundDesigner2		= 1399075430
-	case Next				= 1315264596
+	case soundDesigner2		= 1399075430
+	case NeXT				= 1315264596
 	case MP3				= 1297106739
 	case MP2				= 1297106738
 	case MP1				= 1297106737
@@ -46,12 +46,12 @@ public enum AudioFileType: OSType {
 	}
 }
 
-public func AudioFileCreate(URL inFileRef: NSURL, fileType inFileType: AudioFileType, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
-	return AudioFileCreateWithURL(inFileRef as CFURL, inFileType.rawValue, &format, flags, &outAudioFile)
+public func AudioFileCreate(URL inFileRef: URL, fileType inFileType: AudioFileType, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
+	return AudioFileCreateWithURL(inFileRef as NSURL, inFileType.rawValue, &format, flags, &outAudioFile)
 }
 
 public func AudioFileCreate(path: String, fileType inFileType: AudioFileType, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
-	let inFileRef = NSURL(fileURLWithPath: path)
+	let inFileRef = URL(fileURLWithPath: path)
 	return AudioFileCreate(URL: inFileRef, fileType: inFileType, format: &format, flags: flags, audioFile: &outAudioFile)
 }
 
@@ -75,31 +75,31 @@ public func AudioFileWriteBytes(audioFile: AudioFileID, useCache: Bool = false, 
 // MARK: Audio Format
 
 public enum AudioFormat: OSType {
-	case Unknown				= 0
+	case unknown				= 0
 	case DVIIntelIMA			= 0x6D730011
-	case MicrosoftGSM			= 0x6D730031
-	case LinearPCM				= 1819304813
+	case microsoftGSM			= 0x6D730031
+	case linearPCM				= 1819304813
 	case AC3					= 1633889587
-	case Six0958AC3				= 1667326771
-	case AppleIMA4				= 1768775988
+	case six0958AC3				= 1667326771
+	case appleIMA4				= 1768775988
 	case MPEG4AAC				= 1633772320
 	case MPEG4CELP				= 1667591280
 	case MPEG4HVXC				= 1752594531
 	case MPEG4TwinVQ			= 1953986161
 	case MACE3					= 1296122675
 	case MACE6					= 1296122678
-	case ULaw					= 1970037111
-	case ALaw					= 1634492791
-	case QDesign				= 1363430723
-	case QDesign2				= 1363430706
+	case µLaw					= 1970037111
+	case aLaw					= 1634492791
+	case qDesign				= 1363430723
+	case qDesign2				= 1363430706
 	case QUALCOMM				= 1365470320
 	case MPEGLayer1				= 778924081
 	case MPEGLayer2				= 778924082
 	case MPEGLayer3				= 778924083
-	case TimeCode				= 1953066341
+	case timeCode				= 1953066341
 	case MIDIStream				= 1835623529
-	case ParameterValueStream	= 1634760307
-	case AppleLossless			= 1634492771
+	case parameterValueStream	= 1634760307
+	case appleLossless			= 1634492771
 	case MPEG4AAC_HE			= 1633772392
 	case MPEG4AAC_LD			= 1633772396
 	case MPEG4AAC_ELD			= 1633772389
@@ -109,9 +109,13 @@ public enum AudioFormat: OSType {
 	case MPEG4AAC_Spatial		= 1633772403
 	case AMR					= 1935764850
 	case AMR_WB					= 1935767394
-	case Audible				= 1096107074
+	case audible				= 1096107074
 	case iLBC					= 1768710755
 	case AES3					= 1634038579
+	
+	public static var uLaw: AudioFormat {
+		return .µLaw
+	}
 	
 	public var stringValue: String {
 		return OSTypeToString(self.rawValue) ?? "    "
@@ -122,39 +126,39 @@ public struct AudioFormatFlag : OptionSet {
 	public let rawValue: UInt32
 
 	public init(rawValue value: UInt32) { self.rawValue = value }
-	public static var NativeFloatPacked: AudioFormatFlag {
-		return [Float, NativeEndian, Packed]
+	public static var nativeFloatPacked: AudioFormatFlag {
+		return [float, nativeEndian, packed]
 	}
 
-	public static var Float: AudioFormatFlag {
+	public static var float: AudioFormatFlag {
 		return AudioFormatFlag(rawValue: 1 << 0)
 	}
-	public static var BigEndian: AudioFormatFlag {
+	public static var bigEndian: AudioFormatFlag {
 		return AudioFormatFlag(rawValue: 1 << 1)
 	}
-	public static var SignedInteger: AudioFormatFlag {
+	public static var signedInteger: AudioFormatFlag {
 		return AudioFormatFlag(rawValue: 1 << 2)
 	}
-	public static var Packed: AudioFormatFlag {
+	public static var packed: AudioFormatFlag {
 		return AudioFormatFlag(rawValue: 1 << 3)
 	}
-	public static var AlignedHigh: AudioFormatFlag {
+	public static var alignedHigh: AudioFormatFlag {
 		return AudioFormatFlag(rawValue: 1 << 4)
 	}
-	public static var NonInterleaved: AudioFormatFlag {
+	public static var nonInterleaved: AudioFormatFlag {
 		return AudioFormatFlag(rawValue: 1 << 5)
 	}
-	public static var NonMixable: AudioFormatFlag {
+	public static var nonMixable: AudioFormatFlag {
 		return AudioFormatFlag(rawValue: 1 << 6)
 	}
-	public static var FlagsAreAllClear: AudioFormatFlag {
+	public static var flagsAreAllClear: AudioFormatFlag {
 		return AudioFormatFlag(rawValue: 1 << 31)
 	}
-	public static var NativeEndian: AudioFormatFlag {
+	public static var nativeEndian: AudioFormatFlag {
 		if ByteOrder.isLittle {
 			return self.init(rawValue: 0)
 		} else {
-			return BigEndian
+			return bigEndian
 		}
 	}
 }
@@ -163,54 +167,58 @@ public struct LinearPCMFormatFlag : OptionSet {
 	public let rawValue: UInt32
 
 	public init(rawValue value: UInt32) { self.rawValue = value }
-	public static var NativeFloatPacked: LinearPCMFormatFlag {
-		return [Float, NativeEndian, Packed]
+	public static var nativeFloatPacked: LinearPCMFormatFlag {
+		return [float, nativeEndian, packed]
 	}
 	
-	public static var Float: LinearPCMFormatFlag {
+	public static var float: LinearPCMFormatFlag {
 		return LinearPCMFormatFlag(rawValue: 1 << 0)
 	}
-	public static var BigEndian: LinearPCMFormatFlag {
+	public static var bigEndian: LinearPCMFormatFlag {
 		return LinearPCMFormatFlag(rawValue: 1 << 1)
 	}
-	public static var SignedInteger: LinearPCMFormatFlag {
+	public static var signedInteger: LinearPCMFormatFlag {
 		return LinearPCMFormatFlag(rawValue: 1 << 2)
 	}
-	public static var Packed: LinearPCMFormatFlag {
+	public static var packed: LinearPCMFormatFlag {
 		return LinearPCMFormatFlag(rawValue: 1 << 3)
 	}
-	public static var AlignedHigh: LinearPCMFormatFlag {
+	public static var alignedHigh: LinearPCMFormatFlag {
 		return LinearPCMFormatFlag(rawValue: 1 << 4)
 	}
-	public static var NonInterleaved: LinearPCMFormatFlag {
+	public static var nonInterleaved: LinearPCMFormatFlag {
 		return LinearPCMFormatFlag(rawValue: 1 << 5)
 	}
-	public static var NonMixable: LinearPCMFormatFlag {
+	public static var nonMixable: LinearPCMFormatFlag {
 		return LinearPCMFormatFlag(rawValue: 1 << 6)
 	}
-	public static var FlagsAreAllClear: LinearPCMFormatFlag {
+	public static var flagsAreAllClear: LinearPCMFormatFlag {
 		return LinearPCMFormatFlag(rawValue: 1 << 31)
 	}
-	public static var NativeEndian:		LinearPCMFormatFlag {
+	public static var nativeEndian: LinearPCMFormatFlag {
 		if ByteOrder.isLittle {
 			return self.init(rawValue: 0)
 		} else {
-			return BigEndian
+			return bigEndian
 		}
 	}
-	public static var FlagsSampleFractionShift: UInt32 { return 7 }
-	public static var FlagsSampleFractionMask : LinearPCMFormatFlag { return self.init(rawValue: 0x3F << FlagsSampleFractionShift) }
+	public static var flagsSampleFractionShift: UInt32 {
+		return 7
+	}
+	public static var flagsSampleFractionMask : LinearPCMFormatFlag {
+		return self.init(rawValue: 0x3F << flagsSampleFractionShift)
+	}
 }
 
 public extension AudioStreamBasicDescription {
 	
 	/// Is the current `AudioStreamBasicDescription` in the native endian format?
 	///
-	/// - returns: `true` if the audio is in the native endian, `false` if not, and `nil` if the `formatID` isn't `.LinearPCM`.
+	/// Is `true` if the audio is in the native endian, `false` if not, and `nil` if the `formatID` isn't `.linearPCM`.
 	public var audioFormatNativeEndian: Bool? {
-		if (formatID == .LinearPCM) {
-			let ourFlags = formatFlags.intersection(.BigEndian)
-			if ourFlags == .NativeEndian {
+		if formatID == .linearPCM {
+			let ourFlags = formatFlags.intersection(.bigEndian)
+			if ourFlags == .nativeEndian {
 				return true
 			} else {
 				return false
@@ -224,7 +232,7 @@ public extension AudioStreamBasicDescription {
 			if let aFormat = AudioFormat(rawValue: mFormatID) {
 				return aFormat
 			} else {
-				return .Unknown
+				return .unknown
 			}
 		}
 		set {
@@ -241,7 +249,7 @@ public extension AudioStreamBasicDescription {
 		}
 	}
 	
-	public init(sampleRate: Float64, formatID: AudioFormat = .LinearPCM, formatFlags: AudioFormatFlag = .NativeFloatPacked, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
+	public init(sampleRate: Float64, formatID: AudioFormat = .linearPCM, formatFlags: AudioFormatFlag = .nativeFloatPacked, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
 		mSampleRate = sampleRate
 		mFormatID = formatID.rawValue
 		mFormatFlags = formatFlags.rawValue
@@ -253,6 +261,7 @@ public extension AudioStreamBasicDescription {
 		mReserved = 0
 	}
 	
+	@available(*, deprecated, message: "AudioFormatID and AudioFormatFlags constants should now be typed correctly")
 	public init(sampleRate: Float64, formatID: Int, formatFlags: Int, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
 		mSampleRate = sampleRate
 		mFormatID = UInt32(formatID)
@@ -265,6 +274,20 @@ public extension AudioStreamBasicDescription {
 		mReserved = 0
 	}
 	
+	public init(sampleRate: Float64, formatID: AudioFormatID, formatFlags: AudioFormatFlags, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
+		mSampleRate = sampleRate
+		mFormatID = formatID
+		mFormatFlags = formatFlags
+		mBitsPerChannel = bitsPerChannel
+		mChannelsPerFrame = channelsPerFrame
+		mFramesPerPacket = framesPerPacket
+		mBytesPerFrame = mBitsPerChannel * mChannelsPerFrame / 8
+		mBytesPerPacket = mBytesPerFrame * mFramesPerPacket
+		mReserved = 0
+	}
+}
+
+public extension AudioStreamBasicDescription {
 	// The following getters/functions are from Apple's CoreAudioUtilityClasses
 	
 	var	PCM: Bool {
@@ -272,7 +295,7 @@ public extension AudioStreamBasicDescription {
 	}
 
 	public var interleaved: Bool {
-		return !formatFlags.contains(.NonInterleaved)
+		return !formatFlags.contains(.nonInterleaved)
 	}
 	
 	public var signedInteger: Bool {
@@ -316,12 +339,12 @@ public extension AudioStreamBasicDescription {
 			let newBytes = nChannels * wordSize
 			mBytesPerPacket = newBytes
 			mBytesPerFrame = newBytes
-			formatFlags.remove(.NonInterleaved)
+			formatFlags.remove(.nonInterleaved)
 		} else {
 			let newBytes = wordSize
 			mBytesPerPacket = newBytes
 			mBytesPerFrame = newBytes
-			_ = formatFlags.insert(.NonInterleaved)
+			_ = formatFlags.insert(.nonInterleaved)
 		}
 	}
 	
@@ -371,7 +394,7 @@ public extension AudioStreamBasicDescription {
 		var isPCM = true;	// until proven otherwise
 		var pcmFlags = kAudioFormatFlagIsPacked | kAudioFormatFlagIsSignedInteger;
 		
-		if (fromText[charIterator] == "-") {	// previously we required a leading dash on PCM formats
+		if fromText[charIterator] == "-" {	// previously we required a leading dash on PCM formats
 			charIterator = fromText.index(after: charIterator)
 		}
 		
@@ -382,9 +405,7 @@ public extension AudioStreamBasicDescription {
 			charIterator = fromText.index(charIterator, offsetBy: 2)
 		} else {
 			// default is native-endian
-			if ByteOrder.isLittle {
-				pcmFlags |= kLinearPCMFormatFlagIsBigEndian;
-			}
+			pcmFlags |= kLinearPCMFormatFlagNativeEndian
 		}
 		if nextChar() == "F" {
 			pcmFlags = (pcmFlags & ~kAudioFormatFlagIsSignedInteger) | kAudioFormatFlagIsFloat
@@ -417,7 +438,7 @@ public extension AudioStreamBasicDescription {
 						
 						if aBuf == 0 {
 							// special-case for 'aac'
-							if (i != 3) {
+							if i != 3 {
 								return nil;
 							}
 							if wasAdvanced {
@@ -456,7 +477,7 @@ public extension AudioStreamBasicDescription {
 				}
 				
 				memcpy(&mFormatID, buf, 4);
-				mFormatID = CFSwapInt32BigToHost(mFormatID);
+				mFormatID = mFormatID.bigEndian
 			}
 		}
 		
@@ -513,11 +534,11 @@ public extension AudioStreamBasicDescription {
 				}
 				//Int(hex)
 				
-				if (bChar >= ASCIICharacter.NumberZero && bChar <= ASCIICharacter.NumberNine) {
+				if bChar >= ASCIICharacter.NumberZero && bChar <= ASCIICharacter.NumberNine {
 					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.NumberZero.rawValue);
-				} else if (bChar >= ASCIICharacter.LetterUppercaseA && bChar <= ASCIICharacter.LetterUppercaseF) {
+				} else if bChar >= ASCIICharacter.LetterUppercaseA && bChar <= ASCIICharacter.LetterUppercaseF {
 					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.LetterUppercaseA.rawValue + 10);
-				} else if (bChar >= ASCIICharacter.LetterLowercaseA && bChar <= ASCIICharacter.LetterLowercaseF) {
+				} else if bChar >= ASCIICharacter.LetterLowercaseA && bChar <= ASCIICharacter.LetterLowercaseF {
 					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.LetterLowercaseA.rawValue + 10);
 				} else {
 					break;
@@ -576,7 +597,7 @@ public extension AudioStreamBasicDescription {
 				}
 			}
 		}
-		if (charIterator != fromText.endIndex) {
+		if charIterator != fromText.endIndex {
 			print("extra characters at end of format string: \(fromText[charIterator..<fromText.endIndex])");
 			return nil
 		}
@@ -680,3 +701,171 @@ public func <(x: AudioStreamBasicDescription, y: AudioStreamBasicDescription) ->
 	
 	return theAnswer;
 }
+
+// MARK: - deprecated Swift 2 names
+
+extension LinearPCMFormatFlag {
+	@available(*, unavailable, message:"Use '.nativeFloatPacked' instead", renamed: "nativeFloatPacked")
+	public static var NativeFloatPacked: LinearPCMFormatFlag {
+		return .nativeFloatPacked
+	}
+	@available(*, unavailable, message:"Use '.float' instead", renamed: "float")
+	public static var Float: LinearPCMFormatFlag {
+		return .float
+	}
+	@available(*, unavailable, message:"Use '.bigEndian' instead", renamed: "bigEndian")
+	public static var BigEndian: LinearPCMFormatFlag {
+		return .bigEndian
+	}
+	@available(*, unavailable, message:"Use '.signedInteger' instead", renamed: "signedInteger")
+	public static var SignedInteger: LinearPCMFormatFlag {
+		return .signedInteger
+	}
+	@available(*, unavailable, message:"Use '.packed' instead", renamed: "packed")
+	public static var Packed: LinearPCMFormatFlag {
+		return .packed
+	}
+	@available(*, unavailable, message:"Use '.alignedHigh' instead", renamed: "alignedHigh")
+	public static var AlignedHigh: LinearPCMFormatFlag {
+		return .alignedHigh
+	}
+	@available(*, unavailable, message:"Use '.nonInterleaved' instead", renamed: "nonInterleaved")
+	public static var NonInterleaved: LinearPCMFormatFlag {
+		return .nonInterleaved
+	}
+	@available(*, unavailable, message:"Use '.nonMixable' instead", renamed: "nonMixable")
+	public static var NonMixable: LinearPCMFormatFlag {
+		return .nonMixable
+	}
+	@available(*, unavailable, message:"Use '.flagsAreAllClear' instead", renamed: "flagsAreAllClear")
+	public static var FlagsAreAllClear: LinearPCMFormatFlag {
+		return .flagsAreAllClear
+	}
+	@available(*, unavailable, message:"Use '.nativeEndian' instead", renamed: "nativeEndian")
+	public static var NativeEndian: LinearPCMFormatFlag {
+		return .nativeEndian
+	}
+	@available(*, unavailable, message:"Use '.flagsSampleFractionShift' instead", renamed: "flagsSampleFractionShift")
+	public static var FlagsSampleFractionShift: UInt32 {
+		return LinearPCMFormatFlag.flagsSampleFractionShift
+	}
+	@available(*, unavailable, message:"Use '.flagsSampleFractionMask' instead", renamed: "flagsSampleFractionMask")
+	public static var FlagsSampleFractionMask : LinearPCMFormatFlag {
+		return .flagsSampleFractionMask
+	}
+}
+
+extension AudioFormatFlag {
+	@available(*, unavailable, message:"Use '.nativeFloatPacked' instead", renamed: "nativeFloatPacked")
+	public static var NativeFloatPacked: AudioFormatFlag {
+		return .nativeFloatPacked
+	}
+	@available(*, unavailable, message:"Use '.float' instead", renamed: "float")
+	public static var Float: AudioFormatFlag {
+		return .float
+	}
+	@available(*, unavailable, message:"Use '.bigEndian' instead", renamed: "bigEndian")
+	public static var BigEndian: AudioFormatFlag {
+		return .bigEndian
+	}
+	@available(*, unavailable, message:"Use '.signedInteger' instead", renamed: "signedInteger")
+	public static var SignedInteger: AudioFormatFlag {
+		return .signedInteger
+	}
+	@available(*, unavailable, message:"Use '.packed' instead", renamed: "packed")
+	public static var Packed: AudioFormatFlag {
+		return .packed
+	}
+	@available(*, unavailable, message:"Use '.alignedHigh' instead", renamed: "alignedHigh")
+	public static var AlignedHigh: AudioFormatFlag {
+		return .alignedHigh
+	}
+	@available(*, unavailable, message:"Use '.nonInterleaved' instead", renamed: "nonInterleaved")
+	public static var NonInterleaved: AudioFormatFlag {
+		return .nonInterleaved
+	}
+	@available(*, unavailable, message:"Use '.nonMixable' instead", renamed: "nonMixable")
+	public static var NonMixable: AudioFormatFlag {
+		return .nonMixable
+	}
+	@available(*, unavailable, message:"Use '.flagsAreAllClear' instead", renamed: "flagsAreAllClear")
+	public static var FlagsAreAllClear: AudioFormatFlag {
+		return .flagsAreAllClear
+	}
+	@available(*, unavailable, message:"Use '.nativeEndian' instead", renamed: "nativeEndian")
+	public static var NativeEndian: AudioFormatFlag {
+		return .nativeEndian
+	}
+}
+
+extension AudioFileType {
+	@available(*, unavailable, message:"Use '.unknown' instead", renamed: "unknown")
+	public static var Unknown: AudioFileType {
+		return .unknown
+	}
+	@available(*, unavailable, message:"Use '.soundDesigner2' instead", renamed: "soundDesigner2")
+	public static var SoundDesigner2: AudioFileType {
+		return .soundDesigner2
+	}
+	@available(*, unavailable, message:"Use '.NeXT' instead", renamed: "NeXT")
+	public static var Next: AudioFileType {
+		return .NeXT
+	}
+}
+
+extension AudioFormat {
+	@available(*, unavailable, message:"Use '.unknown' instead", renamed: "unknown")
+	public static var Unknown: AudioFormat {
+		return .unknown
+	}
+	@available(*, unavailable, message:"Use '.µLaw' or '.uLaw' instead", renamed: "µLaw")
+	public static var ULaw: AudioFormat {
+		return .µLaw
+	}
+	@available(*, unavailable, message:"Use '.aLaw' instead", renamed: "aLaw")
+	public static var ALaw: AudioFormat {
+		return .aLaw
+	}
+	@available(*, unavailable, message:"Use '.qDesign' instead", renamed: "qDesign")
+	public static var QDesign: AudioFormat {
+		return .qDesign
+	}
+	@available(*, unavailable, message:"Use '.qDesign2' instead", renamed: "qDesign2")
+	public static var QDesign2: AudioFormat {
+		return .qDesign2
+	}
+	@available(*, unavailable, message:"Use '.audible' instead", renamed: "audible")
+	public static var Audible: AudioFormat {
+		return .audible
+	}
+	@available(*, unavailable, message:"Use '.timeCode' instead", renamed: "timeCode")
+	public static var TimeCode: AudioFormat {
+		return .timeCode
+	}
+	@available(*, unavailable, message:"Use '.parameterValueStream' instead", renamed: "parameterValueStream")
+	public static var ParameterValueStream: AudioFormat {
+		return .parameterValueStream
+	}
+	@available(*, unavailable, message:"Use '.appleLossless' instead", renamed: "appleLossless")
+	public static var AppleLossless: AudioFormat {
+		return .appleLossless
+	}
+	@available(*, unavailable, message:"Use '.microsoftGSM' instead", renamed: "microsoftGSM")
+	public static var MicrosoftGSM: AudioFormat {
+		return .microsoftGSM
+	}
+	@available(*, unavailable, message:"Use '.linearPCM' instead", renamed: "linearPCM")
+	public static var LinearPCM: AudioFormat {
+		return .linearPCM
+	}
+	@available(*, unavailable, message:"Use '.six0958AC3' instead", renamed: "six0958AC3")
+	public static var Six0958AC3: AudioFormat {
+		return .six0958AC3
+	}
+	@available(*, unavailable, message:"Use '.appleIMA4' instead", renamed: "appleIMA4")
+	public static var AppleIMA4: AudioFormat {
+		return .appleIMA4
+	}
+}
+
+// MARK: -

@@ -14,7 +14,7 @@ public func <(lhs: ASCIICharacter, rhs: ASCIICharacter) -> Bool {
 
 /// Based off of the ASCII code tables
 public enum ASCIICharacter: Int8, Comparable {
-	//MARK: non-visible characters
+	// MARK: non-visible characters
 	case NullCharacter = 0
 	case StartOfHeader
 	case StartOfText
@@ -52,6 +52,7 @@ public enum ASCIICharacter: Int8, Comparable {
 	case RecordSeperator
 	case UnitSeperator
 	
+	// MARK: visible characters
 	/// 0x20
 	case Space = 0x20
 	case ExclamationMark = 0x21
@@ -208,15 +209,8 @@ public enum ASCIICharacter: Int8, Comparable {
 		if numVal < 0 {
 			return "\u{FFFD}"
 		}
-		let preUTF8 = [UInt8(numVal)]
-		var preScalar = [UnicodeScalar]()
 		
-		
-		_ = transcode(preUTF8.makeIterator(), from: UTF8.self, to: UTF32.self, stoppingOnError: false, into: ({
-			preScalar.append(UnicodeScalar($0)!)
-		}))
-
-		return Character(preScalar.first!)
+		return Character(UnicodeScalar(UInt8(numVal)))
 	}
 }
 
