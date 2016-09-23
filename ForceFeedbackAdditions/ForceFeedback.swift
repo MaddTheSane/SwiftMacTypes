@@ -16,41 +16,92 @@ public let ForceFeedbackResultErrorDomain =
 "com.github.maddthesane.ForceFeedbackAdditions.ForceFeedbackResult"
 
 public enum ForceFeedbackResult: HRESULT, Error {
-	case OK = 0
-	case False = 1
-	case DownloadSkipped = 3
-	case EffectRestarted = 4
-	case Truncated = 8
-	case TruncatedAndRestarted = 12
-	case InvalidParam = -2147483645
-	case NoInterface = -2147483644
-	case Generic = -2147483640
-	case OutOfMemory = -2147483646
-	case Unsupported = -2147483647
-	case DeviceFull = -2147220991
-	case MoreData = -2147220990
-	case NotDownloaded = -2147220989
-	case HasEffects = -2147220988
-	case IncompleteEffect = -2147220986
-	case EffectPlaying = -2147220984
-	case Unplugged = -2147220983
+	/// The operation completed successfully.
+	case ok = 0
+	/// The operation did not complete successfully.
+	case `false` = 1
+	/// The parameters of the effect were successfully updated by
+	/// `ForceFeedbackEffect.setParameters(_:flags:)`, but the effect was not
+	/// downloaded because the `ForceFeedbackEffect.EffectStart.noDownload` 
+	/// flag was passed.
+	case downloadSkipped = 3
+	/// The parameters of the effect were successfully updated by
+	/// `ForceFeedbackEffect.setParameters(_:flags:)`, but in order to change
+	/// the parameters, the effect needed to be restarted.
+	case effectRestarted = 4
+	/// The parameters of the effect were successfully updated by
+	/// `ForceFeedbackEffect.setParameters(_:flags:)`, but some of them were
+	/// beyond the capabilities of the device and were truncated.
+	case truncated = 8
+	/// Equal to `ForceFeedbackResult([.effectRestarted, .truncated])`
+	case truncatedAndRestarted = 12
+	/// An invalid parameter was passed to the returning function,
+	/// or the object was not in a state that admitted the function
+	/// to be called.
+	case invalidParameter = -2147483645
+	/// The specified interface is not supported by the object.
+	case noInterface = -2147483644
+	/// An undetermined error occurred.
+	case generic = -2147483640
+	/// Couldn't allocate sufficient memory to complete the caller's request.
+	case outOfMemory = -2147483646
+	/// The function called is not supported at this time
+	case unsupported = -2147483647
+	/// Data is not yet available.
+	case pending = -2147483638
+	/// The device is full.
+	case deviceFull = -2147220991
+	/// The device or device instance or effect is not registered.
+	case deviceNotRegistered = -2147221164
+	/// Not all the requested information fit into the buffer.
+	case moreData = -2147220990
+	/// The effect is not downloaded.
+	case notDownloaded = -2147220989
+	/// The device cannot be reinitialized because there are still effects
+	/// attached to it.
+	case hasEffects = -2147220988
+	/// The effect could not be downloaded because essential information
+	/// is missing.  For example, no axes have been associated with the
+	/// effect, or no type-specific information has been created.
+	case incompleteEffect = -2147220986
+	/// An attempt was made to modify parameters of an effect while it is
+	/// playing.  Not all hardware devices support altering the parameters
+	/// of an effect while it is playing.
+	case effectPlaying = -2147220984
+	/// The operation could not be completed because the device is not
+	/// plugged in.
+	case unplugged = -2147220983
 	// MARK: Mac OS X-specific
-	case InvalidDownloadID = -2147220736
-	case DevicePaused = -2147220735
-	case Internal = -2147220734
-	case EffectTypeMismatch = -2147220733
-	case UnsupportedAxis = -2147220732
-	case NotInitialized = -2147220731
-	case DeviceReleased = -2147220729
-	case EffectTypeNotSupported = -2147220730
+	/// The effect index provided by the API in downloadID is not recognized by the
+	/// **IOForceFeedbackLib** driver.
+	case invalidDownloadID = -2147220736
+	/// When the device is paused via a call to `ForceFeedbackDevice.sendCommand(_:)`,
+	/// other operations such as modifying existing effect parameters and creating
+	/// new effects are not allowed.
+	case devicePaused = -2147220735
+	/// The **IOForceFededbackLib** driver has detected an internal fault.  Often this
+	/// occurs because of an unexpected internal code path.
+	case `internal` = -2147220734
+	/// The **IOForceFededbackLib** driver has received an effect modification request
+	/// whose basic type does not match the defined effect type for the given effect.
+	case effectTypeMismatch = -2147220733
+	/// The effect includes one or more axes that the device does not support.
+	case unsupportedAxis = -2147220732
+	/// This object has not been initialized.
+	case notInitialized = -2147220731
+	/// The device has been released.
+	case deviceReleased = -2147220729
+	/// The effect type requested is not explicitly supported by the particular device.
+	case effectTypeNotSupported = -2147220730
+	
 	fileprivate static func from(result inResult: HRESULT) -> ForceFeedbackResult {
 		if let unwrapped = ForceFeedbackResult(rawValue: inResult) {
 			return unwrapped
 		} else {
 			if inResult > 0 {
-				return .OK
+				return .ok
 			} else {
-				return .Generic
+				return .generic
 			}
 		}
 	}
@@ -106,6 +157,26 @@ extension FFRAMPFORCE {
 }
 
 extension FFEFFECT {
+	/// Different coordinates used by the Force Feedback framework.
+	public struct CoordinateSystem : OptionSet {
+		public let rawValue: UInt32
+		private init(_ value: UInt32) { self.rawValue = value }
+		public init(rawValue value: UInt32) { self.rawValue = value }
+		
+		/// Cartesian coordinates
+		public static var cartesian: CoordinateSystem {
+			return CoordinateSystem(0x10)
+		}
+		/// Polar coordinates
+		public static var polar: CoordinateSystem {
+			return CoordinateSystem(0x20)
+		}
+		/// Sperical coordinates
+		public static var spherical: CoordinateSystem {
+			return CoordinateSystem(0x40)
+		}
+	}
+	
 	// MARK: More name-friendly getters/setters
 	public var size: UInt32 {
 		get {
@@ -161,16 +232,17 @@ extension FFEFFECT {
 		}
 	}
 	
-	public var typeSpecificParams: (size: UInt32, value: ImplicitlyUnwrappedOptional<UnsafeMutableRawPointer>) {
+	public var typeSpecificParameters: (size: UInt32, value: UnsafeMutableRawPointer?) {
 		get {
 			return (cbTypeSpecificParams, lpvTypeSpecificParams)
 		}
 		set {
-			(cbTypeSpecificParams, lpvTypeSpecificParams) = newValue
+			cbTypeSpecificParams = newValue.size
+			lpvTypeSpecificParams = newValue.value
 		}
 	}
 	
-	public var envelope: PFFENVELOPE {
+	public var envelope: PFFENVELOPE? {
 		get {
 			return lpEnvelope
 		}
@@ -180,12 +252,17 @@ extension FFEFFECT {
 	}
 	
 	public var axes: [UInt32] {
-		var retAxes = [UInt32]()
-		for i in 0..<cAxes {
-			retAxes.append(rgdwAxes[Int(i)])
+		guard let rgdwAxes = rgdwAxes else {
+			return []
 		}
-		
-		return retAxes
+		return Array(UnsafeBufferPointer(start: rgdwAxes, count: min(Int(cAxes), 32)))
+	}
+	
+	public var directions: [Int32] {
+		guard let rglDirection = rglDirection else {
+			return []
+		}
+		return Array(UnsafeBufferPointer(start: rglDirection, count: min(Int(cAxes), 32)))
 	}
 	
 	public var startDelay: UInt32 {
@@ -335,6 +412,9 @@ extension FFCUSTOMFORCE {
 }
 
 extension FFPERIODIC {
+	/// Magnitude of the effect, in the range from 0 through 10,000. If an envelope
+	/// is applied to this effect, the value represents the magnitude of the sustain. 
+	/// If no envelope is applied, the value represents the amplitude of the entire effect.
 	public var magnitude: UInt32 {
 		get {
 			return dwMagnitude
@@ -344,6 +424,10 @@ extension FFPERIODIC {
 		}
 	}
 	
+	/// Offset of the effect. The range of forces generated by the effect 
+	/// is `offset` minus `magnitude` to `offset` plus `magnitude`. The value 
+	/// of the `offset` member is also the baseline for any envelope that is
+	/// applied to the effect.
 	public var offset: Int32 {
 		get {
 			return lOffset
@@ -353,6 +437,8 @@ extension FFPERIODIC {
 		}
 	}
 	
+	/// Position in the cycle of the periodic effect at which playback begins, 
+	/// in the range from 0 through 35,999.
 	public var phase: UInt32 {
 		get {
 			return dwPhase
@@ -362,6 +448,7 @@ extension FFPERIODIC {
 		}
 	}
 	
+	/// Period of the effect, in microseconds.
 	public var period: UInt32 {
 		get {
 			return dwPeriod
@@ -373,21 +460,23 @@ extension FFPERIODIC {
 }
 
 extension FFEFFESCAPE {
-	public var bufferIn: (size: UInt32, data: ImplicitlyUnwrappedOptional<UnsafeMutableRawPointer>) {
+	public var bufferIn: (size: UInt32, data: UnsafeMutableRawPointer?) {
 		get {
 			return (cbInBuffer, lpvInBuffer)
 		}
 		set {
-			(cbInBuffer, lpvInBuffer) = newValue
+			cbInBuffer = newValue.size
+			lpvInBuffer = newValue.data
 		}
 	}
 	
-	public var bufferOut: (size: UInt32, data: ImplicitlyUnwrappedOptional<UnsafeMutableRawPointer>) {
+	public var bufferOut: (size: UInt32, data: UnsafeMutableRawPointer?) {
 		get {
 			return (cbOutBuffer, lpvOutBuffer)
 		}
 		set {
-			(cbOutBuffer, lpvOutBuffer) = newValue
+			cbOutBuffer = newValue.size
+			lpvOutBuffer = newValue.data
 		}
 	}
 	
@@ -401,174 +490,217 @@ extension FFEFFESCAPE {
 	}
 }
 
-/// Axis and Button field offsets, used in `FFEFFECT.dwTriggerButton` and `FFEFFECT.rgdwAxes[`<i>n</i>`]`.
-public enum ForceFeedbackOffset {
-	public static var x: UInt8 {
-		return 0
-	}
-	
-	public static var y: UInt8 {
-		return 4
-	}
-	
-	public static var z: UInt8 {
-		return 8
-	}
-	
-	public static var rx: UInt8 {
-		return 12
-	}
-	
-	public static var ry: UInt8 {
-		return 16
-	}
-	
-	public static var rz: UInt8 {
-		return 20
-	}
-	
-	public static func slider(_ n: UInt8) -> UInt8 {
-		return UInt8(24 + Int(n) * MemoryLayout<LONG>.size)
-	}
-	
-	public static func POV(_ n: UInt8) -> UInt8 {
-		return UInt8(32 + Int(n) * MemoryLayout<DWORD>.size)
-	}
-	
-	public static func button(_ n: UInt8) -> UInt8 {
-		return (48 + (n))
-	}
-	
-	public static var button0: UInt8 {
-		return button(0)
-	}
-	
-	public static var button1: UInt8 {
-		return button(1)
-	}
-	
-	public static var button2: UInt8 {
-		return button(2)
-	}
-	
-	public static var button3: UInt8 {
-		return button(3)
-	}
-	
-	public static var button4: UInt8 {
-		return button(4)
-	}
-	
-	public static var button5: UInt8 {
-		return button(5)
-	}
-	
-	public static var button6: UInt8 {
-		return button(6)
-	}
-	
-	public static var button7: UInt8 {
-		return button(7)
-	}
-	
-	public static var button8: UInt8 {
-		return button(8)
-	}
-	
-	public static var button9: UInt8 {
-		return button(9)
-	}
-	
-	public static var button10: UInt8 {
-		return button(10)
-	}
-	
-	public static var button11: UInt8 {
-		return button(11)
-	}
-	
-	public static var button12: UInt8 {
-		return button(12)
-	}
-	
-	public static var button13: UInt8 {
-		return button(13)
-	}
-	
-	public static var button14: UInt8 {
-		return button(14)
-	}
-	
-	public static var button15: UInt8 {
-		return button(15)
-	}
-	
-	public static var button16: UInt8 {
-		return button(16)
-	}
-	
-	public static var button17: UInt8 {
-		return button(17)
-	}
-	
-	public static var button18: UInt8 {
-		return button(18)
-	}
-	
-	public static var button19: UInt8 {
-		return button(19)
-	}
-	
-	public static var button20: UInt8 {
-		return button(20)
-	}
-	
-	public static var button21: UInt8 {
-		return button(21)
-	}
-	
-	public static var button22: UInt8 {
-		return button(22)
-	}
-	
-	public static var button23: UInt8 {
-		return button(23)
-	}
-	
-	public static var button24: UInt8 {
-		return button(24)
-	}
-	
-	public static var button25: UInt8 {
-		return button(25)
-	}
-	
-	public static var button26: UInt8 {
-		return button(26)
-	}
-	
-	public static var button27: UInt8 {
-		return button(27)
-	}
-	
-	public static var button28: UInt8 {
-		return button(28)
-	}
-	
-	public static var button29: UInt8 {
-		return button(29)
-	}
-	
-	public static var button30: UInt8 {
-		return button(0)
-	}
-	
-	public static var button31: UInt8 {
-		return button(31)
-	}
-}
-
 extension FFCAPABILITIES {
+	/// Axis and Button field offsets, used in `FFEFFECT.dwTriggerButton` and `FFEFFECT.rgdwAxes[`*n*`]`.
+	public enum Axis {
+		case x(offset: UInt8)
+		case y(offset: UInt8)
+		case z(offset: UInt8)
+		case rx(offset: UInt8)
+		case ry(offset: UInt8)
+		case rz(offset: UInt8)
+		case slider(number: UInt8, offset: UInt8)
+		case POV(number: UInt8, offset: UInt8)
+		case button(UInt8)
+		case unknown(UInt8)
+		
+		public var rawValue: UInt8 {
+			switch self {
+			case let .x(o):
+				return 0 + o
+				
+			case let .y(o):
+				return 4 + o
+				
+			case let .z(o):
+				return 8 + o
+				
+			case let .rx(o):
+				return 12 + o
+				
+			case let .ry(o):
+				return 16 + o
+				
+			case let .rz(o):
+				return 20 + o
+				
+			case let .slider(n, o):
+				return UInt8(24 + Int(n) * MemoryLayout<LONG>.size) + o
+				
+			case let .POV(n, o):
+				return UInt8(32 + Int(n) * MemoryLayout<DWORD>.size) + o
+				
+			case let .button(n):
+				return 48 + n
+				
+			case let .unknown(n):
+				return n
+			}
+		}
+		
+		public init(rawValue rv: UInt8) {
+			switch rv {
+			case 0..<4:
+				self = Axis.x(offset: rv % 4)
+				
+			case 4..<8:
+				self = Axis.y(offset: rv % 4)
+				
+			case 8..<12:
+				self = Axis.z(offset: rv % 4)
+				
+			case 12..<16:
+				self = Axis.rx(offset: rv % 4)
+				
+			case 16..<20:
+				self = Axis.ry(offset: rv % 4)
+				
+			case 20..<24:
+				self = Axis.rz(offset: rv % 4)
+				
+			case 24..<32:
+				self = Axis.slider(number: (rv - 24) / UInt8(MemoryLayout<LONG>.size), offset: rv - ((rv - 24) / UInt8(MemoryLayout<LONG>.size)))
+				
+			case 32..<48:
+				self = Axis.POV(number: (rv - 32) / UInt8(MemoryLayout<DWORD>.size), offset: rv - ((rv - 32) / UInt8(MemoryLayout<DWORD>.size)))
+				
+			case 48..<70:
+				self = Axis.button(rv - 48)
+				
+			default:
+				self = Axis.unknown(rv)
+			}
+		}
+		
+		public static var button0: Axis {
+			return button(0)
+		}
+		
+		public static var button1: Axis {
+			return button(1)
+		}
+		
+		public static var button2: Axis {
+			return button(2)
+		}
+		
+		public static var button3: Axis {
+			return button(3)
+		}
+		
+		public static var button4: Axis {
+			return button(4)
+		}
+		
+		public static var button5: Axis {
+			return button(5)
+		}
+		
+		public static var button6: Axis {
+			return button(6)
+		}
+		
+		public static var button7: Axis {
+			return button(7)
+		}
+		
+		public static var button8: Axis {
+			return button(8)
+		}
+		
+		public static var button9: Axis {
+			return button(9)
+		}
+		
+		public static var button10: Axis {
+			return button(10)
+		}
+		
+		public static var button11: Axis {
+			return button(11)
+		}
+		
+		public static var button12: Axis {
+			return button(12)
+		}
+		
+		public static var button13: Axis {
+			return button(13)
+		}
+		
+		public static var button14: Axis {
+			return button(14)
+		}
+		
+		public static var button15: Axis {
+			return button(15)
+		}
+		
+		public static var button16: Axis {
+			return button(16)
+		}
+		
+		public static var button17: Axis {
+			return button(17)
+		}
+		
+		public static var button18: Axis {
+			return button(18)
+		}
+		
+		public static var button19: Axis {
+			return button(19)
+		}
+		
+		public static var button20: Axis {
+			return button(20)
+		}
+		
+		public static var button21: Axis {
+			return button(21)
+		}
+		
+		public static var button22: Axis {
+			return button(22)
+		}
+		
+		public static var button23: Axis {
+			return button(23)
+		}
+		
+		public static var button24: Axis {
+			return button(24)
+		}
+		
+		public static var button25: Axis {
+			return button(25)
+		}
+		
+		public static var button26: Axis {
+			return button(26)
+		}
+		
+		public static var button27: Axis {
+			return button(27)
+		}
+		
+		public static var button28: Axis {
+			return button(28)
+		}
+		
+		public static var button29: Axis {
+			return button(29)
+		}
+		
+		public static var button30: Axis {
+			return button(30)
+		}
+		
+		public static var button31: Axis {
+			return button(31)
+		}
+	}
+	
 	public struct EffectTypes : OptionSet {
 		public let rawValue: UInt32
 		private init(_ value: UInt32) { self.rawValue = value }
@@ -612,23 +744,24 @@ extension FFCAPABILITIES {
 		}
 	}
 	
-	public struct EffectSubtypes : OptionSet {
-		public let rawValue: UInt32
-		private init(_ value: UInt32) { self.rawValue = value }
-		public init(rawValue value: UInt32) { self.rawValue = value }
-		
-		public static var kinesthetic: EffectSubtypes {
-			return EffectSubtypes(1 << 0)
-		}
-		public static var vibration: EffectSubtypes {
-			return EffectSubtypes(1 << 1)
-		}
+	public enum SubType : UInt32 {
+		case kinesthetic = 1
+		case vibration = 2
 	}
 	
-	public var axes: [UInt8] {
+	public var axes: [Axis] {
 		var axesArray: [UInt8] = try! arrayFromObject(reflecting: ffAxes)
 		
-		return [UInt8](axesArray[0..<min(Int(numFfAxes), axesArray.count)])
+		return ([UInt8](axesArray[0..<min(Int(numFfAxes), axesArray.count)])).map({ (aVal) -> Axis in
+			let ax = Axis(rawValue: aVal)
+			switch ax {
+			case let .unknown(n):
+				print("Unknown axis number '\(n)'")
+			default:
+				break
+			}
+			return ax
+		})
 	}
 	
 	public var supportedEffectTypes: EffectTypes {
@@ -639,34 +772,38 @@ extension FFCAPABILITIES {
 		return EffectTypes(rawValue: emulatedEffects)
 	}
 	
-	public var effectSubType: EffectSubtypes {
-		return EffectSubtypes(rawValue: subType)
-	}
-}
-
-public struct ForceFeedbackCoordinateSystem : OptionSet {
-	public let rawValue: UInt32
-	private init(_ value: UInt32) { self.rawValue = value }
-	public init(rawValue value: UInt32) { self.rawValue = value }
-	
-	public static var cartesian: ForceFeedbackCoordinateSystem {
-		return ForceFeedbackCoordinateSystem(0x10)
-	}
-	public static var polar: ForceFeedbackCoordinateSystem {
-		return ForceFeedbackCoordinateSystem(0x20)
-	}
-	public static var spherical: ForceFeedbackCoordinateSystem {
-		return ForceFeedbackCoordinateSystem(0x40)
+	public var effectSubType: SubType {
+		return SubType(rawValue: subType)!
 	}
 }
 
 public final class ForceFeedbackDevice {
+	public typealias Escape = FFEFFESCAPE
 	fileprivate let rawDevice: ImplicitlyUnwrappedOptional<FFDeviceObjectReference>
-	public private(set) var lastReturnValue: ForceFeedbackResult = .OK
+	public private(set) var lastReturnValue: ForceFeedbackResult = .ok
 	
 	public enum Property: UInt32 {
 		case Gain = 1
 		case Autocenter = 3
+	}
+	
+	public struct CooperativeLevel : OptionSet {
+		public let rawValue: UInt32
+		private init(_ value: UInt32) { self.rawValue = value }
+		public init(rawValue value: UInt32) { self.rawValue = value }
+		
+		public static var exclusive: CooperativeLevel {
+			return CooperativeLevel(1 << 0)
+		}
+		public static var nonExclusive: CooperativeLevel {
+			return CooperativeLevel(1 << 1)
+		}
+		public static var foreground: CooperativeLevel {
+			return CooperativeLevel(1 << 2)
+		}
+		public static var background: CooperativeLevel {
+			return CooperativeLevel(1 << 3)
+		}
 	}
 	
 	public struct Command : OptionSet {
@@ -708,6 +845,7 @@ public final class ForceFeedbackDevice {
 		public static var paused: State {
 			return State(1 << 2)
 		}
+		// following line intentionally left blank
 		
 		public static var actuatorsOn: State {
 			return State(1 << 4)
@@ -757,38 +895,39 @@ public final class ForceFeedbackDevice {
 	public init(device: io_service_t) throws {
 		var tmpDevice: FFDeviceObjectReference? = nil
 		let iErr = FFCreateDevice(device, &tmpDevice)
-		guard iErr == ForceFeedbackResult.OK.rawValue else {
+		guard iErr == ForceFeedbackResult.ok.rawValue else {
 			rawDevice = nil
 			throw ForceFeedbackResult.from(result: iErr)
 		}
 		rawDevice = tmpDevice!
 	}
 	
-	/// Returns `true` if device is capable of Force feedback.<br>
-	/// Returns `false` if it isn't.<br>
-	/// Returns `nil` if there was an error.
-	public class func deviceIsForceFeedback(device: io_service_t) -> Bool? {
+	/// - parameter device: the device to check if there's a force 
+	/// feedback driver for.
+	/// - returns: `true` if device is capable of Force feedback,
+	/// `false` if it isn't, or `nil` if there was an error.
+	public class func isForceFeedback(device: io_service_t) -> Bool? {
 		let iErr = FFIsForceFeedback(device)
 		if iErr >= 0 {
 			return true
-		} else if iErr == ForceFeedbackResult.NoInterface.rawValue {
+		} else if iErr == ForceFeedbackResult.noInterface.rawValue {
 			return false
 		} else {
 			return nil
 		}
 	}
 	
-	public func sendEscape(_ theEscape: inout FFEFFESCAPE) -> ForceFeedbackResult {
+	public func sendEscape(_ theEscape: inout Escape) -> ForceFeedbackResult {
 		let aReturn = ForceFeedbackResult.from(result: FFDeviceEscape(rawDevice, &theEscape))
 		lastReturnValue = aReturn
 		return aReturn
 	}
 	
-	public func sendEscape(command: DWORD, inData: Data) -> ForceFeedbackResult {
+	public func sendEscape(command: DWORD, data inData: Data) -> ForceFeedbackResult {
 		let curDataSize = inData.count
 		var tmpMutBytes = inData
-		let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutablePointer<Void>) -> ForceFeedbackResult in
-			var ourEscape = FFEFFESCAPE(dwSize: DWORD(MemoryLayout<FFEFFESCAPE>.size), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
+		let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutablePointer<Int8>) -> ForceFeedbackResult in
+			var ourEscape = Escape(dwSize: DWORD(MemoryLayout<FFEFFESCAPE>.size), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
 			
 			return sendEscape(&ourEscape)
 		}
@@ -797,26 +936,25 @@ public final class ForceFeedbackDevice {
 		return toRet
 	}
 	
-	public func sendEscape(command: DWORD, inData: Data, outDataLength: inout Int) -> (result: ForceFeedbackResult, outData: Data) {
-		if let ourMutableData = NSMutableData(length: outDataLength) {
-			let curDataSize = inData.count
-			var tmpMutBytes = inData
-			let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutablePointer<Void>) -> ForceFeedbackResult in
-				var ourEscape = FFEFFESCAPE(dwSize: DWORD(MemoryLayout<FFEFFESCAPE>.size), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutableData.mutableBytes, cbOutBuffer: DWORD(outDataLength))
+	public func sendEscape(command: DWORD, data inData: Data, outDataLength: inout Int) -> (result: ForceFeedbackResult, outData: Data) {
+		var ourMutableData = Data(count: outDataLength)
+		let curDataSize = inData.count
+		var tmpMutBytes = inData
+		let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutablePointer<UInt8>) -> ForceFeedbackResult in
+			return ourMutableData.withUnsafeMutableBytes({ (ourMutBytes: UnsafeMutablePointer<UInt8>) -> ForceFeedbackResult in
+				var ourEscape = Escape(dwSize: DWORD(MemoryLayout<Escape>.size), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutBytes, cbOutBuffer: DWORD(outDataLength))
 				
 				let ret1 = sendEscape(&ourEscape)
-				ourMutableData.length = Int(ourEscape.cbOutBuffer)
+				outDataLength = Int(ourEscape.cbOutBuffer)
+				ourMutableData.count = outDataLength
 				return ret1
-			}
-
-			
-			lastReturnValue = toRet
-			
-			return (toRet, ourMutableData as Data)
-		} else {
-			lastReturnValue = .OutOfMemory
-			return (.OutOfMemory, Data())
+				
+			})
 		}
+		
+		lastReturnValue = toRet
+		
+		return (toRet, ourMutableData)
 	}
 	
 	public var state: State {
@@ -830,7 +968,7 @@ public final class ForceFeedbackDevice {
 		}
 	}
 	
-	public func sendCommand(command: Command) -> ForceFeedbackResult {
+	public func sendCommand(_ command: Command) -> ForceFeedbackResult {
 		let iErr = ForceFeedbackResult.from(result: FFDeviceSendForceFeedbackCommand(rawDevice, command.rawValue))
 		lastReturnValue = iErr
 		return iErr
@@ -891,10 +1029,17 @@ public final class ForceFeedbackDevice {
 		return iErr
 	}
 	
-	public func get(property: UInt32, value: UnsafeMutableRawPointer, valueSize: IOByteCount) -> ForceFeedbackResult {
-		let iErr = ForceFeedbackResult.from(result: FFDeviceGetForceFeedbackProperty(rawDevice, property, value, valueSize))
-		lastReturnValue = iErr
-		return iErr
+	public func get(property: UInt32, size: IOByteCount) throws -> Data {
+		var toRet = Data(count: Int(size))
+		try toRet.withUnsafeMutableBytes({ (datPtr: UnsafeMutablePointer<UInt8>) -> Void in
+			let iErr = FFDeviceGetForceFeedbackProperty(rawDevice, property, datPtr, size)
+			let bErr = ForceFeedbackResult.from(result: iErr)
+			lastReturnValue = bErr
+			if bErr != .ok {
+				throw bErr
+			}
+		})
+		return toRet
 	}
 	
 	deinit {
@@ -902,30 +1047,88 @@ public final class ForceFeedbackDevice {
 			FFReleaseDevice(rawDevice)
 		}
 	}
+}
+
+public final class ForceFeedbackEffect {
+	public typealias Effect = FFEFFECT
+	private let rawEffect: ImplicitlyUnwrappedOptional<FFEffectObjectReference>
+	public let deviceReference: ForceFeedbackDevice
 	
-	public struct CooperativeLevel : OptionSet {
+	public struct Status : OptionSet {
 		public let rawValue: UInt32
 		private init(_ value: UInt32) { self.rawValue = value }
 		public init(rawValue value: UInt32) { self.rawValue = value }
 		
-		public static var exclusive: CooperativeLevel {
-			return CooperativeLevel(1 << 0)
+		//public static var notPlaying: Status {
+		//	return Status(0)
+		//}
+		public static var playing: Status {
+			return Status(1 << 0)
 		}
-		public static var nonExclusive: CooperativeLevel {
-			return CooperativeLevel(1 << 1)
-		}
-		public static var foreground: CooperativeLevel {
-			return CooperativeLevel(1 << 2)
-		}
-		public static var background: CooperativeLevel {
-			return CooperativeLevel(1 << 3)
+		public static var emulated: Status {
+			return Status(1 << 1)
 		}
 	}
-}
-
-public final class ForceFeedbackEffect {
-	private let rawEffect: ImplicitlyUnwrappedOptional<FFEffectObjectReference>
-	public let deviceReference: ForceFeedbackDevice
+	
+	public struct Parameter : OptionSet {
+		public let rawValue: UInt32
+		private init(_ value: UInt32) { self.rawValue = value }
+		public init(rawValue value: UInt32) { self.rawValue = value }
+		
+		public static var duration: Parameter {
+			return Parameter(1 << 0)
+		}
+		public static var samplePeriod: Parameter {
+			return Parameter(1 << 1)
+		}
+		public static var gain: Parameter {
+			return Parameter(1 << 2)
+		}
+		public static var triggerButton: Parameter {
+			return Parameter(1 << 3)
+		}
+		public static var triggerRepeatInterval: Parameter {
+			return Parameter(1 << 4)
+		}
+		public static var axes: Parameter {
+			return Parameter(1 << 5)
+		}
+		/// Indicates the `cAxes` and `rglDirection` members of the `FFEFFECT` structure
+		/// are being downloaded for the first time or have changed since their last
+		/// download. (The `dwFlags` member of the `FFEFFECT` structure specifies,
+		/// through `FFEFFECT.CoordinateSystem.cartesian` or
+		/// `FFEFFECT.CoordinateSystem.polar`, the coordinate system in which
+		/// the values should be interpreted.)
+		public static var direction: Parameter {
+			return Parameter(1 << 6)
+		}
+		public static var envelope: Parameter {
+			return Parameter(1 << 7)
+		}
+		public static var typeSpecificParameters: Parameter {
+			return Parameter(1 << 8)
+		}
+		public static var startDelay: Parameter {
+			return Parameter(1 << 9)
+		}
+		
+		public static var allParamaters: Parameter {
+			return Parameter(0x000003FF)
+		}
+		
+		public static var start: Parameter {
+			return Parameter(0x20000000)
+		}
+		public static var noRestart: Parameter {
+			return Parameter(0x40000000)
+		}
+		public static var noDownload: Parameter {
+			return Parameter(0x80000000)
+		}
+		public static var noTrigger: Parameter {
+			return Parameter(0xFFFFFFFF)
+		}
+	}
 	
 	public struct EffectStart : OptionSet {
 		public let rawValue: UInt32
@@ -1099,23 +1302,23 @@ public final class ForceFeedbackEffect {
 			0xE5, 0x59, 0xC4, 0x6B, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	public convenience init(device: ForceFeedbackDevice, UUID: Foundation.UUID, effectDefinition: inout FFEFFECT) throws {
+	public convenience init(device: ForceFeedbackDevice, uuid UUID: Foundation.UUID, effectDefinition: inout Effect) throws {
 		let ourUUID = UUID.CFUUID
 		
-		try self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
+		try self.init(device: device, uuid: ourUUID, effectDefinition: &effectDefinition)
 	}
 	
-	public convenience init(device: ForceFeedbackDevice, effect: EffectType, effectDefinition: inout FFEFFECT) throws {
+	public convenience init(device: ForceFeedbackDevice, effect: EffectType, effectDefinition: inout Effect) throws {
 		let ourUUID = effect.uuidValue
 		
-		try self.init(device: device, UUID: ourUUID, effectDefinition: &effectDefinition)
+		try self.init(device: device, uuid: ourUUID, effectDefinition: &effectDefinition)
 	}
 	
-	public init(device: ForceFeedbackDevice, UUID: CFUUID, effectDefinition: inout FFEFFECT) throws {
+	public init(device: ForceFeedbackDevice, uuid UUID: CFUUID, effectDefinition: inout Effect) throws {
 		deviceReference = device
 		var tmpEffect: FFEffectObjectReference? = nil
 		let iErr = FFDeviceCreateEffect(device.rawDevice, UUID, &effectDefinition, &tmpEffect)
-		if iErr == ForceFeedbackResult.OK.rawValue {
+		if iErr == ForceFeedbackResult.ok.rawValue {
 			rawEffect = tmpEffect
 		} else {
 			rawEffect = nil
@@ -1135,11 +1338,11 @@ public final class ForceFeedbackEffect {
 		return ForceFeedbackResult.from(result: FFEffectDownload(rawEffect))
 	}
 	
-	public func getParameters(_ effect: inout FFEFFECT, flags: EffectParameter) -> ForceFeedbackResult {
+	public func getParameters(_ effect: inout Effect, flags: Parameter) -> ForceFeedbackResult {
 		return ForceFeedbackResult.from(result: FFEffectGetParameters(rawEffect, &effect, flags.rawValue))
 	}
 	
-	public func setParameters(_ effect: inout FFEFFECT, flags: EffectParameter) -> ForceFeedbackResult {
+	public func setParameters(_ effect: inout Effect, flags: Parameter) -> ForceFeedbackResult {
 		return ForceFeedbackResult.from(result: FFEffectSetParameters(rawEffect, &effect, flags.rawValue))
 	}
 	
@@ -1157,76 +1360,6 @@ public final class ForceFeedbackEffect {
 	deinit {
 		if rawEffect != nil {
 			FFDeviceReleaseEffect(deviceReference.rawDevice, rawEffect)
-		}
-	}
-	
-	public struct Status : OptionSet {
-		public let rawValue: UInt32
-		private init(_ value: UInt32) { self.rawValue = value }
-		public init(rawValue value: UInt32) { self.rawValue = value }
-		
-		public static var notPlaying: Status {
-			return Status(0)
-		}
-		public static var playing: Status {
-			return Status(1 << 0)
-		}
-		public static var emulated: Status {
-			return Status(1 << 1)
-		}
-	}
-	
-	public struct EffectParameter : OptionSet {
-		public let rawValue: UInt32
-		private init(_ value: UInt32) { self.rawValue = value }
-		public init(rawValue value: UInt32) { self.rawValue = value }
-		
-		public static var duration: EffectParameter {
-			return EffectParameter(1 << 0)
-		}
-		public static var samplePeriod: EffectParameter {
-			return EffectParameter(1 << 1)
-		}
-		public static var gain: EffectParameter {
-			return EffectParameter(1 << 2)
-		}
-		public static var triggerButton: EffectParameter {
-			return EffectParameter(1 << 3)
-		}
-		public static var triggerRepeatInterval: EffectParameter {
-			return EffectParameter(1 << 4)
-		}
-		public static var axes: EffectParameter {
-			return EffectParameter(1 << 5)
-		}
-		public static var direction: EffectParameter {
-			return EffectParameter(1 << 6)
-		}
-		public static var envelope: EffectParameter {
-			return EffectParameter(1 << 7)
-		}
-		public static var typeSpecificParameters: EffectParameter {
-			return EffectParameter(1 << 8)
-		}
-		public static var startDelay: EffectParameter {
-			return EffectParameter(1 << 9)
-		}
-		
-		public static var allParamaters: EffectParameter {
-			return EffectParameter(0x000003FF)
-		}
-		
-		public static var start: EffectParameter {
-			return EffectParameter(0x20000000)
-		}
-		public static var noRestart: EffectParameter {
-			return EffectParameter(0x40000000)
-		}
-		public static var noDownload: EffectParameter {
-			return EffectParameter(0x80000000)
-		}
-		public static var noTrigger: EffectParameter {
-			return EffectParameter(0xFFFFFFFF)
 		}
 	}
 }
