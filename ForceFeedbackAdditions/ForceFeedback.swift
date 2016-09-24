@@ -10,6 +10,7 @@ import CoreFoundation
 import Foundation
 import ForceFeedback
 import SwiftAdditions
+import os.log
 
 /// The error domain of `ForceFeedbackResult`
 public let ForceFeedbackResultErrorDomain =
@@ -756,7 +757,11 @@ extension FFCAPABILITIES {
 			let ax = Axis(rawValue: aVal)
 			switch ax {
 			case let .unknown(n):
-				print("Unknown axis number '\(n)'")
+				if #available(OSX 10.12, *) {
+					os_log("Unknown axis number '%ld'", type: .error, Int(n))
+				} else {
+					print("Unknown axis number '\(n)'")
+				}
 			default:
 				break
 			}
