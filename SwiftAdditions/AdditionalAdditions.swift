@@ -156,7 +156,23 @@ extension Array {
 	/// Returns objects that were removed.
 	/// - parameter indexes: the index set containing the indexes of objects that will be removed
 	/// - returns: any objects that were removed.
+	@discardableResult
 	public mutating func remove(indexes: NSIndexSet) -> [Element] {
+		var toRet = [Element]()
+		for i in indexes.reversed() {
+			toRet.append(self.remove(at: i))
+		}
+		
+		return toRet
+	}
+	
+	// Further adapted to work with Swift 2.2
+	/// Removes objects at indexes that are in the specified `IndexSet`.
+	/// Returns objects that were removed.
+	/// - parameter indexes: the index set containing the indexes of objects that will be removed
+	/// - returns: any objects that were removed.
+	@discardableResult
+	public mutating func remove(indexes: IndexSet) -> [Element] {
 		var toRet = [Element]()
 		for i in indexes.reversed() {
 			toRet.append(self.remove(at: i))
@@ -171,10 +187,11 @@ extension Array {
 	/// Internally creates an `NSIndexSet` so the items are in order.
 	/// - parameter ixs: the integer sequence containing the indexes of objects that will be removed
 	/// - returns: any objects that were removed.
+	@discardableResult
 	public mutating func remove<B: Sequence>(indexes ixs: B) -> [Element] where B.Iterator.Element == Int {
-		let idxSet = NSMutableIndexSet()
+		var idxSet = IndexSet()
 		for i in ixs {
-			idxSet.add(i)
+			idxSet.insert(i)
 		}
 		return remove(indexes: idxSet)
 	}
