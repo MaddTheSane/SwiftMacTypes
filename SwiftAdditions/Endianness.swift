@@ -13,7 +13,7 @@ public enum ByteOrder {
 	case big
 	case unknown
 	
-	/// The current byte-order of the machine
+	/// The current byte-order of the machine.
 	public static let current: ByteOrder = {
 		switch Int(OSHostByteOrder()) {
 		case OSLittleEndian:
@@ -27,12 +27,12 @@ public enum ByteOrder {
 		}
 	}()
 	
-	/// Is the byte-order little-endian?
+	/// Is the machine's byte-order little-endian?
 	public static var isLittle: Bool {
 		return current == .little
 	}
 	
-	/// Is the byte-order big-endian?
+	/// Is the machine's byte-order big-endian?
 	public static var isBig: Bool {
 		return current == .big
 	}

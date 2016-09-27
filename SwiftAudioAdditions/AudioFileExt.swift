@@ -319,12 +319,12 @@ public extension AudioStreamBasicDescription {
 	}
 	
 	public enum ASBDError: Error {
-		case ReqiresPCMFormat
+		case reqiresPCMFormat
 	}
 	
 	public mutating func changeCountOfChannels(nChannels: UInt32, interleaved: Bool) throws {
 		guard PCM else {
-			throw ASBDError.ReqiresPCMFormat
+			throw ASBDError.reqiresPCMFormat
 		}
 		let wordSize: UInt32 = { // get this before changing ANYTHING
 			var ws = sampleWordSize

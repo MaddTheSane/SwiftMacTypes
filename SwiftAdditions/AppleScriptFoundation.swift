@@ -10,7 +10,7 @@ import Foundation
 
 #if os(OSX)
 	private func getError(dict: NSDictionary?) -> NSError {
-		if var dict = dict as? [String : AnyObject] {
+		if var dict = dict as? [String : Any] {
 			let errNum = dict[NSAppleScript.errorNumber] as? Int ?? errOSAScriptError
 			
 			dict[NSLocalizedFailureReasonErrorKey] = dict[NSAppleScript.errorMessage]
@@ -65,12 +65,13 @@ import Foundation
 		
 		/// Execute an Apple event in the context of the script, compiling 
 		/// the script first if it is not already compiled.
+		/// - parameter event: The Apple event to execute.
 		/// - returns: the result of executing the event.
 		/// - throws: an `NSError` in the `NSOSStatusErrorDomain` domain 
 		/// if an error occurs. If you need to get the dictionary that would
 		/// have been returned by `executeAppleEvent(_:error:)`, the values
 		/// are stored in the `NSError`'s `userInfo`.
-		@nonobjc public func executeAppleEvent(event: NSAppleEventDescriptor) throws -> NSAppleEventDescriptor {
+		@nonobjc public func executeAppleEvent(_ event: NSAppleEventDescriptor) throws -> NSAppleEventDescriptor {
 			var errDict: NSDictionary?
 			if let descriptor = executeAppleEvent(event, error: &errDict) as NSAppleEventDescriptor? {
 				return descriptor

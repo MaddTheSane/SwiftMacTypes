@@ -25,7 +25,7 @@ public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 /// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
 ///
 /// **Deprecated:** Use `arrayFromObject(reflecting:, appendLastObject:) throws` instead
-@available(*, deprecated, message:"Use 'arrayFromObject(reflecting:, appendLastObject:) throws' instead", renamed: "arrayFromObject(reflecting:appendLastObject:)")
+@available(*, deprecated, message:"Use 'arrayFromObject(reflecting:, appendLastObject:) throws' instead")
 public func getArrayFromMirror<X>(mirror: Mirror, appendLastObject lastObj: X? = nil) -> [X] {
 	var anArray = [X]()
 	for val in mirror.children {
@@ -99,7 +99,7 @@ extension Dictionary {
 		dictionary.forEach { self.updateValue($1, forKey: $0) }
 	}
 	
-	public func union(dictionary: Dictionary) -> Dictionary {
+	public func union(_ dictionary: Dictionary) -> Dictionary {
 		var dict1 = dictionary
 		dict1.formUnion(self)
 		return dict1
@@ -224,6 +224,8 @@ public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [NSS
 	
 	return sortedArray
 }
+
+// MARK: -
 
 extension String {
 	/// Creates a new `String` with the contents of `self`
