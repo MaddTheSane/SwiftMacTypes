@@ -234,8 +234,19 @@ extension String {
 		guard ourUTF.count > len else {
 			return self
 		}
-		let pref = ourUTF.prefix(len)
-		return String(pref)!
+		var pref = ourUTF.prefix(len)
+		var toRet = String(pref)
+		var len2 = len
+		while len2 > 0 {
+			if let toRet = toRet {
+				return toRet
+			}
+			len2 -= 1
+			pref = ourUTF.prefix(len2)
+			toRet = String(pref)
+		}
+		
+		return ""
 	}
 
 	/// Creates a new `String` with the contents of `self`
@@ -246,8 +257,19 @@ extension String {
 		guard ourUTF.count > len else {
 			return self
 		}
-		let pref = ourUTF.prefix(len)
-		return String(pref)!
+		var pref = ourUTF.prefix(len)
+		var toRet = String(pref)
+		var len2 = len
+		while len2 > 0 {
+			if let toRet = toRet {
+				return toRet
+			}
+			len2 -= 1
+			pref = ourUTF.prefix(len2)
+			toRet = String(pref)
+		}
+		
+		return ""
 	}
 }
 
