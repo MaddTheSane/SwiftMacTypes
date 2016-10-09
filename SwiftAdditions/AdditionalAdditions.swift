@@ -107,7 +107,7 @@ extension Dictionary {
 }
 
 // Code taken from http://stackoverflow.com/a/24052094/1975001
-public func +=<K, V> ( left: inout Dictionary<K, V>, right: Dictionary<K, V>) {
+public func +=<K, V>(left: inout Dictionary<K, V>, right: Dictionary<K, V>) {
 	for (k, v) in right {
 		left.updateValue(v, forKey: k)
 	}
@@ -115,9 +115,7 @@ public func +=<K, V> ( left: inout Dictionary<K, V>, right: Dictionary<K, V>) {
 
 /// Adds two dictionaries together, returning the result.
 /// Any key in both `left` and `right`, the value in `right` is used.
-public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>)
-	-> Dictionary<K,V>
-{
+public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>) -> Dictionary<K,V> {
 	var map = Dictionary<K,V>()
 	for (k, v) in left {
 		map[k] = v

@@ -22,7 +22,7 @@ public func ><A: CocoaComparable>(lhs: A, rhs: A) -> Bool {
 	return lhs.compare(rhs) == .orderedDescending
 }
 
-public func ==< A: CocoaComparable>(lhs:A, rhs: A) -> Bool {
+public func ==<A: CocoaComparable>(lhs:A, rhs: A) -> Bool {
 	return lhs.compare(rhs) == .orderedSame
 }
 

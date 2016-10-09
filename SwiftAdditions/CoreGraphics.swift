@@ -17,8 +17,6 @@ extension CGBitmapInfo {
 			return CGImageAlphaInfo(rawValue: tmpInfo) ?? .none
 		}
 		set {
-			// why...
-			
 			let aRaw = newValue.rawValue
 			
 			//Clear the alpha info

@@ -35,7 +35,7 @@ extension NSRange: Equatable {
 		return location == NSNotFound
 	}
 	
-	@available(*, unavailable, message:"Use 'contains(_:)' instead", renamed:"NSRange.contains(_:)")
+	@available(*, unavailable, message:"Use 'contains(_:)' instead", renamed:"contains(_:)")
 	public func locationInRange(_ loc: Int) -> Bool {
 		return NSLocationInRange(loc, self)
 	}
@@ -173,7 +173,7 @@ extension CGRect {
 		self = NSIntegralRectWithOptions(self, options)
 	}
 	
-	@available(*, unavailable, message: "Use 'formIntegral(options:)' instead", renamed: "CGRect.formIntegral(options:)")
+	@available(*, unavailable, message: "Use 'formIntegral(options:)' instead", renamed: "formIntegral(options:)")
 	public mutating func integralInPlace(options: AlignmentOptions) {
 		self = NSIntegralRectWithOptions(self, options)
 	}
@@ -223,7 +223,7 @@ extension CGRect {
 	/// flipped coordinate system.<br>
 	/// Default is `false`.
 	/// - returns: `true` if the hot spot of the cursor lies inside the rectangle, otherwise `false`.
-	public func mouseInLocation(location: NSPoint, flipped: Bool = false) -> Bool {
+	public func mouseInLocation(_ location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
 	}
 	#endif
@@ -276,7 +276,12 @@ extension NSData {
 }
 
 extension NSMutableData {
-	public func appendByteArray(byteArray: [UInt8]) {
+	@available(*, unavailable, renamed: "append(byteArray:)")
+	public func appendByteArray(_ byteArray: [UInt8]) {
+		append(byteArray, length: byteArray.count)
+	}
+	
+	public func append(byteArray: [UInt8]) {
 		append(byteArray, length: byteArray.count)
 	}
 	

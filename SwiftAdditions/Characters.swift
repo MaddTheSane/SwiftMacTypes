@@ -15,6 +15,7 @@ public func <(lhs: ASCIICharacter, rhs: ASCIICharacter) -> Bool {
 /// Based off of the ASCII code tables
 public enum ASCIICharacter: Int8, Comparable {
 	// MARK: non-visible characters
+	// TODO: add info for each value.
 	case NullCharacter = 0
 	case StartOfHeader
 	case StartOfText
@@ -157,7 +158,9 @@ public enum ASCIICharacter: Int8, Comparable {
 	
 	/// Value is not valid ASCII
 	case Invalid = -1
-	
+}
+
+extension ASCIICharacter {
 	/// Takes a Swift `Character` and returns an ASCII character/code.
 	/// Returns `nil` if the value can't be represented in ASCII
 	public init?(swiftCharacter: Character) {
@@ -188,8 +191,8 @@ public enum ASCIICharacter: Int8, Comparable {
 	
 	/// Takes a C-style char value and maps it to the ASCII table.<br>
 	/// Returns `nil` if the value can't be represented as ASCII.
-	public init?(CCharacter: Int8) {
-		guard let aChar = ASCIICharacter(rawValue: CCharacter) else {
+	public init?(cCharacter: Int8) {
+		guard let aChar = ASCIICharacter(rawValue: cCharacter) else {
 			return nil
 		}
 		self = aChar
@@ -197,8 +200,8 @@ public enum ASCIICharacter: Int8, Comparable {
 	
 	/// Takes a C-style char value and maps it to the ASCII table.
 	/// Returns `nil` if the value can't be represented as ASCII.
-	public init?(CCharacter cch: UInt8) {
-		self.init(CCharacter: Int8(bitPattern: cch))
+	public init?(cCharacter cch: UInt8) {
+		self.init(cCharacter: Int8(bitPattern: cch))
 	}
 
 	
@@ -222,13 +225,22 @@ extension String {
 		self = String(asciiCharMap)
 	}
 	
-	public func toASCIICharacters() -> [ASCIICharacter]? {
+	/// Converts the string to an array of `ASCIICharacter`s.
+	/// - parameter encodeInvalid: If `true`, any character that can't be represented as
+	/// an ASCII character is instead replaced with with an `.Invalid` `ASCIICharacter`
+	/// value instead of stopping and returning `nil`.
+	public func toASCIICharacters(encodeInvalid: Bool = false) -> [ASCIICharacter]? {
+		if encodeInvalid {
+			return characters.map({ (aChar) -> ASCIICharacter in
+				return ASCIICharacter(swiftCharacter: aChar) ?? .Invalid
+			})
+		}
 		guard let asciis = self.cString(using: String.Encoding.ascii) else {
 			return nil
 		}
 		
 		return asciis.map({ (aChar) -> ASCIICharacter in
-			return ASCIICharacter(CCharacter: aChar)!
+			return ASCIICharacter(cCharacter: aChar)!
 		})
 	}
 }
