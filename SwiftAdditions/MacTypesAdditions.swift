@@ -108,7 +108,8 @@ extension String.Encoding {
 		return String.Encoding(rawValue: nsMostMacLike)
 	}
 	
-	public static var currentMac: String.Encoding {
+	/// The current system encoding that is the most like a Mac Classic encoding.
+	public static var currentCompatibleClassic: String.Encoding {
 		return currentMacStringEncoding
 	}
 }
