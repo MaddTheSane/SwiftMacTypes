@@ -707,164 +707,164 @@ public func <(x: AudioStreamBasicDescription, y: AudioStreamBasicDescription) ->
 extension LinearPCMFormatFlag {
 	@available(*, unavailable, message:"Use '.nativeFloatPacked' instead", renamed: "nativeFloatPacked")
 	public static var NativeFloatPacked: LinearPCMFormatFlag {
-		return .nativeFloatPacked
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.float' instead", renamed: "float")
 	public static var Float: LinearPCMFormatFlag {
-		return .float
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.bigEndian' instead", renamed: "bigEndian")
 	public static var BigEndian: LinearPCMFormatFlag {
-		return .bigEndian
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.signedInteger' instead", renamed: "signedInteger")
 	public static var SignedInteger: LinearPCMFormatFlag {
-		return .signedInteger
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.packed' instead", renamed: "packed")
 	public static var Packed: LinearPCMFormatFlag {
-		return .packed
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.alignedHigh' instead", renamed: "alignedHigh")
 	public static var AlignedHigh: LinearPCMFormatFlag {
-		return .alignedHigh
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.nonInterleaved' instead", renamed: "nonInterleaved")
 	public static var NonInterleaved: LinearPCMFormatFlag {
-		return .nonInterleaved
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.nonMixable' instead", renamed: "nonMixable")
 	public static var NonMixable: LinearPCMFormatFlag {
-		return .nonMixable
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.flagsAreAllClear' instead", renamed: "flagsAreAllClear")
 	public static var FlagsAreAllClear: LinearPCMFormatFlag {
-		return .flagsAreAllClear
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.nativeEndian' instead", renamed: "nativeEndian")
 	public static var NativeEndian: LinearPCMFormatFlag {
-		return .nativeEndian
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.flagsSampleFractionShift' instead", renamed: "flagsSampleFractionShift")
 	public static var FlagsSampleFractionShift: UInt32 {
-		return LinearPCMFormatFlag.flagsSampleFractionShift
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.flagsSampleFractionMask' instead", renamed: "flagsSampleFractionMask")
 	public static var FlagsSampleFractionMask : LinearPCMFormatFlag {
-		return .flagsSampleFractionMask
+		fatalError("Unavailable function called: \(#function)")
 	}
 }
 
 extension AudioFormatFlag {
 	@available(*, unavailable, message:"Use '.nativeFloatPacked' instead", renamed: "nativeFloatPacked")
 	public static var NativeFloatPacked: AudioFormatFlag {
-		return .nativeFloatPacked
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.float' instead", renamed: "float")
 	public static var Float: AudioFormatFlag {
-		return .float
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.bigEndian' instead", renamed: "bigEndian")
 	public static var BigEndian: AudioFormatFlag {
-		return .bigEndian
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.signedInteger' instead", renamed: "signedInteger")
 	public static var SignedInteger: AudioFormatFlag {
-		return .signedInteger
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.packed' instead", renamed: "packed")
 	public static var Packed: AudioFormatFlag {
-		return .packed
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.alignedHigh' instead", renamed: "alignedHigh")
 	public static var AlignedHigh: AudioFormatFlag {
-		return .alignedHigh
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.nonInterleaved' instead", renamed: "nonInterleaved")
 	public static var NonInterleaved: AudioFormatFlag {
-		return .nonInterleaved
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.nonMixable' instead", renamed: "nonMixable")
 	public static var NonMixable: AudioFormatFlag {
-		return .nonMixable
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.flagsAreAllClear' instead", renamed: "flagsAreAllClear")
 	public static var FlagsAreAllClear: AudioFormatFlag {
-		return .flagsAreAllClear
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.nativeEndian' instead", renamed: "nativeEndian")
 	public static var NativeEndian: AudioFormatFlag {
-		return .nativeEndian
+		fatalError("Unavailable function called: \(#function)")
 	}
 }
 
 extension AudioFileType {
 	@available(*, unavailable, message:"Use '.unknown' instead", renamed: "unknown")
 	public static var Unknown: AudioFileType {
-		return .unknown
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.soundDesigner2' instead", renamed: "soundDesigner2")
 	public static var SoundDesigner2: AudioFileType {
-		return .soundDesigner2
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.NeXT' instead", renamed: "NeXT")
 	public static var Next: AudioFileType {
-		return .NeXT
+		fatalError("Unavailable function called: \(#function)")
 	}
 }
 
 extension AudioFormat {
 	@available(*, unavailable, message:"Use '.unknown' instead", renamed: "unknown")
 	public static var Unknown: AudioFormat {
-		return .unknown
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.µLaw' or '.uLaw' instead", renamed: "µLaw")
 	public static var ULaw: AudioFormat {
-		return .µLaw
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.aLaw' instead", renamed: "aLaw")
 	public static var ALaw: AudioFormat {
-		return .aLaw
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.qDesign' instead", renamed: "qDesign")
 	public static var QDesign: AudioFormat {
-		return .qDesign
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.qDesign2' instead", renamed: "qDesign2")
 	public static var QDesign2: AudioFormat {
-		return .qDesign2
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.audible' instead", renamed: "audible")
 	public static var Audible: AudioFormat {
-		return .audible
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.timeCode' instead", renamed: "timeCode")
 	public static var TimeCode: AudioFormat {
-		return .timeCode
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.parameterValueStream' instead", renamed: "parameterValueStream")
 	public static var ParameterValueStream: AudioFormat {
-		return .parameterValueStream
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.appleLossless' instead", renamed: "appleLossless")
 	public static var AppleLossless: AudioFormat {
-		return .appleLossless
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.microsoftGSM' instead", renamed: "microsoftGSM")
 	public static var MicrosoftGSM: AudioFormat {
-		return .microsoftGSM
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.linearPCM' instead", renamed: "linearPCM")
 	public static var LinearPCM: AudioFormat {
-		return .linearPCM
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.six0958AC3' instead", renamed: "six0958AC3")
 	public static var Six0958AC3: AudioFormat {
-		return .six0958AC3
+		fatalError("Unavailable function called: \(#function)")
 	}
 	@available(*, unavailable, message:"Use '.appleIMA4' instead", renamed: "appleIMA4")
 	public static var AppleIMA4: AudioFormat {
-		return .appleIMA4
+		fatalError("Unavailable function called: \(#function)")
 	}
 }
 

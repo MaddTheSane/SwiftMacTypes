@@ -12,7 +12,7 @@ import CoreAudio
 import SwiftAdditions
 
 public final class AudioFile {
-	private(set) var fileID: ImplicitlyUnwrappedOptional<AudioFileID> = nil
+	private(set) var fileID: AudioFileID
 	
 	public init(createWithURL url: URL, fileType: AudioFileTypeID, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = []) throws {
 		var fileID: AudioFileID? = nil
@@ -21,7 +21,7 @@ public final class AudioFile {
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
-		self.fileID = fileID
+		self.fileID = fileID!
 	}
 	
 	public init(openURL: URL, permissions: AudioFilePermissions = .readPermission, fileTypeHint fileHint: AudioFileTypeID) throws {
@@ -31,7 +31,7 @@ public final class AudioFile {
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
-		self.fileID = fileID
+		self.fileID = fileID!
 	}
 	
 	public init(callbacksWithReadFunction readFunc: @escaping AudioFile_ReadProc, writeFunction: AudioFile_WriteProc? = nil, getSizeFunction: @escaping AudioFile_GetSizeProc, setSizeFunction: AudioFile_SetSizeProc? = nil, clientData: UnsafeMutableRawPointer, fileTypeHint: AudioFileTypeID) throws {
@@ -41,7 +41,7 @@ public final class AudioFile {
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
-		self.fileID = fileID
+		self.fileID = fileID!
 	}
 	
 	public func optimize() throws {
@@ -68,7 +68,7 @@ public final class AudioFile {
 		}
 	}
 	
-	public func userDataCount(ID userDataID: UInt32) throws -> Int {
+	public func userDataCount(ofID userDataID: UInt32) throws -> Int {
 		var outNumberItems: UInt32 = 0
 		let iErr = AudioFileCountUserData(fileID, userDataID, &outNumberItems)
 		if iErr != noErr {
@@ -89,8 +89,6 @@ public final class AudioFile {
 	}
 	
 	deinit {
-		if fileID != nil {
-			AudioFileClose(fileID)
-		}
+		AudioFileClose(fileID)
 	}
 }

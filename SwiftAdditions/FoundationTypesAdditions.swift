@@ -37,7 +37,7 @@ extension NSRange: Equatable {
 	
 	@available(*, unavailable, message:"Use 'contains(_:)' instead", renamed:"contains(_:)")
 	public func locationInRange(_ loc: Int) -> Bool {
-		return NSLocationInRange(loc, self)
+		fatalError("Unavailable function called: \(#function)")
 	}
 	
 	/// Returns a Boolean value that indicates whether a specified 
@@ -175,7 +175,7 @@ extension CGRect {
 	
 	@available(*, unavailable, message: "Use 'formIntegral(options:)' instead", renamed: "formIntegral(options:)")
 	public mutating func integralInPlace(options: AlignmentOptions) {
-		self = NSIntegralRectWithOptions(self, options)
+		fatalError("Unavailable function called: \(#function)")
 	}
 
 	
@@ -278,7 +278,7 @@ extension NSData {
 extension NSMutableData {
 	@available(*, unavailable, renamed: "append(byteArray:)")
 	public func appendByteArray(_ byteArray: [UInt8]) {
-		append(byteArray, length: byteArray.count)
+		fatalError("Unavailable function called: \(#function)")
 	}
 	
 	public func append(byteArray: [UInt8]) {

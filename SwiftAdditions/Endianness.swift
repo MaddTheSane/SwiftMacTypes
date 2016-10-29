@@ -41,16 +41,16 @@ public enum ByteOrder {
 /// The current byte-order of the machine
 @available(*, unavailable, message:"Use ByteOrder.current instead", renamed:"ByteOrder.current")
 public var currentByteOrder: ByteOrder {
-	return ByteOrder.current
+	fatalError("Unavailable function called: \(#function)")
 }
 
 /// Is the byte-order little-endian?
 @available(*, unavailable, message:"Use ByteOrder.isLittle instead", renamed:"ByteOrder.isLittle")
 public var isLittleEndian: Bool {
-	return ByteOrder.isLittle
+	fatalError("Unavailable function called: \(#function)")
 }
 /// Is the byte-order big-endian?
 @available(*, unavailable, message:"Use ByteOrder.isBig instead", renamed:"ByteOrder.isBig")
 public var isBigEndian: Bool {
-	return ByteOrder.isBig
+	fatalError("Unavailable function called: \(#function)")
 }

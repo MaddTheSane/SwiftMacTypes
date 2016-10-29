@@ -413,7 +413,7 @@ extension FFCUSTOMFORCE {
 }
 
 extension FFPERIODIC {
-	/// Magnitude of the effect, in the range from 0 through 10,000. If an envelope
+	/// Magnitude of the effect, in the range from `0` through `10,000`. If an envelope
 	/// is applied to this effect, the value represents the magnitude of the sustain. 
 	/// If no envelope is applied, the value represents the amplitude of the entire effect.
 	public var magnitude: UInt32 {
@@ -439,7 +439,7 @@ extension FFPERIODIC {
 	}
 	
 	/// Position in the cycle of the periodic effect at which playback begins, 
-	/// in the range from 0 through 35,999.
+	/// in the range from `0` through `35,999`.
 	public var phase: UInt32 {
 		get {
 			return dwPhase
@@ -784,7 +784,7 @@ extension FFCAPABILITIES {
 
 public final class ForceFeedbackDevice {
 	public typealias Escape = FFEFFESCAPE
-	fileprivate let rawDevice: ImplicitlyUnwrappedOptional<FFDeviceObjectReference>
+	fileprivate let rawDevice: FFDeviceObjectReference
 	public private(set) var lastReturnValue: ForceFeedbackResult = .ok
 	
 	public enum Property: UInt32 {
@@ -901,7 +901,6 @@ public final class ForceFeedbackDevice {
 		var tmpDevice: FFDeviceObjectReference? = nil
 		let iErr = FFCreateDevice(device, &tmpDevice)
 		guard iErr == ForceFeedbackResult.ok.rawValue else {
-			rawDevice = nil
 			throw ForceFeedbackResult.from(result: iErr)
 		}
 		rawDevice = tmpDevice!
@@ -1048,15 +1047,13 @@ public final class ForceFeedbackDevice {
 	}
 	
 	deinit {
-		if rawDevice != nil {
-			FFReleaseDevice(rawDevice)
-		}
+		FFReleaseDevice(rawDevice)
 	}
 }
 
 public final class ForceFeedbackEffect {
 	public typealias Effect = FFEFFECT
-	private let rawEffect: ImplicitlyUnwrappedOptional<FFEffectObjectReference>
+	private let rawEffect: FFEffectObjectReference
 	public let deviceReference: ForceFeedbackDevice
 	
 	public struct Status : OptionSet {
@@ -1235,73 +1232,85 @@ public final class ForceFeedbackEffect {
 		}
 	}
 	
-	/// E559C460-C5CD-11D6-8A1C-00039353BD00<br>
+	/// E559C460-C5CD-11D6-8A1C-00039353BD00
+	///
 	/// UUID for a constant force effect type
 	public static let constantForce: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x60, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	/// E559C461-C5CD-11D6-8A1C-00039353BD00<br>
+	/// E559C461-C5CD-11D6-8A1C-00039353BD00
+	///
 	/// UUID for a ramp force effect type
 	public static let rampForce: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x61, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	/// E559C462-C5CD-11D6-8A1C-00039353BD00<br>
+	/// E559C462-C5CD-11D6-8A1C-00039353BD00
+	///
 	/// UUID for a square wave effect type
 	public static let square: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x62, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	/// E559C463-C5CD-11D6-8A1C-00039353BD00<br>
+	/// E559C463-C5CD-11D6-8A1C-00039353BD00
+	///
 	/// UUID for a sine wave effect type
 	public static let sine: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x63, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	/// E559C464-C5CD-11D6-8A1C-00039353BD00<br>
+	/// E559C464-C5CD-11D6-8A1C-00039353BD00
+	///
 	/// UUID for a triangle wave effect type
 	public static let triangle: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x64, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	/// E559C465-C5CD-11D6-8A1C-00039353BD00<br>
+	/// E559C465-C5CD-11D6-8A1C-00039353BD00
+	///
 	/// UUID for a upwards sawtooth wave effect type
 	public static let sawtoothUp: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x65, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	/// E559C466-C5CD-11D6-8A1C-00039353BD00<br>
+	/// E559C466-C5CD-11D6-8A1C-00039353BD00
+	///
 	/// UUID for a downwards sawtooth wave effect type
 	public static let sawtoothDown: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x66, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	/// E559C467-C5CD-11D6-8A1C-00039353BD00<br>
+	/// E559C467-C5CD-11D6-8A1C-00039353BD00
+	///
 	/// UUID for a spring effect type
 	public static let spring: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x67, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	/// E559C468-C5CD-11D6-8A1C-00039353BD00<br>
+	/// E559C468-C5CD-11D6-8A1C-00039353BD00
+	///
 	/// UUID for a damper effect type
 	public static let damper: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x68, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	/// E559C469-C5CD-11D6-8A1C-00039353BD00<br>
+	/// E559C469-C5CD-11D6-8A1C-00039353BD00
+	///
 	/// UUID for an inertia effect type
 	public static let inertia: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x69, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	/// E559C46A-C5CD-11D6-8A1C-00039353BD00<br>
+	/// E559C46A-C5CD-11D6-8A1C-00039353BD00
+	///
 	/// UUID for a friction effect type
 	public static let friction: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x6A, 0xC5, 0xCD, 0x11, 0xD6,
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
-	/// E559C46B-C5CD-11D6-8A1C-00039353BD00<br>
+	/// E559C46B-C5CD-11D6-8A1C-00039353BD00
+	///
 	/// UUID for a custom force effect type
 	public static let customForce: UUID = UUID(uuid:(
 			0xE5, 0x59, 0xC4, 0x6B, 0xC5, 0xCD, 0x11, 0xD6,
@@ -1324,9 +1333,8 @@ public final class ForceFeedbackEffect {
 		var tmpEffect: FFEffectObjectReference? = nil
 		let iErr = FFDeviceCreateEffect(device.rawDevice, UUID, &effectDefinition, &tmpEffect)
 		if iErr == ForceFeedbackResult.ok.rawValue {
-			rawEffect = tmpEffect
+			rawEffect = tmpEffect!
 		} else {
-			rawEffect = nil
 			throw ForceFeedbackResult.from(result: iErr)
 		}
 	}
@@ -1363,8 +1371,6 @@ public final class ForceFeedbackEffect {
 	}
 	
 	deinit {
-		if rawEffect != nil {
-			FFDeviceReleaseEffect(deviceReference.rawDevice, rawEffect)
-		}
+		FFDeviceReleaseEffect(deviceReference.rawDevice, rawEffect)
 	}
 }

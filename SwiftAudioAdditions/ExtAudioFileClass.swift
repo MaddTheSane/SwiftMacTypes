@@ -12,7 +12,7 @@ import CoreAudio
 import SwiftAdditions
 
 final public class ExtAudioFile {
-	var internalPtr: ImplicitlyUnwrappedOptional<ExtAudioFileRef> = nil
+	var internalPtr: ExtAudioFileRef
 	private var strongAudioFileClass: AudioFile?
 	
 	public init(openURL: URL) throws {
@@ -22,7 +22,7 @@ final public class ExtAudioFile {
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
-		internalPtr = aPtr
+		internalPtr = aPtr!
 	}
 	
 	/// Internally retains `audioFile` so it doesn't get destroyed prematurely.
@@ -43,7 +43,7 @@ final public class ExtAudioFile {
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
-		internalPtr = aPtr
+		internalPtr = aPtr!
 	}
 	
 	public init(createURL inURL: URL, fileType inFileType: AudioFileType, streamDescription inStreamDesc: inout AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout>? = nil, flags: AudioFileFlags = []) throws {
@@ -53,7 +53,7 @@ final public class ExtAudioFile {
 		if iErr != noErr {
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
-		internalPtr = aPtr
+		internalPtr = aPtr!
 	}
 	
 	public func write(frames: UInt32, data: UnsafePointer<AudioBufferList>) throws {
@@ -83,9 +83,7 @@ final public class ExtAudioFile {
 	}
 	
 	deinit {
-		if internalPtr != nil {
-			ExtAudioFileDispose(internalPtr)
-		}
+		ExtAudioFileDispose(internalPtr)
 	}
 	
 	public func get(propertyInfo ID: ExtAudioFilePropertyID) throws -> (size: UInt32, writeable: Bool) {

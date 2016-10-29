@@ -134,7 +134,7 @@ public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>) -> Dictionary
 /// - returns: any objects that were removed.
 @available(*, unavailable, message:"Use 'Array.remove(indexes:)' instead", renamed: "Array.remove(indexes:)")
 public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
-	return anArray.remove(indexes: indexes)
+	fatalError("Unavailable function called: \(#function)")
 }
 
 /// Removes objects in an array that are in the specified integer set.
@@ -144,7 +144,7 @@ public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes
 /// - returns: any objects that were removed.
 @available(*, unavailable, message:"Use 'Array.remove(indexes:)' instead", renamed: "Array.remove(indexes:)")
 public func removeObjects<T, B: Sequence>( inArray anArray: inout Array<T>, atIndexes indexes: B) -> [T] where B.Iterator.Element == Int {
-	return anArray.remove(indexes: indexes)
+	fatalError("Unavailable function called: \(#function)")
 }
 
 extension Array {
@@ -158,7 +158,7 @@ extension Array {
 	public mutating func remove(indexes: NSIndexSet) -> [Element] {
 		var toRet = [Element]()
 		for i in indexes.reversed() {
-			toRet.append(self.remove(at: i))
+			toRet.append(remove(at: i))
 		}
 		
 		return toRet
@@ -173,7 +173,7 @@ extension Array {
 	public mutating func remove(indexes: IndexSet) -> [Element] {
 		var toRet = [Element]()
 		for i in indexes.reversed() {
-			toRet.append(self.remove(at: i))
+			toRet.append(remove(at: i))
 		}
 		
 		return toRet
@@ -218,9 +218,7 @@ extension Array where Element: AnyObject {
 ///This *may* be expensive, in both memory and computation!
 @available(*, unavailable, message:"Use 'Array.sorted(using:)' instead", renamed: "Array.sorted(using:)")
 public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
-	let sortedArray = anArray.sorted(using: descriptors)
-	
-	return sortedArray
+	fatalError("Unavailable function called: \(#function)")
 }
 
 // MARK: -

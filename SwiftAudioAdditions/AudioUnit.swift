@@ -9,8 +9,6 @@
 import Foundation
 import AudioUnit
 
-public let AudioUnitManufacturer_Apple: OSType = 0x6170706C
-
 public enum AudioComponentType {
 	case output(AUOutput)
 	case musicDevice(AUInstrument)
@@ -22,9 +20,9 @@ public enum AudioComponentType {
 	case generator(AUGenerator)
 	case offlineEffect(AUEffect)
 	case MIDIProcessor(OSType)
-	case unknown(AUType: OSType, AUSubtype: OSType)
+	case unknown(type: OSType, subType: OSType)
 	
-	public init(AUType rawType: OSType, AUSubtype: OSType) {
+	public init(type rawType: OSType, subType AUSubtype: OSType) {
 		switch rawType {
 		case AUType.output.rawValue:
 			if let aOut = AUOutput(rawValue: AUSubtype) {
@@ -87,7 +85,7 @@ public enum AudioComponentType {
 		}
 		
 		
-		self = .unknown(AUType: rawType, AUSubtype: AUSubtype)
+		self = .unknown(type: rawType, subType: AUSubtype)
 	}
 	
 	public enum AUType: OSType {
@@ -183,7 +181,7 @@ public enum AudioComponentType {
 		case audioFilePlayer = 0x6166706C
 	}
 	
-	public var types: (AUType: OSType, AUSubtype: OSType) {
+	public var types: (type: OSType, subtype: OSType) {
 		switch self {
 		case let .output(aType):
 			return (AUType.output.rawValue, aType.rawValue)
@@ -215,14 +213,14 @@ public enum AudioComponentType {
 		case let .MIDIProcessor(aType):
 			return (AUType.MIDIProcessor.rawValue, aType)
 			
-		case let .unknown(AUType: aType, AUSubtype: aSubtype):
+		case let .unknown(type: aType, subType: aSubtype):
 			return (aType, aSubtype)
 		}
 	}
 }
 
 extension AudioComponentDescription {	
-	public init(component: AudioComponentType, manufacturer: OSType = AudioUnitManufacturer_Apple) {
+	public init(component: AudioComponentType, manufacturer: OSType = kAudioUnitManufacturer_Apple) {
 		(componentType, componentSubType) = component.types
 		componentManufacturer = manufacturer
 		componentFlags = 0
@@ -240,7 +238,7 @@ extension AudioComponentDescription {
 	
 	public var component: AudioComponentType {
 		get {
-			return AudioComponentType(AUType: componentType, AUSubtype: componentSubType)
+			return AudioComponentType(type: componentType, subType: componentSubType)
 		}
 		set {
 			(componentType, componentSubType) = newValue.types
