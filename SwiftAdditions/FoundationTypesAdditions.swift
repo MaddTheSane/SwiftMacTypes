@@ -263,11 +263,11 @@ extension UUID {
 
 
 extension NSData {
-	public convenience init(byteArray: [UInt8]) {
+	@nonobjc public convenience init(byteArray: [UInt8]) {
 		self.init(bytes: byteArray, length: byteArray.count)
 	}
 	
-	public var arrayOfBytes: [UInt8] {
+	@nonobjc public var arrayOfBytes: [UInt8] {
 		let count = length / MemoryLayout<UInt8>.size
 		var bytesArray = [UInt8](repeating: 0, count: count)
 		getBytes(&bytesArray, length:count * MemoryLayout<UInt8>.size)
@@ -277,15 +277,15 @@ extension NSData {
 
 extension NSMutableData {
 	@available(*, unavailable, renamed: "append(byteArray:)")
-	public func appendByteArray(_ byteArray: [UInt8]) {
+	@nonobjc public func appendByteArray(_ byteArray: [UInt8]) {
 		fatalError("Unavailable function called: \(#function)")
 	}
 	
-	public func append(byteArray: [UInt8]) {
+	@nonobjc public func append(byteArray: [UInt8]) {
 		append(byteArray, length: byteArray.count)
 	}
 	
-	public func replaceBytesInRange(range: NSRange, withByteArray replacementBytes: [UInt8]) {
+	@nonobjc public func replaceBytesInRange(range: NSRange, withByteArray replacementBytes: [UInt8]) {
 		replaceBytes(in: range, withBytes: replacementBytes, length: replacementBytes.count)
 	}
 }
@@ -323,9 +323,81 @@ extension IndexSet {
 
 
 extension UserDefaults {
-	@nonobjc public subscript(key: String) -> Any? {
+	@nonobjc public subscript(key: String) -> String? {
 		get {
-			return object(forKey: key)
+			return string(forKey: key)
+		}
+		set {
+			set(newValue, forKey: key)
+		}
+	}
+
+	@nonobjc public subscript(key: String) -> Data? {
+		get {
+			return data(forKey: key)
+		}
+		set {
+			set(newValue, forKey: key)
+		}
+	}
+	
+	@nonobjc public subscript(key: String) -> [Any]? {
+		get {
+			return array(forKey: key)
+		}
+		set {
+			set(newValue, forKey: key)
+		}
+	}
+
+	@nonobjc public subscript(key: String) -> [String: Any]? {
+		get {
+			return dictionary(forKey: key)
+		}
+		set {
+			set(newValue, forKey: key)
+		}
+	}
+	
+	@nonobjc public subscript(key: String) -> Int? {
+		get {
+			return object(forKey: key) as? Int
+		}
+		set {
+			set(newValue, forKey: key)
+		}
+	}
+
+	@nonobjc public subscript(key: String) -> Float? {
+		get {
+			return object(forKey: key) as? Float
+		}
+		set {
+			set(newValue, forKey: key)
+		}
+	}
+	
+	@nonobjc public subscript(key: String) -> Double? {
+		get {
+			return object(forKey: key) as? Double
+		}
+		set {
+			set(newValue, forKey: key)
+		}
+	}
+
+	@nonobjc public subscript(key: String) -> URL? {
+		get {
+			return url(forKey: key)
+		}
+		set {
+			set(newValue, forKey: key)
+		}
+	}
+	
+	@nonobjc public subscript(key: String) -> Bool? {
+		get {
+			return object(forKey: key) as? Bool
 		}
 		set {
 			set(newValue, forKey: key)
