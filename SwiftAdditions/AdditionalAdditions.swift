@@ -107,7 +107,7 @@ extension Dictionary {
 }
 
 // Code taken from http://stackoverflow.com/a/24052094/1975001
-public func +=<K, V>(left: inout Dictionary<K, V>, right: Dictionary<K, V>) {
+public func +=<K, V>(left: inout Dictionary<K, V>, right: Dictionary<K, V>) where K: Hashable {
 	for (k, v) in right {
 		left.updateValue(v, forKey: k)
 	}
@@ -115,7 +115,7 @@ public func +=<K, V>(left: inout Dictionary<K, V>, right: Dictionary<K, V>) {
 
 /// Adds two dictionaries together, returning the result.
 /// Any key in both `left` and `right`, the value in `right` is used.
-public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>) -> Dictionary<K,V> {
+public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>) -> Dictionary<K,V> where K: Hashable {
 	var map = Dictionary<K,V>()
 	for (k, v) in left {
 		map[k] = v
@@ -164,6 +164,7 @@ extension Array {
 		return toRet
 	}
 	
+	// Code taken from http://stackoverflow.com/a/26174259/1975001
 	// Further adapted to work with Swift 2.2
 	/// Removes objects at indexes that are in the specified `IndexSet`.
 	/// Returns objects that were removed.
@@ -196,18 +197,21 @@ extension Array {
 }
 
 extension Array where Element: AnyObject {
-	///Returns a sorted array from the current array by using `NSSortDescriptor`s.
+	/// Returns a sorted array from the current array by using `NSSortDescriptor`s.
+	/// - parameter descriptors: The `NSSortDescriptor`s to sort the array with.
+	/// - returns: This array, sorted by `descriptors`.
 	///
-	///This *may* be expensive, in both memory and computation!
+	/// This *may* be expensive, in both memory and computation!
 	public func sorted(using descriptors: [NSSortDescriptor]) -> [Element] {
 		let sortedArray = (self as NSArray).sortedArray(using: descriptors)
 		
 		return sortedArray as! [Element]
 	}
 	
-	///Sorts the current array by using `NSSortDescriptor`s.
+	/// Sorts the current array by using `NSSortDescriptor`s.
+	/// - parameter descriptors: The `NSSortDescriptor`s to sort the array with.
 	///
-	///This *may* be expensive, in both memory and computation!
+	/// This *may* be expensive, in both memory and computation!
 	public mutating func sort(using descriptors: [NSSortDescriptor]) {
 		self = sorted(using: descriptors)
 	}
