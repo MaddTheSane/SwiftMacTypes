@@ -8,12 +8,17 @@
 
 import Foundation
 
-///Clamps a variable between `minimum` and `maximum`.
+/// Clamps a variable between `minimum` and `maximum`.
+/// - parameter value: The value to clamp, if needed.
+/// - parameter minimum: The minimum value to clamp `value` to.
+/// - parameter maximum: The maximum value to clamp `value` to.
+/// - returns: `value` if it is in-between `minimum` and `maximum`,
+/// or a value that is no less than `minimum` and no greater than `maximum`.
 ///
-///If `minimum` is greater than `maximum`, the original value is returned.
+/// If `minimum` is greater than `maximum`, a fatal error occurs.
 public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 	if minimum > maximum {
-		return value
+		fatalError("Minimum (\(minimum)) is greater than maximum (\(maximum))!")
 	}
 	return max(min(value, maximum), minimum)
 }
