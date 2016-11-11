@@ -246,7 +246,7 @@ final public class ExtAudioFile {
 	
 	//MARK: writable
 	
-	public func setConverterConfig(newVal: CFPropertyList?) throws {
+	public func setConverterConfig(_ newVal: CFPropertyList?) throws {
 		var cOpaque: UnsafeMutableRawPointer? = nil
 		if let newVal = newVal {
 			cOpaque = Unmanaged.passUnretained(newVal).toOpaque()
@@ -269,7 +269,7 @@ final public class ExtAudioFile {
 		try set(property: kExtAudioFileProperty_IOBufferSizeBytes, dataSize: size, data: &bytes)
 	}
 	
-	public func setIOBuffer(newVal: UnsafeMutableRawPointer) throws {
+	public func setIOBuffer(_ newVal: UnsafeMutableRawPointer) throws {
 		let (size, writable) = try get(propertyInfo: kExtAudioFileProperty_IOBuffer)
 		if !writable {
 			//paramErr
@@ -278,7 +278,7 @@ final public class ExtAudioFile {
 		try set(property: kExtAudioFileProperty_IOBuffer, dataSize: size, data: newVal)
 	}
 	
-	public func setPacketTable(newVal1: AudioFilePacketTableInfo) throws {
+	public func setPacketTable(_ newVal1: AudioFilePacketTableInfo) throws {
 		var newVal = newVal1
 		let (size, writable) = try get(propertyInfo: kExtAudioFileProperty_PacketTable)
 		if !writable {
