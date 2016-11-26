@@ -456,6 +456,7 @@ public extension AudioStreamBasicDescription {
 						}
 						var x: Int32 = 0
 						
+						//TODO: use Scanner
 						if (withVaList([withUnsafeMutablePointer(to: &x, {return $0})], { (vaPtr) -> Int32 in
 							charIterator = fromText.index(after: charIterator)
 							let str = fromText[charIterator ..< fromText.endIndex]

@@ -78,6 +78,7 @@ public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X?
 /// you *are* on the main thread.
 ///
 /// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
+/// - parameter block: The block to execute syncronously on the main thread.
 public func runOnMainThreadSync(block: () -> Void) {
 	if Thread.isMainThread {
 		block()
@@ -90,6 +91,7 @@ public func runOnMainThreadSync(block: () -> Void) {
 /// or queues it on the main Dispatch queue if on another thread.
 ///
 /// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
+/// - parameter block: The block to execute asyncronously on the main thread.
 public func runOnMainThreadAsync(block: @escaping () -> Void) {
 	if Thread.isMainThread {
 		block()
@@ -137,7 +139,7 @@ public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>) -> Dictionary
 /// Returns objects that were removed.
 /// - parameter ixs: the index set containing the indexes of objects that will be removed
 /// - returns: any objects that were removed.
-@available(*, unavailable, message:"Use 'Array.remove(indexes:)' instead", renamed: "Array.remove(indexes:)")
+@available(*, unavailable, message:"Use 'Array.remove(indexes:)' instead")
 public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
 	fatalError("Unavailable function called: \(#function)")
 }
@@ -147,7 +149,7 @@ public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes
 /// - parameter anArray: the array to modify.
 /// - parameter indexes: the integer set containing the indexes of objects that will be removed
 /// - returns: any objects that were removed.
-@available(*, unavailable, message:"Use 'Array.remove(indexes:)' instead", renamed: "Array.remove(indexes:)")
+@available(*, unavailable, message:"Use 'Array.remove(indexes:)' instead")
 public func removeObjects<T, B: Sequence>( inArray anArray: inout Array<T>, atIndexes indexes: B) -> [T] where B.Iterator.Element == Int {
 	fatalError("Unavailable function called: \(#function)")
 }
@@ -188,7 +190,7 @@ extension Array {
 	/// Removes objects at indexes that are in the specified integer sequence.
 	/// Returns objects that were removed.
 	///
-	/// Internally creates an `NSIndexSet` so the items are in order.
+	/// Internally creates an `IndexSet` so the items are in order.
 	/// - parameter ixs: the integer sequence containing the indexes of objects that will be removed
 	/// - returns: any objects that were removed.
 	@discardableResult
@@ -225,8 +227,8 @@ extension Array where Element: AnyObject {
 ///Sort a Swift array using an array of `NSSortDescriptor`.
 ///
 ///This *may* be expensive, in both memory and computation!
-@available(*, unavailable, message:"Use 'Array.sorted(using:)' instead", renamed: "Array.sorted(using:)")
-public func sortedArray(anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
+@available(*, unavailable, message:"Use 'Array.sorted(using:)' instead")
+public func sortedArray(_ anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
 	fatalError("Unavailable function called: \(#function)")
 }
 

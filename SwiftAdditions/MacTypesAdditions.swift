@@ -392,11 +392,11 @@ extension OSType: ExpressibleByStringLiteral {
 	
 	/// Returns a tuple with four values.
 	public func toFourChar() -> (Int8, Int8, Int8, Int8) {
-		let var1 = (self >> 24) & 0xFF
-		let var2 = (self >> 16) & 0xFF
-		let var3 = (self >> 8) & 0xFF
-		let var4 = (self) & 0xFF
-		return (Int8(truncatingBitPattern: var1), Int8(truncatingBitPattern: var2), Int8(truncatingBitPattern: var3), Int8(truncatingBitPattern: var4))
+		let var1 = UInt8((self >> 24) & 0xFF)
+		let var2 = UInt8((self >> 16) & 0xFF)
+		let var3 = UInt8((self >> 8) & 0xFF)
+		let var4 = UInt8((self) & 0xFF)
+		return (Int8(bitPattern: var1), Int8(bitPattern: var2), Int8(bitPattern: var3), Int8(bitPattern: var4))
 	}
 	
 	/// Returns a tuple with five values, the last one being zero for null-termination.
