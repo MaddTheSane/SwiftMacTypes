@@ -263,10 +263,12 @@ extension UUID {
 
 
 extension NSData {
+	@available(*, deprecated, message: "Use the `Data` struct instead")
 	@nonobjc public convenience init(byteArray: [UInt8]) {
 		self.init(bytes: byteArray, length: byteArray.count)
 	}
 	
+	@available(*, deprecated, message: "Use the `Data` struct instead")
 	@nonobjc public var arrayOfBytes: [UInt8] {
 		let count = length / MemoryLayout<UInt8>.size
 		var bytesArray = [UInt8](repeating: 0, count: count)
@@ -281,11 +283,16 @@ extension NSMutableData {
 		fatalError("Unavailable function called: \(#function)")
 	}
 	
+	@available(*, deprecated, renamed: "replaceBytes(in:with:)")
+	@nonobjc public func replaceBytesInRange(range: NSRange, withByteArray replacementBytes: [UInt8]) {
+		replaceBytes(in: range, with: replacementBytes)
+	}
+	
 	@nonobjc public func append(byteArray: [UInt8]) {
 		append(byteArray, length: byteArray.count)
 	}
 	
-	@nonobjc public func replaceBytesInRange(range: NSRange, withByteArray replacementBytes: [UInt8]) {
+	@nonobjc public func replaceBytes(in range: NSRange, with replacementBytes: [UInt8]) {
 		replaceBytes(in: range, withBytes: replacementBytes, length: replacementBytes.count)
 	}
 }
