@@ -1162,31 +1162,44 @@ public final class ForceFeedbackEffect {
 		/// Returns an `EffectType` matching the supplied UUID.
 		/// Returns `nil` if there isn't a matching `EffectType`.
 		public init?(uuid UUID: Foundation.UUID) {
-			if UUID == ForceFeedbackEffect.constantForce {
+			switch UUID {
+			case ForceFeedbackEffect.constantForce:
 				self = .constantForce
-			} else if UUID == ForceFeedbackEffect.rampForce {
+				
+			case ForceFeedbackEffect.rampForce:
 				self = .rampForce
-			} else if UUID == ForceFeedbackEffect.square {
+
+			case ForceFeedbackEffect.square:
 				self = .square
-			} else if UUID == ForceFeedbackEffect.sine {
+				
+			case ForceFeedbackEffect.sine:
 				self = .sine
-			} else if UUID == ForceFeedbackEffect.triangle {
+				
+			case ForceFeedbackEffect.triangle:
 				self = .triangle
-			} else if UUID == ForceFeedbackEffect.sawtoothUp {
+				
+			case ForceFeedbackEffect.sawtoothUp:
 				self = .sawtoothUp
-			} else if UUID == ForceFeedbackEffect.sawtoothDown {
+				
+			case ForceFeedbackEffect.sawtoothDown:
 				self = .sawtoothDown
-			} else if UUID == ForceFeedbackEffect.spring {
+				
+			case ForceFeedbackEffect.spring:
 				self = .spring
-			} else if UUID == ForceFeedbackEffect.damper {
+				
+			case ForceFeedbackEffect.damper:
 				self = .damper
-			} else if UUID == ForceFeedbackEffect.inertia {
+				
+			case ForceFeedbackEffect.inertia:
 				self = .inertia
-			} else if UUID == ForceFeedbackEffect.friction {
+				
+			case ForceFeedbackEffect.friction:
 				self = .friction
-			} else if UUID == ForceFeedbackEffect.customForce {
+				
+			case ForceFeedbackEffect.customForce:
 				self = .custom
-			} else {
+
+			default:
 				return nil
 			}
 		}
@@ -1359,7 +1372,7 @@ public final class ForceFeedbackEffect {
 		return ForceFeedbackResult.from(result: FFEffectSetParameters(rawEffect, &effect, flags.rawValue))
 	}
 	
-	///- returns: A `Status` bit mask, or `nil` on error.
+	/// Returns a `Status` bit mask, or `nil` on error.
 	public var status: Status? {
 		var statFlag: FFEffectStatusFlag = 0
 		let retVal = FFEffectGetEffectStatus(rawEffect, &statFlag)

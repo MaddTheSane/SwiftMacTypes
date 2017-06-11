@@ -14,11 +14,11 @@ import SwiftAdditions
 
 public typealias IOCFPlugInInterfaceHandle = UnsafeMutablePointer<UnsafeMutablePointer<IOCFPlugInInterface>?>?
 
-public class IOCFPlugInInterfaceClass: IUnknown {
+open class IOCFPlugInInterfaceClass: IUnknown {
 	/// Should only be accessed by subclasses!
 	public private(set) var interfaceStruct: IOCFPlugInInterfaceHandle = nil
 	
-	public init?(plugInInterface: IOCFPlugInInterfaceHandle) {
+	open init?(plugInInterface: IOCFPlugInInterfaceHandle) {
 		if plugInInterface == nil {
 			return nil
 		} else if plugInInterface?.pointee == nil {
@@ -38,27 +38,27 @@ public class IOCFPlugInInterfaceClass: IUnknown {
 		return interfaceStruct!.pointee!.pointee
 	}
 	
-	public var version: UInt16 {
+	open var version: UInt16 {
 		return unwrappedInterface.version
 	}
 	
-	public var revision: UInt16 {
+	open var revision: UInt16 {
 		return unwrappedInterface.revision
 	}
 	
-	public func stop() -> IOReturn {
+	open func stop() -> IOReturn {
 		return unwrappedInterface.Stop(interfaceStruct)
 	}
 	
-	public func start(propertyTable: NSDictionary, service: io_service_t) -> IOReturn {
+	open func start(propertyTable: NSDictionary, service: io_service_t) -> IOReturn {
 		return unwrappedInterface.Start(interfaceStruct, propertyTable, service)
 	}
 	
-	public func probe(propertyTable: NSDictionary, service: io_service_t, order: inout Int32) -> IOReturn {
+	open func probe(propertyTable: NSDictionary, service: io_service_t, order: inout Int32) -> IOReturn {
 		return unwrappedInterface.Probe(interfaceStruct, propertyTable, service, &order)
 	}
 	
-	public func queryInterface(_ iid: REFIID, ppv: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
+	open func queryInterface(_ iid: REFIID, ppv: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
 		return unwrappedInterface.QueryInterface(interfaceStruct, iid, ppv)
 	}
 }
