@@ -107,8 +107,8 @@ extension Dictionary {
 	}
 	
 	public func union(_ dictionary: Dictionary) -> Dictionary {
-		var dict1 = dictionary
-		dict1.formUnion(self)
+		var dict1 = self
+		dict1.formUnion(dictionary)
 		return dict1
 	}
 }
