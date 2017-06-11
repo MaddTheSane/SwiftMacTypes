@@ -364,7 +364,11 @@ extension UserDefaults {
 			return object(forKey: key) as? Int
 		}
 		set {
-			set(newValue, forKey: key)
+			if let newValue = newValue {
+				set(newValue, forKey: key)
+			} else {
+				removeObject(forKey: key)
+			}
 		}
 	}
 
@@ -373,7 +377,11 @@ extension UserDefaults {
 			return object(forKey: key) as? Float
 		}
 		set {
-			set(newValue, forKey: key)
+			if let newValue = newValue {
+				set(newValue, forKey: key)
+			} else {
+				removeObject(forKey: key)
+			}
 		}
 	}
 	
@@ -382,7 +390,11 @@ extension UserDefaults {
 			return object(forKey: key) as? Double
 		}
 		set {
-			set(newValue, forKey: key)
+			if let newValue = newValue {
+				set(newValue, forKey: key)
+			} else {
+				removeObject(forKey: key)
+			}
 		}
 	}
 
@@ -400,7 +412,11 @@ extension UserDefaults {
 			return object(forKey: key) as? Bool
 		}
 		set {
-			set(newValue, forKey: key)
+			if let newValue = newValue {
+				set(newValue, forKey: key)
+			} else {
+				removeObject(forKey: key)
+			}
 		}
 	}
 }
