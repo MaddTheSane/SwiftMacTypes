@@ -283,8 +283,8 @@ extension String {
 }
 
 extension UnsafeBufferPointer {
-	/// Creates an `UnsafePointer` over the contiguous `Element` instances beginning at `start`,
-	/// iterating until `sentinel` returns `true`.
+	/// Creates an `UnsafeBufferPointer` over the contiguous `Element` instances beginning 
+	/// at `start`, iterating until `sentinelChecker` returns `true`.
 	///
 	/// This is great for array pointers that have an unknown number of elements but does have
 	/// a terminating element, or *sentinel*, that indicates the end of the array.
