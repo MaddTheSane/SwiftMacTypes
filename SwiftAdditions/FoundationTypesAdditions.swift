@@ -330,6 +330,10 @@ extension IndexSet {
 
 
 extension UserDefaults {
+	/// If the user default specified by `key` is not a
+	/// `String`, Foundation will convert it to a string 
+	/// if the value is a number value. Otherwise `nil` will
+	/// be returned.
 	@nonobjc public subscript(key: String) -> String? {
 		get {
 			return string(forKey: key)
@@ -357,6 +361,17 @@ extension UserDefaults {
 		}
 	}
 
+	/// If any of the objects in the user default array specified by `key`
+	/// is not a `String`, this will return `nil`
+	@nonobjc public subscript(key: String) -> [String]? {
+		get {
+			return stringArray(forKey: key)
+		}
+		set {
+			set(newValue, forKey: key)
+		}
+	}
+
 	@nonobjc public subscript(key: String) -> [String: Any]? {
 		get {
 			return dictionary(forKey: key)
@@ -366,9 +381,22 @@ extension UserDefaults {
 		}
 	}
 	
+	/// Gets and sets a user default value named `key` to/from an `Int` type. When getting, If the value is not a `Bool` type, the following will be attempted to convert it to an `Int`:
+	/// * If the value is a `Bool`, `0` will be returned if the value is *false*, `1` if *true*.
+	/// * If the value is a `String`, it will attempt to convert it to an `Int` value. If unsuccessful, returns `nil`.
+	/// * If the value is absent or can't be converted to an `Int`, `nil` will be returned.
 	@nonobjc public subscript(key: String) -> Int? {
 		get {
-			return object(forKey: key) as? Int
+			if let obj = object(forKey: key) {
+				if let aDoub = obj as? Int {
+					return aDoub
+				} else if let aStr = obj as? String {
+					return Int(aStr)
+				} else if let aBool = obj as? Bool {
+					return aBool ? 1 : 0
+				}
+			}
+			return nil
 		}
 		set {
 			if let newValue = newValue {
@@ -379,9 +407,22 @@ extension UserDefaults {
 		}
 	}
 
+	/// Gets and sets a user default value named `key` to/from a `Float` type. When getting, If the value is not a `Float` type, the following will be attempted to convert it to a `Float`:
+	/// * If the value is a `String`, it will attempt to convert it to a `Float` value. If unsuccessful, returns `nil`.
+	/// * If the value is an `Int`, the value will be converted to a `Float`.
+	/// * If the value is absent or can't be converted to a `Float`, `nil` will be returned.
 	@nonobjc public subscript(key: String) -> Float? {
 		get {
-			return object(forKey: key) as? Float
+			if let obj = object(forKey: key) {
+				if let aDoub = obj as? Float {
+					return aDoub
+				} else if let aInt = obj as? Int {
+					return Float(aInt)
+				} else if let aStr = obj as? String {
+					return Float(aStr)
+				}
+			}
+			return nil
 		}
 		set {
 			if let newValue = newValue {
@@ -392,9 +433,22 @@ extension UserDefaults {
 		}
 	}
 	
+	/// Gets and sets a user default value named `key` to/from a `Double` type. When getting, If the value is not a `Double` type, the following will be attempted to convert it to a `Double`:
+	/// * If the value is a `String`, it will attempt to convert it to a `Double` value. If unsuccessful, returns `nil`.
+	/// * If the value is an `Int`, the value will be converted to a `Float`.
+	/// * If the value is absent or can't be converted to a `Double`, `nil` will be returned.
 	@nonobjc public subscript(key: String) -> Double? {
 		get {
-			return object(forKey: key) as? Double
+			if let obj = object(forKey: key) {
+				if let aDoub = obj as? Double {
+					return aDoub
+				} else if let aInt = obj as? Int {
+					return Double(aInt)
+				} else if let aStr = obj as? String {
+					return Double(aStr)
+				}
+			}
+			return nil
 		}
 		set {
 			if let newValue = newValue {
@@ -405,6 +459,12 @@ extension UserDefaults {
 		}
 	}
 
+	/// Gets and sets a user default value named `key` to/from a `URL` type. When getting, 
+	/// If the value is not a `URL` type, the following is attempted by the Foundation 
+	/// framework to convert it to a `URL`:
+	/// * If the value is a `String` path, then it will construct a file URL to that path. 
+	/// * If the value is an archived URL from `-setURL:forKey:`, or is set via the URL subscript, it will be unarchived.
+	/// * If the value is absent or can't be converted to a `URL`, `nil` will be returned.
 	@nonobjc public subscript(key: String) -> URL? {
 		get {
 			return url(forKey: key)
@@ -414,9 +474,35 @@ extension UserDefaults {
 		}
 	}
 	
+	/// Gets and sets a user default value named `key` to/from a `Bool` type. When getting, If the value is not a `Bool` type, the following will be attempted to convert it to a `Bool`:
+	/// * If the value is an `Int`, `false` will be returned if the value is *0*, `true` otherwise.
+	/// * If the value is a `String`, values of *"YES"* or *"1"* will return `true`, and values of *"NO"* or *"0"* will return `false`, anything else will return `nil`. 
+	/// * If the value is absent or can't be converted to a `Bool`, `nil` will be returned.
 	@nonobjc public subscript(key: String) -> Bool? {
 		get {
-			return object(forKey: key) as? Bool
+			if let obj = object(forKey: key) {
+				if let aBool = obj as? Bool {
+					return aBool
+				} else if let aNum = obj as? Int {
+					if aNum == 0 {
+						return false
+					} else {
+						return true
+					}
+				} else if let aStr = obj as? String {
+					switch aStr {
+					case "0", "NO":
+						return false
+						
+					case "1", "YES":
+						return true
+						
+					default:
+						return nil
+					}
+				}
+			}
+			return nil
 		}
 		set {
 			if let newValue = newValue {
