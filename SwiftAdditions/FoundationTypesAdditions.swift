@@ -11,11 +11,7 @@ import Foundation
 	import UIKit
 #endif
 
-public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
-	return NSEqualRanges(rhs, lhs)
-}
-
-extension NSRange: Equatable {
+extension NSRange {
 	/// An `NSRange` with a `location` of `NSNotFound` and a `length` of `0`.
 	public static let notFound = NSRange(location: NSNotFound, length: 0)
 	
@@ -299,14 +295,14 @@ extension NSMutableData {
 
 #if os(OSX)
 @available(OSX, introduced:10.10)
-extension EdgeInsets: Equatable {
-	public static var zero: EdgeInsets {
+extension NSEdgeInsets: Equatable {
+	public static var zero: NSEdgeInsets {
 		return NSEdgeInsetsZero
 	}
 }
 
 @available(OSX, introduced:10.10)
-public func ==(rhs: EdgeInsets, lhs: EdgeInsets) -> Bool {
+public func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
 	return NSEdgeInsetsEqual(rhs, lhs)
 }
 #endif
@@ -534,7 +530,7 @@ extension String {
 	/// `nsRange` is in between Unicode code points, this method will return `nil`.
 	public func range(from nsRange: NSRange) -> Range<String.Index>? {
 		guard
-			let preRange = nsRange.toRange(),
+			let preRange = Range(nsRange),
 			let from16 = utf16.index(utf16.startIndex, offsetBy: preRange.lowerBound, limitedBy: utf16.endIndex),
 			let to16 = utf16.index(utf16.startIndex, offsetBy: preRange.upperBound, limitedBy: utf16.endIndex),
 			let from = String.Index(from16, within: self),

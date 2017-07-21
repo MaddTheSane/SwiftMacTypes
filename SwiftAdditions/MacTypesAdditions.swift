@@ -448,7 +448,7 @@ public enum CarbonToolbarIcons: OSType {
 	}
 	
 	public var iconRepresentation: NSImage {
-		return NSWorkspace.shared().icon(forFileType: NSFileTypeForHFSTypeCode(rawValue))
+		return NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(rawValue))
 	}
 }
 
@@ -466,7 +466,7 @@ public enum CarbonFolderIcons: OSType {
 	}
 	
 	public var iconRepresentation: NSImage {
-		return NSWorkspace.shared().icon(forFileType: NSFileTypeForHFSTypeCode(rawValue))
+		return NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(rawValue))
 	}
 }
 	

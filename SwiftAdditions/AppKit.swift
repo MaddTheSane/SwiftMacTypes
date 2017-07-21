@@ -146,8 +146,8 @@ import Cocoa
 	
 	extension NSBitmapImageRep {
 		/// Returns an array of all available compression types that can be used when writing a TIFF image.
-		public class var tiffCompressionTypes: [NSTIFFCompression] {
-			var compPtr: UnsafePointer<NSTIFFCompression>? = nil
+		public class var tiffCompressionTypes: [NSBitmapImageRep.TIFFCompression] {
+			var compPtr: UnsafePointer<NSBitmapImageRep.TIFFCompression>? = nil
 			var count = 0
 			getTIFFCompressionTypes(&compPtr, count: &count)
 			

@@ -460,12 +460,14 @@ public extension AudioStreamBasicDescription {
 						if (withVaList([withUnsafeMutablePointer(to: &x, {return $0})], { (vaPtr) -> Int32 in
 							charIterator = fromText.index(after: charIterator)
 							let str = fromText[charIterator ..< fromText.endIndex]
-							return vsscanf(str, "%02X", vaPtr)
+							return str.withCString({ (cStr) -> Int32 in
+								return vsscanf(cStr, "%02X", vaPtr)
+							})
 						}) != 1) {
 							return nil
 						}
 						
-						aBuf = Int8(truncatingBitPattern: x)
+						aBuf = Int8(extendingOrTruncating: x)
 						buf[i] = aBuf
 						charIterator = fromText.index(charIterator, offsetBy: 2)
 					}
