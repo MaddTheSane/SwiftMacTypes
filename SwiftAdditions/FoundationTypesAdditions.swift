@@ -330,6 +330,8 @@ extension IndexSet {
 
 
 extension UserDefaults {
+	/// - parameter key: the user default key to get/set.
+	///
 	/// If the user default specified by `key` is not a
 	/// `String`, Foundation will convert it to a string 
 	/// if the value is a number value. Otherwise `nil` will
@@ -343,6 +345,11 @@ extension UserDefaults {
 		}
 	}
 
+	/// Gets and sets a user default value named `key` to/from a `Data` type.
+	/// - parameter key: the user default key to get/set.
+	///
+	/// When getting, if the user default specified by `key` is not a `Data`,
+	/// this will return `nil`.
 	@nonobjc public subscript(key: String) -> Data? {
 		get {
 			return data(forKey: key)
@@ -352,6 +359,11 @@ extension UserDefaults {
 		}
 	}
 	
+	/// Gets and sets a user default value named `key` to/from an array type.
+	/// - parameter key: the user default key to get/set.
+	///
+	/// When getting, if the user default specified by `key` is not an `Array`,
+	/// this will return `nil`.
 	@nonobjc public subscript(key: String) -> [Any]? {
 		get {
 			return array(forKey: key)
@@ -361,8 +373,11 @@ extension UserDefaults {
 		}
 	}
 
-	/// If any of the objects in the user default array specified by `key`
-	/// is not a `String`, this will return `nil`
+	/// Gets and sets a user default value named `key` to/from an array of `String`s.
+	/// - parameter key: the user default key to get/set.
+	///
+	/// When getting, if any of the objects in the user default array specified by `key`
+	/// is not a `String`, this will return `nil`.
 	@nonobjc public subscript(key: String) -> [String]? {
 		get {
 			return stringArray(forKey: key)
@@ -372,6 +387,11 @@ extension UserDefaults {
 		}
 	}
 
+	/// Gets and sets the dictionary object associated with the specified key.
+	/// - parameter key: the user default key to get/set.
+	///
+	/// When getting, if any of the objects in the user default array specified by `key`
+	/// is not a `Dictionary`, this will return `nil`.
 	@nonobjc public subscript(key: String) -> [String: Any]? {
 		get {
 			return dictionary(forKey: key)
@@ -381,7 +401,10 @@ extension UserDefaults {
 		}
 	}
 	
-	/// Gets and sets a user default value named `key` to/from an `Int` type. When getting, If the value is not a `Bool` type, the following will be attempted to convert it to an `Int`:
+	/// Gets and sets a user default value named `key` to/from an `Int` type.
+	/// - parameter key: the user default key to get/set.
+	///
+	/// When getting, If the value is not a `Bool` type, the following will be attempted to convert it to an `Int`:
 	/// * If the value is a `Bool`, `0` will be returned if the value is *false*, `1` if *true*.
 	/// * If the value is a `String`, it will attempt to convert it to an `Int` value. If unsuccessful, returns `nil`.
 	/// * If the value is absent or can't be converted to an `Int`, `nil` will be returned.
@@ -407,7 +430,11 @@ extension UserDefaults {
 		}
 	}
 
-	/// Gets and sets a user default value named `key` to/from a `Float` type. When getting, If the value is not a `Float` type, the following will be attempted to convert it to a `Float`:
+	/// Gets and sets a user default value named `key` to/from a `Float` type.
+	/// - parameter key: the user default key to get/set.
+	///
+	/// When getting, if the value is not a `Float` type, the following will be attempted to convert 
+	/// it to a `Float`:
 	/// * If the value is a `String`, it will attempt to convert it to a `Float` value. If unsuccessful, returns `nil`.
 	/// * If the value is an `Int`, the value will be converted to a `Float`.
 	/// * If the value is absent or can't be converted to a `Float`, `nil` will be returned.
@@ -433,9 +460,13 @@ extension UserDefaults {
 		}
 	}
 	
-	/// Gets and sets a user default value named `key` to/from a `Double` type. When getting, If the value is not a `Double` type, the following will be attempted to convert it to a `Double`:
+	/// Gets and sets a user default value named `key` to/from a `Double` type.
+	/// - parameter key: the user default key to get/set.
+	///
+	/// When getting, if the value is not a `Double` type, the following will be attempted to convert 
+	/// it to a `Double`:
 	/// * If the value is a `String`, it will attempt to convert it to a `Double` value. If unsuccessful, returns `nil`.
-	/// * If the value is an `Int`, the value will be converted to a `Float`.
+	/// * If the value is an `Int`, the value will be converted to a `Double`.
 	/// * If the value is absent or can't be converted to a `Double`, `nil` will be returned.
 	@nonobjc public subscript(key: String) -> Double? {
 		get {
@@ -459,8 +490,10 @@ extension UserDefaults {
 		}
 	}
 
-	/// Gets and sets a user default value named `key` to/from a `URL` type. When getting, 
-	/// If the value is not a `URL` type, the following is attempted by the Foundation 
+	/// Gets and sets a user default value named `key` to/from a `URL` type. 
+	/// - parameter key: the user default key to get/set.
+	///
+	/// When getting, if the value is not a `URL` type, the following is attempted by the Foundation
 	/// framework to convert it to a `URL`:
 	/// * If the value is a `String` path, then it will construct a file URL to that path. 
 	/// * If the value is an archived URL from `-setURL:forKey:`, or is set via the URL subscript, it will be unarchived.
@@ -474,7 +507,10 @@ extension UserDefaults {
 		}
 	}
 	
-	/// Gets and sets a user default value named `key` to/from a `Bool` type. When getting, If the value is not a `Bool` type, the following will be attempted to convert it to a `Bool`:
+	/// Gets and sets a user default value named `key` to/from a `Bool` type.
+	/// - parameter key: the user default key to get/set.
+	///
+	/// When getting, if the value is not a `Bool` type, the following will be attempted to convert it to a `Bool`:
 	/// * If the value is an `Int`, `false` will be returned if the value is *0*, `true` otherwise.
 	/// * If the value is a `String`, values of *"YES"* or *"1"* will return `true`, and values of *"NO"* or *"0"* will return `false`, anything else will return `nil`. 
 	/// * If the value is absent or can't be converted to a `Bool`, `nil` will be returned.
