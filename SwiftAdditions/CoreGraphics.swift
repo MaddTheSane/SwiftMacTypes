@@ -35,19 +35,23 @@ extension CGBitmapInfo {
 	
 	/// The native 16-bit byte order format.
 	public static var byteOrder16Host: CGBitmapInfo {
-		if ByteOrder.isLittle {
+		#if _endian(little)
 			return .byteOrder16Little
-		} else {
+		#elseif _endian(big)
 			return .byteOrder16Big
-		}
+		#else
+			fatalError("Unknown endianness")
+		#endif
 	}
 	
 	/// The native 32-bit byte order format.
 	public static var byteOrder32Host: CGBitmapInfo {
-		if ByteOrder.isLittle {
+		#if _endian(little)
 			return .byteOrder32Little
-		} else {
+		#elseif _endian(big)
 			return .byteOrder32Big
-		}
+		#else
+			fatalError("Unknown endianness")
+		#endif
 	}
 }

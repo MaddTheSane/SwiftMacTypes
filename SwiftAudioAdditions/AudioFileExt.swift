@@ -14,11 +14,11 @@ import SwiftAdditions
 // MARK: Audio File
 
 public var kLinearPCMFormatFlagNativeEndian: AudioFormatFlags {
-	if ByteOrder.isBig {
+	#if _endian(big)
 		return kLinearPCMFormatFlagIsBigEndian
-	} else {
+	#else
 		return 0
-	}
+	#endif
 }
 
 public enum AudioFileType: OSType {
@@ -155,11 +155,13 @@ public struct AudioFormatFlag : OptionSet {
 		return AudioFormatFlag(rawValue: 1 << 31)
 	}
 	public static var nativeEndian: AudioFormatFlag {
-		if ByteOrder.isLittle {
+		#if _endian(little)
 			return self.init(rawValue: 0)
-		} else {
+		#elseif _endian(big)
 			return bigEndian
-		}
+		#else
+			fatalError("Unknown endianness")
+		#endif
 	}
 }
 
@@ -196,11 +198,13 @@ public struct LinearPCMFormatFlag : OptionSet {
 		return LinearPCMFormatFlag(rawValue: 1 << 31)
 	}
 	public static var nativeEndian: LinearPCMFormatFlag {
-		if ByteOrder.isLittle {
+		#if _endian(little)
 			return self.init(rawValue: 0)
-		} else {
+		#elseif _endian(big)
 			return bigEndian
-		}
+		#else
+			fatalError("Unknown endianness")
+		#endif
 	}
 	public static var flagsSampleFractionShift: UInt32 {
 		return 7
