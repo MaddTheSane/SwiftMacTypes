@@ -18,7 +18,7 @@ open class IOCFPlugInInterfaceClass: IUnknown {
 	/// Should only be accessed by subclasses!
 	public private(set) var interfaceStruct: IOCFPlugInInterfaceHandle = nil
 	
-	open init?(plugInInterface: IOCFPlugInInterfaceHandle) {
+	public init?(plugInInterface: IOCFPlugInInterfaceHandle) {
 		if plugInInterface == nil {
 			return nil
 		} else if plugInInterface?.pointee == nil {
