@@ -22,6 +22,7 @@ extension NSRange {
 	/// If `string` only contains a single integer, it is used as the location 
 	/// value. If `string` does not contain any integers, this function returns 
 	/// an `NSRange` whose location and length values are both `0`.
+	@available(swift, introduced: 2, deprecated: 4.0, message: "Use `NSRange(_:)` instead", renamed: "NSRange.init(_:)")
 	public init(string: String) {
 		self = NSRangeFromString(string)
 	}
@@ -37,7 +38,7 @@ extension NSRange {
 	}
 	
 	/// The maximum value from the range.
-	@available(swift, deprecated: 4.0, message: "Use `upperBound` instead", renamed: "upperBound")
+	@available(swift, introduced: 2, deprecated: 4.0, message: "Use `upperBound` instead", renamed: "upperBound")
 	public var max: Int {
 		return NSMaxRange(self)
 	}
@@ -236,12 +237,12 @@ extension UUID {
 
 
 extension NSData {
-	@available(*, deprecated, message: "Use the `Data` struct instead")
+	@available(swift, introduced: 2, deprecated: 3, message: "Use the `Data` struct instead")
 	@nonobjc public convenience init(byteArray: [UInt8]) {
 		self.init(bytes: byteArray, length: byteArray.count)
 	}
 	
-	@available(*, deprecated, message: "Use the `Data` struct instead")
+	@available(swift, introduced: 2, deprecated: 3, message: "Use the `Data` struct instead")
 	@nonobjc public var arrayOfBytes: [UInt8] {
 		let count = length / MemoryLayout<UInt8>.size
 		var bytesArray = [UInt8](repeating: 0, count: count)
@@ -256,7 +257,7 @@ extension NSMutableData {
 		fatalError("Unavailable function called: \(#function)")
 	}
 	
-	@available(*, deprecated, renamed: "replaceBytes(in:with:)")
+	@available(swift, introduced: 2, deprecated: 3, renamed: "replaceBytes(in:with:)")
 	@nonobjc public func replaceBytesInRange(range: NSRange, withByteArray replacementBytes: [UInt8]) {
 		replaceBytes(in: range, with: replacementBytes)
 	}
@@ -526,7 +527,7 @@ extension UserDefaults {
 // Code taken from http://stackoverflow.com/a/30404532/1975001
 extension String {
 	/// Creates an `NSRange` from a comparable `String` range.
-	@available(swift, deprecated: 4.0, message: "Use `NSRange(_in:)` instead")
+	@available(swift, introduced: 3, deprecated: 4.0, message: "Use `NSRange(_in:)` instead")
 	public func nsRange(from range: Range<String.Index>) -> NSRange {
 		return NSRange(range, in: self)
 	}
@@ -538,7 +539,7 @@ extension String {
 	/// Make sure you have called `-[NSString rangeOfComposedCharacterSequencesForRange:]`
 	/// *before* calling this method, otherwise if the beginning or end of
 	/// `nsRange` is in between Unicode code points, this method will return `nil`.
-	@available(swift, deprecated: 4.0, message: "Use `Range(_in:)` instead")
+	@available(swift, introduced: 3, deprecated: 4.0, message: "Use `Range(_in:)` instead")
 	public func range(from nsRange: NSRange) -> Range<String.Index>? {
 		guard
 			let preRange = Range(nsRange),

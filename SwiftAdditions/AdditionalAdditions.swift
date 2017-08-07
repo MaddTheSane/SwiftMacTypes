@@ -16,11 +16,16 @@ import Foundation
 /// or a value that is no less than `minimum` and no greater than `maximum`.
 ///
 /// If `minimum` is greater than `maximum`, a fatal error occurs.
-public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
+public func clamp<X: Comparable>(_ value: X, minimum: X, maximum: X) -> X {
 	if minimum > maximum {
 		fatalError("Minimum (\(minimum)) is greater than maximum (\(maximum))!")
 	}
 	return max(min(value, maximum), minimum)
+}
+
+@available(swift, introduced: 2, deprecated: 4.0, message: "Use `clamp(_:minimum:maximum)` instead")
+public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
+	return clamp(value, minimum: minimum, maximum: maximum)
 }
 
 /// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
