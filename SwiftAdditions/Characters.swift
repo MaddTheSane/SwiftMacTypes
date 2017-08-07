@@ -227,8 +227,10 @@ extension String {
 	
 	/// Converts the string to an array of `ASCIICharacter`s.
 	/// - parameter encodeInvalid: If `true`, any character that can't be represented as
-	/// an ASCII character is instead replaced with with an `.Invalid` `ASCIICharacter`
-	/// value instead of stopping and returning `nil`.
+	/// an ASCII character is instead replaced with `ASCIICharacter.Invalid`
+	/// instead of stopping and returning `nil`.
+	/// - returns: An array of `ASCIICharacter`s, or `nil` if there is a non-ASCII
+	/// character and `encodeInvalid` is `false`.
 	public func toASCIICharacters(encodeInvalid: Bool = false) -> [ASCIICharacter]? {
 		if encodeInvalid {
 			return characters.map({ (aChar) -> ASCIICharacter in

@@ -17,7 +17,7 @@ import Foundation
 			dict[NSLocalizedDescriptionKey] = dict[NSAppleScript.errorBriefMessage]
 			return NSError(domain: NSOSStatusErrorDomain, code: errNum, userInfo: dict)
 		} else {
-			return NSError(domain: NSOSStatusErrorDomain, code: errOSAScriptError, userInfo: nil)
+			return NSError(domain: NSOSStatusErrorDomain, code: errOSAScriptError)
 		}
 	}
 

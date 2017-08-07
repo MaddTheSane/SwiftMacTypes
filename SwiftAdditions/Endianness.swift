@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 C.W. Betts. All rights reserved.
 //
 
-import Darwin.libkern.OSByteOrder
+import Swift
 
 public enum ByteOrder {
 	case little
@@ -15,26 +15,31 @@ public enum ByteOrder {
 	
 	/// The current byte-order of the machine.
 	public static let current: ByteOrder = {
-		switch Int(OSHostByteOrder()) {
-		case OSLittleEndian:
+		#if _endian(little)
 			return .little
-			
-		case OSBigEndian:
+		#elseif _endian(big)
 			return .big
-			
-		default:
+		#else
 			return .unknown
-		}
+		#endif
 	}()
 	
 	/// Is the machine's byte-order little-endian?
 	public static var isLittle: Bool {
-		return current == .little
+		#if _endian(little)
+			return true
+		#else
+			return false
+		#endif
 	}
 	
 	/// Is the machine's byte-order big-endian?
 	public static var isBig: Bool {
-		return current == .big
+		#if _endian(big)
+			return true
+		#else
+			return false
+		#endif
 	}
 }
 

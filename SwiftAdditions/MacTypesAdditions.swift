@@ -88,12 +88,15 @@ public func toOSType(string theString: String, detectHex: Bool = false) -> OSTyp
 /// The current system encoding as a `CFStringEncoding` that is 
 /// the most like a Mac Classic encoding.
 public var currentCFMacStringEncoding: CFStringEncoding {
-	return CFStringGetMostCompatibleMacStringEncoding(CFStringGetSystemEncoding())
+	let cfEnc = CFStringGetSystemEncoding()
+	return CFStringGetMostCompatibleMacStringEncoding(cfEnc)
 }
 
 /// The current system encoding that is the most like a Mac Classic encoding.
 public var currentMacStringEncoding: String.Encoding {
-	return String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding(currentCFMacStringEncoding))
+	let nsEnc = CFStringConvertEncodingToNSStringEncoding(currentCFMacStringEncoding)
+	let toRet = String.Encoding(rawValue: nsEnc)
+	return toRet
 }
 
 extension String.Encoding {
@@ -216,7 +219,7 @@ extension String {
 	///
 	/// The main initializer. Converts the encoding to a `CFStringEncoding` for use
 	/// in the base initializer.
-	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: String.Encoding = String.Encoding.macOSRoman, maximumLength: UInt8 = 255) {
+	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: String.Encoding = .macOSRoman, maximumLength: UInt8 = 255) {
 		let CFEncoding = encoding.toCFStringEncoding
 		if CFEncoding == kCFStringEncodingInvalidId {
 			return nil
@@ -229,7 +232,7 @@ extension String {
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
-	public init?(pascalString pStr: PStr255, encoding: String.Encoding = String.Encoding.macOSRoman) {
+	public init?(pascalString pStr: PStr255, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		// a UInt8 can't reference any number greater than 255,
 		// so we just pass it to the main initializer
@@ -241,7 +244,7 @@ extension String {
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
-	public init?(pascalString pStr: PStr63, encoding: String.Encoding = String.Encoding.macOSRoman) {
+	public init?(pascalString pStr: PStr63, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		
 		self.init(pascalString: unwrapped, encoding: encoding, maximumLength: 63)
@@ -252,7 +255,7 @@ extension String {
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
-	public init?(pascalString pStr: PStr32, encoding: String.Encoding = String.Encoding.macOSRoman) {
+	public init?(pascalString pStr: PStr32, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		
 		self.init(pascalString: unwrapped, encoding: encoding, maximumLength: 32)
@@ -263,7 +266,7 @@ extension String {
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
-	public init?(pascalString pStr: PStr31, encoding: String.Encoding = String.Encoding.macOSRoman) {
+	public init?(pascalString pStr: PStr31, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		
 		self.init(pascalString: unwrapped, encoding: encoding, maximumLength: 31)
@@ -274,7 +277,7 @@ extension String {
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
-	public init?(pascalString pStr: PStr27, encoding: String.Encoding = String.Encoding.macOSRoman) {
+	public init?(pascalString pStr: PStr27, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		
 		self.init(pascalString: unwrapped, encoding: encoding, maximumLength: 27)
@@ -285,7 +288,7 @@ extension String {
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
-	public init?(pascalString pStr: PStr15, encoding: String.Encoding = String.Encoding.macOSRoman) {
+	public init?(pascalString pStr: PStr15, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		
 		self.init(pascalString: unwrapped, encoding: encoding, maximumLength: 15)
@@ -299,7 +302,7 @@ extension String {
 	///
 	/// The last byte in a `Str32Field` is unused,
 	/// so the last byte isn't read.
-	public init?(pascalString pStr: PStr32Field, encoding: String.Encoding = String.Encoding.macOSRoman) {
+	public init?(pascalString pStr: PStr32Field, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
 		
 		self.init(pascalString: unwrapped, encoding: encoding, maximumLength: 32)

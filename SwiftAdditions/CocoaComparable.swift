@@ -14,7 +14,7 @@ public protocol CocoaComparable: NSObjectProtocol, Comparable {
 }
 
 
-public func <<A: CocoaComparable>(lhs:A, rhs: A) -> Bool {
+public func <<A: CocoaComparable>(lhs: A, rhs: A) -> Bool {
 	return lhs.compare(rhs) == .orderedAscending
 }
 
@@ -22,10 +22,10 @@ public func ><A: CocoaComparable>(lhs: A, rhs: A) -> Bool {
 	return lhs.compare(rhs) == .orderedDescending
 }
 
-public func ==<A: CocoaComparable>(lhs:A, rhs: A) -> Bool {
+public func ==<A: CocoaComparable>(lhs: A, rhs: A) -> Bool {
 	return lhs.compare(rhs) == .orderedSame
 }
 
 
-extension NSNumber: CocoaComparable {}
-//extension NSIndexPath: CocoaComparable {}
+extension NSNumber: CocoaComparable {
+}
