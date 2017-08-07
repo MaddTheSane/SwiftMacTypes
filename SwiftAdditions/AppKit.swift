@@ -94,37 +94,6 @@ import Cocoa
 		return CGWindowLevelForKey(CGWindowLevelKey.assistiveTechHighWindow)
 	}
 
-
-	// MARK: NSWindowLevel values
-	
-	public var NSNormalWindowLevel: Int {
-		return Int(kCGNormalWindowLevel)
-	}
-	public var NSFloatingWindowLevel: Int {
-		return Int(kCGFloatingWindowLevel)
-	}
-	public var NSSubmenuWindowLevel: Int {
-		return Int(kCGTornOffMenuWindowLevel)
-	}
-	public var NSTornOffMenuWindowLevel: Int {
-		return Int(kCGTornOffMenuWindowLevel)
-	}
-	public var NSMainMenuWindowLevel: Int {
-		return Int(kCGMainMenuWindowLevel)
-	}
-	public var NSStatusWindowLevel: Int {
-		return Int(kCGStatusWindowLevel)
-	}
-	public var NSModalPanelWindowLevel: Int {
-		return Int(kCGModalPanelWindowLevel)
-	}
-	public var NSPopUpMenuWindowLevel: Int {
-		return Int(kCGPopUpMenuWindowLevel)
-	}
-	public var NSScreenSaverWindowLevel: Int {
-		return Int(kCGScreenSaverWindowLevel)
-	}
-
 	extension AffineTransform {
 		public init(CGTransform cgAff: CGAffineTransform) {
 			m11 = cgAff.a
