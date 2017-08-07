@@ -36,21 +36,9 @@ extension NSRange {
 		fatalError("Unavailable function called: \(#function)")
 	}
 	
-	/// Returns a Boolean value that indicates whether a specified 
-	/// position is in the given range.
-	public func contains(_ location: Int) -> Bool {
-		return NSLocationInRange(location, self)
-	}
-
 	/// The maximum value from the range.
 	public var max: Int {
 		return NSMaxRange(self)
-	}
-
-	/// Make a new `NSRange` by intersecting this range and another.
-	/// - parameter otherRange: the other range to intersect with.
-	public func intersection(_ otherRange: NSRange) -> NSRange {
-		return NSIntersectionRange(self, otherRange)
 	}
 
 	/// Set the current `NSRange` to an intersection of this range and another.
@@ -64,18 +52,6 @@ extension NSRange {
 	/// non-negative integers representing `self`.
 	public var stringValue: String {
 		return NSStringFromRange(self)
-	}
-
-	/// Make a new `NSRange` from a union of this range and another.
-	/// - parameter otherRange: the other range to create a union with.
-	public func union(_ otherRange: NSRange) -> NSRange {
-		return NSUnionRange(self, otherRange)
-	}
-
-	/// Set the current `NSRange` to a union of this range and another.
-	/// - parameter otherRange: the other range to create a union with.
-	public mutating func formUnion(_ otherRange: NSRange) {
-		self = NSUnionRange(self, otherRange)
 	}
 	
 	// MARK: - CFRange interop.
@@ -514,11 +490,7 @@ extension UserDefaults {
 extension String {
 	/// Creates an `NSRange` from a comparable `String` range.
 	public func nsRange(from range: Range<String.Index>) -> NSRange {
-		let utf16view = self.utf16
-		let from = range.lowerBound.samePosition(in: utf16view)
-		let to = range.upperBound.samePosition(in: utf16view)
-		return NSRange(location: utf16view.distance(from: utf16view.startIndex, to: from),
-		               length: utf16view.distance(from: from, to: to))
+		return NSRange(range, in: self)
 	}
 	
 	/// Creates a `String` range from the passed in `NSRange`.
