@@ -113,6 +113,7 @@ public enum AudioFormat: OSType {
 	case iLBC					= 1768710755
 	case AES3					= 1634038579
 	
+	@available(*, deprecated, message: "Use µLaw instead", renamed: "µLaw")
 	public static var uLaw: AudioFormat {
 		return .µLaw
 	}
