@@ -472,7 +472,7 @@ public extension AudioStreamBasicDescription {
 							return nil
 						}
 						
-						aBuf = Int8(extendingOrTruncating: x)
+						aBuf = Int8(truncatingIfNeeded: x)
 						buf[i] = aBuf
 						charIterator = fromText.index(charIterator, offsetBy: 2)
 					}
