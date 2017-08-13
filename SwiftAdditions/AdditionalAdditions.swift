@@ -108,6 +108,9 @@ public func runOnMainThreadAsync(block: @escaping () -> Void) {
 // Code taken from http://stackoverflow.com/a/33957196/1975001
 extension Dictionary {
 	public mutating func formUnion(_ dictionary: Dictionary) {
+		if capacity < count + dictionary.count {
+			reserveCapacity(count + dictionary.count)
+		}
 		dictionary.forEach { self.updateValue($1, forKey: $0) }
 	}
 	
@@ -120,15 +123,19 @@ extension Dictionary {
 
 // Code taken from http://stackoverflow.com/a/24052094/1975001
 public func +=<K, V>(left: inout Dictionary<K, V>, right: Dictionary<K, V>) {
+	if left.capacity < left.count + right.count {
+		left.reserveCapacity(left.count + right.count)
+	}
 	for (k, v) in right {
 		left.updateValue(v, forKey: k)
 	}
 }
 
 /// Adds two dictionaries together, returning the result.
-/// Any key in both `left` and `right`, the value in `right` is used.
-public func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>) -> Dictionary<K,V> {
+/// For any key in both `left` and `right`, the value in `right` is used.
+public func +<K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>) -> Dictionary<K,V> {
 	var map = Dictionary<K,V>()
+	map.reserveCapacity(left.count + right.count)
 	for (k, v) in left {
 		map[k] = v
 	}
