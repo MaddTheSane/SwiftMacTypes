@@ -527,7 +527,7 @@ extension UserDefaults {
 // Code taken from http://stackoverflow.com/a/30404532/1975001
 extension String {
 	/// Creates an `NSRange` from a comparable `String` range.
-	@available(swift, introduced: 3, deprecated: 4.0, message: "Use `NSRange(_in:)` instead")
+	@available(swift, introduced: 3, deprecated: 4.0, message: "Use `NSRange(_:in:)` instead")
 	public func nsRange(from range: Range<String.Index>) -> NSRange {
 		return NSRange(range, in: self)
 	}
@@ -539,7 +539,7 @@ extension String {
 	/// Make sure you have called `-[NSString rangeOfComposedCharacterSequencesForRange:]`
 	/// *before* calling this method, otherwise if the beginning or end of
 	/// `nsRange` is in between Unicode code points, this method will return `nil`.
-	@available(swift, introduced: 3, deprecated: 4.0, message: "Use `Range(_in:)` instead")
+	@available(swift, introduced: 3, deprecated: 4.0, message: "Use `Range(_:in:)` instead")
 	public func range(from nsRange: NSRange) -> Range<String.Index>? {
 		guard
 			let preRange = Range(nsRange),
