@@ -1161,8 +1161,8 @@ public final class ForceFeedbackEffect {
 		
 		/// Returns an `EffectType` matching the supplied UUID.
 		/// Returns `nil` if there isn't a matching `EffectType`.
-		public init?(uuid UUID: Foundation.UUID) {
-			switch UUID {
+		public init?(uuid: UUID) {
+			switch uuid {
 			case ForceFeedbackEffect.constantForce:
 				self = .constantForce
 				
