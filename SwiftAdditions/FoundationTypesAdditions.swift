@@ -212,7 +212,7 @@ extension NSUUID {
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
-	public var `CFUUID`: CoreFoundation.CFUUID {
+	@objc public var `CFUUID`: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
 		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)

@@ -316,3 +316,26 @@ extension UnsafeBufferPointer {
 		self = UnsafeBufferPointer(start: start, count: start.distance(to: toIterate))
 	}
 }
+
+extension UnsafeMutableBufferPointer {
+	/// Creates an `UnsafeMutableBufferPointer` over the contiguous `Element` instances beginning
+	/// at `start`, iterating until `sentinelChecker` returns `true`.
+	///
+	/// This is great for array pointers that have an unknown number of elements but does have
+	/// a terminating element, or *sentinel*, that indicates the end of the array.
+	/// The sentinal isn't included in the array.
+	/// - parameter start: the pointer to start from.
+	/// - parameter sentinelChecker: The block that checks if the current `Element`
+	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
+	/// matches the characteristic of the sentinal.
+	/// - parameter toCheck: The current element to check.
+	public init(start: UnsafeMutablePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) -> Bool) {
+		var toIterate = start
+		
+		while !sentinelChecker(toIterate.pointee) {
+			toIterate = toIterate.advanced(by: 1)
+		}
+		
+		self = UnsafeMutableBufferPointer(start: start, count: start.distance(to: toIterate))
+	}
+}
