@@ -544,14 +544,13 @@ extension UserDefaults {
 extension String {
 	/// Creates an `NSRange` from a comparable `String` range.
 	/// - parameter range: a Swift `String` range to get an `NSRange` from.
-	/// - returns: a converted `NSRange`, or an `NSRange` with a `location` of
-	/// `NSNotFound` on error
+	/// - returns: a converted `NSRange`.
 	@available(swift, introduced: 3.0, deprecated: 4.0, message: "Use `NSRange(_:in:)` instead")
 	public func nsRange(from range: Range<String.Index>) -> NSRange {
 		let utf16view = self.utf16
 		guard let from = range.lowerBound.samePosition(in: utf16view),
 			let to = range.upperBound.samePosition(in: utf16view) else {
-				return NSRange(location: NSNotFound, length: 0)
+				return NSRange(range, in: self)
 		}
 		return NSRange(location: utf16view.distance(from: utf16view.startIndex, to: from),
 		               length: utf16view.distance(from: from, to: to))
