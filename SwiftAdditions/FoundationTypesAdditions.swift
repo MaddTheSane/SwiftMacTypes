@@ -287,14 +287,14 @@ public func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
 
 extension NSIndexSet {
 	/// Creates an index set from a sequence of `Int`s.
-	public convenience init<B: Sequence>(indexes: B) where B.Iterator.Element == Int {
+	public convenience init<B: Sequence>(indexes: B) where B.Element == Int {
 		self.init(indexSet: IndexSet(indexes: indexes))
 	}
 }
 
 extension IndexSet {
 	/// Creates an index set from a sequence of `Int`s.
-	public init<B: Sequence>(indexes: B) where B.Iterator.Element == Int {
+	public init<B: Sequence>(indexes: B) where B.Element == Int {
 		self.init()
 		for idx in indexes {
 			insert(idx)

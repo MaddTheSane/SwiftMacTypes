@@ -164,23 +164,15 @@ extension ASCIICharacter {
 	/// Takes a Swift `Character` and returns an ASCII character/code.
 	/// Returns `nil` if the value can't be represented in ASCII
 	public init?(swiftCharacter: Character) {
-		//This function is a big mess, far more than it needs to be.
-		//The Character type doesn't have any way to get the raw value from itself.
+		//This function no longer a big mess, but the conversion to String is disgusting.
+		//The Character type *still* doesn't have any way to get the raw value from itself.
 		let srrChar = String(swiftCharacter)
-		let utfEnc = srrChar.unicodeScalars
-		
-		let ourCharScalar = utfEnc.first!
-		
-		var utf8Scalars = [UInt8]()
-		
-		UTF8.encode(ourCharScalar) { (cu) -> () in
-			utf8Scalars.append(cu)
-		}
-		if utf8Scalars.count > 1 {
+		let srrUTF8 = srrChar.utf8
+		if srrUTF8.count > 1 {
 			return nil
 		}
 		
-		let ourChar = utf8Scalars.last!
+		let ourChar = srrUTF8.last!
 		
 		guard (ourChar & 0x80) == 0 else {
 			return nil
@@ -218,7 +210,7 @@ extension ASCIICharacter {
 }
 
 extension String {
-	public init(asciiCharacters: [ASCIICharacter]) {
+	public init<A: Sequence>(asciiCharacters: A) where A.Element == ASCIICharacter {
 		let asciiCharMap = asciiCharacters.map { (cha) -> Character in
 			return cha.characterValue
 		}
