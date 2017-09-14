@@ -22,7 +22,7 @@ extension NSRange {
 	/// If `string` only contains a single integer, it is used as the location 
 	/// value. If `string` does not contain any integers, this function returns 
 	/// an `NSRange` whose location and length values are both `0`.
-	@available(swift, introduced: 2, deprecated: 4.0, message: "Use `NSRange(_:)` instead", renamed: "NSRange.init(_:)")
+	@available(swift, introduced: 2.0, deprecated: 4.0, message: "Use `NSRange(_:)` instead", renamed: "NSRange.init(_:)")
 	public init(string: String) {
 		self = NSRangeFromString(string)
 	}
@@ -38,7 +38,7 @@ extension NSRange {
 	}
 	
 	/// The maximum value from the range.
-	@available(swift, introduced: 2, deprecated: 4.0, message: "Use `upperBound` instead", renamed: "upperBound")
+	@available(swift, introduced: 2.0, deprecated: 4.0, message: "Use `upperBound` instead", renamed: "upperBound")
 	public var max: Int {
 		return NSMaxRange(self)
 	}
@@ -237,12 +237,12 @@ extension UUID {
 
 
 extension NSData {
-	@available(swift, introduced: 2, deprecated: 3, message: "Use the `Data` struct instead")
+	@available(swift, introduced: 2.0, deprecated: 3, message: "Use the `Data` struct instead")
 	@nonobjc public convenience init(byteArray: [UInt8]) {
 		self.init(bytes: byteArray, length: byteArray.count)
 	}
 	
-	@available(swift, introduced: 2, deprecated: 3, message: "Use the `Data` struct instead")
+	@available(swift, introduced: 2.0, deprecated: 3, message: "Use the `Data` struct instead")
 	@nonobjc public var arrayOfBytes: [UInt8] {
 		let count = length / MemoryLayout<UInt8>.size
 		var bytesArray = [UInt8](repeating: 0, count: count)
@@ -257,7 +257,7 @@ extension NSMutableData {
 		fatalError("Unavailable function called: \(#function)")
 	}
 	
-	@available(swift, introduced: 2, deprecated: 3, renamed: "replaceBytes(in:with:)")
+	@available(swift, introduced: 2.0, deprecated: 3.0, renamed: "replaceBytes(in:with:)")
 	@nonobjc public func replaceBytesInRange(range: NSRange, withByteArray replacementBytes: [UInt8]) {
 		replaceBytes(in: range, with: replacementBytes)
 	}
@@ -272,14 +272,14 @@ extension NSMutableData {
 }
 
 #if os(OSX)
-@available(OSX, introduced:10.10)
+@available(OSX, introduced: 10.10)
 extension NSEdgeInsets: Equatable {
 	public static var zero: NSEdgeInsets {
 		return NSEdgeInsetsZero
 	}
 }
 
-@available(OSX, introduced:10.10)
+@available(OSX, introduced: 10.10)
 public func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
 	return NSEdgeInsetsEqual(rhs, lhs)
 }
@@ -327,6 +327,20 @@ extension UserDefaults {
 	@nonobjc public subscript(key: String) -> Data? {
 		get {
 			return data(forKey: key)
+		}
+		set {
+			set(newValue, forKey: key)
+		}
+	}
+	
+	/// Gets and sets a user default value named `key` to/from a `Date` type.
+	/// - parameter key: the user default key to get/set.
+	///
+	/// When getting, if the user default specified by `key` is not a `Date`,
+	/// this will return `nil`.
+	@nonobjc public subscript(key: String) -> Date? {
+		get {
+			return object(forKey: key) as? Date
 		}
 		set {
 			set(newValue, forKey: key)
@@ -417,6 +431,8 @@ extension UserDefaults {
 			if let obj = object(forKey: key) {
 				if let aDoub = obj as? Float {
 					return aDoub
+				} else if let aDoub = obj as? Double {
+					return Float(aDoub)
 				} else if let aInt = obj as? Int {
 					return Float(aInt)
 				} else if let aStr = obj as? String {
@@ -527,19 +543,29 @@ extension UserDefaults {
 // Code taken from http://stackoverflow.com/a/30404532/1975001
 extension String {
 	/// Creates an `NSRange` from a comparable `String` range.
-	@available(swift, introduced: 3, deprecated: 4.0, message: "Use `NSRange(_:in:)` instead")
+	/// - parameter range: a Swift `String` range to get an `NSRange` from.
+	/// - returns: a converted `NSRange`, or an `NSRange` with a `location` of
+	/// `NSNotFound` on error
+	@available(swift, introduced: 3.0, deprecated: 4.0, message: "Use `NSRange(_:in:)` instead")
 	public func nsRange(from range: Range<String.Index>) -> NSRange {
-		return NSRange(range, in: self)
+		let utf16view = self.utf16
+		guard let from = range.lowerBound.samePosition(in: utf16view),
+			let to = range.upperBound.samePosition(in: utf16view) else {
+				return NSRange(location: NSNotFound, length: 0)
+		}
+		return NSRange(location: utf16view.distance(from: utf16view.startIndex, to: from),
+		               length: utf16view.distance(from: from, to: to))
 	}
 	
 	/// Creates a `String` range from the passed in `NSRange`.
 	/// - parameter nsRange: An `NSRange` to convert to a `String` range.
-	/// - returns: a `String` range, or `nil` if `nsRange` could not be converted.
+	/// - returns: a converted `String` range, or `nil` if `nsRange` could not be converted.
 	///
 	/// Make sure you have called `-[NSString rangeOfComposedCharacterSequencesForRange:]`
 	/// *before* calling this method, otherwise if the beginning or end of
-	/// `nsRange` is in between Unicode code points, this method will return `nil`.
-	@available(swift, introduced: 3, deprecated: 4.0, message: "Use `Range(_:in:)` instead")
+	/// `nsRange` is in between Unicode code points or grapheme clusters, this method
+	/// will return `nil`.
+	@available(swift, introduced: 3.0, deprecated: 4.0, message: "Use `Range(_:in:)` instead")
 	public func range(from nsRange: NSRange) -> Range<String.Index>? {
 		guard
 			let preRange = Range(nsRange),
