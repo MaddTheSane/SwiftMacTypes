@@ -392,7 +392,7 @@ extension UserDefaults {
 	/// Gets and sets a user default value named `key` to/from an `Int` type.
 	/// - parameter key: the user default key to get/set.
 	///
-	/// When getting, If the value is not a `Bool` type, the following will be attempted to convert it to an `Int`:
+	/// When getting, if the value is not a `Bool` type, the following will be attempted to convert it to an `Int`:
 	/// * If the value is a `Bool`, `0` will be returned if the value is *false*, `1` if *true*.
 	/// * If the value is a `String`, it will attempt to convert it to an `Int` value. If unsuccessful, returns `nil`.
 	/// * If the value is absent or can't be converted to an `Int`, `nil` will be returned.
