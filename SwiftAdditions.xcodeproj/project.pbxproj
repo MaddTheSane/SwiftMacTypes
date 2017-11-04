@@ -13,6 +13,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				5527AC471FAE7D45009CC7FC /* PBXTargetDependency */,
 				5518A4201B03E931005AF928 /* PBXTargetDependency */,
 				5518A4221B03E931005AF928 /* PBXTargetDependency */,
 				5518A4241B03E931005AF928 /* PBXTargetDependency */,
@@ -27,6 +28,7 @@
 			buildPhases = (
 			);
 			dependencies = (
+				5527AC491FAE7D4A009CC7FC /* PBXTargetDependency */,
 				5518A4281B03F190005AF928 /* PBXTargetDependency */,
 				5518A42E1B03F190005AF928 /* PBXTargetDependency */,
 			);
@@ -42,6 +44,22 @@
 		550FBADA19A7AE6F00EFBD3D /* FoundationTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */; };
 		5518A4351B03F2CF005AF928 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		552627A11BDF52A4005AAF63 /* Characters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552627A01BDF52A4005AAF63 /* Characters.swift */; };
+		5527AC1C1FAE7CB1009CC7FC /* CoreTextAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5527AC131FAE7CB1009CC7FC /* CoreTextAdditions.framework */; };
+		5527AC211FAE7CB1009CC7FC /* CoreTextAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC201FAE7CB1009CC7FC /* CoreTextAdditionsTests.swift */; };
+		5527AC231FAE7CB1009CC7FC /* CoreTextAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5527AC151FAE7CB1009CC7FC /* CoreTextAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5527AC381FAE7CE8009CC7FC /* CTTextTabAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC2A1FAE7CE7009CC7FC /* CTTextTabAdditions.swift */; };
+		5527AC391FAE7CE8009CC7FC /* CTFontDescriptorAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC2B1FAE7CE7009CC7FC /* CTFontDescriptorAdditions.swift */; };
+		5527AC3A1FAE7CE8009CC7FC /* CTRubyAnnotationAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC2C1FAE7CE7009CC7FC /* CTRubyAnnotationAdditions.swift */; };
+		5527AC3C1FAE7CE8009CC7FC /* CTStringAttributesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC2E1FAE7CE7009CC7FC /* CTStringAttributesAdditions.swift */; };
+		5527AC3D1FAE7CE8009CC7FC /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC2F1FAE7CE7009CC7FC /* Font.swift */; };
+		5527AC3E1FAE7CE8009CC7FC /* CTFrameAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC301FAE7CE7009CC7FC /* CTFrameAdditions.swift */; };
+		5527AC3F1FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC311FAE7CE7009CC7FC /* CTAdditionsSwiftHelpers.m */; };
+		5527AC401FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 5527AC321FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5527AC411FAE7CE8009CC7FC /* CTLineAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC331FAE7CE8009CC7FC /* CTLineAdditions.swift */; };
+		5527AC421FAE7CE8009CC7FC /* CTRunAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC341FAE7CE8009CC7FC /* CTRunAdditions.swift */; };
+		5527AC431FAE7CE8009CC7FC /* CTFontAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC351FAE7CE8009CC7FC /* CTFontAdditions.swift */; };
+		5527AC441FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC361FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift */; };
+		5527AC451FAE7CE8009CC7FC /* CTFontManagerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC371FAE7CE8009CC7FC /* CTFontManagerAdditions.swift */; };
 		55403A061A745003007A488E /* ForceFeedbackAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55403A051A745003007A488E /* ForceFeedbackAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55403A0C1A745003007A488E /* ForceFeedbackAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55403A011A745003007A488E /* ForceFeedbackAdditions.framework */; };
 		55403A131A745003007A488E /* ForceFeedbackAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55403A121A745003007A488E /* ForceFeedbackAdditionsTests.swift */; };
@@ -125,6 +143,27 @@
 			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
 			remoteInfo = SwiftAdditions;
 		};
+		5527AC1D1FAE7CB1009CC7FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5527AC121FAE7CB1009CC7FC;
+			remoteInfo = CoreTextAdditions;
+		};
+		5527AC461FAE7D45009CC7FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5527AC121FAE7CB1009CC7FC;
+			remoteInfo = CoreTextAdditions;
+		};
+		5527AC481FAE7D4A009CC7FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5527AC121FAE7CB1009CC7FC;
+			remoteInfo = CoreTextAdditions;
+		};
 		55403A0D1A745003007A488E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
@@ -179,6 +218,25 @@
 		550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftAdditionsTests.swift; sourceTree = "<group>"; };
 		550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationTypesAdditions.swift; sourceTree = "<group>"; };
 		552627A01BDF52A4005AAF63 /* Characters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Characters.swift; sourceTree = "<group>"; };
+		5527AC131FAE7CB1009CC7FC /* CoreTextAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreTextAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5527AC151FAE7CB1009CC7FC /* CoreTextAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreTextAdditions.h; sourceTree = "<group>"; };
+		5527AC161FAE7CB1009CC7FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5527AC1B1FAE7CB1009CC7FC /* CoreTextAdditionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreTextAdditionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5527AC201FAE7CB1009CC7FC /* CoreTextAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreTextAdditionsTests.swift; sourceTree = "<group>"; };
+		5527AC221FAE7CB1009CC7FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5527AC2A1FAE7CE7009CC7FC /* CTTextTabAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTTextTabAdditions.swift; sourceTree = "<group>"; };
+		5527AC2B1FAE7CE7009CC7FC /* CTFontDescriptorAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTFontDescriptorAdditions.swift; sourceTree = "<group>"; };
+		5527AC2C1FAE7CE7009CC7FC /* CTRubyAnnotationAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTRubyAnnotationAdditions.swift; sourceTree = "<group>"; };
+		5527AC2E1FAE7CE7009CC7FC /* CTStringAttributesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTStringAttributesAdditions.swift; sourceTree = "<group>"; };
+		5527AC2F1FAE7CE7009CC7FC /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		5527AC301FAE7CE7009CC7FC /* CTFrameAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTFrameAdditions.swift; sourceTree = "<group>"; };
+		5527AC311FAE7CE7009CC7FC /* CTAdditionsSwiftHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAdditionsSwiftHelpers.m; sourceTree = "<group>"; };
+		5527AC321FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAdditionsSwiftHelpers.h; sourceTree = "<group>"; };
+		5527AC331FAE7CE8009CC7FC /* CTLineAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTLineAdditions.swift; sourceTree = "<group>"; };
+		5527AC341FAE7CE8009CC7FC /* CTRunAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTRunAdditions.swift; sourceTree = "<group>"; };
+		5527AC351FAE7CE8009CC7FC /* CTFontAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTFontAdditions.swift; sourceTree = "<group>"; };
+		5527AC361FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTFontCollectionAdditions.swift; sourceTree = "<group>"; };
+		5527AC371FAE7CE8009CC7FC /* CTFontManagerAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTFontManagerAdditions.swift; sourceTree = "<group>"; };
 		553C2B991A0C4B0500700F83 /* AudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUnit.swift; sourceTree = "<group>"; };
 		55403A011A745003007A488E /* ForceFeedbackAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ForceFeedbackAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55403A041A745003007A488E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -233,6 +291,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				5576C14C1F6AFA4400C8C01F /* SwiftAdditions.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5527AC0F1FAE7CB1009CC7FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5527AC181FAE7CB1009CC7FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5527AC1C1FAE7CB1009CC7FC /* CoreTextAdditions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +371,8 @@
 				55403A0F1A745003007A488E /* ForceFeedbackAdditionsTests */,
 				55E11DE21AE7114000815555 /* SwiftAudioAdditions */,
 				55E11DEF1AE7114000815555 /* SwiftAudioAdditionsTests */,
+				5527AC141FAE7CB1009CC7FC /* CoreTextAdditions */,
+				5527AC1F1FAE7CB1009CC7FC /* CoreTextAdditionsTests */,
 				55E18FCB1A43AC3300834004 /* Frameworks */,
 				550FBABF19A7ADC500EFBD3D /* Products */,
 			);
@@ -314,6 +389,8 @@
 				55403A0B1A745003007A488E /* ForceFeedbackAdditionsTests.xctest */,
 				55E11DE11AE7114000815555 /* SwiftAudioAdditions.framework */,
 				55E11DEB1AE7114000815555 /* SwiftAudioAdditionsTests.xctest */,
+				5527AC131FAE7CB1009CC7FC /* CoreTextAdditions.framework */,
+				5527AC1B1FAE7CB1009CC7FC /* CoreTextAdditionsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -362,6 +439,37 @@
 				550FBACC19A7ADC500EFBD3D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5527AC141FAE7CB1009CC7FC /* CoreTextAdditions */ = {
+			isa = PBXGroup;
+			children = (
+				5527AC151FAE7CB1009CC7FC /* CoreTextAdditions.h */,
+				5527AC321FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.h */,
+				5527AC311FAE7CE7009CC7FC /* CTAdditionsSwiftHelpers.m */,
+				5527AC351FAE7CE8009CC7FC /* CTFontAdditions.swift */,
+				5527AC361FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift */,
+				5527AC2B1FAE7CE7009CC7FC /* CTFontDescriptorAdditions.swift */,
+				5527AC371FAE7CE8009CC7FC /* CTFontManagerAdditions.swift */,
+				5527AC301FAE7CE7009CC7FC /* CTFrameAdditions.swift */,
+				5527AC331FAE7CE8009CC7FC /* CTLineAdditions.swift */,
+				5527AC2C1FAE7CE7009CC7FC /* CTRubyAnnotationAdditions.swift */,
+				5527AC341FAE7CE8009CC7FC /* CTRunAdditions.swift */,
+				5527AC2E1FAE7CE7009CC7FC /* CTStringAttributesAdditions.swift */,
+				5527AC2A1FAE7CE7009CC7FC /* CTTextTabAdditions.swift */,
+				5527AC2F1FAE7CE7009CC7FC /* Font.swift */,
+				5527AC161FAE7CB1009CC7FC /* Info.plist */,
+			);
+			path = CoreTextAdditions;
+			sourceTree = "<group>";
+		};
+		5527AC1F1FAE7CB1009CC7FC /* CoreTextAdditionsTests */ = {
+			isa = PBXGroup;
+			children = (
+				5527AC201FAE7CB1009CC7FC /* CoreTextAdditionsTests.swift */,
+				5527AC221FAE7CB1009CC7FC /* Info.plist */,
+			);
+			path = CoreTextAdditionsTests;
 			sourceTree = "<group>";
 		};
 		55403A021A745003007A488E /* ForceFeedbackAdditions */ = {
@@ -494,6 +602,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5527AC101FAE7CB1009CC7FC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5527AC401FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.h in Headers */,
+				5527AC231FAE7CB1009CC7FC /* CoreTextAdditions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		554039FE1A745003007A488E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -555,6 +672,42 @@
 			name = SwiftAdditionsTests;
 			productName = SwiftAdditionsTests;
 			productReference = 550FBAC919A7ADC500EFBD3D /* SwiftAdditionsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5527AC121FAE7CB1009CC7FC /* CoreTextAdditions */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5527AC281FAE7CB1009CC7FC /* Build configuration list for PBXNativeTarget "CoreTextAdditions" */;
+			buildPhases = (
+				5527AC0E1FAE7CB1009CC7FC /* Sources */,
+				5527AC0F1FAE7CB1009CC7FC /* Frameworks */,
+				5527AC101FAE7CB1009CC7FC /* Headers */,
+				5527AC111FAE7CB1009CC7FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoreTextAdditions;
+			productName = CoreTextAdditions;
+			productReference = 5527AC131FAE7CB1009CC7FC /* CoreTextAdditions.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		5527AC1A1FAE7CB1009CC7FC /* CoreTextAdditionsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5527AC291FAE7CB1009CC7FC /* Build configuration list for PBXNativeTarget "CoreTextAdditionsTests" */;
+			buildPhases = (
+				5527AC171FAE7CB1009CC7FC /* Sources */,
+				5527AC181FAE7CB1009CC7FC /* Frameworks */,
+				5527AC191FAE7CB1009CC7FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5527AC1E1FAE7CB1009CC7FC /* PBXTargetDependency */,
+			);
+			name = CoreTextAdditionsTests;
+			productName = CoreTextAdditionsTests;
+			productReference = 5527AC1B1FAE7CB1009CC7FC /* CoreTextAdditionsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		55403A001A745003007A488E /* ForceFeedbackAdditions */ = {
@@ -674,7 +827,7 @@
 		550FBAB519A7ADC500EFBD3D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "C.W. Betts";
 				TargetAttributes = {
@@ -688,6 +841,15 @@
 					};
 					5518A41B1B03E920005AF928 = {
 						CreatedOnToolsVersion = 6.3.1;
+					};
+					5527AC121FAE7CB1009CC7FC = {
+						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
+						ProvisioningStyle = Automatic;
+					};
+					5527AC1A1FAE7CB1009CC7FC = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
 					};
 					55403A001A745003007A488E = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -735,6 +897,8 @@
 				55403A0A1A745003007A488E /* ForceFeedbackAdditionsTests */,
 				55E11DE01AE7114000815555 /* SwiftAudioAdditions */,
 				55E11DEA1AE7114000815555 /* SwiftAudioAdditionsTests */,
+				5527AC121FAE7CB1009CC7FC /* CoreTextAdditions */,
+				5527AC1A1FAE7CB1009CC7FC /* CoreTextAdditionsTests */,
 				5518A41B1B03E920005AF928 /* All Additions */,
 				5518A4271B03F190005AF928 /* All Additions-iOS */,
 			);
@@ -750,6 +914,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		550FBAC719A7ADC500EFBD3D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5527AC111FAE7CB1009CC7FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5527AC191FAE7CB1009CC7FC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -825,6 +1003,33 @@
 			files = (
 				550FBACE19A7ADC500EFBD3D /* SwiftAdditionsTests.swift in Sources */,
 				55B713131D0775EF00F2EA1F /* CharacterAdditionsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5527AC0E1FAE7CB1009CC7FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5527AC3C1FAE7CE8009CC7FC /* CTStringAttributesAdditions.swift in Sources */,
+				5527AC391FAE7CE8009CC7FC /* CTFontDescriptorAdditions.swift in Sources */,
+				5527AC3D1FAE7CE8009CC7FC /* Font.swift in Sources */,
+				5527AC3F1FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.m in Sources */,
+				5527AC3A1FAE7CE8009CC7FC /* CTRubyAnnotationAdditions.swift in Sources */,
+				5527AC431FAE7CE8009CC7FC /* CTFontAdditions.swift in Sources */,
+				5527AC441FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift in Sources */,
+				5527AC451FAE7CE8009CC7FC /* CTFontManagerAdditions.swift in Sources */,
+				5527AC3E1FAE7CE8009CC7FC /* CTFrameAdditions.swift in Sources */,
+				5527AC411FAE7CE8009CC7FC /* CTLineAdditions.swift in Sources */,
+				5527AC381FAE7CE8009CC7FC /* CTTextTabAdditions.swift in Sources */,
+				5527AC421FAE7CE8009CC7FC /* CTRunAdditions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5527AC171FAE7CB1009CC7FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5527AC211FAE7CB1009CC7FC /* CoreTextAdditionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -918,6 +1123,21 @@
 			isa = PBXTargetDependency;
 			target = 550FBABD19A7ADC500EFBD3D /* SwiftAdditions */;
 			targetProxy = 5518A4331B03F2B3005AF928 /* PBXContainerItemProxy */;
+		};
+		5527AC1E1FAE7CB1009CC7FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5527AC121FAE7CB1009CC7FC /* CoreTextAdditions */;
+			targetProxy = 5527AC1D1FAE7CB1009CC7FC /* PBXContainerItemProxy */;
+		};
+		5527AC471FAE7D45009CC7FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5527AC121FAE7CB1009CC7FC /* CoreTextAdditions */;
+			targetProxy = 5527AC461FAE7D45009CC7FC /* PBXContainerItemProxy */;
+		};
+		5527AC491FAE7D4A009CC7FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5527AC121FAE7CB1009CC7FC /* CoreTextAdditions */;
+			targetProxy = 5527AC481FAE7D4A009CC7FC /* PBXContainerItemProxy */;
 		};
 		55403A0E1A745003007A488E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1173,6 +1393,119 @@
 			buildSettings = {
 				PRODUCT_NAME = "All Additions copy";
 				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		5527AC241FAE7CB1009CC7FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CoreTextAdditions/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.CoreTextAdditions;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx appletvsimulator appletvos";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		5527AC251FAE7CB1009CC7FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CoreTextAdditions/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.CoreTextAdditions;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx appletvsimulator appletvos";
+				SWIFT_VERSION = 4.0;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		5527AC261FAE7CB1009CC7FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CoreTextAdditionsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.CoreTextAdditionsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		5527AC271FAE7CB1009CC7FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CoreTextAdditionsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.CoreTextAdditionsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1464,6 +1797,24 @@
 			buildConfigurations = (
 				5518A4311B03F190005AF928 /* Debug */,
 				5518A4321B03F190005AF928 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5527AC281FAE7CB1009CC7FC /* Build configuration list for PBXNativeTarget "CoreTextAdditions" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5527AC241FAE7CB1009CC7FC /* Debug */,
+				5527AC251FAE7CB1009CC7FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5527AC291FAE7CB1009CC7FC /* Build configuration list for PBXNativeTarget "CoreTextAdditionsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5527AC261FAE7CB1009CC7FC /* Debug */,
+				5527AC271FAE7CB1009CC7FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
