@@ -164,6 +164,13 @@
 			remoteGlobalIDString = 5527AC121FAE7CB1009CC7FC;
 			remoteInfo = CoreTextAdditions;
 		};
+		5527AC4A1FAE8327009CC7FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
+			remoteInfo = SwiftAdditions;
+		};
 		55403A0D1A745003007A488E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
@@ -686,6 +693,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5527AC4B1FAE8327009CC7FC /* PBXTargetDependency */,
 			);
 			name = CoreTextAdditions;
 			productName = CoreTextAdditions;
@@ -1138,6 +1146,11 @@
 			isa = PBXTargetDependency;
 			target = 5527AC121FAE7CB1009CC7FC /* CoreTextAdditions */;
 			targetProxy = 5527AC481FAE7D4A009CC7FC /* PBXContainerItemProxy */;
+		};
+		5527AC4B1FAE8327009CC7FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 550FBABD19A7ADC500EFBD3D /* SwiftAdditions */;
+			targetProxy = 5527AC4A1FAE8327009CC7FC /* PBXContainerItemProxy */;
 		};
 		55403A0E1A745003007A488E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

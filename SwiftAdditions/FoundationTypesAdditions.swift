@@ -72,7 +72,7 @@ extension NSRange {
 	}
 	
 	/// The current range, represented as a `CFRange`.
-	public var `CFRange`: CoreFoundation.CFRange {
+	public var cfRange: CoreFoundation.CFRange {
 		return CoreFoundation.CFRange(location: location, length: length)
 	}
 }

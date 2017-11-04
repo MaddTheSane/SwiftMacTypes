@@ -89,7 +89,6 @@ allocated to at least the value specified by the range's length.
 public func CTRunGetGlyphs(_ run: CTRun, _ range: CFRange, _ buffer: UnsafeMutablePointer<CGGlyph>)
 */
 	public var glyphs: AnyRandomAccessCollection<CGGlyph> {
-		
 		if let preGlyph = CTRunGetGlyphsPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
 		} else {

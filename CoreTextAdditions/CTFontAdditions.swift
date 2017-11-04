@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreText.CTFont
+import SwiftAdditions
 
 extension CTFont {
 	/// Returns a new font with additional attributes based on the original font.
@@ -68,7 +69,7 @@ extension CTFont {
 	/// This function is to be used when the current font does not cover the given range of the string. The current font itself will not be returned, but preference is given to fonts in its cascade list.
 	public func font(for string: String, range: Range<String.Index>) -> CTFont {
 		let range2 = NSRange(range, in: string)
-		let range1 = CFRangeMake(range2.location, range2.length)
+		let range1 = range2.cfRange
 		return CTFontCreateForString(self, string as NSString, range1)
 	}
 	
@@ -94,7 +95,7 @@ extension CTFont {
 	/// This function is to be used when the current font does not cover the given range of the string. The current font itself will not be returned, but preference is given to fonts in its cascade list.
 	public func font(for string: Substring, range: Range<Substring.Index>) -> CTFont {
 		let range2 = NSRange(range, in: string)
-		let range1 = CFRangeMake(range2.location, range2.length)
+		let range1 = range2.cfRange
 		return CTFontCreateForString(self, string as NSString, range1)
 	}
 	
