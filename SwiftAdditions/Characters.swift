@@ -225,7 +225,7 @@ extension String {
 	/// character and `encodeInvalid` is `false`.
 	public func toASCIICharacters(encodeInvalid: Bool = false) -> [ASCIICharacter]? {
 		if encodeInvalid {
-			return characters.map({ (aChar) -> ASCIICharacter in
+			return self.map({ (aChar) -> ASCIICharacter in
 				return ASCIICharacter(swiftCharacter: aChar) ?? .Invalid
 			})
 		}

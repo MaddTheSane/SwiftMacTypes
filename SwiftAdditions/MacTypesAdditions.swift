@@ -46,7 +46,7 @@ public func OSTypeToString(_ theType: OSType, useHexIfInvalid: ()) -> String {
 
 /// Converts a `String` value to an `OSType`, truncating to the first four characters.
 public func toOSType(string theString: String, detectHex: Bool = false) -> OSType {
-	if detectHex && theString.characters.count > 4 {
+	if detectHex && theString.count > 4 {
 		let aScann = Scanner(string: theString)
 		var tmpnum: UInt32 = 0
 		if aScann.scanHexInt32(&tmpnum) && tmpnum != UInt32.max {
