@@ -6,7 +6,7 @@
 //  Copyright © 2017 C.W. Betts. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for CoreTextAdditions.
 FOUNDATION_EXPORT double CoreTextAdditionsVersionNumber;
