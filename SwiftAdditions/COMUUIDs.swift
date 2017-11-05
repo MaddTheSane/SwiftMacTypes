@@ -29,7 +29,7 @@ extension IUnknown {
 	}
 	
 	public func queryInterface(UUID: UUID, ppv: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
-		let bytes = UUID.CFUUID
+		let bytes = UUID.cfUUID
 		
 		return queryInterface(UUID: bytes, ppv: ppv)
 	}

@@ -22,7 +22,7 @@ extension NSRange {
 	/// If `string` only contains a single integer, it is used as the location 
 	/// value. If `string` does not contain any integers, this function returns 
 	/// an `NSRange` whose location and length values are both `0`.
-	@available(swift, introduced: 2.0, deprecated: 4.0, message: "Use `NSRange(_:)` instead", renamed: "NSRange.init(_:)")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `NSRange(_:)` instead", renamed: "NSRange.init(_:)")
 	public init(string: String) {
 		self = NSRangeFromString(string)
 	}
@@ -38,7 +38,7 @@ extension NSRange {
 	}
 	
 	/// The maximum value from the range.
-	@available(swift, introduced: 2.0, deprecated: 4.0, message: "Use `upperBound` instead", renamed: "upperBound")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `upperBound` instead", renamed: "upperBound")
 	public var max: Int {
 		return NSMaxRange(self)
 	}
@@ -73,6 +73,12 @@ extension NSRange {
 	
 	/// The current range, represented as a `CFRange`.
 	public var cfRange: CoreFoundation.CFRange {
+		return CoreFoundation.CFRange(location: location, length: length)
+	}
+
+	/// The current range, represented as a `CFRange`.
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `cfRange` instead", renamed: "cfRange")
+	public var `CFRange`: CoreFoundation.CFRange {
 		return CoreFoundation.CFRange(location: location, length: length)
 	}
 }
@@ -205,6 +211,7 @@ extension CGRect {
 
 extension NSUUID {
 	/// Create a new `NSUUID` from a `CFUUID`.
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `UUID(cfUUID:)` instead")
 	@objc(initWithCFUUID:) public convenience init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
@@ -212,7 +219,15 @@ extension NSUUID {
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `cfUUID` instead", renamed: "cfUUID")
 	@objc public var `CFUUID`: CoreFoundation.CFUUID {
+		let tmpStr = self.uuidString
+		
+		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
+	}
+	
+	/// Get a CoreFoundation UUID from the current UUID.
+	public var cfUUID: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
 		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
@@ -221,14 +236,31 @@ extension NSUUID {
 
 extension UUID {
 	/// Create a new `Foundation.UUID` from a `CFUUID`.
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `UUID(cfUUID:)` instead", renamed: "UUID.init(cfUUID:)")
 	public init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
 		self.init(uuidString: tempUIDStr)!
 	}
 	
+	/// Create a new `Foundation.UUID` from a `CFUUID`.
+	public init(cfUUID: CoreFoundation.CFUUID) {
+		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
+		
+		self.init(uuidString: tempUIDStr)!
+	}
+
+	
 	/// Get a CoreFoundation UUID from the current UUID.
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `cfUUID` instead", renamed: "cfUUID")
 	public var `CFUUID`: CoreFoundation.CFUUID {
+		let tmpStr = self.uuidString
+		
+		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
+	}
+	
+	/// Get a CoreFoundation UUID from the current UUID.
+	public var cfUUID: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
 		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
@@ -237,12 +269,12 @@ extension UUID {
 
 
 extension NSData {
-	@available(swift, introduced: 2.0, deprecated: 3, message: "Use the `Data` struct instead")
+	@available(swift, introduced: 2.0, deprecated: 3.0, message: "Use the `Data` struct instead")
 	@nonobjc public convenience init(byteArray: [UInt8]) {
 		self.init(bytes: byteArray, length: byteArray.count)
 	}
 	
-	@available(swift, introduced: 2.0, deprecated: 3, message: "Use the `Data` struct instead")
+	@available(swift, introduced: 2.0, deprecated: 3.0, message: "Use the `Data` struct instead")
 	@nonobjc public var arrayOfBytes: [UInt8] {
 		let count = length / MemoryLayout<UInt8>.size
 		var bytesArray = [UInt8](repeating: 0, count: count)
@@ -257,7 +289,7 @@ extension NSMutableData {
 		fatalError("Unavailable function called: \(#function)")
 	}
 	
-	@available(swift, introduced: 2.0, deprecated: 3.0, renamed: "replaceBytes(in:with:)")
+	@available(swift, introduced: 2.0, deprecated: 3.0, obsoleted: 4.0, renamed: "replaceBytes(in:with:)")
 	@nonobjc public func replaceBytesInRange(range: NSRange, withByteArray replacementBytes: [UInt8]) {
 		replaceBytes(in: range, with: replacementBytes)
 	}
@@ -545,7 +577,7 @@ extension String {
 	/// Creates an `NSRange` from a comparable `String` range.
 	/// - parameter range: a Swift `String` range to get an `NSRange` from.
 	/// - returns: a converted `NSRange`.
-	@available(swift, introduced: 3.0, deprecated: 4.0, message: "Use `NSRange(_:in:)` instead")
+	@available(swift, introduced: 3.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `NSRange(_:in:)` instead")
 	public func nsRange(from range: Range<String.Index>) -> NSRange {
 		let utf16view = self.utf16
 		guard let from = range.lowerBound.samePosition(in: utf16view),
@@ -564,7 +596,7 @@ extension String {
 	/// *before* calling this method, otherwise if the beginning or end of
 	/// `nsRange` is in between Unicode code points or grapheme clusters, this method
 	/// will return `nil`.
-	@available(swift, introduced: 3.0, deprecated: 4.0, message: "Use `Range(_:in:)` instead")
+	@available(swift, introduced: 3.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `Range(_:in:)` instead")
 	public func range(from nsRange: NSRange) -> Range<String.Index>? {
 		guard
 			let preRange = Range(nsRange),

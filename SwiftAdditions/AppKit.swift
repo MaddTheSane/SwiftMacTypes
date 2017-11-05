@@ -95,6 +95,7 @@ import Cocoa
 	}
 
 	extension AffineTransform {
+		@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `AffineTransform(cgTransform:)` instead", renamed: "AffineTransform(cgTransform:)")
 		public init(CGTransform cgAff: CGAffineTransform) {
 			m11 = cgAff.a
 			m12 = cgAff.b
@@ -103,11 +104,31 @@ import Cocoa
 			tX = cgAff.tx
 			tY = cgAff.ty
 		}
+		
+		public init(cgTransform cgAff: CGAffineTransform) {
+			m11 = cgAff.a
+			m12 = cgAff.b
+			m21 = cgAff.c
+			m22 = cgAff.d
+			tX = cgAff.tx
+			tY = cgAff.ty
+		}
+		
+		public var cgTransform: CGAffineTransform {
+			return CGAffineTransform(a: m11, b: m12, c: m21, d: m22, tx: tX, ty: tY)
+		}
 	}
 	
 	extension NSAffineTransform {
+		@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `NSAffineTransform(cgTransform:)` instead", renamed: "NSAffineTransform(cgTransform:)")
 		public convenience init(CGTransform cgTransform: CGAffineTransform) {
-			let preStruct = AffineTransform(CGTransform: cgTransform)
+			let preStruct = AffineTransform(cgTransform: cgTransform)
+			self.init()
+			transformStruct = (preStruct as NSAffineTransform).transformStruct
+		}
+		
+		public convenience init(cgTransform: CGAffineTransform) {
+			let preStruct = AffineTransform(cgTransform: cgTransform)
 			self.init()
 			transformStruct = (preStruct as NSAffineTransform).transformStruct
 		}
@@ -124,4 +145,29 @@ import Cocoa
 			return Array(bufPtr)
 		}
 	}
+	
+	extension NSBitmapImageRep.Format {
+		/// The native 32-bit byte order format.
+		static var thirtyTwoBitNativeEndian: NSBitmapImageRep.Format {
+			#if _endian(little)
+				return .thirtyTwoBitLittleEndian
+			#elseif _endian(big)
+				return .thirtyTwoBitBigEndian
+			#else
+				fatalError("Unknown endianness")
+			#endif
+		}
+		
+		/// The native 32-bit byte order format.
+		static var sixteenBitNativeEndian: NSBitmapImageRep.Format {
+			#if _endian(little)
+				return .sixteenBitLittleEndian
+			#elseif _endian(big)
+				return .sixteenBitBigEndian
+			#else
+				fatalError("Unknown endianness")
+			#endif
+		}
+	}
+
 #endif
