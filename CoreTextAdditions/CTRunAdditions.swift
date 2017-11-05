@@ -47,47 +47,14 @@ extension CTRun {
 		return CTRunGetStatus(self)
 	}
 	
-	/*
-/*!
-@function   CTRunGetGlyphsPtr
-@abstract   Returns a direct pointer for the glyph array stored in the run.
-
-@discussion The glyph array will have a length equal to the value returned by
-CTRunGetGlyphCount. The caller should be prepared for this
-function to return NULL even if there are glyphs in the stream.
-Should this function return NULL, the caller will need to
-allocate their own buffer and call CTRunGetGlyphs to fetch the
-glyphs.
-
-@param      run
-The run whose glyphs you wish to access.
-
-@result     A valid pointer to an array of CGGlyph structures or NULL.
-*/
-@available(OSX 10.5, *)
-public func CTRunGetGlyphsPtr(_ run: CTRun) -> UnsafePointer<CGGlyph>?
-
-
-/*!
-@function   CTRunGetGlyphs
-@abstract   Copies a range of glyphs into user-provided buffer.
-
-@param      run
-The run whose glyphs you wish to copy.
-
-@param      range
-The range of glyphs to be copied, with the entire range having a
-location of 0 and a length of CTRunGetGlyphCount. If the length
-of the range is set to 0, then the operation will continue from
-the range's start index to the end of the run.
-
-@param      buffer
-The buffer where the glyphs will be copied to. The buffer must be
-allocated to at least the value specified by the range's length.
-*/
-@available(OSX 10.5, *)
-public func CTRunGetGlyphs(_ run: CTRun, _ range: CFRange, _ buffer: UnsafeMutablePointer<CGGlyph>)
-*/
+	/// All the glyphs in the run.
+	///
+	/// The glyph array will have a length equal to the value returned by
+	/// `CTRun.glyphCount`.
+	///
+	/// The returned value might reference internal memory used by the `CTRun`.
+	/// If you want to keep the buffer beyond the scope of the run, copy
+	/// the collection by passing it to the `Array` constructor.
 	public var glyphs: AnyRandomAccessCollection<CGGlyph> {
 		if let preGlyph = CTRunGetGlyphsPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
@@ -98,62 +65,31 @@ public func CTRunGetGlyphs(_ run: CTRun, _ range: CFRange, _ buffer: UnsafeMutab
 		}
 	}
 
+	/// Copies a range of glyphs.
+	/// - parameter range:
+	/// The range of glyphs to be copied, with the entire range having a
+	/// location of `0` and a length of `CTRun.glyphCount`. If the length
+	/// of the range is set to `0`, then the operation will continue from
+	/// the range's start index to the end of the run.
+	/// - returns: The glyphs in the specified range.
 	public func glyphs(in range: CFRange) -> [CGGlyph] {
 		guard range.length != 0 else {
-			return []
+			return Array(glyphs)
 		}
 		var preArr = [CGGlyph](repeating: 0, count: range.length)
 		CTRunGetGlyphs(self, range, &preArr)
 		return preArr
 	}
 	
-	/*
-/*!
-@function   CTRunGetPositionsPtr
-@abstract   Returns a direct pointer for the glyph position array stored in
-the run.
-
-@discussion The glyph positions in a run are relative to the origin of the
-line containing the run. The position array will have a length
-equal to the value returned by CTRunGetGlyphCount. The caller
-should be prepared for this function to return NULL even if there
-are glyphs in the stream. Should this function return NULL, the
-caller will need to allocate their own buffer and call
-CTRunGetPositions to fetch the positions.
-
-@param      run
-The run whose positions you wish to access.
-
-@result     A valid pointer to an array of CGPoint structures or NULL.
-*/
-@available(OSX 10.5, *)
-public func CTRunGetPositionsPtr(_ run: CTRun) -> UnsafePointer<CGPoint>?
-
-
-/*!
-@function   CTRunGetPositions
-@abstract   Copies a range of glyph positions into a user-provided buffer.
-
-@discussion The glyph positions in a run are relative to the origin of the
-line containing the run.
-
-@param      run
-The run whose positions you wish to copy.
-
-@param      range
-The range of glyph positions to be copied, with the entire range
-having a location of 0 and a length of CTRunGetGlyphCount. If the
-length of the range is set to 0, then the operation will continue
-from the range's start index to the end of the run.
-
-@param      buffer
-The buffer where the glyph positions will be copied to. The buffer
-must be allocated to at least the value specified by the range's
-length.
-*/
-@available(OSX 10.5, *)
-public func CTRunGetPositions(_ run: CTRun, _ range: CFRange, _ buffer: UnsafeMutablePointer<CGPoint>)
-*/
+	/// The glyph positions in the run.
+	///
+	/// The glyph positions in a run are relative to the origin of the
+	/// line containing the run. The position array will have a length
+	/// equal to the value returned by `CTRun.glyphCount`.
+	///
+	/// The returned value might reference internal memory used by the `CTRun`.
+	/// If you want to keep the buffer beyond the scope of the run, copy
+	/// the collection by passing it to the `Array` constructor.
 	public var positions: AnyRandomAccessCollection<CGPoint> {
 		if let preGlyph = CTRunGetPositionsPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
@@ -164,62 +100,34 @@ public func CTRunGetPositions(_ run: CTRun, _ range: CFRange, _ buffer: UnsafeMu
 		}
 	}
 	
+	/// Copies a range of glyph positions.
+	/// - parameter range:
+	/// The range of glyph positions to be copied, with the entire range
+	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// length of the range is set to `0`, then the operation will continue
+	/// from the range's start index to the end of the run.
+	/// - returns: The glyph positions.
 	public func positions(in range: CFRange) -> [CGPoint] {
 		guard range.length != 0 else {
-			return []
+			return Array(positions)
 		}
 		var preArr = [CGPoint](repeating: CGPoint(), count: range.length)
 		CTRunGetPositions(self, range, &preArr)
 		return preArr
 	}
 	
-	/*
-/*!
-@function   CTRunGetAdvancesPtr
-@abstract   Returns a direct pointer for the glyph advance array stored in
-the run.
-
-@discussion The advance array will have a length equal to the value returned
-by CTRunGetGlyphCount. The caller should be prepared for this
-function to return NULL even if there are glyphs in the stream.
-Should this function return NULL, the caller will need to
-allocate their own buffer and call CTRunGetAdvances to fetch the
-advances. Note that advances alone are not sufficient for correctly
-positioning glyphs in a line, as a run may have a non-identity
-matrix or the initial glyph in a line may have a non-zero origin;
-callers should consider using positions instead.
-
-@param      run
-The run whose advances you wish to access.
-
-@result     A valid pointer to an array of CGSize structures or NULL.
-*/
-@available(OSX 10.5, *)
-public func CTRunGetAdvancesPtr(_ run: CTRun) -> UnsafePointer<CGSize>?
-
-
-/*!
-@function   CTRunGetAdvances
-@abstract   Copies a range of glyph advances into a user-provided buffer.
-
-@param      run
-The run whose advances you wish to copy.
-
-@param      range
-The range of glyph advances to be copied, with the entire range
-having a location of 0 and a length of CTRunGetGlyphCount. If the
-length of the range is set to 0, then the operation will continue
-from the range's start index to the end of the run.
-
-@param      buffer
-The buffer where the glyph advances will be copied to. The buffer
-must be allocated to at least the value specified by the range's
-length.
-*/
-@available(OSX 10.5, *)
-public func CTRunGetAdvances(_ run: CTRun, _ range: CFRange, _ buffer: UnsafeMutablePointer<CGSize>)
-
-	*/
+	/// The glyph advance array used in the run.
+	///
+	/// The advance array will have a length equal to the value returned
+	/// by `CTRun.glyphCount`.
+	/// Note that advances alone are not sufficient for correctly
+	/// positioning glyphs in a line, as a run may have a non-identity
+	/// matrix or the initial glyph in a line may have a non-zero origin;
+	/// callers should consider using positions instead.
+	///
+	/// The returned value might reference internal memory used by the `CTRun`.
+	/// If you want to keep the buffer beyond the scope of the run, copy
+	/// the collection by passing it to the `Array` constructor.
 	public var advances: AnyRandomAccessCollection<CGSize> {
 		if let preAdv = CTRunGetAdvancesPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preAdv, count: glyphCount))
@@ -230,66 +138,33 @@ public func CTRunGetAdvances(_ run: CTRun, _ range: CFRange, _ buffer: UnsafeMut
 		}
 	}
 	
+	/// Copies a range of glyph advances.
+	/// - parameter range:
+	/// The range of glyph advances to be copied, with the entire range
+	/// having a location of 0 and a length of CTRunGetGlyphCount. If the
+	/// length of the range is set to 0, then the operation will continue
+	/// from the range's start index to the end of the run.
+	/// - returns: An array of glyph advances.
 	public func advances(in range: CFRange) -> [CGSize] {
 		guard range.length != 0 else {
-			return []
+			return Array(advances)
 		}
 		var preArr = [CGSize](repeating: CGSize(), count: range.length)
 		CTRunGetAdvances(self, range, &preArr)
 		return preArr
 	}
 	
-/*
-
-/*!
-@function   CTRunGetStringIndicesPtr
-@abstract   Returns a direct pointer for the string indices stored in the run.
-
-@discussion The indices are the character indices that originally spawned the
-glyphs that make up the run. They can be used to map the glyphs in
-the run back to the characters in the backing store. The string
-indices array will have a length equal to the value returned by
-CTRunGetGlyphCount. The caller should be prepared for this
-function to return NULL even if there are glyphs in the stream.
-Should this function return NULL, the caller will need to allocate
-their own buffer and call CTRunGetStringIndices to fetch the
-indices.
-
-@param      run
-The run whose string indices you wish to access.
-
-@result     A valid pointer to an array of CFIndex structures or NULL.
-*/
-@available(OSX 10.5, *)
-public func CTRunGetStringIndicesPtr(_ run: CTRun) -> UnsafePointer<CFIndex>?
-
-
-/*!
-@function   CTRunGetStringIndices
-@abstract   Copies a range of string indices int o a user-provided buffer.
-
-@discussion The indices are the character indices that originally spawned the
-glyphs that make up the run. They can be used to map the glyphs
-in the run back to the characters in the backing store.
-
-@param      run
-The run whose string indices you wish to copy.
-
-@param      range
-The range of string indices to be copied, with the entire range
-having a location of 0 and a length of CTRunGetGlyphCount. If the
-length of the range is set to 0, then the operation will continue
-from the range's start index to the end of the run.
-
-@param      buffer
-The buffer where the string indices will be copied to. The buffer
-must be allocated to at least the value specified by the range's
-length.
-*/
-@available(OSX 10.5, *)
-public func CTRunGetStringIndices(_ run: CTRun, _ range: CFRange, _ buffer: UnsafeMutablePointer<CFIndex>)
-	*/
-	
+	/// The string indices used in the run.
+	///
+	/// The indices are the character indices that originally spawned the
+	/// glyphs that make up the run. They can be used to map the glyphs in
+	/// the run back to the characters in the backing store. The string
+	/// indices array will have a length equal to the value returned by
+	/// `CTRun.glyphCount`.
+	///
+	/// The returned value might reference internal memory used by the `CTRun`.
+	/// If you want to keep the buffer beyond the scope of the run, copy
+	/// the collection by passing it to the `Array` constructor.
 	public var stringIndices: AnyRandomAccessCollection<CFIndex> {
 		if let preGlyph = CTRunGetStringIndicesPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
@@ -300,9 +175,20 @@ public func CTRunGetStringIndices(_ run: CTRun, _ range: CFRange, _ buffer: Unsa
 		}
 	}
 	
+	/// Copies a range of string indices.
+	/// - parameter range:
+	/// The range of string indices to be copied, with the entire range
+	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// length of the range is set to `0`, then the operation will continue
+	/// from the range's start index to the end of the run.
+	/// - returns: The string indices in the specified range.
+	///
+	/// The indices are the character indices that originally spawned the
+	/// glyphs that make up the run. They can be used to map the glyphs
+	/// in the run back to the characters in the backing store.
 	public func stringIndicies(in range: CFRange) -> [CFIndex] {
 		guard range.length != 0 else {
-			return []
+			return Array(stringIndices)
 		}
 		var preArr = [CFIndex](repeating: 0, count: range.length)
 		CTRunGetStringIndices(self, range, &preArr)

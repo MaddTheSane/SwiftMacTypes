@@ -34,34 +34,23 @@ extension CTLine {
 		return CTLineCreateTruncatedLine(self, width, truncationType, truncationToken)
 	}
 	
-	/*
-
-/*!
-@function   CTLineCreateJustifiedLine
-@abstract   Creates a justified line from an existing line.
-
-@param      line
-The line that you want to create a justified line for.
-
-@param      justificationFactor
-Allows for full or partial justification. When set to 1.0 or
-greater indicates, full justification will be performed. If less
-than 1.0, varying degrees of partial justification will be
-performed. If set to 0 or less, then no justification will be
-performed.
-
-@param      justificationWidth
-The width to which the resultant line will be justified. If
-justificationWidth is less than the actual width of the line,
-then negative justification will be performed ("text squishing").
-
-@result     This function will return a reference to a justified CTLine
-object if the call was successful. Otherwise, it will return
-NULL.
-*/
-@available(OSX 10.5, *)
-public func CTLineCreateJustifiedLine(_ line: CTLine, _ justificationFactor: CGFloat, _ justificationWidth: Double) -> CTLine?
-*/
+	/// Creates a justified line from an existing line.
+	/// - parameter justificationFactor:
+	/// Allows for full or partial justification. When set to `1.0` or
+	/// greater indicates, full justification will be performed. If less
+	/// than `1.0`, varying degrees of partial justification will be
+	/// performed. If set to `0` or less, then no justification will be
+	/// performed.
+	/// - parameter justificationWidth:
+	/// The width to which the resultant line will be justified. If
+	/// justificationWidth is less than the actual width of the line,
+	/// then negative justification will be performed ("text squishing").
+	/// - returns: This function will return a reference to a justified CTLine
+	/// object if the call was successful. Otherwise, it will return
+	/// `nil`.
+	public func justifiedLine(factor justificationFactor: CGFloat, width justificationWidth: Double) -> CTLine? {
+		return CTLineCreateJustifiedLine(self, justificationFactor, justificationWidth)
+	}
 	
 	/// Returns the total glyph count for the line object.
 	///

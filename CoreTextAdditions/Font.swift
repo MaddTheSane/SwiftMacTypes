@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreText
+import SwiftAdditions
 
 public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	// The font object used internally.
@@ -367,7 +368,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// This function is to be used when the current font does not cover the given range of the string. The current font itself will not be returned, but preference is given to fonts in its cascade list.
 	public func font(for string: String, range: Range<String.Index>) -> Font {
 		let range2 = NSRange(range, in: string)
-		let range1 = CFRangeMake(range2.location, range2.length)
+		let range1 = range2.cfRange
 		let aFont = CTFontCreateForString(internalFont, string as NSString, range1)
 		return Font(ctFont: aFont)
 	}
@@ -394,7 +395,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// This function is to be used when the current font does not cover the given range of the string. The current font itself will not be returned, but preference is given to fonts in its cascade list.
 	public func font(for string: Substring, range: Range<Substring.Index>) -> Font {
 		let range2 = NSRange(range, in: string)
-		let range1 = CFRangeMake(range2.location, range2.length)
+		let range1 = range2.cfRange
 		let aFont = CTFontCreateForString(internalFont, string as NSString, range1)
 		return Font(ctFont: aFont)
 	}
