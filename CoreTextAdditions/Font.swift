@@ -640,57 +640,31 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 		return (finalRect, bounds)
 	}
 	
-	/*
-		/*!
-			@function   CTFontGetOpticalBoundsForGlyphs
-			@abstract   Calculates the optical bounding rects for an array of glyphs and returns the overall optical bounding rect for the run.
-
-			@discussion Fonts may specify the optical edges of glyphs that can be used to make the edges of lines of text line up in a more visually pleasing way. This function returns bounding rects corresponding to this information if present in a font, otherwise it returns typographic bounding rects (composed of the font's ascent and descent and a glyph's advance width).
-
-			@param      font
-						The font reference.
-
-			@param      glyphs
-						An array of count number of glyphs.
-
-			@param      boundingRects
-						An array of count number of CGRects to receive the computed glyph rects. Can be NULL, in which case only the overall bounding rect is calculated.
-
-			@param      count
-						The capacity of the glyphs and boundingRects buffers.
-
-			@param      options
-						Reserved, set to zero.
-
-			@result     This function returns the overall bounding rectangle for an array or run of glyphs. The bounding rects of the individual glyphs are returned through the boundingRects parameter. These are the design metrics from the font transformed in font space.
-		*/
-		@available(OSX 10.8, *)
-		public func CTFontGetOpticalBoundsForGlyphs(_ font: CTFont, _ glyphs: UnsafePointer<CGGlyph>, _ boundingRects: UnsafeMutablePointer<CGRect>?, _ count: CFIndex, _ options: CFOptionFlags) -> CGRect
-
-		/*!
-			@function   CTFontGetAdvancesForGlyphs
-			@abstract   Calculates the advances for an array of glyphs and returns the summed advance.
-
-			@param      font
-						The font reference.
-
-			@param      orientation
-						The intended drawing orientation of the glyphs. Used to determined which glyph metrics to return.
-
-			@param      glyphs
-						An array of count number of glyphs.
-
-			@param      advances
-						An array of count number of CGSize to receive the computed glyph advances. Can be NULL, in which case only the overall advance is calculated.
-
-			@param      count
-						The capacity of the glyphs and advances buffers.
-
-			@result     This function returns the summed glyph advance of an array of glyphs. Individual glyph advances are passed back via the advances parameter. These are the ideal metrics for each glyph scaled and transformed in font space.
-		*/
-		@available(OSX 10.5, *)
-		public func CTFontGetAdvancesForGlyphs(_ font: CTFont, _ orientation: CTFontOrientation, _ glyphs: UnsafePointer<CGGlyph>, _ advances: UnsafeMutablePointer<CGSize>?, _ count: CFIndex) -> Double
-*/
+	/// Calculates the optical bounding rects for an array of glyphs and returns the overall optical bounding rect for the run.
+	/// - parameter glyphs: An array of count number of glyphs.
+	/// - parameter options: Reserved, set to zero.
+	/// - returns: `all`: This function returns the overall bounding rectangle for an array or run of glyphs. The bounding rects of the individual glyphs are returned through the boundingRects parameter. These are the design metrics from the font transformed in font space.<br>
+	/// `perGlyph`: The computed glyph rects.
+	///
+	/// Fonts may specify the optical edges of glyphs that can be used to make the edges of lines of text line up in a more visually pleasing way. This function returns bounding rects corresponding to this information if present in a font, otherwise it returns typographic bounding rects (composed of the font's ascent and descent and a glyph's advance width).
+	public func opticalBounds(for glyphs: [CGGlyph], options: CFOptionFlags = 0) -> (all: CGRect, perGlyph: [CGRect]) {
+		var boundingRects = [CGRect](repeating: CGRect(), count: glyphs.count)
+		let allBounds = CTFontGetOpticalBoundsForGlyphs(internalFont, glyphs, &boundingRects, glyphs.count, options)
+		return (allBounds, boundingRects)
+	}
+	
+	/// Calculates the advances for an array of glyphs and returns the summed advance.
+	/// - parameter glyphs: An array of glyphs.
+	/// - parameter orientation:
+	/// The intended drawing orientation of the glyphs. Used to determined which glyph metrics to return.<br>
+	/// Default is `.default`
+	/// - returns: `all`: This method returns the summed glyph advance of an array of glyphs. Individual glyph advances are passed back via the advances parameter. These are the ideal metrics for each glyph scaled and transformed in font space.<br>
+	/// `perGlyph`: An array of count number of `CGSize` to receive the computed glyph advances.
+	public func advances(for glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: Double, perGlyph: [CGSize]) {
+		var advances = [CGSize](repeating: CGSize(), count: glyphs.count)
+		let summedAdvance = CTFontGetAdvancesForGlyphs(internalFont, orientation, glyphs, &advances, glyphs.count)
+		return (summedAdvance, advances)
+	}
 	
 	/// Calculates the offset from the default (horizontal) origin to the vertical origin for an array of glyphs.
 	/// - parameter glyphs: An array of glyphs.
@@ -845,37 +819,6 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 		let gp = zip(glyphs, positions).map({return $0})
 		draw(glyphsAndPositions: gp, context: context)
 	}
-	
-	/*
-	
-		/*!
-			@function   CTFontGetLigatureCaretPositions
-			@abstract   Returns caret positions within a glyph.
-			@discussion This function is used to obtain caret positions for a specific glyph.
-						The return value is the max number of positions possible, and the function
-						will populate the caller's positions buffer with available positions if possible.
-						This function may not be able to produce positions if the font does not
-						have the appropriate data, in which case it will return 0.
- 
-			@param      font
-						The font reference.
-	
-			@param      glyph
-						The glyph.
- 
-			@param      positions
-						A buffer of at least maxPositions to receive the ligature caret positions for
-						the glyph.
- 
-			@param      maxPositions
-						The maximum number of positions to return.
- 
-			@result     Returns the number of caret positions for the specified glyph.
-		*/
-		@available(OSX 10.5, *)
-		public func CTFontGetLigatureCaretPositions(_ font: CTFont, _ glyph: CGGlyph, _ positions: UnsafeMutablePointer<CGFloat>?, _ maxPositions: CFIndex) -> CFIndex
-
-	*/
 	
 	/// Returns caret positions within a glyph.
 	/// - parameter glyph: The glyph.
