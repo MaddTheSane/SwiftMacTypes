@@ -209,7 +209,7 @@ extension CTLine {
 	/// offset corresponds to the portion of the caret that represents
 	/// the visual insertion location for a character whose direction
 	/// matches the line's writing direction.
-	public func offsetFor(stringIndex: Int) -> (primary: CGFloat, secondary: CGFloat) {
+	public func offset(stringIndex: Int) -> (primary: CGFloat, secondary: CGFloat) {
 		var secondary: CGFloat = 0
 		let primary = CTLineGetOffsetForStringIndex(self, stringIndex, &secondary)
 		return (primary, secondary)

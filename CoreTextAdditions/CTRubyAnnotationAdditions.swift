@@ -66,7 +66,7 @@ extension CTRubyAnnotation {
 	/// Using this function to create a ruby annotation object with more precise
 	/// control of the annotation text.
 	@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
-	public static func create(withAttributes attributes: [String: Any], alignment: Alignment, overhang: Overhang, position: Position, string: String) -> CTRubyAnnotation {
+	public static func create(attributes: [String: Any], alignment: Alignment, overhang: Overhang, position: Position, string: String) -> CTRubyAnnotation {
 		return CTRubyAnnotationCreateWithAttributes(alignment, overhang, position, string as NSString, attributes as NSDictionary)
 	}
 

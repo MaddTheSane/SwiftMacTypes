@@ -324,7 +324,7 @@ extension CTFont {
 	/// Returns the CGGlyph for the specified glyph name.
 	/// - parameter glyphName: The glyph name as a `String`.
 	/// - returns: The glyph with the specified name or `0` if the name is not recognized; this glyph can be used with other Core Text glyph data accessors or with Quartz.
-	public func glyph(withName glyphName: String) -> CGGlyph {
+	public func glyph(named glyphName: String) -> CGGlyph {
 		return CTFontGetGlyphWithName(self, glyphName as NSString)
 	}
 	

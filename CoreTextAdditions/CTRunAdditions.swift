@@ -210,7 +210,7 @@ extension CTRun {
 	/// a location of `0` and a length of `CTRun.glyphCount`. If the length
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
-	public func typographicBounds(for range: CFRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
+	public func typographicBounds(_ range: CFRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
 		var ascent: CGFloat = 0, descent: CGFloat = 0, leading: CGFloat = 0
 		let width = CTRunGetTypographicBounds(self, range, &ascent, &descent, &leading)
 		return (width, ascent, descent, leading)

@@ -44,7 +44,7 @@ public struct FontManager {
 	/// - parameter fileURL: A file system URL referencing a valid font file.
 	/// - returns: An array of `CTFontDescriptor`s or `nil` if there are no valid fonts.
 	@available(OSX 10.6, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
-	public static func fontDescriptors(from fileURL: URL) -> [CTFontDescriptor]? {
+	public static func fontDescriptors(_ fileURL: URL) -> [CTFontDescriptor]? {
 		return CTFontManagerCreateFontDescriptorsFromURL(fileURL as NSURL) as NSArray? as! [CTFontDescriptor]?
 	}
 	
@@ -55,7 +55,7 @@ public struct FontManager {
 	///
 	/// If the data contains a font collection (TTC or OTC), only the first font in the collection will be returned.
 	@available(OSX 10.7, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
-	public static func fontDescriptor(from data: Data) -> CTFontDescriptor? {
+	public static func fontDescriptor(_ data: Data) -> CTFontDescriptor? {
 		return CTFontManagerCreateFontDescriptorFromData(data as NSData)
 	}
 	
@@ -63,7 +63,7 @@ public struct FontManager {
 	/// - parameter fontURL: Font URL.
 	/// - parameter scope: Scope constant defining the availability and lifetime of the registration. See scope constants for more details.
 	@available(OSX 10.6, iOS 4.1, watchOS 2.0, tvOS 9.0, *)
-	public static func registerFonts(from fontURL: URL, scope: Scope) throws {
+	public static func registerFonts(url fontURL: URL, scope: Scope) throws {
 		var maybeErr: Unmanaged<CFError>? = nil
 		let toRet = CTFontManagerRegisterFontsForURL(fontURL as NSURL, scope, &maybeErr)
 		guard toRet else {
@@ -81,7 +81,7 @@ public struct FontManager {
 	/// - parameter fontURL: Font URL.
 	/// - parameter scope: Scope constant defining the availability and lifetime of the registration. Should match the scope the fonts are registered in. See scope constants for more details.
 	@available(OSX 10.6, iOS 4.1, watchOS 2.0, tvOS 9.0, *)
-	public static func unregisterFonts(from fontURL: URL, scope: Scope) throws {
+	public static func unregisterFonts(url fontURL: URL, scope: Scope) throws {
 		var maybeErr: Unmanaged<CFError>? = nil
 		let toRet = CTFontManagerUnregisterFontsForURL(fontURL as NSURL, scope, &maybeErr)
 		guard toRet else {

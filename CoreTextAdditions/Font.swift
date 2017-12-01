@@ -303,7 +303,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	///
 	/// This function provides a mechanism to quickly change attributes on a given font reference in response to user actions. For instance, the size can be changed in response to a user manipulating a size slider.
 	/// - returns: Returns a new font reference converted from the original with the specified attributes.
-	public func copy(withAttributes attributes: CTFontDescriptor?, size: CGFloat, matrix: CGAffineTransform? = nil) -> Font {
+	public func copy(attributes: CTFontDescriptor?, size: CGFloat, matrix: CGAffineTransform? = nil) -> Font {
 		let aFont: CTFont
 		if var matrix = matrix {
 			aFont = CTFontCreateCopyWithAttributes(internalFont, size, &matrix, attributes)
@@ -319,7 +319,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// Default is `nil`.
 	/// - parameter symTraits: The value of the symbolic traits. This bitfield is used to indicate the desired value for the traits specified by the `.mask` parameter. Used in conjunction, they can allow for trait removal as well as addition.
 	/// - returns: a new font reference in the same family with the given symbolic traits, or `nil` if none found in the system.
-	public func copy(withSymbolicTraits symTraits: (traits: CTFontSymbolicTraits, mask: CTFontSymbolicTraits), size: CGFloat, matrix: CGAffineTransform? = nil) -> Font? {
+	public func copy(symbolicTraits symTraits: (traits: CTFontSymbolicTraits, mask: CTFontSymbolicTraits), size: CGFloat, matrix: CGAffineTransform? = nil) -> Font? {
 		let aFont: CTFont?
 		if var matrix = matrix {
 			aFont = CTFontCreateCopyWithSymbolicTraits(internalFont, size, &matrix, symTraits.traits, symTraits.mask)
@@ -339,7 +339,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// Default is `nil`
 	/// - parameter family: The name of the desired family.
 	/// - returns: Returns a new font reference with the original traits in the given family. `nil` if non found in the system.
-	public func copy(withFamilyName family: String, size: CGFloat, matrix: CGAffineTransform? = nil) -> Font? {
+	public func copy(familyName family: String, size: CGFloat, matrix: CGAffineTransform? = nil) -> Font? {
 		let aFont: CTFont?
 		if var matrix = matrix {
 			aFont = CTFontCreateCopyWithFamily(internalFont, size, &matrix, family as NSString)
@@ -625,7 +625,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// Returns the CGGlyph for the specified glyph name.
 	/// - parameter glyphName: The glyph name as a `String`.
 	/// - returns: The glyph with the specified name or `0` if the name is not recognized; this glyph can be used with other Core Text glyph data accessors or with Quartz.
-	public func glyph(withName glyphName: String) -> CGGlyph {
+	public func glyph(named glyphName: String) -> CGGlyph {
 		return CTFontGetGlyphWithName(internalFont, glyphName as NSString)
 	}
 	
