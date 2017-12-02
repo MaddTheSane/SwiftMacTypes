@@ -236,6 +236,15 @@ extension AudioComponentDescription {
 		}
 	}
 	
+	public var flagMask: AudioComponentFlags {
+		get {
+			return AudioComponentFlags(rawValue: componentFlagsMask)
+		}
+		set {
+			componentFlagsMask = newValue.rawValue
+		}
+	}
+	
 	public var component: AudioComponentType {
 		get {
 			return AudioComponentType(type: componentType, subType: componentSubType)
