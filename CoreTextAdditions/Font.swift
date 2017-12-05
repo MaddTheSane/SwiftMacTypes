@@ -502,7 +502,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 
 	/// the Unicode character set of the font.
 	///
-	/// This character set covers the nominal referenced by the font's Unicode cmap table (or equivalent).
+	/// This character set covers the nominal referenced by the font's Unicode *cmap* table (or equivalent).
 	public var characterSet: CharacterSet {
 		return CTFontCopyCharacterSet(internalFont) as CharacterSet
 	}

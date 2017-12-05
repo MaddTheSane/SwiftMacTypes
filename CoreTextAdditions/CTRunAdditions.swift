@@ -52,8 +52,8 @@ extension CTRun {
 	/// The glyph array will have a length equal to the value returned by
 	/// `CTRun.glyphCount`.
 	///
-	/// The returned value might reference internal memory used by the `CTRun`.
-	/// If you want to keep the buffer beyond the scope of the run, copy
+	/// The returned value might reference internal memory used by the `CTRun`
+	/// object. If you want to keep the buffer beyond the scope of the run, copy
 	/// the collection by passing it to the `Array` constructor.
 	public var glyphs: AnyRandomAccessCollection<CGGlyph> {
 		if let preGlyph = CTRunGetGlyphsPtr(self) {
@@ -87,8 +87,8 @@ extension CTRun {
 	/// line containing the run. The position array will have a length
 	/// equal to the value returned by `CTRun.glyphCount`.
 	///
-	/// The returned value might reference internal memory used by the `CTRun`.
-	/// If you want to keep the buffer beyond the scope of the run, copy
+	/// The returned value might reference internal memory used by the `CTRun`
+	/// object. If you want to keep the buffer beyond the scope of the run, copy
 	/// the collection by passing it to the `Array` constructor.
 	public var positions: AnyRandomAccessCollection<CGPoint> {
 		if let preGlyph = CTRunGetPositionsPtr(self) {
@@ -125,8 +125,8 @@ extension CTRun {
 	/// matrix or the initial glyph in a line may have a non-zero origin;
 	/// callers should consider using positions instead.
 	///
-	/// The returned value might reference internal memory used by the `CTRun`.
-	/// If you want to keep the buffer beyond the scope of the run, copy
+	/// The returned value might reference internal memory used by the `CTRun`
+	/// object. If you want to keep the buffer beyond the scope of the run, copy
 	/// the collection by passing it to the `Array` constructor.
 	public var advances: AnyRandomAccessCollection<CGSize> {
 		if let preAdv = CTRunGetAdvancesPtr(self) {
@@ -162,8 +162,8 @@ extension CTRun {
 	/// indices array will have a length equal to the value returned by
 	/// `CTRun.glyphCount`.
 	///
-	/// The returned value might reference internal memory used by the `CTRun`.
-	/// If you want to keep the buffer beyond the scope of the run, copy
+	/// The returned value might reference internal memory used by the `CTRun`
+	/// object. If you want to keep the buffer beyond the scope of the run, copy
 	/// the collection by passing it to the `Array` constructor.
 	public var stringIndices: AnyRandomAccessCollection<CFIndex> {
 		if let preGlyph = CTRunGetStringIndicesPtr(self) {
@@ -239,8 +239,12 @@ extension CTRun {
 	/// ideal and does not account for raster coverage due to rendering.
 	/// This function is purely a convenience for using glyphs as an
 	/// image and should not be used for typographic purposes.
-	public func imageBounds(in range: CFRange, context: CGContext?) -> CGRect {
-		return CTRunGetImageBounds(self, context, range)
+	public func imageBounds(in range: CFRange, context: CGContext?) -> CGRect? {
+		let toRet = CTRunGetImageBounds(self, context, range)
+		if toRet == .null {
+			return nil
+		}
+		return toRet
 	}
 	
 	/// The text matrix needed to draw this run.
