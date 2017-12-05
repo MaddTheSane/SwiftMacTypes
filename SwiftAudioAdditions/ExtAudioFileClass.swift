@@ -15,7 +15,7 @@ final public class ExtAudioFile {
 	var internalPtr: ExtAudioFileRef
 	private var strongAudioFileClass: AudioFile?
 	
-	public init(openURL: URL) throws {
+	public init(open openURL: URL) throws {
 		var aPtr: ExtAudioFileRef? = nil
 		let iErr = ExtAudioFileOpenURL(openURL as NSURL, &aPtr)
 		
@@ -46,7 +46,7 @@ final public class ExtAudioFile {
 		internalPtr = aPtr!
 	}
 	
-	public init(createURL inURL: URL, fileType inFileType: AudioFileType, streamDescription inStreamDesc: inout AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout>? = nil, flags: AudioFileFlags = []) throws {
+	public init(create inURL: URL, fileType inFileType: AudioFileType, streamDescription inStreamDesc: inout AudioStreamBasicDescription, channelLayout inChannelLayout: UnsafePointer<AudioChannelLayout>? = nil, flags: AudioFileFlags = []) throws {
 		var aPtr: ExtAudioFileRef? = nil
 		let iErr = ExtAudioFileCreate(url: inURL, fileType: inFileType, streamDescription: &inStreamDesc, channelLayout: inChannelLayout, flags: flags, audioFile: &aPtr)
 		

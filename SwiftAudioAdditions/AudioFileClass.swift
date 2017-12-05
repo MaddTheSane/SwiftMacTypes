@@ -14,7 +14,7 @@ import SwiftAdditions
 public final class AudioFile {
 	private(set) var fileID: AudioFileID
 	
-	public init(createWithURL url: URL, fileType: AudioFileTypeID, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = []) throws {
+	public init(createWith url: URL, fileType: AudioFileTypeID, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = []) throws {
 		var fileID: AudioFileID? = nil
 		let iErr = AudioFileCreateWithURL(url as NSURL, fileType, &format, flags, &fileID)
 		
@@ -24,7 +24,7 @@ public final class AudioFile {
 		self.fileID = fileID!
 	}
 	
-	public init(openURL: URL, permissions: AudioFilePermissions = .readPermission, fileTypeHint fileHint: AudioFileTypeID) throws {
+	public init(open openURL: URL, permissions: AudioFilePermissions = .readPermission, fileTypeHint fileHint: AudioFileTypeID) throws {
 		var fileID: AudioFileID? = nil
 		let iErr = AudioFileOpenURL(openURL as NSURL, permissions, fileHint, &fileID)
 		
