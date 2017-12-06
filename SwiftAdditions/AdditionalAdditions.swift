@@ -175,7 +175,7 @@ extension Array {
 	/// - returns: any objects that were removed.
 	@discardableResult
 	public mutating func remove(indexes: NSIndexSet) -> [Element] {
-		return self .remove(indexes: indexes as IndexSet)
+		return self.remove(indexes: indexes as IndexSet)
 	}
 	
 	// Code taken from http://stackoverflow.com/a/26174259/1975001

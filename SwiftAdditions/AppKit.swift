@@ -158,7 +158,7 @@ import Cocoa
 			#endif
 		}
 		
-		/// The native 32-bit byte order format.
+		/// The native 16-bit byte order format.
 		static var sixteenBitNativeEndian: NSBitmapImageRep.Format {
 			#if _endian(little)
 				return .sixteenBitLittleEndian
