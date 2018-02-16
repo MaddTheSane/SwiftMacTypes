@@ -129,9 +129,9 @@ extension CTLine {
 	/// such that the coordinate origin is coincident with the line
 	/// origin and the rect origin is at the bottom left. If the line
 	/// is invalid this function will return `nil`.
-	public func bounds(with options: CTLineBoundsOptions = []) -> CGRect? {
+	public func bounds(with options: BoundsOptions = []) -> CGRect? {
 		let retVal = CTLineGetBoundsWithOptions(self, options)
-		if retVal == CGRect.null {
+		if retVal.isNull {
 			return nil
 		}
 		return retVal
@@ -166,7 +166,7 @@ extension CTLine {
 	/// image and should not be used for typographic purposes.
 	public func imageBounds(in context: CGContext?) -> CGRect? {
 		let retVal = CTLineGetImageBounds(self, context)
-		if retVal == CGRect.null {
+		if retVal.isNull {
 			return nil
 		}
 		return retVal

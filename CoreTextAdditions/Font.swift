@@ -245,9 +245,9 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// This function uses font descriptor matching so only registered fonts can be returned; see *CTFontManager.h* for more information.
 	/// - parameter name: The font name for which you wish to create a new font reference. A valid PostScript name is preferred, although other font name types will be matched in a fallback manner.
 	/// - parameter size: The point size for the font reference. If `0.0` is specified, the default font size of `12.0` will be used.
-	/// - parameter matrix: The transformation matrix for the font. If `nil`, the identity matrix will be used. Optional.
+	/// - parameter matrix: The transformation matrix for the font. If `nil`, the identity matrix will be used. Optional.<br>
 	/// Default value is `nil`.
-	/// - parameter options: Options flags.
+	/// - parameter options: Options flags.<br>
 	/// Default is empty.
 	///
 	/// Will return a `Font` that best matches the `name` provided with `size` and `matrix` attributes. The `name` parameter is the only required parameters, and default values will be used for unspecified parameters. A best match will be found if all parameters cannot be matched identically.
@@ -264,8 +264,8 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// Returns a new font reference that best matches the font descriptor.
 	/// - parameter descriptor: A font descriptor containing attributes that specify the requested font.
-	/// - parameter size: The point size for the font reference. If 0.0 is specified, the default font size of 12.0 will be used.
-	/// - parameter matrix: The transformation matrix for the font. If `nil`, the identity matrix will be used. Optional.
+	/// - parameter size: The point size for the font reference. If `0.0` is specified, the default font size of `12.0` will be used.<br>
+	/// - parameter matrix: The transformation matrix for the font. If `nil`, the identity matrix will be used. Optional.<br>
 	/// Default value is `nil`.
 	/// - parameter options: Options flags.
 	/// Default is empty.
