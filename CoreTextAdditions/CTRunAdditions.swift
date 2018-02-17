@@ -229,7 +229,7 @@ extension CTRun {
 	/// rect origin will match the drawn position of the requested range;
 	/// that is, it will be translated by the supplied context's text
 	/// position and the positions of the individual glyphs. If the run
-	/// or range is invalid, `CGRect.null` will be returned.
+	/// or range is invalid, `nil` will be returned.
 	///
 	/// The image bounds for a run is the union of all non-empty glyph
 	/// bounding rects, each positioned as it would be if drawn using
@@ -241,7 +241,7 @@ extension CTRun {
 	/// image and should not be used for typographic purposes.
 	public func imageBounds(in range: CFRange, context: CGContext?) -> CGRect? {
 		let toRet = CTRunGetImageBounds(self, context, range)
-		if toRet == .null {
+		if toRet.isNull {
 			return nil
 		}
 		return toRet
