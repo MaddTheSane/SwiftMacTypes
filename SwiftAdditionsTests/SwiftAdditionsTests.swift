@@ -44,15 +44,15 @@ class SwiftAdditionsTests: XCTestCase {
 	
 	func testNSUUIDTranslators() {
 		let aUUID = NSUUID()
-		let aCFUUID = aUUID.CFUUID
+		let aCFUUID = aUUID.cfUUID
 		let bUUID = NSUUID(CFUUID: aCFUUID)
 		XCTAssertEqual(aUUID, bUUID)
 	}
 	
 	func testUUIDTranslators() {
 		let aUUID = UUID()
-		let aCFUUID = aUUID.CFUUID
-		let bUUID = UUID(CFUUID: aCFUUID)
+		let aCFUUID = aUUID.cfUUID
+		let bUUID = UUID(cfUUID: aCFUUID)
 		XCTAssertEqual(aUUID, bUUID)
 	}
 	

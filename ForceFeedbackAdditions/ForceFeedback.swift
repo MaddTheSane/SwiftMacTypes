@@ -945,15 +945,18 @@ public final class ForceFeedbackDevice {
 		let curDataSize = inData.count
 		var tmpMutBytes = inData
 		let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutablePointer<UInt8>) -> ForceFeedbackResult in
-			return ourMutableData.withUnsafeMutableBytes({ (ourMutBytes: UnsafeMutablePointer<UInt8>) -> ForceFeedbackResult in
+			let theNewRet = ourMutableData.withUnsafeMutableBytes({ (ourMutBytes: UnsafeMutablePointer<UInt8>) -> ForceFeedbackResult in
 				var ourEscape = Escape(dwSize: DWORD(MemoryLayout<Escape>.size), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutBytes, cbOutBuffer: DWORD(outDataLength))
 				
 				let ret1 = sendEscape(&ourEscape)
 				outDataLength = Int(ourEscape.cbOutBuffer)
-				ourMutableData.count = outDataLength
 				return ret1
 				
 			})
+			
+			ourMutableData.count = outDataLength
+
+			return theNewRet
 		}
 		
 		lastReturnValue = toRet
@@ -1330,7 +1333,7 @@ public final class ForceFeedbackEffect {
 			0x8A, 0x1C, 0x00, 0x03, 0x93, 0x53, 0xBD, 0x00))
 	
 	public convenience init(device: ForceFeedbackDevice, uuid UUID: Foundation.UUID, effectDefinition: inout Effect) throws {
-		let ourUUID = UUID.CFUUID
+		let ourUUID = UUID.cfUUID
 		
 		try self.init(device: device, uuid: ourUUID, effectDefinition: &effectDefinition)
 	}

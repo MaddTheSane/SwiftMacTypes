@@ -61,8 +61,7 @@ extension NSRange {
 	/// Initializes an `NSRange` struct from a `CFRange` struct.
 	/// - parameter range: The `CFRange` to convert from.
 	public init(_ range: CoreFoundation.CFRange) {
-		location = range.location
-		length = range.length
+		self.init(location: range.location, length: range.length)
 	}
 	
 	/// Initializes an `NSRange` struct from a `CFRange` struct.

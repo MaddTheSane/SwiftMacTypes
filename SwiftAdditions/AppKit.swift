@@ -97,21 +97,11 @@ import Cocoa
 	extension AffineTransform {
 		@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `AffineTransform(cgTransform:)` instead", renamed: "AffineTransform(cgTransform:)")
 		public init(CGTransform cgAff: CGAffineTransform) {
-			m11 = cgAff.a
-			m12 = cgAff.b
-			m21 = cgAff.c
-			m22 = cgAff.d
-			tX = cgAff.tx
-			tY = cgAff.ty
+			self.init(cgTransform: cgAff)
 		}
 		
 		public init(cgTransform cgAff: CGAffineTransform) {
-			m11 = cgAff.a
-			m12 = cgAff.b
-			m21 = cgAff.c
-			m22 = cgAff.d
-			tX = cgAff.tx
-			tY = cgAff.ty
+			self.init(m11: cgAff.a, m12: cgAff.b, m21: cgAff.c, m22: cgAff.d, tX: cgAff.tx, tY: cgAff.ty)
 		}
 		
 		public var cgTransform: CGAffineTransform {
