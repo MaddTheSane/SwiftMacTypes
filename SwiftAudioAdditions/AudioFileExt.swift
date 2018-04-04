@@ -261,6 +261,7 @@ public extension AudioStreamBasicDescription {
 	
 	@available(*, deprecated, message: "AudioFormatID and AudioFormatFlags constants should now be typed correctly")
 	public init(sampleRate: Float64, formatID: Int, formatFlags: Int, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
+		self.init()
 		mSampleRate = sampleRate
 		mFormatID = UInt32(formatID)
 		mFormatFlags = UInt32(formatFlags)
@@ -285,24 +286,39 @@ public extension AudioStreamBasicDescription {
 		return mFormatID == kAudioFormatLinearPCM
 	}
 
-	public var interleaved: Bool {
+	public var isInterleaved: Bool {
 		return !formatFlags.contains(.nonInterleaved)
 	}
 	
-	public var signedInteger: Bool {
+	public var isSignedInteger: Bool {
 		return PCM && (mFormatFlags & kAudioFormatFlagIsSignedInteger) != 0
 	}
 	
-	public var float: Bool {
+	public var isFloat: Bool {
 		return PCM && (mFormatFlags & kAudioFormatFlagIsFloat) != 0
+	}
+
+	@available(*, deprecated, renamed: "isInterleaved")
+	public var interleaved: Bool {
+		return isInterleaved
+	}
+	
+	@available(*, deprecated, renamed: "isSignedInteger")
+	public var signedInteger: Bool {
+		return isSignedInteger
+	}
+	
+	@available(*, deprecated, renamed: "isFloat")
+	public var float: Bool {
+		return isFloat
 	}
 	
 	public var interleavedChannels: UInt32 {
-		return interleaved ? mChannelsPerFrame : 1
+		return isInterleaved ? mChannelsPerFrame : 1
 	}
 	
 	public var channelStreams: UInt32 {
-		return interleaved ? 1 : mChannelsPerFrame
+		return isInterleaved ? 1 : mChannelsPerFrame
 	}
 	
 	public var sampleWordSize: UInt32 {

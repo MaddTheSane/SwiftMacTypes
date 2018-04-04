@@ -28,6 +28,8 @@ class SwiftAudioAdditionsTests: XCTestCase {
         // This is an example of a functional test case.
 		var asbd = AudioStreamBasicDescription(fromText: "BEI16@44100,2")
         XCTAssert(asbd != nil, "Invalid asbd format?")
+		asbd = AudioStreamBasicDescription(fromText: "-BEI16@44100,2D")
+		XCTAssert(asbd != nil, "Invalid asbd format?")
 		asbd = AudioStreamBasicDescription(fromText: "BEI16@44100,2D")
 		XCTAssert(asbd != nil, "Invalid asbd format?")
 		asbd = AudioStreamBasicDescription(fromText: "BEI16@44100,2I")
