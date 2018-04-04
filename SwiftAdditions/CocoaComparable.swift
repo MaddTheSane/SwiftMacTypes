@@ -13,19 +13,19 @@ public protocol CocoaComparable: NSObjectProtocol, Comparable {
 	func compare(_ rhs: Self) -> ComparisonResult
 }
 
-
-public func <<A: CocoaComparable>(lhs: A, rhs: A) -> Bool {
-	return lhs.compare(rhs) == .orderedAscending
+extension CocoaComparable {
+	static public func <(lhs: Self, rhs: Self) -> Bool {
+		return lhs.compare(rhs) == .orderedAscending
+	}
+	
+	static public func >(lhs: Self, rhs: Self) -> Bool {
+		return lhs.compare(rhs) == .orderedDescending
+	}
+	
+	//static public func ==(lhs: Self, rhs: Self) -> Bool {
+	//	return lhs.compare(rhs) == .orderedSame
+	//}
 }
-
-public func ><A: CocoaComparable>(lhs: A, rhs: A) -> Bool {
-	return lhs.compare(rhs) == .orderedDescending
-}
-
-public func ==<A: CocoaComparable>(lhs: A, rhs: A) -> Bool {
-	return lhs.compare(rhs) == .orderedSame
-}
-
 
 extension NSNumber: CocoaComparable {
 }

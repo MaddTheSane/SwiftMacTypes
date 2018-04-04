@@ -94,4 +94,21 @@ class SwiftAdditionsTests: XCTestCase {
 		XCTAssertEqual("", subString)
 		XCTAssertEqual("", subString2)
 	}
+	
+	func testNSNumberCocoaComparable() {
+		let num1 = NSNumber(value: 9)
+		let num2 = NSNumber(value: 9.0)
+		let num3 = NSNumber(value: 7)
+		let num4 = NSNumber(value: 8)
+		var numArr = [num1, num3, num4]
+		
+		XCTAssert(num1 >= num2)
+		XCTAssert(num1 <= num2)
+		XCTAssert(num1 == num2)
+		XCTAssert(num1 > num4)
+		XCTAssertFalse(num1 < num4)
+		XCTAssert(num1 >= num4)
+		numArr.sort()
+		XCTAssertEqual(numArr, [num3, num4, num2])
+	}
 }
