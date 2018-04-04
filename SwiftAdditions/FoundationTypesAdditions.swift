@@ -13,7 +13,9 @@ import Foundation
 
 extension NSRange {
 	/// An `NSRange` with a `location` of `NSNotFound` and a `length` of `0`.
-	public static let notFound = NSRange(location: NSNotFound, length: 0)
+	public static var notFound: NSRange {
+		return NSRange(location: NSNotFound, length: 0)
+	}
 	
 	/// Returns a range from a textual representation.
 	///
@@ -78,7 +80,7 @@ extension NSRange {
 	/// The current range, represented as a `CFRange`.
 	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `cfRange` instead", renamed: "cfRange")
 	public var `CFRange`: CoreFoundation.CFRange {
-		return CoreFoundation.CFRange(location: location, length: length)
+		return cfRange
 	}
 }
 
@@ -253,9 +255,7 @@ extension UUID {
 	/// Get a CoreFoundation UUID from the current UUID.
 	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `cfUUID` instead", renamed: "cfUUID")
 	public var `CFUUID`: CoreFoundation.CFUUID {
-		let tmpStr = self.uuidString
-		
-		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
+		return cfUUID
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.

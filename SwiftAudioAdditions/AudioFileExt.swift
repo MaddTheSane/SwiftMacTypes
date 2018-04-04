@@ -544,11 +544,11 @@ public extension AudioStreamBasicDescription {
 				}
 				//Int(hex)
 				
-				if bChar >= ASCIICharacter.NumberZero && bChar <= ASCIICharacter.NumberNine {
+				if (ASCIICharacter.NumberZero ... ASCIICharacter.NumberNine).contains(bChar) {
 					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.NumberZero.rawValue);
-				} else if bChar >= ASCIICharacter.LetterUppercaseA && bChar <= ASCIICharacter.LetterUppercaseF {
+				} else if (ASCIICharacter.LetterUppercaseA ... ASCIICharacter.LetterUppercaseF).contains(bChar) {
 					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.LetterUppercaseA.rawValue + 10);
-				} else if bChar >= ASCIICharacter.LetterLowercaseA && bChar <= ASCIICharacter.LetterLowercaseF {
+				} else if (ASCIICharacter.LetterLowercaseA ... ASCIICharacter.LetterLowercaseF).contains(bChar) {
 					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.LetterLowercaseA.rawValue + 10);
 				} else {
 					break;
@@ -556,7 +556,7 @@ public extension AudioStreamBasicDescription {
 			}
 			mFormatFlags = flags;
 		}
-		if (nextChar() == "#") {
+		if nextChar() == "#" {
 			charIterator = fromText.index(after: charIterator)
 			while let aNum = numFromCurrentChar() {
 				mFramesPerPacket = 10 * mFramesPerPacket + UInt32(aNum)

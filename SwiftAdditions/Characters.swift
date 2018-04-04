@@ -8,12 +8,8 @@
 
 import Foundation
 
-public func <(lhs: ASCIICharacter, rhs: ASCIICharacter) -> Bool {
-	return lhs.rawValue < rhs.rawValue
-}
-
 /// Based off of the ASCII code tables
-public enum ASCIICharacter: Int8, Comparable {
+public enum ASCIICharacter: Int8, Comparable, Hashable {
 	// MARK: non-visible characters
 	// TODO: add info for each value.
 	case NullCharacter = 0
@@ -158,6 +154,11 @@ public enum ASCIICharacter: Int8, Comparable {
 	
 	/// Value is not valid ASCII
 	case Invalid = -1
+	
+	static public func <(lhs: ASCIICharacter, rhs: ASCIICharacter) -> Bool {
+		return lhs.rawValue < rhs.rawValue
+	}
+
 }
 
 extension ASCIICharacter {

@@ -86,5 +86,12 @@ class SwiftAdditionsTests: XCTestCase {
 		subString2 = testString.substringWithLength(utf16: 7)
 		XCTAssertEqual(testString, subString2)
 		XCTAssertEqual(subString, subString2)
+		
+		//Emoji-only string. Should get a blank string back
+		testString = "🙃🐱🦄  🌊🎮🎯🚵🏹"
+		subString = testString.substringWithLength(utf8: 2)
+		subString2 = testString.substringWithLength(utf16: 1)
+		XCTAssertEqual("", subString)
+		XCTAssertEqual("", subString2)
 	}
 }
