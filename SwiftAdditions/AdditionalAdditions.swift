@@ -23,7 +23,7 @@ public func clamp<X: Comparable>(_ value: X, minimum: X, maximum: X) -> X {
 	return max(min(value, maximum), minimum)
 }
 
-@available(swift, introduced: 2, deprecated: 4.0, message: "Use `clamp(_:minimum:maximum)` instead")
+@available(swift, introduced: 2, deprecated: 4.0, renamed: "clamp(_:minimum:maximum:)")
 public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 	return clamp(value, minimum: minimum, maximum: maximum)
 }
@@ -32,7 +32,7 @@ public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 /// Will crash if any type in the mirror doesn't match `X`.
 ///
 /// - parameter mirror: The `Mirror` to get the reflected values from.
-/// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. Default is `nil`.
+/// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. <br>Default is `nil`.
 ///
 /// **Deprecated:** Use `arrayFromObject(reflecting:, appendLastObject:) throws` instead
 @available(*, deprecated, message:"Use 'arrayFromObject(reflecting:, appendLastObject:) throws' instead")

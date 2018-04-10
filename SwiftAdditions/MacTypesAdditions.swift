@@ -221,7 +221,7 @@ extension String {
 	/// in the base initializer.
 	public init?(pascalString pStr: UnsafePointer<UInt8>, encoding: String.Encoding = .macOSRoman, maximumLength: UInt8 = 255) {
 		let CFEncoding = encoding.toCFStringEncoding
-		if CFEncoding == kCFStringEncodingInvalidId {
+		guard CFEncoding != kCFStringEncodingInvalidId else {
 			return nil
 		}
 		self.init(pascalString: pStr, encoding: CFEncoding, maximumLength: maximumLength)
