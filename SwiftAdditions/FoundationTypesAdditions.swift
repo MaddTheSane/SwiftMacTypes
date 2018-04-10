@@ -409,8 +409,8 @@ extension UserDefaults {
 	/// Gets and sets the dictionary object associated with the specified key.
 	/// - parameter key: the user default key to get/set.
 	///
-	/// When getting, if any of the objects in the user default array specified by `key`
-	/// is not a `Dictionary`, this will return `nil`.
+	/// When getting, if the user default specified by `key` is not a `Dictionary`,
+	/// this will return `nil`.
 	@nonobjc public subscript(key: String) -> [String: Any]? {
 		get {
 			return dictionary(forKey: key)
@@ -423,7 +423,7 @@ extension UserDefaults {
 	/// Gets and sets a user default value named `key` to/from an `Int` type.
 	/// - parameter key: the user default key to get/set.
 	///
-	/// When getting, if the value is not a `Bool` type, the following will be attempted to convert it to an `Int`:
+	/// When getting, if the value is not an `Int` type, the following will be attempted to convert it to an `Int`:
 	/// * If the value is a `Bool`, `0` will be returned if the value is *false*, `1` if *true*.
 	/// * If the value is a `String`, it will attempt to convert it to an `Int` value. If unsuccessful, returns `nil`.
 	/// * If the value is absent or can't be converted to an `Int`, `nil` will be returned.
@@ -576,6 +576,9 @@ extension String {
 	/// Creates an `NSRange` from a comparable `String` range.
 	/// - parameter range: a Swift `String` range to get an `NSRange` from.
 	/// - returns: a converted `NSRange`.
+	///
+	/// Deprecated in Swift 4 and later: Use `NSRange(_:in:)` with `range` as the first
+	/// argument, and this string as the second.
 	@available(swift, introduced: 3.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `NSRange(_:in:)` instead")
 	public func nsRange(from range: Range<String.Index>) -> NSRange {
 		let utf16view = self.utf16
@@ -595,6 +598,9 @@ extension String {
 	/// *before* calling this method, otherwise if the beginning or end of
 	/// `nsRange` is in between Unicode code points or grapheme clusters, this method
 	/// will return `nil`.
+	///
+	/// Deprecated in Swift 4 and later: Use `Range(_:in:)` with `nsRange` as the first
+	/// argument, and this string as the second.
 	@available(swift, introduced: 3.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `Range(_:in:)` instead")
 	public func range(from nsRange: NSRange) -> Range<String.Index>? {
 		guard
