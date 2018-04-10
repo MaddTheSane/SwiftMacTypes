@@ -544,12 +544,12 @@ public extension AudioStreamBasicDescription {
 				}
 				//Int(hex)
 				
-				if (ASCIICharacter.NumberZero ... ASCIICharacter.NumberNine).contains(bChar) {
-					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.NumberZero.rawValue);
-				} else if (ASCIICharacter.LetterUppercaseA ... ASCIICharacter.LetterUppercaseF).contains(bChar) {
-					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.LetterUppercaseA.rawValue + 10);
-				} else if (ASCIICharacter.LetterLowercaseA ... ASCIICharacter.LetterLowercaseF).contains(bChar) {
-					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.LetterLowercaseA.rawValue + 10);
+				if (ASCIICharacter.numberZero ... ASCIICharacter.numberNine).contains(bChar) {
+					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.numberZero.rawValue);
+				} else if (ASCIICharacter.letterUppercaseA ... ASCIICharacter.letterUppercaseF).contains(bChar) {
+					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.letterUppercaseA.rawValue + 10);
+				} else if (ASCIICharacter.letterLowercaseA ... ASCIICharacter.letterLowercaseF).contains(bChar) {
+					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.letterLowercaseA.rawValue + 10);
 				} else {
 					break;
 				}
