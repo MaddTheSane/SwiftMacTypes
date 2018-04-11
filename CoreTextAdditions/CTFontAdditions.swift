@@ -441,7 +441,7 @@ extension CTFont {
 	*/
 	//--------------------------------------------------------------------------
 	
-	// - returns: This function returns a `CGFont` for the given font reference. Additional attributes from the font will be passed back as a font descriptor via the attributes tuple.
+	/// - returns: This function returns a `CGFont` for the given font reference. Additional attributes from the font will be passed back as a font descriptor via the attributes tuple.
 	public func graphicsFont() -> (font: CGFont, attributes: CTFontDescriptor?) {
 		var attribs: Unmanaged<CTFontDescriptor>? = nil
 		let aFont = CTFontCopyGraphicsFont(self, &attribs)

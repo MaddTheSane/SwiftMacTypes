@@ -14,7 +14,6 @@ public struct FontManager {
 	private init() {}
 	
 	/// Sets the auto-activation for the specified bundle identifier.
-	/// SDKs
 	public typealias AutoActivationSetting = CTFontManagerAutoActivationSetting
 	
 	/// Scope for font registration.
