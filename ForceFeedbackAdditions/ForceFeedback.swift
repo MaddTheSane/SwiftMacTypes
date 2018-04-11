@@ -16,7 +16,7 @@ import os.log
 public let ForceFeedbackResultErrorDomain =
 "com.github.maddthesane.ForceFeedbackAdditions.ForceFeedbackResult"
 
-public enum ForceFeedbackResult: HRESULT, Error {
+public enum ForceFeedbackResult: HRESULT, CustomNSError {
 	/// The operation completed successfully.
 	case ok = 0
 	/// The operation did not complete successfully.
@@ -123,6 +123,14 @@ public enum ForceFeedbackResult: HRESULT, Error {
 	
 	public var _domain: String {
 		return ForceFeedbackResultErrorDomain
+	}
+	
+	public static var errorDomain: String {
+		return ForceFeedbackResultErrorDomain
+	}
+	
+	public var errorCode: Int {
+		return Int(rawValue)
 	}
 }
 
