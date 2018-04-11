@@ -277,3 +277,87 @@ extension CTRun {
 		CTRunDraw(self, context, range)
 	}
 }
+
+// MARK: NSRange additions
+extension CTRun {
+	/// Copies a range of glyphs.
+	/// - parameter range:
+	/// The range of glyphs to be copied, with the entire range having a
+	/// location of `0` and a length of `CTRun.glyphCount`. If the length
+	/// of the range is set to `0`, then the operation will continue from
+	/// the range's start index to the end of the run.
+	/// - returns: The glyphs in the specified range.
+	public func glyphs(in range: NSRange) -> [CGGlyph] {
+		return glyphs(in: range.cfRange)
+	}
+
+	
+	/// Gets the typographic bounds of the run.
+	/// - parameter range:
+	/// The range of glyphs to be measured, with the entire range having
+	/// a location of `0` and a length of `CTRun.glyphCount`. If the length
+	/// of the range is set to `0`, then the operation will continue from
+	/// the range's start index to the end of the run.
+	public func typographicBounds(_ range: NSRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
+		return typographicBounds(range.cfRange)
+	}
+
+	/// Copies a range of string indices.
+	/// - parameter range:
+	/// The range of string indices to be copied, with the entire range
+	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// length of the range is set to `0`, then the operation will continue
+	/// from the range's start index to the end of the run.
+	/// - returns: The string indices in the specified range.
+	///
+	/// The indices are the character indices that originally spawned the
+	/// glyphs that make up the run. They can be used to map the glyphs
+	/// in the run back to the characters in the backing store.
+	public func stringIndicies(in range: NSRange) -> [CFIndex] {
+		return stringIndicies(in: range.cfRange)
+	}
+	
+	/// Copies a range of glyph advances.
+	/// - parameter range:
+	/// The range of glyph advances to be copied, with the entire range
+	/// having a location of 0 and a length of CTRunGetGlyphCount. If the
+	/// length of the range is set to 0, then the operation will continue
+	/// from the range's start index to the end of the run.
+	/// - returns: An array of glyph advances.
+	public func advances(in range: NSRange) -> [CGSize] {
+		return advances(in: range.cfRange)
+	}
+	
+	/// Copies a range of glyph advances.
+	/// - parameter range:
+	/// The range of glyph advances to be copied, with the entire range
+	/// having a location of 0 and a length of CTRunGetGlyphCount. If the
+	/// length of the range is set to 0, then the operation will continue
+	/// from the range's start index to the end of the run.
+	/// - returns: An array of glyph advances.
+	public func advances(in range: Range<Int>) -> [CGSize] {
+		return advances(in: NSRange(range))
+	}
+	
+	/// Copies a range of glyph positions.
+	/// - parameter range:
+	/// The range of glyph positions to be copied, with the entire range
+	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// length of the range is set to `0`, then the operation will continue
+	/// from the range's start index to the end of the run.
+	/// - returns: The glyph positions.
+	public func positions(in range: NSRange) -> [CGPoint] {
+		return positions(in: range.cfRange)
+	}
+	
+	/// Copies a range of glyph positions.
+	/// - parameter range:
+	/// The range of glyph positions to be copied, with the entire range
+	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// length of the range is set to `0`, then the operation will continue
+	/// from the range's start index to the end of the run.
+	/// - returns: The glyph positions.
+	public func positions(in range: Range<Int>) -> [CGPoint] {
+		return positions(in: NSRange(range))
+	}
+}

@@ -84,6 +84,21 @@ extension CTFrame {
 		return origins
 	}
 	
+	/// Copies a range of line origins for a frame.
+	/// - parameter range:
+	/// The range of line origins you wish to copy. If the length of the
+	/// range is set to `0`, then the copy operation will continue from
+	/// the range's start index to the last line origin.
+	///
+	/// This function will copy a range of `CGPoint` structures. Each
+	/// CGPoint is the origin of the corresponding line in the array of
+	/// lines returned by `CTFrame.lines`, relative to the origin of the
+	/// frame's path. The maximum number of line origins returned by
+	/// this function is the count of the array of lines.
+	public func lineOrigins(in range: NSRange) -> [CGPoint] {
+		return lineOrigins(in: range.cfRange)
+	}
+	
 	/// Draws an entire frame to a context.
 	/// - parameter context: The context to draw the frame to.
 	///
