@@ -10,6 +10,7 @@ import Foundation
 import CoreText.CTFontManager
 
 public struct FontManager {
+	/// Does nothing!
 	private init() {}
 	
 	/// Sets the auto-activation for the specified bundle identifier.
@@ -50,8 +51,8 @@ public struct FontManager {
 	
 	/// Returns a font descriptor representing the font in the supplied data.
 	/// Note: the font descriptor is not available through font descriptor matching.
-	/// - returns: A font descriptor created from the data or `nil` if it is not a valid font.
 	/// - parameter data: A `Data` containing font data.
+	/// - returns: A font descriptor created from the data or `nil` if it is not a valid font.
 	///
 	/// If the data contains a font collection (TTC or OTC), only the first font in the collection will be returned.
 	@available(OSX 10.7, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
@@ -95,7 +96,7 @@ public struct FontManager {
 
 	/// Registers the specified graphics font with the font manager. Registered fonts participate in font descriptor matching.
 	/// Attempts to register a font that is either already registered or contains the same PostScript name of an already registered font will fail.
-	/// This functionality is useful for fonts that may be embedded in documents or present/constructed in memory. A graphics font is obtained by calling `CGFontCreateWithDataProvider`. Fonts that are backed by files should be registered using `FontManager.registerFonts(from:scope:)`.
+	/// This functionality is useful for fonts that may be embedded in documents or present/constructed in memory. A graphics font is obtained by calling `CGFontCreateWithDataProvider`. Fonts that are backed by files should be registered using `FontManager.registerFonts(at:scope:)`.
 	/// - parameter font: Graphics font to be registered.
 	@available(OSX 10.8, iOS 4.1, watchOS 2.0, tvOS 9.0, *)
 	public static func registerGraphicsFont(_ font: CGFont) throws {

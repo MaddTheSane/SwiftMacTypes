@@ -401,7 +401,7 @@ extension CTFont {
 	
 	/// an array of variation axis dictionaries.
 	///
-	/// This function returns an array of variation axis dictionaries or `nil` if the font does not support variations. Each variation axis dictionary contains the five `kCTFontVariationAxis`* keys above.
+	/// This function returns an array of variation axis dictionaries or `nil` if the font does not support variations. Each variation axis dictionary contains the five `kCTFontVariationAxis`* keys.
 	public var variationAxes: [[String: Any]]? {
 		return CTFontCopyVariationAxes(self) as! [[String: Any]]?
 	}
@@ -441,7 +441,7 @@ extension CTFont {
 	*/
 	//--------------------------------------------------------------------------
 	
-	// - returns: This function returns a `CGFont` for the given font reference. Additional attributes from the font will be passed back as a font descriptor via the attributes parameter.
+	// - returns: This function returns a `CGFont` for the given font reference. Additional attributes from the font will be passed back as a font descriptor via the attributes tuple.
 	public func graphicsFont() -> (font: CGFont, attributes: CTFontDescriptor?) {
 		var attribs: Unmanaged<CTFontDescriptor>? = nil
 		let aFont = CTFontCopyGraphicsFont(self, &attribs)

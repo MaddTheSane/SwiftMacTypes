@@ -11,7 +11,7 @@ import CoreText
 import SwiftAdditions
 
 public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
-	// The font object used internally.
+	/// The font object used internally.
 	public let internalFont: CTFont
 	
 	/// Options for descriptor match and font creation.

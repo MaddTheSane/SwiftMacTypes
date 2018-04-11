@@ -34,7 +34,7 @@ extension CTRun {
 		return CTRunGetAttributes(self) as! [String: Any]
 	}
 	
-	/// Returns the run's status.
+	/// The run's current status.
 	///
 	/// In addition to attributes, runs also have status that can be
 	/// used to expedite certain operations. Knowing the direction and

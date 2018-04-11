@@ -12,6 +12,7 @@ import CoreText.CTStringAttributes
 extension NSAttributedStringKey {
 	
 	public struct CoreText {
+		/// Does nothing, just a namespace.
 		private init() {}
 		
 		/// Allows the setting of an underline to be applied at render time.
