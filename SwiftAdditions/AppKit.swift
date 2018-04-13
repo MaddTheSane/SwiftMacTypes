@@ -95,7 +95,7 @@ import Cocoa
 	}
 
 	extension AffineTransform {
-		@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `AffineTransform(cgTransform:)` instead", renamed: "AffineTransform(cgTransform:)")
+		@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "AffineTransform(cgTransform:)")
 		public init(CGTransform cgAff: CGAffineTransform) {
 			self.init(cgTransform: cgAff)
 		}
@@ -110,7 +110,7 @@ import Cocoa
 	}
 	
 	extension NSAffineTransform {
-		@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `NSAffineTransform(cgTransform:)` instead", renamed: "NSAffineTransform(cgTransform:)")
+		@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "NSAffineTransform(cgTransform:)")
 		public convenience init(CGTransform cgTransform: CGAffineTransform) {
 			let preStruct = AffineTransform(cgTransform: cgTransform)
 			self.init()

@@ -34,13 +34,13 @@ extension NSRange {
 		return location == NSNotFound
 	}
 	
-	@available(*, unavailable, message:"Use 'contains(_:)' instead", renamed:"contains(_:)")
+	@available(*, unavailable, renamed:"contains(_:)")
 	public func locationInRange(_ loc: Int) -> Bool {
 		fatalError("Unavailable function called: \(#function)")
 	}
 	
 	/// The maximum value from the range.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `upperBound` instead", renamed: "upperBound")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "upperBound")
 	public var max: Int {
 		return NSMaxRange(self)
 	}
@@ -78,7 +78,7 @@ extension NSRange {
 	}
 
 	/// The current range, represented as a `CFRange`.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `cfRange` instead", renamed: "cfRange")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "cfRange")
 	public var `CFRange`: CoreFoundation.CFRange {
 		return cfRange
 	}
@@ -154,7 +154,7 @@ extension CGRect {
 		self = NSIntegralRectWithOptions(self, options)
 	}
 	
-	@available(*, unavailable, message: "Use 'formIntegral(options:)' instead", renamed: "formIntegral(options:)")
+	@available(*, unavailable, renamed: "formIntegral(options:)")
 	public mutating func integralInPlace(options: AlignmentOptions) {
 		fatalError("Unavailable function called: \(#function)")
 	}
@@ -220,7 +220,7 @@ extension NSUUID {
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `cfUUID` instead", renamed: "cfUUID")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "cfUUID")
 	@objc public var `CFUUID`: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
@@ -237,7 +237,7 @@ extension NSUUID {
 
 extension UUID {
 	/// Create a new `Foundation.UUID` from a `CFUUID`.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `UUID(cfUUID:)` instead", renamed: "UUID.init(cfUUID:)")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "UUID.init(cfUUID:)")
 	public init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
@@ -253,7 +253,7 @@ extension UUID {
 
 	
 	/// Get a CoreFoundation UUID from the current UUID.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `cfUUID` instead", renamed: "cfUUID")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "cfUUID")
 	public var `CFUUID`: CoreFoundation.CFUUID {
 		return cfUUID
 	}
@@ -308,11 +308,10 @@ extension NSEdgeInsets: Equatable {
 	public static var zero: NSEdgeInsets {
 		return NSEdgeInsetsZero
 	}
-}
-
-@available(OSX, introduced: 10.10)
-public func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
-	return NSEdgeInsetsEqual(rhs, lhs)
+	
+	public static func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
+		return NSEdgeInsetsEqual(rhs, lhs)
+	}
 }
 #endif
 

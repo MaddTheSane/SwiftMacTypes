@@ -35,7 +35,7 @@ public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 /// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. <br>Default is `nil`.
 ///
 /// **Deprecated:** Use `arrayFromObject(reflecting:, appendLastObject:) throws` instead
-@available(*, deprecated, message:"Use 'arrayFromObject(reflecting:, appendLastObject:) throws' instead")
+@available(*, deprecated, message: "Use 'arrayFromObject(reflecting:, appendLastObject:) throws' instead")
 public func getArrayFromMirror<X>(mirror: Mirror, appendLastObject lastObj: X? = nil) -> [X] {
 	var anArray = [X]()
 	for val in mirror.children {
@@ -151,7 +151,7 @@ public func +<K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>) -> Dictionary<
 /// Returns objects that were removed.
 /// - parameter ixs: the index set containing the indexes of objects that will be removed
 /// - returns: any objects that were removed.
-@available(*, unavailable, message:"Use 'Array.remove(indexes:)' instead")
+@available(*, unavailable, message: "Use 'Array.remove(indexes:)' instead")
 public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
 	fatalError("Unavailable function called: \(#function)")
 }
@@ -161,7 +161,7 @@ public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes
 /// - parameter anArray: the array to modify.
 /// - parameter indexes: the integer set containing the indexes of objects that will be removed
 /// - returns: any objects that were removed.
-@available(*, unavailable, message:"Use 'Array.remove(indexes:)' instead")
+@available(*, unavailable, message: "Use 'Array.remove(indexes:)' instead")
 public func removeObjects<T, B: Sequence>( inArray anArray: inout Array<T>, atIndexes indexes: B) -> [T] where B.Iterator.Element == Int {
 	fatalError("Unavailable function called: \(#function)")
 }
@@ -234,7 +234,7 @@ extension Array where Element: AnyObject {
 ///Sort a Swift array using an array of `NSSortDescriptor`.
 ///
 ///This *may* be expensive, in both memory and computation!
-@available(*, unavailable, message:"Use 'Array.sorted(using:)' instead")
+@available(*, unavailable, message: "Use 'Array.sorted(using:)' instead")
 public func sortedArray(_ anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
 	fatalError("Unavailable function called: \(#function)")
 }
