@@ -31,14 +31,14 @@ class CharacterAdditionsTests: XCTestCase {
 
     func testValidASCIIFromChars() {
 		//let hi = [0x22, 0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x22]
-		let hi: [ASCIICharacter] = [.DoubleQuote, .LetterUppercaseH, .LetterLowercaseE, .LetterLowercaseL, .LetterLowercaseL, .LetterLowercaseO, .DoubleQuote]
+		let hi: [ASCIICharacter] = [.doubleQuote, .letterUppercaseH, .letterLowercaseE, .letterLowercaseL, .letterLowercaseL, .letterLowercaseO, .doubleQuote]
 		let hi2 = String(asciiCharacters: hi)
 		XCTAssertEqual("\"Hello\"", hi2)
     }
 	
 	func testInvalidASCIIFromChars() {
 		//let hi = [0x22, 0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x22]
-		let hi: [ASCIICharacter] = [.DoubleQuote, .LetterUppercaseH, .Invalid, .LetterLowercaseL, .LetterLowercaseL, .LetterLowercaseO, .Invalid, .Invalid, .DoubleQuote]
+		let hi: [ASCIICharacter] = [.doubleQuote, .letterUppercaseH, .invalid, .letterLowercaseL, .letterLowercaseL, .letterLowercaseO, .invalid, .invalid, .doubleQuote]
 		let hi2 = String(asciiCharacters: hi)
 		XCTAssertEqual("\"H\u{FFFD}llo\u{FFFD}\u{FFFD}\"", hi2)
 	}
