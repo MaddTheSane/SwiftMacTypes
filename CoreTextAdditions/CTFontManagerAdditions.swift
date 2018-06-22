@@ -45,7 +45,7 @@ public struct FontManager {
 	/// - returns: An array of `CTFontDescriptor`s or `nil` if there are no valid fonts.
 	@available(OSX 10.6, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
 	public static func fontDescriptors(for fileURL: URL) -> [CTFontDescriptor]? {
-		return CTFontManagerCreateFontDescriptorsFromURL(fileURL as NSURL) as NSArray? as! [CTFontDescriptor]?
+		return CTFontManagerCreateFontDescriptorsFromURL(fileURL as NSURL) as NSArray? as? [CTFontDescriptor]
 	}
 	
 	/// Returns a font descriptor representing the font in the supplied data.
@@ -192,7 +192,7 @@ public struct FontManager {
 	/// - parameter bundleIdentifier: The bundle identifier. Used to specify a particular application
 	/// bundle. If `nil`,
 	/// the current application bundle will be used. If `FontManager.bundleIdentifier` is specified,
-	/// will set the global auto-activation settings.
+	/// will get the global auto-activation settings.
 	/// - returns: Will return the auto-activation setting for specified bundle identifier.
 	@available(OSX 10.6,*)
 	public static func autoActivationSetting(forBundleIdentifier bundleIdentifier: String?) -> AutoActivationSetting {
