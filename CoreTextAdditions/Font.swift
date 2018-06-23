@@ -527,7 +527,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// - parameter characters: An array of characters (UTF-16 code units). Non-BMP characters must be encoded as surrogate pairs.
 	/// - returns: `glyphs`: Glyphs for non-BMP characters are sparse: the first glyph corresponds to the full character and the second glyph will be `0`. <br/>
 	/// `allMapped`: Indicates whether all provided characters were successfully mapped. A return value of true indicates that the font mapped all characters. A return value of false indicates that some or all of the characters were not mapped; glyphs for unmapped characters will be `0` (with the exception of those corresponding non-BMP characters as described above).
-	public func glyphs(for characters: [unichar]) -> (glyphs: [CGGlyph], allMapped: Bool) {
+	public func glyphs(forCharacters characters: [unichar]) -> (glyphs: [CGGlyph], allMapped: Bool) {
 		var glyphs = [CGGlyph](repeating: 0, count: characters.count)
 		let allMapped = CTFontGetGlyphsForCharacters(internalFont, characters, &glyphs, characters.count)
 		return (glyphs, allMapped)
@@ -634,7 +634,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// Default is `.default`.
 	/// - parameter glyphs: An array of glyphs.
 	/// - returns: This function returns the overall bounding rectangle for an array or run of glyphs, returned in the `.all` part of the returned tuple. The bounding rects of the individual glyphs are returned through the `.perGlyph` part of the returned tuple. These are the design metrics from the font transformed in font space.
-	public func boundingRects(for glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: CGRect, perGlyph: [CGRect]) {
+	public func boundingRects(forGlyphs glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: CGRect, perGlyph: [CGRect]) {
 		var bounds = [CGRect](repeating: CGRect(), count: glyphs.count)
 		let finalRect = CTFontGetBoundingRectsForGlyphs(internalFont, orientation, glyphs, &bounds, glyphs.count)
 		return (finalRect, bounds)
@@ -647,7 +647,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// `perGlyph`: The computed glyph rects.
 	///
 	/// Fonts may specify the optical edges of glyphs that can be used to make the edges of lines of text line up in a more visually pleasing way. This function returns bounding rects corresponding to this information if present in a font, otherwise it returns typographic bounding rects (composed of the font's ascent and descent and a glyph's advance width).
-	public func opticalBounds(for glyphs: [CGGlyph], options: CFOptionFlags = 0) -> (all: CGRect, perGlyph: [CGRect]) {
+	public func opticalBounds(forGlyphs glyphs: [CGGlyph], options: CFOptionFlags = 0) -> (all: CGRect, perGlyph: [CGRect]) {
 		var boundingRects = [CGRect](repeating: CGRect(), count: glyphs.count)
 		let allBounds = CTFontGetOpticalBoundsForGlyphs(internalFont, glyphs, &boundingRects, glyphs.count, options)
 		return (allBounds, boundingRects)
@@ -660,7 +660,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// Default is `.default`
 	/// - returns: `all`: This method returns the summed glyph advance of an array of glyphs. Individual glyph advances are passed back via the advances parameter. These are the ideal metrics for each glyph scaled and transformed in font space.<br>
 	/// `perGlyph`: An array of count number of `CGSize` to receive the computed glyph advances.
-	public func advances(for glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: Double, perGlyph: [CGSize]) {
+	public func advances(forGlyphs glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: Double, perGlyph: [CGSize]) {
 		var advances = [CGSize](repeating: CGSize(), count: glyphs.count)
 		let summedAdvance = CTFontGetAdvancesForGlyphs(internalFont, orientation, glyphs, &advances, glyphs.count)
 		return (summedAdvance, advances)
@@ -669,7 +669,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// Calculates the offset from the default (horizontal) origin to the vertical origin for an array of glyphs.
 	/// - parameter glyphs: An array of glyphs.
 	/// - returns: An array of `CGSize` to receive the computed origin offsets.
-	public func verticalTranslations(for glyphs: [CGGlyph]) -> [CGSize] {
+	public func verticalTranslations(forGlyphs glyphs: [CGGlyph]) -> [CGSize] {
 		var trans = [CGSize](repeating: CGSize(), count: glyphs.count)
 		
 		CTFontGetVerticalTranslationsForGlyphs(internalFont, glyphs, &trans, glyphs.count)
@@ -683,7 +683,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// - parameter glyph: The glyph.
 	/// - parameter matrix: An affine transform applied to the path. Can be `nil`, in which case `CGAffineTransformIdentity` will be used.<br/>
 	/// Default is `nil`.
-	public func path(for glyph: CGGlyph, matrix: CGAffineTransform? = nil) -> CGPath? {
+	public func path(forGlyph glyph: CGGlyph, matrix: CGAffineTransform? = nil) -> CGPath? {
 		let aPath: CGPath?
 		if var matrix = matrix {
 			aPath = CTFontCreatePathForGlyph(internalFont, glyph, &matrix)
@@ -799,7 +799,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// Renders the given glyphs from the CTFont at the given positions in the CGContext.
 	///
 	/// This function will modify the `CGContext`'s font, text size, and text matrix if specified in the `Font`. These attributes will not be restored.
-	/// The given glyphs should be the result of proper Unicode text layout operations (such as `CTLine`). Results from `glyphs(for:)` (or similar APIs) do not perform any Unicode text layout.
+	/// The given glyphs should be the result of proper Unicode text layout operations (such as `CTLine`). Results from `glyphs(forCharacters:)` (or similar APIs) do not perform any Unicode text layout.
 	/// - parameter context: `CGContext` used to render the glyphs.
 	/// - parameter gp: The glyphs and positions (origins) to be rendered. The positions are in user space.
 	public func draw(glyphsAndPositions gp: [(glyph: CGGlyph, position: CGPoint)], context: CGContext) {
@@ -829,7 +829,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// will populate the caller's positions buffer with available positions if possible.
 	/// This function may not be able to produce positions if the font does not
 	/// have the appropriate data, in which case it will return `nil`.
-	public func ligatureCaretPositions(for glyph: CGGlyph, maxPositions: Int? = nil) -> [CGFloat]? {
+	public func ligatureCaretPositions(forGlyph glyph: CGGlyph, maxPositions: Int? = nil) -> [CGFloat]? {
 		if let maxPositions = maxPositions {
 			var pos = [CGFloat](repeating: 0, count: maxPositions)
 			let neededCount = CTFontGetLigatureCaretPositions(internalFont, glyph, &pos, maxPositions)
