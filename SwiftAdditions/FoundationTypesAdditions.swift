@@ -24,7 +24,7 @@ extension NSRange {
 	/// If `string` only contains a single integer, it is used as the location 
 	/// value. If `string` does not contain any integers, this function returns 
 	/// an `NSRange` whose location and length values are both `0`.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `NSRange(_:)` instead", renamed: "NSRange.init(_:)")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "NSRange.init(_:)")
 	public init(string: String) {
 		self = NSRangeFromString(string)
 	}
@@ -239,9 +239,7 @@ extension UUID {
 	/// Create a new `Foundation.UUID` from a `CFUUID`.
 	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "UUID.init(cfUUID:)")
 	public init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
-		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
-		
-		self.init(uuidString: tempUIDStr)!
+		self.init(cfUUID: cfUUID)
 	}
 	
 	/// Create a new `Foundation.UUID` from a `CFUUID`.
@@ -268,12 +266,12 @@ extension UUID {
 
 
 extension NSData {
-	@available(swift, introduced: 2.0, deprecated: 3.0, message: "Use the `Data` struct instead")
+	@available(swift, introduced: 2.0, deprecated: 3.0, obsoleted: 4.2, message: "Use the `Data` struct instead")
 	@nonobjc public convenience init(byteArray: [UInt8]) {
 		self.init(bytes: byteArray, length: byteArray.count)
 	}
 	
-	@available(swift, introduced: 2.0, deprecated: 3.0, message: "Use the `Data` struct instead")
+	@available(swift, introduced: 2.0, deprecated: 3.0, obsoleted: 4.2, message: "Use the `Data` struct instead")
 	@nonobjc public var arrayOfBytes: [UInt8] {
 		let count = length / MemoryLayout<UInt8>.size
 		var bytesArray = [UInt8](repeating: 0, count: count)

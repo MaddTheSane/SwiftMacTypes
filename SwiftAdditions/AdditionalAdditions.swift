@@ -23,6 +23,22 @@ public func clamp<X: Comparable>(_ value: X, minimum: X, maximum: X) -> X {
 	return max(min(value, maximum), minimum)
 }
 
+/// Clamp variables between `minimum` and `maximum`.
+/// - parameter values: The values to clamp, if needed.
+/// - parameter minimum: The minimum value to clamp the elements in `values` to.
+/// - parameter maximum: The maximum value to clamp the elements in `values` to.
+/// - returns: a new array with the values clamped between `minimum` and `maximum`.
+///
+/// If `minimum` is greater than `maximum`, a fatal error occurs.
+public func clamp<X: Comparable>(values: [X], minimum: X, maximum: X) -> [X] {
+	if minimum > maximum {
+		fatalError("Minimum (\(minimum)) is greater than maximum (\(maximum))!")
+	}
+	return values.map({ (value) -> X in
+		return max(min(value, maximum), minimum)
+	})
+}
+
 @available(swift, introduced: 2, deprecated: 4.0, renamed: "clamp(_:minimum:maximum:)")
 public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 	return clamp(value, minimum: minimum, maximum: maximum)
