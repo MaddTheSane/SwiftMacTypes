@@ -135,30 +135,30 @@ extension Dictionary {
 		dict1.formUnion(dictionary)
 		return dict1
 	}
-}
 
-// Code taken from http://stackoverflow.com/a/24052094/1975001
-public func +=<K, V>(left: inout Dictionary<K, V>, right: Dictionary<K, V>) {
-	if left.capacity < left.count + right.count {
-		left.reserveCapacity(left.count + right.count)
+	// Code taken from http://stackoverflow.com/a/24052094/1975001
+	public static func +=(left: inout Dictionary, right: Dictionary) {
+		if left.capacity < left.count + right.count {
+			left.reserveCapacity(left.count + right.count)
+		}
+		for (k, v) in right {
+			left.updateValue(v, forKey: k)
+		}
 	}
-	for (k, v) in right {
-		left.updateValue(v, forKey: k)
+	
+	/// Adds two dictionaries together, returning the result.
+	/// For any key in both `left` and `right`, the value in `right` is used.
+	public static func +(left: Dictionary, right: Dictionary) -> Dictionary {
+		var map = Dictionary<Key, Value>()
+		map.reserveCapacity(left.count + right.count)
+		for (k, v) in left {
+			map[k] = v
+		}
+		for (k, v) in right {
+			map[k] = v
+		}
+		return map
 	}
-}
-
-/// Adds two dictionaries together, returning the result.
-/// For any key in both `left` and `right`, the value in `right` is used.
-public func +<K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>) -> Dictionary<K,V> {
-	var map = Dictionary<K,V>()
-	map.reserveCapacity(left.count + right.count)
-	for (k, v) in left {
-		map[k] = v
-	}
-	for (k, v) in right {
-		map[k] = v
-	}
-	return map
 }
 
 // MARK: - Array additions
