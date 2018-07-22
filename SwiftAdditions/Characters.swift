@@ -222,10 +222,11 @@ extension String {
 				return ASCIICharacter(swiftCharacter: aChar) ?? .invalid
 			})
 		}
-		guard let asciis = self.cString(using: String.Encoding.ascii) else {
+		guard var asciis = self.cString(using: String.Encoding.ascii) else {
 			return nil
 		}
 		
+		asciis.removeLast()
 		return asciis.map({ (aChar) -> ASCIICharacter in
 			return ASCIICharacter(cCharacter: aChar)!
 		})
