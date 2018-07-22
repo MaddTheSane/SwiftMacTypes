@@ -164,21 +164,14 @@ extension ASCIICharacter {
 	/// Takes a Swift `Character` and returns an ASCII character/code.
 	/// Returns `nil` if the value can't be represented in ASCII
 	public init?(swiftCharacter: Character) {
-		//This function no longer a big mess, but the conversion to String is disgusting.
-		//The Character type *still* doesn't have any way to get the raw value from itself.
-		let srrChar = String(swiftCharacter)
-		let srrUTF8 = srrChar.utf8
-		if srrUTF8.count > 1 {
+		let srrChar = swiftCharacter.unicodeScalars
+		guard srrChar.count == 1,
+			let ourChar = srrChar.last,
+			ourChar.isASCII else {
 			return nil
 		}
 		
-		let ourChar = srrUTF8.last!
-		
-		guard (ourChar & 0x80) == 0 else {
-			return nil
-		}
-		
-		self = ASCIICharacter(rawValue: Int8(ourChar))!
+		self = ASCIICharacter(rawValue: Int8(ourChar.value))!
 	}
 	
 	/// Takes a C-style char value and maps it to the ASCII table.<br>
