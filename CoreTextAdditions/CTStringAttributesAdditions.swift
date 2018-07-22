@@ -104,7 +104,8 @@ extension NSAttributedStringKey {
 			return NSAttributedStringKey(rawValue: kCTBackgroundColorAttributeName as String)
 		}
 		
-		/// A `CTParagraphStyle` object which is used to specify things like line alignment, tab rulers, writing direction, etc.
+		/// A `CTParagraphStyle` object which is used to specify things like line alignment, tab rulers,
+		/// writing direction, etc.
 		///
 		/// Value must be a `CTParagraphStyle`. Default is an empty
 		/// `CTParagraphStyle` object: see CTParagraphStyle.h for more

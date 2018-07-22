@@ -19,7 +19,8 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// These constants represent the specific user interface purpose to specify for font creation.
 	///
-	/// Use these constants with `Font(uiType:size:forLanguage:)` to indicate the intended user interface usage of the font reference to be created.
+	/// Use these constants with `Font(uiType:size:forLanguage:)` to indicate the intended user interface usage
+	/// of the font reference to be created.
 	public typealias UIFontType = CTFontUIFontType
 	
 	/// These constants describe font table options.
@@ -242,15 +243,21 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// Creates a new font reference for the given name.
 	///
-	/// This function uses font descriptor matching so only registered fonts can be returned; see *CTFontManager.h* for more information.
-	/// - parameter name: The font name for which you wish to create a new font reference. A valid PostScript name is preferred, although other font name types will be matched in a fallback manner.
-	/// - parameter size: The point size for the font reference. If `0.0` is specified, the default font size of `12.0` will be used.
-	/// - parameter matrix: The transformation matrix for the font. If `nil`, the identity matrix will be used. Optional.<br>
+	/// This initializer uses font descriptor matching so only registered fonts can be returned; see
+	/// *CTFontManager.h* for more information.
+	/// - parameter name: The font name for which you wish to create a new font reference. A valid PostScript
+	/// name is preferred, although other font name types will be matched in a fallback manner.
+	/// - parameter size: The point size for the font reference. If `0.0` is specified, the default font size
+	/// of `12.0` will be used.
+	/// - parameter matrix: The transformation matrix for the font. If `nil`, the identity matrix will be used.
+	/// Optional.<br>
 	/// Default value is `nil`.
 	/// - parameter options: Options flags.<br>
 	/// Default is empty.
 	///
-	/// Will return a `Font` that best matches the `name` provided with `size` and `matrix` attributes. The `name` parameter is the only required parameters, and default values will be used for unspecified parameters. A best match will be found if all parameters cannot be matched identically.
+	/// Will return a `Font` that best matches the `name` provided with `size` and `matrix` attributes. The
+	/// `name` parameter is the only required parameter, and default values will be used for unspecified
+	/// parameters. A best match will be found if all parameters cannot be matched identically.
 	@available(OSX 10.5, *)
 	public convenience init(name: String, size: CGFloat, matrix: CGAffineTransform? = nil, options: Options = []) {
 		let aFont: CTFont
@@ -264,13 +271,17 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// Returns a new font reference that best matches the font descriptor.
 	/// - parameter descriptor: A font descriptor containing attributes that specify the requested font.
-	/// - parameter size: The point size for the font reference. If `0.0` is specified, the default font size of `12.0` will be used.<br>
-	/// - parameter matrix: The transformation matrix for the font. If `nil`, the identity matrix will be used. Optional.<br>
+	/// - parameter size: The point size for the font reference. If `0.0` is specified, the default font size
+	/// of `12.0` will be used.<br>
+	/// - parameter matrix: The transformation matrix for the font. If `nil`, the identity matrix will be used.
+	/// Optional.<br>
 	/// Default value is `nil`.
 	/// - parameter options: Options flags.
 	/// Default is empty.
 	///
-	/// Will return a `Font` that best matches the attributes provided with the font descriptor. The `size` and `matrix` parameters will override any specified in the font descriptor, unless they are unspecified. A best match font will always be returned, and default values will be used for any unspecified.
+	/// Will return a `Font` that best matches the attributes provided with the font descriptor. The `size` and
+	/// `matrix` parameters will override any specified in the font descriptor, unless they are unspecified. A
+	/// best match font will always be returned, and default values will be used for any unspecified.
 	public convenience init(descriptor: CTFontDescriptor, size: CGFloat, matrix: CGAffineTransform? = nil, options: Options = []) {
 		let aFont: CTFont
 		if var matrix = matrix {
@@ -282,12 +293,16 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	}
 	
 	/// Returns the special UI font for the given language and UI type.
-	/// - parameter uiType: A `UIFontType` constant specifying the intended UI use for the requested font reference.
-	/// - parameter size: The point size for the font reference. If `0.0` is specified, the default size for the requested `UIFontType` is used.
-	/// - parameter language: Language identifier to select a font for a particular localization. If `nil`, the current system language is used. The format of the language identifier should conform to *UTS #35*.
+	/// - parameter uiType: A `UIFontType` constant specifying the intended UI use for the requested font
+	/// reference.
+	/// - parameter size: The point size for the font reference. If `0.0` is specified, the default size for
+	/// the requested `UIFontType` is used.
+	/// - parameter language: Language identifier to select a font for a particular localization. If `nil`, the
+	/// current system language is used. The format of the language identifier should conform to *UTS #35*.
 	/// Default value is `nil`.
 	///
-	/// This creates the correct font for various UI uses. The only required parameter is the `uiType` selector, unspecified optional parameters will use default values.
+	/// This creates the correct font for various UI uses. The only required parameter is the `uiType`
+	/// selector, unspecified optional parameters will use default values.
 	public convenience init?(uiType: UIFontType, size: CGFloat, forLanguage language: String? = nil) {
 		guard let aFont = CTFontCreateUIFontForLanguage(uiType, size, language as NSString?) else {
 			return nil
@@ -296,13 +311,18 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	}
 	
 	/// Returns a new font with additional attributes based on the original font.
-	/// - parameter size: The point size for the font reference. If `0.0` is specified, the original font's size will be preserved.
-	/// - parameter matrix: The transformation matrix for the font. If `nil`, the original font matrix will be preserved.<br>
+	/// - parameter size: The point size for the font reference. If `0.0` is specified, the original font's
+	/// size will be preserved.
+	/// - parameter matrix: The transformation matrix for the font. If `nil`, the original font matrix will be
+	/// preserved.<br>
 	/// Default is `nil`.
-	/// - parameter attributes: A font descriptor containing additional attributes that the new font should contain.
+	/// - parameter attributes: A font descriptor containing additional attributes that the new font should
+	/// contain.
 	///
-	/// This function provides a mechanism to quickly change attributes on a given font reference in response to user actions. For instance, the size can be changed in response to a user manipulating a size slider.
-	/// - returns: Returns a new font reference converted from the original with the specified attributes.
+	/// This method provides a mechanism to quickly change attributes on a given font reference in response
+	/// to user actions. For instance, the size can be changed in response to a user manipulating a size
+	/// slider.
+	/// - returns: A new font reference converted from the original with the specified attributes.
 	public func copy(attributes: CTFontDescriptor?, size: CGFloat, matrix: CGAffineTransform? = nil) -> Font {
 		let aFont: CTFont
 		if var matrix = matrix {
@@ -314,11 +334,16 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	}
 	
 	/// Returns a new font based on the original font with the specified symbolic traits.
-	/// - parameter size: The point size for the font reference. If `0.0` is specified, the original font's size will be preserved.
-	/// - parameter matrix: The transformation matrix for the font. If `nil`, the original font matrix will be preserved.<br/>
+	/// - parameter size: The point size for the font reference. If `0.0` is specified, the original font's
+	/// size will be preserved.
+	/// - parameter matrix: The transformation matrix for the font. If `nil`, the original font matrix will be
+	/// preserved.<br/>
 	/// Default is `nil`.
-	/// - parameter symTraits: The value of the symbolic traits. This bitfield is used to indicate the desired value for the traits specified by the `.mask` parameter. Used in conjunction, they can allow for trait removal as well as addition.
-	/// - returns: a new font reference in the same family with the given symbolic traits, or `nil` if none found in the system.
+	/// - parameter symTraits: The value of the symbolic traits. This bitfield is used to indicate the desired
+	/// value for the traits specified by the `.mask` parameter. Used in conjunction, they can allow for trait
+	/// removal as well as addition.
+	/// - returns: A new font reference in the same family with the given symbolic traits, or `nil` if none
+	/// found in the system.
 	public func copy(symbolicTraits symTraits: (traits: CTFontSymbolicTraits, mask: CTFontSymbolicTraits), size: CGFloat, matrix: CGAffineTransform? = nil) -> Font? {
 		let aFont: CTFont?
 		if var matrix = matrix {
@@ -334,11 +359,14 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	}
 	
 	/// Returns a new font in the specified family based on the traits of the original font.
-	/// - parameter size: The point size for the font reference. If `0.0` is specified, the original font's size will be preserved.
-	/// - parameter matrix: The transformation matrix for the font. If `nil`, the original font matrix will be preserved.<br/>
+	/// - parameter size: The point size for the font reference. If `0.0` is specified, the original font's
+	/// size will be preserved.
+	/// - parameter matrix: The transformation matrix for the font. If `nil`, the original font matrix will be
+	/// preserved.<br/>
 	/// Default is `nil`
 	/// - parameter family: The name of the desired family.
-	/// - returns: Returns a new font reference with the original traits in the given family. `nil` if non found in the system.
+	/// - returns: A new font reference with the original traits in the given family. `nil` if not found in the
+	/// system.
 	public func copy(familyName family: String, size: CGFloat, matrix: CGAffineTransform? = nil) -> Font? {
 		let aFont: CTFont?
 		if var matrix = matrix {
@@ -363,9 +391,10 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// Returns a new font reference that can best map the given string range based on the current font.
 	/// - parameter string: A unicode string containing characters that cannot be encoded by the current font.
 	/// - parameter range: A range specifying the range of the string that needs to be mapped.
-	/// - returns: This function returns the best substitute font that can encode the specified string range.
+	/// - returns: The best substitute font that can encode the specified string range.
 	///
-	/// This function is to be used when the current font does not cover the given range of the string. The current font itself will not be returned, but preference is given to fonts in its cascade list.
+	/// This method is to be used when the current font does not cover the given range of the string. The
+	/// current font itself will not be returned, but preference is given to fonts in its cascade list.
 	public func font(for string: String, range: Range<String.Index>) -> Font {
 		let range2 = NSRange(range, in: string)
 		let range1 = range2.cfRange
@@ -390,9 +419,10 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// Returns a new font reference that can best map the given string range based on the current font.
 	/// - parameter string: A unicode string containing characters that cannot be encoded by the current font.
 	/// - parameter range: A range specifying the range of the string that needs to be mapped.
-	/// - returns: This function returns the best substitute font that can encode the specified string range.
+	/// - returns: The best substitute font that can encode the specified string range.
 	///
-	/// This function is to be used when the current font does not cover the given range of the string. The current font itself will not be returned, but preference is given to fonts in its cascade list.
+	/// This method is to be used when the current font does not cover the given range of the string. The
+	/// current font itself will not be returned, but preference is given to fonts in its cascade list.
 	public func font(for string: Substring, range: Range<Substring.Index>) -> Font {
 		let range2 = NSRange(range, in: string)
 		let range1 = range2.cfRange
@@ -408,14 +438,16 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// Returns the normalized font descriptors for the given font reference.
 	///
-	/// A normalized font descriptor for a font. The font descriptor contains enough information to recreate this font at a later time.
+	/// A normalized font descriptor for a font. The font descriptor contains enough information to recreate
+	/// this font at a later time.
 	public var fontDescriptor: CTFontDescriptor {
 		return CTFontCopyFontDescriptor(internalFont)
 	}
 	
 	/// Returns the value associated with an arbitrary attribute.
 	/// - parameter attribute: The requested attribute.
-	/// - returns: If the requested attribute is not present, `nil` is returned. Refer to the attribute definitions for documentation as to how each attribute is packaged as a `CFTypeRef`.
+	/// - returns: If the requested attribute is not present, `nil` is returned. Refer to the attribute
+	/// definitions for documentation as to how each attribute is packaged as a `CFTypeRef`.
 	public func value(for attribute: String) -> Any? {
 		return CTFontCopyAttribute(internalFont, attribute as NSString)
 	}
@@ -436,14 +468,16 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// The symbolic font traits.
 	///
-	/// This getter returns the symbolic traits of the font. This is equivalent to the `kCTFontSymbolicTrait` of traits dictionary. See *CTFontTraits.h* for a definition of the font traits.
+	/// This getter returns the symbolic traits of the font. This is equivalent to the `kCTFontSymbolicTrait`
+	/// of traits dictionary. See *CTFontTraits.h* for a definition of the font traits.
 	public var symbolicTraits: CTFontSymbolicTraits {
 		return CTFontGetSymbolicTraits(internalFont)
 	}
 	
 	/// Returns the font traits dictionary.
 	///
-	/// Individual traits can be accessed with the trait key constants. See *CTFontTraits.h* for a definition of the font traits.
+	/// Individual traits can be accessed with the trait key constants. See *CTFontTraits.h* for a definition
+	/// of the font traits.
 	public var traits: [String: Any] {
 		return CTFontCopyTraits(internalFont) as NSDictionary as! [String: Any]
 	}
@@ -476,15 +510,20 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// Returns the requested name.
 	/// - parameter nameKey: The name specifier. See name specifier constants.
-	/// - returns: This function creates the requested name for the font, or `nil` if the font does not have an entry for the requested name. The Unicode version of the name will be preferred, otherwise the first available will be used.
+	/// - returns: The requested name for the font, or `nil` if the font does not have an
+	/// entry for the requested name. The Unicode version of the name will be preferred, otherwise the first
+	/// available will be used.
 	public func name(ofKey nameKey: FontNameKey) -> String? {
 		return CTFontCopyName(internalFont, nameKey.cfString) as String?
 	}
 	
 	/// Returns a localized font name and the actual language, if present.
 	/// - parameter nameKey: The name specifier. See name specifier constants.
-	/// - returns: This function returns a specific localized name from the font. The name is localized based on the user's global language precedence. If the font does not have an entry for the requested name, NULL will be returned. <br/>
-	/// `actualLanguage`: A `String` of the language identifier of the returned name string. The format of the language identifier will conform to *UTS #35*.
+	/// - returns: A specific localized name from the font. The name is localized based on the user's global
+	/// language precedence. If the font does not have an entry for the requested name, `nil` will be
+	/// returned.<br/>
+	/// `actualLanguage`: A `String` of the language identifier of the returned name string. The format of the
+	/// language identifier will conform to *UTS #35*.
 	/// If CoreText can supply its own localized string where the font cannot, this value will be `nil`.
 	public func localizedName(ofKey nameKey: FontNameKey) -> (name: String, actualLanguage: String?)? {
 		var actualName: Unmanaged<CFString>? = nil
@@ -516,17 +555,25 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// An array of languages supported by the font.
 	///
-	/// The array contains language identifier strings as `String`s. The format of the language identifier will conform to *UTS #35*.
+	/// The array contains language identifier strings as `String`s. The format of the language identifier will
+	/// conform to *UTS #35*.
 	public var supportedLanguages: [String] {
 		return CTFontCopySupportedLanguages(internalFont) as NSArray? as! [String]? ?? []
 	}
 	
 	/// Performs basic character-to-glyph mapping.
 	///
-	/// This function only provides the nominal mapping as specified by the font's Unicode cmap (or equivalent); such mapping does not constitute proper Unicode layout: it is the caller's responsibility to handle the Unicode properties of the characters.
-	/// - parameter characters: An array of characters (UTF-16 code units). Non-BMP characters must be encoded as surrogate pairs.
-	/// - returns: `glyphs`: Glyphs for non-BMP characters are sparse: the first glyph corresponds to the full character and the second glyph will be `0`. <br/>
-	/// `allMapped`: Indicates whether all provided characters were successfully mapped. A return value of true indicates that the font mapped all characters. A return value of false indicates that some or all of the characters were not mapped; glyphs for unmapped characters will be `0` (with the exception of those corresponding non-BMP characters as described above).
+	/// This method only provides the nominal mapping as specified by the font's Unicode cmap (or
+	/// equivalent); such mapping does not constitute proper Unicode layout: it is the caller's responsibility
+	/// to handle the Unicode properties of the characters.
+	/// - parameter characters: An array of characters (UTF-16 code units). Non-BMP characters must be encoded
+	/// as surrogate pairs.
+	/// - returns: `glyphs`: Glyphs for non-BMP characters are sparse: the first glyph corresponds to the full
+	/// character and the second glyph will be `0`. <br/>
+	/// `allMapped`: Indicates whether all provided characters were successfully mapped. A return value of true
+	/// indicates that the font mapped all characters. A return value of false indicates that some or all of
+	/// the characters were not mapped; glyphs for unmapped characters will be `0` (with the exception of those
+	/// corresponding non-BMP characters as described above).
 	public func glyphs(forCharacters characters: [unichar]) -> (glyphs: [CGGlyph], allMapped: Bool) {
 		var glyphs = [CGGlyph](repeating: 0, count: characters.count)
 		let allMapped = CTFontGetGlyphsForCharacters(internalFont, characters, &glyphs, characters.count)
@@ -576,7 +623,8 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// The scaled bounding box.
 	///
-	/// The design bounding box of the font, which is the rectangle defined by *xMin*, *yMin*, *xMax*, and *yMax* values for the font.
+	/// The design bounding box of the font, which is the rectangle defined by *xMin*, *yMin*, *xMax*, and
+	/// *yMax* values for the font.
 	public var boundingBox: CGRect {
 		return CTFontGetBoundingBox(internalFont)
 	}
@@ -597,7 +645,8 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// The slant angle of the font.
 	///
-	/// The transformed slant angle of the font. This is equivalent to the italic or caret angle with any skew from the transformation matrix applied.
+	/// The transformed slant angle of the font. This is equivalent to the italic or caret angle with any skew
+	/// from the transformation matrix applied.
 	public var slantAngle: CGFloat {
 		return CTFontGetSlantAngle(internalFont)
 	}
@@ -624,29 +673,39 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 
 	/// Returns the CGGlyph for the specified glyph name.
 	/// - parameter glyphName: The glyph name as a `String`.
-	/// - returns: The glyph with the specified name or `0` if the name is not recognized; this glyph can be used with other Core Text glyph data accessors or with Quartz.
+	/// - returns: The glyph with the specified name or `0` if the name is not recognized; this glyph can be
+	/// used with other Core Text glyph data accessors or with Quartz.
 	public func glyph(named glyphName: String) -> CGGlyph {
 		return CTFontGetGlyphWithName(internalFont, glyphName as NSString)
 	}
 	
 	/// Calculates the bounding rects for an array of glyphs and returns the overall bounding rect for the run.
-	/// - parameter orientation: The intended drawing orientation of the glyphs. Used to determined which glyph metrics to return.<br>
+	/// - parameter orientation: The intended drawing orientation of the glyphs. Used to determined which glyph
+	/// metrics to return.<br>
 	/// Default is `.default`.
 	/// - parameter glyphs: An array of glyphs.
-	/// - returns: This function returns the overall bounding rectangle for an array or run of glyphs, returned in the `.all` part of the returned tuple. The bounding rects of the individual glyphs are returned through the `.perGlyph` part of the returned tuple. These are the design metrics from the font transformed in font space.
+	/// - returns: The overall bounding rectangle for an array or run of glyphs in the `.all` part of the
+	/// returned tuple. The bounding rects of the individual glyphs are available  through the `.perGlyph` part
+	/// of the returned tuple. These are the design metrics from the font transformed in font space.
 	public func boundingRects(forGlyphs glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: CGRect, perGlyph: [CGRect]) {
 		var bounds = [CGRect](repeating: CGRect(), count: glyphs.count)
 		let finalRect = CTFontGetBoundingRectsForGlyphs(internalFont, orientation, glyphs, &bounds, glyphs.count)
 		return (finalRect, bounds)
 	}
 	
-	/// Calculates the optical bounding rects for an array of glyphs and returns the overall optical bounding rect for the run.
+	/// Calculates the optical bounding rects for an array of glyphs and returns the overall optical bounding
+	/// rect for the run.
 	/// - parameter glyphs: An array of count number of glyphs.
 	/// - parameter options: Reserved, set to zero.
-	/// - returns: `all`: This function returns the overall bounding rectangle for an array or run of glyphs. The bounding rects of the individual glyphs are returned through the boundingRects parameter. These are the design metrics from the font transformed in font space.<br>
+	/// - returns: `all`: The overall bounding rectangle for an array or run of glyphs.
+	/// The bounding rects of the individual glyphs are available through the `perGlyph` tuple. These
+	/// are the design metrics from the font transformed in font space.<br>
 	/// `perGlyph`: The computed glyph rects.
 	///
-	/// Fonts may specify the optical edges of glyphs that can be used to make the edges of lines of text line up in a more visually pleasing way. This function returns bounding rects corresponding to this information if present in a font, otherwise it returns typographic bounding rects (composed of the font's ascent and descent and a glyph's advance width).
+	/// Fonts may specify the optical edges of glyphs that can be used to make the edges of lines of text
+	/// line up in a more visually pleasing way. This method returns bounding rects corresponding to this
+	/// information if present in a font, otherwise it returns typographic bounding rects (composed of the
+	/// font's ascent and descent and a glyph's advance width).
 	public func opticalBounds(forGlyphs glyphs: [CGGlyph], options: CFOptionFlags = 0) -> (all: CGRect, perGlyph: [CGRect]) {
 		var boundingRects = [CGRect](repeating: CGRect(), count: glyphs.count)
 		let allBounds = CTFontGetOpticalBoundsForGlyphs(internalFont, glyphs, &boundingRects, glyphs.count, options)
@@ -658,7 +717,9 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// - parameter orientation:
 	/// The intended drawing orientation of the glyphs. Used to determined which glyph metrics to return.<br>
 	/// Default is `.default`
-	/// - returns: `all`: This method returns the summed glyph advance of an array of glyphs. Individual glyph advances are passed back via the advances parameter. These are the ideal metrics for each glyph scaled and transformed in font space.<br>
+	/// - returns: `all`: This method returns the summed glyph advance of an array of glyphs. Individual glyph
+	/// advances are passed back via the advances parameter. These are the ideal metrics for each glyph scaled
+	/// and transformed in font space.<br>
 	/// `perGlyph`: An array of count number of `CGSize` to receive the computed glyph advances.
 	public func advances(forGlyphs glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: Double, perGlyph: [CGSize]) {
 		var advances = [CGSize](repeating: CGSize(), count: glyphs.count)
@@ -666,7 +727,8 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 		return (summedAdvance, advances)
 	}
 	
-	/// Calculates the offset from the default (horizontal) origin to the vertical origin for an array of glyphs.
+	/// Calculates the offset from the default (horizontal) origin to the vertical origin for an array of
+	/// glyphs.
 	/// - parameter glyphs: An array of glyphs.
 	/// - returns: An array of `CGSize` to receive the computed origin offsets.
 	public func verticalTranslations(forGlyphs glyphs: [CGGlyph]) -> [CGSize] {
@@ -679,9 +741,12 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// Creates a path for the specified glyph.
 	///
-	/// Creates a path from the outlines of the glyph for the specified font. The path will reflect the font point size, matrix, and transform parameter, in that order. The transform parameter will most commonly be used to provide a translation to the desired glyph origin.
+	/// Creates a path from the outlines of the glyph for the specified font. The path will reflect the font
+	/// point size, matrix, and transform parameter, in that order. The transform parameter will most commonly
+	/// be used to provide a translation to the desired glyph origin.
 	/// - parameter glyph: The glyph.
-	/// - parameter matrix: An affine transform applied to the path. Can be `nil`, in which case `CGAffineTransformIdentity` will be used.<br/>
+	/// - parameter matrix: An affine transform applied to the path. Can be `nil`, in which case
+	/// `CGAffineTransformIdentity` will be used.<br/>
 	/// Default is `nil`.
 	public func path(forGlyph glyph: CGGlyph, matrix: CGAffineTransform? = nil) -> CGPath? {
 		let aPath: CGPath?
@@ -700,16 +765,19 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	//--------------------------------------------------------------------------
 	
 	
-	/// an array of variation axis dictionaries.
+	/// An array of variation axis dictionaries.
 	///
-	/// This function returns an array of variation axis dictionaries or `nil` if the font does not support variations. Each variation axis dictionary contains the five `kCTFontVariationAxis`* keys above.
+	/// This getter returns an array of variation axis dictionaries or `nil` if the font does not support
+	/// variations. Each variation axis dictionary contains the five `kCTFontVariationAxis`* keys.
 	public var variationAxes: [[String: Any]]? {
 		return CTFontCopyVariationAxes(internalFont) as! [[String: Any]]?
 	}
 	
 	/// A variation dictionary.
 	///
-	/// This function describes the current configuration of a variation font: a dictionary of number values with variation identifier number keys. As of macOS 10.12 and iOS 10.0, only non-default values (as determined by the variation axis) are returned.
+	/// This getter describes the current configuration of a variation font: a dictionary of number values
+	/// with variation identifier number keys. As of macOS 10.12 and iOS 10.0, only non-default values (as
+	/// determined by the variation axis) are returned.
 	///
 	/// - seealso: kCTFontVariationAxisIdentifierKey
 	/// - seealso: kCTFontVariationAxisDefaultValueKey
@@ -730,8 +798,12 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// An array of font feature setting tuples.
 	///
-	/// A setting tuple is a dictionary of a `kCTFontFeatureTypeIdentifierKey` key-value pair and a `kCTFontFeatureSelectorIdentifierKey` key-value pair. Each tuple corresponds to an enabled non-default setting. It is the caller's responsibility to handle exclusive and non-exclusive settings as necessary.
-	/// This function returns a normalized array of font feature setting dictionaries. The array will only contain the non-default settings that should be applied to the font, or `nil` if the default settings should be used.
+	/// A setting tuple is a dictionary of a `kCTFontFeatureTypeIdentifierKey` key-value pair and a
+	/// `kCTFontFeatureSelectorIdentifierKey` key-value pair. Each tuple corresponds to an enabled non-default
+	/// setting. It is the caller's responsibility to handle exclusive and non-exclusive settings as necessary.
+	/// This method returns a normalized array of font feature setting dictionaries. The array will only
+	///contain the non-default settings that should be applied to the font, or `nil` if the default settings
+	/// should be used.
 	public var featureSettings: [[String: Any]]? {
 		return CTFontCopyFeatureSettings(internalFont) as! [[String: Any]]?
 	}
@@ -742,7 +814,8 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	*/
 	//--------------------------------------------------------------------------
 	
-	// - returns: This function returns a `CGFont` for the given font reference. Additional attributes from the font will be passed back as a font descriptor via the attributes parameter.
+	/// - returns: A `CGFont` for the given font reference. Additional attributes from the font will be passed
+	/// back as a font descriptor via the attributes parameter.
 	public func graphicsFont() -> (font: CGFont, attributes: CTFontDescriptor?) {
 		var attribs: Unmanaged<CTFontDescriptor>? = nil
 		let aFont = CTFontCopyGraphicsFont(internalFont, &attribs)
@@ -752,10 +825,13 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// Creates a new font object from a `CGFont`.
 	/// - parameter graphicsFont: A valid `CGFont`.
-	/// - parameter size: The point size for the font reference. If `0.0` is specified, the default font size of `12.0` will be used.
-	/// - parameter matrix: The transformation matrix for the font. If `nil`, the identity matrix will be used.<br/>
+	/// - parameter size: The point size for the font reference. If `0.0` is specified, the default font size
+	/// of `12.0` will be used.
+	/// - parameter matrix: The transformation matrix for the font. If `nil`, the identity matrix will be 
+	/// used.<br/>
 	/// Default value is `nil`.
-	/// - parameter attributes: A `CTFontDescriptor` containing additional attributes that should be matched.<br/>
+	/// - parameter attributes: A `CTFontDescriptor` containing additional attributes that should be 
+	/// matched.<br/>
 	/// Default value is `nil`.
 	public convenience init(graphicsFont: CGFont, size: CGFloat, matrix: CGAffineTransform? = nil, attributes: CTFontDescriptor? = nil) {
 		let aFont: CTFont
@@ -777,8 +853,9 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// Returns an array of font table tags.
 	/// - parameter options: The options used when copying font tables.<br>
 	/// Default is no options.
-	/// - returns: This function returns an array of `CTFontTableTag` values for the given font and the supplied options.
-	public func availableTables(options: TableOptions = []) -> [CTFontTableTag]? {
+	/// - returns: This method returns an array of `CTFont.TableTag` values for the given font and the supplied
+	/// options.
+	public func availableTables(options: TableOptions = []) -> [CTFont.TableTag]? {
 		guard let numArr = __CTAFontCopyAvailableTables(internalFont, options) else {
 			return nil
 		}
@@ -788,18 +865,21 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// Returns a reference to the font table data.
 	///
-	/// - returns: This function returns a data of the font table as `Data` or `nil` if the table is not present.
-	/// - parameter table: The font table identifier as a CTFontTableTag.
+	/// - returns: This method returns a data of the font table as `Data` or `nil` if the table is not 
+	/// present.
+	/// - parameter table: The font table identifier as a `CTFont.TableTag`.
 	/// - parameter options: The options used when copying font table.<br>
 	/// Default is no options.
-	public func data(for table: CTFontTableTag, options: TableOptions = []) -> Data? {
+	public func data(for table: CTFont.TableTag, options: TableOptions = []) -> Data? {
 		return CTFontCopyTable(internalFont, table, options) as Data?
 	}
 	
 	/// Renders the given glyphs from the CTFont at the given positions in the CGContext.
 	///
-	/// This function will modify the `CGContext`'s font, text size, and text matrix if specified in the `Font`. These attributes will not be restored.
-	/// The given glyphs should be the result of proper Unicode text layout operations (such as `CTLine`). Results from `glyphs(forCharacters:)` (or similar APIs) do not perform any Unicode text layout.
+	/// This method will modify the `CGContext`'s font, text size, and text matrix if specified in the `Font`.
+	/// These attributes will not be restored.
+	/// The given glyphs should be the result of proper Unicode text layout operations (such as `CTLine`).
+	/// Results from `glyphs(forCharacters:)` (or similar APIs) do not perform any Unicode text layout.
 	/// - parameter context: `CGContext` used to render the glyphs.
 	/// - parameter gp: The glyphs and positions (origins) to be rendered. The positions are in user space.
 	public func draw(glyphsAndPositions gp: [(glyph: CGGlyph, position: CGPoint)], context: CGContext) {
@@ -810,11 +890,15 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// Renders the given glyphs from the CTFont at the given positions in the CGContext.
 	///
-	/// This function will modify the `CGContext`'s font, text size, and text matrix if specified in the `Font`. These attributes will not be restored.
-	/// The given glyphs should be the result of proper Unicode text layout operations (such as `CTLine`). Results from `glyphs(for:)` (or similar APIs) do not perform any Unicode text layout.
+	/// This method will modify the `CGContext`'s font, text size, and text matrix if specified in the `Font`.
+	/// These attributes will not be restored.
+	/// The given glyphs should be the result of proper Unicode text layout operations (such as `CTLine`).
+	/// Results from `glyphs(for:)` (or similar APIs) do not perform any Unicode text layout.
 	/// - parameter context: `CGContext` used to render the glyphs.
-	/// - parameter glyphs: The glyphs to be rendered. See above discussion of how the glyphs should be derived.
-	/// - parameter positions: The positions (origins) for each glyph. The positions are in user space. The number of positions passed in must be equivalent to the number of glyphs.
+	/// - parameter glyphs: The glyphs to be rendered. See above discussion of how the glyphs should be
+	/// derived.
+	/// - parameter positions: The positions (origins) for each glyph. The positions are in user space. The
+	/// number of positions passed in must be equivalent to the number of glyphs.
 	func draw(glyphs: [CGGlyph], positions: [CGPoint], context: CGContext) {
 		let gp = zip(glyphs, positions).map({return $0})
 		draw(glyphsAndPositions: gp, context: context)
@@ -824,10 +908,10 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	/// - parameter glyph: The glyph.
 	/// - parameter maxPositions: The maximum number of positions to return.
 	///
-	/// This function is used to obtain caret positions for a specific glyph.
-	/// The return value is the max number of positions possible, and the function
+	/// This method is used to obtain caret positions for a specific glyph.
+	/// The return value is the max number of positions possible, and the method
 	/// will populate the caller's positions buffer with available positions if possible.
-	/// This function may not be able to produce positions if the font does not
+	/// This method may not be able to produce positions if the font does not
 	/// have the appropriate data, in which case it will return `nil`.
 	public func ligatureCaretPositions(forGlyph glyph: CGGlyph, maxPositions: Int? = nil) -> [CGFloat]? {
 		if let maxPositions = maxPositions {
@@ -854,8 +938,12 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	*/
 	//--------------------------------------------------------------------------
 	
-	/// Return an ordered list of `CTFontDescriptor`s for font fallback derived from the system default fallback region according to the given language preferences. The style of the given is also matched as well as the weight and width of the font is not one of the system UI font, otherwise the UI font fallback is applied.
-	/// - parameter languagePrefList: The language preference list - ordered array of `String`s of ISO language codes.
+	/// Return an ordered list of `CTFontDescriptor`s for font fallback derived from the system default 
+	/// fallback region according to the given language preferences. The style of the given is also matched as
+	/// well as the weight and width of the font is not one of the system UI font, otherwise the UI font 
+	/// fallback is applied.
+	/// - parameter languagePrefList: The language preference list - ordered array of `String`s of ISO language
+	/// codes.
 	/// - returns: The ordered list of fallback fonts - ordered array of `CTFontDescriptor`s.
 	@available(OSX 10.8, iOS 6.0, watchOS 2.0, tvOS 9.0, *)
 	public func defaultCascadeList(forLanguages languagePrefList: [String]?) -> [CTFontDescriptor]? {

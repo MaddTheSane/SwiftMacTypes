@@ -11,18 +11,23 @@ import CoreText.CTRubyAnnotation
 
 @available(OSX 10.10, iOS 8.0, watchOS 2.0, tvOS 9.0, *)
 extension CTRubyAnnotation {
-	/// These constants specify how to align the ruby annotation and the base text relative to each other when they don't have the same length.
+	/// These constants specify how to align the ruby annotation and the base text relative to each other when
+	/// they don't have the same length.
 	public typealias Alignment = CTRubyAlignment
-	/// These constants specify whether, and on which side, ruby text is allowed to overhang adjacent text if it is wider than the base text.
+	/// These constants specify whether, and on which side, ruby text is allowed to overhang adjacent text if
+	/// it is wider than the base text.
 	public typealias Overhang = CTRubyOverhang
 	/// These constants specify the position of the ruby text with respect to the base text.
 	public typealias Position = CTRubyPosition
 	
 	/// Creates an immutable ruby annotation object.
-	/// - parameter alignment: Specifies how the ruby text and the base text should be aligned relative to each other.
+	/// - parameter alignment: Specifies how the ruby text and the base text should be aligned relative to each
+	/// other.
 	/// - parameter overhang: Specifies how the ruby text can overhang adjacent characters.
-	/// - parameter sizeFactor: Specifies the size of the annotation text as a percent of the size of the base text.
-	/// - parameter text: An array of `String`s, indexed by `CTRubyPosition`. Supply `nil` for any unused positions.
+	/// - parameter sizeFactor: Specifies the size of the annotation text as a percent of the size of the base
+	/// text.
+	/// - parameter text: An array of `String`s, indexed by `CTRubyPosition`. Supply `nil` for any unused
+	/// positions.
 	/// - returns: This function will return a reference to a `CTRubyAnnotation` object.
 	///
 	/// Using this function is the easiest and most efficient way to
@@ -39,10 +44,13 @@ extension CTRubyAnnotation {
 	}
 	
 	/// Creates an immutable ruby annotation object.
-	/// - parameter alignment: Specifies how the ruby text and the base text should be aligned relative to each other.
+	/// - parameter alignment: Specifies how the ruby text and the base text should be aligned relative to each
+	/// other.
 	/// - parameter overhang: Specifies how the ruby text can overhang adjacent characters.
-	/// - parameter sizeFactor: Specifies the size of the annotation text as a percent of the size of the base text.
-	/// - parameter text: A tuple of `String`s, indexed by `CTRubyPosition`. Supply `nil` for any unused positions.
+	/// - parameter sizeFactor: Specifies the size of the annotation text as a percent of the size of the base
+	/// text.
+	/// - parameter text: A tuple of `String`s, indexed by `CTRubyPosition`. Supply `nil` for any unused
+	/// positions.
 	/// - returns: This function will return a reference to a `CTRubyAnnotation` object.
 	///
 	/// Using this function is the easiest and most efficient way to
@@ -58,10 +66,12 @@ extension CTRubyAnnotation {
 	/// `kCTFontAttributeName`, the font used by the Ruby annotation will be deduced from the base
 	/// text, with a size factor specified by a `CFNumber` value keyed by
 	/// `kCTRubyAnnotationSizeFactorAttributeName`.
-	/// - parameter alignment: Specifies how the ruby text and the base text should be aligned relative to each other.
+	/// - parameter alignment: Specifies how the ruby text and the base text should be aligned relative to each
+	/// other.
 	/// - parameter overhang: Specifies how the ruby text can overhang adjacent characters.
 	/// - parameter position: The position of the annotation text.
-	/// - parameter string: A string without any formatting, its format will be derived from the attrs specified above.
+	/// - parameter string: A string without any formatting, its format will be derived from the attrs
+	/// specified above.
 	///
 	/// Using this function to create a ruby annotation object with more precise
 	/// control of the annotation text.

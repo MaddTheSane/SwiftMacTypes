@@ -216,12 +216,14 @@ extension CTLine {
 	}
 
 	/// Enumerates caret offsets for characters in a line.
-	/// - parameter block: The `offset` parameter is relative to the line origin. The `leadingEdge` parameter of this block refers to logical order.
+	/// - parameter block: The `offset` parameter is relative to the line origin. The `leadingEdge` parameter
+	/// of this block refers to logical order.
 	/// - parameter offset: Relative to the line origin.
 	/// - parameter stop: Stops the enumeration.
 	/// - parameter leadingEdge: The leading edge in logical order.
 	///
-	/// The provided block is invoked once for each logical caret edge in the line, in left-to-right visual order.
+	/// The provided block is invoked once for each logical caret edge in the line, in left-to-right visual
+	/// order.
 	@available(OSX 10.11, iOS 9.0, watchOS 2.0, tvOS 9.0, *)
 	public func enumerateCaretOffsets(_ block: @escaping (_ offset: Double, _ charIndex: CFIndex, _ leadingEdge: Bool, _ stop: inout Bool) -> Void) {
 		CTLineEnumerateCaretOffsets(self) { (offset, charIndex, leadingEdge, stop) in
