@@ -24,10 +24,29 @@ class CharacterAdditionsTests: XCTestCase {
 
     func testValidASCIIToChars() {
 		let hi = "Hello".toASCIICharacters()
-		if hi == nil {
-			XCTFail()
-		}
+		XCTAssertNotNil(hi)
     }
+	
+	func testInvalidASCIIToChars() {
+		let hi = "Héllo".toASCIICharacters(encodeInvalid: true)
+		XCTAssertNotNil(hi)
+		if let hi = hi {
+			let hi2: [ASCIICharacter] = [.letterUppercaseH, .invalid, .letterLowercaseL, .letterLowercaseL, .letterLowercaseO]
+			XCTAssertEqual(hi, hi2)
+		}
+	}
+
+	
+	func testToAsciiChars() {
+		let hiStr = "Hello"
+		if let hi1 = hiStr.toASCIICharacters(encodeInvalid: false),
+			let hi2 = hiStr.toASCIICharacters(encodeInvalid: true) {
+			XCTAssertEqual(hi1, hi2)
+		} else {
+			XCTFail("hi1 and/or hi2 returned nil")
+		}
+
+	}
 
     func testValidASCIIFromChars() {
 		//let hi = [0x22, 0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x22]
