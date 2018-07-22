@@ -222,8 +222,13 @@ extension CGRect {
 
 extension NSUUID {
 	/// Create a new `NSUUID` from a `CFUUID`.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `UUID(cfUUID:)` instead")
-	@objc(initWithCFUUID:) public convenience init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "NSUUID.init(cfUUID:)")
+	public convenience init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
+		self.init(cfUUID: cfUUID)
+	}
+	
+	/// Create a new `NSUUID` from a `CFUUID`.
+	@objc(initWithCFUUID:) public convenience init(cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
 		self.init(uuidString: tempUIDStr)!
@@ -232,9 +237,7 @@ extension NSUUID {
 	/// Get a CoreFoundation UUID from the current UUID.
 	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "cfUUID")
 	@objc public var `CFUUID`: CoreFoundation.CFUUID {
-		let tmpStr = self.uuidString
-		
-		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
+		return cfUUID
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
