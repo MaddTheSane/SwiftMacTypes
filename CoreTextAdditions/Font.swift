@@ -398,23 +398,20 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	public func font(for string: String, range: Range<String.Index>) -> Font {
 		let range2 = NSRange(range, in: string)
 		let range1 = range2.cfRange
-		let aFont = CTFontCreateForString(internalFont, string as NSString, range1)
-		return Font(ctFont: aFont)
+		return font(for: string as NSString, range: range1)
 	}
 	
-	/*
 	/// Returns a new font reference that can best map the given string range based on the current font.
 	/// - parameter string: A unicode string containing characters that cannot be encoded by the current font.
 	/// - parameter range: A range specifying the range of the string that needs to be mapped.
-	/// - returns: This function returns the best substitute font that can encode the specified string range.
+	/// - returns: The best substitute font that can encode the specified string range.
 	///
-	/// This function is to be used when the current font does not cover the given range of the string. The current font itself will not be returned, but preference is given to fonts in its cascade list.
-	public func font<S, R>(for string: S, range: R) -> Font where R : RangeExpression, S : StringProtocol, R.Bound == String.Index, S.Index == String.Index {
-		let range2 = NSRange(range, in: string)
-		let range1 = CFRangeMake(range2.location, range2.length)
-		let aFont = CTFontCreateForString(internalFont, String(string) as NSString, range1)
+	/// This method is to be used when the current font does not cover the given range of the string. The
+	/// current font itself will not be returned, but preference is given to fonts in its cascade list.
+	public func font(for string: CFString, range: CFRange) -> Font {
+		let aFont = CTFontCreateForString(internalFont, string, range)
 		return Font(ctFont: aFont)
-	}*/
+	}
 
 	/// Returns a new font reference that can best map the given string range based on the current font.
 	/// - parameter string: A unicode string containing characters that cannot be encoded by the current font.
@@ -426,8 +423,7 @@ public final class Font: CustomStringConvertible, CustomDebugStringConvertible {
 	public func font(for string: Substring, range: Range<Substring.Index>) -> Font {
 		let range2 = NSRange(range, in: string)
 		let range1 = range2.cfRange
-		let aFont = CTFontCreateForString(internalFont, string as NSString, range1)
-		return Font(ctFont: aFont)
+		return font(for: string as NSString, range: range1)
 	}
 
 	// MARK: - Font Accessors

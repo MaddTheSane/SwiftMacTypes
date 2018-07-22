@@ -34,7 +34,7 @@ extension NSRange {
 		return location == NSNotFound
 	}
 	
-	@available(*, unavailable, renamed:"contains(_:)")
+	@available(*, unavailable, renamed: "contains(_:)")
 	public func locationInRange(_ loc: Int) -> Bool {
 		fatalError("Unavailable function called: \(#function)")
 	}
@@ -205,6 +205,16 @@ extension CGRect {
 	/// Default is `false`.
 	/// - returns: `true` if the hot spot of the cursor lies inside the rectangle, otherwise `false`.
 	public func mouseInLocation(_ location: NSPoint, flipped: Bool = false) -> Bool {
+		return NSMouseInRect(location, self, flipped)
+	}
+	
+	/// Returns a `Bool` value that indicates whether the point is in the specified rectangle.
+	/// - parameter location: The point to test for.
+	/// - parameter flipped: Specify `true` for flipped if the underlying view uses a
+	/// flipped coordinate system.<br>
+	/// Default is `false`.
+	/// - returns: `true` if the hot spot of the cursor lies inside the rectangle, otherwise `false`.
+	public func mouse(inLocation location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
 	}
 	#endif
