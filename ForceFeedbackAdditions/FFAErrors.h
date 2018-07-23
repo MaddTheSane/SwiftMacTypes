@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <ForceFeedback/ForceFeedback.h>
+#include <ForceFeedback/ForceFeedbackConstants.h>
 
 #if ((__cplusplus && __cplusplus >= 201103L && (__has_extension(cxx_strong_enums) || __has_feature(objc_fixed_enum))) || (!__cplusplus && __has_feature(objc_fixed_enum))) && __has_attribute(ns_error_domain)
 #define FFA_ERROR_ENUM(_domain, _name)     enum _name : HRESULT _name; enum __attribute__((ns_error_domain(_domain))) _name : HRESULT
@@ -15,6 +15,7 @@
 #define FFA_ERROR_ENUM(_domain, _name) NS_ENUM(HRESULT, _name)
 #endif
 
+/// The error domain of `ForceFeedbackResult`
 extern NSErrorDomain const ForceFeedbackResultErrorDomain;
 
 typedef FFA_ERROR_ENUM(ForceFeedbackResultErrorDomain, ForceFeedbackResult) {

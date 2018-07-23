@@ -12,10 +12,6 @@ import ForceFeedback
 import SwiftAdditions
 import os.log
 
-/// The error domain of `ForceFeedbackResult`
-public let ForceFeedbackResultErrorDomain =
-"com.github.maddthesane.ForceFeedbackAdditions.ForceFeedbackResult"
-
 public extension ForceFeedbackResult {	
 	fileprivate static func from(result inResult: HRESULT) -> ForceFeedbackResult {
 		if let unwrapped = ForceFeedbackResult.Code(rawValue: inResult) {
