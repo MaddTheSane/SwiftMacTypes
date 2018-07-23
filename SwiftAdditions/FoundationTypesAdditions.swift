@@ -162,7 +162,7 @@ extension CGRect {
 	
 	/// Adjusts the sides of a rectangle to integral values using the specified options.
 	/// - returns: A copy of `self`, modified based on the options. The options are
-	/// defined in `NSAlignmentOptions`.
+	/// defined in `AlignmentOptions`.
 	public func integral(options: AlignmentOptions) -> NSRect {
 		return NSIntegralRectWithOptions(self, options)
 	}

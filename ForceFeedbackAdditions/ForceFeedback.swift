@@ -16,121 +16,27 @@ import os.log
 public let ForceFeedbackResultErrorDomain =
 "com.github.maddthesane.ForceFeedbackAdditions.ForceFeedbackResult"
 
-public enum ForceFeedbackResult: HRESULT, CustomNSError {
-	/// The operation completed successfully.
-	case ok = 0
-	/// The operation did not complete successfully.
-	case `false` = 1
-	/// The parameters of the effect were successfully updated by
-	/// `ForceFeedbackEffect.setParameters(_:flags:)`, but the effect was not
-	/// downloaded because the `ForceFeedbackEffect.EffectStart.noDownload` 
-	/// flag was passed.
-	case downloadSkipped = 3
-	/// The parameters of the effect were successfully updated by
-	/// `ForceFeedbackEffect.setParameters(_:flags:)`, but in order to change
-	/// the parameters, the effect needed to be restarted.
-	case effectRestarted = 4
-	/// The parameters of the effect were successfully updated by
-	/// `ForceFeedbackEffect.setParameters(_:flags:)`, but some of them were
-	/// beyond the capabilities of the device and were truncated.
-	case truncated = 8
-	/// Equal to `ForceFeedbackResult([.effectRestarted, .truncated])`
-	case truncatedAndRestarted = 12
-	/// An invalid parameter was passed to the returning function,
-	/// or the object was not in a state that admitted the function
-	/// to be called.
-	case invalidParameter = -2147483645
-	/// The specified interface is not supported by the object.
-	case noInterface = -2147483644
-	/// An undetermined error occurred.
-	case generic = -2147483640
-	/// Couldn't allocate sufficient memory to complete the caller's request.
-	case outOfMemory = -2147483646
-	/// The function called is not supported at this time
-	case unsupported = -2147483647
-	/// Data is not yet available.
-	case pending = -2147483638
-	/// The device is full.
-	case deviceFull = -2147220991
-	/// The device or device instance or effect is not registered.
-	case deviceNotRegistered = -2147221164
-	/// Not all the requested information fit into the buffer.
-	case moreData = -2147220990
-	/// The effect is not downloaded.
-	case notDownloaded = -2147220989
-	/// The device cannot be reinitialized because there are still effects
-	/// attached to it.
-	case hasEffects = -2147220988
-	/// The effect could not be downloaded because essential information
-	/// is missing.  For example, no axes have been associated with the
-	/// effect, or no type-specific information has been created.
-	case incompleteEffect = -2147220986
-	/// An attempt was made to modify parameters of an effect while it is
-	/// playing.  Not all hardware devices support altering the parameters
-	/// of an effect while it is playing.
-	case effectPlaying = -2147220984
-	/// The operation could not be completed because the device is not
-	/// plugged in.
-	case unplugged = -2147220983
-	// MARK: Mac OS X-specific
-	/// The effect index provided by the API in downloadID is not recognized by the
-	/// **IOForceFeedbackLib** driver.
-	case invalidDownloadID = -2147220736
-	/// When the device is paused via a call to `ForceFeedbackDevice.sendCommand(_:)`,
-	/// other operations such as modifying existing effect parameters and creating
-	/// new effects are not allowed.
-	case devicePaused = -2147220735
-	/// The **IOForceFededbackLib** driver has detected an internal fault.  Often this
-	/// occurs because of an unexpected internal code path.
-	case `internal` = -2147220734
-	/// The **IOForceFededbackLib** driver has received an effect modification request
-	/// whose basic type does not match the defined effect type for the given effect.
-	case effectTypeMismatch = -2147220733
-	/// The effect includes one or more axes that the device does not support.
-	case unsupportedAxis = -2147220732
-	/// This object has not been initialized.
-	case notInitialized = -2147220731
-	/// The device has been released.
-	case deviceReleased = -2147220729
-	/// The effect type requested is not explicitly supported by the particular device.
-	case effectTypeNotSupported = -2147220730
-	
+public extension ForceFeedbackResult {	
 	fileprivate static func from(result inResult: HRESULT) -> ForceFeedbackResult {
-		if let unwrapped = ForceFeedbackResult(rawValue: inResult) {
-			return unwrapped
+		if let unwrapped = ForceFeedbackResult.Code(rawValue: inResult) {
+			return ForceFeedbackResult(unwrapped)
 		} else {
 			if inResult > 0 {
-				return .ok
+				return ForceFeedbackResult(.ok)
 			} else {
-				return .generic
+				return ForceFeedbackResult(.generic)
 			}
 		}
 	}
 	
 	/// is `true` if the raw value is greater than or equal to `0`.
 	public var isSuccess: Bool {
-		return rawValue >= 0
+		return code.rawValue >= 0
 	}
 	
 	/// is `true` if the raw value is less than `0`.
 	public var isFailure: Bool {
-		return rawValue < 0
-	}
-	
-	public var _code: Int {
-		return Int(rawValue)
-	}
-	
-	public var _domain: String {
-		return ForceFeedbackResultErrorDomain
-	}
-	
-	public static var errorDomain: String {
-		return ForceFeedbackResultErrorDomain
-	}
-	
-	public var errorCode: Int {
-		return Int(rawValue)
+		return code.rawValue < 0
 	}
 }
 
@@ -793,7 +699,7 @@ extension FFCAPABILITIES {
 public final class ForceFeedbackDevice {
 	public typealias Escape = FFEFFESCAPE
 	fileprivate let rawDevice: FFDeviceObjectReference
-	public private(set) var lastReturnValue: ForceFeedbackResult = .ok
+	public private(set) var lastReturnValue = ForceFeedbackResult(.ok)
 	
 	public enum Property: UInt32 {
 		case Gain = 1
@@ -1050,7 +956,7 @@ public final class ForceFeedbackDevice {
 			let iErr = FFDeviceGetForceFeedbackProperty(rawDevice, property, datPtr, size)
 			let bErr = ForceFeedbackResult.from(result: iErr)
 			lastReturnValue = bErr
-			if bErr != .ok {
+			if bErr.code != .ok {
 				throw bErr
 			}
 		})
