@@ -227,7 +227,7 @@ extension NSUUID {
 		self.init(cfUUID: cfUUID)
 	}
 	
-	/// Create a new `NSUUID` from a `CFUUID`.
+	/// Create a new `NSUUID` from a CoreFoundation `CFUUID`.
 	@objc(initWithCFUUID:) public convenience init(cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
@@ -236,12 +236,12 @@ extension NSUUID {
 	
 	/// Get a CoreFoundation UUID from the current UUID.
 	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "cfUUID")
-	@objc public var `CFUUID`: CoreFoundation.CFUUID {
+	public var `CFUUID`: CoreFoundation.CFUUID {
 		return cfUUID
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
-	public var cfUUID: CoreFoundation.CFUUID {
+	@objc(CFUUID) public var cfUUID: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
 		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
@@ -255,7 +255,7 @@ extension UUID {
 		self.init(cfUUID: cfUUID)
 	}
 	
-	/// Create a new `Foundation.UUID` from a `CFUUID`.
+	/// Create a new `Foundation.UUID` from a CoreFoundation `CFUUID`.
 	public init(cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
@@ -363,8 +363,8 @@ extension UserDefaults {
 	/// Gets and sets a user default value named `key` to/from a `Data` type.
 	/// - parameter key: the user default key to get/set.
 	///
-	/// When getting, if the user default specified by `key` is not a `Data`,
-	/// this will return `nil`.
+	/// When getting, if the user default specified by `key` is not a `Data`
+	/// or is not present, this will return `nil`.
 	@nonobjc public subscript(key: String) -> Data? {
 		get {
 			return data(forKey: key)
@@ -377,8 +377,8 @@ extension UserDefaults {
 	/// Gets and sets a user default value named `key` to/from a `Date` type.
 	/// - parameter key: the user default key to get/set.
 	///
-	/// When getting, if the user default specified by `key` is not a `Date`,
-	/// this will return `nil`.
+	/// When getting, if the user default specified by `key` is not a `Date`
+	/// or is not present, this will return `nil`.
 	@nonobjc public subscript(key: String) -> Date? {
 		get {
 			return object(forKey: key) as? Date
@@ -391,8 +391,8 @@ extension UserDefaults {
 	/// Gets and sets a user default value named `key` to/from an array type.
 	/// - parameter key: the user default key to get/set.
 	///
-	/// When getting, if the user default specified by `key` is not an `Array`,
-	/// this will return `nil`.
+	/// When getting, if the user default specified by `key` is not an `Array`
+	/// or is not present, this will return `nil`.
 	@nonobjc public subscript(key: String) -> [Any]? {
 		get {
 			return array(forKey: key)
@@ -406,7 +406,7 @@ extension UserDefaults {
 	/// - parameter key: the user default key to get/set.
 	///
 	/// When getting, if any of the objects in the user default array specified by `key`
-	/// is not a `String`, this will return `nil`.
+	/// is not a `String` or is not present, this will return `nil`.
 	@nonobjc public subscript(key: String) -> [String]? {
 		get {
 			return stringArray(forKey: key)
@@ -419,8 +419,8 @@ extension UserDefaults {
 	/// Gets and sets the dictionary object associated with the specified key.
 	/// - parameter key: the user default key to get/set.
 	///
-	/// When getting, if the user default specified by `key` is not a `Dictionary`,
-	/// this will return `nil`.
+	/// When getting, if the user default specified by `key` is not a `Dictionary`
+	/// or is not present, this will return `nil`.
 	@nonobjc public subscript(key: String) -> [String: Any]? {
 		get {
 			return dictionary(forKey: key)
