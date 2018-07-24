@@ -698,8 +698,8 @@ public final class ForceFeedbackDevice {
 	public private(set) var lastReturnValue = ForceFeedbackResult(.ok)
 	
 	public enum Property: UInt32 {
-		case Gain = 1
-		case Autocenter = 3
+		case gain = 1
+		case autocenter = 3
 	}
 	
 	public struct CooperativeLevel : OptionSet {
@@ -896,13 +896,13 @@ public final class ForceFeedbackDevice {
 	public var autocenter: Bool {
 		get {
 			var theVal: UInt32 = 0
-			let iErr = get(property: .Autocenter, value: &theVal, valueSize: IOByteCount(MemoryLayout<UInt32>.size))
+			let iErr = get(property: .autocenter, value: &theVal, valueSize: IOByteCount(MemoryLayout<UInt32>.size))
 			lastReturnValue = iErr
 			return theVal != 0
 		}
 		set {
 			var theVal: UInt32 = newValue == true ? 1 : 0
-			lastReturnValue = set(property: .Autocenter, value: &theVal)
+			lastReturnValue = set(property: .autocenter, value: &theVal)
 		}
 	}
 	
@@ -911,13 +911,13 @@ public final class ForceFeedbackDevice {
 	public var gain: UInt32 {
 		get {
 			var theVal: UInt32 = 0
-			let iErr = get(property: .Gain, value: &theVal, valueSize: IOByteCount(MemoryLayout<UInt32>.size))
+			let iErr = get(property: .gain, value: &theVal, valueSize: IOByteCount(MemoryLayout<UInt32>.size))
 			lastReturnValue = iErr
 			return theVal
 		}
 		set {
 			var theVal = newValue
-			lastReturnValue = set(property: .Gain, value: &theVal)
+			lastReturnValue = set(property: .gain, value: &theVal)
 		}
 	}
 	
