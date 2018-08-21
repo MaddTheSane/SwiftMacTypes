@@ -164,31 +164,33 @@ extension Dictionary {
 // MARK: - Array additions
 
 extension Array {
-	// Code taken from http://stackoverflow.com/a/26174259/1975001
-	// Further adapted to work with Swift 2.2
 	/// Removes objects at indexes that are in the specified `NSIndexSet`.
 	/// Returns objects that were removed.
 	/// - parameter indexes: the index set containing the indexes of objects that will be removed
-	/// - returns: any objects that were removed.
-	@discardableResult
-	public mutating func remove(indexes: NSIndexSet) -> [Element] {
-		return self.remove(indexes: indexes as IndexSet)
+	public mutating func remove(indexes: NSIndexSet) {
+		self.remove(indexes: indexes as IndexSet)
 	}
 	
-	// Code taken from http://stackoverflow.com/a/26174259/1975001
-	// Further adapted to work with Swift 2.2
+	// Code taken from https://stackoverflow.com/a/50835467/1975001
 	/// Removes objects at indexes that are in the specified `IndexSet`.
 	/// Returns objects that were removed.
 	/// - parameter indexes: the index set containing the indexes of objects that will be removed
-	/// - returns: any objects that were removed.
-	@discardableResult
-	public mutating func remove(indexes: IndexSet) -> [Element] {
-		var toRet = [Element]()
-		for i in indexes.reversed() {
-			toRet.append(remove(at: i))
+	public mutating func remove(indexes: IndexSet) {
+		guard var i = indexes.first, i < count else {
+			return
 		}
-		
-		return toRet
+		var j = index(after: i)
+		var k = indexes.integerGreaterThan(i) ?? endIndex
+		while j != endIndex {
+			if k != j {
+				swapAt(i, j)
+				formIndex(after: &i)
+			} else {
+				k = indexes.integerGreaterThan(k) ?? endIndex
+			}
+			formIndex(after: &j)
+		}
+		removeSubrange(i...)
 	}
 	
 	/// Removes objects at indexes that are in the specified integer sequence.
@@ -196,14 +198,12 @@ extension Array {
 	///
 	/// Internally creates an `IndexSet` so the items are in order.
 	/// - parameter ixs: the integer sequence containing the indexes of objects that will be removed
-	/// - returns: any objects that were removed.
-	@discardableResult
-	public mutating func remove<B: Sequence>(indexes ixs: B) -> [Element] where B.Iterator.Element == Int {
+	public mutating func remove<B: Sequence>(indexes ixs: B) where B.Iterator.Element == Int {
 		var idxSet = IndexSet()
 		for i in ixs {
 			idxSet.insert(i)
 		}
-		return remove(indexes: idxSet)
+		remove(indexes: idxSet)
 	}
 }
 
