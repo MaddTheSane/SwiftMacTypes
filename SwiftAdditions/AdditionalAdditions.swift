@@ -9,7 +9,7 @@
 import Foundation
 
 /// Clamps a variable between `minimum` and `maximum`.
-/// - parameter value: The value to clamp, if needed.
+/// - parameter value: The value to clamp.
 /// - parameter minimum: The minimum value to clamp `value` to.
 /// - parameter maximum: The maximum value to clamp `value` to.
 /// - returns: `value` if it is in-between `minimum` and `maximum`,
@@ -24,13 +24,13 @@ public func clamp<X: Comparable>(_ value: X, minimum: X, maximum: X) -> X {
 }
 
 /// Clamp variables between `minimum` and `maximum`.
-/// - parameter values: The values to clamp, if needed.
+/// - parameter values: The values to clamp.
 /// - parameter minimum: The minimum value to clamp the elements in `values` to.
 /// - parameter maximum: The maximum value to clamp the elements in `values` to.
 /// - returns: a new array with the values clamped between `minimum` and `maximum`.
 ///
 /// If `minimum` is greater than `maximum`, a fatal error occurs.
-public func clamp<X: Comparable>(values: [X], minimum: X, maximum: X) -> [X] {
+public func clamp<W: Sequence, X: Comparable>(values: W, minimum: X, maximum: X) -> [X] where W.Element == X {
 	if minimum > maximum {
 		fatalError("Minimum (\(minimum)) is greater than maximum (\(maximum))!")
 	}
