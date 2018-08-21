@@ -42,20 +42,3 @@ public enum ByteOrder {
 		#endif
 	}
 }
-
-/// The current byte-order of the machine
-@available(*, unavailable, message:"Use ByteOrder.current instead", renamed:"ByteOrder.current")
-public var currentByteOrder: ByteOrder {
-	fatalError("Unavailable function called: \(#function)")
-}
-
-/// Is the byte-order little-endian?
-@available(*, unavailable, message:"Use ByteOrder.isLittle instead", renamed:"ByteOrder.isLittle")
-public var isLittleEndian: Bool {
-	fatalError("Unavailable function called: \(#function)")
-}
-/// Is the byte-order big-endian?
-@available(*, unavailable, message:"Use ByteOrder.isBig instead", renamed:"ByteOrder.isBig")
-public var isBigEndian: Bool {
-	fatalError("Unavailable function called: \(#function)")
-}

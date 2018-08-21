@@ -476,27 +476,27 @@ public enum CarbonFolderIcons: OSType {
 	// MARK: - deprecated Swift 2 names
 
 	extension CarbonToolbarIcons {
-		@available(*, unavailable, message:"Use '.customize' instead", renamed: "customize")
+		@available(*, unavailable, renamed: "customize")
 		public static var Customize: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.delete' instead", renamed: "delete")
+		@available(*, unavailable, renamed: "delete")
 		public static var Delete: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.favorite' instead", renamed: "favorite")
+		@available(*, unavailable, renamed: "favorite")
 		public static var Favorite: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.home' instead", renamed: "home")
+		@available(*, unavailable, renamed: "home")
 		public static var Home: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.advanced' instead", renamed: "advanced")
+		@available(*, unavailable, renamed: "advanced")
 		public static var Advanced: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.info' instead", renamed: "info")
+		@available(*, unavailable, renamed: "info")
 		public static var Info: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
@@ -504,78 +504,78 @@ public enum CarbonFolderIcons: OSType {
 		public static var Labels: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.applicationFolder' instead", renamed: "applicationFolder")
+		@available(*, unavailable, renamed: "applicationFolder")
 		public static var ApplicationFolder: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.documentsFolder' instead", renamed: "documentsFolder")
+		@available(*, unavailable,  renamed: "documentsFolder")
 		public static var DocumentsFolder: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.moviesFolder' instead", renamed: "moviesFolder")
+		@available(*, unavailable, renamed: "moviesFolder")
 		public static var MoviesFolder: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.musicFolder' instead", renamed: "musicFolder")
+		@available(*, unavailable, renamed: "musicFolder")
 		public static var MusicFolder: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.picturesFolder' instead", renamed: "picturesFolder")
+		@available(*, unavailable, renamed: "picturesFolder")
 		public static var PicturesFolder: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.publicFolder' instead", renamed: "publicFolder")
+		@available(*, unavailable, renamed: "publicFolder")
 		public static var PublicFolder: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.desktopFolder' instead", renamed: "desktopFolder")
+		@available(*, unavailable, renamed: "desktopFolder")
 		public static var DesktopFolder: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.downloadsFolder' instead", renamed: "downloadsFolder")
+		@available(*, unavailable, renamed: "downloadsFolder")
 		public static var DownloadsFolder: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.libraryFolder' instead", renamed: "libraryFolder")
+		@available(*, unavailable, renamed: "libraryFolder")
 		public static var LibraryFolder: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.utilitiesFolder' instead", renamed: "utilitiesFolder")
+		@available(*, unavailable, renamed: "utilitiesFolder")
 		public static var UtilitiesFolder: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.sitesFolder' instead", renamed: "sitesFolder")
+		@available(*, unavailable, renamed: "sitesFolder")
 		public static var SitesFolder: CarbonToolbarIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
 	}
 	
 	extension CarbonFolderIcons {
-		@available(*, unavailable, message:"Use '.generic' instead", renamed: "generic")
+		@available(*, unavailable, renamed: "generic")
 		public static var Generic: CarbonFolderIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.drop' instead", renamed: "drop")
+		@available(*, unavailable,  renamed: "drop")
 		public static var Drop: CarbonFolderIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.mounted' instead", renamed: "mounted")
+		@available(*, unavailable, renamed: "mounted")
 		public static var Mounted: CarbonFolderIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.open' instead", renamed: "open")
+		@available(*, unavailable, renamed: "open")
 		public static var Open: CarbonFolderIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.owned' instead", renamed: "owned")
+		@available(*, unavailable, renamed: "owned")
 		public static var Owned: CarbonFolderIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.private' instead", renamed: "private")
+		@available(*, unavailable, renamed: "private")
 		public static var Private: CarbonFolderIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}
-		@available(*, unavailable, message:"Use '.shared' instead", renamed: "shared")
+		@available(*, unavailable, renamed: "shared")
 		public static var Shared: CarbonFolderIcons {
 			fatalError("Unavailable function called: \(#function)")
 		}

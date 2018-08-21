@@ -34,7 +34,7 @@ extension NSRange {
 		return location == NSNotFound
 	}
 	
-	@available(*, unavailable, renamed:"contains(_:)")
+	@available(*, unavailable, renamed: "contains(_:)")
 	public func locationInRange(_ loc: Int) -> Bool {
 		fatalError("Unavailable function called: \(#function)")
 	}
@@ -162,7 +162,7 @@ extension CGRect {
 	
 	/// Adjusts the sides of a rectangle to integral values using the specified options.
 	/// - returns: A copy of `self`, modified based on the options. The options are
-	/// defined in `NSAlignmentOptions`.
+	/// defined in `AlignmentOptions`.
 	public func integral(options: AlignmentOptions) -> NSRect {
 		return NSIntegralRectWithOptions(self, options)
 	}
@@ -207,13 +207,28 @@ extension CGRect {
 	public func mouseInLocation(_ location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
 	}
+	
+	/// Returns a `Bool` value that indicates whether the point is in the specified rectangle.
+	/// - parameter location: The point to test for.
+	/// - parameter flipped: Specify `true` for flipped if the underlying view uses a
+	/// flipped coordinate system.<br>
+	/// Default is `false`.
+	/// - returns: `true` if the hot spot of the cursor lies inside the rectangle, otherwise `false`.
+	public func mouse(inLocation location: NSPoint, flipped: Bool = false) -> Bool {
+		return NSMouseInRect(location, self, flipped)
+	}
 	#endif
 }
 
 extension NSUUID {
 	/// Create a new `NSUUID` from a `CFUUID`.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `UUID(cfUUID:)` instead")
-	@objc(initWithCFUUID:) public convenience init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "NSUUID.init(cfUUID:)")
+	public convenience init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
+		self.init(cfUUID: cfUUID)
+	}
+	
+	/// Create a new `NSUUID` from a CoreFoundation `CFUUID`.
+	@objc(initWithCFUUID:) public convenience init(cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
 		self.init(uuidString: tempUIDStr)!
@@ -221,14 +236,12 @@ extension NSUUID {
 	
 	/// Get a CoreFoundation UUID from the current UUID.
 	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "cfUUID")
-	@objc public var `CFUUID`: CoreFoundation.CFUUID {
-		let tmpStr = self.uuidString
-		
-		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
+	public var `CFUUID`: CoreFoundation.CFUUID {
+		return cfUUID
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
-	public var cfUUID: CoreFoundation.CFUUID {
+	@objc(CFUUID) public var cfUUID: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
 		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
@@ -242,7 +255,7 @@ extension UUID {
 		self.init(cfUUID: cfUUID)
 	}
 	
-	/// Create a new `Foundation.UUID` from a `CFUUID`.
+	/// Create a new `Foundation.UUID` from a CoreFoundation `CFUUID`.
 	public init(cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
@@ -350,8 +363,8 @@ extension UserDefaults {
 	/// Gets and sets a user default value named `key` to/from a `Data` type.
 	/// - parameter key: the user default key to get/set.
 	///
-	/// When getting, if the user default specified by `key` is not a `Data`,
-	/// this will return `nil`.
+	/// When getting, if the user default specified by `key` is not a `Data`
+	/// or is not present, this will return `nil`.
 	@nonobjc public subscript(key: String) -> Data? {
 		get {
 			return data(forKey: key)
@@ -364,8 +377,8 @@ extension UserDefaults {
 	/// Gets and sets a user default value named `key` to/from a `Date` type.
 	/// - parameter key: the user default key to get/set.
 	///
-	/// When getting, if the user default specified by `key` is not a `Date`,
-	/// this will return `nil`.
+	/// When getting, if the user default specified by `key` is not a `Date`
+	/// or is not present, this will return `nil`.
 	@nonobjc public subscript(key: String) -> Date? {
 		get {
 			return object(forKey: key) as? Date
@@ -378,8 +391,8 @@ extension UserDefaults {
 	/// Gets and sets a user default value named `key` to/from an array type.
 	/// - parameter key: the user default key to get/set.
 	///
-	/// When getting, if the user default specified by `key` is not an `Array`,
-	/// this will return `nil`.
+	/// When getting, if the user default specified by `key` is not an `Array`
+	/// or is not present, this will return `nil`.
 	@nonobjc public subscript(key: String) -> [Any]? {
 		get {
 			return array(forKey: key)
@@ -393,7 +406,7 @@ extension UserDefaults {
 	/// - parameter key: the user default key to get/set.
 	///
 	/// When getting, if any of the objects in the user default array specified by `key`
-	/// is not a `String`, this will return `nil`.
+	/// is not a `String` or is not present, this will return `nil`.
 	@nonobjc public subscript(key: String) -> [String]? {
 		get {
 			return stringArray(forKey: key)
@@ -406,8 +419,8 @@ extension UserDefaults {
 	/// Gets and sets the dictionary object associated with the specified key.
 	/// - parameter key: the user default key to get/set.
 	///
-	/// When getting, if the user default specified by `key` is not a `Dictionary`,
-	/// this will return `nil`.
+	/// When getting, if the user default specified by `key` is not a `Dictionary`
+	/// or is not present, this will return `nil`.
 	@nonobjc public subscript(key: String) -> [String: Any]? {
 		get {
 			return dictionary(forKey: key)

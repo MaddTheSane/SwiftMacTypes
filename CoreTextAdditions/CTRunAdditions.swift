@@ -10,7 +10,8 @@ import Foundation
 import CoreText.CTRun
 
 extension CTRun {
-	/// A bitfield passed back by the `CTRun.status` getter that is used to indicate the disposition of the run.
+	/// A bitfield passed back by the `CTRun.status` getter that is used to indicate the disposition of the
+	/// run.
 	public typealias Status = CTRunStatus
 	
 	/// Gets the glyph count for the run.

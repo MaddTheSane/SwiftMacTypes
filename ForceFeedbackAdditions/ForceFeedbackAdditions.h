@@ -14,6 +14,4 @@ FOUNDATION_EXPORT double ForceFeedbackAdditionsVersionNumber;
 //! Project version string for ForceFeedbackAdditions.
 FOUNDATION_EXPORT const unsigned char ForceFeedbackAdditionsVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <ForceFeedbackAdditions/PublicHeader.h>
-
-
+#import <ForceFeedbackAdditions/FFAErrors.h>
