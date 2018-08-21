@@ -163,25 +163,6 @@ extension Dictionary {
 
 // MARK: - Array additions
 
-/// Removes objects in an array that are in the specified `NSIndexSet`.
-/// Returns objects that were removed.
-/// - parameter ixs: the index set containing the indexes of objects that will be removed
-/// - returns: any objects that were removed.
-@available(*, unavailable, message: "Use 'Array.remove(indexes:)' instead")
-public func removeObjects<T>( inArray anArray: inout Array<T>, atIndexes indexes: NSIndexSet) -> [T] {
-	fatalError("Unavailable function called: \(#function)")
-}
-
-/// Removes objects in an array that are in the specified integer set.
-/// Returns objects that were removed.
-/// - parameter anArray: the array to modify.
-/// - parameter indexes: the integer set containing the indexes of objects that will be removed
-/// - returns: any objects that were removed.
-@available(*, unavailable, message: "Use 'Array.remove(indexes:)' instead")
-public func removeObjects<T, B: Sequence>( inArray anArray: inout Array<T>, atIndexes indexes: B) -> [T] where B.Iterator.Element == Int {
-	fatalError("Unavailable function called: \(#function)")
-}
-
 extension Array {
 	// Code taken from http://stackoverflow.com/a/26174259/1975001
 	// Further adapted to work with Swift 2.2
@@ -245,14 +226,6 @@ extension Array where Element: AnyObject {
 	public mutating func sort(using descriptors: [NSSortDescriptor]) {
 		self = sorted(using: descriptors)
 	}
-}
-
-///Sort a Swift array using an array of `NSSortDescriptor`.
-///
-///This *may* be expensive, in both memory and computation!
-@available(*, unavailable, message: "Use 'Array.sorted(using:)' instead")
-public func sortedArray(_ anArray: [AnyObject], usingDescriptors descriptors: [NSSortDescriptor]) -> [AnyObject] {
-	fatalError("Unavailable function called: \(#function)")
 }
 
 // MARK: -
