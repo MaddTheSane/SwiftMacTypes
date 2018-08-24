@@ -15,7 +15,7 @@
 #define FFA_ERROR_ENUM(_domain, _name) NS_ENUM(HRESULT, _name)
 #endif
 
-/// The error domain of `ForceFeedbackResult`
+/// The error domain of \c ForceFeedbackResult
 extern NSErrorDomain const ForceFeedbackResultErrorDomain;
 
 typedef FFA_ERROR_ENUM(ForceFeedbackResultErrorDomain, ForceFeedbackResult) {
@@ -124,3 +124,5 @@ typedef FFA_ERROR_ENUM(ForceFeedbackResultErrorDomain, ForceFeedbackResult) {
 	//! The effect type requested is not explicitly supported by the particular device.
 	ForceFeedbackResultEffectTypeNotSupported = (HRESULT)(FFERR_EFFECTTYPENOTSUPPORTED),
 };
+
+#undef FFA_ERROR_ENUM
