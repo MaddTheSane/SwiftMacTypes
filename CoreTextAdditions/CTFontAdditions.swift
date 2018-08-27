@@ -455,7 +455,7 @@ extension CTFont {
 	/// This getter returns an array of variation axis dictionaries or `nil` if the font does not support
 	/// variations. Each variation axis dictionary contains the five `kCTFontVariationAxis`* keys.
 	public var variationAxes: [[String: Any]]? {
-		return CTFontCopyVariationAxes(self) as! [[String: Any]]?
+		return CTFontCopyVariationAxes(self) as? [[String: Any]]
 	}
 	
 	/// A variation dictionary.
@@ -467,7 +467,7 @@ extension CTFont {
 	/// - seealso: kCTFontVariationAxisIdentifierKey
 	/// - seealso: kCTFontVariationAxisDefaultValueKey
 	public var variationInfo: [String: Any]? {
-		return CTFontCopyVariation(self) as! [String: Any]?
+		return CTFontCopyVariation(self) as? [String: Any]
 	}
 	
 	// MARK: - Font Features
@@ -478,7 +478,7 @@ extension CTFont {
 	
 	/// An array of font features
 	public var features: [[String: Any]]? {
-		return CTFontCopyFeatures(self) as! [[String : Any]]?
+		return CTFontCopyFeatures(self) as? [[String : Any]]
 	}
 	
 	/// An array of font feature setting tuples.
@@ -490,7 +490,7 @@ extension CTFont {
 	/// contain the non-default settings that should be applied to the font, or `nil` if the default settings
 	/// should be used.
 	public var featureSettings: [[String: Any]]? {
-		return CTFontCopyFeatureSettings(self) as! [[String: Any]]?
+		return CTFontCopyFeatureSettings(self) as? [[String: Any]]
 	}
 	
 	// MARK: - Font Conversion
