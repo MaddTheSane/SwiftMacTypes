@@ -453,7 +453,7 @@ extension CTFont {
 	/// The array contains language identifier strings as `String`s. The format of the language identifier will
 	/// conform to *UTS #35*.
 	public var supportedLanguages: [String] {
-		return CTFontCopySupportedLanguages(self) as NSArray? as! [String]? ?? []
+		return CTFontCopySupportedLanguages(self) as NSArray? as? [String] ?? []
 	}
 	
 	/// Performs basic character-to-glyph mapping.
@@ -591,7 +591,8 @@ extension CTFont {
 	/// Calculates the optical bounding rects for an array of glyphs and returns the overall optical bounding
 	/// rect for the run.
 	/// - parameter glyphs: An array of count number of glyphs.
-	/// - parameter options: Reserved, set to zero.
+	/// - parameter options: Reserved, set to zero.<br>
+	/// Default is `0`.
 	/// - returns: `all`: The overall bounding rectangle for an array or run of glyphs.
 	/// The bounding rects of the individual glyphs are available through the `perGlyph` tuple. These
 	/// are the design metrics from the font transformed in font space.<br>
