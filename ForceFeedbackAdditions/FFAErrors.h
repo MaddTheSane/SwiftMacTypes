@@ -6,7 +6,8 @@
 //  Copyright © 2018 C.W. Betts. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Foundation/NSError.h>
+#include <CoreFoundation/CFPlugInCOM.h>
 #include <ForceFeedback/ForceFeedbackConstants.h>
 
 #if ((__cplusplus && __cplusplus >= 201103L && (__has_extension(cxx_strong_enums) || __has_feature(objc_fixed_enum))) || (!__cplusplus && __has_feature(objc_fixed_enum))) && __has_attribute(ns_error_domain)
