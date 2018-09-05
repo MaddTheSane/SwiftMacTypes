@@ -29,6 +29,13 @@ extension CTFont {
 	/// Specifies the intended rendering orientation of the font for obtaining glyph metrics.
 	public typealias Orientation = CTFontOrientation
 	
+	/// Symbolic representation of stylistic font attributes.
+	///
+	/// `SymbolicTraits` symbolically describes stylistic aspects of a font. The top 4 bits is used to describe
+	/// appearance of the font while the lower 28 bits for typeface. The font appearance information represented
+	/// by the upper 4 bits can be used for stylistic font matching.
+	public typealias SymbolicTraits = CTFontSymbolicTraits
+	
 	public enum FontNameKey: CustomStringConvertible {
 		/// The name specifier for the copyright name.
 		case copyright
@@ -249,7 +256,7 @@ extension CTFont {
 	/// removal as well as addition.
 	/// - returns: a new font reference in the same family with the given symbolic traits, or `nil` if none
 	/// found in the system.
-	public func copy(withSymbolicTraits symTraits: (traits: CTFontSymbolicTraits, mask: CTFontSymbolicTraits), size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont? {
+	public func copy(withSymbolicTraits symTraits: (traits: SymbolicTraits, mask: SymbolicTraits), size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont? {
 		if var matrix = matrix {
 			return CTFontCreateCopyWithSymbolicTraits(self, size, &matrix, symTraits.traits, symTraits.mask)
 		} else {
@@ -358,7 +365,7 @@ extension CTFont {
 	///
 	/// This getter returns the symbolic traits of the font. This is equivalent to the `kCTFontSymbolicTrait`
 	/// of traits dictionary. See *CTFontTraits.h* for a definition of the font traits.
-	public var symbolicTraits: CTFontSymbolicTraits {
+	public var symbolicTraits: SymbolicTraits {
 		return CTFontGetSymbolicTraits(self)
 	}
 	
