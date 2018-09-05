@@ -51,7 +51,6 @@
 		5527AC391FAE7CE8009CC7FC /* CTFontDescriptorAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC2B1FAE7CE7009CC7FC /* CTFontDescriptorAdditions.swift */; };
 		5527AC3A1FAE7CE8009CC7FC /* CTRubyAnnotationAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC2C1FAE7CE7009CC7FC /* CTRubyAnnotationAdditions.swift */; };
 		5527AC3C1FAE7CE8009CC7FC /* CTStringAttributesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC2E1FAE7CE7009CC7FC /* CTStringAttributesAdditions.swift */; };
-		5527AC3D1FAE7CE8009CC7FC /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC2F1FAE7CE7009CC7FC /* Font.swift */; };
 		5527AC3E1FAE7CE8009CC7FC /* CTFrameAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC301FAE7CE7009CC7FC /* CTFrameAdditions.swift */; };
 		5527AC3F1FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC311FAE7CE7009CC7FC /* CTAdditionsSwiftHelpers.m */; };
 		5527AC401FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 5527AC321FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -239,7 +238,6 @@
 		5527AC2B1FAE7CE7009CC7FC /* CTFontDescriptorAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTFontDescriptorAdditions.swift; sourceTree = "<group>"; };
 		5527AC2C1FAE7CE7009CC7FC /* CTRubyAnnotationAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTRubyAnnotationAdditions.swift; sourceTree = "<group>"; };
 		5527AC2E1FAE7CE7009CC7FC /* CTStringAttributesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTStringAttributesAdditions.swift; sourceTree = "<group>"; };
-		5527AC2F1FAE7CE7009CC7FC /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		5527AC301FAE7CE7009CC7FC /* CTFrameAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTFrameAdditions.swift; sourceTree = "<group>"; };
 		5527AC311FAE7CE7009CC7FC /* CTAdditionsSwiftHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAdditionsSwiftHelpers.m; sourceTree = "<group>"; };
 		5527AC321FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAdditionsSwiftHelpers.h; sourceTree = "<group>"; };
@@ -473,7 +471,6 @@
 				5527AC341FAE7CE8009CC7FC /* CTRunAdditions.swift */,
 				5527AC2E1FAE7CE7009CC7FC /* CTStringAttributesAdditions.swift */,
 				5527AC2A1FAE7CE7009CC7FC /* CTTextTabAdditions.swift */,
-				5527AC2F1FAE7CE7009CC7FC /* Font.swift */,
 				5527AC161FAE7CB1009CC7FC /* Info.plist */,
 			);
 			path = CoreTextAdditions;
@@ -1033,7 +1030,6 @@
 			files = (
 				5527AC3C1FAE7CE8009CC7FC /* CTStringAttributesAdditions.swift in Sources */,
 				5527AC391FAE7CE8009CC7FC /* CTFontDescriptorAdditions.swift in Sources */,
-				5527AC3D1FAE7CE8009CC7FC /* Font.swift in Sources */,
 				5527AC3F1FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.m in Sources */,
 				5527AC3A1FAE7CE8009CC7FC /* CTRubyAnnotationAdditions.swift in Sources */,
 				5527AC431FAE7CE8009CC7FC /* CTFontAdditions.swift in Sources */,

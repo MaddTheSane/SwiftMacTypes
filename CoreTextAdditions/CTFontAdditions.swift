@@ -14,6 +14,209 @@ extension CTFont {
 	/// Font table tags provide access to font table data.
 	public typealias TableTag = CTFontTableTag
 	
+	/// Options for descriptor match and font creation.
+	public typealias Options = CTFontOptions
+	
+	/// These constants represent the specific user interface purpose to specify for font creation.
+	///
+	/// Use these constants with `Font(uiType:size:forLanguage:)` to indicate the intended user interface usage
+	/// of the font reference to be created.
+	public typealias UIFontType = CTFontUIFontType
+	
+	/// These constants describe font table options.
+	public typealias TableOptions = CTFontTableOptions
+	
+	/// Specifies the intended rendering orientation of the font for obtaining glyph metrics.
+	public typealias Orientation = CTFontOrientation
+	
+	public enum FontNameKey: CustomStringConvertible {
+		/// The name specifier for the copyright name.
+		case copyright
+		
+		/// The name specifier for the family name.
+		case family
+		
+		/// The name specifier for the subfamily name.
+		case subFamily
+		
+		/// The name specifier for the style name.
+		case style
+		
+		/// The name specifier for the unique name.
+		///
+		/// Note that this name is often not unique and should not be
+		/// assumed to be truly unique.
+		case unique
+		
+		/// The name specifier for the full name.
+		case full
+		
+		/// The name specifier for the version name.
+		case version
+		
+		/// The name specifier for the PostScript name.
+		case postScript
+		
+		/// The name specifier for the trademark name.
+		case trademark
+		
+		/// The name specifier for the manufacturer name.
+		case manufacturer
+		
+		/// The name specifier for the designer name.
+		case designer
+		
+		/// The name specifier for the description name.
+		case fontDescription
+		
+		/// The name specifier for the vendor url name.
+		case vendorURL
+		
+		/// The name specifier for the designer url name.
+		case designerURL
+		
+		/// The name specifier for the license name.
+		case license
+		
+		/// The name specifier for the license url name.
+		case licenseURL
+		
+		/// The name specifier for the sample text name string.
+		case sampleText
+		
+		/// The name specifier for the PostScript CID name.
+		case postScriptCID
+		
+		/// Creates a `FontNameKey` from s supplied string.
+		/// If `stringValue` doesn't match any of the `kCTFont...NameKey`s, returns `nil`.
+		/// - parameter stringValue: The string value to attempt to init `FontNameKey` from.
+		public init?(stringValue: String) {
+			switch stringValue {
+			case (kCTFontCopyrightNameKey as NSString as String):
+				self = .copyright
+				
+			case (kCTFontFamilyNameKey as NSString as String):
+				self = .family
+				
+			case (kCTFontSubFamilyNameKey as NSString as String):
+				self = .subFamily
+				
+			case (kCTFontStyleNameKey as NSString as String):
+				self = .style
+				
+			case (kCTFontUniqueNameKey as NSString as String):
+				self = .unique
+				
+			case (kCTFontFullNameKey as NSString as String):
+				self = .full
+				
+			case (kCTFontVersionNameKey as NSString as String):
+				self = .version
+				
+			case (kCTFontPostScriptNameKey as NSString as String):
+				self = .postScript
+				
+			case (kCTFontCopyrightNameKey as NSString as String):
+				self = .copyright
+				
+			case (kCTFontTrademarkNameKey as NSString as String):
+				self = .trademark
+				
+			case (kCTFontManufacturerNameKey as NSString as String):
+				self = .manufacturer
+				
+			case (kCTFontDesignerNameKey as NSString as String):
+				self = .designer
+				
+			case (kCTFontDescriptionNameKey as NSString as String):
+				self = .fontDescription
+				
+			case (kCTFontVendorURLNameKey as NSString as String):
+				self = .vendorURL
+				
+			case (kCTFontDesignerURLNameKey as NSString as String):
+				self = .designerURL
+				
+			case (kCTFontLicenseNameKey as NSString as String):
+				self = .license
+				
+			case (kCTFontLicenseURLNameKey as NSString as String):
+				self = .licenseURL
+				
+			case (kCTFontSampleTextNameKey as NSString as String):
+				self = .sampleText
+				
+			case (kCTFontPostScriptCIDNameKey as NSString as String):
+				self = .postScriptCID
+				
+			default:
+				return nil
+			}
+		}
+		
+		var cfString: CFString {
+			switch self {
+			case .copyright:
+				return kCTFontCopyrightNameKey
+				
+			case .family:
+				return kCTFontFamilyNameKey
+				
+			case .subFamily:
+				return kCTFontSubFamilyNameKey
+				
+			case .style:
+				return kCTFontStyleNameKey
+				
+			case .unique:
+				return kCTFontUniqueNameKey
+				
+			case .full:
+				return kCTFontFullNameKey
+				
+			case .version:
+				return kCTFontVersionNameKey
+				
+			case .postScript:
+				return kCTFontPostScriptNameKey
+				
+			case .trademark:
+				return kCTFontTrademarkNameKey
+				
+			case .manufacturer:
+				return kCTFontManufacturerNameKey
+				
+			case .designer:
+				return kCTFontDesignerNameKey
+				
+			case .fontDescription:
+				return kCTFontDescriptionNameKey
+				
+			case .vendorURL:
+				return kCTFontVendorURLNameKey
+				
+			case .designerURL:
+				return kCTFontDesignerURLNameKey
+				
+			case .license:
+				return kCTFontLicenseNameKey
+				
+			case .licenseURL:
+				return kCTFontLicenseURLNameKey
+				
+			case .sampleText:
+				return kCTFontSampleTextNameKey
+				
+			case .postScriptCID:
+				return kCTFontPostScriptCIDNameKey
+			}
+		}
+		
+		public var description: String {
+			return cfString as String
+		}
+	}
+	
 	/// Returns a new font with additional attributes based on the original font.
 	/// - parameter size: The point size for the font reference. If `0.0` is specified, the original font's
 	/// size will be preserved.
@@ -198,7 +401,7 @@ extension CTFont {
 	/// - returns: The requested name for the font, or `nil` if the font does not have an entry for the
 	/// requested name. The Unicode version of the name will be preferred, otherwise the first available
 	/// will be used.
-	public func name(ofKey nameKey: Font.FontNameKey) -> String? {
+	public func name(ofKey nameKey: FontNameKey) -> String? {
 		return CTFontCopyName(self, nameKey.cfString) as String?
 	}
 	
@@ -210,7 +413,7 @@ extension CTFont {
 	/// `actualLanguage`: A `String` of the language identifier of the returned name string. The format of the
 	/// language identifier will conform to *UTS #35*.
 	/// If CoreText can supply its own localized string where the font cannot, this value will be `nil`.
-	public func localizedName(ofKey nameKey: Font.FontNameKey) -> (name: String, actualLanguage: String?)? {
+	public func localizedName(ofKey nameKey: FontNameKey) -> (name: String, actualLanguage: String?)? {
 		var actualName: Unmanaged<CFString>? = nil
 		guard let name = CTFontCopyLocalizedName(self, nameKey.cfString, &actualName) as String? else {
 			return nil
@@ -372,7 +575,7 @@ extension CTFont {
 	/// - returns: The overall bounding rectangle for an array or run of glyphs, returned in the `.all` part of
 	/// the returned tuple. The bounding rects of the individual glyphs are returned through the `.perGlyph`
 	/// part of the returned tuple. These are the design metrics from the font transformed in font space.
-	public func boundingRects(forGlyphs glyphs: [CGGlyph], orientation: Font.Orientation = .`default`) -> (all: CGRect, perGlyph: [CGRect]) {
+	public func boundingRects(forGlyphs glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: CGRect, perGlyph: [CGRect]) {
 		var bounds = [CGRect](repeating: CGRect(), count: glyphs.count)
 		let finalRect = CTFontGetBoundingRectsForGlyphs(self, orientation, glyphs, &bounds, glyphs.count)
 		return (finalRect, bounds)
@@ -406,7 +609,7 @@ extension CTFont {
 	/// advances are passed back via the advances parameter. These are the ideal metrics for each glyph scaled
 	/// and transformed in font space.<br>
 	/// `perGlyph`: An array of count number of `CGSize` to receive the computed glyph advances.
-	public func advances(forGlyphs glyphs: [CGGlyph], orientation: Font.Orientation = .`default`) -> (all: Double, perGlyph: [CGSize]) {
+	public func advances(forGlyphs glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: Double, perGlyph: [CGSize]) {
 		var advances = [CGSize](repeating: CGSize(), count: glyphs.count)
 		let summedAdvance = CTFontGetAdvancesForGlyphs(self, orientation, glyphs, &advances, glyphs.count)
 		return (summedAdvance, advances)
@@ -518,7 +721,7 @@ extension CTFont {
 	/// Default is no options.
 	/// - returns: An array of `CTFont.TableTag` values for the given font and the
 	/// supplied options.
-	public func availableTables(options: Font.TableOptions = []) -> [TableTag]? {
+	public func availableTables(options: TableOptions = []) -> [TableTag]? {
 		guard let numArr = __CTAFontCopyAvailableTables(self, options) else {
 			return nil
 		}
@@ -533,7 +736,7 @@ extension CTFont {
 	/// - parameter table: The font table identifier as a `CTFont.TableTag`.
 	/// - parameter options: The options used when copying font table.<br>
 	/// Default is no options.
-	public func data(for table: TableTag, options: Font.TableOptions = []) -> Data? {
+	public func data(for table: TableTag, options: TableOptions = []) -> Data? {
 		return CTFontCopyTable(self, table, options) as Data?
 	}
 	
