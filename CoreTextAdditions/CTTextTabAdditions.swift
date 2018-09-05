@@ -28,7 +28,7 @@ extension CTTextTab {
 	}
 	
 	/// The tab's text alignment value.
-	public var alignment: CTTextAlignment {
+	public var alignment: Alignment {
 		return CTTextTabGetAlignment(self)
 	}
 	
