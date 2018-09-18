@@ -48,7 +48,7 @@ extension CTFrame {
 	
 	/// Returns the frame attributes used to create the frame.
 	public var frameAttributes: [String: Any]? {
-		return CTFrameGetFrameAttributes(self) as! [String: Any]?
+		return CTFrameGetFrameAttributes(self) as? [String: Any]
 	}
 	
 	/// The path used to create the frame.
