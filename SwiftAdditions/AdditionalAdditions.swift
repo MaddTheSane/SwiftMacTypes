@@ -165,7 +165,6 @@ extension Dictionary {
 
 extension Array {
 	/// Removes objects at indexes that are in the specified `NSIndexSet`.
-	/// Returns objects that were removed.
 	/// - parameter indexes: the index set containing the indexes of objects that will be removed
 	public mutating func remove(indexes: NSIndexSet) {
 		self.remove(indexes: indexes as IndexSet)
@@ -173,7 +172,6 @@ extension Array {
 	
 	// Code taken from https://stackoverflow.com/a/50835467/1975001
 	/// Removes objects at indexes that are in the specified `IndexSet`.
-	/// Returns objects that were removed.
 	/// - parameter indexes: the index set containing the indexes of objects that will be removed
 	public mutating func remove(indexes: IndexSet) {
 		guard var i = indexes.first, i < count else {
@@ -194,7 +192,6 @@ extension Array {
 	}
 	
 	/// Removes objects at indexes that are in the specified integer sequence.
-	/// Returns objects that were removed.
 	///
 	/// Internally creates an `IndexSet` so the items are in order.
 	/// - parameter ixs: the integer sequence containing the indexes of objects that will be removed
