@@ -639,27 +639,42 @@ public extension AudioStreamBasicDescription {
 	}
 }
 
-private func OSTypeToStr(_ val: OSType) -> String {
+private func CAStringForOSType(_ val: OSType) -> String {
 	var toRet = ""
-	toRet.reserveCapacity(4)
+	toRet.reserveCapacity(10)
 	var str = [Int8](repeating: 0, count: 4)
 	do {
 		var tmpStr = val.bigEndian
 		memcpy(&str, &tmpStr, MemoryLayout<OSType>.size)
 	}
+	var hasNonPrint = false;
 	for p in str {
-		if isprint(Int32(p)) != 0 && p != ASCIICharacter.backSlashCharacter.rawValue {
-			toRet += String(Character(Unicode.Scalar(UInt8(p))))
-		} else {
-			toRet += String(format: "\\x%02x", p)
+		if !(isprint(Int32(p)) != 0 && p != ASCIICharacter.backSlashCharacter.rawValue) {
+			hasNonPrint = true
+			break
 		}
+	}
+	if hasNonPrint {
+		toRet = "0x"
+	} else {
+		toRet = "'"
+	}
+	str.forEach { (p) in
+		if hasNonPrint {
+			toRet += String(format: "%02X", p)
+		} else {
+			toRet += String(Character(Unicode.Scalar(UInt8(p))))
+		}
+	}
+	if !hasNonPrint {
+		toRet += "'"
 	}
 	return toRet
 }
 
 extension AudioStreamBasicDescription: CustomStringConvertible {
 	public var description: String {
-		let formatID = OSTypeToStr(mFormatID)
+		let formatID = CAStringForOSType(mFormatID)
 		var buffer = String(format: "%2d ch, %6.0f Hz, \(formatID) (0x%08X) ", mChannelsPerFrame, mSampleRate, mFormatFlags)
 		
 		switch mFormatID {
