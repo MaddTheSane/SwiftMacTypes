@@ -282,20 +282,20 @@ public extension AudioStreamBasicDescription {
 public extension AudioStreamBasicDescription {
 	// The following getters/functions are from Apple's CoreAudioUtilityClasses
 	
-	var	PCM: Bool {
+	public var isPCM: Bool {
 		return mFormatID == kAudioFormatLinearPCM
 	}
 
 	public var isInterleaved: Bool {
-		return !formatFlags.contains(.nonInterleaved)
+		return !isPCM || !formatFlags.contains(.nonInterleaved)
 	}
 	
 	public var isSignedInteger: Bool {
-		return PCM && (mFormatFlags & kAudioFormatFlagIsSignedInteger) != 0
+		return isPCM && (mFormatFlags & kAudioFormatFlagIsSignedInteger) != 0
 	}
 	
 	public var isFloat: Bool {
-		return PCM && (mFormatFlags & kAudioFormatFlagIsFloat) != 0
+		return isPCM && (mFormatFlags & kAudioFormatFlagIsFloat) != 0
 	}
 
 	@available(*, deprecated, renamed: "isInterleaved")
@@ -321,8 +321,33 @@ public extension AudioStreamBasicDescription {
 		return isInterleaved ? 1 : mChannelsPerFrame
 	}
 	
+	public func framesToBytes(_ nframes: UInt32) -> UInt32 {
+		return nframes * mBytesPerFrame
+	}
+	
 	public var sampleWordSize: UInt32 {
 		return (mBytesPerFrame > 0 && interleavedChannels != 0) ? mBytesPerFrame / interleavedChannels :  0;
+	}
+	
+	@available(*, unavailable, renamed: "isPackednessSignificant")
+	public var packednessIsSignificant: Bool {
+		fatalError()
+	}
+	
+	@available(*, unavailable, renamed: "isAlignmentSignificant")
+	public var alignmentIsSignificant: Bool {
+		fatalError()
+	}
+	
+	/// The audio format must be PCM, otherwise this won't work!
+	public var isPackednessSignificant: Bool {
+		precondition(isPCM, "isPackednessSignificant only applies for PCM")
+		return (sampleWordSize << 3) != mBitsPerChannel
+	}
+	
+	/// The audio format must be PCM, otherwise this won't work!
+	public var isAlignmentSignificant: Bool {
+		return isPackednessSignificant || (mBitsPerChannel & 7) != 0
 	}
 	
 	public enum ASBDError: Error {
@@ -330,7 +355,7 @@ public extension AudioStreamBasicDescription {
 	}
 	
 	public mutating func changeCountOfChannels(nChannels: UInt32, interleaved: Bool) throws {
-		guard PCM else {
+		guard isPCM else {
 			throw ASBDError.reqiresPCMFormat
 		}
 		let wordSize: UInt32 = { // get this before changing ANYTHING
@@ -614,103 +639,196 @@ public extension AudioStreamBasicDescription {
 	}
 }
 
-extension AudioStreamBasicDescription: Comparable {
-	
-}
-
-public func ==(lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
-	if lhs.mBytesPerFrame != rhs.mBytesPerFrame {
-		return false
-	} else if lhs.mSampleRate != rhs.mSampleRate {
-		return false
-	} else if lhs.mFormatID != rhs.mFormatID {
-		return false
-	} else if lhs.mFormatFlags != rhs.mFormatFlags {
-		return false
-	} else if lhs.mFramesPerPacket != rhs.mFramesPerPacket {
-		return false
-	} else if lhs.mBytesPerPacket != rhs.mBytesPerPacket {
-		return false
-	} else if lhs.mChannelsPerFrame != rhs.mChannelsPerFrame {
-		return false
-	} else if lhs.mBitsPerChannel != rhs.mBitsPerChannel {
-		return false
-	} else {
-		return true
+private func OSTypeToStr(_ val: OSType) -> String {
+	var toRet = ""
+	toRet.reserveCapacity(4)
+	var str = [Int8](repeating: 0, count: 4)
+	do {
+		var tmpStr = val.bigEndian
+		memcpy(&str, &tmpStr, MemoryLayout<OSType>.size)
 	}
+	for p in str {
+		if isprint(Int32(p)) != 0 && p != ASCIICharacter.backSlashCharacter.rawValue {
+			toRet += String(Character(Unicode.Scalar(UInt8(p))))
+		} else {
+			toRet += String(format: "\\x%02x", p)
+		}
+	}
+	return toRet
 }
 
-public func <(x: AudioStreamBasicDescription, y: AudioStreamBasicDescription) -> Bool {
-	var theAnswer = false;
-	var isDone = false;
-	
-	//	note that if either side is 0, that field is skipped
-	
-	//	format ID is the first order sort
-	if (!isDone) && ((x.mFormatID != 0) && (y.mFormatID != 0)) {
-		if x.mFormatID != y.mFormatID {
-			//	formats are sorted numerically except that linear
-			//	PCM is always first
-			if x.mFormatID == kAudioFormatLinearPCM {
-				theAnswer = true;
-			} else if y.mFormatID == kAudioFormatLinearPCM {
-				theAnswer = false;
+extension AudioStreamBasicDescription: CustomStringConvertible {
+	public var description: String {
+		let formatID = OSTypeToStr(mFormatID)
+		var buffer = String(format: "%2d ch, %6.0f Hz, \(formatID) (0x%08X) ", mChannelsPerFrame, mSampleRate, mFormatFlags)
+		
+		switch mFormatID {
+		case kAudioFormatLinearPCM:
+			let isInt = (mFormatFlags & kLinearPCMFormatFlagIsFloat) == 0;
+			let wordSize = sampleWordSize
+			
+			let endian = (wordSize > 1) ?
+				((mFormatFlags & kLinearPCMFormatFlagIsBigEndian) == kLinearPCMFormatFlagIsBigEndian ? " big-endian" : " little-endian" ) : "";
+			let sign = isInt ?
+				((mFormatFlags & kLinearPCMFormatFlagIsSignedInteger) == kLinearPCMFormatFlagIsSignedInteger ? " signed" : " unsigned") : "";
+			let floatInt = isInt ? "integer" : "float";
+			
+			let packed: String
+			if wordSize > 0 && isPackednessSignificant {
+				if (mFormatFlags & kLinearPCMFormatFlagIsPacked) == kLinearPCMFormatFlagIsPacked {
+					packed = "packed in \(wordSize) bytes"
+				} else {
+					packed = "unpacked in \(wordSize) bytes"
+				}
 			} else {
-				theAnswer = x.mFormatID < y.mFormatID;
+				packed = ""
 			}
-			isDone = true;
+			
+			let align = (wordSize > 0 && isAlignmentSignificant) ?
+				((mFormatFlags & kLinearPCMFormatFlagIsAlignedHigh) == kLinearPCMFormatFlagIsAlignedHigh ? " high-aligned" : " low-aligned") : "";
+			let deinter = (mFormatFlags & kAudioFormatFlagIsNonInterleaved) == kAudioFormatFlagIsNonInterleaved ? ", deinterleaved" : "";
+			let commaSpace = (packed.isEmpty) || (!align.isEmpty) ? ", " : "";
+			
+			let bitdepth: String
+			
+			let fracbits = (mFormatFlags & kLinearPCMFormatFlagsSampleFractionMask) >> kLinearPCMFormatFlagsSampleFractionShift;
+			if fracbits > 0 {
+				bitdepth = "\(mBitsPerChannel - fracbits).\(fracbits)"
+			} else {
+				bitdepth = "\(mBitsPerChannel)"
+			}
+			
+			buffer += "\(bitdepth)-bit\(endian)\(sign) \(floatInt)\(commaSpace)\(packed)\(align)\(deinter)"
+			
+		case kAudioFormatAppleLossless:
+			var sourceBits = 0
+			switch mFormatFlags {
+			case kAppleLosslessFormatFlag_16BitSourceData:
+				sourceBits = 16
+				
+			case kAppleLosslessFormatFlag_20BitSourceData:
+				sourceBits = 20
+				
+			case kAppleLosslessFormatFlag_24BitSourceData:
+				sourceBits = 24
+				
+			case kAppleLosslessFormatFlag_32BitSourceData:
+				sourceBits = 32
+				
+			default:
+				break
+			}
+			
+			if sourceBits != 0 {
+				buffer += "from \(sourceBits)-bit source, "
+			} else {
+				buffer += "from UNKNOWN source bit depth, "
+			}
+			buffer += "\(mFramesPerPacket) frames/packet"
+			
+		default:
+			buffer += "\(mBitsPerChannel) bits/channel, \(mBytesPerPacket) bytes/packet, \(mFramesPerPacket) frames/packet, \(mBytesPerFrame) bytes/frame"
 		}
+		return buffer
 	}
-	
-	//  mixable is always better than non-mixable for linear PCM and should be the second order sort item
-	if (!isDone) && ((x.mFormatID == kAudioFormatLinearPCM) && (y.mFormatID == kAudioFormatLinearPCM)) {
-		if ((x.mFormatFlags & kAudioFormatFlagIsNonMixable) == 0) && ((y.mFormatFlags & kAudioFormatFlagIsNonMixable) != 0) {
-			theAnswer = true;
-			isDone = true;
-		} else if ((x.mFormatFlags & kAudioFormatFlagIsNonMixable) != 0) && ((y.mFormatFlags & kAudioFormatFlagIsNonMixable) == 0) {
-			theAnswer = false;
-			isDone = true;
-		}
-	}
-	
-	//	floating point vs integer for linear PCM only
-	if (!isDone) && (x.mFormatID == kAudioFormatLinearPCM && y.mFormatID == kAudioFormatLinearPCM) {
-		if (x.mFormatFlags & kAudioFormatFlagIsFloat) != (y.mFormatFlags & kAudioFormatFlagIsFloat) {
-			//	floating point is better than integer
-			theAnswer = (y.mFormatFlags & kAudioFormatFlagIsFloat) != 0
-			isDone = true;
-		}
-	}
-	
-	//	bit depth
-	if (!isDone) && (x.mBitsPerChannel != 0 && y.mBitsPerChannel != 0) {
-		if x.mBitsPerChannel != y.mBitsPerChannel {
-			//	deeper bit depths are higher quality
-			theAnswer = x.mBitsPerChannel < y.mBitsPerChannel;
-			isDone = true;
-		}
-	}
-	
-	//	sample rate
-	if (!isDone) && (x.mSampleRate != 0) && (y.mSampleRate != 0) {
-		if x.mSampleRate != y.mSampleRate {
-			//	higher sample rates are higher quality
-			theAnswer = x.mSampleRate < y.mSampleRate;
-			isDone = true;
-		}
-	}
-	
-	//	number of channels
-	if (!isDone) && (x.mChannelsPerFrame != 0 && y.mChannelsPerFrame != 0) {
-		if x.mChannelsPerFrame != y.mChannelsPerFrame {
-			//	more channels is higher quality
-			theAnswer = x.mChannelsPerFrame < y.mChannelsPerFrame;
-			//isDone = true;
-		}
-	}
-	
-	return theAnswer;
 }
+
+extension AudioStreamBasicDescription: Comparable {
+	public static func ==(lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
+		if lhs.mBytesPerFrame != rhs.mBytesPerFrame {
+			return false
+		} else if lhs.mSampleRate != rhs.mSampleRate {
+			return false
+		} else if lhs.mFormatID != rhs.mFormatID {
+			return false
+		} else if lhs.mFormatFlags != rhs.mFormatFlags {
+			return false
+		} else if lhs.mFramesPerPacket != rhs.mFramesPerPacket {
+			return false
+		} else if lhs.mBytesPerPacket != rhs.mBytesPerPacket {
+			return false
+		} else if lhs.mChannelsPerFrame != rhs.mChannelsPerFrame {
+			return false
+		} else if lhs.mBitsPerChannel != rhs.mBitsPerChannel {
+			return false
+		} else {
+			return true
+		}
+	}
+
+	public static func <(x: AudioStreamBasicDescription, y: AudioStreamBasicDescription) -> Bool {
+		var theAnswer = false;
+		var isDone = false;
+		
+		//	note that if either side is 0, that field is skipped
+		
+		//	format ID is the first order sort
+		if (!isDone) && ((x.mFormatID != 0) && (y.mFormatID != 0)) {
+			if x.mFormatID != y.mFormatID {
+				//	formats are sorted numerically except that linear
+				//	PCM is always first
+				if x.mFormatID == kAudioFormatLinearPCM {
+					theAnswer = true;
+				} else if y.mFormatID == kAudioFormatLinearPCM {
+					theAnswer = false;
+				} else {
+					theAnswer = x.mFormatID < y.mFormatID;
+				}
+				isDone = true;
+			}
+		}
+		
+		//  mixable is always better than non-mixable for linear PCM and should be the second order sort item
+		if (!isDone) && ((x.mFormatID == kAudioFormatLinearPCM) && (y.mFormatID == kAudioFormatLinearPCM)) {
+			if ((x.mFormatFlags & kAudioFormatFlagIsNonMixable) == 0) && ((y.mFormatFlags & kAudioFormatFlagIsNonMixable) != 0) {
+				theAnswer = true;
+				isDone = true;
+			} else if ((x.mFormatFlags & kAudioFormatFlagIsNonMixable) != 0) && ((y.mFormatFlags & kAudioFormatFlagIsNonMixable) == 0) {
+				theAnswer = false;
+				isDone = true;
+			}
+		}
+		
+		//	floating point vs integer for linear PCM only
+		if (!isDone) && (x.mFormatID == kAudioFormatLinearPCM && y.mFormatID == kAudioFormatLinearPCM) {
+			if (x.mFormatFlags & kAudioFormatFlagIsFloat) != (y.mFormatFlags & kAudioFormatFlagIsFloat) {
+				//	floating point is better than integer
+				theAnswer = (y.mFormatFlags & kAudioFormatFlagIsFloat) != 0
+				isDone = true;
+			}
+		}
+		
+		//	bit depth
+		if (!isDone) && (x.mBitsPerChannel != 0 && y.mBitsPerChannel != 0) {
+			if x.mBitsPerChannel != y.mBitsPerChannel {
+				//	deeper bit depths are higher quality
+				theAnswer = x.mBitsPerChannel < y.mBitsPerChannel;
+				isDone = true;
+			}
+		}
+		
+		//	sample rate
+		if (!isDone) && (x.mSampleRate != 0) && (y.mSampleRate != 0) {
+			if x.mSampleRate != y.mSampleRate {
+				//	higher sample rates are higher quality
+				theAnswer = x.mSampleRate < y.mSampleRate;
+				isDone = true;
+			}
+		}
+		
+		//	number of channels
+		if (!isDone) && (x.mChannelsPerFrame != 0 && y.mChannelsPerFrame != 0) {
+			if x.mChannelsPerFrame != y.mChannelsPerFrame {
+				//	more channels is higher quality
+				theAnswer = x.mChannelsPerFrame < y.mChannelsPerFrame;
+				//isDone = true;
+			}
+		}
+		
+		return theAnswer;
+	}
+}
+
 
 // MARK: - deprecated Swift 2 names
 
