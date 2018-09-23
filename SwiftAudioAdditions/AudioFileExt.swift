@@ -733,8 +733,52 @@ extension AudioStreamBasicDescription: CustomStringConvertible {
 	}
 }
 
+private func matchFormatFlags(_ x: AudioStreamBasicDescription, _ y: AudioStreamBasicDescription) -> Bool {
+	var xFlags = x.mFormatFlags;
+	var yFlags = y.mFormatFlags;
+	
+	// match wildcards
+	if (x.mFormatID == 0 || y.mFormatID == 0 || xFlags == 0 || yFlags == 0) {
+		return true;
+	}
+	
+	if x.mFormatID == kAudioFormatLinearPCM {
+		// knock off the all clear flag
+		xFlags &= ~kAudioFormatFlagsAreAllClear;
+		yFlags &= ~kAudioFormatFlagsAreAllClear;
+		
+		// if both kAudioFormatFlagIsPacked bits are set, then we don't care about the kAudioFormatFlagIsAlignedHigh bit.
+		if ((xFlags & yFlags & kAudioFormatFlagIsPacked) == kAudioFormatFlagIsPacked) {
+			xFlags &= ~kAudioFormatFlagIsAlignedHigh;
+			yFlags &= ~kAudioFormatFlagIsAlignedHigh;
+		}
+		
+		// if both kAudioFormatFlagIsFloat bits are set, then we don't care about the kAudioFormatFlagIsSignedInteger bit.
+		if (xFlags & yFlags & kAudioFormatFlagIsFloat) == kAudioFormatFlagIsFloat {
+			xFlags &= ~kAudioFormatFlagIsSignedInteger;
+			yFlags &= ~kAudioFormatFlagIsSignedInteger;
+		}
+		
+		//	if the bit depth is 8 bits or less and the format is packed, we don't care about endianness
+		if (x.mBitsPerChannel <= 8) && ((xFlags & kAudioFormatFlagIsPacked) == kAudioFormatFlagIsPacked) {
+			xFlags &= ~kAudioFormatFlagIsBigEndian;
+		}
+		if (y.mBitsPerChannel <= 8) && ((yFlags & kAudioFormatFlagIsPacked) == kAudioFormatFlagIsPacked) {
+			yFlags &= ~kAudioFormatFlagIsBigEndian;
+		}
+		
+		//	if the number of channels is 1, we don't care about non-interleavedness
+		if x.mChannelsPerFrame == 1 && y.mChannelsPerFrame == 1 {
+			xFlags &= ~kLinearPCMFormatFlagIsNonInterleaved;
+			yFlags &= ~kLinearPCMFormatFlagIsNonInterleaved;
+		}
+	}
+	return xFlags == yFlags;
+}
+
 extension AudioStreamBasicDescription: Comparable {
-	public static func ==(lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
+	/// Returns `true` if both `AudioStreamBasicDescription`s are exactly the same.
+	public static func ===(lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
 		if lhs.mBytesPerFrame != rhs.mBytesPerFrame {
 			return false
 		} else if lhs.mSampleRate != rhs.mSampleRate {
@@ -754,6 +798,22 @@ extension AudioStreamBasicDescription: Comparable {
 		} else {
 			return true
 		}
+	}
+	
+	/// Compares two `AudioStreamBasicDescription` to see if they're equal
+	///
+	/// The semantics for equality are:
+	/// 1. Values must match exactly -- except for PCM format flags, see above.
+	/// 2. wildcard's are ignored in the comparison
+	public static func ==(x: AudioStreamBasicDescription, y: AudioStreamBasicDescription) -> Bool {
+		return (x.mSampleRate == 0 || y.mSampleRate == 0 || x.mSampleRate == y.mSampleRate)
+			&& (x.mFormatID == 0 || y.mFormatID == 0 || x.mFormatID == y.mFormatID)
+			&& matchFormatFlags(x, y)
+			&& (x.mBytesPerPacket == 0 || y.mBytesPerPacket == 0 || x.mBytesPerPacket == y.mBytesPerPacket)
+			&& (x.mFramesPerPacket == 0 || y.mFramesPerPacket == 0 || x.mFramesPerPacket == y.mFramesPerPacket)
+			&& (x.mBytesPerFrame == 0 || y.mBytesPerFrame == 0 || x.mBytesPerFrame == y.mBytesPerFrame)
+			&& (x.mChannelsPerFrame == 0 || y.mChannelsPerFrame == 0 || x.mChannelsPerFrame == y.mChannelsPerFrame)
+			&& (x.mBitsPerChannel == 0 || y.mBitsPerChannel == 0 || x.mBitsPerChannel == y.mBitsPerChannel)
 	}
 
 	public static func <(x: AudioStreamBasicDescription, y: AudioStreamBasicDescription) -> Bool {
