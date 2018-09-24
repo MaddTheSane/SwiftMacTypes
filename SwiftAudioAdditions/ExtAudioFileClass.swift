@@ -19,8 +19,11 @@ final public class ExtAudioFile {
 		var aPtr: ExtAudioFileRef? = nil
 		let iErr = ExtAudioFileOpenURL(openURL as NSURL, &aPtr)
 		
-		if iErr != noErr {
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr, userInfo: [NSURLErrorKey: openURL])
+			}
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: [NSURLErrorKey: openURL])
 		}
 		internalPtr = aPtr!
 	}
@@ -40,7 +43,10 @@ final public class ExtAudioFile {
 		var aPtr: ExtAudioFileRef? = nil
 		let iErr = ExtAudioFileWrapAudioFileID(audioFile, forWriting, &aPtr)
 		
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 		internalPtr = aPtr!
@@ -50,8 +56,11 @@ final public class ExtAudioFile {
 		var aPtr: ExtAudioFileRef? = nil
 		let iErr = ExtAudioFileCreate(url: inURL, fileType: inFileType, streamDescription: &inStreamDesc, channelLayout: inChannelLayout, flags: flags, audioFile: &aPtr)
 		
-		if iErr != noErr {
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr, userInfo: [NSURLErrorKey: inURL])
+			}
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: [NSURLErrorKey: inURL])
 		}
 		internalPtr = aPtr!
 	}
@@ -59,7 +68,10 @@ final public class ExtAudioFile {
 	public func write(frames: UInt32, data: UnsafePointer<AudioBufferList>) throws {
 		let iErr = ExtAudioFileWrite(internalPtr, frames, data)
 		
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 	}
@@ -69,7 +81,10 @@ final public class ExtAudioFile {
 	public func writeAsync(frames: UInt32, data: UnsafePointer<AudioBufferList>) throws {
 		let iErr = ExtAudioFileWriteAsync(internalPtr, frames, data)
 		
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 	}
@@ -77,7 +92,10 @@ final public class ExtAudioFile {
 	public func read(frames: inout UInt32, data: UnsafeMutablePointer<AudioBufferList>) throws {
 		let iErr = ExtAudioFileRead(internalPtr, &frames, data)
 		
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 	}
@@ -92,17 +110,23 @@ final public class ExtAudioFile {
 		
 		let iErr = ExtAudioFileGetPropertyInfo(internalPtr, ID, &outSize, &outWritable)
 		
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
-		
+
 		return (outSize, outWritable.boolValue)
 	}
 	
 	public func get(property ID: ExtAudioFilePropertyID, dataSize: inout UInt32, data: UnsafeMutableRawPointer) throws {
 		let iErr = ExtAudioFileGetProperty(internalPtr, ID, &dataSize, data)
 		
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 	}
@@ -110,7 +134,10 @@ final public class ExtAudioFile {
 	public func set(property ID: ExtAudioFilePropertyID, dataSize: UInt32, data: UnsafeRawPointer) throws {
 		let iErr = ExtAudioFileSetProperty(internalPtr, ID, dataSize, data)
 		
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 	}
@@ -159,7 +186,7 @@ final public class ExtAudioFile {
 			if !writable {
 				//paramErr
 				//throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
-				fatalError(NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil).description)
+				fatalError(NSError(domain: NSOSStatusErrorDomain, code: Int(kAudio_ParamError), userInfo: nil).description)
 			}
 			try! set(property: kExtAudioFileProperty_ClientDataFormat, dataSize: size, data: &newVal)
 		}
@@ -253,8 +280,7 @@ final public class ExtAudioFile {
 		}
 		let (size, writable) = try get(propertyInfo: kExtAudioFileProperty_ConverterConfig)
 		if !writable {
-			//paramErr
-			throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+			throw SAACoreAudioError(.parameter)
 		}
 		try set(property: kExtAudioFileProperty_ConverterConfig, dataSize: size, data: &cOpaque)
 	}
@@ -263,8 +289,7 @@ final public class ExtAudioFile {
 		var bytes = bytes1
 		let (size, writable) = try get(propertyInfo: kExtAudioFileProperty_IOBufferSizeBytes)
 		if !writable {
-			//paramErr
-			throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+			throw SAACoreAudioError(.parameter)
 		}
 		try set(property: kExtAudioFileProperty_IOBufferSizeBytes, dataSize: size, data: &bytes)
 	}
@@ -272,8 +297,7 @@ final public class ExtAudioFile {
 	public func setIOBuffer(_ newVal: UnsafeMutableRawPointer) throws {
 		let (size, writable) = try get(propertyInfo: kExtAudioFileProperty_IOBuffer)
 		if !writable {
-			//paramErr
-			throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+			throw SAACoreAudioError(.parameter)
 		}
 		try set(property: kExtAudioFileProperty_IOBuffer, dataSize: size, data: newVal)
 	}
@@ -282,8 +306,7 @@ final public class ExtAudioFile {
 		var newVal = newVal1
 		let (size, writable) = try get(propertyInfo: kExtAudioFileProperty_PacketTable)
 		if !writable {
-			//paramErr
-			throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+			throw SAACoreAudioError(.parameter)
 		}
 		try set(property: kExtAudioFileProperty_PacketTable, dataSize: size, data: &newVal)
 	}

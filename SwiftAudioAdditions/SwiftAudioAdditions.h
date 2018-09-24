@@ -14,6 +14,6 @@ FOUNDATION_EXPORT double SwiftAudioAdditionsVersionNumber;
 //! Project version string for SwiftAudioAdditions.
 FOUNDATION_EXPORT const unsigned char SwiftAudioAdditionsVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <SwiftAudioAdditions/PublicHeader.h>
+#import <SwiftAudioAdditions/SAAError.h>
 
 

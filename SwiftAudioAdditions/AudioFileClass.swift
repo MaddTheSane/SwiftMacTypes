@@ -18,8 +18,11 @@ public final class AudioFile {
 		var fileID: AudioFileID? = nil
 		let iErr = AudioFileCreateWithURL(url as NSURL, fileType, &format, flags, &fileID)
 		
-		if iErr != noErr {
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr, userInfo: [NSURLErrorKey: url])
+			}
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: [NSURLErrorKey: url])
 		}
 		self.fileID = fileID!
 	}
@@ -28,8 +31,11 @@ public final class AudioFile {
 		var fileID: AudioFileID? = nil
 		let iErr = AudioFileOpenURL(openURL as NSURL, permissions, fileHint, &fileID)
 		
-		if iErr != noErr {
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr, userInfo: [NSURLErrorKey: openURL])
+			}
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: [NSURLErrorKey: openURL])
 		}
 		self.fileID = fileID!
 	}
@@ -38,7 +44,10 @@ public final class AudioFile {
 		var fileID: AudioFileID? = nil
 		let iErr = AudioFileOpenWithCallbacks(clientData, readFunc, writeFunction, getSizeFunction, setSizeFunction, fileTypeHint, &fileID)
 		
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 		self.fileID = fileID!
@@ -47,7 +56,10 @@ public final class AudioFile {
 	public func optimize() throws {
 		let iErr = AudioFileOptimize(fileID)
 		
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 	}
@@ -55,7 +67,10 @@ public final class AudioFile {
 	func readBytes(useCache: Bool = false, startingByte: Int64, byteCount: inout UInt32, outBuffer: UnsafeMutableRawPointer) throws {
 		let iErr = AudioFileReadBytes(fileID, useCache, startingByte, &byteCount, outBuffer)
 		
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 	}
@@ -63,7 +78,10 @@ public final class AudioFile {
 	func writeBytes(useCache: Bool = false, startingByte: Int64, byteCount: inout UInt32, outBuffer: UnsafeRawPointer) throws {
 		let iErr = AudioFileWriteBytes(fileID, useCache, startingByte, &byteCount, outBuffer)
 		
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 	}
@@ -71,7 +89,10 @@ public final class AudioFile {
 	public func userDataCount(ofID userDataID: UInt32) throws -> Int {
 		var outNumberItems: UInt32 = 0
 		let iErr = AudioFileCountUserData(fileID, userDataID, &outNumberItems)
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 		
@@ -81,7 +102,10 @@ public final class AudioFile {
 	func sizeOf(userDataID inUserDataID: UInt32, index: Int) throws -> Int {
 		var outNumberSize: UInt32 = 0
 		let iErr = AudioFileGetUserDataSize(fileID, inUserDataID, UInt32(index), &outNumberSize)
-		if iErr != noErr {
+		guard iErr == noErr else {
+			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
+				throw SAACoreAudioError(caErr)
+			}
 			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
 		}
 		

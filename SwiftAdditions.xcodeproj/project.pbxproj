@@ -38,6 +38,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		550404E721584E7D002D2702 /* SAAError.h in Headers */ = {isa = PBXBuildFile; fileRef = 550404E521584E7C002D2702 /* SAAError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		550404E821584E7D002D2702 /* SAAError.m in Sources */ = {isa = PBXBuildFile; fileRef = 550404E621584E7D002D2702 /* SAAError.m */; };
 		550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550B049F1A0D5932002BD56E /* COMUUIDs.swift */; };
 		550FBAC419A7ADC500EFBD3D /* SwiftAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		550FBACE19A7ADC500EFBD3D /* SwiftAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */; };
@@ -219,6 +221,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		550404E521584E7C002D2702 /* SAAError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAAError.h; sourceTree = "<group>"; };
+		550404E621584E7D002D2702 /* SAAError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAAError.m; sourceTree = "<group>"; };
 		550B049F1A0D5932002BD56E /* COMUUIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COMUUIDs.swift; sourceTree = "<group>"; };
 		550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		550FBAC219A7ADC500EFBD3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -567,6 +571,8 @@
 				55A02E301C61F07B00F75116 /* AudioFileClass.swift */,
 				55A02E321C61F09900F75116 /* ExtAudioFileClass.swift */,
 				55E11DE51AE7114000815555 /* SwiftAudioAdditions.h */,
+				550404E521584E7C002D2702 /* SAAError.h */,
+				550404E621584E7D002D2702 /* SAAError.m */,
 				55E11DE31AE7114000815555 /* Supporting Files */,
 			);
 			path = SwiftAudioAdditions;
@@ -648,6 +654,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55E11DE61AE7114000815555 /* SwiftAudioAdditions.h in Headers */,
+				550404E721584E7D002D2702 /* SAAError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1089,6 +1096,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				550404E821584E7D002D2702 /* SAAError.m in Sources */,
 				55A02E311C61F07B00F75116 /* AudioFileClass.swift in Sources */,
 				55E11DFC1AE711C600815555 /* AudioUnit.swift in Sources */,
 				55E11DFB1AE711C600815555 /* ExtAudioFileExt.swift in Sources */,
@@ -1648,6 +1656,7 @@
 		55E11DF41AE7114000815555 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1656,11 +1665,13 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = SwiftAudioAdditions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx appletvsimulator appletvos";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
@@ -1669,6 +1680,7 @@
 		55E11DF51AE7114000815555 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
@@ -1678,6 +1690,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = SwiftAudioAdditions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
