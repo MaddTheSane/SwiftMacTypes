@@ -14,6 +14,7 @@
 #include <AudioToolbox/AUComponent.h>
 #include <AudioToolbox/AudioFile.h>
 #include <CoreAudio/CoreAudioTypes.h>
+#include <CoreMIDI/MIDIServices.h>
 
 #ifndef MTS_ERROR_ENUM
 #define __MTS_ERROR_ENUM_GET_MACRO(_0, _1, _2, NAME, ...) NAME
@@ -77,6 +78,22 @@ typedef MTS_ERROR_ENUM(OSStatus, SAACoreAudioErrorDomain, SAACoreAudioError) {
 	SAACoreAudioErrorFileInvalidPacketOffset = kAudioFileInvalidPacketOffsetError,
 	SAACoreAudioErrorFileInvalidFile = kAudioFileInvalidFileError,
 	SAACoreAudioErrorFileOperationNotSupported = kAudioFileOperationNotSupportedError,
+	SAACoreAudioErrorMIDIInvalidClient = kMIDIInvalidClient,
+	SAACoreAudioErrorMIDIInvalidPort = kMIDIInvalidPort,
+	SAACoreAudioErrorMIDIWrongEndpointType = kMIDIWrongEndpointType,
+	SAACoreAudioErrorMIDINoConnection = kMIDINoConnection,
+	SAACoreAudioErrorMIDIUnknownEndpoint = kMIDIUnknownEndpoint,
+	SAACoreAudioErrorMIDIUnknownProperty = kMIDIUnknownProperty,
+	SAACoreAudioErrorMIDIWrongPropertyType = kMIDIWrongPropertyType,
+	SAACoreAudioErrorMIDINoCurrentSetup = kMIDINoCurrentSetup,
+	SAACoreAudioErrorMIDIMessageSend = kMIDIMessageSendErr,
+	SAACoreAudioErrorMIDIServerStart = kMIDIServerStartErr,
+	SAACoreAudioErrorMIDISetupFormat = kMIDISetupFormatErr,
+	SAACoreAudioErrorMIDIWrongThread = kMIDIWrongThread,
+	SAACoreAudioErrorMIDIObjectNotFound = kMIDIObjectNotFound,
+	SAACoreAudioErrorMIDINotUnique = kMIDIIDNotUnique,
+	SAACoreAudioErrorMIDINotPermitted = kMIDINotPermitted,
+	SAACoreAudioErrorMIDIUnknown = kMIDIUnknownError,
 };
 
 #endif /* SAAError_h */
