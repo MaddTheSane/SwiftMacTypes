@@ -47,7 +47,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
 		}
 		internalPtr = aPtr!
 	}
@@ -72,7 +72,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
 		}
 	}
 	
@@ -85,7 +85,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
 		}
 	}
 	
@@ -96,7 +96,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
 		}
 	}
 	
@@ -114,7 +114,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
 		}
 
 		return (outSize, outWritable.boolValue)
@@ -127,7 +127,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
 		}
 	}
 	
@@ -138,7 +138,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
 		}
 	}
 	
@@ -164,8 +164,7 @@ final public class ExtAudioFile {
 		var newVal = newValue
 		let (size, writable) = try! get(propertyInfo: kExtAudioFileProperty_ClientDataFormat)
 		if !writable {
-		//paramErr
-		//throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+		//throw SAACoreAudioError(.parameter)
 		fatalError(NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil).description)
 		}
 		try! set(property: kExtAudioFileProperty_ClientDataFormat, dataSize: size, data: &newVal)
@@ -184,8 +183,7 @@ final public class ExtAudioFile {
 			var newVal = newValue
 			let (size, writable) = try! get(propertyInfo: kExtAudioFileProperty_ClientDataFormat)
 			if !writable {
-				//paramErr
-				//throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+				//throw SAACoreAudioError(.parameter)
 				fatalError(NSError(domain: NSOSStatusErrorDomain, code: Int(kAudio_ParamError), userInfo: nil).description)
 			}
 			try! set(property: kExtAudioFileProperty_ClientDataFormat, dataSize: size, data: &newVal)
@@ -205,8 +203,7 @@ final public class ExtAudioFile {
 		var newVal = newValue
 		let (size, writable) = try! get(propertyInfo: kExtAudioFileProperty_ClientDataFormat)
 		if !writable {
-		//paramErr
-		//throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+		//throw SAACoreAudioError(.parameter)
 		fatalError(NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil).description)
 		}
 		try! set(property: kExtAudioFileProperty_ClientDataFormat, dataSize: size, data: &newVal)
@@ -226,8 +223,7 @@ final public class ExtAudioFile {
 		var newVal = newValue
 		let (size, writable) = try! get(propertyInfo: kExtAudioFileProperty_ClientDataFormat)
 		if !writable {
-		//paramErr
-		//throw NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil)
+		//throw SAACoreAudioError(.parameter)
 		fatalError(NSError(domain: NSOSStatusErrorDomain, code: -50, userInfo: nil).description)
 		}
 		try! set(property: kExtAudioFileProperty_ClientDataFormat, dataSize: size, data: &newVal)

@@ -15,6 +15,7 @@
 #include <AudioToolbox/AudioFile.h>
 #include <CoreAudio/CoreAudioTypes.h>
 
+#ifndef MTS_ERROR_ENUM
 #define __MTS_ERROR_ENUM_GET_MACRO(_0, _1, _2, NAME, ...) NAME
 #if ((__cplusplus && __cplusplus >= 201103L && (__has_extension(cxx_strong_enums) || __has_feature(objc_fixed_enum))) || (!__cplusplus && __has_feature(objc_fixed_enum))) && __has_attribute(ns_error_domain)
 #define __MTS_NAMED_ERROR_ENUM(_type, _domain, _name)     enum _name : _type _name; enum __attribute__((ns_error_domain(_domain))) _name : _type
@@ -25,6 +26,7 @@
 #endif
 
 #define MTS_ERROR_ENUM(...) __MTS_ERROR_ENUM_GET_MACRO(__VA_ARGS__, __MTS_NAMED_ERROR_ENUM, __MTS_ANON_ERROR_ENUM)(__VA_ARGS__)
+#endif
 
 extern NSErrorDomain const SAACoreAudioErrorDomain;
 typedef MTS_ERROR_ENUM(OSStatus, SAACoreAudioErrorDomain, SAACoreAudioError) {
