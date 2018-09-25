@@ -18,10 +18,10 @@ import AudioToolbox
 /// as some calls to `AudioUnitRender` can reset the ABL.
 public class AUOutputBL {
 	public private(set) var format: AudioStreamBasicDescription
-	var bufferMemory: UnsafeMutableRawPointer? = nil
-	var bufferList: UnsafeMutableAudioBufferListPointer
-	var bufferCount: Int
-	var bufferSize: Int
+	private var bufferMemory: UnsafeMutableRawPointer? = nil
+	private var bufferList: UnsafeMutableAudioBufferListPointer
+	private var bufferCount: Int
+	private var bufferSize: Int
 	public private(set) var frames: UInt32
 	
 	/// This is the constructor that you use.
@@ -122,5 +122,18 @@ public class AUOutputBL {
 		if let bufferMemory = bufferMemory {
 			free(bufferMemory)
 		}
+	}
+}
+
+extension AUOutputBL: CustomDebugStringConvertible {
+	public var debugDescription: String {
+		var output = format.debugDescription
+		output += "\n"
+		output += "Num Buffers:\(bufferList.count), mFrames:\(frames), allocatedMemory:\(bufferMemory != nil ? "T" : "F")\n"
+		for (i, buf) in bufferList.enumerated() {
+			output += "\tBuffer:\(i), Size:\(buf.mDataByteSize), Chans:\(buf.mNumberChannels), Buffer:\(buf.mData?.debugDescription ?? "nil")\n"
+		}
+		
+		return output
 	}
 }
