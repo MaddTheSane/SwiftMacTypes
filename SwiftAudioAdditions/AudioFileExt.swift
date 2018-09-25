@@ -672,8 +672,8 @@ private func CAStringForOSType(_ val: OSType) -> String {
 	return toRet
 }
 
-extension AudioStreamBasicDescription: CustomDebugStringConvertible {
-	public var debugDescription: String {
+extension AudioStreamBasicDescription: CustomStringConvertible {
+	public var description: String {
 		let formatID = CAStringForOSType(mFormatID)
 		var buffer = String(format: "%2d ch, %6.0f Hz, \(formatID) (0x%08X) ", mChannelsPerFrame, mSampleRate, mFormatFlags)
 		

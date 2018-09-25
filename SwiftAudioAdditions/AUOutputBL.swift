@@ -127,7 +127,7 @@ public class AUOutputBL {
 
 extension AUOutputBL: CustomDebugStringConvertible {
 	public var debugDescription: String {
-		var output = format.debugDescription
+		var output = format.description
 		output += "\n"
 		output += "Num Buffers:\(bufferList.count), mFrames:\(frames), allocatedMemory:\(bufferMemory != nil ? "T" : "F")\n"
 		for (i, buf) in bufferList.enumerated() {
