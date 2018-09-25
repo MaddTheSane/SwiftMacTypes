@@ -74,6 +74,8 @@
 		55706DA11A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55706DA01A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift */; };
 		55706DA91A1EC2880000FD93 /* IOCFPlugInClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55706DA81A1EC2880000FD93 /* IOCFPlugInClass.swift */; };
 		55706DAC1A1EC3BC0000FD93 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
+		55721B7C21599B7C00F048AA /* AUOutputBL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55721B7B21599B7C00F048AA /* AUOutputBL.swift */; };
+		55721B7E21599BDC00F048AA /* AudioFileFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55721B7D21599BDC00F048AA /* AudioFileFormats.swift */; };
 		5576C14C1F6AFA4400C8C01F /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577287719ABE259008328D0 /* MacTypesAdditions.swift */; };
 		5587E0C01A0A115D00CA1400 /* Endianness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5587E0BF1A0A115D00CA1400 /* Endianness.swift */; };
@@ -268,6 +270,8 @@
 		55706D9F1A1EC2450000FD93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55706DA01A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftIOKitAdditionsTests.swift; sourceTree = "<group>"; };
 		55706DA81A1EC2880000FD93 /* IOCFPlugInClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOCFPlugInClass.swift; sourceTree = "<group>"; };
+		55721B7B21599B7C00F048AA /* AUOutputBL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AUOutputBL.swift; sourceTree = "<group>"; };
+		55721B7D21599BDC00F048AA /* AudioFileFormats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileFormats.swift; sourceTree = "<group>"; };
 		5577287719ABE259008328D0 /* MacTypesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacTypesAdditions.swift; sourceTree = "<group>"; };
 		5587E0BF1A0A115D00CA1400 /* Endianness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endianness.swift; sourceTree = "<group>"; };
 		55A02E301C61F07B00F75116 /* AudioFileClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileClass.swift; sourceTree = "<group>"; };
@@ -565,6 +569,8 @@
 		55E11DE21AE7114000815555 /* SwiftAudioAdditions */ = {
 			isa = PBXGroup;
 			children = (
+				55721B7D21599BDC00F048AA /* AudioFileFormats.swift */,
+				55721B7B21599B7C00F048AA /* AUOutputBL.swift */,
 				556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */,
 				55E56C131AE2C716006B7276 /* ExtAudioFileExt.swift */,
 				553C2B991A0C4B0500700F83 /* AudioUnit.swift */,
@@ -1099,9 +1105,11 @@
 				550404E821584E7D002D2702 /* SAAError.m in Sources */,
 				55A02E311C61F07B00F75116 /* AudioFileClass.swift in Sources */,
 				55E11DFC1AE711C600815555 /* AudioUnit.swift in Sources */,
+				55721B7C21599B7C00F048AA /* AUOutputBL.swift in Sources */,
 				55E11DFB1AE711C600815555 /* ExtAudioFileExt.swift in Sources */,
 				55A02E331C61F09900F75116 /* ExtAudioFileClass.swift in Sources */,
 				55E11DFA1AE711C600815555 /* AudioFileExt.swift in Sources */,
+				55721B7E21599BDC00F048AA /* AudioFileFormats.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
