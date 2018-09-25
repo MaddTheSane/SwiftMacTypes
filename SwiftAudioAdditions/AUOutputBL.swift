@@ -8,6 +8,14 @@
 import Foundation
 import AudioToolbox
 
+/// Simple Buffer List wrapper targetted to use with retrieving AU output.
+///
+/// Simple Buffer List wrapper targetted to use with retrieving AU output.
+/// Works in one of two ways (both adjustable)... Can use it with `nil` pointers, or allocate
+/// memory to receive the data in.
+///
+/// Before using this with any call to `AudioUnitRender`, it needs to be Prepared
+/// as some calls to `AudioUnitRender` can reset the ABL.
 public class AUOutputBL {
 	public private(set) var format: AudioStreamBasicDescription
 	var bufferMemory: UnsafeMutableRawPointer? = nil
@@ -16,6 +24,8 @@ public class AUOutputBL {
 	var bufferSize: Int
 	public private(set) var frames: UInt32
 	
+	/// This is the constructor that you use.
+	/// It can't be reset once you've constructed it.
 	public init(streamDescription inDesc: AudioStreamBasicDescription, frameCount inDefaultNumFrames: UInt32 = 512) {
 		format = inDesc
 		bufferSize = 0
@@ -65,8 +75,8 @@ public class AUOutputBL {
 		}
 	}
 	
-	public func prepare() throws {
-		try prepare(frames: frames)
+	public func prepare() {
+		try! prepare(frames: frames)
 	}
 	
 	/// this version can throw if this is an allocted ABL and `inNumFrames` is `> allocatedFrames`
