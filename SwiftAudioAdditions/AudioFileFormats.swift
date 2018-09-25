@@ -11,7 +11,7 @@ import SwiftAdditions
 
 private func OSTypeToStr(_ val: OSType) -> String {
 	var toRet = ""
-	toRet.reserveCapacity(4)
+	toRet.reserveCapacity(16)
 	var str = [Int8](repeating: 0, count: 4)
 	do {
 		var tmpStr = val.bigEndian
@@ -47,14 +47,14 @@ public class AudioFileFormats {
 			}
 			var toRet = "    '\(OSTypeToStr(formatID))': \(ny(readable))readable \(ny(writable))writable\n"
 			for variant in variants {
-				toRet += "      \(variant)\n"
+				toRet += "      \(variant.debugDescription)\n"
 			}
 			
 			return toRet
 		}
 	}
 	
-	public struct FileFormatInfo {
+	public struct FileFormatInfo: CustomDebugStringConvertible {
 		public var fileTypeID = AudioFileTypeID()
 		public var fileTypeName = ""
 		public var extensions = [String]()
@@ -83,7 +83,7 @@ public class AudioFileFormats {
 			return false
 		}
 		
-		mutating func loadDataFormats() {
+		public mutating func loadDataFormats() {
 			guard dataFormats.isEmpty else {
 				return
 			}
@@ -173,49 +173,25 @@ public class AudioFileFormats {
 				}
 			}
 		}
+		
+		public var debugDescription: String {
+			var toRet = "File type: '\(OSTypeToStr(fileTypeID))' = \(fileTypeName)\n  Extensions:"
+			for ext in extensions {
+				toRet += " .\(ext)"
+			}
+			
+			var tmp = self
+			tmp.loadDataFormats()
+			toRet += "\n  Formats:\n"
+			for df in dataFormats {
+				toRet += df.debugDescription
+				toRet += "\n"
+			}
+
+			return toRet
+		}
 	}
-	/*
-struct FileFormatInfo {
-FileFormatInfo() : mFileTypeName(NULL), mExtensions(NULL), mDataFormats(NULL) { }
-~FileFormatInfo() {
-delete[] mDataFormats;
-if (mFileTypeName)
-CFRelease(mFileTypeName);
-if (mExtensions)
-CFRelease(mExtensions);
-}
-
-AudioFileTypeID					mFileTypeID;
-CFStringRef						mFileTypeName;
-CFArrayRef						mExtensions;
-int								mNumDataFormats;
-DataFormatInfo *				mDataFormats;		// NULL until loaded!
-
-CFIndex	NumberOfExtensions() { return mExtensions ? CFArrayGetCount(mExtensions) : 0; }
-char *	GetExtension(CFIndex index, char *buf, int buflen) {
-CFStringRef cfext = (CFStringRef)CFArrayGetValueAtIndex(mExtensions, index);
-CFStringGetCString(cfext, buf, buflen, kCFStringEncodingUTF8);
-return buf;
-}
-bool	MatchExtension(CFStringRef testExt) {	// testExt should not include "."
-CFIndex n = NumberOfExtensions();
-for (CFIndex i = 0; i < n; ++i) {
-CFStringRef ext = (CFStringRef)CFArrayGetValueAtIndex(mExtensions, i);
-if (CFStringCompare(ext, testExt, kCFCompareCaseInsensitive) == kCFCompareEqualTo)
-return true;
-}
-return false;
-}
-bool	AnyWritableFormats();
-void	LoadDataFormats();
-
-#if DEBUG
-void	DebugPrint();
-#endif
-}
-	*/
 	
-	//FileFormatInfo	*	mFileFormats
 	public private(set) var fileFormats = [FileFormatInfo]()
 	
 	private init(loadFormats: Bool = true) {
@@ -267,49 +243,44 @@ void	DebugPrint();
 		}
 	}
 	
-	/*
-	
-	// note that the outgoing format will have zero for the sample rate, channels per frame, bytesPerPacket, bytesPerFrame
-	bool	CAAudioFileFormats::InferDataFormatFromFileFormat(AudioFileTypeID filetype, CAStreamBasicDescription &fmt)
-	{
-	// if the file format only supports one data format
-	for (int i = 0; i < mNumFileFormats; ++i) {
-	FileFormatInfo *ffi = &mFileFormats[i];
-	ffi->LoadDataFormats();
-	if (ffi->mFileTypeID == filetype && ffi->mNumDataFormats > 0) {
-	DataFormatInfo *dfi = &ffi->mDataFormats[0];
-	if (ffi->mNumDataFormats > 1) {
-	// file can contain multiple data formats. Take PCM if it's there.
-	for (int j = 0; j < ffi->mNumDataFormats; ++j) {
-	if (ffi->mDataFormats[j].mFormatID == kAudioFormatLinearPCM) {
-	dfi = &ffi->mDataFormats[j];
-	break;
+	/// Note that the returning format will have zero for the sample rate, channels per frame, bytesPerPacket, bytesPerFrame
+	public func inferDataFormat(fromFileFormat filetype: AudioFileTypeID) -> AudioStreamBasicDescription? {
+		var fmt = AudioStreamBasicDescription()
+		// if the file format only supports one data format
+		for var ffi in fileFormats {
+			ffi.loadDataFormats()
+			if ffi.fileTypeID == filetype && ffi.dataFormats.count > 0 {
+				var dfi = ffi.dataFormats[0]
+				if ffi.dataFormats.count > 1 {
+					// file can contain multiple data formats. Take PCM if it's there.
+					for datForm in ffi.dataFormats  {
+						if datForm.formatID == kAudioFormatLinearPCM {
+							dfi = datForm
+							break
+						}
+					}
+				}
+				
+				memset(&fmt, 0, MemoryLayout<AudioStreamBasicDescription>.size);
+				fmt.mFormatID = dfi.formatID
+				if dfi.variants.count > 0 {
+					// take the first variant as a default
+					fmt = dfi.variants[0]
+					if dfi.variants.count > 1 && dfi.formatID == kAudioFormatLinearPCM {
+						// look for a 16-bit variant as a better default
+						for desc in dfi.variants  {
+							if (desc.mBitsPerChannel == 16) {
+								fmt = desc
+								break
+							}
+						}
+					}
+				}
+				return fmt
+			}
+		}
+		return nil
 	}
-	}
-	}
-	memset(&fmt, 0, sizeof(fmt));
-	fmt.mFormatID = dfi->mFormatID;
-	if (dfi->mNumVariants > 0) {
-	// take the first variant as a default
-	fmt = dfi->mVariants[0];
-	if (dfi->mNumVariants > 1 && dfi->mFormatID == kAudioFormatLinearPCM) {
-	// look for a 16-bit variant as a better default
-	for (int j = 0; j < dfi->mNumVariants; ++j) {
-	AudioStreamBasicDescription *desc = &dfi->mVariants[j];
-	if (desc->mBitsPerChannel == 16) {
-	fmt = *desc;
-	break;
-	}
-	}
-	}
-	}
-	return true;
-	}
-	}
-	return false;
-	}
-
-	*/
 	
 	public func inferFileFormat(from url: URL) -> AudioFileTypeID? {
 		let ext = url.pathExtension
@@ -324,61 +295,44 @@ void	DebugPrint();
 		return nil
 	}
 	
-	/*
-	
-bool	CAAudioFileFormats::InferFileFormatFromFilename(const char *filename, AudioFileTypeID &filetype)
-{
-if (filename == NULL) return false;
-CFStringRef cfname = CFStringCreateWithCString(NULL, filename, kCFStringEncodingUTF8);
-bool result = InferFileFormatFromFilename(cfname, filetype);
-CFRelease(cfname);
-return result;
-}
-	
-	bool	CAAudioFileFormats::InferFileFormatFromDataFormat(const CAStreamBasicDescription &fmt,
-	AudioFileTypeID &filetype)
-	{
-	// if there's exactly one file format that supports this data format
-	FileFormatInfo *theFileFormat = NULL;
-	for (int i = 0; i < mNumFileFormats; ++i) {
-	FileFormatInfo *ffi = &mFileFormats[i];
-	ffi->LoadDataFormats();
-	DataFormatInfo *dfi = ffi->mDataFormats, *dfiend = dfi + ffi->mNumDataFormats;
-	for ( ; dfi < dfiend; ++dfi)
-	if (dfi->mFormatID == fmt.mFormatID) {
-	if (theFileFormat != NULL)
-	return false;	// ambiguous
-	theFileFormat = ffi;	// got a candidate
-	}
-	}
-	if (theFileFormat == NULL)
-	return false;
-	filetype = theFileFormat->mFileTypeID;
-	return true;
+	public func inferFileFormat(from fmt: AudioStreamBasicDescription) -> AudioFileTypeID? {
+		var theFileFormat: FileFormatInfo? = nil
+		for var ffi in fileFormats {
+			ffi.loadDataFormats()
+			for dfi in ffi.dataFormats {
+				if dfi.formatID == fmt.mFormatID {
+					if theFileFormat != nil {
+						return nil	// ambiguous
+					}
+					theFileFormat = ffi	// got a candidate
+				}
+			}
+		}
+		if let theFileFormat = theFileFormat {
+			return theFileFormat.fileTypeID
+		}
+		return nil
 	}
 	
-	bool	CAAudioFileFormats::IsKnownDataFormat(OSType dataFormat)
-	{
-	for (int i = 0; i < mNumFileFormats; ++i) {
-	FileFormatInfo *ffi = &mFileFormats[i];
-	ffi->LoadDataFormats();
-	DataFormatInfo *dfi = ffi->mDataFormats, *dfiend = dfi + ffi->mNumDataFormats;
-	for ( ; dfi < dfiend; ++dfi)
-	if (dfi->mFormatID == dataFormat)
-	return true;
-	}
-	return false;
+	public func isKnownDataFormat(_ dataFormat: OSType) -> Bool {
+		for var ffi in fileFormats {
+			ffi.loadDataFormats()
+			for dfi in ffi.dataFormats {
+				if dfi.formatID == dataFormat {
+					return true
+				}
+			}
+		}
+		
+		return false
 	}
 	
-	CAAudioFileFormats::FileFormatInfo *	CAAudioFileFormats::FindFileFormat(UInt32 formatID)
-	{
-	for (int i = 0; i < mNumFileFormats; ++i) {
-	FileFormatInfo *ffi = &mFileFormats[i];
-	if (ffi->mFileTypeID == formatID)
-	return ffi;
+	public func findFileFormat(_ formatID: UInt32) -> FileFormatInfo? {
+		for ffi in fileFormats {
+			if ffi.fileTypeID == formatID {
+				return ffi
+			}
+		}
+		return nil
 	}
-	return NULL;
-	}
-
-*/
 }
