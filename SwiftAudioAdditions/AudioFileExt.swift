@@ -350,8 +350,35 @@ public extension AudioStreamBasicDescription {
 		return isPackednessSignificant || (mBitsPerChannel & 7) != 0
 	}
 	
-	public enum ASBDError: Error {
+	public enum ASBDError: Error, CustomStringConvertible {
 		case reqiresPCMFormat
+		case extraCharactersAtEnd(Substring)
+		case expectedFractionalBits
+		case unexpectedEndOfString
+		case invalidFormat
+		case invalidInterleavedFlag
+		
+		public var description: String {
+			switch self {
+			case .expectedFractionalBits:
+				return "Expected fractional bits following '.'"
+				
+			case .extraCharactersAtEnd(let hi):
+				return "extra characters at end of format string: \(hi)"
+				
+			case .invalidInterleavedFlag:
+				return "non-interleaved flag invalid for non-PCM formats"
+				
+			case .reqiresPCMFormat:
+				return "Format was expected to be PCM"
+				
+			case .unexpectedEndOfString:
+				return "Unexpected end of string reached"
+				
+			case .invalidFormat:
+				return "Invalid format"
+			}
+		}
 	}
 	
 	public mutating func changeCountOfChannels(nChannels: UInt32, interleaved: Bool) throws {
@@ -398,7 +425,7 @@ public extension AudioStreamBasicDescription {
 	
 	///	format[@sample_rate_hz][/format_flags][#frames_per_packet][:LHbytesPerFrame][,channelsDI].<br>
 	/// Format for PCM is [-][BE|LE]{F|I|UI}{bitdepth}; else a 4-char format code (e.g. `aac`, `alac`).
-	public init?(fromText: String) {
+	public init(fromText: String) throws {
 		var charIterator = fromText.startIndex
 		
 		func numFromCurrentChar() -> Int? {
@@ -418,7 +445,7 @@ public extension AudioStreamBasicDescription {
 		}
 		
 		if fromText.count < 3 {
-			return nil
+			throw ASBDError.unexpectedEndOfString
 		}
 		
 		self.init()
@@ -471,7 +498,7 @@ public extension AudioStreamBasicDescription {
 						if aBuf == 0 {
 							// special-case for 'aac'
 							if i != 3 {
-								return nil;
+								throw ASBDError.invalidFormat
 							}
 							if wasAdvanced {
 								charIterator = fromText.index(before: charIterator)	// keep pointing at the terminating null
@@ -484,7 +511,7 @@ public extension AudioStreamBasicDescription {
 						// "\xNN" is a hex byte
 						charIterator = fromText.index(after: charIterator)
 						if (nextChar() != "x") {
-							return nil;
+							throw ASBDError.invalidFormat
 						}
 						var x: Int32 = 0
 						
@@ -496,7 +523,7 @@ public extension AudioStreamBasicDescription {
 								return vsscanf(cStr, "%02X", vaPtr)
 							})
 						}) != 1) {
-							return nil
+							throw ASBDError.invalidFormat
 						}
 						
 						aBuf = Int8(truncatingIfNeeded: x)
@@ -530,8 +557,7 @@ public extension AudioStreamBasicDescription {
 			if (nextChar() == ".") {
 				charIterator = fromText.index(after: charIterator)
 				guard let _ = numFromCurrentChar() else {
-					print("Expected fractional bits following '.'");
-					return nil;
+					throw ASBDError.expectedFractionalBits
 				}
 				while let aNum = numFromCurrentChar() {
 					fracbits = 10 * fracbits + UInt32(aNum)
@@ -596,7 +622,7 @@ public extension AudioStreamBasicDescription {
 			} else if (fromText[charIterator] == "H") {
 				mFormatFlags |= kLinearPCMFormatFlagIsAlignedHigh;
 			} else {
-				return nil;
+				throw ASBDError.invalidFormat
 			}
 			charIterator = fromText.index(after: charIterator)
 			var bytesPerFrame: UInt32 = 0;
@@ -618,8 +644,7 @@ public extension AudioStreamBasicDescription {
 			if nextChar() == "D" {
 				charIterator = fromText.index(after: charIterator)
 				guard mFormatID == kAudioFormatLinearPCM else {
-					print("non-interleaved flag invalid for non-PCM formats\n");
-					return nil;
+					throw ASBDError.invalidInterleavedFlag
 				}
 				mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
 			} else {
@@ -633,8 +658,7 @@ public extension AudioStreamBasicDescription {
 			}
 		}
 		if charIterator != fromText.endIndex {
-			print("extra characters at end of format string: \(fromText[charIterator..<fromText.endIndex])");
-			return nil
+			throw ASBDError.extraCharactersAtEnd(fromText[charIterator..<fromText.endIndex])
 		}
 	}
 }

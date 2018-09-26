@@ -31,8 +31,7 @@ public class AUOutputBL {
 		bufferSize = 0
 		bufferCount = format.isInterleaved ? 1 : Int(format.mChannelsPerFrame)
 		frames = inDefaultNumFrames
-		let mem1 = malloc(MemoryLayout<AudioBufferList>.alignment + bufferCount * MemoryLayout<AudioBuffer>.alignment).assumingMemoryBound(to: AudioBufferList.self)
-		bufferList = UnsafeMutableAudioBufferListPointer(mem1)
+		bufferList = AudioBufferList.allocate(maximumBuffers: bufferCount)
 	}
 	
 	/// You only need to call this if you want to allocate a buffer list.
@@ -118,7 +117,7 @@ public class AUOutputBL {
 	}
 	
 	deinit {
-		free(bufferList.unsafeMutablePointer)
+		bufferList.unsafeMutablePointer.deallocate()
 		if let bufferMemory = bufferMemory {
 			free(bufferMemory)
 		}
