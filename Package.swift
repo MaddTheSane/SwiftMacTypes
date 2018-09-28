@@ -35,7 +35,8 @@ let package = Package(
         .target(
             name: "SwiftAudioAdditions",
             dependencies: ["SwiftAdditions"],
-            path: "SwiftAudioAdditions"),
+            path: "SwiftAudioAdditions",
+            exclude: ["SAAError.m"]),
         .testTarget(
             name: "SwiftAudioAdditionsTests",
             dependencies: ["SwiftAdditions", "SwiftAudioAdditions"],

@@ -276,6 +276,7 @@
 		5587E0BF1A0A115D00CA1400 /* Endianness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endianness.swift; sourceTree = "<group>"; };
 		55A02E301C61F07B00F75116 /* AudioFileClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileClass.swift; sourceTree = "<group>"; };
 		55A02E321C61F09900F75116 /* ExtAudioFileClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtAudioFileClass.swift; sourceTree = "<group>"; };
+		55A5BE1E215EA2C000D31F29 /* CoreAudioError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAudioError.swift; sourceTree = "<group>"; };
 		55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphics.swift; sourceTree = "<group>"; };
 		55B2B64319F564FC00A716BC /* ForceFeedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForceFeedback.swift; sourceTree = "<group>"; };
 		55B713121D0775EF00F2EA1F /* CharacterAdditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterAdditionsTests.swift; sourceTree = "<group>"; };
@@ -579,6 +580,7 @@
 				55E11DE51AE7114000815555 /* SwiftAudioAdditions.h */,
 				550404E521584E7C002D2702 /* SAAError.h */,
 				550404E621584E7D002D2702 /* SAAError.m */,
+				55A5BE1E215EA2C000D31F29 /* CoreAudioError.swift */,
 				55E11DE31AE7114000815555 /* Supporting Files */,
 			);
 			path = SwiftAudioAdditions;
