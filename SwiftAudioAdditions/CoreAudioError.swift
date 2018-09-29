@@ -24,6 +24,7 @@ public struct SAACoreAudioError: _BridgedStoredNSError {
 		return SAACoreAudioErrorDomain
 	}
 	
+	/// Errors found in the audio frameworks of Mac OS X/iOS
 	public enum Code: OSStatus, _ErrorCodeProtocol {
 		public typealias _ErrorType = SAACoreAudioError
 

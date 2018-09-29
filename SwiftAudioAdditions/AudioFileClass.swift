@@ -64,7 +64,7 @@ public final class AudioFile {
 		}
 	}
 	
-	func readBytes(useCache: Bool = false, startingByte: Int64, byteCount: inout UInt32, outBuffer: UnsafeMutableRawPointer) throws {
+	func readBytes(useCache: Bool = false, startingByte: Int64, byteCount: inout UInt32, buffer outBuffer: UnsafeMutableRawPointer) throws {
 		let iErr = AudioFileReadBytes(fileID, useCache, startingByte, &byteCount, outBuffer)
 		
 		guard iErr == noErr else {
@@ -75,7 +75,7 @@ public final class AudioFile {
 		}
 	}
 	
-	func writeBytes(useCache: Bool = false, startingByte: Int64, byteCount: inout UInt32, outBuffer: UnsafeRawPointer) throws {
+	func writeBytes(useCache: Bool = false, startingByte: Int64, byteCount: inout UInt32, buffer outBuffer: UnsafeRawPointer) throws {
 		let iErr = AudioFileWriteBytes(fileID, useCache, startingByte, &byteCount, outBuffer)
 		
 		guard iErr == noErr else {
@@ -99,7 +99,7 @@ public final class AudioFile {
 		return Int(outNumberItems)
 	}
 	
-	func sizeOf(userDataID inUserDataID: UInt32, index: Int) throws -> Int {
+	public func sizeOf(userDataID inUserDataID: UInt32, index: Int) throws -> Int {
 		var outNumberSize: UInt32 = 0
 		let iErr = AudioFileGetUserDataSize(fileID, inUserDataID, UInt32(index), &outNumberSize)
 		guard iErr == noErr else {
