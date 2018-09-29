@@ -15,7 +15,7 @@ public var SAACoreAudioErrorDomain: String {
 
 /// Errors found in the audio frameworks of Mac OS X/iOS
 public struct SAACoreAudioError: _BridgedStoredNSError {
-	public private(set) var _nsError: NSError
+	public let _nsError: NSError
 	
 	public static var _nsErrorDomain: String {
 		return SAACoreAudioErrorDomain
