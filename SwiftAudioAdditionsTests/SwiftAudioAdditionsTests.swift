@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 C.W. Betts. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 import AudioToolbox
 import CoreAudio
 @testable import SwiftAudioAdditions
