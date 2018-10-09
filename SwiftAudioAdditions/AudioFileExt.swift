@@ -76,44 +76,88 @@ public func AudioFileWriteBytes(audioFile: AudioFileID, useCache: Bool = false, 
 
 public enum AudioFormat: OSType {
 	case unknown				= 0
+	/// DVI/Intel IMA ADPCM - ACM code 17.
 	case DVIIntelIMA			= 0x6D730011
+	/// Microsoft GSM 6.10 - ACM code 49.
 	case microsoftGSM			= 0x6D730031
+	/// A key that specifies linear PCM, a noncompressed audio data format with one frame per packet.
 	case linearPCM				= 1819304813
+	/// A key that specifies an AC-3 codec. Uses no flags.
 	case AC3					= 1633889587
 	case six0958AC3				= 1667326771
+	/// A key that specifies Apple’s implementation of the IMA 4:1 ADPCM codec. Uses no flags.
 	case appleIMA4				= 1768775988
+	/// A key that specifies an MPEG-4 AAC codec.
 	case MPEG4AAC				= 1633772320
+	/// A key that specifies an MPEG-4 CELP codec.
 	case MPEG4CELP				= 1667591280
+	/// A key that specifies an MPEG-4 HVXC codec.
 	case MPEG4HVXC				= 1752594531
+	/// A key that specifies an MPEG-4 TwinVQ codec.
 	case MPEG4TwinVQ			= 1953986161
+	/// MACE 3:1. Uses no flags.
 	case MACE3					= 1296122675
+	/// MACE 6:1. Uses no flags.
 	case MACE6					= 1296122678
+	/// μLaw 2:1. Uses no flags.
 	case µLaw					= 1970037111
+	/// aLaw 2:1. Uses no flags.
 	case aLaw					= 1634492791
+	/// QDesign music. Uses no flags
 	case qDesign				= 1363430723
+	/// QDesign2 music. Uses no flags
 	case qDesign2				= 1363430706
+	/// QUALCOMM PureVoice. Uses no flags
 	case QUALCOMM				= 1365470320
+	/// MPEG-1/2, Layer 1 audio. Uses no flags
 	case MPEGLayer1				= 778924081
+	/// MPEG-1/2, Layer 2 audio. Uses no flags
 	case MPEGLayer2				= 778924082
+	/// MPEG-1/2, Layer 3 audio. Uses no flags
 	case MPEGLayer3				= 778924083
+	/// A stream of `IOAudioTimeStamp` structures. Uses the `IOAudioTimeStamp` flags.
 	case timeCode				= 1953066341
 	case MIDIStream				= 1835623529
 	case parameterValueStream	= 1634760307
+	/// Apple Lossless. Uses no flags.
 	case appleLossless			= 1634492771
+	/// MPEG-4 High Efficiency AAC audio object. Uses no flags.
 	case MPEG4AAC_HE			= 1633772392
+	/// MPEG-4 AAC Low Delay audio object. Uses no flags.
 	case MPEG4AAC_LD			= 1633772396
+	/// MPEG-4 AAC Enhanced Low Delay audio object. Uses no flags.
 	case MPEG4AAC_ELD			= 1633772389
+	/// MPEG-4 AAC Enhanced Low Delay audio object with SBR (spectral band replication) extension layer. Uses no flags.
 	case MPEG4AAC_ELD_SBR		= 1633772390
 	case MPEG4AAC_ELD_V2		= 1633772391
+	/// MPEG-4 High Efficiency AAC Version 2 audio object. Uses no flags.
 	case MPEG4AAC_HE_V2			= 1633772400
+	/// MPEG-4 Spatial Audio audio object. Uses no flags.
 	case MPEG4AAC_Spatial		= 1633772403
+	/// The AMR (Adaptive Multi-Rate) narrow band speech codec.
 	case AMR					= 1935764850
 	case AMR_WB					= 1935767394
+	/// The codec used for Audible, Inc. audio books. Uses no flags.
 	case audible				= 1096107074
+	/// The iLBC (internet Low Bitrate Codec) narrow band speech codec. Uses no flags.
 	case iLBC					= 1768710755
+	/// The format defined by the AES3-2003 standard. Adopted into MXF and MPEG-2 containers and SDTI transport streams with SMPTE specs 302M-2002 and 331M-2000. Uses no flags.
 	case AES3					= 1634038579
 	
-	@available(*, deprecated, message: "Use µLaw instead", renamed: "µLaw")
+	@available(OSX, introduced: 10.11)
+	@available(iOS, introduced: 9.0)
+	@available(tvOS, introduced: 9.0)
+	case enhancedAC3 			= 1700998451
+	@available(OSX, introduced: 10.13)
+	@available(iOS, introduced: 11.0)
+	@available(tvOS, introduced: 11.0)
+	case opus					= 1869641075
+	@available(OSX, introduced: 10.13)
+	@available(iOS, introduced: 11.0)
+	@available(tvOS, introduced: 11.0)
+	case FLAC					= 1718378851
+	
+	@available(*, deprecated, renamed: "µLaw")
 	public static var uLaw: AudioFormat {
 		return .µLaw
 	}
