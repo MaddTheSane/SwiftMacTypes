@@ -26,6 +26,7 @@
 /// The error domain of \c ForceFeedbackResult
 extern NSErrorDomain const ForceFeedbackResultErrorDomain;
 
+//! Force Feedback return values
 typedef MTS_ERROR_ENUM(HRESULT, ForceFeedbackResultErrorDomain, ForceFeedbackResult) {
 	//! The operation completed successfully.
 	ForceFeedbackResultOk = FF_OK,
