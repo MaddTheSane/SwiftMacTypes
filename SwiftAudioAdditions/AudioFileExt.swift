@@ -177,11 +177,13 @@ public enum AudioFormat: OSType {
 	@available(tvOS, introduced: 11.0)
 	case FLAC					= 1718378851
 	
+	/// μLaw 2:1. Use `.µLaw` instead.
 	@available(*, deprecated, renamed: "µLaw")
 	public static var uLaw: AudioFormat {
 		return .µLaw
 	}
 	
+	/// The value's string representation.
 	public var stringValue: String {
 		return OSTypeToString(self.rawValue) ?? "    "
 	}
