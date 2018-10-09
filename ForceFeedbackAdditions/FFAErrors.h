@@ -10,16 +10,23 @@
 #include <CoreFoundation/CFPlugInCOM.h>
 #include <ForceFeedback/ForceFeedbackConstants.h>
 
+#ifndef MTS_ERROR_ENUM
+#define __MTS_ERROR_ENUM_GET_MACRO(_0, _1, _2, NAME, ...) NAME
 #if ((__cplusplus && __cplusplus >= 201103L && (__has_extension(cxx_strong_enums) || __has_feature(objc_fixed_enum))) || (!__cplusplus && __has_feature(objc_fixed_enum))) && __has_attribute(ns_error_domain)
-#define FFA_ERROR_ENUM(_domain, _name)     enum _name : HRESULT _name; enum __attribute__((ns_error_domain(_domain))) _name : HRESULT
+#define __MTS_NAMED_ERROR_ENUM(_type, _domain, _name)     enum _name : _type _name; enum __attribute__((ns_error_domain(_domain))) _name : _type
+#define __MTS_ANON_ERROR_ENUM(_type, _domain)             enum __attribute__((ns_error_domain(_domain))) : _type
 #else
-#define FFA_ERROR_ENUM(_domain, _name) NS_ENUM(HRESULT, _name)
+#define __MTS_NAMED_ERROR_ENUM(_type, _domain, _name) NS_ENUM(_type, _name)
+#define __MTS_ANON_ERROR_ENUM(_type, _domain) NS_ENUM(_type)
+#endif
+
+#define MTS_ERROR_ENUM(...) __MTS_ERROR_ENUM_GET_MACRO(__VA_ARGS__, __MTS_NAMED_ERROR_ENUM, __MTS_ANON_ERROR_ENUM)(__VA_ARGS__)
 #endif
 
 /// The error domain of \c ForceFeedbackResult
 extern NSErrorDomain const ForceFeedbackResultErrorDomain;
 
-typedef FFA_ERROR_ENUM(ForceFeedbackResultErrorDomain, ForceFeedbackResult) {
+typedef MTS_ERROR_ENUM(HRESULT, ForceFeedbackResultErrorDomain, ForceFeedbackResult) {
 	//! The operation completed successfully.
 	ForceFeedbackResultOk = FF_OK,
 	
