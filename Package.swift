@@ -27,7 +27,8 @@ let package = Package(
         .target(
             name: "SwiftAdditions",
             dependencies: [],
-            path: "SwiftAdditions"),
+            path: "SwiftAdditions",
+            exclude: ["SAMacError.m"]),
         .testTarget(
             name: "SwiftAdditionsTests",
             dependencies: ["SwiftAdditions"],

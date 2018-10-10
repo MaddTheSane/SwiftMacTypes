@@ -69,6 +69,9 @@
 		555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */; };
 		55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55654A591A6B1148008E9315 /* QuickLook.swift */; };
 		5568C1021C63F1840050E2BA /* AppleScriptFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */; };
+		556B05AC216DE4CB0025EFC5 /* SAMacError.h in Headers */ = {isa = PBXBuildFile; fileRef = 556B05AA216DE4CB0025EFC5 /* SAMacError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		556B05AD216DE4CB0025EFC5 /* SAMacError.m in Sources */ = {isa = PBXBuildFile; fileRef = 556B05AB216DE4CB0025EFC5 /* SAMacError.m */; };
+		556B05AF216DEB750025EFC5 /* SAMacError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556B05AE216DEB750025EFC5 /* SAMacError.swift */; };
 		55706D941A1EC2440000FD93 /* SwiftIOKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55706D9A1A1EC2440000FD93 /* SwiftIOKitAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55706D8F1A1EC2440000FD93 /* SwiftIOKitAdditions.framework */; };
 		55706DA11A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55706DA01A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift */; };
@@ -262,6 +265,9 @@
 		555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaComparable.swift; sourceTree = "<group>"; };
 		55654A591A6B1148008E9315 /* QuickLook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickLook.swift; sourceTree = "<group>"; };
 		5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleScriptFoundation.swift; sourceTree = "<group>"; };
+		556B05AA216DE4CB0025EFC5 /* SAMacError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAMacError.h; sourceTree = "<group>"; };
+		556B05AB216DE4CB0025EFC5 /* SAMacError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAMacError.m; sourceTree = "<group>"; };
+		556B05AE216DEB750025EFC5 /* SAMacError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAMacError.swift; sourceTree = "<group>"; };
 		556E82F819CC8C2A00ED8ED3 /* AudioFileExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileExt.swift; sourceTree = "<group>"; };
 		55706D8F1A1EC2440000FD93 /* SwiftIOKitAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftIOKitAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55706D921A1EC2440000FD93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -432,6 +438,9 @@
 				55654A591A6B1148008E9315 /* QuickLook.swift */,
 				5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */,
 				550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */,
+				556B05AA216DE4CB0025EFC5 /* SAMacError.h */,
+				556B05AB216DE4CB0025EFC5 /* SAMacError.m */,
+				556B05AE216DEB750025EFC5 /* SAMacError.swift */,
 				550FBAC119A7ADC500EFBD3D /* Supporting Files */,
 			);
 			path = SwiftAdditions;
@@ -628,6 +637,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				550FBAC419A7ADC500EFBD3D /* SwiftAdditions.h in Headers */,
+				556B05AC216DE4CB0025EFC5 /* SAMacError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -865,7 +875,7 @@
 				TargetAttributes = {
 					550FBABD19A7ADC500EFBD3D = {
 						CreatedOnToolsVersion = 6.0;
-						LastSwiftMigration = "";
+						LastSwiftMigration = 1000;
 					};
 					550FBAC819A7ADC500EFBD3D = {
 						CreatedOnToolsVersion = 6.0;
@@ -1020,9 +1030,11 @@
 				55C1A6AF1A07223B00C7A733 /* AdditionalAdditions.swift in Sources */,
 				55ABE82F1A0815FA006B6AF9 /* CoreGraphics.swift in Sources */,
 				550FBADA19A7AE6F00EFBD3D /* FoundationTypesAdditions.swift in Sources */,
+				556B05AD216DE4CB0025EFC5 /* SAMacError.m in Sources */,
 				5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */,
 				55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */,
 				550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */,
+				556B05AF216DEB750025EFC5 /* SAMacError.swift in Sources */,
 				5587E0C01A0A115D00CA1400 /* Endianness.swift in Sources */,
 				5568C1021C63F1840050E2BA /* AppleScriptFoundation.swift in Sources */,
 				555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */,
@@ -1343,6 +1355,7 @@
 		550FBAD219A7ADC500EFBD3D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1351,11 +1364,13 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = SwiftAdditions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.MaddTheSane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx appletvsimulator appletvos watchsimulator watchos";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64 armv7k";
 			};
@@ -1364,6 +1379,7 @@
 		550FBAD319A7ADC500EFBD3D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
@@ -1373,6 +1389,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = SwiftAdditions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.MaddTheSane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

@@ -162,19 +162,10 @@ public enum AudioFormat: OSType {
 	/// The format defined by the AES3-2003 standard. Adopted into MXF and MPEG-2 containers and SDTI transport streams with SMPTE specs 302M-2002 and 331M-2000. Uses no flags.
 	case AES3					= 1634038579
 	/// Enhanced AC-3, has no flags.
-	@available(OSX, introduced: 10.11)
-	@available(iOS, introduced: 9.0)
-	@available(tvOS, introduced: 9.0)
 	case enhancedAC3 			= 1700998451
 	/// Opus codec, has no flags.
-	@available(OSX, introduced: 10.13)
-	@available(iOS, introduced: 11.0)
-	@available(tvOS, introduced: 11.0)
 	case opus					= 1869641075
 	/// Free Lossless Audio Codec, the flags indicate the bit depth of the source material.
-	@available(OSX, introduced: 10.13)
-	@available(iOS, introduced: 11.0)
-	@available(tvOS, introduced: 11.0)
 	case FLAC					= 1718378851
 	
 	/// μLaw 2:1. Use `.µLaw` instead.

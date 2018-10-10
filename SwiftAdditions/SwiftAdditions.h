@@ -32,5 +32,5 @@ FOUNDATION_EXPORT double SwiftAdditionsVersionNumber;
 //! Project version string for SwiftAdditions.
 FOUNDATION_EXPORT const unsigned char SwiftAdditionsVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <SwiftAdditions/PublicHeader.h>
+#import <SwiftAdditions/SAMacError.h>
 
