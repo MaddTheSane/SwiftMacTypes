@@ -55,12 +55,12 @@ public func AudioFileCreate(path: String, fileType inFileType: AudioFileType, fo
 	return AudioFileCreate(url: inFileRef, fileType: inFileType, format: &format, flags: flags, audioFile: &outAudioFile)
 }
 
-public func AudioFileOpen(url inFileRef: NSURL, permissions: AudioFilePermissions = .readPermission, fileTypeHint: AudioFileType? = nil, audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
-	return AudioFileOpenURL(inFileRef, permissions, fileTypeHint?.rawValue ?? 0, &outAudioFile)
+public func AudioFileOpen(url inFileRef: URL, permissions: AudioFilePermissions = .readPermission, fileTypeHint: AudioFileType? = nil, audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
+	return AudioFileOpenURL(inFileRef as NSURL, permissions, fileTypeHint?.rawValue ?? 0, &outAudioFile)
 }
 
 public func AudioFileOpen(path: String, permissions: AudioFilePermissions = .readPermission, fileTypeHint: AudioFileType? = nil, audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
-	let inFileRef = NSURL(fileURLWithPath: path)
+	let inFileRef = URL(fileURLWithPath: path)
 	return AudioFileOpen(url: inFileRef, permissions: permissions, fileTypeHint: fileTypeHint, audioFile: &outAudioFile)
 }
 
@@ -216,7 +216,7 @@ public struct AudioFormatFlag : OptionSet {
 		#if _endian(little)
 			return self.init(rawValue: 0)
 		#elseif _endian(big)
-			return bigEndian
+			return .bigEndian
 		#else
 			fatalError("Unknown endianness")
 		#endif
@@ -259,7 +259,7 @@ public struct LinearPCMFormatFlag : OptionSet {
 		#if _endian(little)
 			return self.init(rawValue: 0)
 		#elseif _endian(big)
-			return bigEndian
+			return .bigEndian
 		#else
 			fatalError("Unknown endianness")
 		#endif
@@ -480,8 +480,9 @@ public extension AudioStreamBasicDescription {
 				&& !(mFormatID == kAudioFormatLinearPCM && (mFramesPerPacket != 1 || mBytesPerPacket != mBytesPerFrame));
 	}
 	
-	///	format[@sample_rate_hz][/format_flags][#frames_per_packet][:LHbytesPerFrame][,channelsDI].<br>
-	/// Format for PCM is [-][BE|LE]{F|I|UI}{bitdepth}; else a 4-char format code (e.g. `aac`, `alac`).
+	///	format[@sample_rate_hz][/format_flags][#frames_per_packet][:LHbytesPerFrame][,channelsDI].
+	///
+	/// Format for PCM is *[-][BE|LE]{F|I|UI}{bitdepth}*; else a 4-char format code (e.g. `aac`, `alac`).
 	public init(fromText: String) throws {
 		var charIterator = fromText.startIndex
 		

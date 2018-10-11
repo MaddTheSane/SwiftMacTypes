@@ -276,7 +276,7 @@ final public class ExtAudioFile {
 		}
 		let (size, writable) = try get(propertyInfo: kExtAudioFileProperty_ConverterConfig)
 		if !writable {
-			throw SAACoreAudioError(.parameter)
+			throw SAMacError(.parameter)
 		}
 		try set(property: kExtAudioFileProperty_ConverterConfig, dataSize: size, data: &cOpaque)
 	}
@@ -285,7 +285,7 @@ final public class ExtAudioFile {
 		var bytes = bytes1
 		let (size, writable) = try get(propertyInfo: kExtAudioFileProperty_IOBufferSizeBytes)
 		if !writable {
-			throw SAACoreAudioError(.parameter)
+			throw SAMacError(.parameter)
 		}
 		try set(property: kExtAudioFileProperty_IOBufferSizeBytes, dataSize: size, data: &bytes)
 	}
@@ -293,7 +293,7 @@ final public class ExtAudioFile {
 	public func setIOBuffer(_ newVal: UnsafeMutableRawPointer) throws {
 		let (size, writable) = try get(propertyInfo: kExtAudioFileProperty_IOBuffer)
 		if !writable {
-			throw SAACoreAudioError(.parameter)
+			throw SAMacError(.parameter)
 		}
 		try set(property: kExtAudioFileProperty_IOBuffer, dataSize: size, data: newVal)
 	}
@@ -302,7 +302,7 @@ final public class ExtAudioFile {
 		var newVal = newVal1
 		let (size, writable) = try get(propertyInfo: kExtAudioFileProperty_PacketTable)
 		if !writable {
-			throw SAACoreAudioError(.parameter)
+			throw SAMacError(.parameter)
 		}
 		try set(property: kExtAudioFileProperty_PacketTable, dataSize: size, data: &newVal)
 	}

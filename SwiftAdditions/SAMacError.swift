@@ -10,6 +10,10 @@ import Foundation
 
 #if SWIFT_PACKAGE
 
+/// Common Carbon error codes
+///
+/// This list is in no way, shape, or form exhaustive! A lot of the other
+/// errors make no sense under Mac OS X but were needed for pre-OS X systems.
 public struct SAMacError: _BridgedStoredNSError {
 	public let _nsError: NSError
 
@@ -19,60 +23,39 @@ public struct SAMacError: _BridgedStoredNSError {
 	
 	public static var errorDomain: String { return NSOSStatusErrorDomain }
 	
-	
-	public struct Code: RawRepresentable, _ErrorCodeProtocol {
-		public let rawValue: OSStatus
-		
+	/// Common Carbon error codes
+	///
+	/// This list is in no way, shape, or form exhaustive! A lot of the other
+	/// errors make no sense under Mac OS X but were needed for pre-OS X systems.
+	public enum Code: RawRepresentable, _ErrorCodeProtocol {
 		public typealias _ErrorType = SAMacError
 		
-		public init(rawValue rv: OSStatus) {
-			rawValue = rv
-		}
-		
 		/*! error in user parameter list */
-		public static var parameter: Code {
-			return Code(rawValue: -50)
-		}
+		case parameter = -50
 		
 		/*! unimplemented core routine */
-		public static var unimplemented: Code {
-			return Code(rawValue: -4)
-		}
+		case unimplemented = -4
 		
 		/*! File not found */
-		public static var fileNotFound: Code {
-			return Code(rawValue: -43)
-		}
+		case fileNotFound = -43
 		
 		/*! permissions error (on file open) */
-		public static var filePermission: Code {
-			return Code(rawValue: -54)
-		}
+		case filePermission = -54
 		
 		/*! too many files open */
-		public static var tooManyFilesOpen: Code {
-			return Code(rawValue: -42)
-		}
+		case tooManyFilesOpen = -42
 		
 		/*! Not enough room in heap zone */
-		public static var memoryFull: Code {
-			return Code(rawValue: -108)
-		}
+		case memoryFull = -108
 		
 		/*! File not open */
-		public static var fileNotOpen: Code {
-			return Code(rawValue: -38)
-		}
+		case fileNotOpen = -38
 		
 		/*! End of file */
-		public static var endOfFile: Code {
-			return Code(rawValue: -39)
-		}
+		case endOfFile = -39
 		
 		/*! tried to position to before start of file (r/w) */
-		public static var filePosition: Code {
-			return Code(rawValue: -40)
-		}
+		case filePosition = -40
 	}
 	
 	/*! error in user parameter list */

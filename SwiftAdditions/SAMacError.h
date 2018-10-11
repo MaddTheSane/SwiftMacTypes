@@ -11,7 +11,7 @@
 
 #import <Foundation/NSObjCRuntime.h>
 #import <Foundation/NSError.h>
-#if __has_include(<CoreServices/CoreServices.h>)
+#if TARGET_OS_OSX
 #include <CoreServices/CoreServices.h>
 #else
 #define paramErr -50
@@ -38,6 +38,10 @@
 #define MTS_ERROR_ENUM(...) __MTS_ERROR_ENUM_GET_MACRO(__VA_ARGS__, __MTS_NAMED_ERROR_ENUM, __MTS_ANON_ERROR_ENUM)(__VA_ARGS__)
 #endif
 
+//! Common Carbon error codes
+//!
+//! This list is in no way, shape, or form exhaustive! A lot of the other
+//! errors make no sense under Mac OS X but were needed for pre-OS X systems.
 typedef MTS_ERROR_ENUM(OSStatus, NSOSStatusErrorDomain, SAMacError) {
 	/*! error in user parameter list */
 	SAMacErrorParameter = paramErr,
@@ -57,7 +61,6 @@ typedef MTS_ERROR_ENUM(OSStatus, NSOSStatusErrorDomain, SAMacError) {
 	SAMacErrorEndOfFile = eofErr,
 	/*! tried to position to before start of file (r/w) */
 	SAMacErrorFilePosition = posErr,
-
 };
 
 #endif /* SAMacError_h */

@@ -53,15 +53,6 @@ public struct SAACoreAudioError: _BridgedStoredNSError {
 		case renderTimeout = -66745
 		case extensionNotFound = -66744
 		case invalidParameterValue = -66743
-		case unimplemented = -4
-		case fileNotFound = -43
-		case filePermission = -54
-		case tooManyFilesOpen = -42
-		case parameter = -50
-		case memoryFull = -108
-		case fileNotOpen = -38
-		case endOfFile = -39
-		case filePosition = -40
 		case badFilePath = 561017960
 		case fileUnspecified = 2003334207
 		case fileUnsupportedFileType = 1954115647
@@ -122,16 +113,6 @@ public struct SAACoreAudioError: _BridgedStoredNSError {
 	public static var renderTimeout: SAACoreAudioError.Code { return .renderTimeout }
 	public static var extensionNotFound: SAACoreAudioError.Code { return .extensionNotFound }
 	public static var invalidParameterValue: SAACoreAudioError.Code { return .invalidParameterValue }
-	public static var unimplemented: SAACoreAudioError.Code { return .unimplemented }
-	public static var fileNotFound: SAACoreAudioError.Code { return .fileNotFound }
-	public static var filePermission: SAACoreAudioError.Code { return .filePermission }
-	public static var tooManyFilesOpen: SAACoreAudioError.Code { return .tooManyFilesOpen }
-	public static var parameter: SAACoreAudioError.Code { return .parameter }
-	public static var memoryFull: SAACoreAudioError.Code { return .memoryFull }
-	public static var fileNotOpen: SAACoreAudioError.Code { return .fileNotOpen }
-	public static var endOfFile: SAACoreAudioError.Code { return .endOfFile }
-	public static var filePosition: SAACoreAudioError.Code { return .filePosition }
-	public static var badFilePath: SAACoreAudioError.Code { return .badFilePath }
 	public static var fileUnspecified: SAACoreAudioError.Code { return .fileUnspecified }
 	public static var fileUnsupportedFileType: SAACoreAudioError.Code { return .fileUnsupportedFileType }
 	public static var fileUnsupportedDataFormat: SAACoreAudioError.Code { return .fileUnsupportedDataFormat }
