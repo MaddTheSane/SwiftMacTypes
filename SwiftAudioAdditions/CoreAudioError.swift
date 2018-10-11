@@ -85,6 +85,7 @@ public struct SAACoreAudioError: _BridgedStoredNSError {
 	}
 	
 	public init(_nsError error: NSError) {
+		precondition(_nsError.domain == SAACoreAudioErrorDomain)
 		_nsError = error
 	}
 	

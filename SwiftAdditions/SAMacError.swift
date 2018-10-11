@@ -18,6 +18,7 @@ public struct SAMacError: _BridgedStoredNSError {
 	public let _nsError: NSError
 
 	public init(_nsError: NSError) {
+		precondition(_nsError.domain == NSOSStatusErrorDomain)
 		self._nsError = _nsError
 	}
 	
@@ -27,7 +28,7 @@ public struct SAMacError: _BridgedStoredNSError {
 	///
 	/// This list is in no way, shape, or form exhaustive! A lot of the other
 	/// errors make no sense under Mac OS X but were needed for pre-OS X systems.
-	public enum Code: RawRepresentable, _ErrorCodeProtocol {
+	public enum Code: OSStatus, _ErrorCodeProtocol {
 		public typealias _ErrorType = SAMacError
 		
 		/*! error in user parameter list */
