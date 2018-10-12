@@ -40,6 +40,7 @@ public final class AudioFile {
 		self.fileID = fileID!
 	}
 	
+	/// Opens an existing file with callbacks you provide.
 	public init(callbacksWithReadFunction readFunc: @escaping AudioFile_ReadProc, writeFunction: AudioFile_WriteProc? = nil, getSizeFunction: @escaping AudioFile_GetSizeProc, setSizeFunction: AudioFile_SetSizeProc? = nil, clientData: UnsafeMutableRawPointer, fileTypeHint: AudioFileTypeID) throws {
 		var fileID: AudioFileID? = nil
 		let iErr = AudioFileOpenWithCallbacks(clientData, readFunc, writeFunction, getSizeFunction, setSizeFunction, fileTypeHint, &fileID)
@@ -53,6 +54,7 @@ public final class AudioFile {
 		self.fileID = fileID!
 	}
 	
+	/// Consolidates audio data and performs other internal optimizations of the file structure.
 	public func optimize() throws {
 		let iErr = AudioFileOptimize(fileID)
 		

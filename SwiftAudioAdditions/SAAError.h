@@ -13,6 +13,7 @@
 #import <Foundation/NSError.h>
 #include <AudioToolbox/AUComponent.h>
 #include <AudioToolbox/AudioFile.h>
+#include <AudioToolbox/ExtendedAudioFile.h>
 #include <CoreAudio/CoreAudioTypes.h>
 #include <CoreMIDI/MIDIServices.h>
 
@@ -86,6 +87,19 @@ typedef MTS_ERROR_ENUM(OSStatus, SAACoreAudioErrorDomain, SAACoreAudioError) {
 	SAACoreAudioErrorMIDINotUnique = kMIDIIDNotUnique,
 	SAACoreAudioErrorMIDINotPermitted = kMIDINotPermitted,
 	SAACoreAudioErrorMIDIUnknown = kMIDIUnknownError,
+	SAACoreAudioErrorExtAudioFileInvalidProperty = kExtAudioFileError_InvalidProperty,
+	SAACoreAudioErrorExtAudioFileInvalidPropertySize = kExtAudioFileError_InvalidPropertySize,
+	SAACoreAudioErrorExtAudioFileNonPCMClientFormat = kExtAudioFileError_NonPCMClientFormat,
+	SAACoreAudioErrorExtAudioFileInvalidOperationOrder = kExtAudioFileError_InvalidOperationOrder,
+	SAACoreAudioErrorExtAudioFileInvalidDataFormat = kExtAudioFileError_InvalidDataFormat,
+	SAACoreAudioErrorExtAudioFileMaxPacketSizeUnknown = kExtAudioFileError_MaxPacketSizeUnknown,
+	SAACoreAudioErrorExtAudioFileAsyncWriteTooLarge = kExtAudioFileError_AsyncWriteTooLarge,
+	//! number of channels doesn't match format
+	SAACoreAudioErrorExtAudioFileInvalidChannelMap = kExtAudioFileError_InvalidChannelMap,
+	//! writing, or offset out of bounds
+	SAACoreAudioErrorExtAudioFileInvalidSeek = kExtAudioFileError_InvalidSeek,
+	//! an async write could not be completed in time
+	SAACoreAudioErrorExtAudioFileAsyncWriteBufferOverflow = kExtAudioFileError_AsyncWriteBufferOverflow,
 };
 
 #endif /* SAAError_h */

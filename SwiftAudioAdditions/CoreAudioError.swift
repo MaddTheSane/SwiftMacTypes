@@ -82,6 +82,24 @@ public struct SAACoreAudioError: _BridgedStoredNSError {
 		case midiNotUnique = -10843
 		case midiNotPermitted = -10844
 		case midiUnknown = -10845
+		case extAudioFileInvalidProperty = -66561
+		case extAudioFileInvalidPropertySize = -66562
+		case extAudioFileNonPCMClientFormat = -66563
+		
+		/// number of channels doesn't match format
+		case extAudioFileInvalidChannelMap = -66564
+		
+		case extAudioFileInvalidOperationOrder = -66565
+		case extAudioFileInvalidDataFormat = -66566
+		case extAudioFileMaxPacketSizeUnknown = -66567
+		
+		/// writing, or offset out of bounds
+		case extAudioFileInvalidSeek = -66568
+		
+		case extAudioFileAsyncWriteTooLarge = -66569
+		
+		/// an async write could not be completed in time
+		case extAudioFileAsyncWriteBufferOverflow = -66570
 	}
 	
 	public init(_nsError error: NSError) {
@@ -142,6 +160,26 @@ public struct SAACoreAudioError: _BridgedStoredNSError {
 	public static var midiNotUnique: SAACoreAudioError.Code { return .midiNotUnique }
 	public static var midiNotPermitted: SAACoreAudioError.Code { return .midiNotPermitted }
 	public static var midiUnknown: SAACoreAudioError.Code { return .midiUnknown }
+	public static var extAudioFileInvalidProperty: SAACoreAudioError.Code { return .extAudioFileInvalidProperty }
+	public static var extAudioFileInvalidPropertySize: SAACoreAudioError.Code { return .extAudioFileInvalidPropertySize }
+	public static var extAudioFileNonPCMClientFormat: SAACoreAudioError.Code { return .extAudioFileNonPCMClientFormat }
+	
+	/// number of channels doesn't match format
+	public static var extAudioFileInvalidChannelMap: SAACoreAudioError.Code { return .extAudioFileInvalidChannelMap }
+	
+	public static var extAudioFileInvalidOperationOrder: SAACoreAudioError.Code { return .extAudioFileInvalidOperationOrder }
+	public static var extAudioFileInvalidDataFormat: SAACoreAudioError.Code { return .extAudioFileInvalidDataFormat }
+	public static var extAudioFileMaxPacketSizeUnknown: SAACoreAudioError.Code { return .extAudioFileMaxPacketSizeUnknown }
+	
+	/// writing, or offset out of bounds
+	public static var extAudioFileInvalidSeek: SAACoreAudioError.Code { return .extAudioFileInvalidSeek }
+	
+	public static var extAudioFileAsyncWriteTooLarge: SAACoreAudioError.Code { return .extAudioFileAsyncWriteTooLarge }
+	
+	/// an async write could not be completed in time
+	public static var extAudioFileAsyncWriteBufferOverflow: SAACoreAudioError.Code { return .extAudioFileAsyncWriteBufferOverflow }
+	
+
 }
 
 #endif
