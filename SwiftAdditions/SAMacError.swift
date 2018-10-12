@@ -112,7 +112,36 @@ extension SAMacError.Code {
 		return OSErr(exactly: rawValue)
 	}
 	
-	public init?(_ val: OSErr) {
+	public init?(osErrValue val: OSErr) {
 		self.init(rawValue: OSStatus(val))
+	}
+}
+
+extension SAMacError {
+	/// This throws the passed-in error as an `NSOSStatusErrorDomain` error.
+	///
+	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used! Trying
+	/// to catch `SAMacError` thrown here may result in some `NSOSStatusErrorDomain` errors
+	/// being overlooked.
+	/// - parameter userInfo: Additional user info dictionary. Optional, default value is a
+	/// blank dictionary.
+	/// - parameter status: The `OSStatus` to throw as an `NSOSStatusErrorDomain` error.
+	public static func throwOSStatus(_ status: OSStatus, userInfo: [String: Any] = [:]) throws {
+		throw NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: userInfo)
+	}
+	
+	/// This throws the passed-in error as an `NSOSStatusErrorDomain` error.
+	///
+	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used! Trying
+	/// to catch `SAMacError` thrown here may result in some `NSOSStatusErrorDomain` errors
+	/// being overlooked.
+	///
+	/// `OSErr`s are returned by older APIs. These APIs may be deprecated and not available to
+	/// Swift
+	/// - parameter userInfo: Additional user info dictionary. Optional, default value is a
+	/// blank dictionary.
+	/// - parameter status: The `OSErr` to throw as an `NSOSStatusErrorDomain` error.
+	public static func throwOSErr(_ status: OSErr, userInfo: [String: Any] = [:]) throws {
+		throw NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: userInfo)
 	}
 }
