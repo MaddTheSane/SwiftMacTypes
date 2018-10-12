@@ -31,59 +31,88 @@ public struct SAMacError: _BridgedStoredNSError {
 	public enum Code: OSStatus, _ErrorCodeProtocol {
 		public typealias _ErrorType = SAMacError
 		
-		/*! error in user parameter list */
+		/// error in user parameter list
 		case parameter = -50
 		
-		/*! unimplemented core routine */
+		/// unimplemented core routine
 		case unimplemented = -4
 		
-		/*! File not found */
+		/// File not found
 		case fileNotFound = -43
 		
-		/*! permissions error (on file open) */
+		/// permissions error (on file open)
 		case filePermission = -54
 		
-		/*! too many files open */
+		/// too many files open
 		case tooManyFilesOpen = -42
 		
-		/*! Not enough room in heap zone */
+		/// Not enough room in heap zone
 		case memoryFull = -108
 		
-		/*! File not open */
+		/// File not open
 		case fileNotOpen = -38
 		
-		/*! End of file */
+		/// End of file
 		case endOfFile = -39
 		
-		/*! tried to position to before start of file (r/w) */
+		/// tried to position to before start of file (r/w)
 		case filePosition = -40
+		
+		/// no such volume
+		case noSuchVolume = -35
+		
+		/// file is locked
+		case fileLocked = -45
+
+		/// User cancelled action
+		case userCancelled = -128
 	}
 	
-	/*! error in user parameter list */
+	/// error in user parameter list
 	public static var parameter: SAMacError.Code { return .parameter }
 	
-	/*! unimplemented core routine */
+	/// unimplemented core routine
 	public static var unimplemented: SAMacError.Code { return .unimplemented }
 	
-	/*! File not found */
+	/// File not found
 	public static var fileNotFound: SAMacError.Code { return .fileNotFound }
 	
-	/*! permissions error (on file open) */
+	/// permissions error (on file open)
 	public static var filePermission: SAMacError.Code { return .filePermission }
 	
-	/*! too many files open */
+	/// too many files open
 	public static var tooManyFilesOpen: SAMacError.Code { return .tooManyFilesOpen }
 	
-	/*! Not enough room in heap zone */
+	/// Not enough room in heap zone
 	public static var memoryFull: SAMacError.Code { return .memoryFull }
 	
-	/*! File not open */
+	/// File not open
 	public static var fileNotOpen: SAMacError.Code { return .fileNotOpen }
 	
-	/*! End of file */
+	/// End of file
 	public static var endOfFile: SAMacError.Code { return .endOfFile }
 	
-	/*! tried to position to before start of file (r/w) */
+	/// tried to position to before start of file (r/w)
 	public static var filePosition: SAMacError.Code { return .filePosition }
+	
+	/// no such volume
+	public static var noSuchVolume: SAMacError.Code { return .noSuchVolume }
+	
+	/// file is locked
+	public static var fileLocked: SAMacError.Code { return .fileLocked }
+	
+	/// User cancelled action
+	public static var userCancelled: SAMacError.Code { return .userCancelled }
 }
 #endif
+
+extension SAMacError.Code {
+	/// is `nil` if value is too big for `OSErr`.
+	public var toOSErr: OSErr? {
+		return OSErr(exactly: rawValue)
+	}
+	
+	public init?(_ val: OSErr) {
+		self.init(rawValue: OSStatus(val))
+	}
+}

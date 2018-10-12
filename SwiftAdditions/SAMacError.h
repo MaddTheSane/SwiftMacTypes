@@ -23,6 +23,9 @@
 #define fnOpnErr -38
 #define eofErr -39
 #define posErr -40
+#define nsvErr -35
+#define fLckdErr -45
+#define userCanceledErr -128
 #endif
 
 #ifndef MTS_ERROR_ENUM
@@ -61,6 +64,12 @@ typedef MTS_ERROR_ENUM(OSStatus, NSOSStatusErrorDomain, SAMacError) {
 	SAMacErrorEndOfFile = eofErr,
 	/*! tried to position to before start of file (r/w) */
 	SAMacErrorFilePosition = posErr,
+	/*! no such volume */
+	SAMacErrorNoSuchVolume = nsvErr,
+	/*! file is locked */
+	SAMacErrorFileLocked = fLckdErr,
+	/*! User cancelled action */
+	SAMacErrorUserCancelled = userCanceledErr,
 };
 
 #endif /* SAMacError_h */
