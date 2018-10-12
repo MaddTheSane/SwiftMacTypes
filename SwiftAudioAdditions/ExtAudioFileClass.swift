@@ -366,3 +366,19 @@ final public class ExtAudioFile {
 		try set(property: kExtAudioFileProperty_PacketTable, dataSize: size, data: &newVal)
 	}
 }
+
+extension ExtAudioFile {
+	public func read(frames: inout UInt32, data: UnsafeMutableAudioBufferListPointer) throws {
+		try read(frames: &frames, data: data.unsafeMutablePointer)
+	}
+
+	public func write(frames: UInt32, data: UnsafeMutableAudioBufferListPointer) throws {
+		try write(frames: frames, data: data.unsafePointer)
+	}
+	
+	/// N.B. Errors may occur after this call has returned. Such errors may be thrown
+	/// from subsequent calls to this method.
+	public func writeAsync(frames: UInt32, data: UnsafeMutableAudioBufferListPointer?) throws {
+		try writeAsync(frames: frames, data: data?.unsafePointer)
+	}
+}
