@@ -23,6 +23,16 @@ extension CocoaComparable {
 		return lhs.compare(rhs) == .orderedDescending
 	}
 	
+	static public func <=(lhs: Self, rhs: Self) -> Bool {
+		let cmpResult = lhs.compare(rhs)
+		return cmpResult == .orderedAscending || cmpResult == .orderedSame
+	}
+	
+	static public func >=(lhs: Self, rhs: Self) -> Bool {
+		let cmpResult = lhs.compare(rhs)
+		return cmpResult == .orderedDescending || cmpResult == .orderedSame
+	}
+	
 	//static public func ==(lhs: Self, rhs: Self) -> Bool {
 	//	return lhs.compare(rhs) == .orderedSame
 	//}

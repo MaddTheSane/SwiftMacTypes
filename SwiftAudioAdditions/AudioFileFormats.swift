@@ -27,10 +27,24 @@ private func OSTypeToStr(_ val: OSType) -> String {
 	return toRet
 }
 
+extension AudioStreamBasicDescription: Hashable {
+	public func hash(into hasher: inout Hasher) {
+		mSampleRate.hash(into: &hasher)
+		mFormatID.hash(into: &hasher)
+		mFormatFlags.hash(into: &hasher)
+		mBytesPerPacket.hash(into: &hasher)
+		mFramesPerPacket.hash(into: &hasher)
+		mBytesPerFrame.hash(into: &hasher)
+		mChannelsPerFrame.hash(into: &hasher)
+		mBitsPerChannel.hash(into: &hasher)
+		//mReserved.hash(into: &hasher)
+	}
+}
+
 public class AudioFileFormats {
 	public static let shared = AudioFileFormats()
 	
-	public struct DataFormatInfo: CustomDebugStringConvertible {
+	public struct DataFormatInfo: CustomDebugStringConvertible, Hashable {
 		var formatID: OSType = 0
 		var variants = [AudioStreamBasicDescription]()
 		var readable = false
