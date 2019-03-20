@@ -20,6 +20,13 @@ extension CTRubyAnnotation {
 	/// These constants specify the position of the ruby text with respect to the base text.
 	public typealias Position = CTRubyPosition
 	
+	/// Returns the Core Foundation type identifier for CoreText Ruby annotations.
+	///
+	/// - returns: The identifier for the opaque type `CTRubyAnnotationRef`.
+	public class var typeID: CFTypeID {
+		return CTRubyAnnotationGetTypeID()
+	}
+	
 	/// Creates an immutable ruby annotation object.
 	/// - parameter alignment: Specifies how the ruby text and the base text should be aligned relative to each
 	/// other.

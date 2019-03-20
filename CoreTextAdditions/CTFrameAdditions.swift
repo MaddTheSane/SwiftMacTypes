@@ -25,6 +25,13 @@ extension CTFrame {
 	/// area of the path.
 	public typealias PathFillRule = CTFramePathFillRule
 	
+	/// Returns the Core Foundation type identifier for CoreText frames.
+	///
+	/// - returns: The identifier for the opaque type `CTFrameRef`.
+	public class var typeID: CFTypeID {
+		return CTFrameGetTypeID()
+	}
+	
 	/// Returns the range of characters that were originally requested
 	/// to fill the frame.
 	///

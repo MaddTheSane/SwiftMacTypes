@@ -11,9 +11,14 @@ import CoreText.CTFontCollection
 
 // Nothing to do here, move along
 
-//extension CTFontCollection {
-//
-//}
+extension CTFontCollection {
+	/// Returns the Core Foundation type identifier for CoreText font collections.
+	///
+	/// - returns: The identifier for the opaque type `CTFontCollectionRef`.
+	public class var typeID: CFTypeID {
+		return CTFontCollectionGetTypeID()
+	}
+}
 
 //extension CTMutableFontCollection {
 //

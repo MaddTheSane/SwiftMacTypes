@@ -10,8 +10,23 @@ import Foundation
 import CoreText.CTLine
 
 extension CTLine {
+	/// Options for `CTLine.bounds(with:)`.
+	///
+	/// Passing `[]` (no options) returns the typographic bounds,
+	/// including typographic leading and shifts.
 	public typealias BoundsOptions = CTLineBoundsOptions
+	
+	/// Truncation types required by `CTLine.truncate(width:, type:, token:)`. These
+	/// will tell truncation engine which type of truncation is being
+	/// requested.
 	public typealias TruncationType = CTLineTruncationType
+	
+	/// Returns the Core Foundation type identifier for CoreText lines.
+	///
+	/// - returns: The identifier for the opaque type `CTLineRef`.
+	public class var typeID: CFTypeID {
+		return CTLineGetTypeID()
+	}
 	
 	/// Creates a truncated line from an existing line.
 	/// - parameter width:

@@ -13,6 +13,13 @@ extension CTTextTab {
 	/// These constants specify text alignment.
 	public typealias Alignment = CTTextAlignment
 	
+	/// Returns the Core Foundation type identifier for CoreText runs.
+	///
+	/// - returns: The identifier for the opaque type `CTTextTabRef`.
+	public class var typeID: CFTypeID {
+		return CTTextTabGetTypeID()
+	}
+	
 	/// Creates and initializes a new text tab.
 	/// - parameter alignment: The tab's alignment. This is used to determine the position
 	/// of text inside the tab column. This parameter must be set to a valid
