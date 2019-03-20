@@ -504,6 +504,8 @@ extension UserDefaults {
 			if let obj = object(forKey: key) {
 				if let aDoub = obj as? Double {
 					return aDoub
+				} else if let aDoub = obj as? Float {
+					return Double(aDoub)
 				} else if let aInt = obj as? Int {
 					return Double(aInt)
 				} else if let aStr = obj as? String {
@@ -606,7 +608,7 @@ extension String {
 	///
 	/// Make sure you have called `-[NSString rangeOfComposedCharacterSequencesForRange:]`
 	/// *before* calling this method, otherwise if the beginning or end of
-	/// `nsRange` is in between Unicode code points or grapheme clusters, this method
+	/// `nsRange` is in-between Unicode code points or grapheme clusters, this method
 	/// will return `nil`.
 	///
 	/// Deprecated in Swift 4 and later: Use `Range(_:in:)` with `nsRange` as the first

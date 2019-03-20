@@ -14,7 +14,7 @@ public enum ByteOrder {
 	case unknown
 	
 	/// The current byte-order of the machine.
-	public static let current: ByteOrder = {
+	public static var current: ByteOrder {
 		#if _endian(little)
 			return .little
 		#elseif _endian(big)
@@ -22,7 +22,7 @@ public enum ByteOrder {
 		#else
 			return .unknown
 		#endif
-	}()
+	}
 	
 	/// Is the machine's byte-order little-endian?
 	public static var isLittle: Bool {

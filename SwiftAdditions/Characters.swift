@@ -236,650 +236,649 @@ extension String {
 //MARK: - Deprecated
 
 extension ASCIICharacter {
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.nullCharacter")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.nullCharacter")
 	public static var NullCharacter: ASCIICharacter {
 		return .nullCharacter
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.startOfHeader")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.startOfHeader")
 	public static var StartOfHeader: ASCIICharacter {
 		return .startOfHeader
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.startOfText")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.startOfText")
 	public static var StartOfText: ASCIICharacter {
 		return .startOfText
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.endOfText")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.endOfText")
 	public static var EndOfText: ASCIICharacter {
 		return .endOfText
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.endOfTransmission")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.endOfTransmission")
 	public static var EndOfTransmission: ASCIICharacter {
 		return .endOfTransmission
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.enquiry")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.enquiry")
 	public static var Enquiry: ASCIICharacter {
 		return .enquiry
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.acknowledgement")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.acknowledgement")
 	public static var Acknowledgement: ASCIICharacter {
 		return .acknowledgement
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.bell")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.bell")
 	public static var Bell: ASCIICharacter {
 		return .bell
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.backspace")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.backspace")
 	public static var Backspace: ASCIICharacter {
 		return .backspace
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.horizontalTab")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.horizontalTab")
 	public static var HorizontalTab: ASCIICharacter {
 		return .horizontalTab
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.lineFeed")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.lineFeed")
 	public static var LineFeed: ASCIICharacter {
 		return .lineFeed
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.verticalTab")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.verticalTab")
 	public static var VerticalTab: ASCIICharacter {
 		return .verticalTab
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.formFeed")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.formFeed")
 	public static var FormFeed: ASCIICharacter {
 		return .formFeed
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.carriageReturn")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.carriageReturn")
 	public static var CarriageReturn: ASCIICharacter {
 		return .carriageReturn
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.shiftOut")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.shiftOut")
 	public static var ShiftOut: ASCIICharacter {
 		return .shiftOut
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.shiftIn")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.shiftIn")
 	public static var ShiftIn: ASCIICharacter {
 		return .shiftIn
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.dataLineEscape")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.dataLineEscape")
 	public static var DataLineEscape: ASCIICharacter {
 		return .dataLineEscape
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.deviceControl1")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.deviceControl1")
 	public static var DeviceControl1: ASCIICharacter {
 		return .deviceControl1
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.deviceControl2")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.deviceControl2")
 	public static var DeviceControl2: ASCIICharacter {
 		return .deviceControl2
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.deviceControl3")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.deviceControl3")
 	public static var DeviceControl3: ASCIICharacter {
 		return .deviceControl3
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.deviceControl4")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.deviceControl4")
 	public static var DeviceControl4: ASCIICharacter {
 		return .deviceControl4
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.negativeAcknowledgement")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.negativeAcknowledgement")
 	public static var NegativeAcknowledgement: ASCIICharacter {
 		return .negativeAcknowledgement
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.synchronousIdle")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.synchronousIdle")
 	public static var SynchronousIdle: ASCIICharacter {
 		return .synchronousIdle
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.endOfTransmitBlock")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.endOfTransmitBlock")
 	public static var EndOfTransmitBlock: ASCIICharacter {
 		return .endOfTransmitBlock
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.cancel")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.cancel")
 	public static var Cancel: ASCIICharacter {
 		return .cancel
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.endOfMedium")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.endOfMedium")
 	public static var EndOfMedium: ASCIICharacter {
 		return .endOfMedium
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.substitute")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.substitute")
 	public static var Substitute: ASCIICharacter {
 		return .substitute
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.escape")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.escape")
 	public static var Escape: ASCIICharacter {
 		return .escape
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.fileSeperator")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.fileSeperator")
 	public static var FileSeperator: ASCIICharacter {
 		return .fileSeperator
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.groupSeperator")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.groupSeperator")
 	public static var GroupSeperator: ASCIICharacter {
 		return .groupSeperator
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.recordSeperator")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.recordSeperator")
 	public static var RecordSeperator: ASCIICharacter {
 		return .recordSeperator
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.unitSeperator")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.unitSeperator")
 	public static var UnitSeperator: ASCIICharacter {
 		return .unitSeperator
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.space")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.space")
 	public static var Space: ASCIICharacter {
 		return .space
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.exclamationMark")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.exclamationMark")
 	public static var ExclamationMark: ASCIICharacter {
 		return .exclamationMark
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.doubleQuote")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.doubleQuote")
 	public static var DoubleQuote: ASCIICharacter {
 		return .doubleQuote
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberSign")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberSign")
 	public static var NumberSign: ASCIICharacter {
 		return .numberSign
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.dollarSign")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.dollarSign")
 	public static var DollarSign: ASCIICharacter {
 		return .dollarSign
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.percentSign")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.percentSign")
 	public static var PercentSign: ASCIICharacter {
 		return .percentSign
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.apersand")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.apersand")
 	public static var Apersand: ASCIICharacter {
 		return .apersand
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.singleQuote")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.singleQuote")
 	public static var SingleQuote: ASCIICharacter {
 		return .singleQuote
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.openParenthesis")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.openParenthesis")
 	public static var OpenParenthesis: ASCIICharacter {
 		return .openParenthesis
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.closeParenthesis")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.closeParenthesis")
 	public static var CloseParenthesis: ASCIICharacter {
 		return .closeParenthesis
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.asterisk")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.asterisk")
 	public static var Asterisk: ASCIICharacter {
 		return .asterisk
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.plusSign")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.plusSign")
 	public static var PlusSign: ASCIICharacter {
 		return .plusSign
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.comma")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.comma")
 	public static var Comma: ASCIICharacter {
 		return .comma
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.hyphen")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.hyphen")
 	public static var Hyphen: ASCIICharacter {
 		return .hyphen
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.period")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.period")
 	public static var Period: ASCIICharacter {
 		return .period
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.slash")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.slash")
 	public static var Slash: ASCIICharacter {
 		return .slash
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberZero")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberZero")
 	public static var NumberZero: ASCIICharacter {
 		return .numberZero
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberOne")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberOne")
 	public static var NumberOne: ASCIICharacter {
 		return .numberOne
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberTwo")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberTwo")
 	public static var NumberTwo: ASCIICharacter {
 		return .numberTwo
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberThree")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberThree")
 	public static var NumberThree: ASCIICharacter {
 		return .numberThree
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberFour")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberFour")
 	public static var NumberFour: ASCIICharacter {
 		return .numberFour
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberFive")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberFive")
 	public static var NumberFive: ASCIICharacter {
 		return .numberFive
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberSix")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberSix")
 	public static var NumberSix: ASCIICharacter {
 		return .numberSix
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberSeven")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberSeven")
 	public static var NumberSeven: ASCIICharacter {
 		return .numberSeven
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberEight")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberEight")
 	public static var NumberEight: ASCIICharacter {
 		return .numberEight
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberNine")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.numberNine")
 	public static var NumberNine: ASCIICharacter {
 		return .numberNine
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.colon")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.colon")
 	public static var Colon: ASCIICharacter {
 		return .colon
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.semicolon")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.semicolon")
 	public static var Semicolon: ASCIICharacter {
 		return .semicolon
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.lessThan")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.lessThan")
 	public static var LessThan: ASCIICharacter {
 		return .lessThan
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.equals")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.equals")
 	public static var Equals: ASCIICharacter {
 		return .equals
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.greaterThan")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.greaterThan")
 	public static var GreaterThan: ASCIICharacter {
 		return .greaterThan
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.questionMark")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.questionMark")
 	public static var QuestionMark: ASCIICharacter {
 		return .questionMark
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.atSymbol")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.atSymbol")
 	public static var AtSymbol: ASCIICharacter {
 		return .atSymbol
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseA")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseA")
 	public static var LetterUppercaseA: ASCIICharacter {
 		return .letterUppercaseA
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseB")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseB")
 	public static var LetterUppercaseB: ASCIICharacter {
 		return .letterUppercaseB
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseC")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseC")
 	public static var LetterUppercaseC: ASCIICharacter {
 		return .letterUppercaseC
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseD")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseD")
 	public static var LetterUppercaseD: ASCIICharacter {
 		return .letterUppercaseD
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseE")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseE")
 	public static var LetterUppercaseE: ASCIICharacter {
 		return .letterUppercaseE
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseF")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseF")
 	public static var LetterUppercaseF: ASCIICharacter {
 		return .letterUppercaseF
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseG")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseG")
 	public static var LetterUppercaseG: ASCIICharacter {
 		return .letterUppercaseG
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseH")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseH")
 	public static var LetterUppercaseH: ASCIICharacter {
 		return .letterUppercaseH
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseI")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseI")
 	public static var LetterUppercaseI: ASCIICharacter {
 		return .letterUppercaseI
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseJ")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseJ")
 	public static var LetterUppercaseJ: ASCIICharacter {
 		return .letterUppercaseJ
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseK")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseK")
 	public static var LetterUppercaseK: ASCIICharacter {
 		return .letterUppercaseK
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseL")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseL")
 	public static var LetterUppercaseL: ASCIICharacter {
 		return .letterUppercaseL
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseM")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseM")
 	public static var LetterUppercaseM: ASCIICharacter {
 		return .letterUppercaseM
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseN")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseN")
 	public static var LetterUppercaseN: ASCIICharacter {
 		return .letterUppercaseN
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseO")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseO")
 	public static var LetterUppercaseO: ASCIICharacter {
 		return .letterUppercaseO
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseP")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseP")
 	public static var LetterUppercaseP: ASCIICharacter {
 		return .letterUppercaseP
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseQ")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseQ")
 	public static var LetterUppercaseQ: ASCIICharacter {
 		return .letterUppercaseQ
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseR")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseR")
 	public static var LetterUppercaseR: ASCIICharacter {
 		return .letterUppercaseR
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseS")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseS")
 	public static var LetterUppercaseS: ASCIICharacter {
 		return .letterUppercaseS
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseT")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseT")
 	public static var LetterUppercaseT: ASCIICharacter {
 		return .letterUppercaseT
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseU")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseU")
 	public static var LetterUppercaseU: ASCIICharacter {
 		return .letterUppercaseU
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseV")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseV")
 	public static var LetterUppercaseV: ASCIICharacter {
 		return .letterUppercaseV
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseW")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseW")
 	public static var LetterUppercaseW: ASCIICharacter {
 		return .letterUppercaseW
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseX")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseX")
 	public static var LetterUppercaseX: ASCIICharacter {
 		return .letterUppercaseX
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseY")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseY")
 	public static var LetterUppercaseY: ASCIICharacter {
 		return .letterUppercaseY
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseZ")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterUppercaseZ")
 	public static var LetterUppercaseZ: ASCIICharacter {
 		return .letterUppercaseZ
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.openingBracket")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.openingBracket")
 	public static var OpeningBracket: ASCIICharacter {
 		return .openingBracket
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.backSlashCharacter")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.backSlashCharacter")
 	public static var BackSlashCharacter: ASCIICharacter {
 		return .backSlashCharacter
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.closingBracket")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.closingBracket")
 	public static var ClosingBracket: ASCIICharacter {
 		return .closingBracket
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.caretCharacter")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.caretCharacter")
 	public static var CaretCharacter: ASCIICharacter {
 		return .caretCharacter
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.underscoreCharacter")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.underscoreCharacter")
 	public static var UnderscoreCharacter: ASCIICharacter {
 		return .underscoreCharacter
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.graveAccent")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.graveAccent")
 	public static var GraveAccent: ASCIICharacter {
 		return .graveAccent
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseA")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseA")
 	public static var LetterLowercaseA: ASCIICharacter {
 		return .letterLowercaseA
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseB")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseB")
 	public static var LetterLowercaseB: ASCIICharacter {
 		return .letterLowercaseB
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseC")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseC")
 	public static var LetterLowercaseC: ASCIICharacter {
 		return .letterLowercaseC
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseD")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseD")
 	public static var LetterLowercaseD: ASCIICharacter {
 		return .letterLowercaseD
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseE")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseE")
 	public static var LetterLowercaseE: ASCIICharacter {
 		return .letterLowercaseE
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseF")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseF")
 	public static var LetterLowercaseF: ASCIICharacter {
 		return .letterLowercaseF
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseG")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseG")
 	public static var LetterLowercaseG: ASCIICharacter {
 		return .letterLowercaseG
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseH")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseH")
 	public static var LetterLowercaseH: ASCIICharacter {
 		return .letterLowercaseH
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseI")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseI")
 	public static var LetterLowercaseI: ASCIICharacter {
 		return .letterLowercaseI
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseJ")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseJ")
 	public static var LetterLowercaseJ: ASCIICharacter {
 		return .letterLowercaseJ
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseK")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseK")
 	public static var LetterLowercaseK: ASCIICharacter {
 		return .letterLowercaseK
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseL")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseL")
 	public static var LetterLowercaseL: ASCIICharacter {
 		return .letterLowercaseL
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseM")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseM")
 	public static var LetterLowercaseM: ASCIICharacter {
 		return .letterLowercaseM
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseN")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseN")
 	public static var LetterLowercaseN: ASCIICharacter {
 		return .letterLowercaseN
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseO")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseO")
 	public static var LetterLowercaseO: ASCIICharacter {
 		return .letterLowercaseO
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseP")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseP")
 	public static var LetterLowercaseP: ASCIICharacter {
 		return .letterLowercaseP
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseQ")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseQ")
 	public static var LetterLowercaseQ: ASCIICharacter {
 		return .letterLowercaseQ
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseR")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseR")
 	public static var LetterLowercaseR: ASCIICharacter {
 		return .letterLowercaseR
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseS")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseS")
 	public static var LetterLowercaseS: ASCIICharacter {
 		return .letterLowercaseS
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseT")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseT")
 	public static var LetterLowercaseT: ASCIICharacter {
 		return .letterLowercaseT
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseU")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseU")
 	public static var LetterLowercaseU: ASCIICharacter {
 		return .letterLowercaseU
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseV")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseV")
 	public static var LetterLowercaseV: ASCIICharacter {
 		return .letterLowercaseV
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseW")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseW")
 	public static var LetterLowercaseW: ASCIICharacter {
 		return .letterLowercaseW
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseX")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseX")
 	public static var LetterLowercaseX: ASCIICharacter {
 		return .letterLowercaseX
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseY")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseY")
 	public static var LetterLowercaseY: ASCIICharacter {
 		return .letterLowercaseY
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseZ")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.letterLowercaseZ")
 	public static var LetterLowercaseZ: ASCIICharacter {
 		return .letterLowercaseZ
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.openingBrace")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.openingBrace")
 	public static var OpeningBrace: ASCIICharacter {
 		return .openingBrace
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.verticalBar")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.verticalBar")
 	public static var VerticalBar: ASCIICharacter {
 		return .verticalBar
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.closingBrace")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.closingBrace")
 	public static var ClosingBrace: ASCIICharacter {
 		return .closingBrace
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.tildeCharacter")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.tildeCharacter")
 	public static var TildeCharacter: ASCIICharacter {
 		return .tildeCharacter
 	}
 	
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.deleteCharacter")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.deleteCharacter")
 	public static var DeleteCharacter: ASCIICharacter {
 		return .deleteCharacter
 	}
 	
 	/// Value is not valid ASCII
-	@available(swift, introduced: 2, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.invalid")
+	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "ASCIICharacter.invalid")
 	public static var Invalid: ASCIICharacter {
 		return .invalid
 	}
-	
 }

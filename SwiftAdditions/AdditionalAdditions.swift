@@ -39,7 +39,7 @@ public func clamp<W: Sequence, X: Comparable>(values: W, minimum: X, maximum: X)
 	})
 }
 
-@available(swift, introduced: 2, deprecated: 4.0, renamed: "clamp(_:minimum:maximum:)")
+@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "clamp(_:minimum:maximum:)")
 public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
 	return clamp(value, minimum: minimum, maximum: maximum)
 }
