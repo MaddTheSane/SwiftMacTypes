@@ -277,7 +277,7 @@ public extension AudioStreamBasicDescription {
 	/// Is the current `AudioStreamBasicDescription` in the native endian format?
 	///
 	/// Is `true` if the audio is in the native endian, `false` if not, and `nil` if the `formatID` isn't `.linearPCM`.
-	public var audioFormatNativeEndian: Bool? {
+	var audioFormatNativeEndian: Bool? {
 		if formatID == .linearPCM {
 			let ourFlags = formatFlags.intersection(.bigEndian)
 			if ourFlags == .nativeEndian {
@@ -289,7 +289,7 @@ public extension AudioStreamBasicDescription {
 		return nil
 	}
 	
-	public var formatID: AudioFormat {
+	var formatID: AudioFormat {
 		get {
 			if let aFormat = AudioFormat(rawValue: mFormatID) {
 				return aFormat
@@ -302,7 +302,7 @@ public extension AudioStreamBasicDescription {
 		}
 	}
 	
-	public var formatFlags: AudioFormatFlag {
+	var formatFlags: AudioFormatFlag {
 		get {
 			return AudioFormatFlag(rawValue: mFormatFlags)
 		}
@@ -311,13 +311,13 @@ public extension AudioStreamBasicDescription {
 		}
 	}
 	
-	public init(sampleRate: Float64, formatID: AudioFormat = .linearPCM, formatFlags: AudioFormatFlag = .nativeFloatPacked, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
+	init(sampleRate: Float64, formatID: AudioFormat = .linearPCM, formatFlags: AudioFormatFlag = .nativeFloatPacked, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
 		let bytesPerFrame = bitsPerChannel * channelsPerFrame / 8
 		self.init(mSampleRate: sampleRate, mFormatID: formatID.rawValue, mFormatFlags: formatFlags.rawValue, mBytesPerPacket: bytesPerFrame * framesPerPacket, mFramesPerPacket: framesPerPacket, mBytesPerFrame: bytesPerFrame, mChannelsPerFrame: channelsPerFrame, mBitsPerChannel: bitsPerChannel, mReserved: 0)
 	}
 	
 	@available(*, deprecated, message: "AudioFormatID and AudioFormatFlags constants should now be typed correctly")
-	public init(sampleRate: Float64, formatID: Int, formatFlags: Int, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
+	init(sampleRate: Float64, formatID: Int, formatFlags: Int, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
 		self.init()
 		mSampleRate = sampleRate
 		mFormatID = UInt32(formatID)
@@ -330,7 +330,7 @@ public extension AudioStreamBasicDescription {
 		mReserved = 0
 	}
 	
-	public init(sampleRate: Float64, formatID: AudioFormatID, formatFlags: AudioFormatFlags, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
+	init(sampleRate: Float64, formatID: AudioFormatID, formatFlags: AudioFormatFlags, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
 		let bytesPerFrame = bitsPerChannel * channelsPerFrame / 8
 		self.init(mSampleRate: sampleRate, mFormatID: formatID, mFormatFlags: formatFlags, mBytesPerPacket: bytesPerFrame * framesPerPacket, mFramesPerPacket: framesPerPacket, mBytesPerFrame: bytesPerFrame, mChannelsPerFrame: channelsPerFrame, mBitsPerChannel: bitsPerChannel, mReserved: 0)
 	}
@@ -339,75 +339,75 @@ public extension AudioStreamBasicDescription {
 public extension AudioStreamBasicDescription {
 	// The following getters/functions are from Apple's CoreAudioUtilityClasses
 	
-	public var isPCM: Bool {
+	var isPCM: Bool {
 		return mFormatID == kAudioFormatLinearPCM
 	}
 
-	public var isInterleaved: Bool {
+	var isInterleaved: Bool {
 		return !isPCM || !formatFlags.contains(.nonInterleaved)
 	}
 	
-	public var isSignedInteger: Bool {
+	var isSignedInteger: Bool {
 		return isPCM && (mFormatFlags & kAudioFormatFlagIsSignedInteger) != 0
 	}
 	
-	public var isFloat: Bool {
+	var isFloat: Bool {
 		return isPCM && (mFormatFlags & kAudioFormatFlagIsFloat) != 0
 	}
 
 	@available(*, deprecated, renamed: "isInterleaved")
-	public var interleaved: Bool {
+	var interleaved: Bool {
 		return isInterleaved
 	}
 	
 	@available(*, deprecated, renamed: "isSignedInteger")
-	public var signedInteger: Bool {
+	var signedInteger: Bool {
 		return isSignedInteger
 	}
 	
 	@available(*, deprecated, renamed: "isFloat")
-	public var float: Bool {
+	var float: Bool {
 		return isFloat
 	}
 	
-	public var interleavedChannels: UInt32 {
+	var interleavedChannels: UInt32 {
 		return isInterleaved ? mChannelsPerFrame : 1
 	}
 	
-	public var channelStreams: UInt32 {
+	var channelStreams: UInt32 {
 		return isInterleaved ? 1 : mChannelsPerFrame
 	}
 	
-	public func framesToBytes(_ nframes: UInt32) -> UInt32 {
+	func framesToBytes(_ nframes: UInt32) -> UInt32 {
 		return nframes * mBytesPerFrame
 	}
 	
-	public var sampleWordSize: UInt32 {
+	var sampleWordSize: UInt32 {
 		return (mBytesPerFrame > 0 && interleavedChannels != 0) ? mBytesPerFrame / interleavedChannels :  0;
 	}
 	
 	@available(*, unavailable, renamed: "isPackednessSignificant")
-	public var packednessIsSignificant: Bool {
+	var packednessIsSignificant: Bool {
 		fatalError()
 	}
 	
 	@available(*, unavailable, renamed: "isAlignmentSignificant")
-	public var alignmentIsSignificant: Bool {
+	var alignmentIsSignificant: Bool {
 		fatalError()
 	}
 	
 	/// The audio format must be PCM, otherwise this won't work!
-	public var isPackednessSignificant: Bool {
+	var isPackednessSignificant: Bool {
 		precondition(isPCM, "isPackednessSignificant only applies for PCM")
 		return (sampleWordSize << 3) != mBitsPerChannel
 	}
 	
 	/// The audio format must be PCM, otherwise this won't work!
-	public var isAlignmentSignificant: Bool {
+	var isAlignmentSignificant: Bool {
 		return isPackednessSignificant || (mBitsPerChannel & 7) != 0
 	}
 	
-	public enum ASBDError: Error, CustomStringConvertible {
+	enum ASBDError: Error, CustomStringConvertible {
 		case reqiresPCMFormat
 		case extraCharactersAtEnd(Substring)
 		case expectedFractionalBits
@@ -438,7 +438,7 @@ public extension AudioStreamBasicDescription {
 		}
 	}
 	
-	public mutating func changeCountOfChannels(nChannels: UInt32, interleaved: Bool) throws {
+	mutating func changeCountOfChannels(nChannels: UInt32, interleaved: Bool) throws {
 		guard isPCM else {
 			throw ASBDError.reqiresPCMFormat
 		}
@@ -467,7 +467,7 @@ public extension AudioStreamBasicDescription {
 	/// This method returns false if there are sufficiently insane values in any field.
 	/// It is very conservative so even some very unlikely values will pass.
 	/// This is just meant to catch the case where the data from a file is corrupted.
-	public func checkSanity() -> Bool {
+	func checkSanity() -> Bool {
 		return
 			(mSampleRate >= 0)
 				&& (mSampleRate < 3e6)	// SACD sample rate is 2.8224 MHz
@@ -483,7 +483,7 @@ public extension AudioStreamBasicDescription {
 	///	format[@sample_rate_hz][/format_flags][#frames_per_packet][:LHbytesPerFrame][,channelsDI].
 	///
 	/// Format for PCM is *[-][BE|LE]{F|I|UI}{bitdepth}*; else a 4-char format code (e.g. `aac`, `alac`).
-	public init(fromText: String) throws {
+	init(fromText: String) throws {
 		var charIterator = fromText.startIndex
 		
 		func numFromCurrentChar() -> Int? {
