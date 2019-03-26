@@ -69,7 +69,6 @@
 		55403A1A1A74502B007A488E /* ForceFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B2B64319F564FC00A716BC /* ForceFeedback.swift */; };
 		55403A1D1A745283007A488E /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */; };
-		55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55654A591A6B1148008E9315 /* QuickLook.swift */; };
 		5568C1021C63F1840050E2BA /* AppleScriptFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */; };
 		556B05AC216DE4CB0025EFC5 /* SAMacError.h in Headers */ = {isa = PBXBuildFile; fileRef = 556B05AA216DE4CB0025EFC5 /* SAMacError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		556B05AD216DE4CB0025EFC5 /* SAMacError.m in Sources */ = {isa = PBXBuildFile; fileRef = 556B05AB216DE4CB0025EFC5 /* SAMacError.m */; };
@@ -290,7 +289,6 @@
 		55403A111A745003007A488E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55403A121A745003007A488E /* ForceFeedbackAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceFeedbackAdditionsTests.swift; sourceTree = "<group>"; };
 		555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaComparable.swift; sourceTree = "<group>"; };
-		55654A591A6B1148008E9315 /* QuickLook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickLook.swift; sourceTree = "<group>"; };
 		5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleScriptFoundation.swift; sourceTree = "<group>"; };
 		556B05AA216DE4CB0025EFC5 /* SAMacError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAMacError.h; sourceTree = "<group>"; };
 		556B05AB216DE4CB0025EFC5 /* SAMacError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAMacError.m; sourceTree = "<group>"; };
@@ -488,7 +486,6 @@
 				5587E0BF1A0A115D00CA1400 /* Endianness.swift */,
 				550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */,
 				5577287719ABE259008328D0 /* MacTypesAdditions.swift */,
-				55654A591A6B1148008E9315 /* QuickLook.swift */,
 				5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */,
 				550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */,
 				556B05AA216DE4CB0025EFC5 /* SAMacError.h */,
@@ -1173,7 +1170,6 @@
 				550FBADA19A7AE6F00EFBD3D /* FoundationTypesAdditions.swift in Sources */,
 				556B05AD216DE4CB0025EFC5 /* SAMacError.m in Sources */,
 				5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */,
-				55654A5A1A6B1148008E9315 /* QuickLook.swift in Sources */,
 				550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */,
 				556B05AF216DEB750025EFC5 /* SAMacError.swift in Sources */,
 				5587E0C01A0A115D00CA1400 /* Endianness.swift in Sources */,
