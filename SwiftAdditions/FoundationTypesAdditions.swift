@@ -345,9 +345,10 @@ extension IndexSet {
 
 
 extension UserDefaults {
+	/// Gets and sets a user default value named `key` to/from a `String` type.
 	/// - parameter key: the user default key to get/set.
 	///
-	/// If the user default specified by `key` is not a
+	/// When getting, if the user default specified by `key` is not a
 	/// `String`, Foundation will convert it to a string 
 	/// if the value is a number value. Otherwise `nil` will
 	/// be returned.
@@ -526,7 +527,7 @@ extension UserDefaults {
 	/// Gets and sets a user default value named `key` to/from a `URL` type. 
 	/// - parameter key: the user default key to get/set.
 	///
-	/// When getting, if the value is not a `URL` type, the following is attempted by the Foundation
+	/// When getting, the following is attempted by the Foundation
 	/// framework to convert it to a `URL`:
 	/// * If the value is a `String` path, then it will construct a file URL to that path. 
 	/// * If the value is an archived URL from `-setURL:forKey:`, or is set via the URL subscript, it will be unarchived.
