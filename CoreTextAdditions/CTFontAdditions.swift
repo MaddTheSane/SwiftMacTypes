@@ -760,7 +760,7 @@ extension CTFont {
 	/// This method will modify the `CGContext`'s font, text size, and text matrix if specified in the
 	/// `Font`. These attributes will not be restored.
 	/// The given glyphs should be the result of proper Unicode text layout operations (such as `CTLine`).
-	// Results from `glyphs(forCharacters:)` (or similar APIs) do not perform any Unicode text layout.
+	/// Results from `glyphs(forCharacters:)` (or similar APIs) do not perform any Unicode text layout.
 	/// - parameter context: `CGContext` used to render the glyphs.
 	/// - parameter gp: The glyphs and positions (origins) to be rendered. The positions are in user space.
 	public func draw(glyphsAndPositions gp: [(glyph: CGGlyph, position: CGPoint)], context: CGContext) {

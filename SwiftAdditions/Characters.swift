@@ -162,7 +162,7 @@ public enum ASCIICharacter: Int8, Comparable, Hashable {
 
 extension ASCIICharacter {
 	/// Takes a Swift `Character` and returns an ASCII character/code.
-	/// Returns `nil` if the value can't be represented in ASCII
+	/// Returns `nil` if the value can't be represented in ASCII.
 	public init?(swiftCharacter: Character) {
 		let srrChar = swiftCharacter.unicodeScalars
 		guard srrChar.count == 1,
@@ -212,7 +212,7 @@ extension String {
 	
 	/// Converts the string to an array of `ASCIICharacter`s.
 	/// - parameter encodeInvalid: If `true`, any character that can't be represented as
-	/// an ASCII character is instead replaced with `ASCIICharacter.Invalid`
+	/// an ASCII character is instead replaced with `ASCIICharacter.invalid`
 	/// instead of stopping and returning `nil`.
 	/// - returns: An array of `ASCIICharacter`s, or `nil` if there is a non-ASCII
 	/// character and `encodeInvalid` is `false`.
@@ -226,6 +226,7 @@ extension String {
 			return nil
 		}
 		
+		// Remove null termination.
 		asciis.removeLast()
 		return asciis.map({ (aChar) -> ASCIICharacter in
 			return ASCIICharacter(cCharacter: aChar)!
