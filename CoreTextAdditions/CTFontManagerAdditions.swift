@@ -38,13 +38,175 @@ public struct FontManager {
 		return CTFontManagerCopyAvailableFontURLs() as NSArray as! [URL]
 	}
 	#endif
+	
+	/// Registers fonts from the specified font URLs with the font manager. Registered fonts are discoverable through font descriptor matching in the calling process.
+	///
+	/// In iOS, fonts registered with the persistent scope are not automatically available
+	/// to other processes. Other process may call `CTFontManagerRequestFonts` to get access
+	///  to these fonts.
+	/// - parameter fontURLs: Array of font URLs.
+	/// - parameter scope: Scope constant defining the availability and lifetime of the
+	/// registration. See scope constants for more details.
+	/// - parameter enabled: Boolean value indicating whether the font derived from the URL
+	/// should be enabled for font descriptor matching and/or discoverable via
+	/// `CTFontManagerRequestFonts`.
+	/// - parameter registrationHandler: Block called as errors are discovered or upon
+	/// completion. The errors parameter contains an array of `CFError` references. An empty
+	/// array indicates no errors. Each error reference will contain a `CFArray` of font URLs
+	/// corresponding to `kCTFontManagerErrorFontURLsKey`. These URLs represent the font
+	/// files that caused the error, and were not successfully registered. Note, the handler
+	/// may be called multiple times during the registration process. The `done` (second)
+	/// parameter will be set to `true` when the registration process has completed. The
+	/// handler should return `false` if the operation is to be stopped. This may be
+	/// desirable after receiving an error.
+	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+	public static func register(fontURLs: [URL], scope: Scope, enabled: Bool, registrationHandler: (([CFError], Bool) -> Bool)?) {
+		let regHand: ((CFArray, Bool) -> Bool)?
+		if let newHand = registrationHandler {
+			regHand = { (errs, isDone) -> Bool in
+				return newHand(errs as! [CFError], isDone)
+			}
+		} else {
+			regHand = nil
+		}
+		
+		CTFontManagerRegisterFontURLs(fontURLs as NSArray, scope, enabled, regHand)
+	}
+	
+	/// Unregisters fonts from the specified font URLs with the font manager. Unregistered
+	/// fonts do not participate in font descriptor matching.
+	/// iOS note: only fonts registered with `CTFontManagerRegisterFontsForURL` or
+	/// `CTFontManagerRegisterFontsForURLs` can be unregistered with this API.
+	/// - parameter fontURLs: Array of font URLs.
+	/// - parameter scope: Scope constant defining the availability and lifetime of the
+	/// registration. Should match the scope the fonts are registered in. See scope constants
+	/// for more details.
+	/// - parameter registrationHandler: Block called as errors are discovered or upon
+	/// completion. The errors parameter will be an empty array if all files are
+	/// unregistered. Otherwise, it will contain an array of `CFError` references. Each error
+	/// reference will contain a `CFArray` of font URLs corresponding to
+	/// `kCTFontManagerErrorFontURLsKey`. These URLs represent the font files that caused the
+	/// error, and were not successfully unregistered. Note, the handler may be called
+	/// multiple times during the unregistration process. The `done` (second) parameter will
+	/// be set to true when the unregistration process has completed. The handler should
+	/// return `false` if the operation is to be stopped. This may be desirable after
+	/// receiving an error.
+	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+	public static func unregister(fontURLs: [URL], scope: Scope, registrationHandler: (([CFError], Bool) -> Bool)?) {
+		let regHand: ((CFArray, Bool) -> Bool)?
+		if let newHand = registrationHandler {
+			regHand = { (errs, isDone) -> Bool in
+				return newHand(errs as! [CFError], isDone)
+			}
+		} else {
+			regHand = nil
+		}
+		
+		CTFontManagerUnregisterFontURLs(fontURLs as NSArray, scope, regHand)
+	}
 
+	/// Registers font descriptors with the font manager. Registered fonts are discoverable
+	/// through font descriptor matching in the calling process.
+	///
+	/// Fonts descriptors registered in disabled state are not immediately available for
+	/// descriptor matching but the font manager will know the descriptors could be made
+	/// available if necessary. These decriptors can be enabled by making this called again
+	/// with the enabled parameter set to true. This operation may fail if there is another
+	/// font registered and enabled with the same Postscript name. In iOS, fonts registered
+	/// with the persistent scope are not automatically available to other processes. Other
+	/// process may call `CTFontManagerRequestFonts` to get access to these fonts.
+	/// - parameter fontDescriptors: Array of font descriptors to register. Font descriptor
+	/// keys used for registration are: `kCTFontURLAttribute`, `kCTFontNameAttribute`,
+	/// `kCTFontFamilyNameAttribute`, or `kCTFontRegistrationUserInfoAttribute`.
+	/// - parameter scope: Scope constant defining the availability and lifetime of the
+	/// registration. Should match the scope the fonts are registered in. See scope constants
+	/// for more details.
+	/// - parameter enabled: Boolean value indicating whether the font descriptors should be
+	/// enabled for font descriptor matching and/or discoverable via
+	/// `CTFontManagerRequestFonts`.
+	/// - parameter registrationHandler: Block called as errors are discovered or upon
+	/// completion. The errors parameter contains an array of `CFError` references. An empty
+	/// array indicates no errors. Each error reference will contain a `CFArray` of font
+	/// descriptors corresponding to `kCTFontManagerErrorFontDescriptorsKey`. These represent
+	/// the font descriptors that caused the error, and were not successfully registered.
+	/// Note, the handler may be called multiple times during the registration process. The
+	/// `done` (second) parameter will be set to true when the registration process has
+	/// completed. The handler should return `false` if the operation is to be stopped. This
+	/// may be desirable after receiving an error.
+	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+	public static func register(fontDescriptors: [CTFontDescriptor], scope: Scope, enabled: Bool, registrationHandler: (([CFError], Bool) -> Bool)?) {
+		let regHand: ((CFArray, Bool) -> Bool)?
+		if let newHand = registrationHandler {
+			regHand = { (errs, isDone) -> Bool in
+				return newHand(errs as! [CFError], isDone)
+			}
+		} else {
+			regHand = nil
+		}
+		
+		CTFontManagerRegisterFontDescriptors(fontDescriptors as NSArray, scope, enabled, regHand)
+	}
+
+	/// Unregisters font descriptors with the font manager. Unregistered fonts do not
+	/// participate in font descriptor matching.
+	/// - parameter fontDescriptors: Array of font descriptors to unregister.
+	/// - parameter scope: Scope constant defining the availability and lifetime of the
+	/// registration. Should match the scope the fonts are registered in. See scope constants
+	/// for more details.
+	/// - parameter registrationHandler: Block called as errors are discovered or upon
+	/// completion. The errors parameter will be an empty array if all font descriptors are
+	/// unregistered. Otherwise, it will contain an array of `CFError` references. Each error
+	/// reference will contain a `CFArray` of font descriptors corresponding to
+	/// `kCTFontManagerErrorFontDescriptorsKey`. These represent the font descriptors that
+	/// caused the error, and were not successfully unregistered. Note, the handler may be
+	/// called multiple times during the unregistration process. The `done` (second)
+	/// parameter will be set to true when the unregistration process has completed. The
+	/// handler should return `false` if the operation is to be stopped. This may be
+	/// desirable after receiving an error.
+	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+	public static func unregister(fontDescriptors: [CTFontDescriptor], scope: Scope, registrationHandler: (([CFError], Bool) -> Bool)?) {
+		let regHand: ((CFArray, Bool) -> Bool)?
+		if let newHand = registrationHandler {
+			regHand = { (errs, isDone) -> Bool in
+				return newHand(errs as! [CFError], isDone)
+			}
+		} else {
+			regHand = nil
+		}
+		
+		CTFontManagerUnregisterFontDescriptors(fontDescriptors as NSArray, scope, regHand)
+	}
+	
+	#if os(iOS)
+	/// Resolves font descriptors specified on input. On iOS only, if the font descriptors
+	/// cannot be found, the user is presented with a dialog indicating fonts that could not
+	/// be resolved. The user may optionally be provided with a way to resolve the missing
+	/// fonts if the font manager has a way to enable them.
+	///
+	/// On iOS, fonts registered by font provider applications in the persistent scope are
+	/// not automatically available to other applications. Client applications must call this
+	/// function to make the requested fonts available for font descriptor matching.
+	/// - parameter fontDescriptors: Array of font descriptors to make available to the
+	/// process.  Keys used to describe the fonts may be a combination of:
+	/// `kCTFontNameAttribute`, `kCTFontFamilyNameAttribute`, or
+	/// `kCTFontRegistrationUserInfoAttribute`.
+	/// - parameter completionHandler: Block called after request operation completes. Block
+	/// takes a single parameter containing an array of those descriptors that could not be
+	/// resolved/found. The array can be empty if all descriptors were resolved.
+	@available(iOS 13.0, *)
+	public static func requestFonts(_ fontDescriptors: [CTFontDescriptor], completionHandler: @escaping ([CTFontDescriptor]) -> Void) {
+		CTFontManagerRequestFonts(fontDescriptors as NSArray) { (arr) in
+			completionHandler(arr as! [CTFontDescriptor])
+		}
+	}
+	#endif
+	
 	/// Returns an array of font descriptors representing each of the fonts in the specified URL.
 	/// Note: these font descriptors are not available through font descriptor matching.
 	/// - parameter fileURL: A file system URL referencing a valid font file.
 	/// - returns: An array of `CTFontDescriptor`s or `nil` if there are no valid fonts.
 	@available(OSX 10.6, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
-	public static func fontDescriptors(for fileURL: URL) -> [CTFontDescriptor]? {
+	public static func fontDescriptors(from fileURL: URL) -> [CTFontDescriptor]? {
 		return CTFontManagerCreateFontDescriptorsFromURL(fileURL as NSURL) as NSArray? as? [CTFontDescriptor]
 	}
 	
@@ -56,8 +218,18 @@ public struct FontManager {
 	/// If the data contains a font collection (TTC or OTC), only the first font in the collection will be
 	/// returned.
 	@available(OSX 10.7, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
-	public static func fontDescriptor(for data: Data) -> CTFontDescriptor? {
+	public static func fontDescriptor(from data: Data) -> CTFontDescriptor? {
 		return CTFontManagerCreateFontDescriptorFromData(data as NSData)
+	}
+	
+	/// Returns an array of font descriptors for the fonts in the supplied data.
+	/// Note: the font descriptors are not available through font descriptor matching.
+	/// - parameter data: A `Data` containing font data.
+	/// - returns: An array of font descriptors. This can be an empty array in the event of
+	/// invalid or unsupported font data.
+	@available(OSX 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *)
+	public static func fontDescriptors(from data: Data) -> [CTFontDescriptor] {
+		return CTFontManagerCreateFontDescriptorsFromData(data as NSData) as! [CTFontDescriptor]
 	}
 	
 	/// Registers fonts from the specified font URL with the font manager. Registered fonts participate in font
@@ -134,6 +306,52 @@ public struct FontManager {
 			}
 		}
 	}
+	
+	#if os(iOS)
+	/// Registers named font assets in the specified bundle with the font manager. Registered
+	/// fonts are discoverable through font descriptor matching in the calling process.
+	///
+	/// Font assets are extracted from the asset catalog and registered. This call must be
+	/// made after the completion handler of either `NSBundleResourceRequest`
+	/// `beginAccessingResourcesWithCompletionHandler:` or
+	/// `conditionallyBeginAccessingResourcesWithCompletionHandler:` is called successfully.
+	///
+	/// Name the assets using Postscript names for individual faces, or family names for
+	/// variable/collection fonts. The same names can be used to unregister the fonts with
+	/// `CTFontManagerUnregisterFontDescriptors`. In iOS, fonts registered with the
+	/// persistent scope are not automatically available to other processes. Other process
+	/// may call `CTFontManagerRequestFonts` to get access to these fonts.
+	/// - parameter fontAssetNames: Array of font name assets in asset catalog.
+	/// - parameter bundle: Bundle containing asset catalog. A `nil` value resolves to the
+	/// main bundle.
+	/// - parameter scope: Scope constant defining the availability and lifetime of the
+	/// registration. `kCTFontManagerScopePersistent` is the only supported scope for iOS.
+	/// - parameter enabled: Boolean value indicating whether the font assets should be
+	/// enabled for font descriptor matching and/or discoverable via
+	/// `CTFontManagerRequestFonts`.
+	/// - parameter registrationHandler: Block called as errors are discovered, or upon
+	/// completion. The errors parameter contains an array of `CFError` references. An empty
+	/// array indicates no errors. Each error reference will contain a `CFArray` of font
+	/// asset names corresponding to `kCTFontManagerErrorFontAssetNameKey`. These represent
+	/// the font asset names that were not successfully registered. Note, the handler may be
+	/// called multiple times during the registration process. The `done` (second) parameter
+	/// will be set to `true` when the registration process has completed. The handler should
+	/// return `false` if the operation is to be stopped. This may be desirable after
+	/// receiving an error.
+	@available(iOS 13.0, *)
+	public static func registerFonts(withAssetNames fontAssetNames: [String], bundle: CFBundle? = nil, scope: Scope, enabled: Bool, registrationHandler: (([CFError], Bool) -> Bool)?) {
+		let regHand: ((CFArray, Bool) -> Bool)?
+		if let newHand = registrationHandler {
+			regHand = { (errs, isDone) -> Bool in
+				return newHand(errs as! [CFError], isDone)
+			}
+		} else {
+			regHand = nil
+		}
+		
+		CTFontManagerRegisterFontsWithAssetNames(fontAssetNames as NSArray, bundle, scope, enabled, regHand)
+	}
+	#endif
 	
 	#if os(OSX)
 	/// Enables the matching font descriptors for font descriptor matching.

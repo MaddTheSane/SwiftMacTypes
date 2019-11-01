@@ -96,10 +96,12 @@ public extension CTFontCollection {
 	/// Returns an array of font descriptors matching the collection.
 	/// - parameter options: The options dictionary. See constant option keys. If `nil`, uses the options passed in when the collection was created.
 	/// - returns:     An array of CTFontDescriptors matching the collection definition or `nil` if there are none.
+	@available(macOS 10.7, iOS 12.0, watchOS 5.0, tvOS 12.0, *)
 	func matchingFontDescriptors(options: [String: Any]? = nil) -> [CTFontDescriptor]? {
 		return CTFontCollectionCreateMatchingFontDescriptorsWithOptions(self, options as NSDictionary?) as? [CTFontDescriptor]
 	}
 
+	#if os(macOS)
 	/// Returns an array of font descriptors matching the specified family, one descriptor for each style in the collection.
 	/// - parameter collection: The font collection reference.
 	/// - parameter options: The options dictionary. See constant option keys. If `nil`, uses the options passed in when the collection was created.
@@ -112,7 +114,6 @@ public extension CTFontCollection {
 	@group Bulk attribute access
 	*///--------------------------------------------------------------------------
 
-	#if os(macOS)
 	/// Returns an array of font descriptor attribute values.
 	///
 	/// - parameter attributeName: The attribute to retrieve for each descriptor in the collection.
