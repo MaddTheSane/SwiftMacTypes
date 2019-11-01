@@ -306,7 +306,7 @@ extension UnsafeBufferPointer {
 	/// The sentinal isn't included in the array.
 	/// - parameter start: the pointer to start from.
 	/// - parameter maximum: The longest iteration to look out for. Any elements after this
-	/// are not included, no matter what
+	/// are not included in the buffer.
 	/// - parameter sentinelChecker: The block that checks if the current `Element`
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
@@ -353,7 +353,7 @@ extension UnsafeMutableBufferPointer {
 	/// The sentinal isn't included in the array.
 	/// - parameter start: the pointer to start from.
 	/// - parameter maximum: The longest iteration to look out for. Any elements after this
-	/// are not included, no matter what
+	/// are not included in the buffer.
 	/// - parameter sentinelChecker: The block that checks if the current `Element`
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.

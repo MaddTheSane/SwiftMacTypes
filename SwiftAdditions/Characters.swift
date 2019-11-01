@@ -194,7 +194,7 @@ extension ASCIICharacter {
 	/// Returns a blank replacement character (`0xFFFD`) if not a valid ASCII value.
 	public var characterValue: Character {
 		let numVal = self.rawValue
-		if numVal < 0 {
+		guard numVal >= 0 else {
 			return "\u{FFFD}"
 		}
 		
