@@ -386,16 +386,6 @@ public extension AudioStreamBasicDescription {
 		return (mBytesPerFrame > 0 && interleavedChannels != 0) ? mBytesPerFrame / interleavedChannels :  0;
 	}
 	
-	@available(*, unavailable, renamed: "isPackednessSignificant")
-	var packednessIsSignificant: Bool {
-		fatalError()
-	}
-	
-	@available(*, unavailable, renamed: "isAlignmentSignificant")
-	var alignmentIsSignificant: Bool {
-		fatalError()
-	}
-	
 	/// The audio format must be PCM, otherwise this won't work!
 	var isPackednessSignificant: Bool {
 		precondition(isPCM, "isPackednessSignificant only applies for PCM")

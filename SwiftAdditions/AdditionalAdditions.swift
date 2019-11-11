@@ -39,11 +39,6 @@ public func clamp<W: Sequence, X: Comparable>(values: W, minimum: X, maximum: X)
 	})
 }
 
-@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "clamp(_:minimum:maximum:)")
-public func clamp<X: Comparable>(value: X, minimum: X, maximum: X) -> X {
-	return clamp(value, minimum: minimum, maximum: maximum)
-}
-
 /// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
 /// Will crash if any type in the mirror doesn't match `X`.
 ///

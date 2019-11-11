@@ -17,26 +17,9 @@ extension NSRange {
 		return NSRange(location: NSNotFound, length: 0)
 	}
 	
-	/// Returns a range from a textual representation.
-	///
-	/// Scans `string` for two integers which are used as the `location` 
-	/// and `length` values, in that order, to create an `NSRange` struct. 
-	/// If `string` only contains a single integer, it is used as the location 
-	/// value. If `string` does not contain any integers, this function returns 
-	/// an `NSRange` whose location and length values are both `0`.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "NSRange.init(_:)")
-	public init(string: String) {
-		self = NSRangeFromString(string)
-	}
-	
 	/// Is `true` if `location` is equal to `NSNotFound`.
 	public var notFound: Bool {
 		return location == NSNotFound
-	}
-	
-	@available(*, unavailable, renamed: "contains(_:)")
-	public func locationInRange(_ loc: Int) -> Bool {
-		fatalError("Unavailable function called: \(#function)")
 	}
 	
 	/// The maximum value from the range.
@@ -154,12 +137,6 @@ extension CGRect {
 		self = NSIntegralRectWithOptions(self, options)
 	}
 	
-	@available(*, unavailable, renamed: "formIntegral(options:)")
-	public mutating func integralInPlace(options: AlignmentOptions) {
-		fatalError("Unavailable function called: \(#function)")
-	}
-
-	
 	/// Adjusts the sides of a rectangle to integral values using the specified options.
 	/// - returns: A copy of `self`, modified based on the options. The options are
 	/// defined in `AlignmentOptions`.
@@ -221,23 +198,11 @@ extension CGRect {
 }
 
 extension NSUUID {
-	/// Create a new `NSUUID` from a `CFUUID`.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "NSUUID.init(cfUUID:)")
-	public convenience init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
-		self.init(cfUUID: cfUUID)
-	}
-	
 	/// Create a new `NSUUID` from a CoreFoundation `CFUUID`.
 	@objc(initWithCFUUID:) public convenience init(cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
 		self.init(uuidString: tempUIDStr)!
-	}
-	
-	/// Get a CoreFoundation UUID from the current UUID.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "cfUUID")
-	public var `CFUUID`: CoreFoundation.CFUUID {
-		return cfUUID
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
@@ -249,24 +214,11 @@ extension NSUUID {
 }
 
 extension UUID {
-	/// Create a new `Foundation.UUID` from a `CFUUID`.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "UUID.init(cfUUID:)")
-	public init(`CFUUID` cfUUID: CoreFoundation.CFUUID) {
-		self.init(cfUUID: cfUUID)
-	}
-	
 	/// Create a new `Foundation.UUID` from a CoreFoundation `CFUUID`.
 	public init(cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
 		self.init(uuidString: tempUIDStr)!
-	}
-
-	
-	/// Get a CoreFoundation UUID from the current UUID.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "cfUUID")
-	public var `CFUUID`: CoreFoundation.CFUUID {
-		return cfUUID
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
@@ -277,33 +229,7 @@ extension UUID {
 	}
 }
 
-
-extension NSData {
-	@available(swift, introduced: 2.0, deprecated: 3.0, obsoleted: 4.2, message: "Use the `Data` struct instead")
-	@nonobjc public convenience init(byteArray: [UInt8]) {
-		self.init(bytes: byteArray, length: byteArray.count)
-	}
-	
-	@available(swift, introduced: 2.0, deprecated: 3.0, obsoleted: 4.2, message: "Use the `Data` struct instead")
-	@nonobjc public var arrayOfBytes: [UInt8] {
-		let count = length / MemoryLayout<UInt8>.size
-		var bytesArray = [UInt8](repeating: 0, count: count)
-		getBytes(&bytesArray, length:count * MemoryLayout<UInt8>.size)
-		return bytesArray
-	}
-}
-
 extension NSMutableData {
-	@available(*, unavailable, renamed: "append(byteArray:)")
-	@nonobjc public func appendByteArray(_ byteArray: [UInt8]) {
-		fatalError("Unavailable function called: \(#function)")
-	}
-	
-	@available(swift, introduced: 2.0, deprecated: 3.0, obsoleted: 4.0, renamed: "replaceBytes(in:with:)")
-	@nonobjc public func replaceBytesInRange(range: NSRange, withByteArray replacementBytes: [UInt8]) {
-		replaceBytes(in: range, with: replacementBytes)
-	}
-	
 	@nonobjc public func append(byteArray: [UInt8]) {
 		append(byteArray, length: byteArray.count)
 	}
@@ -581,48 +507,5 @@ extension UserDefaults {
 				removeObject(forKey: key)
 			}
 		}
-	}
-}
-
-// Code taken from http://stackoverflow.com/a/30404532/1975001
-extension String {
-	/// Creates an `NSRange` from a comparable `String` range.
-	/// - parameter range: a Swift `String` range to get an `NSRange` from.
-	/// - returns: a converted `NSRange`.
-	///
-	/// Deprecated in Swift 4 and later: Use `NSRange(_:in:)` with `range` as the first
-	/// argument, and this string as the second.
-	@available(swift, introduced: 3.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `NSRange(_:in:)` instead")
-	public func nsRange(from range: Range<String.Index>) -> NSRange {
-		let utf16view = self.utf16
-		guard let from = range.lowerBound.samePosition(in: utf16view),
-			let to = range.upperBound.samePosition(in: utf16view) else {
-				return NSRange(range, in: self)
-		}
-		return NSRange(location: utf16view.distance(from: utf16view.startIndex, to: from),
-		               length: utf16view.distance(from: from, to: to))
-	}
-	
-	/// Creates a `String` range from the passed in `NSRange`.
-	/// - parameter nsRange: An `NSRange` to convert to a `String` range.
-	/// - returns: a converted `String` range, or `nil` if `nsRange` could not be converted.
-	///
-	/// Make sure you have called `-[NSString rangeOfComposedCharacterSequencesForRange:]`
-	/// *before* calling this method, otherwise if the beginning or end of
-	/// `nsRange` is in-between Unicode code points or grapheme clusters, this method
-	/// will return `nil`.
-	///
-	/// Deprecated in Swift 4 and later: Use `Range(_:in:)` with `nsRange` as the first
-	/// argument, and this string as the second.
-	@available(swift, introduced: 3.0, deprecated: 4.0, obsoleted: 5.0, message: "Use `Range(_:in:)` instead")
-	public func range(from nsRange: NSRange) -> Range<String.Index>? {
-		guard
-			let preRange = Range(nsRange),
-			let from16 = utf16.index(utf16.startIndex, offsetBy: preRange.lowerBound, limitedBy: utf16.endIndex),
-			let to16 = utf16.index(utf16.startIndex, offsetBy: preRange.upperBound, limitedBy: utf16.endIndex),
-			let from = String.Index(from16, within: self),
-			let to = String.Index(to16, within: self)
-			else { return nil }
-		return from ..< to
 	}
 }
