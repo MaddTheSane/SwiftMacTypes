@@ -314,7 +314,7 @@ extension UnsafeBufferPointer {
 	public init(start: UnsafePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
 		var toIterate = start
 		
-		while !(try sentinelChecker(toIterate.pointee)) || start.distance(to: toIterate) > maximum {
+		while !(try sentinelChecker(toIterate.pointee)) && start.distance(to: toIterate) > maximum {
 			toIterate = toIterate.advanced(by: 1)
 		}
 		
@@ -361,7 +361,7 @@ extension UnsafeMutableBufferPointer {
 	public init(start: UnsafeMutablePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
 		var toIterate = start
 		
-		while !(try sentinelChecker(toIterate.pointee)) || start.distance(to: toIterate) > maximum {
+		while !(try sentinelChecker(toIterate.pointee)) && start.distance(to: toIterate) > maximum {
 			toIterate = toIterate.advanced(by: 1)
 		}
 		
