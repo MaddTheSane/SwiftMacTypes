@@ -37,7 +37,7 @@ public func OSTypeToString(_ theType: OSType) -> String? {
 
 /// Converts an `OSType` to a `String` value. May return a hexadecimal string.
 public func OSTypeToString(_ theType: OSType, useHexIfInvalid: ()) -> String {
-	if let ourStr = OSTypeToString(theType) {
+	if let ourStr = OSTypeToString(theType), ourStr.count == 4 {
 		return ourStr
 	} else {
 		return String(format: "0x%08X", theType)
