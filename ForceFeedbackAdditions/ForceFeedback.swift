@@ -26,12 +26,12 @@ public extension ForceFeedbackResult {
 	}
 	
 	/// is `true` if the raw value is greater than or equal to `0`.
-	public var isSuccess: Bool {
+	var isSuccess: Bool {
 		return code.rawValue >= 0
 	}
 	
 	/// is `true` if the raw value is less than `0`.
-	public var isFailure: Bool {
+	var isFailure: Bool {
 		return code.rawValue < 0
 	}
 }
@@ -661,7 +661,7 @@ extension FFCAPABILITIES {
 	}
 	
 	public var axes: [Axis] {
-		var axesArray: [UInt8] = try! arrayFromObject(reflecting: ffAxes)
+		let axesArray: [UInt8] = try! arrayFromObject(reflecting: ffAxes)
 		
 		return ([UInt8](axesArray[0..<min(Int(numFfAxes), axesArray.count)])).map({ (aVal) -> Axis in
 			let ax = Axis(rawValue: aVal)
@@ -838,10 +838,9 @@ public final class ForceFeedbackDevice {
 	}
 	
 	public func sendEscape(command: DWORD, data inData: Data) -> ForceFeedbackResult {
-		let curDataSize = inData.count
 		var tmpMutBytes = inData
-		let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutablePointer<Int8>) -> ForceFeedbackResult in
-			var ourEscape = Escape(dwSize: DWORD(MemoryLayout<FFEFFESCAPE>.size), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: nil, cbOutBuffer: 0)
+		let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutableRawBufferPointer) -> ForceFeedbackResult in
+			var ourEscape = Escape(dwSize: DWORD(MemoryLayout<FFEFFESCAPE>.size), dwCommand: command, lpvInBuffer: aMutBytes.baseAddress, cbInBuffer: DWORD(aMutBytes.count), lpvOutBuffer: nil, cbOutBuffer: 0)
 			
 			return sendEscape(&ourEscape)
 		}
@@ -854,9 +853,9 @@ public final class ForceFeedbackDevice {
 		var ourMutableData = Data(count: outDataLength)
 		let curDataSize = inData.count
 		var tmpMutBytes = inData
-		let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutablePointer<UInt8>) -> ForceFeedbackResult in
-			let theNewRet = ourMutableData.withUnsafeMutableBytes({ (ourMutBytes: UnsafeMutablePointer<UInt8>) -> ForceFeedbackResult in
-				var ourEscape = Escape(dwSize: DWORD(MemoryLayout<Escape>.size), dwCommand: command, lpvInBuffer: aMutBytes, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutBytes, cbOutBuffer: DWORD(outDataLength))
+		let toRet = tmpMutBytes.withUnsafeMutableBytes { (aMutBytes: UnsafeMutableRawBufferPointer) -> ForceFeedbackResult in
+			let theNewRet = ourMutableData.withUnsafeMutableBytes({ (ourMutBytes: UnsafeMutableRawBufferPointer) -> ForceFeedbackResult in
+				var ourEscape = Escape(dwSize: DWORD(MemoryLayout<Escape>.size), dwCommand: command, lpvInBuffer: aMutBytes.baseAddress, cbInBuffer: DWORD(curDataSize), lpvOutBuffer: ourMutBytes.baseAddress, cbOutBuffer: DWORD(outDataLength))
 				
 				let ret1 = sendEscape(&ourEscape)
 				outDataLength = Int(ourEscape.cbOutBuffer)
@@ -948,8 +947,8 @@ public final class ForceFeedbackDevice {
 	
 	public func get(property: UInt32, size: IOByteCount) throws -> Data {
 		var toRet = Data(count: Int(size))
-		try toRet.withUnsafeMutableBytes({ (datPtr: UnsafeMutablePointer<UInt8>) -> Void in
-			let iErr = FFDeviceGetForceFeedbackProperty(rawDevice, property, datPtr, size)
+		try toRet.withUnsafeMutableBytes({ (datPtr: UnsafeMutableRawBufferPointer) -> Void in
+			let iErr = FFDeviceGetForceFeedbackProperty(rawDevice, property, datPtr.baseAddress, size)
 			let bErr = ForceFeedbackResult.from(result: iErr)
 			lastReturnValue = bErr
 			if bErr.code != .ok {
