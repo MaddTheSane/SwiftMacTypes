@@ -191,7 +191,7 @@ extension ASCIICharacter {
 
 	
 	/// Returns a Swift `Character` representing the current enum value.
-	/// Returns a blank replacement character (`0xFFFD`) if not a valid ASCII value.
+	/// Returns a blank replacement character (**0xFFFD**) if not a valid ASCII value.
 	public var characterValue: Character {
 		let numVal = self.rawValue
 		guard numVal >= 0 else {
@@ -203,6 +203,7 @@ extension ASCIICharacter {
 }
 
 extension String {
+	/// Creates a string from a sequence of `ASCIICharacter`s.
 	public init<A: Sequence>(asciiCharacters: A) where A.Element == ASCIICharacter {
 		let asciiCharMap = asciiCharacters.map { (cha) -> Character in
 			return cha.characterValue

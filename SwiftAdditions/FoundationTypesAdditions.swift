@@ -22,12 +22,6 @@ extension NSRange {
 		return location == NSNotFound
 	}
 	
-	/// The maximum value from the range.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "upperBound")
-	public var max: Int {
-		return NSMaxRange(self)
-	}
-
 	/// Set the current `NSRange` to an intersection of this range and another.
 	/// - parameter otherRange: the other range to intersect with.
 	public mutating func intersect(_ otherRange: NSRange) {
@@ -58,12 +52,6 @@ extension NSRange {
 	/// The current range, represented as a `CFRange`.
 	public var cfRange: CoreFoundation.CFRange {
 		return CoreFoundation.CFRange(location: location, length: length)
-	}
-
-	/// The current range, represented as a `CFRange`.
-	@available(swift, introduced: 2.0, deprecated: 4.0, obsoleted: 5.0, renamed: "cfRange")
-	public var `CFRange`: CoreFoundation.CFRange {
-		return cfRange
 	}
 }
 
@@ -236,6 +224,10 @@ extension NSMutableData {
 	
 	@nonobjc public func replaceBytes(in range: NSRange, with replacementBytes: [UInt8]) {
 		replaceBytes(in: range, withBytes: replacementBytes, length: replacementBytes.count)
+	}
+
+	@nonobjc public func replaceBytes(in range: NSRange, with replacementBytes: UnsafeRawBufferPointer) {
+		replaceBytes(in: range, withBytes: replacementBytes.baseAddress, length: replacementBytes.count)
 	}
 }
 

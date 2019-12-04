@@ -18,21 +18,21 @@ import CoreGraphics
 
 /// Converts an `OSType` to a `String` value. May return `nil`.
 public func OSTypeToString(_ theType: OSType) -> String? {
-	#if os(OSX)
-		let anUnmanaged = UTCreateStringForOSType(theType) as Unmanaged<CFString>?
-		return anUnmanaged?.takeRetainedValue() as String?
-	#else
-		func OSType2Ptr(type: OSType) -> [CChar] {
-			var ourOSType = [Int8](repeating: 0, count: 5)
-			var intType = type.bigEndian
-			memcpy(&ourOSType, &intType, 4)
-			
-			return ourOSType
-		}
+	func OSType2Ptr(type: OSType) -> [CChar] {
+		var ourOSType = [Int8](repeating: 0, count: 5)
+		var intType = type.bigEndian
+		memcpy(&ourOSType, &intType, 4)
 		
-		let ourOSType = OSType2Ptr(type: theType)
-		return NSString(bytes: ourOSType, length: 4, encoding: String.Encoding.macOSRoman.rawValue) as String?
-	#endif
+		return ourOSType
+	}
+	
+	let ourOSType = OSType2Ptr(type: theType)
+	for char in ourOSType[0..<4] {
+		if (CChar(0)..<0x20).contains(char) {
+			return nil
+		}
+	}
+	return NSString(bytes: ourOSType, length: 4, encoding: String.Encoding.macOSRoman.rawValue) as String?
 }
 
 /// Converts an `OSType` to a `String` value. May return a hexadecimal string.
@@ -53,36 +53,34 @@ public func toOSType(string theString: String, detectHex: Bool = false) -> OSTyp
 			return tmpnum
 		}
 	}
-	#if os(OSX)
-		return UTGetOSTypeFromString(theString as NSString)
-	#else
-		func Ptr2OSType(str: [CChar]) -> OSType {
-			var type: OSType = 0x20202020 // four spaces. Can't really be represented the same way as in C
-			var i = str.count - 1
-			if i > 4 {
-				i = 4
-			}
-			memcpy(&type, str, i)
-			type = type.bigEndian
-			
-			return type
+	func Ptr2OSType(str: [CChar]) -> OSType {
+		var type: OSType = 0x20202020 // four spaces. Can't really be represented the same way as in C
+		var i = str.count - 1
+		if i > 4 {
+			i = 4
 		}
-		var ourOSType = [Int8](repeating: 0, count: 5)
-		var ourLen = theString.lengthOfBytes(using: String.Encoding.macOSRoman)
-		if ourLen > 4 {
-			ourLen = 4
-		} else if ourLen == 0 {
-			return 0
-		}
+		memcpy(&type, str, i)
+		type = type.bigEndian
 		
-		let aData = theString.cString(using: String.Encoding.macOSRoman)!
-		
-		for i in 0 ..< ourLen {
-			ourOSType[i] = aData[i]
-		}
-		
-		return Ptr2OSType(str: ourOSType)
-	#endif
+		return type
+	}
+	var ourOSType = [Int8](repeating: 0, count: 5)
+	var ourLen = theString.lengthOfBytes(using: String.Encoding.macOSRoman)
+	if ourLen > 4 {
+		ourLen = 4
+	} else if ourLen == 0 {
+		return 0
+	}
+	
+	guard let aData = theString.cString(using: String.Encoding.macOSRoman) else {
+		return 0
+	}
+	
+	for i in 0 ..< ourLen {
+		ourOSType[i] = aData[i]
+	}
+	
+	return Ptr2OSType(str: ourOSType)
 }
 
 /// The current system encoding as a `CFStringEncoding` that is 

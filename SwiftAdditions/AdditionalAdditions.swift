@@ -60,9 +60,11 @@ public func getArrayFromMirror<X>(mirror: Mirror, appendLastObject lastObj: X? =
 }
 
 public enum ReflectError: Error {
-	case UnexpectedType(type: Any.Type, named: String?)
+	case unexpectedType(type: Any.Type, named: String?)
 }
 
+/// Creates an array of type `X` by reflecting `obj`.
+///
 /// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
 /// Will throw if any type in the mirror doesn't match `X`.
 ///
@@ -77,7 +79,7 @@ public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X?
 	let mirror = Mirror(reflecting: obj)
 	for val in mirror.children {
 		guard let aChar = val.value as? X else {
-			throw ReflectError.UnexpectedType(type: type(of: val.value), named: val.label)
+			throw ReflectError.unexpectedType(type: type(of: val.value), named: val.label)
 		}
 		anArray.append(aChar)
 	}

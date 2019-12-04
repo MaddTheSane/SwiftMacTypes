@@ -22,64 +22,8 @@ import Cocoa
 		return CGWindowLevelForKey(CGWindowLevelKey.desktopWindow)
 	}
 	
-	public var kCGBackstopMenuLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.backstopMenu)
-	}
-	
-	public var kCGNormalWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.normalWindow)
-	}
-	
-	public var kCGFloatingWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.floatingWindow)
-	}
-	
-	public var kCGTornOffMenuWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.tornOffMenuWindow)
-	}
-	
-	public var kCGDockWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.dockWindow)
-	}
-	
-	public var kCGMainMenuWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.mainMenuWindow)
-	}
-	
-	public var kCGStatusWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.statusWindow)
-	}
-	
-	public var kCGModalPanelWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.modalPanelWindow)
-	}
-	
-	public var kCGPopUpMenuWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.popUpMenuWindow)
-	}
-	
-	public var kCGDraggingWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.draggingWindow)
-	}
-	
-	public var kCGScreenSaverWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.screenSaverWindow)
-	}
-	
 	public var kCGMaximumWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.maximumWindow)
-	}
-	
-	public var kCGOverlayWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.overlayWindow)
-	}
-	
-	public var kCGHelpWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.helpWindow)
-	}
-	
-	public var kCGUtilityWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.utilityWindow)
 	}
 	
 	public var kCGDesktopIconWindowLevel: CGWindowLevel {
@@ -90,10 +34,6 @@ import Cocoa
 		return CGWindowLevelForKey(CGWindowLevelKey.cursorWindow)
 	}
 	
-	public var kCGAssistiveTechHighWindowLevel: CGWindowLevel {
-		return CGWindowLevelForKey(CGWindowLevelKey.assistiveTechHighWindow)
-	}
-
 	extension AffineTransform {
 		public init(cgTransform cgAff: CGAffineTransform) {
 			self.init(m11: cgAff.a, m12: cgAff.b, m21: cgAff.c, m22: cgAff.d, tX: cgAff.tx, tY: cgAff.ty)
@@ -113,7 +53,18 @@ import Cocoa
 	}
 	
 	extension NSBitmapImageRep {
-		/// Returns an array of all available compression types that can be used when writing a TIFF image.
+		/// Returns an array of all available compression types that can be used when writing
+		/// a TIFF image.
+		/// - returns: An `UnsafeBufferPointer` C array of `NSTIFFCompression` constants.
+		/// This array belongs to the `NSBitmapImageRep` class; it shouldn’t be freed or
+		/// altered. See `NSBitmapImageRep.TIFFCompression` for the supported TIFF
+		/// compression types.
+		///
+		/// Note that not all compression types can be used for all images:
+		/// `NSBitmapImageRep.TIFFCompression.next` can be used only to retrieve image data.
+		/// Because future releases may include other compression types, always use this
+		/// method to get the available compression types—for example, when you implement a
+		/// user interface for selecting compression types.
 		public class var tiffCompressionTypes: UnsafeBufferPointer<NSBitmapImageRep.TIFFCompression> {
 			var compPtr: UnsafePointer<NSBitmapImageRep.TIFFCompression>? = nil
 			var count = 0
