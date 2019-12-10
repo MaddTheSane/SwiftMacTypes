@@ -15,6 +15,9 @@ public extension IOHIDManager {
 		return IOHIDManagerGetTypeID()
 	}
 	
+	/// Various options that can be supplied to `IOHIDManager` functions.
+	typealias Options = IOHIDManagerOptions
+	
 	/// Creates an `IOHIDManager` object.
 	///
 	/// The IOHIDManager object is meant as a global management system for
@@ -23,8 +26,8 @@ public extension IOHIDManager {
 	/// - parameter options: supply `kIOHIDManagerOptionUsePersistentProperties`
 	/// to load properties from the default persistent property store. Otherwise
 	/// supply `kIOHIDManagerOptionNone` (or 0).
-	class func create(_ allocator: CFAllocator? = kCFAllocatorDefault, options: IOOptionBits) -> IOHIDManager {
-		return IOHIDManagerCreate(allocator, options)
+	class func create(_ allocator: CFAllocator? = kCFAllocatorDefault, options: Options) -> IOHIDManager {
+		return IOHIDManagerCreate(allocator, options.rawValue)
 	}
 	
 	/// Opens the `IOHIDManager`.
@@ -34,8 +37,8 @@ public extension IOHIDManager {
 	/// `kIOHIDOptionsTypeSeizeDevice` option.
 	/// - parameter options: Option bits to be sent down to the manager and device.
 	/// - returns: Returns `kIOReturnSuccess` if successful.
-	func open(options: IOOptionBits = 0) -> IOReturn {
-		return IOHIDManagerOpen(self, options)
+	func open(options: Options = []) -> IOReturn {
+		return IOHIDManagerOpen(self, options.rawValue)
 	}
 	
 	/// Closes the `IOHIDManager`.
@@ -43,8 +46,8 @@ public extension IOHIDManager {
 	/// This will also close all devices that are currently enumerated.
 	/// - parameter options: Option bits to be sent down to the manager and device.
 	/// - returns: Returns `kIOReturnSuccess` if successful.
-	func close(options: IOOptionBits = 0) -> IOReturn {
-		return IOHIDManagerClose(self, options)
+	func close(options: Options = []) -> IOReturn {
+		return IOHIDManagerClose(self, options.rawValue)
 	}
 	
 	/// Obtains a property of an `IOHIDManager`.
