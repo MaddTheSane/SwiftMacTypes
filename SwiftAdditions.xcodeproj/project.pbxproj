@@ -70,6 +70,8 @@
 		55403A1D1A745283007A488E /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */; };
 		5563E582239F3033007A1600 /* IOHIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5563E581239F3033007A1600 /* IOHIDManager.swift */; };
+		5563E584239F453F007A1600 /* IOHIDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5563E583239F453F007A1600 /* IOHIDDevice.swift */; };
+		5563E586239F4C8F007A1600 /* IOHIDValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5563E585239F4C8F007A1600 /* IOHIDValue.swift */; };
 		5568C1021C63F1840050E2BA /* AppleScriptFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */; };
 		556B05AC216DE4CB0025EFC5 /* SAMacError.h in Headers */ = {isa = PBXBuildFile; fileRef = 556B05AA216DE4CB0025EFC5 /* SAMacError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		556B05AD216DE4CB0025EFC5 /* SAMacError.m in Sources */ = {isa = PBXBuildFile; fileRef = 556B05AB216DE4CB0025EFC5 /* SAMacError.m */; };
@@ -291,6 +293,8 @@
 		55403A121A745003007A488E /* ForceFeedbackAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceFeedbackAdditionsTests.swift; sourceTree = "<group>"; };
 		555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaComparable.swift; sourceTree = "<group>"; };
 		5563E581239F3033007A1600 /* IOHIDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDManager.swift; sourceTree = "<group>"; };
+		5563E583239F453F007A1600 /* IOHIDDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDDevice.swift; sourceTree = "<group>"; };
+		5563E585239F4C8F007A1600 /* IOHIDValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDValue.swift; sourceTree = "<group>"; };
 		5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleScriptFoundation.swift; sourceTree = "<group>"; };
 		556B05AA216DE4CB0025EFC5 /* SAMacError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAMacError.h; sourceTree = "<group>"; };
 		556B05AB216DE4CB0025EFC5 /* SAMacError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAMacError.m; sourceTree = "<group>"; };
@@ -596,6 +600,8 @@
 			isa = PBXGroup;
 			children = (
 				5563E581239F3033007A1600 /* IOHIDManager.swift */,
+				5563E583239F453F007A1600 /* IOHIDDevice.swift */,
+				5563E585239F4C8F007A1600 /* IOHIDValue.swift */,
 				55706DA81A1EC2880000FD93 /* IOCFPlugInClass.swift */,
 				55DAF5921A337C91008281ED /* COMUUIDs.swift */,
 				55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */,
@@ -1240,6 +1246,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5563E582239F3033007A1600 /* IOHIDManager.swift in Sources */,
+				5563E584239F453F007A1600 /* IOHIDDevice.swift in Sources */,
+				5563E586239F4C8F007A1600 /* IOHIDValue.swift in Sources */,
 				55706DA91A1EC2880000FD93 /* IOCFPlugInClass.swift in Sources */,
 				55DAF5931A337C91008281ED /* COMUUIDs.swift in Sources */,
 			);
