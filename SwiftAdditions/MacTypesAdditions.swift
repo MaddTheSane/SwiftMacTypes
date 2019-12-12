@@ -85,16 +85,22 @@ public func toOSType(string theString: String, detectHex: Bool = false) -> OSTyp
 
 /// The current system encoding as a `CFStringEncoding` that is 
 /// the most like a Mac Classic encoding.
+///
+/// Deprecated. Usage of the underlying APIs are discouraged.
+/// If you really need this info, call `CFStringGetMostCompatibleMacStringEncoding`
+/// with the value from `CFStringGetSystemEncoding` instead.
+@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, message: "Usage is discouraged. Read documentation about CFStringGetSystemEncoding() for more info.")
 public var currentCFMacStringEncoding: CFStringEncoding {
 	let cfEnc = CFStringGetSystemEncoding()
 	return CFStringGetMostCompatibleMacStringEncoding(cfEnc)
 }
 
 /// The current system encoding that is the most like a Mac Classic encoding.
+///
+/// Deprecated, use `String.Encoding.currentCompatibleClassic` instead
+@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "String.Encoding.currentCompatibleClassic")
 public var currentMacStringEncoding: String.Encoding {
-	let nsEnc = CFStringConvertEncodingToNSStringEncoding(currentCFMacStringEncoding)
-	let toRet = String.Encoding(rawValue: nsEnc)
-	return toRet
+	return String.Encoding.currentCompatibleClassic
 }
 
 public extension String.Encoding {
@@ -102,7 +108,7 @@ public extension String.Encoding {
 	///
 	/// Useful for the Pascal string functions.
 	var mostCompatibleClassic: String.Encoding {
-		let cfEnc = CFStringConvertNSStringEncodingToEncoding(self.rawValue)
+		let cfEnc = self.cfStringEncoding
 		assert(cfEnc != kCFStringEncodingInvalidId, "encoding \(self) (\(self.rawValue)) has an unknown CFStringEncoding counterpart!")
 		let mostMacLike = CFStringGetMostCompatibleMacStringEncoding(cfEnc)
 		let nsMostMacLike = CFStringConvertEncodingToNSStringEncoding(mostMacLike)
@@ -111,12 +117,24 @@ public extension String.Encoding {
 	
 	/// The current system encoding that is the most like a Mac Classic encoding.
 	static var currentCompatibleClassic: String.Encoding {
-		return currentMacStringEncoding
+		var cfEnc = CFStringGetSystemEncoding()
+		cfEnc = CFStringGetMostCompatibleMacStringEncoding(cfEnc)
+		let nsEnc = CFStringConvertEncodingToNSStringEncoding(cfEnc)
+		let toRet = String.Encoding(rawValue: nsEnc)
+		return toRet
 	}
 	
 	/// Converts the current encoding to the equivalent `CFStringEncoding`.
-	var toCFStringEncoding: CFStringEncoding {
+	var cfStringEncoding: CFStringEncoding {
 		return CFStringConvertNSStringEncodingToEncoding(self.rawValue)
+	}
+	
+	/// Converts the current encoding to the equivalent `CFStringEncoding`.
+	///
+	/// Deprecated. Use `cfStringEncoding` instead
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "cfStringEncoding")
+	var toCFStringEncoding: CFStringEncoding {
+		return cfStringEncoding
 	}
 }
 
@@ -192,8 +210,8 @@ public extension String {
 	/// - parameter encoding: The encoding of the Pascal string, as a
 	/// `CFStringEncoding`.
 	/// - parameter maximumLength: The maximum length of the Pascal string.
-	/// The default is `255`. If the first byte contains a value higher than this, the
-	/// constructor returns `nil`.
+	/// If the first byte contains a value higher than this, the constructor returns
+	/// `nil`. The default is *255*, the largest value a *UInt8* can hold.
 	init?(pascalString pStr: UnsafePointer<UInt8>, encoding: CFStringEncoding, maximumLength: UInt8 = 255) {
 		if pStr.pointee > maximumLength {
 			return nil
@@ -212,13 +230,13 @@ public extension String {
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
 	/// - parameter maximumLength: The maximum length of the Pascal string. 
-	/// The default is `255`. If the first byte contains a value higher than this, the
-	/// constructor returns `nil`.
+	/// If the first byte contains a value higher than this, the constructor returns
+	/// `nil`. The default is *255*, the largest value a *UInt8* can hold.
 	///
 	/// The main initializer. Converts the encoding to a `CFStringEncoding` for use
 	/// in the base initializer.
 	init?(pascalString pStr: UnsafePointer<UInt8>, encoding: String.Encoding = .macOSRoman, maximumLength: UInt8 = 255) {
-		let CFEncoding = encoding.toCFStringEncoding
+		let CFEncoding = encoding.cfStringEncoding
 		guard CFEncoding != kCFStringEncodingInvalidId else {
 			return nil
 		}
