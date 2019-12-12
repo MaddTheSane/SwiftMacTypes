@@ -9,15 +9,15 @@
 import Foundation
 import CoreText.CTRun
 
-extension CTRun {
+public extension CTRun {
 	/// A bitfield passed back by the `CTRun.status` getter that is used to indicate the disposition of the
 	/// run.
-	public typealias Status = CTRunStatus
+	typealias Status = CTRunStatus
 	
 	/// Returns the Core Foundation type identifier for CoreText runs.
 	///
 	/// - returns: The identifier for the opaque type `CTRunRef`.
-	public class var typeID: CFTypeID {
+	class var typeID: CFTypeID {
 		return CTRunGetTypeID()
 	}
 	
@@ -26,7 +26,7 @@ extension CTRun {
 	/// The number of glyphs that the run contains. It is totally
 	/// possible that this function could return a value of zero,
 	/// indicating that there are no glyphs in this run.
-	public var glyphCount: Int {
+	var glyphCount: Int {
 		return CTRunGetGlyphCount(self)
 	}
 	
@@ -38,7 +38,7 @@ extension CTRun {
 	/// or a dictionary that has been manufactured by the layout engine.
 	/// Attribute dictionaries can be manufactured in the case of font
 	/// substitution or if they are missing critical attributes.
-	public var attributes: [String: Any] {
+	var attributes: [String: Any] {
 		return CTRunGetAttributes(self) as! [String: Any]
 	}
 	
@@ -51,7 +51,7 @@ extension CTRun {
 	/// text matrix can avoid expensive comparisons. Note that this
 	/// status is provided as a convenience, since this information is
 	/// not strictly necessary but can certainly be helpful.
-	public var status: Status {
+	var status: Status {
 		return CTRunGetStatus(self)
 	}
 	
@@ -63,7 +63,7 @@ extension CTRun {
 	/// The returned value might reference internal memory used by the `CTRun`
 	/// object. If you want to keep the buffer beyond the scope of the run, copy
 	/// the collection by passing it to the `Array` constructor.
-	public var glyphs: AnyRandomAccessCollection<CGGlyph> {
+	var glyphs: AnyRandomAccessCollection<CGGlyph> {
 		if let preGlyph = CTRunGetGlyphsPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
 		} else {
@@ -80,7 +80,7 @@ extension CTRun {
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
 	/// - returns: The glyphs in the specified range.
-	public func glyphs(in range: CFRange) -> [CGGlyph] {
+	func glyphs(in range: CFRange) -> [CGGlyph] {
 		guard range.length != 0 else {
 			return Array(glyphs)
 		}
@@ -98,7 +98,7 @@ extension CTRun {
 	/// The returned value might reference internal memory used by the `CTRun`
 	/// object. If you want to keep the buffer beyond the scope of the run, copy
 	/// the collection by passing it to the `Array` constructor.
-	public var positions: AnyRandomAccessCollection<CGPoint> {
+	var positions: AnyRandomAccessCollection<CGPoint> {
 		if let preGlyph = CTRunGetPositionsPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
 		} else {
@@ -115,7 +115,7 @@ extension CTRun {
 	/// length of the range is set to `0`, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: The glyph positions.
-	public func positions(in range: CFRange) -> [CGPoint] {
+	func positions(in range: CFRange) -> [CGPoint] {
 		guard range.length != 0 else {
 			return Array(positions)
 		}
@@ -136,7 +136,7 @@ extension CTRun {
 	/// The returned value might reference internal memory used by the `CTRun`
 	/// object. If you want to keep the buffer beyond the scope of the run, copy
 	/// the collection by passing it to the `Array` constructor.
-	public var advances: AnyRandomAccessCollection<CGSize> {
+	var advances: AnyRandomAccessCollection<CGSize> {
 		if let preAdv = CTRunGetAdvancesPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preAdv, count: glyphCount))
 		} else {
@@ -153,7 +153,7 @@ extension CTRun {
 	/// length of the range is set to 0, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: An array of glyph advances.
-	public func advances(in range: CFRange) -> [CGSize] {
+	func advances(in range: CFRange) -> [CGSize] {
 		guard range.length != 0 else {
 			return Array(advances)
 		}
@@ -173,7 +173,7 @@ extension CTRun {
 	/// The returned value might reference internal memory used by the `CTRun`
 	/// object. If you want to keep the buffer beyond the scope of the run, copy
 	/// the collection by passing it to the `Array` constructor.
-	public var stringIndices: AnyRandomAccessCollection<CFIndex> {
+	var stringIndices: AnyRandomAccessCollection<CFIndex> {
 		if let preGlyph = CTRunGetStringIndicesPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
 		} else {
@@ -194,7 +194,7 @@ extension CTRun {
 	/// The indices are the character indices that originally spawned the
 	/// glyphs that make up the run. They can be used to map the glyphs
 	/// in the run back to the characters in the backing store.
-	public func stringIndicies(in range: CFRange) -> [CFIndex] {
+	func stringIndicies(in range: CFRange) -> [CFIndex] {
 		guard range.length != 0 else {
 			return Array(stringIndices)
 		}
@@ -208,7 +208,7 @@ extension CTRun {
 	///
 	/// Returns the range of characters that originally spawned the
 	/// glyphs. If run is invalid, this will return an empty range.
-	public var stringRange: CFRange {
+	var stringRange: CFRange {
 		return CTRunGetStringRange(self)
 	}
 	
@@ -218,7 +218,7 @@ extension CTRun {
 	/// a location of `0` and a length of `CTRun.glyphCount`. If the length
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
-	public func typographicBounds(_ range: CFRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
+	func typographicBounds(_ range: CFRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
 		var ascent: CGFloat = 0, descent: CGFloat = 0, leading: CGFloat = 0
 		let width = CTRunGetTypographicBounds(self, range, &ascent, &descent, &leading)
 		return (width, ascent, descent, leading)
@@ -247,7 +247,7 @@ extension CTRun {
 	/// ideal and does not account for raster coverage due to rendering.
 	/// This function is purely a convenience for using glyphs as an
 	/// image and should not be used for typographic purposes.
-	public func imageBounds(in range: CFRange, context: CGContext?) -> CGRect? {
+	func imageBounds(in range: CFRange, context: CGContext?) -> CGRect? {
 		let toRet = CTRunGetImageBounds(self, context, range)
 		if toRet.isNull {
 			return nil
@@ -260,7 +260,7 @@ extension CTRun {
 	/// To properly draw the glyphs in a run, the fields *'tx'* and *'ty'* of
 	/// the `CGAffineTransform` returned by this function should be set to
 	/// the current text position.
-	public var textMatrix: CGAffineTransform {
+	var textMatrix: CGAffineTransform {
 		return CTRunGetTextMatrix(self)
 	}
 	
@@ -281,13 +281,13 @@ extension CTRun {
 	/// context after drawing. This call also expects a text matrix with
 	/// *'y'* values increasing from bottom to top; a flipped text matrix
 	/// may result in misplaced diacritics.
-	public func draw(in context: CGContext, range: CFRange) {
+	func draw(in context: CGContext, range: CFRange) {
 		CTRunDraw(self, context, range)
 	}
 }
 
 // MARK: NSRange additions
-extension CTRun {
+public extension CTRun {
 	/// Copies a range of glyphs.
 	/// - parameter range:
 	/// The range of glyphs to be copied, with the entire range having a
@@ -295,7 +295,7 @@ extension CTRun {
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
 	/// - returns: The glyphs in the specified range.
-	public func glyphs(in range: NSRange) -> [CGGlyph] {
+	func glyphs(in range: NSRange) -> [CGGlyph] {
 		return glyphs(in: range.cfRange)
 	}
 
@@ -306,7 +306,7 @@ extension CTRun {
 	/// a location of `0` and a length of `CTRun.glyphCount`. If the length
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
-	public func typographicBounds(_ range: NSRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
+	func typographicBounds(_ range: NSRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
 		return typographicBounds(range.cfRange)
 	}
 
@@ -321,7 +321,7 @@ extension CTRun {
 	/// The indices are the character indices that originally spawned the
 	/// glyphs that make up the run. They can be used to map the glyphs
 	/// in the run back to the characters in the backing store.
-	public func stringIndicies(in range: NSRange) -> [CFIndex] {
+	func stringIndicies(in range: NSRange) -> [CFIndex] {
 		return stringIndicies(in: range.cfRange)
 	}
 	
@@ -332,7 +332,7 @@ extension CTRun {
 	/// length of the range is set to 0, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: An array of glyph advances.
-	public func advances(in range: NSRange) -> [CGSize] {
+	func advances(in range: NSRange) -> [CGSize] {
 		return advances(in: range.cfRange)
 	}
 	
@@ -343,7 +343,7 @@ extension CTRun {
 	/// length of the range is set to 0, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: An array of glyph advances.
-	public func advances(in range: Range<Int>) -> [CGSize] {
+	func advances(in range: Range<Int>) -> [CGSize] {
 		return advances(in: NSRange(range))
 	}
 	
@@ -354,7 +354,7 @@ extension CTRun {
 	/// length of the range is set to `0`, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: The glyph positions.
-	public func positions(in range: NSRange) -> [CGPoint] {
+	func positions(in range: NSRange) -> [CGPoint] {
 		return positions(in: range.cfRange)
 	}
 	
@@ -365,7 +365,7 @@ extension CTRun {
 	/// length of the range is set to `0`, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: The glyph positions.
-	public func positions(in range: Range<Int>) -> [CGPoint] {
+	func positions(in range: Range<Int>) -> [CGPoint] {
 		return positions(in: NSRange(range))
 	}
 }

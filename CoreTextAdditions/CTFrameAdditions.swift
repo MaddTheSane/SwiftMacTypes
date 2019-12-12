@@ -9,7 +9,7 @@
 import Foundation
 import CoreText.CTFrame
 
-extension CTFrame {
+public extension CTFrame {
 	/// These constants specify frame progression types.
 	///
 	/// The lines of text within a frame may be stacked for either
@@ -17,18 +17,18 @@ extension CTFrame {
 	/// stacking type supported by `CTFrame`. Frames created with a
 	/// progression type specifying vertical text will rotate lines
 	/// 90 degrees counterclockwise when drawing.
-	public typealias Progression = CTFrameProgression
+	typealias Progression = CTFrameProgression
 	
 	/// These constants specify fill rule used by the frame.
 	///
 	/// When a path intersects with itself, the client should specify which rule to use for deciding the
 	/// area of the path.
-	public typealias PathFillRule = CTFramePathFillRule
+	typealias PathFillRule = CTFramePathFillRule
 	
 	/// Returns the Core Foundation type identifier for CoreText frames.
 	///
 	/// - returns: The identifier for the opaque type `CTFrameRef`.
-	public class var typeID: CFTypeID {
+	class var typeID: CFTypeID {
 		return CTFrameGetTypeID()
 	}
 	
@@ -39,7 +39,7 @@ extension CTFrame {
 	/// store range of characters that were originally requested
 	/// to fill the frame. If the function call is not successful,
 	/// then an empty range will be returned.
-	public var stringRange: CFRange {
+	var stringRange: CFRange {
 		return CTFrameGetStringRange(self)
 	}
 	
@@ -49,22 +49,22 @@ extension CTFrame {
 	/// This can be used to chain frames, as it returns the range of
 	/// characters that can be seen in the frame. The next frame would
 	/// start where this frame ends.
-	public var visibleStringRange: CFRange {
+	var visibleStringRange: CFRange {
 		return CTFrameGetVisibleStringRange(self)
 	}
 	
 	/// Returns the frame attributes used to create the frame.
-	public var frameAttributes: [String: Any]? {
+	var frameAttributes: [String: Any]? {
 		return CTFrameGetFrameAttributes(self) as? [String: Any]
 	}
 	
 	/// The path used to create the frame.
-	public var path: CGPath {
+	var path: CGPath {
 		return CTFrameGetPath(self)
 	}
 	
 	/// An array of lines stored in the frame.
-	public var lines: [CTLine] {
+	var lines: [CTLine] {
 		return CTFrameGetLines(self) as! [CTLine]
 	}
 	
@@ -79,7 +79,7 @@ extension CTFrame {
 	/// lines returned by `CTFrame.lines`, relative to the origin of the
 	/// frame's path. The maximum number of line origins returned by
 	/// this function is the count of the array of lines.
-	public func lineOrigins(in range: CFRange) -> [CGPoint] {
+	func lineOrigins(in range: CFRange) -> [CGPoint] {
 		let actualCount: Int
 		if range.length == 0 {
 			actualCount = lines.count
@@ -102,7 +102,7 @@ extension CTFrame {
 	/// lines returned by `CTFrame.lines`, relative to the origin of the
 	/// frame's path. The maximum number of line origins returned by
 	/// this function is the count of the array of lines.
-	public func lineOrigins(in range: NSRange) -> [CGPoint] {
+	func lineOrigins(in range: NSRange) -> [CGPoint] {
 		return lineOrigins(in: range.cfRange)
 	}
 	
@@ -112,7 +112,7 @@ extension CTFrame {
 	/// This function will draw an entire frame to the context. Note
 	/// that this call may leave the context in any state and does not
 	/// flush it after the draw operation.
-	public func draw(in context: CGContext) {
+	func draw(in context: CGContext) {
 		CTFrameDraw(self, context)
 	}
 }

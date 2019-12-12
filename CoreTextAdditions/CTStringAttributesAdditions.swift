@@ -11,10 +11,8 @@ import CoreText.CTStringAttributes
 
 extension NSAttributedString.Key {
 	
-	public struct CoreText {
-		/// Does nothing, just a namespace.
-		private init() {}
-		
+	/// Namespace of CoreText attributed string keys.
+	public enum CoreText {
 		/// Allows the setting of an underline to be applied at render time.
 		///
 		/// Value must be a raw value of `CTUnderlineStyle`. Default is `CTUnderlineStyle.none`.

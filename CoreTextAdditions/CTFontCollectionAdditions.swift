@@ -22,6 +22,7 @@ public extension CTFontCollection {
 		return CTFontCollectionGetTypeID()
 	}
 	
+	// MARK: - Collection Creation
 	/*! --------------------------------------------------------------------------
 	@group Collection Creation
 	*///--------------------------------------------------------------------------
@@ -59,6 +60,7 @@ public extension CTFontCollection {
 		return CTFontCollectionCreateMutableCopy(self)
 	}
 	
+	// MARK: - Editing the query descriptors
 	/*! --------------------------------------------------------------------------
 	@group Editing the query descriptors
 	*///--------------------------------------------------------------------------
@@ -79,7 +81,7 @@ public extension CTFontCollection {
 	
 	#endif
 	
-
+	// MARK: - Retrieving Matching Descriptors
 	/*! --------------------------------------------------------------------------
 	@group Retrieving Matching Descriptors
 	*///--------------------------------------------------------------------------
@@ -95,7 +97,7 @@ public extension CTFontCollection {
 	
 	/// Returns an array of font descriptors matching the collection.
 	/// - parameter options: The options dictionary. See constant option keys. If `nil`, uses the options passed in when the collection was created.
-	/// - returns:     An array of CTFontDescriptors matching the collection definition or `nil` if there are none.
+	/// - returns: An array of `CTFontDescriptor`s matching the collection definition or `nil` if there are none.
 	@available(macOS 10.7, iOS 12.0, watchOS 5.0, tvOS 12.0, *)
 	func matchingFontDescriptors(options: [String: Any]? = nil) -> [CTFontDescriptor]? {
 		return CTFontCollectionCreateMatchingFontDescriptorsWithOptions(self, options as NSDictionary?) as? [CTFontDescriptor]
@@ -105,11 +107,12 @@ public extension CTFontCollection {
 	/// Returns an array of font descriptors matching the specified family, one descriptor for each style in the collection.
 	/// - parameter collection: The font collection reference.
 	/// - parameter options: The options dictionary. See constant option keys. If `nil`, uses the options passed in when the collection was created.
-	/// - returns:     An array of CTFontDescriptors matching the collection definition or `nil` if there are none.
+	/// - returns: An array of `CTFontDescriptor`s matching the collection definition or `nil` if there are none.
 	func matchingFontDescriptors(familyName: String, options: [String: Any]? = nil)  -> [CTFontDescriptor]? {
 		return CTFontCollectionCreateMatchingFontDescriptorsForFamily(self, familyName as NSString, options as NSDictionary?) as? [CTFontDescriptor]
 	}
 
+	// MARK: - Bulk attribute access
 	/*! --------------------------------------------------------------------------
 	@group Bulk attribute access
 	*///--------------------------------------------------------------------------

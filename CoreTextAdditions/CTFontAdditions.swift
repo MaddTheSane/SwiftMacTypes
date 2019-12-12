@@ -10,17 +10,17 @@ import Foundation
 import CoreText.CTFont
 import SwiftAdditions
 
-extension CTFont {
+public extension CTFont {
 	/// Font table tags provide access to font table data.
-	public typealias TableTag = CTFontTableTag
+	typealias TableTag = CTFontTableTag
 	
 	/// Options for descriptor match and font creation.
-	public typealias Options = CTFontOptions
+	typealias Options = CTFontOptions
 	
 	/// Returns the Core Foundation type identifier for CoreText fonts.
 	///
 	/// - returns: The identifier for the opaque type `CTFontRef`.
-	public class var typeID: CFTypeID {
+	class var typeID: CFTypeID {
 		return CTFontGetTypeID()
 	}
 
@@ -28,22 +28,22 @@ extension CTFont {
 	///
 	/// Use these constants with `Font(uiType:size:forLanguage:)` to indicate the intended user interface usage
 	/// of the font reference to be created.
-	public typealias UIFontType = CTFontUIFontType
+	typealias UIFontType = CTFontUIFontType
 	
 	/// These constants describe font table options.
-	public typealias TableOptions = CTFontTableOptions
+	typealias TableOptions = CTFontTableOptions
 	
 	/// Specifies the intended rendering orientation of the font for obtaining glyph metrics.
-	public typealias Orientation = CTFontOrientation
+	typealias Orientation = CTFontOrientation
 	
 	/// Symbolic representation of stylistic font attributes.
 	///
 	/// `SymbolicTraits` symbolically describes stylistic aspects of a font. The top 4 bits is used to describe
 	/// appearance of the font while the lower 28 bits for typeface. The font appearance information represented
 	/// by the upper 4 bits can be used for stylistic font matching.
-	public typealias SymbolicTraits = CTFontSymbolicTraits
+	typealias SymbolicTraits = CTFontSymbolicTraits
 	
-	public enum FontNameKey: CustomStringConvertible {
+	enum FontNameKey: CustomStringConvertible {
 		/// The name specifier for the copyright name.
 		case copyright
 		
@@ -244,7 +244,7 @@ extension CTFont {
 	/// to user actions. For instance, the size can be changed in response to a user manipulating a size
 	/// slider.
 	/// - returns: A new font reference converted from the original with the specified attributes.
-	public func copy(withAttributes attributes: CTFontDescriptor?, size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont {
+	func copy(withAttributes attributes: CTFontDescriptor?, size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont {
 		if var matrix = matrix {
 			return CTFontCreateCopyWithAttributes(self, size, &matrix, attributes)
 		} else {
@@ -263,7 +263,7 @@ extension CTFont {
 	/// removal as well as addition.
 	/// - returns: a new font reference in the same family with the given symbolic traits, or `nil` if none
 	/// found in the system.
-	public func copy(withSymbolicTraits symTraits: (traits: SymbolicTraits, mask: SymbolicTraits), size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont? {
+	func copy(withSymbolicTraits symTraits: (traits: SymbolicTraits, mask: SymbolicTraits), size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont? {
 		if var matrix = matrix {
 			return CTFontCreateCopyWithSymbolicTraits(self, size, &matrix, symTraits.traits, symTraits.mask)
 		} else {
@@ -280,7 +280,7 @@ extension CTFont {
 	/// - parameter family: The name of the desired family.
 	/// - returns: Returns a new font reference with the original traits in the given family. `nil` if not
 	/// found in the system.
-	public func copy(withFamilyName family: String, size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont? {
+	func copy(withFamilyName family: String, size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont? {
 		if var matrix = matrix {
 			return CTFontCreateCopyWithFamily(self, size, &matrix, family as NSString)
 		} else {
@@ -301,7 +301,7 @@ extension CTFont {
 	///
 	/// This method is to be used when the current font does not cover the given range of the string. The
 	/// current font itself will not be returned, but preference is given to fonts in its cascade list.
-	public func font(for string: String, range: Range<String.Index>) -> CTFont {
+	func font(for string: String, range: Range<String.Index>) -> CTFont {
 		let range2 = NSRange(range, in: string)
 		let range1 = range2.cfRange
 		return font(for: string as NSString, range: range1)
@@ -314,7 +314,7 @@ extension CTFont {
 	///
 	/// This method is to be used when the current font does not cover the given range of the string. The
 	/// current font itself will not be returned, but preference is given to fonts in its cascade list.
-	public func font(for string: CFString, range: CFRange) -> CTFont {
+	func font(for string: CFString, range: CFRange) -> CTFont {
 		let aFont = CTFontCreateForString(self, string, range)
 		return aFont
 	}
@@ -326,7 +326,7 @@ extension CTFont {
 	///
 	/// This method is to be used when the current font does not cover the given range of the string. The
 	/// current font itself will not be returned, but preference is given to fonts in its cascade list.
-	public func font(for string: Substring, range: Range<Substring.Index>) -> CTFont {
+	func font(for string: Substring, range: Range<Substring.Index>) -> CTFont {
 		let range2 = NSRange(range, in: string)
 		let range1 = range2.cfRange
 		return font(for: string as NSString, range: range1)
@@ -342,7 +342,7 @@ extension CTFont {
 	///
 	/// A normalized font descriptor for a font. The font descriptor contains enough information to recreate
 	/// this font at a later time.
-	public var fontDescriptor: CTFontDescriptor {
+	var fontDescriptor: CTFontDescriptor {
 		return CTFontCopyFontDescriptor(self)
 	}
 	
@@ -350,21 +350,21 @@ extension CTFont {
 	/// - parameter attribute: The requested attribute.
 	/// - returns: If the requested attribute is not present, `nil` is returned. Refer to the attribute
 	/// definitions for documentation as to how each attribute is packaged as a `CFTypeRef`.
-	public func value(for attribute: String) -> Any? {
+	func value(for attribute: String) -> Any? {
 		return CTFontCopyAttribute(self, attribute as NSString)
 	}
 	
 	/// The point size of the font reference.
 	///
 	/// This is the point size provided when the font was created.
-	public var size: CGFloat {
+	var size: CGFloat {
 		return CTFontGetSize(self)
 	}
 	
 	/// The transformation matrix of the font.
 	///
 	/// This is the matrix that was provided when the font was created.
-	public var matrix: CGAffineTransform {
+	var matrix: CGAffineTransform {
 		return CTFontGetMatrix(self)
 	}
 	
@@ -372,7 +372,7 @@ extension CTFont {
 	///
 	/// This getter returns the symbolic traits of the font. This is equivalent to the `kCTFontSymbolicTrait`
 	/// of traits dictionary. See *CTFontTraits.h* for a definition of the font traits.
-	public var symbolicTraits: SymbolicTraits {
+	var symbolicTraits: SymbolicTraits {
 		return CTFontGetSymbolicTraits(self)
 	}
 	
@@ -380,7 +380,7 @@ extension CTFont {
 	///
 	/// Individual traits can be accessed with the trait key constants. See *CTFontTraits.h* for a definition
 	/// of the font traits.
-	public var traits: [String: Any] {
+	var traits: [String: Any] {
 		return CTFontCopyTraits(self) as NSDictionary as! [String: Any]
 	}
 	
@@ -391,22 +391,22 @@ extension CTFont {
 	//--------------------------------------------------------------------------
 	
 	/// The PostScript name.
-	public var postScriptName: String {
+	var postScriptName: String {
 		return CTFontCopyPostScriptName(self) as String
 	}
 	
 	/// The family name.
-	public var familyName: String {
+	var familyName: String {
 		return CTFontCopyFamilyName(self) as String
 	}
 	
 	/// The full name.
-	public var fullName: String {
+	var fullName: String {
 		return CTFontCopyFullName(self) as String
 	}
 	
 	/// The localized display name of the font
-	public var displayName: String {
+	var displayName: String {
 		return CTFontCopyDisplayName(self) as String
 	}
 
@@ -415,7 +415,7 @@ extension CTFont {
 	/// - returns: The requested name for the font, or `nil` if the font does not have an entry for the
 	/// requested name. The Unicode version of the name will be preferred, otherwise the first available
 	/// will be used.
-	public func name(ofKey nameKey: FontNameKey) -> String? {
+	func name(ofKey nameKey: FontNameKey) -> String? {
 		return CTFontCopyName(self, nameKey.cfString) as String?
 	}
 	
@@ -427,7 +427,7 @@ extension CTFont {
 	/// `actualLanguage`: A `String` of the language identifier of the returned name string. The format of the
 	/// language identifier will conform to *UTS #35*.
 	/// If CoreText can supply its own localized string where the font cannot, this value will be `nil`.
-	public func localizedName(ofKey nameKey: FontNameKey) -> (name: String, actualLanguage: String?)? {
+	func localizedName(ofKey nameKey: FontNameKey) -> (name: String, actualLanguage: String?)? {
 		var actualName: Unmanaged<CFString>? = nil
 		guard let name = CTFontCopyLocalizedName(self, nameKey.cfString, &actualName) as String? else {
 			return nil
@@ -444,12 +444,12 @@ extension CTFont {
 	/// the Unicode character set of the font.
 	///
 	/// This character set covers the nominal referenced by the font's Unicode *cmap* table (or equivalent).
-	public var characterSet: CharacterSet {
+	var characterSet: CharacterSet {
 		return CTFontCopyCharacterSet(self) as CharacterSet
 	}
 	
 	/// The best string encoding for legacy format support.
-	public var stringEncoding: String.Encoding {
+	var stringEncoding: String.Encoding {
 		let cfEnc = CTFontGetStringEncoding(self)
 		let nsEnc = CFStringConvertEncodingToNSStringEncoding(cfEnc)
 		return String.Encoding(rawValue: nsEnc)
@@ -459,7 +459,7 @@ extension CTFont {
 	///
 	/// The array contains language identifier strings as `String`s. The format of the language identifier will
 	/// conform to *UTS #35*.
-	public var supportedLanguages: [String] {
+	var supportedLanguages: [String] {
 		return CTFontCopySupportedLanguages(self) as NSArray? as? [String] ?? []
 	}
 	
@@ -476,7 +476,7 @@ extension CTFont {
 	/// indicates that the font mapped all characters. A return value of false indicates that some or all of
 	/// the characters were not mapped; glyphs for unmapped characters will be `0` (with the exception of those
 	/// corresponding non-BMP characters as described above).
-	public func glyphs(forCharacters characters: [unichar]) -> (glyphs: [CGGlyph], allMapped: Bool) {
+	func glyphs(forCharacters characters: [unichar]) -> (glyphs: [CGGlyph], allMapped: Bool) {
 		var glyphs = [CGGlyph](repeating: 0, count: characters.count)
 		let allMapped = CTFontGetGlyphsForCharacters(self, characters, &glyphs, characters.count)
 		return (glyphs, allMapped)
@@ -491,35 +491,35 @@ extension CTFont {
 	/// The scaled font ascent metric.
 	///
 	/// The font ascent metric scaled based on the point size and matrix of the font reference.
-	public var ascent: CGFloat {
+	var ascent: CGFloat {
 		return CTFontGetAscent(self)
 	}
 	
 	/// The scaled font descent metric.
 	///
 	/// The font descent metric scaled based on the point size and matrix of the font reference.
-	public var descent: CGFloat {
+	var descent: CGFloat {
 		return CTFontGetDescent(self)
 	}
 	
 	/// The scaled font leading metric.
 	///
 	/// The font leading metric scaled based on the point size and matrix of the font reference.
-	public var leading: CGFloat {
+	var leading: CGFloat {
 		return CTFontGetLeading(self)
 	}
 	
 	/// The units per em metric.
 	///
 	/// The units per em of the font.
-	public var unitsPerEm: UInt32 {
+	var unitsPerEm: UInt32 {
 		return CTFontGetUnitsPerEm(self)
 	}
 	
 	/// The number of glyphs.
 	///
 	/// The number of glyphs in the font.
-	public var countOfGlyphs: Int {
+	var countOfGlyphs: Int {
 		return CTFontGetGlyphCount(self)
 	}
 	
@@ -527,21 +527,21 @@ extension CTFont {
 	///
 	/// The design bounding box of the font, which is the rectangle defined by *xMin*, *yMin*, *xMax*, and
 	/// *yMax* values for the font.
-	public var boundingBox: CGRect {
+	var boundingBox: CGRect {
 		return CTFontGetBoundingBox(self)
 	}
 	
 	/// The scaled underline position.
 	///
 	/// The font underline position metric scaled based on the point size and matrix of the font reference.
-	public var underlinePosition: CGFloat {
+	var underlinePosition: CGFloat {
 		return CTFontGetUnderlinePosition(self)
 	}
 	
 	/// The scaled underline thickness metric.
 	///
 	/// The font underline thickness metric scaled based on the point size and matrix of the font reference.
-	public var underlineThickness: CGFloat {
+	var underlineThickness: CGFloat {
 		return CTFontGetUnderlineThickness(self)
 	}
 	
@@ -549,21 +549,21 @@ extension CTFont {
 	///
 	/// The transformed slant angle of the font. This is equivalent to the italic or caret angle with any skew
 	/// from the transformation matrix applied.
-	public var slantAngle: CGFloat {
+	var slantAngle: CGFloat {
 		return CTFontGetSlantAngle(self)
 	}
 	
 	/// The cap height metric.
 	///
 	/// The font cap height metric scaled based on the point size and matrix of the font reference.
-	public var capHeight: CGFloat {
+	var capHeight: CGFloat {
 		return CTFontGetCapHeight(self)
 	}
 	
 	/// The X height metric.
 	///
 	/// The font X height metric scaled based on the point size and matrix of the font reference.
-	public var xHeight: CGFloat {
+	var xHeight: CGFloat {
 		return CTFontGetXHeight(self)
 	}
 	
@@ -577,7 +577,7 @@ extension CTFont {
 	/// - parameter glyphName: The glyph name as a `String`.
 	/// - returns: The glyph with the specified name or `0` if the name is not recognized; this glyph can be
 	/// used with other Core Text glyph data accessors or with Quartz.
-	public func glyph(named glyphName: String) -> CGGlyph {
+	func glyph(named glyphName: String) -> CGGlyph {
 		return CTFontGetGlyphWithName(self, glyphName as NSString)
 	}
 	
@@ -589,7 +589,7 @@ extension CTFont {
 	/// - returns: The overall bounding rectangle for an array or run of glyphs, returned in the `.all` part of
 	/// the returned tuple. The bounding rects of the individual glyphs are returned through the `.perGlyph`
 	/// part of the returned tuple. These are the design metrics from the font transformed in font space.
-	public func boundingRects(forGlyphs glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: CGRect, perGlyph: [CGRect]) {
+	func boundingRects(forGlyphs glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: CGRect, perGlyph: [CGRect]) {
 		var bounds = [CGRect](repeating: CGRect(), count: glyphs.count)
 		let finalRect = CTFontGetBoundingRectsForGlyphs(self, orientation, glyphs, &bounds, glyphs.count)
 		return (finalRect, bounds)
@@ -609,7 +609,7 @@ extension CTFont {
 	/// line up in a more visually pleasing way. This method returns bounding rects corresponding to this
 	/// information if present in a font, otherwise it returns typographic bounding rects (composed of the
 	/// font's ascent and descent and a glyph's advance width).
-	public func opticalBounds(forGlyphs glyphs: [CGGlyph], options: CFOptionFlags = 0) -> (all: CGRect, perGlyph: [CGRect]) {
+	func opticalBounds(forGlyphs glyphs: [CGGlyph], options: CFOptionFlags = 0) -> (all: CGRect, perGlyph: [CGRect]) {
 		var boundingRects = [CGRect](repeating: CGRect(), count: glyphs.count)
 		let allBounds = CTFontGetOpticalBoundsForGlyphs(self, glyphs, &boundingRects, glyphs.count, options)
 		return (allBounds, boundingRects)
@@ -624,7 +624,7 @@ extension CTFont {
 	/// advances are passed back via the advances parameter. These are the ideal metrics for each glyph scaled
 	/// and transformed in font space.<br>
 	/// `perGlyph`: An array of count number of `CGSize` to receive the computed glyph advances.
-	public func advances(forGlyphs glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: Double, perGlyph: [CGSize]) {
+	func advances(forGlyphs glyphs: [CGGlyph], orientation: Orientation = .`default`) -> (all: Double, perGlyph: [CGSize]) {
 		var advances = [CGSize](repeating: CGSize(), count: glyphs.count)
 		let summedAdvance = CTFontGetAdvancesForGlyphs(self, orientation, glyphs, &advances, glyphs.count)
 		return (summedAdvance, advances)
@@ -634,7 +634,7 @@ extension CTFont {
 	/// glyphs.
 	/// - parameter glyphs: An array of glyphs.
 	/// - returns: An array of `CGSize` to receive the computed origin offsets.
-	public func verticalTranslations(forGlyphs glyphs: [CGGlyph]) -> [CGSize] {
+	func verticalTranslations(forGlyphs glyphs: [CGGlyph]) -> [CGSize] {
 		var trans = [CGSize](repeating: CGSize(), count: glyphs.count)
 		
 		CTFontGetVerticalTranslationsForGlyphs(self, glyphs, &trans, glyphs.count)
@@ -651,7 +651,7 @@ extension CTFont {
 	/// - parameter matrix: An affine transform applied to the path. Can be `nil`, in which case
 	/// `CGAffineTransformIdentity` will be used.<br/>
 	/// Default is `nil`.
-	public func path(forGlyph glyph: CGGlyph, matrix: CGAffineTransform? = nil) -> CGPath? {
+	func path(forGlyph glyph: CGGlyph, matrix: CGAffineTransform? = nil) -> CGPath? {
 		let aPath: CGPath?
 		if var matrix = matrix {
 			aPath = CTFontCreatePathForGlyph(self, glyph, &matrix)
@@ -672,7 +672,7 @@ extension CTFont {
 	///
 	/// This getter returns an array of variation axis dictionaries or `nil` if the font does not support
 	/// variations. Each variation axis dictionary contains the five `kCTFontVariationAxis`* keys.
-	public var variationAxes: [[String: Any]]? {
+	var variationAxes: [[String: Any]]? {
 		return CTFontCopyVariationAxes(self) as? [[String: Any]]
 	}
 	
@@ -684,7 +684,7 @@ extension CTFont {
 	///
 	/// - seealso: kCTFontVariationAxisIdentifierKey
 	/// - seealso: kCTFontVariationAxisDefaultValueKey
-	public var variationInfo: [String: Any]? {
+	var variationInfo: [String: Any]? {
 		return CTFontCopyVariation(self) as? [String: Any]
 	}
 	
@@ -695,7 +695,7 @@ extension CTFont {
 	//--------------------------------------------------------------------------
 	
 	/// An array of font features
-	public var features: [[String: Any]]? {
+	var features: [[String: Any]]? {
 		return CTFontCopyFeatures(self) as? [[String : Any]]
 	}
 	
@@ -707,7 +707,7 @@ extension CTFont {
 	/// This getter returns a normalized array of font feature setting dictionaries. The array will only
 	/// contain the non-default settings that should be applied to the font, or `nil` if the default settings
 	/// should be used.
-	public var featureSettings: [[String: Any]]? {
+	var featureSettings: [[String: Any]]? {
 		return CTFontCopyFeatureSettings(self) as? [[String: Any]]
 	}
 	
@@ -719,7 +719,7 @@ extension CTFont {
 	
 	/// - returns: A `CGFont` for the given font reference. Additional attributes from the font will be
 	/// returned as a font descriptor via the `attributes` tuple.
-	public func graphicsFont() -> (font: CGFont, attributes: CTFontDescriptor?) {
+	func graphicsFont() -> (font: CGFont, attributes: CTFontDescriptor?) {
 		var attribs: Unmanaged<CTFontDescriptor>? = nil
 		let aFont = CTFontCopyGraphicsFont(self, &attribs)
 		return (aFont, attribs?.takeRetainedValue())
@@ -736,7 +736,7 @@ extension CTFont {
 	/// Default is no options.
 	/// - returns: An array of `CTFont.TableTag` values for the given font and the
 	/// supplied options.
-	public func availableTables(options: TableOptions = []) -> [TableTag]? {
+	func availableTables(options: TableOptions = []) -> [TableTag]? {
 		guard let numArr = __CTAFontCopyAvailableTables(self, options) else {
 			return nil
 		}
@@ -751,7 +751,7 @@ extension CTFont {
 	/// - parameter table: The font table identifier as a `CTFont.TableTag`.
 	/// - parameter options: The options used when copying font table.<br>
 	/// Default is no options.
-	public func data(for table: TableTag, options: TableOptions = []) -> Data? {
+	func data(for table: TableTag, options: TableOptions = []) -> Data? {
 		return CTFontCopyTable(self, table, options) as Data?
 	}
 	
@@ -763,7 +763,7 @@ extension CTFont {
 	/// Results from `glyphs(forCharacters:)` (or similar APIs) do not perform any Unicode text layout.
 	/// - parameter context: `CGContext` used to render the glyphs.
 	/// - parameter gp: The glyphs and positions (origins) to be rendered. The positions are in user space.
-	public func draw(glyphsAndPositions gp: [(glyph: CGGlyph, position: CGPoint)], context: CGContext) {
+	func draw(glyphsAndPositions gp: [(glyph: CGGlyph, position: CGPoint)], context: CGContext) {
 		let glyphs = gp.map({return $0.glyph})
 		let positions = gp.map({return $0.position})
 		CTFontDrawGlyphs(self, glyphs, positions, gp.count, context)
@@ -794,7 +794,7 @@ extension CTFont {
 	/// will populate the caller's positions buffer with available positions if possible.
 	/// This method may not be able to produce positions if the font does not
 	/// have the appropriate data, in which case it will return `nil`.
-	public func ligatureCaretPositions(forGlyph glyph: CGGlyph, maxPositions: Int? = nil) -> [CGFloat]? {
+	func ligatureCaretPositions(forGlyph glyph: CGGlyph, maxPositions: Int? = nil) -> [CGFloat]? {
 		if let maxPositions = maxPositions {
 			var pos = [CGFloat](repeating: 0, count: maxPositions)
 			let neededCount = CTFontGetLigatureCaretPositions(self, glyph, &pos, maxPositions)
@@ -827,7 +827,7 @@ extension CTFont {
 	/// codes.
 	/// - returns: The ordered list of fallback fonts - ordered array of `CTFontDescriptor`s.
 	@available(OSX 10.8, iOS 6.0, watchOS 2.0, tvOS 9.0, *)
-	public func defaultCascadeList(forLanguages languagePrefList: [String]?) -> [CTFontDescriptor]? {
+	func defaultCascadeList(forLanguages languagePrefList: [String]?) -> [CTFontDescriptor]? {
 		return CTFontCopyDefaultCascadeListForLanguages(self, languagePrefList as NSArray?) as! [CTFontDescriptor]?
 	}
 }

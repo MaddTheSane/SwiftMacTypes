@@ -9,10 +9,8 @@
 import Foundation
 import CoreText.CTFontManager
 
-public struct FontManager {
-	/// Does nothing, just a namespace.
-	private init() {}
-	
+/// Namespace for CoreText's Font Manager functions.
+public enum FontManager {
 	/// Sets the auto-activation for the specified bundle identifier.
 	public typealias AutoActivationSetting = CTFontManagerAutoActivationSetting
 	
@@ -51,7 +49,7 @@ public struct FontManager {
 	/// should be enabled for font descriptor matching and/or discoverable via
 	/// `CTFontManagerRequestFonts`.
 	/// - parameter registrationHandler: Block called as errors are discovered or upon
-	/// completion. The errors parameter contains an array of `CFError` references. An empty
+	/// completion. The errors parameter contains an array of `Error`s. An empty
 	/// array indicates no errors. Each error reference will contain a `CFArray` of font URLs
 	/// corresponding to `kCTFontManagerErrorFontURLsKey`. These URLs represent the font
 	/// files that caused the error, and were not successfully registered. Note, the handler
@@ -60,7 +58,7 @@ public struct FontManager {
 	/// handler should return `false` if the operation is to be stopped. This may be
 	/// desirable after receiving an error.
 	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-	public static func register(fontURLs: [URL], scope: Scope, enabled: Bool, registrationHandler: (([CFError], Bool) -> Bool)?) {
+	public static func register(fontURLs: [URL], scope: Scope, enabled: Bool, registrationHandler: ((_ errors: [Error], _ done: Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
@@ -390,6 +388,7 @@ public struct FontManager {
 	@group Manager Auto-Activation
 	*/
 	//--------------------------------------------------------------------------
+	//MARK:- Manager Auto-Activation
 
 	/// Creates a `CFRunLoopSource` that will be used to convey font requests from `CTFontManager`.
 	/// - parameter sourceOrder: The order of the created run loop source.

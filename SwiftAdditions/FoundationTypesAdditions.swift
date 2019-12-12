@@ -501,3 +501,19 @@ public extension UserDefaults {
 		}
 	}
 }
+
+public extension Bundle {
+	/// Creates a new CoreFoundation `CFBundle` from the current bundle URL.
+	@objc(CFBundle) var cfBundle: CFBundle {
+		return CFBundleCreate(kCFAllocatorDefault, bundleURL as NSURL)
+	}
+	
+	/// Creates a new `Bundle` object from the url of the passed-in
+	/// `CFBundle`.
+	/// - parameter cfBundle: The `CFBundle` to get the URL from to
+	/// create a new `Bundle` object.
+	@objc(initWithCFBundle:) convenience init(cfBundle: CFBundle) {
+		let cfURL = CFBundleCopyBundleURL(cfBundle)!
+		self.init(url: cfURL as URL)!
+	}
+}

@@ -9,22 +9,22 @@
 import Foundation
 import CoreText.CTLine
 
-extension CTLine {
+public extension CTLine {
 	/// Options for `CTLine.bounds(with:)`.
 	///
 	/// Passing `[]` (no options) returns the typographic bounds,
 	/// including typographic leading and shifts.
-	public typealias BoundsOptions = CTLineBoundsOptions
+	typealias BoundsOptions = CTLineBoundsOptions
 	
 	/// Truncation types required by `CTLine.truncate(width:, type:, token:)`. These
 	/// will tell truncation engine which type of truncation is being
 	/// requested.
-	public typealias TruncationType = CTLineTruncationType
+	typealias TruncationType = CTLineTruncationType
 	
 	/// Returns the Core Foundation type identifier for CoreText lines.
 	///
 	/// - returns: The identifier for the opaque type `CTLineRef`.
-	public class var typeID: CFTypeID {
+	class var typeID: CFTypeID {
 		return CTLineGetTypeID()
 	}
 	
@@ -45,7 +45,7 @@ extension CTLine {
 	/// - returns: This function will return a reference to a truncated `CTLine`
 	/// object if the call was successful. Otherwise, it will return
 	/// `nil`.
-	public func truncate(width: Double, type truncationType: TruncationType, token truncationToken: CTLine?) -> CTLine? {
+	func truncate(width: Double, type truncationType: TruncationType, token truncationToken: CTLine?) -> CTLine? {
 		return CTLineCreateTruncatedLine(self, width, truncationType, truncationToken)
 	}
 	
@@ -63,7 +63,7 @@ extension CTLine {
 	/// - returns: This function will return a reference to a justified CTLine
 	/// object if the call was successful. Otherwise, it will return
 	/// `nil`.
-	public func justifiedLine(factor justificationFactor: CGFloat, width justificationWidth: Double) -> CTLine? {
+	func justifiedLine(factor justificationFactor: CGFloat, width justificationWidth: Double) -> CTLine? {
 		return CTLineCreateJustifiedLine(self, justificationFactor, justificationWidth)
 	}
 	
@@ -71,14 +71,14 @@ extension CTLine {
 	///
 	/// The total glyph count is equal to the sum of all of the glyphs in
 	/// the glyph runs forming the line.
-	public var glyphCount: Int {
+	var glyphCount: Int {
 		return CTLineGetGlyphCount(self)
 	}
 	
 	/// Returns the array of glyph runs that make up the line object.
 	///
 	/// An `Array` containing the `CTRun` objects that make up the line.
-	public var glyphRuns: [CTRun] {
+	var glyphRuns: [CTRun] {
 		return CTLineGetGlyphRuns(self) as! [CTRun]
 	}
 	
@@ -88,7 +88,7 @@ extension CTLine {
 	/// A `CFRange` that contains the range over the backing store string
 	/// that spawned the glyphs. If the function fails for any reason, an
 	/// empty range will be returned.
-	public var stringRange: CFRange {
+	var stringRange: CFRange {
 		return CTLineGetStringRange(self)
 	}
 	
@@ -103,7 +103,7 @@ extension CTLine {
 	/// operation should apply to.
 	/// - returns: A value which can be used to offset the current pen position for
 	/// the flush operation.
-	public func penOffsetForFlush(factor flushFactor: CGFloat, width flushWidth: Double) -> Double {
+	func penOffsetForFlush(factor flushFactor: CGFloat, width flushWidth: Double) -> Double {
 		return CTLineGetPenOffsetForFlush(self, flushFactor, flushWidth)
 	}
 	
@@ -116,7 +116,7 @@ extension CTLine {
 	/// a text matrix with *'y'* values increasing from bottom to top; a
 	/// flipped text matrix may result in misplaced diacritics.
 	/// - parameter context: The context to which the line will be drawn.
-	public func draw(in context: CGContext) {
+	func draw(in context: CGContext) {
 		CTLineDraw(self, context)
 	}
 	
@@ -130,7 +130,7 @@ extension CTLine {
 	/// A line's typographic width is the distance to the rightmost
 	/// glyph advance width edge. Note that this distance includes
 	/// trailing whitespace glyphs.
-	public var typographicBounds: (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
+	var typographicBounds: (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
 		var asc: CGFloat = 0
 		var des: CGFloat = 0
 		var lead: CGFloat = 0
@@ -144,7 +144,7 @@ extension CTLine {
 	/// such that the coordinate origin is coincident with the line
 	/// origin and the rect origin is at the bottom left. If the line
 	/// is invalid this function will return `nil`.
-	public func bounds(with options: BoundsOptions = []) -> CGRect? {
+	func bounds(with options: BoundsOptions = []) -> CGRect? {
 		let retVal = CTLineGetBoundsWithOptions(self, options)
 		if retVal.isNull {
 			return nil
@@ -161,7 +161,7 @@ extension CTLine {
 	/// whitespace. Normally this is not an issue due to whitespace being
 	/// invisible, but this function may be used to determine what amount
 	/// of a line's width is due to trailing whitespace.
-	public var trailingWhitespaceWidth: Double {
+	var trailingWhitespaceWidth: Double {
 		return CTLineGetTrailingWhitespaceWidth(self)
 	}
 	
@@ -179,7 +179,7 @@ extension CTLine {
 	/// ideal and does not account for raster coverage due to rendering.
 	/// This function is purely a convenience for using glyphs as an
 	/// image and should not be used for typographic purposes.
-	public func imageBounds(in context: CGContext?) -> CGRect? {
+	func imageBounds(in context: CGContext?) -> CGRect? {
 		let retVal = CTLineGetImageBounds(self, context)
 		if retVal.isNull {
 			return nil
@@ -205,7 +205,7 @@ extension CTLine {
 	/// This determination is made by analyzing the string from which a
 	/// typesetter was created and the corresponding glyphs as embodied
 	/// by a particular line.
-	public func stringIndex(forPosition position: CGPoint) -> CFIndex {
+	func stringIndex(forPosition position: CGPoint) -> CFIndex {
 		return CTLineGetStringIndexForPosition(self, position)
 	}
 	
@@ -224,7 +224,7 @@ extension CTLine {
 	/// offset corresponds to the portion of the caret that represents
 	/// the visual insertion location for a character whose direction
 	/// matches the line's writing direction.
-	public func offset(stringIndex: Int) -> (primary: CGFloat, secondary: CGFloat) {
+	func offset(stringIndex: Int) -> (primary: CGFloat, secondary: CGFloat) {
 		var secondary: CGFloat = 0
 		let primary = CTLineGetOffsetForStringIndex(self, stringIndex, &secondary)
 		return (primary, secondary)
@@ -240,7 +240,7 @@ extension CTLine {
 	/// The provided block is invoked once for each logical caret edge in the line, in left-to-right visual
 	/// order.
 	@available(OSX 10.11, iOS 9.0, watchOS 2.0, tvOS 9.0, *)
-	public func enumerateCaretOffsets(_ block: @escaping (_ offset: Double, _ charIndex: CFIndex, _ leadingEdge: Bool, _ stop: inout Bool) -> Void) {
+	func enumerateCaretOffsets(_ block: @escaping (_ offset: Double, _ charIndex: CFIndex, _ leadingEdge: Bool, _ stop: inout Bool) -> Void) {
 		CTLineEnumerateCaretOffsets(self) { (offset, charIndex, leadingEdge, stop) in
 			block(offset, charIndex, leadingEdge, &stop.pointee)
 		}

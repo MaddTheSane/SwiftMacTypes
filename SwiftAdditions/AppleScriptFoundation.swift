@@ -71,13 +71,19 @@ import Foundation
 		/// if an error occurs. If you need to get the dictionary that would
 		/// have been returned by `executeAppleEvent(_:error:)`, the values
 		/// are stored in the `NSError`'s `userInfo`.
-		@nonobjc func executeAppleEvent(_ event: NSAppleEventDescriptor) throws -> NSAppleEventDescriptor {
+		@nonobjc func execute(event: NSAppleEventDescriptor) throws -> NSAppleEventDescriptor {
 			var errDict: NSDictionary?
 			if let descriptor = executeAppleEvent(event, error: &errDict) as NSAppleEventDescriptor? {
 				return descriptor
 			} else {
 				throw getError(dict: errDict)
 			}
+		}
+		
+		/// Deprecated, use `execute(event:) throws` instead.
+		@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "execute(event:)")
+		@nonobjc func executeAppleEvent(_ event: NSAppleEventDescriptor) throws -> NSAppleEventDescriptor {
+			return try execute(event: event)
 		}
 	}
 #endif

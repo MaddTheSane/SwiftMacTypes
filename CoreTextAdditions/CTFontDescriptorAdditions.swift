@@ -9,19 +9,19 @@
 import Foundation
 import CoreText
 
-extension CTFontDescriptor {
+public extension CTFontDescriptor {
 	/// The attributes dictionary of the font descriptor.
 	///
 	/// The font descriptor attributes dictionary. This dictionary contains the minimum
 	/// number of attributes to specify fully this particular font descriptor.
-	public var attributes: [String: Any] {
+	var attributes: [String: Any] {
 		return CTFontDescriptorCopyAttributes(self) as! [String : Any]
 	}
 	
 	/// Returns the Core Foundation type identifier for CoreText font descriptors.
 	///
 	/// - returns: The identifier for the opaque type `CTFontDescriptorRef`.
-	public class var typeID: CFTypeID {
+	class var typeID: CFTypeID {
 		return CTFontDescriptorGetTypeID()
 	}
 	
@@ -29,7 +29,7 @@ extension CTFontDescriptor {
 	/// - parameter key: The requested attribute.
 	/// - returns: A reference to an arbitrary attribute, or `nil` if the requested
 	/// attribute is not present.
-	public func attribute(forKey key: String) -> Any? {
+	func attribute(forKey key: String) -> Any? {
 		return CTFontDescriptorCopyAttribute(self, key as CFString) as Any?
 	}
 	
@@ -44,7 +44,7 @@ extension CTFontDescriptor {
 	/// descriptors, *normalized* infers that the input values were matched up with actual
 	/// existing fonts, and the descriptors for those existing fonts are the returned
 	/// normalized descriptors.
-	public func descriptorMatching(attributes: Set<String>?) -> CTFontDescriptor? {
+	func descriptorMatching(attributes: Set<String>?) -> CTFontDescriptor? {
 		return CTFontDescriptorCreateMatchingFontDescriptor(self, attributes as NSSet?)
 	}
 	
@@ -58,7 +58,7 @@ extension CTFontDescriptor {
 	/// descriptor. In the context of font descriptors, *normalized* infers that the input
 	/// values were matched up with actual existing fonts, and the descriptors for those
 	/// existing fonts are the returned normalized descriptors.
-	public func descriptorsMatching(attributes: Set<String>?) -> [CTFontDescriptor]? {
+	func descriptorsMatching(attributes: Set<String>?) -> [CTFontDescriptor]? {
 		return CTFontDescriptorCreateMatchingFontDescriptors(self, attributes as NSSet?) as! [CTFontDescriptor]?
 	}
 }

@@ -9,14 +9,14 @@
 import Foundation
 import CoreText.CTTextTab
 
-extension CTTextTab {
+public extension CTTextTab {
 	/// These constants specify text alignment.
-	public typealias Alignment = CTTextAlignment
+	typealias Alignment = CTTextAlignment
 	
 	/// Returns the Core Foundation type identifier for CoreText runs.
 	///
 	/// - returns: The identifier for the opaque type `CTTextTabRef`.
-	public class var typeID: CFTypeID {
+	class var typeID: CFTypeID {
 		return CTTextTabGetTypeID()
 	}
 	
@@ -30,23 +30,23 @@ extension CTTextTab {
 	/// optional and can be set to `nil` if not needed.<br>
 	/// Default is `nil`.
 	/// - returns: The new CTTextTab.
-	public static func create(alignment: Alignment, location: Double, options: [String: Any]? = nil) -> CTTextTab {
+	static func create(alignment: Alignment, location: Double, options: [String: Any]? = nil) -> CTTextTab {
 		return CTTextTabCreate(alignment, location, options as NSDictionary?)
 	}
 	
 	/// The tab's text alignment value.
-	public var alignment: Alignment {
+	var alignment: Alignment {
 		return CTTextTabGetAlignment(self)
 	}
 	
 	/// The tab's ruler location relative to the back margin.
-	public var location: Double {
+	var location: Double {
 		return CTTextTabGetLocation(self)
 	}
 	
 	/// The dictionary of attributes associated with the tab or `nil` if
 	/// no dictionary is present.
-	public var options: [String: Any]? {
-		return CTTextTabGetOptions(self) as NSDictionary? as? [String: Any]
+	var options: [String: Any]? {
+		return CTTextTabGetOptions(self) as? [String: Any]
 	}
 }
