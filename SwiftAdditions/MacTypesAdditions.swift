@@ -360,24 +360,14 @@ public extension String {
 	}
 }
 
-extension OSType: ExpressibleByStringLiteral {
+public extension OSType {
 	/// Encodes the passed `String` value to an `OSType`.
 	///
 	/// The string value may be formatted as a hexadecimal string.
 	/// Only the first four characters are read.
 	/// The string's characters must be present in the Mac Roman string encoding.
-	public init(stringValue toInit: String) {
+	init(stringValue toInit: String) {
 		self = toOSType(string: toInit, detectHex: true)
-	}
-	
-	public init(unicodeScalarLiteral usl: String) {
-		let tmpUnscaled = String(unicodeScalarLiteral: usl)
-		self.init(stringValue: tmpUnscaled)
-	}
-	
-	public init(extendedGraphemeClusterLiteral egcl: String) {
-		let tmpUnscaled = String(extendedGraphemeClusterLiteral: egcl)
-		self.init(stringValue: tmpUnscaled)
 	}
 	
 	/// Encodes the passed string literal value to an `OSType`.
@@ -385,23 +375,23 @@ extension OSType: ExpressibleByStringLiteral {
 	/// The string value may be formatted as a hexadecimal string.
 	/// Only the first four characters are read.
 	/// The strings' characters must be present in the Mac Roman string encoding.
-	public init(stringLiteral toInit: String) {
+	init(stringLiteral toInit: String) {
 		self.init(stringValue: toInit)
 	}
 	
 	/// Creates an `OSType` from a tuple with five characters, ignoring the fifth.
-	public init(_ toInit: (Int8, Int8, Int8, Int8, Int8)) {
+	init(_ toInit: (Int8, Int8, Int8, Int8, Int8)) {
 		self.init((toInit.0, toInit.1, toInit.2, toInit.3))
 	}
 	
 	/// Returns a string representation of this OSType.
 	/// It may be encoded as a hexadecimal string.
-	public var stringValue: String {
+	var stringValue: String {
 		return OSTypeToString(self, useHexIfInvalid: ())
 	}
 	
 	/// Creates an `OSType` from a tuple with four characters.
-	public init(_ toInit: (Int8, Int8, Int8, Int8)) {
+	init(_ toInit: (Int8, Int8, Int8, Int8)) {
 		let val0 = OSType(UInt8(bitPattern: toInit.0))
 		let val1 = OSType(UInt8(bitPattern: toInit.1))
 		let val2 = OSType(UInt8(bitPattern: toInit.2))
@@ -410,7 +400,7 @@ extension OSType: ExpressibleByStringLiteral {
 	}
 	
 	/// Returns a tuple with four values.
-	public func toFourChar() -> (Int8, Int8, Int8, Int8) {
+	func toFourChar() -> (Int8, Int8, Int8, Int8) {
 		let var1 = UInt8((self >> 24) & 0xFF)
 		let var2 = UInt8((self >> 16) & 0xFF)
 		let var3 = UInt8((self >> 8) & 0xFF)
@@ -419,7 +409,7 @@ extension OSType: ExpressibleByStringLiteral {
 	}
 	
 	/// Returns a tuple with five values, the last one being zero for null-termination.
-	public func toFourChar() -> (Int8, Int8, Int8, Int8, Int8) {
+	func toFourChar() -> (Int8, Int8, Int8, Int8, Int8) {
 		let outVar: (Int8, Int8, Int8, Int8) = toFourChar()
 		return (outVar.0, outVar.1, outVar.2, outVar.3, 0)
 	}
