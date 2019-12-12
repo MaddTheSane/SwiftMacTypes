@@ -34,25 +34,25 @@ import Cocoa
 		return CGWindowLevelForKey(CGWindowLevelKey.cursorWindow)
 	}
 	
-	extension AffineTransform {
-		public init(cgTransform cgAff: CGAffineTransform) {
+	public extension AffineTransform {
+		init(cgTransform cgAff: CGAffineTransform) {
 			self.init(m11: cgAff.a, m12: cgAff.b, m21: cgAff.c, m22: cgAff.d, tX: cgAff.tx, tY: cgAff.ty)
 		}
 		
-		public var cgTransform: CGAffineTransform {
+		var cgTransform: CGAffineTransform {
 			return CGAffineTransform(a: m11, b: m12, c: m21, d: m22, tx: tX, ty: tY)
 		}
 	}
 	
-	extension NSAffineTransform {
-		public convenience init(cgTransform: CGAffineTransform) {
+	public extension NSAffineTransform {
+		convenience init(cgTransform: CGAffineTransform) {
 			let preStruct = AffineTransform(cgTransform: cgTransform)
 			self.init()
 			transformStruct = (preStruct as NSAffineTransform).transformStruct
 		}
 	}
 	
-	extension NSBitmapImageRep {
+	public extension NSBitmapImageRep {
 		/// Returns an array of all available compression types that can be used when writing
 		/// a TIFF image.
 		/// - returns: An `UnsafeBufferPointer` C array of `NSTIFFCompression` constants.
@@ -65,17 +65,17 @@ import Cocoa
 		/// Because future releases may include other compression types, always use this
 		/// method to get the available compression types—for example, when you implement a
 		/// user interface for selecting compression types.
-		public class var tiffCompressionTypes: UnsafeBufferPointer<NSBitmapImageRep.TIFFCompression> {
+		class var tiffCompressionTypes: UnsafeBufferPointer<NSBitmapImageRep.TIFFCompression> {
 			var compPtr: UnsafePointer<NSBitmapImageRep.TIFFCompression>? = nil
 			var count = 0
 			getTIFFCompressionTypes(&compPtr, count: &count)
 			
-			let bufPtr = UnsafeBufferPointer(start: compPtr!, count: count)
+			let bufPtr = UnsafeBufferPointer(start: compPtr, count: count)
 			return bufPtr
 		}
 	}
 	
-	extension NSBitmapImageRep.Format {
+	public extension NSBitmapImageRep.Format {
 		/// The native 32-bit byte order format.
 		static var thirtyTwoBitNativeEndian: NSBitmapImageRep.Format {
 			#if _endian(little)

@@ -160,10 +160,10 @@ public enum ASCIICharacter: Int8, Comparable, Hashable {
 	}
 }
 
-extension ASCIICharacter {
+public extension ASCIICharacter {
 	/// Takes a Swift `Character` and returns an ASCII character/code.
 	/// Returns `nil` if the value can't be represented in ASCII.
-	public init?(swiftCharacter: Character) {
+	init?(swiftCharacter: Character) {
 		let srrChar = swiftCharacter.unicodeScalars
 		guard srrChar.count == 1,
 			let ourChar = srrChar.last,
@@ -176,7 +176,7 @@ extension ASCIICharacter {
 	
 	/// Takes a C-style char value and maps it to the ASCII table.<br>
 	/// Returns `nil` if the value can't be represented as ASCII.
-	public init?(cCharacter: Int8) {
+	init?(cCharacter: Int8) {
 		guard let aChar = ASCIICharacter(rawValue: cCharacter) else {
 			return nil
 		}
@@ -185,14 +185,14 @@ extension ASCIICharacter {
 	
 	/// Takes a C-style char value and maps it to the ASCII table.
 	/// Returns `nil` if the value can't be represented as ASCII.
-	public init?(cCharacter cch: UInt8) {
+	init?(cCharacter cch: UInt8) {
 		self.init(cCharacter: Int8(bitPattern: cch))
 	}
 
 	
 	/// Returns a Swift `Character` representing the current enum value.
 	/// Returns a blank replacement character (**0xFFFD**) if not a valid ASCII value.
-	public var characterValue: Character {
+	var characterValue: Character {
 		let numVal = self.rawValue
 		guard numVal >= 0 else {
 			return "\u{FFFD}"
@@ -202,9 +202,9 @@ extension ASCIICharacter {
 	}
 }
 
-extension String {
+public extension String {
 	/// Creates a string from a sequence of `ASCIICharacter`s.
-	public init<A: Sequence>(asciiCharacters: A) where A.Element == ASCIICharacter {
+	init<A: Sequence>(asciiCharacters: A) where A.Element == ASCIICharacter {
 		let asciiCharMap = asciiCharacters.map { (cha) -> Character in
 			return cha.characterValue
 		}
@@ -217,7 +217,7 @@ extension String {
 	/// instead of stopping and returning `nil`.
 	/// - returns: An array of `ASCIICharacter`s, or `nil` if there is a non-ASCII
 	/// character and `encodeInvalid` is `false`.
-	public func toASCIICharacters(encodeInvalid: Bool = false) -> [ASCIICharacter]? {
+	func toASCIICharacters(encodeInvalid: Bool = false) -> [ASCIICharacter]? {
 		if encodeInvalid {
 			return self.map({ (aChar) -> ASCIICharacter in
 				return ASCIICharacter(swiftCharacter: aChar) ?? .invalid

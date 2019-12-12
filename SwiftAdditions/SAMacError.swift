@@ -106,18 +106,18 @@ public struct SAMacError: _BridgedStoredNSError {
 }
 #endif
 
-extension SAMacError.Code {
+public extension SAMacError.Code {
 	/// is `nil` if value is too big for `OSErr`.
-	public var toOSErr: OSErr? {
+	var toOSErr: OSErr? {
 		return OSErr(exactly: rawValue)
 	}
 	
-	public init?(osErrValue val: OSErr) {
+	init?(osErrValue val: OSErr) {
 		self.init(rawValue: OSStatus(val))
 	}
 }
 
-extension SAMacError {
+public extension SAMacError {
 	/// This throws the passed-in error as an `NSOSStatusErrorDomain` error.
 	///
 	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used! Trying
@@ -126,7 +126,7 @@ extension SAMacError {
 	/// - parameter userInfo: Additional user info dictionary. Optional, default value is a
 	/// blank dictionary.
 	/// - parameter status: The `OSStatus` to throw as an `NSOSStatusErrorDomain` error.
-	public static func throwOSStatus(_ status: OSStatus, userInfo: [String: Any] = [:]) throws {
+	static func throwOSStatus(_ status: OSStatus, userInfo: [String: Any] = [:]) throws {
 		throw NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: userInfo)
 	}
 	
@@ -141,7 +141,7 @@ extension SAMacError {
 	/// - parameter userInfo: Additional user info dictionary. Optional, default value is a
 	/// blank dictionary.
 	/// - parameter status: The `OSErr` to throw as an `NSOSStatusErrorDomain` error.
-	public static func throwOSErr(_ status: OSErr, userInfo: [String: Any] = [:]) throws {
+	static func throwOSErr(_ status: OSErr, userInfo: [String: Any] = [:]) throws {
 		throw NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: userInfo)
 	}
 }

@@ -119,22 +119,22 @@ public func runOnMainThreadAsync(block: @escaping () -> Void) {
 }
 
 // Code taken from http://stackoverflow.com/a/33957196/1975001
-extension Dictionary {
-	public mutating func formUnion(_ dictionary: Dictionary) {
+public extension Dictionary {
+	mutating func formUnion(_ dictionary: Dictionary) {
 		if capacity < count + dictionary.count {
 			reserveCapacity(count + dictionary.count)
 		}
 		dictionary.forEach { self.updateValue($1, forKey: $0) }
 	}
 	
-	public func union(_ dictionary: Dictionary) -> Dictionary {
+	func union(_ dictionary: Dictionary) -> Dictionary {
 		var dict1 = self
 		dict1.formUnion(dictionary)
 		return dict1
 	}
 
 	// Code taken from http://stackoverflow.com/a/24052094/1975001
-	public static func +=(left: inout Dictionary, right: Dictionary) {
+	static func +=(left: inout Dictionary, right: Dictionary) {
 		if left.capacity < left.count + right.count {
 			left.reserveCapacity(left.count + right.count)
 		}
@@ -145,7 +145,7 @@ extension Dictionary {
 	
 	/// Adds two dictionaries together, returning the result.
 	/// For any key in both `left` and `right`, the value in `right` is used.
-	public static func +(left: Dictionary, right: Dictionary) -> Dictionary {
+	static func +(left: Dictionary, right: Dictionary) -> Dictionary {
 		var map = Dictionary<Key, Value>()
 		map.reserveCapacity(left.count + right.count)
 		for (k, v) in left {
@@ -160,17 +160,17 @@ extension Dictionary {
 
 // MARK: - Array additions
 
-extension Array {
+public extension Array {
 	/// Removes objects at indexes that are in the specified `NSIndexSet`.
 	/// - parameter indexes: the index set containing the indexes of objects that will be removed
-	public mutating func remove(indexes: NSIndexSet) {
+	mutating func remove(indexes: NSIndexSet) {
 		self.remove(indexes: indexes as IndexSet)
 	}
 	
 	// Code taken from https://stackoverflow.com/a/50835467/1975001
 	/// Removes objects at indexes that are in the specified `IndexSet`.
 	/// - parameter indexes: the index set containing the indexes of objects that will be removed
-	public mutating func remove(indexes: IndexSet) {
+	mutating func remove(indexes: IndexSet) {
 		guard var i = indexes.first, i < count else {
 			return
 		}
@@ -192,7 +192,7 @@ extension Array {
 	///
 	/// Internally creates an `IndexSet` so the items are in order.
 	/// - parameter ixs: the integer sequence containing the indexes of objects that will be removed
-	public mutating func remove<B: Sequence>(indexes ixs: B) where B.Iterator.Element == Int {
+	mutating func remove<B: Sequence>(indexes ixs: B) where B.Iterator.Element == Int {
 		var idxSet = IndexSet()
 		for i in ixs {
 			idxSet.insert(i)
@@ -201,13 +201,13 @@ extension Array {
 	}
 }
 
-extension Array where Element: AnyObject {
+public extension Array where Element: AnyObject {
 	/// Returns a sorted array from the current array by using `NSSortDescriptor`s.
 	/// - parameter descriptors: The `NSSortDescriptor`s to sort the array with.
 	/// - returns: This array, sorted by `descriptors`.
 	///
 	/// This *may* be expensive, in both memory and computation!
-	public func sorted(using descriptors: [NSSortDescriptor]) -> [Element] {
+	func sorted(using descriptors: [NSSortDescriptor]) -> [Element] {
 		let sortedArray = (self as NSArray).sortedArray(using: descriptors)
 		
 		return sortedArray as! [Element]
@@ -217,18 +217,18 @@ extension Array where Element: AnyObject {
 	/// - parameter descriptors: The `NSSortDescriptor`s to sort the array with.
 	///
 	/// This *may* be expensive, in both memory and computation!
-	public mutating func sort(using descriptors: [NSSortDescriptor]) {
+	mutating func sort(using descriptors: [NSSortDescriptor]) {
 		self = sorted(using: descriptors)
 	}
 }
 
 // MARK: -
 
-extension String {
+public extension String {
 	/// Creates a new `String` with the contents of `self`
 	/// up to `len` UTF-8 characters long, truncating incomplete
 	/// Swift characters at the end.
-	public func substringWithLength(utf8 len: Int) -> String {
+	func substringWithLength(utf8 len: Int) -> String {
 		let ourUTF = utf8
 		guard ourUTF.count > len else {
 			return self
@@ -251,7 +251,7 @@ extension String {
 	/// Creates a new `String` with the contents of `self`
 	/// up to `len` UTF-16 characters long, truncating incomplete
 	/// Swift characters at the end.
-	public func substringWithLength(utf16 len: Int) -> String {
+	func substringWithLength(utf16 len: Int) -> String {
 		let ourUTF = utf16
 		guard ourUTF.count > len else {
 			return self
@@ -272,7 +272,7 @@ extension String {
 	}
 }
 
-extension UnsafeBufferPointer {
+public extension UnsafeBufferPointer {
 	/// Creates an `UnsafeBufferPointer` over the contiguous `Element` instances beginning 
 	/// at `start`, iterating until `sentinelChecker` returns `true`.
 	///
@@ -284,7 +284,7 @@ extension UnsafeBufferPointer {
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
 	/// - parameter toCheck: The current element to check.
-	public init(start: UnsafePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
+	init(start: UnsafePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
 		var toIterate = start
 		
 		while !(try sentinelChecker(toIterate.pointee)) {
@@ -308,7 +308,7 @@ extension UnsafeBufferPointer {
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
 	/// - parameter toCheck: The current element to check.
-	public init(start: UnsafePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
+	init(start: UnsafePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
 		var toIterate = start
 		
 		while !(try sentinelChecker(toIterate.pointee)) && start.distance(to: toIterate) > maximum {
@@ -319,7 +319,7 @@ extension UnsafeBufferPointer {
 	}
 }
 
-extension UnsafeMutableBufferPointer {
+public extension UnsafeMutableBufferPointer {
 	/// Creates an `UnsafeMutableBufferPointer` over the contiguous `Element` instances
 	/// beginning at `start`, iterating until `sentinelChecker` returns `true`.
 	///
@@ -331,7 +331,7 @@ extension UnsafeMutableBufferPointer {
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
 	/// - parameter toCheck: The current element to check.
-	public init(start: UnsafeMutablePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
+	init(start: UnsafeMutablePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
 		var toIterate = start
 		
 		while !(try sentinelChecker(toIterate.pointee)) {
@@ -355,7 +355,7 @@ extension UnsafeMutableBufferPointer {
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
 	/// - parameter toCheck: The current element to check.
-	public init(start: UnsafeMutablePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
+	init(start: UnsafeMutablePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
 		var toIterate = start
 		
 		while !(try sentinelChecker(toIterate.pointee)) && start.distance(to: toIterate) > maximum {

@@ -219,8 +219,8 @@ public enum AudioComponentType {
 	}
 }
 
-extension AudioComponentDescription {	
-	public init(component: AudioComponentType, manufacturer: OSType = kAudioUnitManufacturer_Apple, flag: AudioComponentFlags = [], mask: AudioComponentFlags = []) {
+public extension AudioComponentDescription {
+	init(component: AudioComponentType, manufacturer: OSType = kAudioUnitManufacturer_Apple, flag: AudioComponentFlags = [], mask: AudioComponentFlags = []) {
 		self.init(componentType: component.types.type,
 				  componentSubType: component.types.subtype,
 				  componentManufacturer: manufacturer,
@@ -228,7 +228,7 @@ extension AudioComponentDescription {
 				  componentFlagsMask: mask.rawValue)
 	}
 	
-	public var flag: AudioComponentFlags {
+	var flag: AudioComponentFlags {
 		get {
 			return AudioComponentFlags(rawValue: componentFlags)
 		}
@@ -237,7 +237,7 @@ extension AudioComponentDescription {
 		}
 	}
 	
-	public var flagMask: AudioComponentFlags {
+	var flagMask: AudioComponentFlags {
 		get {
 			return AudioComponentFlags(rawValue: componentFlagsMask)
 		}
@@ -246,7 +246,7 @@ extension AudioComponentDescription {
 		}
 	}
 	
-	public var component: AudioComponentType {
+	var component: AudioComponentType {
 		get {
 			return AudioComponentType(type: componentType, subType: componentSubType)
 		}

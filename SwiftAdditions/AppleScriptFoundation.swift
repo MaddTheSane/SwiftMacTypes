@@ -21,14 +21,14 @@ import Foundation
 		}
 	}
 
-	extension NSAppleScript {
+	public extension NSAppleScript {
 		/// Creates a newly allocated script instance from the source identified by the passed URL.
 		/// - parameter url: A URL that locates a script, in either text or compiled form.
 		/// - throws: an `NSError` in the `NSOSStatusErrorDomain` domain
 		/// if unsuccessful. If you need to get the dictionary that would
 		/// have been returned by `compileAndReturnError(_:)`, the values
 		/// are stored in the `NSError`'s `userInfo`.
-		@nonobjc public static func appleScript(contentsOf url: URL) throws -> NSAppleScript {
+		@nonobjc static func appleScript(contentsOf url: URL) throws -> NSAppleScript {
 			var errDict: NSDictionary?
 			if let hi = NSAppleScript(contentsOf: url, error: &errDict) {
 				return hi
@@ -41,7 +41,7 @@ import Foundation
 		/// if unsuccessful. If you need to get the dictionary that would
 		/// have been returned by `compileAndReturnError(_:)`, the values
 		/// are stored in the `NSError`'s `userInfo`.
-		@nonobjc public func compile() throws {
+		@nonobjc func compile() throws {
 			var errDict: NSDictionary?
 			if !compileAndReturnError(&errDict) {
 				throw getError(dict: errDict)
@@ -54,7 +54,7 @@ import Foundation
 		/// failure. If you need to get the dictionary that would have 
 		/// been returned by `executeAndReturnError(_:)`, the values are stored
 		/// in the `NSError`'s `userInfo`.
-		@nonobjc public func execute() throws -> NSAppleEventDescriptor {
+		@nonobjc func execute() throws -> NSAppleEventDescriptor {
 			var errDict: NSDictionary?
 			if let descriptor = executeAndReturnError(&errDict) as NSAppleEventDescriptor? {
 				return descriptor
@@ -71,7 +71,7 @@ import Foundation
 		/// if an error occurs. If you need to get the dictionary that would
 		/// have been returned by `executeAppleEvent(_:error:)`, the values
 		/// are stored in the `NSError`'s `userInfo`.
-		@nonobjc public func executeAppleEvent(_ event: NSAppleEventDescriptor) throws -> NSAppleEventDescriptor {
+		@nonobjc func executeAppleEvent(_ event: NSAppleEventDescriptor) throws -> NSAppleEventDescriptor {
 			var errDict: NSDictionary?
 			if let descriptor = executeAppleEvent(event, error: &errDict) as NSAppleEventDescriptor? {
 				return descriptor

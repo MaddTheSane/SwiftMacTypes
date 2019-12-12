@@ -21,14 +21,14 @@ public protocol IUnknown {
 	func queryInterface(_ iid: REFIID, ppv: UnsafeMutablePointer<LPVOID?>?) -> HRESULT
 }
 
-extension IUnknown {
-	public func queryInterface(UUID: CFUUID, ppv: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
+public extension IUnknown {
+	func queryInterface(UUID: CFUUID, ppv: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
 		let bytes = CFUUIDGetUUIDBytes(UUID)
 		
 		return queryInterface(bytes, ppv: ppv)
 	}
 	
-	public func queryInterface(UUID: UUID, ppv: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
+	func queryInterface(UUID: UUID, ppv: UnsafeMutablePointer<LPVOID?>?) -> HRESULT {
 		let bytes = UUID.cfUUID
 		
 		return queryInterface(UUID: bytes, ppv: ppv)

@@ -11,27 +11,27 @@ import Foundation
 	import UIKit
 #endif
 
-extension NSRange {
+public extension NSRange {
 	/// An `NSRange` with a `location` of `NSNotFound` and a `length` of `0`.
-	public static var notFound: NSRange {
+	static var notFound: NSRange {
 		return NSRange(location: NSNotFound, length: 0)
 	}
 	
 	/// Is `true` if `location` is equal to `NSNotFound`.
-	public var notFound: Bool {
+	var notFound: Bool {
 		return location == NSNotFound
 	}
 	
 	/// Set the current `NSRange` to an intersection of this range and another.
 	/// - parameter otherRange: the other range to intersect with.
-	public mutating func intersect(_ otherRange: NSRange) {
+	mutating func intersect(_ otherRange: NSRange) {
 		self = NSIntersectionRange(self, otherRange)
 	}
 	
 	/// A string representation of the current range.
 	/// Returns a string of the form *“{a, b}”*, where *a* and *b* are
 	/// non-negative integers representing `self`.
-	public var stringValue: String {
+	var stringValue: String {
 		return NSStringFromRange(self)
 	}
 	
@@ -39,23 +39,23 @@ extension NSRange {
 	
 	/// Initializes an `NSRange` struct from a `CFRange` struct.
 	/// - parameter range: The `CFRange` to convert from.
-	public init(_ range: CoreFoundation.CFRange) {
+	init(_ range: CoreFoundation.CFRange) {
 		self.init(location: range.location, length: range.length)
 	}
 	
 	/// Initializes an `NSRange` struct from a `CFRange` struct.
 	/// - parameter range: The `CFRange` to convert from.
-	public init(range: CoreFoundation.CFRange) {
+	init(range: CoreFoundation.CFRange) {
 		self.init(range)
 	}
 	
 	/// The current range, represented as a `CFRange`.
-	public var cfRange: CoreFoundation.CFRange {
+	var cfRange: CoreFoundation.CFRange {
 		return CoreFoundation.CFRange(location: location, length: length)
 	}
 }
 
-extension CGPoint {
+public extension CGPoint {
 	/// Creates a point from a text-based representation.
 	/// - parameter string: A string of the form *"{x, y}"*.
 	///
@@ -65,7 +65,7 @@ extension CGPoint {
 	/// If `string` does not contain any numbers, creates an `CGPoint` object whose
 	/// `x` and `y` coordinates are both `0`.
 	/// - parameter string: The string to decode the point from.
-	public init(string: String) {
+	init(string: String) {
 		#if os(OSX)
 			self = NSPointFromString(string)
 		#else
@@ -77,7 +77,7 @@ extension CGPoint {
 	/// 
 	/// Returns a string of the form *"{a, b}"*, where *a* and *b* are the `x`
 	/// and `y` coordinates of `self`.
-	public var stringValue: String {
+	var stringValue: String {
 		#if os(OSX)
 			return NSStringFromPoint(self)
 		#else
@@ -86,7 +86,7 @@ extension CGPoint {
 	}
 }
 
-extension CGSize {
+public extension CGSize {
 	/// Creates a `CGSize` from a text-based representation.
 	///
 	/// Scans aString for two numbers which are used as the width and height,
@@ -97,7 +97,7 @@ extension CGSize {
 	/// If `string` does not contain any numbers, this function returns a `CGSize`
 	/// struct whose width and height are both `0`.
 	/// - parameter string: The string to decode the size from.
-	public init(string: String) {
+	init(string: String) {
 		#if os(OSX)
 			self = NSSizeFromString(string)
 		#else
@@ -109,7 +109,7 @@ extension CGSize {
 	///
 	/// Returns a string of the form *"{a, b}"*, where *a* and *b* are the `width`
 	/// and `height`, respectively, of `self`.
-	public var stringValue: String {
+	var stringValue: String {
 		#if os(OSX)
 			return NSStringFromSize(self)
 		#else
@@ -118,17 +118,17 @@ extension CGSize {
 	}
 }
 
-extension CGRect {
+public extension CGRect {
 	#if os(OSX)
 	/// Adjusts the sides of a rectangle to integral values using the specified options.
-	public mutating func formIntegral(options: AlignmentOptions) {
+	mutating func formIntegral(options: AlignmentOptions) {
 		self = NSIntegralRectWithOptions(self, options)
 	}
 	
 	/// Adjusts the sides of a rectangle to integral values using the specified options.
 	/// - returns: A copy of `self`, modified based on the options. The options are
 	/// defined in `AlignmentOptions`.
-	public func integral(options: AlignmentOptions) -> NSRect {
+	func integral(options: AlignmentOptions) -> CGRect {
 		return NSIntegralRectWithOptions(self, options)
 	}
 	#endif
@@ -142,7 +142,7 @@ extension CGRect {
 	/// numbers, this function returns a `CGRect` object with a rectangle whose origin
 	/// is `(0, 0)` and width and height are both `0`.
 	/// - parameter string: The string to decode the rectangle from.
-	public init(string: String) {
+	init(string: String) {
 		#if os(OSX)
 			self = NSRectFromString(string)
 		#else
@@ -154,7 +154,7 @@ extension CGRect {
 	///
 	/// Returns a string of the form *"{{a, b}, {c, d}}"*, where *a*, *b*, *c*, and *d*
 	/// are the `x` and `y` coordinates and the `width` and `height`, respectively, of `self`.
-	public var stringValue: String {
+	var stringValue: String {
 		#if os(OSX)
 			return NSStringFromRect(self)
 		#else
@@ -169,7 +169,7 @@ extension CGRect {
 	/// flipped coordinate system.<br>
 	/// Default is `false`.
 	/// - returns: `true` if the hot spot of the cursor lies inside the rectangle, otherwise `false`.
-	public func mouseInLocation(_ location: NSPoint, flipped: Bool = false) -> Bool {
+	func mouseInLocation(_ location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
 	}
 	
@@ -179,54 +179,54 @@ extension CGRect {
 	/// flipped coordinate system.<br>
 	/// Default is `false`.
 	/// - returns: `true` if the hot spot of the cursor lies inside the rectangle, otherwise `false`.
-	public func mouse(inLocation location: NSPoint, flipped: Bool = false) -> Bool {
+	func mouse(inLocation location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
 	}
 	#endif
 }
 
-extension NSUUID {
+public extension NSUUID {
 	/// Create a new `NSUUID` from a CoreFoundation `CFUUID`.
-	@objc(initWithCFUUID:) public convenience init(cfUUID: CoreFoundation.CFUUID) {
+	@objc(initWithCFUUID:) convenience init(cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
 		self.init(uuidString: tempUIDStr)!
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
-	@objc(CFUUID) public var cfUUID: CoreFoundation.CFUUID {
+	@objc(CFUUID) var cfUUID: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
 		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
 	}
 }
 
-extension UUID {
+public extension UUID {
 	/// Create a new `Foundation.UUID` from a CoreFoundation `CFUUID`.
-	public init(cfUUID: CoreFoundation.CFUUID) {
+	init(cfUUID: CoreFoundation.CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
 		self.init(uuidString: tempUIDStr)!
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
-	public var cfUUID: CoreFoundation.CFUUID {
+	var cfUUID: CoreFoundation.CFUUID {
 		let tmpStr = self.uuidString
 		
 		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
 	}
 }
 
-extension NSMutableData {
-	@nonobjc public func append(byteArray: [UInt8]) {
+public extension NSMutableData {
+	@nonobjc func append(byteArray: [UInt8]) {
 		append(byteArray, length: byteArray.count)
 	}
 	
-	@nonobjc public func replaceBytes(in range: NSRange, with replacementBytes: [UInt8]) {
+	@nonobjc func replaceBytes(in range: NSRange, with replacementBytes: [UInt8]) {
 		replaceBytes(in: range, withBytes: replacementBytes, length: replacementBytes.count)
 	}
 
-	@nonobjc public func replaceBytes(in range: NSRange, with replacementBytes: UnsafeRawBufferPointer) {
+	@nonobjc func replaceBytes(in range: NSRange, with replacementBytes: UnsafeRawBufferPointer) {
 		replaceBytes(in: range, withBytes: replacementBytes.baseAddress, length: replacementBytes.count)
 	}
 }
@@ -244,16 +244,16 @@ extension NSEdgeInsets: Equatable {
 }
 #endif
 
-extension NSIndexSet {
+public extension NSIndexSet {
 	/// Creates an index set from a sequence of `Int`s.
-	public convenience init<B: Sequence>(indexes: B) where B.Element == Int {
+	convenience init<B: Sequence>(indexes: B) where B.Element == Int {
 		self.init(indexSet: IndexSet(indexes: indexes))
 	}
 }
 
-extension IndexSet {
+public extension IndexSet {
 	/// Creates an index set from a sequence of `Int`s.
-	public init<B: Sequence>(indexes: B) where B.Element == Int {
+	init<B: Sequence>(indexes: B) where B.Element == Int {
 		self.init()
 		for idx in indexes {
 			insert(idx)
@@ -262,7 +262,7 @@ extension IndexSet {
 }
 
 
-extension UserDefaults {
+public extension UserDefaults {
 	/// Gets and sets a user default value named `key` to/from a `String` type.
 	/// - parameter key: the user default key to get/set.
 	///
@@ -270,7 +270,7 @@ extension UserDefaults {
 	/// `String`, Foundation will convert it to a string 
 	/// if the value is a number value. Otherwise `nil` will
 	/// be returned.
-	@nonobjc public subscript(key: String) -> String? {
+	@nonobjc subscript(key: String) -> String? {
 		get {
 			return string(forKey: key)
 		}
@@ -284,7 +284,7 @@ extension UserDefaults {
 	///
 	/// When getting, if the user default specified by `key` is not a `Data`
 	/// or is not present, this will return `nil`.
-	@nonobjc public subscript(key: String) -> Data? {
+	@nonobjc subscript(key: String) -> Data? {
 		get {
 			return data(forKey: key)
 		}
@@ -298,7 +298,7 @@ extension UserDefaults {
 	///
 	/// When getting, if the user default specified by `key` is not a `Date`
 	/// or is not present, this will return `nil`.
-	@nonobjc public subscript(key: String) -> Date? {
+	@nonobjc subscript(key: String) -> Date? {
 		get {
 			return object(forKey: key) as? Date
 		}
@@ -312,7 +312,7 @@ extension UserDefaults {
 	///
 	/// When getting, if the user default specified by `key` is not an `Array`
 	/// or is not present, this will return `nil`.
-	@nonobjc public subscript(key: String) -> [Any]? {
+	@nonobjc subscript(key: String) -> [Any]? {
 		get {
 			return array(forKey: key)
 		}
@@ -326,7 +326,7 @@ extension UserDefaults {
 	///
 	/// When getting, if any of the objects in the user default array specified by `key`
 	/// is not a `String` or is not present, this will return `nil`.
-	@nonobjc public subscript(key: String) -> [String]? {
+	@nonobjc subscript(key: String) -> [String]? {
 		get {
 			return stringArray(forKey: key)
 		}
@@ -340,7 +340,7 @@ extension UserDefaults {
 	///
 	/// When getting, if the user default specified by `key` is not a `Dictionary`
 	/// or is not present, this will return `nil`.
-	@nonobjc public subscript(key: String) -> [String: Any]? {
+	@nonobjc subscript(key: String) -> [String: Any]? {
 		get {
 			return dictionary(forKey: key)
 		}
@@ -356,7 +356,7 @@ extension UserDefaults {
 	/// * If the value is a `Bool`, `0` will be returned if the value is *false*, `1` if *true*.
 	/// * If the value is a `String`, it will attempt to convert it to an `Int` value. If unsuccessful, returns `nil`.
 	/// * If the value is absent or can't be converted to an `Int`, `nil` will be returned.
-	@nonobjc public subscript(key: String) -> Int? {
+	@nonobjc subscript(key: String) -> Int? {
 		get {
 			if let obj = object(forKey: key) {
 				if let aDoub = obj as? Int {
@@ -386,7 +386,7 @@ extension UserDefaults {
 	/// * If the value is a `String`, it will attempt to convert it to a `Float` value. If unsuccessful, returns `nil`.
 	/// * If the value is an `Int`, the value will be converted to a `Float`.
 	/// * If the value is absent or can't be converted to a `Float`, `nil` will be returned.
-	@nonobjc public subscript(key: String) -> Float? {
+	@nonobjc subscript(key: String) -> Float? {
 		get {
 			if let obj = object(forKey: key) {
 				if let aDoub = obj as? Float {
@@ -418,7 +418,7 @@ extension UserDefaults {
 	/// * If the value is a `String`, it will attempt to convert it to a `Double` value. If unsuccessful, returns `nil`.
 	/// * If the value is an `Int`, the value will be converted to a `Double`.
 	/// * If the value is absent or can't be converted to a `Double`, `nil` will be returned.
-	@nonobjc public subscript(key: String) -> Double? {
+	@nonobjc subscript(key: String) -> Double? {
 		get {
 			if let obj = object(forKey: key) {
 				if let aDoub = obj as? Double {
@@ -450,7 +450,7 @@ extension UserDefaults {
 	/// * If the value is a `String` path, then it will construct a file URL to that path. 
 	/// * If the value is an archived URL from `-setURL:forKey:`, or is set via the URL subscript, it will be unarchived.
 	/// * If the value is absent or can't be converted to a `URL`, `nil` will be returned.
-	@nonobjc public subscript(key: String) -> URL? {
+	@nonobjc subscript(key: String) -> URL? {
 		get {
 			return url(forKey: key)
 		}
@@ -466,7 +466,7 @@ extension UserDefaults {
 	/// * If the value is an `Int`, `false` will be returned if the value is *0*, `true` otherwise.
 	/// * If the value is a `String`, values of *"YES"* or *"1"* will return `true`, and values of *"NO"* or *"0"* will return `false`, anything else will return `nil`. 
 	/// * If the value is absent or can't be converted to a `Bool`, `nil` will be returned.
-	@nonobjc public subscript(key: String) -> Bool? {
+	@nonobjc subscript(key: String) -> Bool? {
 		get {
 			if let obj = object(forKey: key) {
 				if let aBool = obj as? Bool {

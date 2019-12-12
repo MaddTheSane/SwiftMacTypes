@@ -9,9 +9,9 @@
 import Foundation
 import CoreGraphics
 
-extension CGBitmapInfo {
+public extension CGBitmapInfo {
 	/// The alpha info of the current `CGBitmapInfo`.
-	public var alphaInfo: CGImageAlphaInfo {
+	var alphaInfo: CGImageAlphaInfo {
 		get {
 			let tmpInfo = (self.rawValue & CGBitmapInfo.alphaInfoMask.rawValue)
 			return CGImageAlphaInfo(rawValue: tmpInfo) ?? .none
@@ -28,13 +28,13 @@ extension CGBitmapInfo {
 	}
 	
 	/// Inits a `CGBitmapInfo` value from a `CGImageAlphaInfo`.
-	public init(alphaInfo: CGImageAlphaInfo) {
+	init(alphaInfo: CGImageAlphaInfo) {
 		let ordValue = alphaInfo.rawValue
 		self = CGBitmapInfo(rawValue: ordValue)
 	}
 	
 	/// The native 16-bit byte order format.
-	public static var byteOrder16Host: CGBitmapInfo {
+	static var byteOrder16Host: CGBitmapInfo {
 		#if _endian(little)
 			return .byteOrder16Little
 		#elseif _endian(big)
@@ -45,7 +45,7 @@ extension CGBitmapInfo {
 	}
 	
 	/// The native 32-bit byte order format.
-	public static var byteOrder32Host: CGBitmapInfo {
+	static var byteOrder32Host: CGBitmapInfo {
 		#if _endian(little)
 			return .byteOrder32Little
 		#elseif _endian(big)

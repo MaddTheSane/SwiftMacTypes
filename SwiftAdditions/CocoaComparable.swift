@@ -14,21 +14,21 @@ public protocol CocoaComparable: NSObjectProtocol, Comparable {
 	func compare(_ rhs: Self) -> ComparisonResult
 }
 
-extension CocoaComparable {
-	static public func <(lhs: Self, rhs: Self) -> Bool {
+public extension CocoaComparable {
+	static func <(lhs: Self, rhs: Self) -> Bool {
 		return lhs.compare(rhs) == .orderedAscending
 	}
 	
-	static public func >(lhs: Self, rhs: Self) -> Bool {
+	static func >(lhs: Self, rhs: Self) -> Bool {
 		return lhs.compare(rhs) == .orderedDescending
 	}
 	
-	static public func <=(lhs: Self, rhs: Self) -> Bool {
+	static func <=(lhs: Self, rhs: Self) -> Bool {
 		let cmpResult = lhs.compare(rhs)
 		return cmpResult == .orderedAscending || cmpResult == .orderedSame
 	}
 	
-	static public func >=(lhs: Self, rhs: Self) -> Bool {
+	static func >=(lhs: Self, rhs: Self) -> Bool {
 		let cmpResult = lhs.compare(rhs)
 		return cmpResult == .orderedDescending || cmpResult == .orderedSame
 	}
