@@ -44,8 +44,13 @@ public func OSTypeToString(_ theType: OSType, useHexIfInvalid: ()) -> String {
 	}
 }
 
-/// Converts a `String` value to an `OSType`, truncating to the first four characters.
+@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "toOSType(_:detectHex:)")
 public func toOSType(string theString: String, detectHex: Bool = false) -> OSType {
+	return toOSType(theString, detectHex: detectHex)
+}
+
+/// Converts a `String` value to an `OSType`, truncating to the first four characters.
+public func toOSType(_ theString: String, detectHex: Bool = false) -> OSType {
 	if detectHex && theString.count > 4 {
 		let aScann = Scanner(string: theString)
 		var tmpnum: UInt32 = 0
@@ -367,7 +372,7 @@ public extension OSType {
 	/// Only the first four characters are read.
 	/// The string's characters must be present in the Mac Roman string encoding.
 	init(stringValue toInit: String) {
-		self = toOSType(string: toInit, detectHex: true)
+		self = toOSType(toInit, detectHex: true)
 	}
 	
 	/// Encodes the passed string literal value to an `OSType`.
