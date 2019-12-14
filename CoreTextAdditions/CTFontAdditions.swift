@@ -26,7 +26,7 @@ public extension CTFont {
 
 	/// These constants represent the specific user interface purpose to specify for font creation.
 	///
-	/// Use these constants with `Font(uiType:size:forLanguage:)` to indicate the intended user interface usage
+	/// Use these constants with `CTFont.create(uiType:size:forLanguage:)` to indicate the intended user interface usage
 	/// of the font reference to be created.
 	typealias UIFontType = CTFontUIFontType
 	
@@ -42,6 +42,96 @@ public extension CTFont {
 	/// appearance of the font while the lower 28 bits for typeface. The font appearance information represented
 	/// by the upper 4 bits can be used for stylistic font matching.
 	typealias SymbolicTraits = CTFontSymbolicTraits
+	
+	/// Returns a new font reference for the given name.
+	///
+	/// This function uses font descriptor matching so only registered fonts can be returned; see
+	/// *CTFontManager.h* for more information.
+	/// - parameter name: The font name for which you wish to create a new font reference. A valid PostScript
+	/// name is preferred, although other font name types will be matched in a fallback manner.
+	/// - parameter size: The point size for the font reference. If *0.0* is specified, the default font
+	/// size of *12.0* will be used.
+	/// - parameter matrix: The transformation matrix for the font. If unspecified, the identity matrix
+	/// will be used. Optional.
+	/// - returns: This function will return a `CTFont` that best matches the name provided with size and
+	/// matrix attributes. The `name` parameter is the only required parameter, and default values will
+	/// be used for unspecified parameters. A best match will be found if all parameters cannot be
+	/// matched identically.
+	class func create(withName name: String, size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont {
+		if var matrix = matrix {
+			return CTFontCreateWithName(name as NSString, size, &matrix)
+		} else {
+			return CTFontCreateWithName(name as NSString, size, nil)
+		}
+	}
+	
+	/// Returns a new font reference that best matches the font descriptor.
+	/// - parameter descriptor: A font descriptor containing attributes that specify the requested font.
+	/// - parameter size: The point size for the font reference. If *0.0* is specified, the default font
+	/// size of *12.0* will be used.
+	/// - parameter matrix: The transformation matrix for the font. If unspecified, the identity matrix
+	/// will be used. Optional.
+	/// - returns: This function will return a `CTFont` that best matches the attributes provided with the
+	/// font descriptor. The `size` and `matrix` parameters will override any specified in the font
+	/// descriptor, unless they are unspecified. A best match font will always be returned, and default
+	/// values will be used for any unspecified.
+	class func create(with descriptor: CTFontDescriptor, size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont {
+		if var matrix = matrix {
+			return CTFontCreateWithFontDescriptor(descriptor, size, &matrix)
+		} else {
+			return CTFontCreateWithFontDescriptor(descriptor, size, nil)
+		}
+	}
+	
+	/// Returns a new font reference for the given name.
+	/// This function uses font descriptor matching so only registered fonts can be returned; see
+	/// *CTFontManager.h* for more information.
+	/// - parameter name: The font name for which you wish to create a new font reference. A valid PostScript
+	/// name is preferred, although other font name types will be matched in a fallback manner.
+	/// - parameter size: The point size for the font reference. If *0.0* is specified, the default font
+	/// size of *12.0* will be used.
+	/// - parameter matrix: The transformation matrix for the font. If unspecified, the identity matrix
+	/// will be used. Optional.
+	/// - parameter options: Options flags.
+	/// - returns: This function will return a `CTFont` that best matches the name provided with size and
+	/// matrix attributes. The `name` parameter is the only required parameter, and default values will
+	/// be used for unspecified parameters. A best match will be found if all parameters cannot be
+	/// matched identically.
+	class func create(withName name: String, size: CGFloat, matrix: CGAffineTransform? = nil, options: Options) -> CTFont {
+		if var matrix = matrix {
+			return CTFontCreateWithNameAndOptions(name as NSString, size, &matrix, options)
+		} else {
+			return CTFontCreateWithNameAndOptions(name as NSString, size, nil, options)
+		}
+	}
+
+	/// Returns a new font reference that best matches the font descriptor.
+	/// - parameter descriptor: A font descriptor containing attributes that specify the requested font.
+	/// - parameter size: The point size for the font reference. If *0.0* is specified, the default font
+	/// size of *12.0* will be used.
+	/// - parameter matrix: The transformation matrix for the font. If unspecified, the identity matrix
+	/// will be used. Optional.
+	/// - parameter options: Options flags.
+	/// - returns: This function will return a `CTFont` that best matches the attributes provided with the
+	/// font descriptor. The `size` and `matrix` parameters will override any specified in the font
+	/// descriptor, unless they are unspecified. A best match font will always be returned, and default
+	/// values will be used for any unspecified.
+	class func create(with descriptor: CTFontDescriptor, size: CGFloat, matrix: CGAffineTransform? = nil, options: Options) -> CTFont {
+		if var matrix = matrix {
+			return CTFontCreateWithFontDescriptorAndOptions(descriptor, size, &matrix, options)
+		} else {
+			return CTFontCreateWithFontDescriptorAndOptions(descriptor, size, nil, options)
+		}
+	}
+
+	/// Returns the special UI font for the given language and UI type.
+	/// - parameter uiType: A uiType constant specifying the intended UI use for the requested font reference.
+	/// - parameter size: The point size for the font reference. If *0.0* is specified, the default size for the requested uiType is used.
+	/// - parameter language: Language identifier to select a font for a particular localization. If unspecified, the current system language is used. The format of the language identifier should conform to *UTS #35*.
+	/// - returns: This function returns the correct font for various UI uses. The only required parameter is the `uiType` selector, unspecified optional parameters will use default values.
+	class func create(uiType: UIFontType, size: CGFloat, language: String?) -> CTFont? {
+		return CTFontCreateUIFontForLanguage(uiType, size, language as NSString?)
+	}
 	
 	enum FontNameKey: CustomStringConvertible {
 		/// The name specifier for the copyright name.

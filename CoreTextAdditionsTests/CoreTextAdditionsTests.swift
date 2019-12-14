@@ -21,10 +21,35 @@ class CoreTextAdditionsTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testFontNames() {
+		let names = FontManager.availableFontFamilyNames
+		print(names)
     }
+	
+	func testPSNames() {
+		let names = FontManager.availablePostScriptNames
+		print(names)
+	}
+	
+    func testFontURLs() {
+		let names = FontManager.availableFontURLs
+		print(names)
+    }
+
+	func testFontThing() {
+		let wmfURL = URL(fileURLWithPath: "/System/Library/Fonts/Times.ttc")
+		let fd = FontManager.fontDescriptors(from: wmfURL)
+		print(fd!)
+		for desc in fd! {
+			let aFont = CTFontCreateWithFontDescriptorAndOptions(desc, 14, nil, [])
+			print(aFont)
+		}
+	}
+	
+	func testFeatures() {
+		let aFont = CTFont.create(withName: "Times", size: 0)
+		print(aFont.features!)
+	}
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
