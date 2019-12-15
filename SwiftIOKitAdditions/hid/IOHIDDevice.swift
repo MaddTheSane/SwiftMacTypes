@@ -246,6 +246,18 @@ public extension IOHIDDevice {
 		IOHIDDeviceCancel(self)
 	}
 	
+	/// Sets multiple values for multiple elements.
+	///
+	/// This method behaves synchronously and will block until the
+	/// report has been issued to the device.  It is only relevent for
+	/// either output or feature type elements.
+	/// - parameter multiple: `Dictionary` where key is `IOHIDElement` and
+	/// value is `IOHIDValue`.
+	/// - returns: Returns `kIOReturnSuccess` if successful.
+	func setValue(multiple: [IOHIDElement: IOHIDValue]) -> IOReturn {
+		return IOHIDDeviceSetValueMultiple(self, multiple as NSDictionary)
+	}
+	
 	typealias GetValueOptions = IOHIDDeviceGetValueOptions
 
 	/// Gets a value for an element.
@@ -341,7 +353,7 @@ public extension IOHIDDevice {
 	/// - parameter pReportLength: Pointer to length of preallocated buffer.  This
 	/// value will be modified to refect the length of the returned
 	/// report.
-	/// - returns: Returns kIOReturnSuccess if successful.
+	/// - returns: Returns `kIOReturnSuccess` if successful.
 	func getReport(type reportType: IOHIDReportType, id reportID: CFIndex, _ report: UnsafeMutablePointer<UInt8>, length pReportLength: UnsafeMutablePointer<CFIndex>) -> IOReturn {
 		return IOHIDDeviceGetReport(self, reportType, reportID, report, pReportLength)
 	}

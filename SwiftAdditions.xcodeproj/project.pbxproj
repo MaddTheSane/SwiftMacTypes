@@ -107,6 +107,7 @@
 		55E11DFC1AE711C600815555 /* AudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C2B991A0C4B0500700F83 /* AudioUnit.swift */; };
 		55E18FC91A43AC2B00834004 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E18FC71A43AC2B00834004 /* CoreFoundation.framework */; };
 		55E18FCA1A43AC2B00834004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E18FC81A43AC2B00834004 /* Foundation.framework */; };
+		55E6D07B23A6983A009BF006 /* MacErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6D07A23A6983A009BF006 /* MacErrorTests.swift */; };
 		55FB67FE21062B1C00C1AF96 /* FFAErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FB67FD21062B1C00C1AF96 /* FFAErrors.m */; };
 		55FB680021062B3700C1AF96 /* FFAErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FB67FF21062B3700C1AF96 /* FFAErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -337,6 +338,7 @@
 		55E18FC71A43AC2B00834004 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		55E18FC81A43AC2B00834004 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55E56C131AE2C716006B7276 /* ExtAudioFileExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtAudioFileExt.swift; sourceTree = "<group>"; };
+		55E6D07A23A6983A009BF006 /* MacErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacErrorTests.swift; sourceTree = "<group>"; };
 		55FB67FD21062B1C00C1AF96 /* FFAErrors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FFAErrors.m; sourceTree = "<group>"; };
 		55FB67FF21062B3700C1AF96 /* FFAErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FFAErrors.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -513,6 +515,7 @@
 		550FBACA19A7ADC500EFBD3D /* SwiftAdditionsTests */ = {
 			isa = PBXGroup;
 			children = (
+				55E6D07A23A6983A009BF006 /* MacErrorTests.swift */,
 				55C04E942075591700ABFD58 /* MacAdditionsTests.swift */,
 				550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */,
 				55B713121D0775EF00F2EA1F /* CharacterAdditionsTests.swift */,
@@ -1200,6 +1203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E6D07B23A6983A009BF006 /* MacErrorTests.swift in Sources */,
 				550FBACE19A7ADC500EFBD3D /* SwiftAdditionsTests.swift in Sources */,
 				55C04E952075591700ABFD58 /* MacAdditionsTests.swift in Sources */,
 				55B713131D0775EF00F2EA1F /* CharacterAdditionsTests.swift in Sources */,
