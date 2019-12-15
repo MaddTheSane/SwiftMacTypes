@@ -119,6 +119,133 @@ public extension IOHIDDevice {
 		return IOHIDDeviceCopyMatchingElements(self, matching as NSDictionary?, options) as? [IOHIDElement]
 	}
 	
+	/// Schedules HID device with run loop.
+	///
+	/// Formally associates device with client's run loop. Scheduling
+	/// this device with the run loop is necessary before making use of
+	/// any asynchronous APIs.
+	/// - parameter runLoop: `RunLoop` to be used when scheduling any asynchronous
+	/// activity.
+	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
+	/// asynchronous activity.
+	func schedule(with runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
+		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
+	}
+	
+	/// Schedules HID device with run loop.
+	///
+	/// Formally associates device with client's run loop. Scheduling
+	/// this device with the run loop is necessary before making use of
+	/// any asynchronous APIs.
+	/// - parameter runLoop: `RunLoop` to be used when scheduling any asynchronous
+	/// activity.
+	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
+	/// asynchronous activity.
+	func schedule(with runLoop: CFRunLoop, mode runLoopMode: String) {
+		IOHIDDeviceScheduleWithRunLoop(self, runLoop, runLoopMode as NSString)
+	}
+	
+	/// Unschedules HID device with run loop.
+	///
+	/// Formally disassociates device with client's run loop.
+	/// - parameter runLoop: RunLoop to be used when unscheduling any asynchronous
+	/// activity.
+	/// - parameter runLoopMode: Run loop mode to be used when unscheduling any
+	/// asynchronous activity.
+	func unschedule(from runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
+		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
+		
+	}
+	
+	/// Unschedules HID device with run loop.
+	///
+	/// Formally disassociates device with client's run loop.
+	/// - parameter runLoop: RunLoop to be used when unscheduling any asynchronous
+	/// activity.
+	/// - parameter runLoopMode: Run loop mode to be used when unscheduling any
+	/// asynchronous activity.
+	func unschedule(from runLoop: CFRunLoop, mode runLoopMode: String) {
+		IOHIDDeviceUnscheduleFromRunLoop(self, runLoop, runLoopMode as NSString)
+	}
+	
+	/// Sets the dispatch queue to be associated with the IOHIDDevice.
+	/// This is necessary in order to receive asynchronous events from the kernel.
+	///
+	/// An IOHIDDevice should not be associated with both a runloop and dispatch
+	/// queue. A call to `setDispatchQueue(_:)` should only be made once.
+	///
+	/// If a dispatch queue is set but never used, a call to `cancel()` followed
+	/// by IOHIDDeviceActivate should be performed in that order.
+	///
+	/// After a dispatch queue is set, the `IOHIDDevice` must make a call to activate
+	/// via `activate()` and cancel via `cancel()`. All calls to "Register"
+	/// functions should be done before activation and not after cancellation.
+	/// - parameter queue: The dispatch queue to which the event handler block will
+	/// be submitted.
+	@available(OSX 10.15, *)
+	func setDispatchQueue(_ queue: DispatchQueue) {
+		IOHIDDeviceSetDispatchQueue(self, queue)
+	}
+	
+	/// Sets a cancellation handler for the dispatch queue associated with
+	/// `setDispatchQueue(_:)`.
+	///
+	/// The cancellation handler (if specified) will be will be submitted to the
+	/// device's dispatch queue in response to a call to `cancel()` after
+	/// all the events have been handled.
+	///
+	/// `setCancelHandler(_:)` should not be used when scheduling with
+	/// a run loop.
+	///
+	/// The `IOHIDDevice` should only be released after the device has been
+	/// cancelled, and the cancel handler has been called. This is to ensure all
+	/// asynchronous objects are released.
+	/// - parameter handler: The cancellation handler block to be associated with
+	/// the dispatch queue.
+	@available(OSX 10.15, *)
+	func setCancelHandler(_ handler: @escaping () -> Void) {
+		IOHIDDeviceSetCancelHandler(self, handler)
+	}
+	
+	/// Activates the `IOHIDDevice` object.
+	///
+	/// An `IOHIDDevice` object associated with a dispatch queue is created
+	/// in an inactive state. The object must be activated in order to
+	/// receive asynchronous events from the kernel.
+	///
+	/// A dispatch queue must be set via `setDispatchQueue(_:)` before
+	/// activation.
+	///
+	/// An activated device must be cancelled via `cancel()`. All calls
+	/// to "Register" functions should be done before activation
+	/// and not after cancellation.
+	///
+	/// Calling `activate()` on an active `IOHIDDevice` has no effect.
+	@available(OSX 10.15, *)
+	func activate() {
+		IOHIDDeviceActivate(self)
+	}
+	
+	/// Cancels the `IOHIDDevice` preventing any further invocation
+	/// of its event handler block.
+	///
+	/// Cancelling prevents any further invocation of the event handler block for
+	/// the specified dispatch queue, but does not interrupt an event handler
+	/// block that is already in progress.
+	///
+	/// Explicit cancellation of the `IOHIDDevice` is required, no implicit
+	/// cancellation takes place.
+	///
+	/// Calling `cancel()` on an already cancelled queue has no effect.
+	///
+	/// The `IOHIDDevice` should only be released after the device has been
+	/// cancelled, and the cancel handler has been called. This is to ensure all
+	/// asynchronous objects are released.
+	@available(OSX 10.15, *)
+	func cancel() {
+		IOHIDDeviceCancel(self)
+	}
+	
 	typealias GetValueOptions = IOHIDDeviceGetValueOptions
 
 	/// Gets a value for an element.
@@ -129,8 +256,8 @@ public extension IOHIDDevice {
 	/// device.  If obtaining values for multiple elements you may want
 	/// to consider using `IOHIDDeviceCopyValueMultiple` or `IOHIDTransaction`.
 	/// - parameter element: IOHIDElementRef whose value is to be obtained.
-    /// - parameter value: Pointer to IOHIDValueRef to be obtained.
-    /// - returns: Returns `kIOReturnSuccess` if successful.
+	/// - parameter value: Pointer to IOHIDValueRef to be obtained.
+	/// - returns: Returns `kIOReturnSuccess` if successful.
 	@available(OSX 10.13, *)
 	func getValue(element: IOHIDElement, _ value: UnsafeMutablePointer<IOHIDValue?>, options: GetValueOptions) -> IOReturn {
 		// ugly, icky hack!
@@ -208,13 +335,13 @@ public extension IOHIDDevice {
 	/// `IOHIDDeviceRegisterInputReportCallback` for obtaining input
 	/// reports.
 	/// - parameter reportType: Type of report being requested.
-    /// - parameter reportID: ID of the report being requested.
-    /// - parameter report: Pointer to preallocated buffer in which to copy inbound
-    /// report data.
-    /// - parameter pReportLength: Pointer to length of preallocated buffer.  This
-    /// value will be modified to refect the length of the returned
-    /// report.
-    /// - returns: Returns kIOReturnSuccess if successful.
+	/// - parameter reportID: ID of the report being requested.
+	/// - parameter report: Pointer to preallocated buffer in which to copy inbound
+	/// report data.
+	/// - parameter pReportLength: Pointer to length of preallocated buffer.  This
+	/// value will be modified to refect the length of the returned
+	/// report.
+	/// - returns: Returns kIOReturnSuccess if successful.
 	func getReport(type reportType: IOHIDReportType, id reportID: CFIndex, _ report: UnsafeMutablePointer<UInt8>, length pReportLength: UnsafeMutablePointer<CFIndex>) -> IOReturn {
 		return IOHIDDeviceGetReport(self, reportType, reportID, report, pReportLength)
 	}

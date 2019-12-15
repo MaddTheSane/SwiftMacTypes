@@ -599,9 +599,7 @@
 		55706D901A1EC2440000FD93 /* SwiftIOKitAdditions */ = {
 			isa = PBXGroup;
 			children = (
-				5563E581239F3033007A1600 /* IOHIDManager.swift */,
-				5563E583239F453F007A1600 /* IOHIDDevice.swift */,
-				5563E585239F4C8F007A1600 /* IOHIDValue.swift */,
+				559398E623A61C270052B4E9 /* hid */,
 				55706DA81A1EC2880000FD93 /* IOCFPlugInClass.swift */,
 				55DAF5921A337C91008281ED /* COMUUIDs.swift */,
 				55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */,
@@ -652,6 +650,16 @@
 				558DC05F217D04840022E081 /* Info.plist */,
 			);
 			path = QuartzAdditionsTests;
+			sourceTree = "<group>";
+		};
+		559398E623A61C270052B4E9 /* hid */ = {
+			isa = PBXGroup;
+			children = (
+				5563E581239F3033007A1600 /* IOHIDManager.swift */,
+				5563E583239F453F007A1600 /* IOHIDDevice.swift */,
+				5563E585239F4C8F007A1600 /* IOHIDValue.swift */,
+			);
+			path = hid;
 			sourceTree = "<group>";
 		};
 		55E11DE21AE7114000815555 /* SwiftAudioAdditions */ = {

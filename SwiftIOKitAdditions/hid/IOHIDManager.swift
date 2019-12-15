@@ -129,7 +129,7 @@ public extension IOHIDManager {
 	/// This is necessary in order to receive asynchronous events from the kernel.
 	///
 	/// An `IOHIDManager` should not be associated with both a runloop and
-	/// dispatch queue. A call to `setDispatchQueue(:)` should only be made once.
+	/// dispatch queue. A call to `setDispatchQueue(_:)` should only be made once.
 	///
 	/// If a dispatch queue is set but never used, a call to `cancel()` followed
 	/// by `activate()` should be performed in that order.
@@ -144,13 +144,13 @@ public extension IOHIDManager {
 	}
 	
 	/// Sets a cancellation handler for the dispatch queue associated with
-	/// `setDispatchQueue(:)`.
+	/// `setDispatchQueue(_:)`.
 	///
 	/// The cancellation handler (if specified) will be will be submitted to the
 	/// manager's dispatch queue in response to a call to `cancel()` after all
 	/// the events have been handled.
 	///
-	/// `setCancelHandler(:)` should not be used when scheduling with
+	/// `setCancelHandler(_:)` should not be used when scheduling with
 	/// a run loop.
 	///
 	/// The `IOHIDManager` should only be released after the manager has been
@@ -169,7 +169,7 @@ public extension IOHIDManager {
 	/// in an inactive state. The object must be activated in order to
 	/// receive asynchronous events from the kernel.
 	///
-	/// A dispatch queue must be set via `setDispatchQueue(:)` before
+	/// A dispatch queue must be set via `setDispatchQueue(_:)` before
 	/// activation.
 	///
 	/// An activated manager must be cancelled via `cancel()`. All calls
