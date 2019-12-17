@@ -246,6 +246,112 @@ public extension IOHIDDevice {
 		IOHIDDeviceCancel(self)
 	}
 	
+	/// Registers a callback to be used when a `IOHIDDevice` is removed.
+	///
+	/// In most cases this occurs when a device is unplugged.
+	///
+	/// If a dispatch queue is set, this call must occur before activation.
+	/// - parameter callback: Pointer to a callback method of type `IOHIDCallback`.
+	/// - parameter context: Pointer to data to be passed to the callback.
+	func registerRemoval(callback: IOHIDCallback?, context: UnsafeMutableRawPointer?) {
+		
+	}
+	
+	/// Registers a callback to be used when an input value is issued by
+	/// the device.
+	///
+	/// An input element refers to any element of type
+	/// `kIOHIDElementTypeInput` and is usually issued by interrupt driven
+	/// reports.  If more specific element values are desired, you can
+	/// specify matching criteria via `setInputValueMatching(_:)`
+	/// and `setInputValueMatching(multiple:)`.
+	///
+	/// If a dispatch queue is set, this call must occur before activation.
+	/// - parameter callback: Pointer to a callback method of type IOHIDValueCallback.
+	/// - parameter context: Pointer to data to be passed to the callback.
+	func registerInputValue(callback: IOHIDValueCallback?, context: UnsafeMutableRawPointer?) {
+		IOHIDDeviceRegisterInputValueCallback(self, callback, context)
+	}
+	
+	/// Registers a callback to be used when an input report is issued
+	/// by the device.
+	/// An input report is an interrupt driver report issued by the
+	/// device.
+	///
+	/// If a dispatch queue is set, this call must occur before activation.
+	/// - parameter report: Pointer to preallocated buffer in which to copy inbound
+	/// report data.
+	/// - parameter reportLength: Length of preallocated buffer.
+	/// - parameter callback: Pointer to a callback method of type
+	/// `IOHIDReportCallback`.
+	/// - parameter context: Pointer to data to be passed to the callback.
+	func registerInputReport(_ report: UnsafeMutablePointer<UInt8>, length reportLength: CFIndex, callback: IOHIDReportCallback?, context: UnsafeMutableRawPointer?) {
+		IOHIDDeviceRegisterInputReportCallback(self, report, reportLength, callback, context)
+	}
+	
+	/// Registers a timestamped callback to be used when an input report is issued
+	/// by the device.
+	///
+	/// An input report is an interrupt driver report issued by the
+	/// device.
+	///
+	/// If a dispatch queue is set, this call must occur before activation.
+	/// - parameter report: Pointer to preallocated buffer in which to copy inbound
+	/// report data.
+	/// - parameter reportLength: Length of preallocated buffer.
+	/// - parameter callback: Pointer to a callback method of type
+	/// `IOHIDReportWithTimeStampCallback`.
+	/// - parameter context: Pointer to data to be passed to the callback.
+	@available(OSX 10.10, *)
+	func registerInputReport(_ report: UnsafeMutablePointer<UInt8>, length reportLength: CFIndex, timeStampCallback callback: IOHIDReportWithTimeStampCallback?, context: UnsafeMutableRawPointer?) {
+		IOHIDDeviceRegisterInputReportWithTimeStampCallback(self, report, reportLength, callback, context)
+	}
+	
+	/// Sets matching criteria for input values received via
+	/// `registerInputValue(callback:context:)`.
+	///
+	/// Matching keys are prefixed by *kIOHIDElement* and declared in
+	/// *<IOKit/hid/IOHIDKeys.h>*.  Passing a `nil` dictionary will result
+	/// in all devices being enumerated. Any subsequent calls will cause
+	/// the hid manager to release previously matched input elements and
+	/// restart the matching process using the revised criteria.  If
+	/// interested in multiple, specific device elements, please defer to
+	/// using `setInputValueMatching(multiple:)`.
+	///
+	/// If a dispatch queue is set, this call must occur before activation.
+	/// - parameter matching: `Dictionary` containg device matching criteria.
+	func setInputValueMatching(_ matching: [String: Any]?) {
+		IOHIDDeviceSetInputValueMatching(self, matching as NSDictionary?)
+	}
+	
+	/// Sets multiple matching criteria for input values received via
+	/// `registerInputValue(callback:context:)`.
+	///
+	/// Matching keys are prefixed by *kIOHIDElement* and declared in
+	/// *<IOKit/hid/IOHIDKeys.h>*.  This method is useful if interested
+	/// in multiple, specific elements.
+	///
+	/// If a dispatch queue is set, this call must occur before activation.
+	/// - parameter multiple: `Array` containing multiple `Dictionary` objects
+	/// containg input element matching criteria.
+	func setInputValueMatching(multiple: [[String: Any]]?) {
+		IOHIDDeviceSetInputValueMatchingMultiple(self, multiple as NSArray?)
+	}
+	
+	/// Sets a value for an element.
+	///
+	/// This method behaves synchronously and will block until the
+	/// report has been issued to the device.  It is only relevent for
+	/// either output or feature type elements.  If setting values for
+	/// multiple elements you may want to consider using
+	/// `setValue(multiple:)` or `IOHIDTransaction`.
+	/// - parameter element: `IOHIDElement` whose value is to be modified.
+	/// - parameter value: `IOHIDValue` containing value to be set.
+	/// - returns: Returns `kIOReturnSuccess` if successful.
+	func setValue(element: IOHIDElement, value: IOHIDValue) -> IOReturn {
+		return IOHIDDeviceSetValue(self, element, value)
+	}
+	
 	/// Sets multiple values for multiple elements.
 	///
 	/// This method behaves synchronously and will block until the
@@ -256,6 +362,43 @@ public extension IOHIDDevice {
 	/// - returns: Returns `kIOReturnSuccess` if successful.
 	func setValue(multiple: [IOHIDElement: IOHIDValue]) -> IOReturn {
 		return IOHIDDeviceSetValueMultiple(self, multiple as NSDictionary)
+	}
+	
+	/// Sets a value for an element and returns status via a completion
+	/// callback.
+	///
+	/// This method behaves asynchronously and will invoke the callback
+	/// once the report has been issued to the device.  It is only
+	/// relevent for either output or feature type elements.
+	/// If setting values for multiple elements you may want to
+	/// consider using `IOHIDDeviceSetValueWithCallback` or
+	/// `IOHIDTransaction`.
+	/// - parameter element: `IOHIDElement` whose value is to be modified.
+	/// - parameter value: `IOHIDValue` containing value to be set.
+	/// - parameter timeout: `CFTimeInterval` containing the timeout.
+	/// - parameter callback: Pointer to a callback method of type
+	/// `IOHIDValueCallback`.
+	/// - parameter context: Pointer to data to be passed to the callback.
+	/// - returns: Returns `kIOReturnSuccess` if successful.
+	func setValue(element: IOHIDElement, value: IOHIDValue, timeout: CFTimeInterval, callback: IOHIDValueCallback?, context: UnsafeMutableRawPointer?) -> IOReturn {
+		return IOHIDDeviceSetValueWithCallback(self, element, value, timeout, callback, context)
+	}
+	
+	/// Sets multiple values for multiple elements and returns status
+	/// via a completion callback.
+	///
+	/// This method behaves asynchronously and will invoke the callback
+	/// once the report has been issued to the device.  It is only
+	/// relevent for either output or feature type elements.
+	/// - parameter multiple: `Dictionary` where key is `IOHIDElement` and
+	/// value is `IOHIDValue`.
+	/// - parameter timeout: `CFTimeInterval` containing the timeout.
+	/// - parameter callback: Pointer to a callback method of type
+	/// `IOHIDValueMultipleCallback`.
+	/// - parameter context: Pointer to data to be passed to the callback.
+	/// - returns: Returns `kIOReturnSuccess` if successful.
+	func setValue(multiple: [IOHIDElement: IOHIDValue], timeout: CFTimeInterval, callback: IOHIDValueMultipleCallback?, context: UnsafeMutableRawPointer?) -> IOReturn {
+		return IOHIDDeviceSetValueMultipleWithCallback(self, multiple as NSDictionary, timeout, callback, context)
 	}
 	
 	typealias GetValueOptions = IOHIDDeviceGetValueOptions
@@ -302,6 +445,30 @@ public extension IOHIDDevice {
 		return err
 	}
 	
+	/// Copies a values for multiple elements and returns status via a
+	/// completion callback.
+	///
+	/// This method behaves asynchronusly and is only relevent for
+	/// either output or feature type elements.
+	/// - parameter elements: `Array` containing multiple `IOHIDElement`s whose
+	/// values are to be obtained.
+	/// - parameter pMultiple: Pointer to `Dictionary` where the keys are the
+	/// provided elements and the values are the requested values.
+	/// - parameter timeout: `CFTimeInterval` containing the timeout.
+	/// - parameter callback: Pointer to a callback method of type
+	/// `IOHIDValueMultipleCallback`.
+	/// - parameter context: Pointer to data to be passed to the callback.
+	/// - returns: Returns `kIOReturnSuccess` if successful.
+	func getValue(elements: [IOHIDElement], multiple pMultiple: UnsafeMutablePointer<[IOHIDElement: Any]?>?, timeout: CFTimeInterval, callback: IOHIDValueMultipleCallback?, context: UnsafeMutableRawPointer?) -> IOReturn {
+		var tmpPtr: Unmanaged<CFDictionary>? = nil
+		
+		let err = IOHIDDeviceCopyValueMultipleWithCallback(self, elements as NSArray, &tmpPtr, timeout, callback, context)
+		
+		pMultiple?.pointee = tmpPtr?.takeRetainedValue() as? [IOHIDElement : Any]
+		
+		return err
+	}
+	
 	/// Sends a report to the device.
 	///
 	/// This method behaves synchronously and will block until the
@@ -344,7 +511,7 @@ public extension IOHIDDevice {
 	/// report has been received from the device.  This is only intended
 	/// for feature reports because of sporadic devicesupport for
 	/// polling input reports.  Please defer to using
-	/// `IOHIDDeviceRegisterInputReportCallback` for obtaining input
+	/// `registerInputReport(_:length:callback:context:)` for obtaining input
 	/// reports.
 	/// - parameter reportType: Type of report being requested.
 	/// - parameter reportID: ID of the report being requested.
@@ -356,6 +523,29 @@ public extension IOHIDDevice {
 	/// - returns: Returns `kIOReturnSuccess` if successful.
 	func getReport(type reportType: IOHIDReportType, id reportID: CFIndex, _ report: UnsafeMutablePointer<UInt8>, length pReportLength: UnsafeMutablePointer<CFIndex>) -> IOReturn {
 		return IOHIDDeviceGetReport(self, reportType, reportID, report, pReportLength)
+	}
+	
+	/// Obtains a report from the device.
+	///
+	/// This method behaves asynchronously and will block until the
+	/// report has been received from the device.  This is only intended
+	/// for feature reports because of sporadic devicesupport for
+	/// polling input reports.  Please defer to using
+	/// `registerInputReport(_:length:callback:context:)` for obtaining input
+	/// reports.
+	/// - parameter reportType: Type of report being requested.
+	/// - parameter reportID: ID of the report being requested.
+	/// - parameter report: Pointer to preallocated buffer in which to copy inbound
+	/// report data.
+	/// - parameter pReportLength: Pointer to length of preallocated buffer.  This
+	/// value will be modified to refect the length of the returned
+	/// report.
+	/// - parameter callback Pointer to a callback method of type
+	/// `IOHIDReportCallback`.
+	/// - parameter context: Pointer to data to be passed to the callback.
+	/// - returns: Returns kIOReturnSuccess if successful.
+	func getReport(type reportType: IOHIDReportType, id reportID: CFIndex, _ report: UnsafeMutablePointer<UInt8>, length pReportLength: UnsafeMutablePointer<CFIndex>, timeout: CFTimeInterval, callback: @escaping IOHIDReportCallback, context: UnsafeMutableRawPointer) -> IOReturn {
+		return IOHIDDeviceGetReportWithCallback(self, reportType, reportID, report, pReportLength, timeout, callback, context)
 	}
 }
 
@@ -384,7 +574,7 @@ public extension IOHIDDevice {
 	/// report has been received from the device.  This is only intended
 	/// for feature reports because of sporadic devicesupport for
 	/// polling input reports.  Please defer to using
-	/// `IOHIDDeviceRegisterInputReportCallback` for obtaining input
+	/// `registerInputReport(_:length:callback:context:)` for obtaining input
 	/// reports.
 	/// - parameter reportType: Type of report being requested.
     /// - parameter reportID: ID of the report being requested.
