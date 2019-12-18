@@ -109,6 +109,7 @@
 		55E18FCA1A43AC2B00834004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E18FC81A43AC2B00834004 /* Foundation.framework */; };
 		55E6D07B23A6983A009BF006 /* MacErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6D07A23A6983A009BF006 /* MacErrorTests.swift */; };
 		55E6D08D23A9988D009BF006 /* IOHIDElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6D08C23A9988D009BF006 /* IOHIDElement.swift */; };
+		55E6D08F23A9CC8B009BF006 /* IOHIDQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6D08E23A9CC8B009BF006 /* IOHIDQueue.swift */; };
 		55FB67FE21062B1C00C1AF96 /* FFAErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FB67FD21062B1C00C1AF96 /* FFAErrors.m */; };
 		55FB680021062B3700C1AF96 /* FFAErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FB67FF21062B3700C1AF96 /* FFAErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -341,6 +342,7 @@
 		55E56C131AE2C716006B7276 /* ExtAudioFileExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtAudioFileExt.swift; sourceTree = "<group>"; };
 		55E6D07A23A6983A009BF006 /* MacErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacErrorTests.swift; sourceTree = "<group>"; };
 		55E6D08C23A9988D009BF006 /* IOHIDElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOHIDElement.swift; sourceTree = "<group>"; };
+		55E6D08E23A9CC8B009BF006 /* IOHIDQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDQueue.swift; sourceTree = "<group>"; };
 		55FB67FD21062B1C00C1AF96 /* FFAErrors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FFAErrors.m; sourceTree = "<group>"; };
 		55FB67FF21062B3700C1AF96 /* FFAErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FFAErrors.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -664,6 +666,7 @@
 				55E6D08C23A9988D009BF006 /* IOHIDElement.swift */,
 				5563E583239F453F007A1600 /* IOHIDDevice.swift */,
 				5563E585239F4C8F007A1600 /* IOHIDValue.swift */,
+				55E6D08E23A9CC8B009BF006 /* IOHIDQueue.swift */,
 			);
 			path = hid;
 			sourceTree = "<group>";
@@ -1266,6 +1269,7 @@
 				5563E586239F4C8F007A1600 /* IOHIDValue.swift in Sources */,
 				55706DA91A1EC2880000FD93 /* IOCFPlugInClass.swift in Sources */,
 				55DAF5931A337C91008281ED /* COMUUIDs.swift in Sources */,
+				55E6D08F23A9CC8B009BF006 /* IOHIDQueue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
