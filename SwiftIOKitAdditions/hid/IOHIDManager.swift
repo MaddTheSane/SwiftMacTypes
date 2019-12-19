@@ -10,13 +10,13 @@ import Foundation
 import IOKit.hid
 
 public extension IOHIDManager {
+	/// Various options that can be supplied to `IOHIDManager` functions.
+	typealias Options = IOHIDManagerOptions
+	
 	/// The type identifier of all `IOHIDManager` instances.
 	class var typeID: CFTypeID {
 		return IOHIDManagerGetTypeID()
 	}
-	
-	/// Various options that can be supplied to `IOHIDManager` functions.
-	typealias Options = IOHIDManagerOptions
 	
 	/// Creates an `IOHIDManager` object.
 	///
@@ -84,33 +84,8 @@ public extension IOHIDManager {
 	/// - parameter runLoop: RunLoop to be used when scheduling any asynchronous activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func schedule(with runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
-	}
-	
-	/// Schedules HID manager with run loop.
-	///
-	/// Formally associates manager with client's run loop. Scheduling
-	/// this device with the run loop is necessary before making use of
-	/// any asynchronous APIs.  This will propagate to current and
-	/// future devices that are enumerated.
-	/// - parameter runLoop: RunLoop to be used when scheduling any asynchronous activity.
-	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
-	/// asynchronous activity.
 	func schedule(with runLoop: CFRunLoop, mode runLoopMode: String) {
 		IOHIDManagerScheduleWithRunLoop(self, runLoop, runLoopMode as NSString)
-	}
-	
-	/// Unschedules HID manager with run loop.
-	///
-	/// Formally disassociates device with client's run loop. This will
-	/// propagate to current devices that are enumerated.
-	/// - parameter runLoop: RunLoop to be used when unscheduling any asynchronous
-	/// activity.
-	/// - parameter runLoopMode: Run loop mode to be used when unscheduling any
-	/// asynchronous activity.
-	func unschedule(from runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
 	}
 	
 	/// Unschedules HID manager with run loop.
@@ -233,7 +208,7 @@ public extension IOHIDManager {
 	}
 	
 	/// Obtains currently enumerated devices.
-	func devices() -> Set<IOHIDDevice>? {
+	var devices: Set<IOHIDDevice>? {
 		return IOHIDManagerCopyDevices(self) as? Set<IOHIDDevice>
 	}
 	
@@ -343,5 +318,32 @@ public extension IOHIDManager {
 	/// - parameter options: Reserved for future use.
 	func saveToPropertyDomain(applicationID: String, userName: String, hostName: String, options: IOOptionBits = 0) {
 		IOHIDManagerSaveToPropertyDomain(self, applicationID as NSString, userName as NSString, hostName as NSString, options)
+	}
+}
+
+public extension IOHIDManager {
+	/// Unschedules HID manager with run loop.
+	///
+	/// Formally disassociates device with client's run loop. This will
+	/// propagate to current devices that are enumerated.
+	/// - parameter runLoop: RunLoop to be used when unscheduling any asynchronous
+	/// activity.
+	/// - parameter runLoopMode: Run loop mode to be used when unscheduling any
+	/// asynchronous activity.
+	func unschedule(from runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
+		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
+	}
+	
+	/// Schedules HID manager with run loop.
+	///
+	/// Formally associates manager with client's run loop. Scheduling
+	/// this device with the run loop is necessary before making use of
+	/// any asynchronous APIs.  This will propagate to current and
+	/// future devices that are enumerated.
+	/// - parameter runLoop: RunLoop to be used when scheduling any asynchronous activity.
+	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
+	/// asynchronous activity.
+	func schedule(with runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
+		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
 	}
 }

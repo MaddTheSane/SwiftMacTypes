@@ -110,6 +110,7 @@
 		55E6D07B23A6983A009BF006 /* MacErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6D07A23A6983A009BF006 /* MacErrorTests.swift */; };
 		55E6D08D23A9988D009BF006 /* IOHIDElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6D08C23A9988D009BF006 /* IOHIDElement.swift */; };
 		55E6D08F23A9CC8B009BF006 /* IOHIDQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6D08E23A9CC8B009BF006 /* IOHIDQueue.swift */; };
+		55E6D09123A9D92A009BF006 /* IOHIDTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6D09023A9D92A009BF006 /* IOHIDTransaction.swift */; };
 		55FB67FE21062B1C00C1AF96 /* FFAErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FB67FD21062B1C00C1AF96 /* FFAErrors.m */; };
 		55FB680021062B3700C1AF96 /* FFAErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FB67FF21062B3700C1AF96 /* FFAErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -343,6 +344,7 @@
 		55E6D07A23A6983A009BF006 /* MacErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacErrorTests.swift; sourceTree = "<group>"; };
 		55E6D08C23A9988D009BF006 /* IOHIDElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOHIDElement.swift; sourceTree = "<group>"; };
 		55E6D08E23A9CC8B009BF006 /* IOHIDQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDQueue.swift; sourceTree = "<group>"; };
+		55E6D09023A9D92A009BF006 /* IOHIDTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDTransaction.swift; sourceTree = "<group>"; };
 		55FB67FD21062B1C00C1AF96 /* FFAErrors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FFAErrors.m; sourceTree = "<group>"; };
 		55FB67FF21062B3700C1AF96 /* FFAErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FFAErrors.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -667,6 +669,7 @@
 				5563E583239F453F007A1600 /* IOHIDDevice.swift */,
 				5563E585239F4C8F007A1600 /* IOHIDValue.swift */,
 				55E6D08E23A9CC8B009BF006 /* IOHIDQueue.swift */,
+				55E6D09023A9D92A009BF006 /* IOHIDTransaction.swift */,
 			);
 			path = hid;
 			sourceTree = "<group>";
@@ -1267,6 +1270,7 @@
 				5563E582239F3033007A1600 /* IOHIDManager.swift in Sources */,
 				5563E584239F453F007A1600 /* IOHIDDevice.swift in Sources */,
 				5563E586239F4C8F007A1600 /* IOHIDValue.swift in Sources */,
+				55E6D09123A9D92A009BF006 /* IOHIDTransaction.swift in Sources */,
 				55706DA91A1EC2880000FD93 /* IOCFPlugInClass.swift in Sources */,
 				55DAF5931A337C91008281ED /* COMUUIDs.swift in Sources */,
 				55E6D08F23A9CC8B009BF006 /* IOHIDQueue.swift in Sources */,

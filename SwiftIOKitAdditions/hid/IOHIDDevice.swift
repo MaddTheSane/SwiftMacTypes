@@ -85,7 +85,7 @@ public extension IOHIDDevice {
 	
 	/// Obtains a property from an `IOHIDDevice`.
 	///
-	/// Property keys are prefixed by kIOHIDDevice and declared in
+	/// Property keys are prefixed by *kIOHIDDevice* and declared in
 	/// *<IOKit/hid/IOHIDKeys.h>*.
 	/// - parameter key: `String` containing key to be used when querying the
 	/// device.
@@ -114,7 +114,7 @@ public extension IOHIDDevice {
 	/// in all device elements being returned.
 	/// - parameter matching: `Dictionary` containg element matching criteria.
 	/// - parameter options: Reserved for future use.
-	/// - returns: Returns `Array` containing multiple IOHIDElement object.
+	/// - returns: Returns `Array` containing multiple `IOHIDElement` object.
 	func elements(matching: [String: Any]?, options: IOOptionBits = 0) -> [IOHIDElement]? {
 		return IOHIDDeviceCopyMatchingElements(self, matching as NSDictionary?, options) as? [IOHIDElement]
 	}
@@ -128,33 +128,8 @@ public extension IOHIDDevice {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func schedule(with runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
-	}
-	
-	/// Schedules HID device with run loop.
-	///
-	/// Formally associates device with client's run loop. Scheduling
-	/// this device with the run loop is necessary before making use of
-	/// any asynchronous APIs.
-	/// - parameter runLoop: `RunLoop` to be used when scheduling any asynchronous
-	/// activity.
-	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
-	/// asynchronous activity.
 	func schedule(with runLoop: CFRunLoop, mode runLoopMode: String) {
 		IOHIDDeviceScheduleWithRunLoop(self, runLoop, runLoopMode as NSString)
-	}
-	
-	/// Unschedules HID device with run loop.
-	///
-	/// Formally disassociates device with client's run loop.
-	/// - parameter runLoop: RunLoop to be used when unscheduling any asynchronous
-	/// activity.
-	/// - parameter runLoopMode: Run loop mode to be used when unscheduling any
-	/// asynchronous activity.
-	func unschedule(from runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
-		
 	}
 	
 	/// Unschedules HID device with run loop.
@@ -254,7 +229,7 @@ public extension IOHIDDevice {
 	/// - parameter callback: Pointer to a callback method of type `IOHIDCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
 	func registerRemoval(callback: IOHIDCallback?, context: UnsafeMutableRawPointer?) {
-		
+		IOHIDDeviceRegisterRemovalCallback(self, callback, context)
 	}
 	
 	/// Registers a callback to be used when an input value is issued by
@@ -591,5 +566,29 @@ public extension IOHIDDevice {
 		}
 		data.count = length
 		return retVal
+	}
+	
+	/// Schedules HID device with run loop.
+	///
+	/// Formally associates device with client's run loop. Scheduling
+	/// this device with the run loop is necessary before making use of
+	/// any asynchronous APIs.
+	/// - parameter runLoop: `RunLoop` to be used when scheduling any asynchronous
+	/// activity.
+	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
+	/// asynchronous activity.
+	func schedule(with runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
+		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
+	}
+	
+	/// Unschedules HID device with run loop.
+	///
+	/// Formally disassociates device with client's run loop.
+	/// - parameter runLoop: RunLoop to be used when unscheduling any asynchronous
+	/// activity.
+	/// - parameter runLoopMode: Run loop mode to be used when unscheduling any
+	/// asynchronous activity.
+	func unschedule(from runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
+		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
 	}
 }
