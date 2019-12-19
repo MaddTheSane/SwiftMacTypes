@@ -21,7 +21,7 @@ public extension CTFontDescriptor {
 	/// Returns the Core Foundation type identifier for CoreText font descriptors.
 	///
 	/// - returns: The identifier for the opaque type `CTFontDescriptorRef`.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return CTFontDescriptorGetTypeID()
 	}
 	

@@ -16,7 +16,7 @@ public extension CTTextTab {
 	/// Returns the Core Foundation type identifier for CoreText runs.
 	///
 	/// - returns: The identifier for the opaque type `CTTextTabRef`.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return CTTextTabGetTypeID()
 	}
 	
@@ -35,12 +35,12 @@ public extension CTTextTab {
 	}
 	
 	/// The tab's text alignment value.
-	var alignment: Alignment {
+	@inlinable var alignment: Alignment {
 		return CTTextTabGetAlignment(self)
 	}
 	
 	/// The tab's ruler location relative to the back margin.
-	var location: Double {
+	@inlinable var location: Double {
 		return CTTextTabGetLocation(self)
 	}
 	

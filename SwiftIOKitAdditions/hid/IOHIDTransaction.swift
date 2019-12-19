@@ -17,7 +17,7 @@ public extension IOHIDTransaction {
 	typealias Options = IOHIDTransactionOptions
 	
 	/// The type identifier of all `IOHIDTransaction` instances.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return IOHIDTransactionGetTypeID()
 	}
 	
@@ -31,12 +31,12 @@ public extension IOHIDTransaction {
 	/// - parameter direction: The direction, either in or out, for the transaction.
 	/// - parameter options: Reserved for future use.
 	/// - returns: Returns a new `IOHIDTransaction`.
-	class func create(_ allocator: CFAllocator? = kCFAllocatorDefault, device: IOHIDDevice, direction: DirectionType, options: IOOptionBits = 0) -> IOHIDTransaction? {
+	@inlinable class func create(_ allocator: CFAllocator? = kCFAllocatorDefault, device: IOHIDDevice, direction: DirectionType, options: IOOptionBits = 0) -> IOHIDTransaction? {
 		return IOHIDTransactionCreate(allocator, device, direction, options)
 	}
 	
 	/// The device associated with the transaction.
-	var device: IOHIDDevice {
+	@inlinable var device: IOHIDDevice {
 		return IOHIDTransactionGetDevice(self)
 	}
 	
@@ -45,7 +45,7 @@ public extension IOHIDTransaction {
 	/// This method is useful for manipulating bi-direction (feature)
 	/// elements such that you can set or get element values without
 	/// creating an additional transaction object.
-	var direction: DirectionType {
+	@inlinable var direction: DirectionType {
 		get {
 			return IOHIDTransactionGetDirection(self)
 		}
@@ -59,20 +59,20 @@ public extension IOHIDTransaction {
 	/// To minimize device traffic it is important to add elements that
 	/// share a common report type and report id.
 	/// - parameter element: Element to be added to the transaction.
-	func add(_ element: IOHIDElement) {
+	@inlinable func add(_ element: IOHIDElement) {
 		IOHIDTransactionAddElement(self, element)
 	}
 	
 	/// Removes an element to the transaction
 	/// - parameter element: Element to be removed to the transaction.
-	func remove(_ element: IOHIDElement) {
+	@inlinable func remove(_ element: IOHIDElement) {
 		IOHIDTransactionRemoveElement(self, element)
 	}
 	
 	/// Queries the transaction to determine if elemement has been added.
 	/// - parameter element: Element to be queried.
 	/// - returns: Returns `true` or `false` depending if element is present.
-	func contains(_ element: IOHIDElement) -> Bool {
+	@inlinable func contains(_ element: IOHIDElement) -> Bool {
 		return IOHIDTransactionContainsElement(self, element)
 	}
 	
@@ -110,7 +110,7 @@ public extension IOHIDTransaction {
 	/// - parameter value: Value to be set for the given element.
 	/// - parameter element: Element to be modified after a commit.
 	/// - parameter options: See `IOHIDTransactionOption`.
-	func setValue(_ value: IOHIDValue, for element: IOHIDElement, options: Options = []) {
+	@inlinable func setValue(_ value: IOHIDValue, for element: IOHIDElement, options: Options = []) {
 		IOHIDTransactionSetValue(self, element, value, options.rawValue)
 	}
 	
@@ -127,7 +127,7 @@ public extension IOHIDTransaction {
 	/// - parameter element: Element to be queried.
 	/// - parameter options: See `IOHIDTransactionOption`.
 	/// - returns: Returns `IOHIDValue` for the given element.
-	func value(for element: IOHIDElement, options: Options = []) -> IOHIDValue? {
+	@inlinable func value(for element: IOHIDElement, options: Options = []) -> IOHIDValue? {
 		return IOHIDTransactionGetValue(self, element, options.rawValue)
 	}
 	
@@ -140,7 +140,7 @@ public extension IOHIDTransaction {
 	/// values will be cleared and default values preserved.
 	/// - returns: Returns `kIOReturnSuccess` if successful or a kern_return_t if
 	/// unsuccessful.
-	func commit() -> IOReturn {
+	@inlinable func commit() -> IOReturn {
 		return IOHIDTransactionCommit(self)
 	}
 	
@@ -163,7 +163,7 @@ public extension IOHIDTransaction {
 	/// - parameter context: Pointer to data to be passed to the callback.
 	/// - returns: Returns `kIOReturnSuccess` if successful or a `kern_return_t` if
 	/// unsuccessful.
-	func commit(timeout: CFTimeInterval, callback: IOHIDCallback?, context: UnsafeMutableRawPointer?) -> IOReturn {
+	@inlinable func commit(timeout: CFTimeInterval, callback: IOHIDCallback?, context: UnsafeMutableRawPointer?) -> IOReturn {
 		return IOHIDTransactionCommitWithCallback(self, timeout, callback, context)
 	}
 	
@@ -171,7 +171,7 @@ public extension IOHIDTransaction {
 	///
 	/// In regards to `kIOHIDTransactionDirectionTypeOutput` direction,
 	/// default element values will be preserved.
-	func clear() {
+	@inlinable func clear() {
 		IOHIDTransactionClear(self)
 	}
 }

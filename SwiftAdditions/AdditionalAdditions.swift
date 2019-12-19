@@ -16,10 +16,8 @@ import Foundation
 /// or a value that is no less than `minimum` and no greater than `maximum`.
 ///
 /// If `minimum` is greater than `maximum`, a fatal error occurs.
-public func clamp<X: Comparable>(_ value: X, minimum: X, maximum: X) -> X {
-	if minimum > maximum {
-		fatalError("Minimum (\(minimum)) is greater than maximum (\(maximum))!")
-	}
+@inlinable public func clamp<X: Comparable>(_ value: X, minimum: X, maximum: X) -> X {
+	precondition(minimum <= maximum, "Minimum (\(minimum)) is greater than maximum (\(maximum))!")
 	return max(min(value, maximum), minimum)
 }
 
@@ -30,33 +28,11 @@ public func clamp<X: Comparable>(_ value: X, minimum: X, maximum: X) -> X {
 /// - returns: a new array with the values clamped between `minimum` and `maximum`.
 ///
 /// If `minimum` is greater than `maximum`, a fatal error occurs.
-public func clamp<W: Sequence, X: Comparable>(values: W, minimum: X, maximum: X) -> [X] where W.Element == X {
-	if minimum > maximum {
-		fatalError("Minimum (\(minimum)) is greater than maximum (\(maximum))!")
-	}
+@inlinable public func clamp<W: Sequence, X: Comparable>(values: W, minimum: X, maximum: X) -> [X] where W.Element == X {
+	precondition(minimum <= maximum, "Minimum (\(minimum)) is greater than maximum (\(maximum))!")
 	return values.map({ (value) -> X in
 		return max(min(value, maximum), minimum)
 	})
-}
-
-/// Best used for tuples of the same type, which Swift converts fixed-sized C arrays into.
-/// Will crash if any type in the mirror doesn't match `X`.
-///
-/// - parameter mirror: The `Mirror` to get the reflected values from.
-/// - parameter lastObj: Best used for a fixed-size C array that expects to be NULL-terminated, like a C string. If passed `nil`, no object will be put on the end of the array. <br>Default is `nil`.
-///
-/// **Deprecated:** Use `arrayFromObject(reflecting:, appendLastObject:) throws` instead
-@available(*, deprecated, message: "Use 'arrayFromObject(reflecting:, appendLastObject:) throws' instead")
-public func getArrayFromMirror<X>(mirror: Mirror, appendLastObject lastObj: X? = nil) -> [X] {
-	var anArray = [X]()
-	for val in mirror.children {
-		let aChar = val.value as! X
-		anArray.append(aChar)
-	}
-	if let lastObj = lastObj {
-		anArray.append(lastObj)
-	}
-	return anArray
 }
 
 public enum ReflectError: Error {
@@ -74,7 +50,7 @@ public enum ReflectError: Error {
 /// If passed `nil`, no object will be put on the end of the array. Default is `nil`.
 /// - returns: an array of `X` objects.
 /// - throws: `ReflectError` if any of the types don't match `X`.
-public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X? = nil) throws -> [X] {
+@inlinable public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X? = nil) throws -> [X] {
 	var anArray = [X]()
 	let mirror = Mirror(reflecting: obj)
 	for val in mirror.children {

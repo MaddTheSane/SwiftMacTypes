@@ -11,7 +11,7 @@ import IOKit.hid
 
 public extension IOHIDDevice {
 	/// The type identifier of all `IOHIDDevice` instances.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return IOHIDDeviceGetTypeID()
 	}
 	
@@ -22,7 +22,7 @@ public extension IOHIDDevice {
 	/// - parameter allocator: Allocator to be used during creation.
 	/// - parameter service: Reference to service object in the kernel.
 	/// - returns: Returns a new `IOHIDDevice`.
-	class func create(allocator: CFAllocator?, service: io_service_t) -> IOHIDDevice? {
+	@inlinable class func create(allocator: CFAllocator?, service: io_service_t) -> IOHIDDevice? {
 		return IOHIDDeviceCreate(allocator, service)
 	}
 	
@@ -31,7 +31,7 @@ public extension IOHIDDevice {
 	/// If the `IOHIDDevice` references an object in the kernel, this is
 	/// used to get the `io_service_t` for that object.
 	/// Is `nil` if the device isn't in the kernel.
-	var service: io_service_t? {
+	@inlinable var service: io_service_t? {
 		let toRet = IOHIDDeviceGetService(self)
 		if toRet == MACH_PORT_NULL {
 			return nil
@@ -48,7 +48,7 @@ public extension IOHIDDevice {
 	/// `kIOHIDOptionsTypeSeizeDevice` option.
 	/// - parameter options: Option bits to be sent down to the device.
 	/// - returns: Returns kIOReturnSuccess if successful.
-	func open(options: IOOptionBits = 0) -> IOReturn {
+	@inlinable func open(options: IOOptionBits = 0) -> IOReturn {
 		return IOHIDDeviceOpen(self, options)
 	}
 	
@@ -58,7 +58,7 @@ public extension IOHIDDevice {
 	/// device.
 	/// - parameter options: Option bits to be sent down to the device.
 	/// - returns: Returns kIOReturnSuccess if successful.
-	func close(options: IOOptionBits = 0) -> IOReturn {
+	@inlinable func close(options: IOOptionBits = 0) -> IOReturn {
 		return IOHIDDeviceClose(self, options)
 	}
 	
@@ -79,7 +79,7 @@ public extension IOHIDDevice {
 	/// - parameter usagePage: Device usage page
 	/// - parameter usage: Device usage
 	/// - returns: Returns `true` if device conforms to provided usage.
-	func conformsTo(usagePage: UInt32, usage: UInt32) -> Bool {
+	@inlinable func conformsTo(usagePage: UInt32, usage: UInt32) -> Bool {
 		return IOHIDDeviceConformsTo(self, usagePage, usage)
 	}
 	
@@ -90,7 +90,7 @@ public extension IOHIDDevice {
 	/// - parameter key: `String` containing key to be used when querying the
 	/// device.
 	/// - returns: Returns the property.
-	func getProperty(forKey key: String) -> Any? {
+	@inlinable func getProperty(forKey key: String) -> Any? {
 		return IOHIDDeviceGetProperty(self, key as NSString)
 	}
 	
@@ -158,7 +158,7 @@ public extension IOHIDDevice {
 	/// - parameter queue: The dispatch queue to which the event handler block will
 	/// be submitted.
 	@available(OSX 10.15, *)
-	func setDispatchQueue(_ queue: DispatchQueue) {
+	@inlinable func setDispatchQueue(_ queue: DispatchQueue) {
 		IOHIDDeviceSetDispatchQueue(self, queue)
 	}
 	
@@ -178,7 +178,7 @@ public extension IOHIDDevice {
 	/// - parameter handler: The cancellation handler block to be associated with
 	/// the dispatch queue.
 	@available(OSX 10.15, *)
-	func setCancelHandler(_ handler: @escaping () -> Void) {
+	@inlinable func setCancelHandler(_ handler: @escaping () -> Void) {
 		IOHIDDeviceSetCancelHandler(self, handler)
 	}
 	
@@ -197,7 +197,7 @@ public extension IOHIDDevice {
 	///
 	/// Calling `activate()` on an active `IOHIDDevice` has no effect.
 	@available(OSX 10.15, *)
-	func activate() {
+	@inlinable func activate() {
 		IOHIDDeviceActivate(self)
 	}
 	
@@ -217,7 +217,7 @@ public extension IOHIDDevice {
 	/// cancelled, and the cancel handler has been called. This is to ensure all
 	/// asynchronous objects are released.
 	@available(OSX 10.15, *)
-	func cancel() {
+	@inlinable func cancel() {
 		IOHIDDeviceCancel(self)
 	}
 	
@@ -228,7 +228,7 @@ public extension IOHIDDevice {
 	/// If a dispatch queue is set, this call must occur before activation.
 	/// - parameter callback: Pointer to a callback method of type `IOHIDCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
-	func registerRemoval(callback: IOHIDCallback?, context: UnsafeMutableRawPointer?) {
+	@inlinable func registerRemoval(callback: IOHIDCallback?, context: UnsafeMutableRawPointer?) {
 		IOHIDDeviceRegisterRemovalCallback(self, callback, context)
 	}
 	
@@ -244,7 +244,7 @@ public extension IOHIDDevice {
 	/// If a dispatch queue is set, this call must occur before activation.
 	/// - parameter callback: Pointer to a callback method of type IOHIDValueCallback.
 	/// - parameter context: Pointer to data to be passed to the callback.
-	func registerInputValue(callback: IOHIDValueCallback?, context: UnsafeMutableRawPointer?) {
+	@inlinable func registerInputValue(callback: IOHIDValueCallback?, context: UnsafeMutableRawPointer?) {
 		IOHIDDeviceRegisterInputValueCallback(self, callback, context)
 	}
 	
@@ -260,7 +260,7 @@ public extension IOHIDDevice {
 	/// - parameter callback: Pointer to a callback method of type
 	/// `IOHIDReportCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
-	func registerInputReport(_ report: UnsafeMutablePointer<UInt8>, length reportLength: CFIndex, callback: IOHIDReportCallback?, context: UnsafeMutableRawPointer?) {
+	@inlinable func registerInputReport(_ report: UnsafeMutablePointer<UInt8>, length reportLength: CFIndex, callback: IOHIDReportCallback?, context: UnsafeMutableRawPointer?) {
 		IOHIDDeviceRegisterInputReportCallback(self, report, reportLength, callback, context)
 	}
 	
@@ -278,7 +278,7 @@ public extension IOHIDDevice {
 	/// `IOHIDReportWithTimeStampCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
 	@available(OSX 10.10, *)
-	func registerInputReport(_ report: UnsafeMutablePointer<UInt8>, length reportLength: CFIndex, timeStampCallback callback: IOHIDReportWithTimeStampCallback?, context: UnsafeMutableRawPointer?) {
+	@inlinable func registerInputReport(_ report: UnsafeMutablePointer<UInt8>, length reportLength: CFIndex, timeStampCallback callback: IOHIDReportWithTimeStampCallback?, context: UnsafeMutableRawPointer?) {
 		IOHIDDeviceRegisterInputReportWithTimeStampCallback(self, report, reportLength, callback, context)
 	}
 	
@@ -323,7 +323,7 @@ public extension IOHIDDevice {
 	/// - parameter element: `IOHIDElement` whose value is to be modified.
 	/// - parameter value: `IOHIDValue` containing value to be set.
 	/// - returns: Returns `kIOReturnSuccess` if successful.
-	func setValue(element: IOHIDElement, value: IOHIDValue) -> IOReturn {
+	@inlinable func setValue(_ value: IOHIDValue, element: IOHIDElement) -> IOReturn {
 		return IOHIDDeviceSetValue(self, element, value)
 	}
 	
@@ -355,7 +355,7 @@ public extension IOHIDDevice {
 	/// `IOHIDValueCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
 	/// - returns: Returns `kIOReturnSuccess` if successful.
-	func setValue(element: IOHIDElement, value: IOHIDValue, timeout: CFTimeInterval, callback: IOHIDValueCallback?, context: UnsafeMutableRawPointer?) -> IOReturn {
+	func setValue(_ value: IOHIDValue, element: IOHIDElement, timeout: CFTimeInterval, callback: IOHIDValueCallback?, context: UnsafeMutableRawPointer?) -> IOReturn {
 		return IOHIDDeviceSetValueWithCallback(self, element, value, timeout, callback, context)
 	}
 	
@@ -456,7 +456,7 @@ public extension IOHIDDevice {
 	/// - parameter report: The report bytes to be sent to the device.
 	/// - parameter reportLength: The length of the report to be sent to the device.
 	/// - returns: Returns kIOReturnSuccess if successful.
-	func setReport(type reportType: IOHIDReportType, id reportID: CFIndex, _ report: UnsafePointer<UInt8>, length reportLength: CFIndex) -> IOReturn {
+	@inlinable func setReport(type reportType: IOHIDReportType, id reportID: CFIndex, _ report: UnsafePointer<UInt8>, length reportLength: CFIndex) -> IOReturn {
 		return IOHIDDeviceSetReport(self, reportType, reportID, report, reportLength)
 	}
 	
@@ -476,7 +476,7 @@ public extension IOHIDDevice {
 	/// `IOHIDReportCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
 	/// - returns: Returns `kIOReturnSuccess` if successful.
-	func setReport(type reportType: IOHIDReportType, id reportID: CFIndex, _ report: UnsafePointer<UInt8>, length reportLength: CFIndex, timeout: CFTimeInterval, callback: IOHIDReportCallback?, context: UnsafeMutableRawPointer?) -> IOReturn {
+	@inlinable func setReport(type reportType: IOHIDReportType, id reportID: CFIndex, _ report: UnsafePointer<UInt8>, length reportLength: CFIndex, timeout: CFTimeInterval, callback: IOHIDReportCallback?, context: UnsafeMutableRawPointer?) -> IOReturn {
 		return IOHIDDeviceSetReportWithCallback(self, reportType, reportID, report, reportLength, timeout, callback, context)
 	}
 	
@@ -496,7 +496,7 @@ public extension IOHIDDevice {
 	/// value will be modified to refect the length of the returned
 	/// report.
 	/// - returns: Returns `kIOReturnSuccess` if successful.
-	func getReport(type reportType: IOHIDReportType, id reportID: CFIndex, _ report: UnsafeMutablePointer<UInt8>, length pReportLength: UnsafeMutablePointer<CFIndex>) -> IOReturn {
+	@inlinable func getReport(type reportType: IOHIDReportType, id reportID: CFIndex, _ report: UnsafeMutablePointer<UInt8>, length pReportLength: UnsafeMutablePointer<CFIndex>) -> IOReturn {
 		return IOHIDDeviceGetReport(self, reportType, reportID, report, pReportLength)
 	}
 	
@@ -519,7 +519,7 @@ public extension IOHIDDevice {
 	/// `IOHIDReportCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
 	/// - returns: Returns kIOReturnSuccess if successful.
-	func getReport(type reportType: IOHIDReportType, id reportID: CFIndex, _ report: UnsafeMutablePointer<UInt8>, length pReportLength: UnsafeMutablePointer<CFIndex>, timeout: CFTimeInterval, callback: @escaping IOHIDReportCallback, context: UnsafeMutableRawPointer) -> IOReturn {
+	@inlinable func getReport(type reportType: IOHIDReportType, id reportID: CFIndex, _ report: UnsafeMutablePointer<UInt8>, length pReportLength: UnsafeMutablePointer<CFIndex>, timeout: CFTimeInterval, callback: @escaping IOHIDReportCallback, context: UnsafeMutableRawPointer) -> IOReturn {
 		return IOHIDDeviceGetReportWithCallback(self, reportType, reportID, report, pReportLength, timeout, callback, context)
 	}
 }

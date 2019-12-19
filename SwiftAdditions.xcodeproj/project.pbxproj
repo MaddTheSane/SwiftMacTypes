@@ -664,12 +664,12 @@
 		559398E623A61C270052B4E9 /* hid */ = {
 			isa = PBXGroup;
 			children = (
-				5563E581239F3033007A1600 /* IOHIDManager.swift */,
-				55E6D08C23A9988D009BF006 /* IOHIDElement.swift */,
 				5563E583239F453F007A1600 /* IOHIDDevice.swift */,
-				5563E585239F4C8F007A1600 /* IOHIDValue.swift */,
+				55E6D08C23A9988D009BF006 /* IOHIDElement.swift */,
+				5563E581239F3033007A1600 /* IOHIDManager.swift */,
 				55E6D08E23A9CC8B009BF006 /* IOHIDQueue.swift */,
 				55E6D09023A9D92A009BF006 /* IOHIDTransaction.swift */,
+				5563E585239F4C8F007A1600 /* IOHIDValue.swift */,
 			);
 			path = hid;
 			sourceTree = "<group>";

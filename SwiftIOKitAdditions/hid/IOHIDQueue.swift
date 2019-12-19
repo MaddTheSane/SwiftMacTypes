@@ -11,7 +11,7 @@ import IOKit.hid
 
 public extension IOHIDQueue {
 	/// The type identifier of all IOHIDQueue instances.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return IOHIDQueueGetTypeID()
 	}
 	
@@ -24,12 +24,12 @@ public extension IOHIDQueue {
 	/// - parameter depth: The number of values that can be handled by the queue.
 	/// - parameter options: Reserved for future use.
 	/// - returns: Returns a new `IOHIDQueue`.
-	class func create(_ allocator: CFAllocator? = kCFAllocatorDefault, device: IOHIDDevice, depth: CFIndex, options: IOOptionBits = 0) -> IOHIDQueue? {
+	@inlinable class func create(_ allocator: CFAllocator? = kCFAllocatorDefault, device: IOHIDDevice, depth: CFIndex, options: IOOptionBits = 0) -> IOHIDQueue? {
 		return IOHIDQueueCreate(allocator, device, depth, options)
 	}
 	
 	/// The device associated with the queue.
-	var device: IOHIDDevice {
+	@inlinable var device: IOHIDDevice {
 		return IOHIDQueueGetDevice(self)
 	}
 	
@@ -37,7 +37,7 @@ public extension IOHIDQueue {
 	///
 	/// Set the appropriate depth value based on the number of elements
 	/// contained in a queue.
-	var depth: CFIndex {
+	@inlinable var depth: CFIndex {
 		get {
 			return IOHIDQueueGetDepth(self)
 		}
@@ -48,20 +48,20 @@ public extension IOHIDQueue {
 	
 	/// Adds an element to the queue
 	/// - parameter element: Element to be added to the queue.
-	func add(_ element: IOHIDElement) {
+	@inlinable func add(_ element: IOHIDElement) {
 		IOHIDQueueAddElement(self, element)
 	}
 	
 	/// Removes an element from the queue
 	/// - parameter element: Element to be removed from the queue.
-	func remove(_ element: IOHIDElement) {
+	@inlinable func remove(_ element: IOHIDElement) {
 		IOHIDQueueRemoveElement(self, element)
 	}
 	
 	/// Queries the queue to determine if elemement has been added.
 	/// - parameter element: Element to be queried.
 	/// - returns: Returns `true` or `false` depending if element is present.
-	func contains(_ element: IOHIDElement) -> Bool {
+	@inlinable func contains(_ element: IOHIDElement) -> Bool {
 		return IOHIDQueueContainsElement(self, element)
 	}
 	
@@ -71,7 +71,7 @@ public extension IOHIDQueue {
 	/// via IOHIDQueueSetDispatchQueue, the queue does not need
 	/// to be explicity started, this will be done during activation
 	/// when `activate()` is called.
-	func start() {
+	@inlinable func start() {
 		IOHIDQueueStart(self)
 	}
 	
@@ -81,7 +81,7 @@ public extension IOHIDQueue {
 	/// via IOHIDQueueSetDispatchQueue, the queue does not need
 	/// to be explicity stopped, this will be done during cancellation
 	/// when `cancel()` is called.
-	func stop() {
+	@inlinable func stop() {
 		IOHIDQueueStop(self)
 	}
 	
@@ -123,7 +123,7 @@ public extension IOHIDQueue {
 	/// functions should be done before activation and not after cancellation.
 	/// - parameter dispatchQueue: The dispatch queue to which the event handler block will be submitted.
 	@available(OSX 10.15, *)
-	func setDispatchQueue(_ dispatchQueue: DispatchQueue) {
+	@inlinable func setDispatchQueue(_ dispatchQueue: DispatchQueue) {
 		IOHIDQueueSetDispatchQueue(self, dispatchQueue)
 	}
 	
@@ -142,7 +142,7 @@ public extension IOHIDQueue {
 	/// asynchronous objects are released.
 	/// - parameter handler: The cancellation handler block to be associated with the dispatch queue.
 	@available(OSX 10.15, *)
-	func setCancelHandler(_ handler: @escaping () -> Void) {
+	@inlinable func setCancelHandler(_ handler: @escaping () -> Void) {
 		IOHIDQueueSetCancelHandler(self, handler)
 	}
 	
@@ -161,7 +161,7 @@ public extension IOHIDQueue {
 	///
 	/// Calling `activate()` on an active IOHIDQueue has no effect.
 	@available(OSX 10.15, *)
-	func activate() {
+	@inlinable func activate() {
 		IOHIDQueueActivate(self)
 	}
 	
@@ -181,7 +181,7 @@ public extension IOHIDQueue {
 	/// cancelled, and the cancel handler has been called. This is to ensure all
 	/// asynchronous objects are released.
 	@available(OSX 10.15, *)
-	func cancel() {
+	@inlinable func cancel() {
 		IOHIDQueueCancel(self)
 	}
 	
@@ -194,7 +194,7 @@ public extension IOHIDQueue {
 	/// - parameter callback: Callback of type `IOHIDCallback` to be used when data is
 	/// placed on the queue.
 	/// - parameter context: Pointer to data to be passed to the callback.
-	func registerValueAvailable(callback: @escaping IOHIDCallback, context: UnsafeMutableRawPointer?) {
+	@inlinable func registerValueAvailable(callback: @escaping IOHIDCallback, context: UnsafeMutableRawPointer?) {
 		IOHIDQueueRegisterValueAvailableCallback(self, callback, context)
 	}
 	
@@ -203,7 +203,7 @@ public extension IOHIDQueue {
 	///
 	/// Use with setValueCallback to avoid polling the queue for data.
 	/// - returns: Returns valid `IOHIDValue` if data is available.
-	func nextValue() -> IOHIDValue? {
+	@inlinable func nextValue() -> IOHIDValue? {
 		return IOHIDQueueCopyNextValue(self)
 	}
 	
@@ -214,7 +214,7 @@ public extension IOHIDQueue {
 	/// Use with setValueCallback to avoid polling the queue for data.
 	/// - parameter timeout: Timeout before aborting an attempt to dequeue a value from the head of a queue.
 	/// - returns: Returns valid `IOHIDValue` if data is available.
-	func nextValue(timeout: CFTimeInterval)  -> IOHIDValue? {
+	@inlinable func nextValue(timeout: CFTimeInterval)  -> IOHIDValue? {
 		return IOHIDQueueCopyNextValueWithTimeout(self, timeout)
 	}
 }

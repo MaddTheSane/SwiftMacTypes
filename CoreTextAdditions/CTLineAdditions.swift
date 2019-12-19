@@ -24,7 +24,7 @@ public extension CTLine {
 	/// Returns the Core Foundation type identifier for CoreText lines.
 	///
 	/// - returns: The identifier for the opaque type `CTLineRef`.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return CTLineGetTypeID()
 	}
 	
@@ -45,7 +45,7 @@ public extension CTLine {
 	/// - returns: This function will return a reference to a truncated `CTLine`
 	/// object if the call was successful. Otherwise, it will return
 	/// `nil`.
-	func truncate(width: Double, type truncationType: TruncationType, token truncationToken: CTLine?) -> CTLine? {
+	@inlinable func truncate(width: Double, type truncationType: TruncationType, token truncationToken: CTLine?) -> CTLine? {
 		return CTLineCreateTruncatedLine(self, width, truncationType, truncationToken)
 	}
 	
@@ -63,7 +63,7 @@ public extension CTLine {
 	/// - returns: This function will return a reference to a justified CTLine
 	/// object if the call was successful. Otherwise, it will return
 	/// `nil`.
-	func justifiedLine(factor justificationFactor: CGFloat, width justificationWidth: Double) -> CTLine? {
+	@inlinable func justifiedLine(factor justificationFactor: CGFloat, width justificationWidth: Double) -> CTLine? {
 		return CTLineCreateJustifiedLine(self, justificationFactor, justificationWidth)
 	}
 	
@@ -71,7 +71,7 @@ public extension CTLine {
 	///
 	/// The total glyph count is equal to the sum of all of the glyphs in
 	/// the glyph runs forming the line.
-	var glyphCount: Int {
+	@inlinable var glyphCount: Int {
 		return CTLineGetGlyphCount(self)
 	}
 	
@@ -88,7 +88,7 @@ public extension CTLine {
 	/// A `CFRange` that contains the range over the backing store string
 	/// that spawned the glyphs. If the function fails for any reason, an
 	/// empty range will be returned.
-	var stringRange: CFRange {
+	@inlinable var stringRange: CFRange {
 		return CTLineGetStringRange(self)
 	}
 	
@@ -103,7 +103,7 @@ public extension CTLine {
 	/// operation should apply to.
 	/// - returns: A value which can be used to offset the current pen position for
 	/// the flush operation.
-	func penOffsetForFlush(factor flushFactor: CGFloat, width flushWidth: Double) -> Double {
+	@inlinable func penOffsetForFlush(factor flushFactor: CGFloat, width flushWidth: Double) -> Double {
 		return CTLineGetPenOffsetForFlush(self, flushFactor, flushWidth)
 	}
 	
@@ -116,7 +116,7 @@ public extension CTLine {
 	/// a text matrix with *'y'* values increasing from bottom to top; a
 	/// flipped text matrix may result in misplaced diacritics.
 	/// - parameter context: The context to which the line will be drawn.
-	func draw(in context: CGContext) {
+	@inlinable func draw(in context: CGContext) {
 		CTLineDraw(self, context)
 	}
 	
@@ -161,7 +161,7 @@ public extension CTLine {
 	/// whitespace. Normally this is not an issue due to whitespace being
 	/// invisible, but this function may be used to determine what amount
 	/// of a line's width is due to trailing whitespace.
-	var trailingWhitespaceWidth: Double {
+	@inlinable var trailingWhitespaceWidth: Double {
 		return CTLineGetTrailingWhitespaceWidth(self)
 	}
 	
@@ -205,7 +205,7 @@ public extension CTLine {
 	/// This determination is made by analyzing the string from which a
 	/// typesetter was created and the corresponding glyphs as embodied
 	/// by a particular line.
-	func stringIndex(forPosition position: CGPoint) -> CFIndex {
+	@inlinable func stringIndex(forPosition position: CGPoint) -> CFIndex {
 		return CTLineGetStringIndexForPosition(self, position)
 	}
 	

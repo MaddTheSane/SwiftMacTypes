@@ -17,7 +17,7 @@ public extension CTRun {
 	/// Returns the Core Foundation type identifier for CoreText runs.
 	///
 	/// - returns: The identifier for the opaque type `CTRunRef`.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return CTRunGetTypeID()
 	}
 	
@@ -26,7 +26,7 @@ public extension CTRun {
 	/// The number of glyphs that the run contains. It is totally
 	/// possible that this function could return a value of zero,
 	/// indicating that there are no glyphs in this run.
-	var glyphCount: Int {
+	@inlinable var glyphCount: Int {
 		return CTRunGetGlyphCount(self)
 	}
 	
@@ -51,7 +51,7 @@ public extension CTRun {
 	/// text matrix can avoid expensive comparisons. Note that this
 	/// status is provided as a convenience, since this information is
 	/// not strictly necessary but can certainly be helpful.
-	var status: Status {
+	@inlinable var status: Status {
 		return CTRunGetStatus(self)
 	}
 	
@@ -208,7 +208,7 @@ public extension CTRun {
 	///
 	/// Returns the range of characters that originally spawned the
 	/// glyphs. If run is invalid, this will return an empty range.
-	var stringRange: CFRange {
+	@inlinable var stringRange: CFRange {
 		return CTRunGetStringRange(self)
 	}
 	
@@ -260,7 +260,7 @@ public extension CTRun {
 	/// To properly draw the glyphs in a run, the fields *'tx'* and *'ty'* of
 	/// the `CGAffineTransform` returned by this function should be set to
 	/// the current text position.
-	var textMatrix: CGAffineTransform {
+	@inlinable var textMatrix: CGAffineTransform {
 		return CTRunGetTextMatrix(self)
 	}
 	
@@ -281,7 +281,7 @@ public extension CTRun {
 	/// context after drawing. This call also expects a text matrix with
 	/// *'y'* values increasing from bottom to top; a flipped text matrix
 	/// may result in misplaced diacritics.
-	func draw(in context: CGContext, range: CFRange) {
+	@inlinable func draw(in context: CGContext, range: CFRange) {
 		CTRunDraw(self, context, range)
 	}
 }

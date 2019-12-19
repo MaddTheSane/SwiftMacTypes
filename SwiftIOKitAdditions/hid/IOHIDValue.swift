@@ -11,7 +11,7 @@ import IOKit.hid
 
 public extension IOHIDValue {
 	/// The type identifier of all `IOHIDValue` instances.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return IOHIDValueGetTypeID()
 	}
 	
@@ -24,7 +24,7 @@ public extension IOHIDValue {
 	/// - parameter timeStamp: OS absolute time timestamp for this value.
 	/// - parameter value: Integer value to be copied to this object.
 	/// - returns: a reference to a new IOHIDValueRef.
-	class func create(allocator: CFAllocator? = kCFAllocatorDefault, element: IOHIDElement, timeStamp: UInt64, with value: Int) -> IOHIDValue {
+	@inlinable class func create(allocator: CFAllocator? = kCFAllocatorDefault, element: IOHIDElement, timeStamp: UInt64, with value: Int) -> IOHIDValue {
 		return IOHIDValueCreateWithIntegerValue(allocator, element, timeStamp, value)
 	}
 	
@@ -38,7 +38,7 @@ public extension IOHIDValue {
 	/// - parameter bytes: Pointer to a buffer of uint8_t to be copied to this object.
 	/// - parameter length: Number of bytes in the passed buffer.
 	/// - returns: Returns a reference to a new `IOHIDValue`.
-	class func create(allocator: CFAllocator?, element: IOHIDElement, timeStamp: UInt64, bytes: UnsafePointer<UInt8>, length: CFIndex) -> IOHIDValue? {
+	@inlinable class func create(allocator: CFAllocator?, element: IOHIDElement, timeStamp: UInt64, bytes: UnsafePointer<UInt8>, length: CFIndex) -> IOHIDValue? {
 		return IOHIDValueCreateWithBytes(allocator, element, timeStamp, bytes, length)
 	}
 	
@@ -52,34 +52,34 @@ public extension IOHIDValue {
 	/// - parameter bytes: Pointer to a buffer of uint8_t to be copied to this object.
 	/// - parameter length: Number of bytes in the passed buffer.
 	/// - returns: Returns a reference to a new `IOHIDValue`.
-	class func create(allocator: CFAllocator?, element: IOHIDElement, timeStamp: UInt64, bytesNoCopy bytes: UnsafePointer<UInt8>, length: CFIndex) -> IOHIDValue? {
+	@inlinable class func create(allocator: CFAllocator?, element: IOHIDElement, timeStamp: UInt64, bytesNoCopy bytes: UnsafePointer<UInt8>, length: CFIndex) -> IOHIDValue? {
 		return IOHIDValueCreateWithBytesNoCopy(allocator, element, timeStamp, bytes, length)
 	}
 	
 	/// The element value associated with this `IOHIDValue`.
-	var element: IOHIDElement {
+	@inlinable var element: IOHIDElement {
 		return IOHIDValueGetElement(self)
 	}
 	
 	/// The timestamp value contained in this `IOHIDValue`.
-	var timeStamp: UInt64 {
+	@inlinable var timeStamp: UInt64 {
 		return IOHIDValueGetTimeStamp(self)
 	}
 	
 	/// The size, in bytes, of the value contained in this `IOHIDValue`.
-	var length: Int {
+	@inlinable var length: Int {
 		return IOHIDValueGetLength(self)
 	}
 	
 	/// A byte pointer to the value contained in this `IOHIDValue`.
-	var bytePtr: UnsafePointer<UInt8> {
+	@inlinable var bytePtr: UnsafePointer<UInt8> {
 		return IOHIDValueGetBytePtr(self)
 	}
 	
 	/// an integer representaion of the value contained in this `IOHIDValue`.
 	///
 	/// The value is based on the logical element value contained in the report returned by the device.
-	var integer: Int {
+	@inlinable var integer: Int {
 		return IOHIDValueGetIntegerValue(self)
 	}
 	
@@ -96,7 +96,7 @@ public extension IOHIDValue {
 	/// - **kIOHIDValueScaleTypeCalibrated**: Scales element value such that *scaledMin = -1* and *scaledMax = 1*.  This value will also take into account the calibration properties associated with this element.
 	/// - parameter type: The type of scaling to be performed.
 	/// - returns: Returns an scaled floating point representation of the value.
-	func scaledValue(type: IOHIDValueScaleType) -> double_t {
+	@inlinable func scaledValue(type: IOHIDValueScaleType) -> double_t {
 		return IOHIDValueGetScaledValue(self, type)
 	}
 }

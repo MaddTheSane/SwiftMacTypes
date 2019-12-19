@@ -23,7 +23,7 @@ public extension CTRubyAnnotation {
 	/// Returns the Core Foundation type identifier for CoreText Ruby annotations.
 	///
 	/// - returns: The identifier for the opaque type `CTRubyAnnotationRef`.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return CTRubyAnnotationGetTypeID()
 	}
 	
@@ -88,22 +88,22 @@ public extension CTRubyAnnotation {
 	}
 
 	/// Creates an immutable copy of a ruby annotation object.
-	func copy() -> CTRubyAnnotation {
+	@inlinable func copy() -> CTRubyAnnotation {
 		return CTRubyAnnotationCreateCopy(self)
 	}
 	
 	/// the alignment value of the ruby annotation object.
-	var alignment: Alignment {
+	@inlinable var alignment: Alignment {
 		return CTRubyAnnotationGetAlignment(self)
 	}
 	
 	/// The overhang value of a ruby annotation object.
-	var overhang: Overhang {
+	@inlinable var overhang: Overhang {
 		return CTRubyAnnotationGetOverhang(self)
 	}
 	
 	/// The size factor of a ruby annotation object.
-	var sizeFactor: CGFloat {
+	@inlinable var sizeFactor: CGFloat {
 		return CTRubyAnnotationGetSizeFactor(self)
 	}
 	

@@ -31,7 +31,7 @@ public extension NSRange {
 	/// A string representation of the current range.
 	/// Returns a string of the form *“{a, b}”*, where *a* and *b* are
 	/// non-negative integers representing `self`.
-	var stringValue: String {
+	@inlinable var stringValue: String {
 		return NSStringFromRange(self)
 	}
 	
@@ -51,7 +51,7 @@ public extension NSRange {
 	
 	/// The current range, represented as a `CFRange`.
 	var cfRange: CoreFoundation.CFRange {
-		return CoreFoundation.CFRange(location: location, length: length)
+		return CFRange(location: location, length: length)
 	}
 }
 
@@ -65,7 +65,7 @@ public extension CGPoint {
 	/// If `string` does not contain any numbers, creates an `CGPoint` object whose
 	/// `x` and `y` coordinates are both `0`.
 	/// - parameter string: The string to decode the point from.
-	init(string: String) {
+	@inlinable init(string: String) {
 		#if os(OSX)
 			self = NSPointFromString(string)
 		#else
@@ -77,7 +77,7 @@ public extension CGPoint {
 	/// 
 	/// Returns a string of the form *"{a, b}"*, where *a* and *b* are the `x`
 	/// and `y` coordinates of `self`.
-	var stringValue: String {
+	@inlinable var stringValue: String {
 		#if os(OSX)
 			return NSStringFromPoint(self)
 		#else
@@ -97,7 +97,7 @@ public extension CGSize {
 	/// If `string` does not contain any numbers, this function returns a `CGSize`
 	/// struct whose width and height are both `0`.
 	/// - parameter string: The string to decode the size from.
-	init(string: String) {
+	@inlinable init(string: String) {
 		#if os(OSX)
 			self = NSSizeFromString(string)
 		#else
@@ -109,7 +109,7 @@ public extension CGSize {
 	///
 	/// Returns a string of the form *"{a, b}"*, where *a* and *b* are the `width`
 	/// and `height`, respectively, of `self`.
-	var stringValue: String {
+	@inlinable var stringValue: String {
 		#if os(OSX)
 			return NSStringFromSize(self)
 		#else
@@ -121,14 +121,14 @@ public extension CGSize {
 public extension CGRect {
 	#if os(OSX)
 	/// Adjusts the sides of a rectangle to integral values using the specified options.
-	mutating func formIntegral(options: AlignmentOptions) {
+	@inlinable mutating func formIntegral(options: AlignmentOptions) {
 		self = NSIntegralRectWithOptions(self, options)
 	}
 	
 	/// Adjusts the sides of a rectangle to integral values using the specified options.
 	/// - returns: A copy of `self`, modified based on the options. The options are
 	/// defined in `AlignmentOptions`.
-	func integral(options: AlignmentOptions) -> CGRect {
+	@inlinable func integral(options: AlignmentOptions) -> CGRect {
 		return NSIntegralRectWithOptions(self, options)
 	}
 	#endif
@@ -142,7 +142,7 @@ public extension CGRect {
 	/// numbers, this function returns a `CGRect` object with a rectangle whose origin
 	/// is `(0, 0)` and width and height are both `0`.
 	/// - parameter string: The string to decode the rectangle from.
-	init(string: String) {
+	@inlinable init(string: String) {
 		#if os(OSX)
 			self = NSRectFromString(string)
 		#else
@@ -154,7 +154,7 @@ public extension CGRect {
 	///
 	/// Returns a string of the form *"{{a, b}, {c, d}}"*, where *a*, *b*, *c*, and *d*
 	/// are the `x` and `y` coordinates and the `width` and `height`, respectively, of `self`.
-	var stringValue: String {
+	@inlinable var stringValue: String {
 		#if os(OSX)
 			return NSStringFromRect(self)
 		#else
@@ -169,6 +169,7 @@ public extension CGRect {
 	/// flipped coordinate system.<br>
 	/// Default is `false`.
 	/// - returns: `true` if the hot spot of the cursor lies inside the rectangle, otherwise `false`.
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "mouse(inLocation:flipped:)")
 	func mouseInLocation(_ location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
 	}
@@ -179,7 +180,7 @@ public extension CGRect {
 	/// flipped coordinate system.<br>
 	/// Default is `false`.
 	/// - returns: `true` if the hot spot of the cursor lies inside the rectangle, otherwise `false`.
-	func mouse(inLocation location: NSPoint, flipped: Bool = false) -> Bool {
+	@inlinable func mouse(inLocation location: NSPoint, flipped: Bool = false) -> Bool {
 		return NSMouseInRect(location, self, flipped)
 	}
 	#endif
@@ -187,14 +188,14 @@ public extension CGRect {
 
 public extension NSUUID {
 	/// Create a new `NSUUID` from a CoreFoundation `CFUUID`.
-	@objc(initWithCFUUID:) convenience init(cfUUID: CoreFoundation.CFUUID) {
+	@objc(initWithCFUUID:) convenience init(cfUUID: CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
 		self.init(uuidString: tempUIDStr)!
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
-	@objc(CFUUID) var cfUUID: CoreFoundation.CFUUID {
+	@objc(CFUUID) var cfUUID: CFUUID {
 		let tmpStr = self.uuidString
 		
 		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
@@ -203,14 +204,14 @@ public extension NSUUID {
 
 public extension UUID {
 	/// Create a new `Foundation.UUID` from a CoreFoundation `CFUUID`.
-	init(cfUUID: CoreFoundation.CFUUID) {
+	init(cfUUID: CFUUID) {
 		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
 		
 		self.init(uuidString: tempUIDStr)!
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
-	var cfUUID: CoreFoundation.CFUUID {
+	var cfUUID: CFUUID {
 		let tmpStr = self.uuidString
 		
 		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)

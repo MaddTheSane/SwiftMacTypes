@@ -14,7 +14,7 @@ public extension IOHIDManager {
 	typealias Options = IOHIDManagerOptions
 	
 	/// The type identifier of all `IOHIDManager` instances.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return IOHIDManagerGetTypeID()
 	}
 	
@@ -26,7 +26,7 @@ public extension IOHIDManager {
 	/// - parameter options: supply `kIOHIDManagerOptionUsePersistentProperties`
 	/// to load properties from the default persistent property store. Otherwise
 	/// supply `kIOHIDManagerOptionNone` (or 0).
-	class func create(_ allocator: CFAllocator? = kCFAllocatorDefault, options: Options) -> IOHIDManager {
+	@inlinable class func create(_ allocator: CFAllocator? = kCFAllocatorDefault, options: Options) -> IOHIDManager {
 		return IOHIDManagerCreate(allocator, options.rawValue)
 	}
 	
@@ -37,7 +37,7 @@ public extension IOHIDManager {
 	/// `kIOHIDOptionsTypeSeizeDevice` option.
 	/// - parameter options: Option bits to be sent down to the manager and device.
 	/// - returns: Returns `kIOReturnSuccess` if successful.
-	func open(options: Options = []) -> IOReturn {
+	@inlinable func open(options: Options = []) -> IOReturn {
 		return IOHIDManagerOpen(self, options.rawValue)
 	}
 	
@@ -46,7 +46,7 @@ public extension IOHIDManager {
 	/// This will also close all devices that are currently enumerated.
 	/// - parameter options: Option bits to be sent down to the manager and device.
 	/// - returns: Returns `kIOReturnSuccess` if successful.
-	func close(options: Options = []) -> IOReturn {
+	@inlinable func close(options: Options = []) -> IOReturn {
 		return IOHIDManagerClose(self, options.rawValue)
 	}
 	
@@ -114,7 +114,7 @@ public extension IOHIDManager {
 	/// functions should be done before activation and not after cancellation.
 	/// - parameter queue: The dispatch queue to which the event handler block will be submitted.
 	@available(OSX 10.15, *)
-	func setDispatchQueue(_ queue: DispatchQueue) {
+	@inlinable func setDispatchQueue(_ queue: DispatchQueue) {
 		IOHIDManagerSetDispatchQueue(self, queue)
 	}
 	
@@ -134,7 +134,7 @@ public extension IOHIDManager {
 	/// - parameter handler: The cancellation handler block to be associated
 	/// with the dispatch queue.
 	@available(OSX 10.15, *)
-	func setCancelHandler(_ handler: @escaping () -> Void) {
+	@inlinable func setCancelHandler(_ handler: @escaping () -> Void) {
 		IOHIDManagerSetCancelHandler(self, handler)
 	}
 	
@@ -153,7 +153,7 @@ public extension IOHIDManager {
 	///
 	/// Calling `activate()` on an active `IOHIDManager` has no effect.
 	@available(OSX 10.15, *)
-	func activate() {
+	@inlinable func activate() {
 		IOHIDManagerActivate(self)
 	}
 	
@@ -173,7 +173,7 @@ public extension IOHIDManager {
 	/// cancelled, and the cancel handler has been called. This is to ensure all
 	/// asynchronous objects are released.
 	@available(OSX 10.15, *)
-	func cancel() {
+	@inlinable func cancel() {
 		IOHIDManagerCancel(self)
 	}
 	
@@ -222,7 +222,7 @@ public extension IOHIDManager {
 	/// - parameter callback: Pointer to a callback method of type
 	/// `IOHIDDeviceCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
-	func registerDeviceMatching(callback: IOHIDDeviceCallback?, context: UnsafeMutableRawPointer?) {
+	@inlinable func registerDeviceMatching(callback: IOHIDDeviceCallback?, context: UnsafeMutableRawPointer?) {
 		IOHIDManagerRegisterDeviceMatchingCallback(self, callback, context)
 	}
 	
@@ -234,7 +234,7 @@ public extension IOHIDManager {
 	/// - parameter callback: Pointer to a callback method of type
 	/// `IOHIDDeviceCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
-	func registerDeviceRemoval(callback: IOHIDDeviceCallback?, context: UnsafeMutableRawPointer?) {
+	@inlinable func registerDeviceRemoval(callback: IOHIDDeviceCallback?, context: UnsafeMutableRawPointer?) {
 		IOHIDManagerRegisterDeviceRemovalCallback(self, callback, context)
 	}
 
@@ -245,7 +245,7 @@ public extension IOHIDManager {
 	/// If a dispatch queue is set, this call must occur before activation.
 	/// - parameter callback: Pointer to a callback method of type `IOHIDReportCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
-	func registerInputReport(callback: IOHIDReportCallback?, context: UnsafeMutableRawPointer?) {
+	@inlinable func registerInputReport(callback: IOHIDReportCallback?, context: UnsafeMutableRawPointer?) {
 		IOHIDManagerRegisterInputReportCallback(self, callback, context)
 	}
 
@@ -259,7 +259,7 @@ public extension IOHIDManager {
 	/// `IOHIDReportWithTimeStampCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
 	@available(OSX 10.15, *)
-	func registerInputReportWithTimeStamp(callback: @escaping IOHIDReportWithTimeStampCallback, context: UnsafeMutableRawPointer?) {
+	@inlinable func registerInputReportWithTimeStamp(callback: @escaping IOHIDReportWithTimeStampCallback, context: UnsafeMutableRawPointer?) {
 		IOHIDManagerRegisterInputReportWithTimeStampCallback(self, callback, context)
 	}
 
@@ -273,7 +273,7 @@ public extension IOHIDManager {
 	/// If a dispatch queue is set, this call must occur before activation.
 	/// - parameter callback: Pointer to a callback method of type IOHIDValueCallback.
 	/// - parameter context: Pointer to data to be passed to the callback.
-	func registerInputValue(callback: IOHIDValueCallback?, context: UnsafeMutableRawPointer?) {
+	@inlinable func registerInputValue(callback: IOHIDValueCallback?, context: UnsafeMutableRawPointer?) {
 		IOHIDManagerRegisterInputValueCallback(self, callback, context)
 	}
 	

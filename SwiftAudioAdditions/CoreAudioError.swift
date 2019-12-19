@@ -178,8 +178,6 @@ public struct SAACoreAudioError: _BridgedStoredNSError {
 	
 	/// an async write could not be completed in time
 	public static var extAudioFileAsyncWriteBufferOverflow: SAACoreAudioError.Code { return .extAudioFileAsyncWriteBufferOverflow }
-	
-
 }
 
 #endif

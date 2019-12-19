@@ -130,7 +130,7 @@ public extension String.Encoding {
 	}
 	
 	/// Converts the current encoding to the equivalent `CFStringEncoding`.
-	var cfStringEncoding: CFStringEncoding {
+	@inlinable var cfStringEncoding: CFStringEncoding {
 		return CFStringConvertNSStringEncodingToEncoding(self.rawValue)
 	}
 	

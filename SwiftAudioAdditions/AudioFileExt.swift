@@ -339,23 +339,23 @@ public extension AudioStreamBasicDescription {
 public extension AudioStreamBasicDescription {
 	// The following getters/functions are from Apple's CoreAudioUtilityClasses
 	
-	var isPCM: Bool {
+	@inlinable var isPCM: Bool {
 		return mFormatID == kAudioFormatLinearPCM
 	}
 
-	var isInterleaved: Bool {
+	@inlinable var isInterleaved: Bool {
 		return !isPCM || !formatFlags.contains(.nonInterleaved)
 	}
 	
-	var isSignedInteger: Bool {
+	@inlinable var isSignedInteger: Bool {
 		return isPCM && (mFormatFlags & kAudioFormatFlagIsSignedInteger) != 0
 	}
 	
-	var isFloat: Bool {
+	@inlinable var isFloat: Bool {
 		return isPCM && (mFormatFlags & kAudioFormatFlagIsFloat) != 0
 	}
 
-	@available(*, deprecated, renamed: "isInterleaved")
+	@available(*, unavailable, renamed: "isInterleaved")
 	var interleaved: Bool {
 		return isInterleaved
 	}

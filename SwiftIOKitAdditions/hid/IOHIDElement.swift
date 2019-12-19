@@ -21,7 +21,7 @@ public extension IOHIDElement {
 	typealias ElementType = IOHIDElementType
 	
 	/// Returns the type identifier of all `IOHIDElement` instances.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return IOHIDDeviceGetTypeID()
 	}
 	
@@ -31,19 +31,19 @@ public extension IOHIDElement {
 	/// - parameter allocator: Allocator to be used during creation.
 	/// - parameter dictionary: dictionary containing values in which to create element.
 	/// - returns: Returns a new `IOHIDElement`.
-	class func create(_ allocator: CFAllocator? = kCFAllocatorDefault, with dictionary: [String: Any]) -> IOHIDElement {
+	@inlinable class func create(_ allocator: CFAllocator? = kCFAllocatorDefault, with dictionary: [String: Any]) -> IOHIDElement {
 		return IOHIDElementCreateWithDictionary(allocator, dictionary as NSDictionary)
 	}
 	
 	/// The device associated with the element.
-	var device: IOHIDDevice {
+	@inlinable var device: IOHIDDevice {
 		return IOHIDElementGetDevice(self)
 	}
 	
 	/// The parent for the element.
 	///
 	/// The parent element can be an element of type `kIOHIDElementTypeCollection`.
-	var parent: IOHIDElement? {
+	@inlinable var parent: IOHIDElement? {
 		return IOHIDElementGetParent(self)
 	}
 	
@@ -58,7 +58,7 @@ public extension IOHIDElement {
 	///
 	/// This is useful for grouping HID elements with related functionality.
 	/// - parameter toAttach: The element to be attached.
-	func attach(_ toAttach: IOHIDElement) {
+	@inlinable func attach(_ toAttach: IOHIDElement) {
 		IOHIDElementAttach(self, toAttach)
 	}
 	
@@ -66,7 +66,7 @@ public extension IOHIDElement {
 	///
 	/// This is useful for grouping HID elements with related functionality.
 	/// - parameter toDetach: The element to be detached.
-	func detatch(_ toDetach: IOHIDElement) {
+	@inlinable func detatch(_ toDetach: IOHIDElement) {
 		return IOHIDElementDetach(self, toDetach)
 	}
 	
@@ -80,36 +80,36 @@ public extension IOHIDElement {
 	/// Retrieves the cookie for the element.
 	///
 	/// The `Cookie` represent a unique identifier for an element within a device.
-	var cookie: Cookie {
+	@inlinable var cookie: Cookie {
 		return IOHIDElementGetCookie(self)
 	}
 	
 	/// The type for the element.
-	var elementType: ElementType {
+	@inlinable var elementType: ElementType {
 		return IOHIDElementGetType(self)
 	}
 	
 	/// The collection type for the element.
 	///
 	/// The value returned by this method only makes sense if the element type is `kIOHIDElementTypeCollection`.
-	var collectionType: CollectionType {
+	@inlinable var collectionType: CollectionType {
 		return IOHIDElementGetCollectionType(self)
 	}
 	
 	/// The usage page for the element.
-	var usagePage: UInt32 {
+	@inlinable var usagePage: UInt32 {
 		return IOHIDElementGetUsagePage(self)
 	}
 	
 	/// The usage for the element.
-	var usage: UInt32 {
+	@inlinable var usage: UInt32 {
 		return IOHIDElementGetUsage(self)
 	}
 	
 	/// The virtual property for the element.
 	///
 	/// Indicates whether the element is a virtual element.
-	var isVirtual: Bool {
+	@inlinable var isVirtual: Bool {
 		return IOHIDElementIsVirtual(self)
 	}
 
@@ -119,14 +119,14 @@ public extension IOHIDElement {
 	/// (based on a fixed origin).
 	///
 	/// Is `true` if relative or `false` if absolute.
-	var isRelative: Bool {
+	@inlinable var isRelative: Bool {
 		return IOHIDElementIsRelative(self)
 	}
 	
 	/// The wrap property for the element.
 	///
 	/// Wrap indicates whether the data "rolls over" when reaching either the extreme high or low value.
-	var isWrapping: Bool {
+	@inlinable var isWrapping: Bool {
 		return IOHIDElementIsWrapping(self)
 	}
 	
@@ -138,7 +138,7 @@ public extension IOHIDElement {
 	///
 	/// **Note:** The HID Manager will represent most elements as "variable" including the possible usages of an array.
 	/// Array indices will remain as "array" elements with a usage of `0xffffffff`.
-	var isArray: Bool {
+	@inlinable var isArray: Bool {
 		return IOHIDElementIsArray(self)
 	}
 	
@@ -146,7 +146,7 @@ public extension IOHIDElement {
 	///
 	/// Indicates whether the value for the element has been processed in some way, and no longer represents a linear
 	/// relationship between what is measured and the value that is reported.
-	var isNonLinear: Bool {
+	@inlinable var isNonLinear: Bool {
 		return IOHIDElementIsNonLinear(self)
 	}
 	
@@ -154,14 +154,14 @@ public extension IOHIDElement {
 	///
 	/// Indicates whether the element has a preferred state to which it will return when the user is not physically
 	/// interacting with the control.
-	var hasPreferredState: Bool {
+	@inlinable var hasPreferredState: Bool {
 		return IOHIDElementHasPreferredState(self)
 	}
 	
 	/// The null state property for the element.
 	///
 	/// Indicates whether the element has a state in which it is not sending meaningful data.
-	var hasNullState: Bool {
+	@inlinable var hasNullState: Bool {
 		return IOHIDElementHasNullState(self)
 	}
 	
@@ -173,17 +173,17 @@ public extension IOHIDElement {
 	/// The report ID for the element.
 	///
 	/// The report ID represents what report this particular element belongs to.
-	var reportID: UInt32 {
+	@inlinable var reportID: UInt32 {
 		return IOHIDElementGetReportID(self)
 	}
 	
 	/// The report size in bits for the element.
-	var reportSize: UInt32 {
+	@inlinable var reportSize: UInt32 {
 		return IOHIDElementGetReportSize(self)
 	}
 	
 	/// The report count for the element.
-	var reportCount: UInt32 {
+	@inlinable var reportCount: UInt32 {
 		return IOHIDElementGetReportCount(self)
 	}
 	
@@ -191,7 +191,7 @@ public extension IOHIDElement {
 	///
 	/// The unit property is described in more detail in Section 6.2.2.7 of the
 	/// "Device Class Definition for Human Interface Devices(HID)" Specification, Version 1.11.
-	var unit: UInt32 {
+	@inlinable var unit: UInt32 {
 		return IOHIDElementGetUnit(self)
 	}
 	
@@ -199,35 +199,35 @@ public extension IOHIDElement {
 	///
 	/// The unit exponent property is described in more detail in Section 6.2.2.7 of the
 	/// "Device Class Definition for Human Interface Devices(HID)" Specification, Version 1.11.
-	var unitExponent: UInt32 {
+	@inlinable var unitExponent: UInt32 {
 		return IOHIDElementGetUnitExponent(self)
 	}
 
 	/// The minimum value possible for the element.
 	///
 	/// This corresponds to the logical minimun, which indicates the lower bounds of a variable element.
-	var logicalMin: CFIndex {
+	@inlinable var logicalMin: CFIndex {
 		return IOHIDElementGetLogicalMin(self)
 	}
 	
 	/// The maximum value possible for the element.
 	///
 	/// This corresponds to the logical maximum, which indicates the upper bounds of a variable element.
-	var logicalMax: CFIndex {
+	@inlinable var logicalMax: CFIndex {
 		return IOHIDElementGetLogicalMax(self)
 	}
 	
 	/// The scaled minimum value possible for the element.
 	///
 	/// Minimum value for the physical extent of a variable element. This represents the value for the logical minimum with units applied to it.
-	var physicalMin: CFIndex {
+	@inlinable var physicalMin: CFIndex {
 		return IOHIDElementGetPhysicalMin(self)
 	}
 	
 	/// The scaled maximum value possible for the element.
 	///
 	/// Maximum value for the physical extent of a variable element.  This represents the value for the logical maximum with units applied to it.
-	var physicalMax: CFIndex {
+	@inlinable var physicalMax: CFIndex {
 		return IOHIDElementGetPhysicalMax(self)
 	}
 	

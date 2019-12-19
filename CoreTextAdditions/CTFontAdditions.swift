@@ -20,7 +20,7 @@ public extension CTFont {
 	/// Returns the Core Foundation type identifier for CoreText fonts.
 	///
 	/// - returns: The identifier for the opaque type `CTFontRef`.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return CTFontGetTypeID()
 	}
 
@@ -404,7 +404,7 @@ public extension CTFont {
 	///
 	/// This method is to be used when the current font does not cover the given range of the string. The
 	/// current font itself will not be returned, but preference is given to fonts in its cascade list.
-	func font(for string: CFString, range: CFRange) -> CTFont {
+	@inlinable func font(for string: CFString, range: CFRange) -> CTFont {
 		let aFont = CTFontCreateForString(self, string, range)
 		return aFont
 	}
@@ -432,7 +432,7 @@ public extension CTFont {
 	///
 	/// A normalized font descriptor for a font. The font descriptor contains enough information to recreate
 	/// this font at a later time.
-	var fontDescriptor: CTFontDescriptor {
+	@inlinable var fontDescriptor: CTFontDescriptor {
 		return CTFontCopyFontDescriptor(self)
 	}
 	
@@ -447,14 +447,14 @@ public extension CTFont {
 	/// The point size of the font reference.
 	///
 	/// This is the point size provided when the font was created.
-	var size: CGFloat {
+	@inlinable var size: CGFloat {
 		return CTFontGetSize(self)
 	}
 	
 	/// The transformation matrix of the font.
 	///
 	/// This is the matrix that was provided when the font was created.
-	var matrix: CGAffineTransform {
+	@inlinable var matrix: CGAffineTransform {
 		return CTFontGetMatrix(self)
 	}
 	
@@ -462,7 +462,7 @@ public extension CTFont {
 	///
 	/// This getter returns the symbolic traits of the font. This is equivalent to the `kCTFontSymbolicTrait`
 	/// of traits dictionary. See *CTFontTraits.h* for a definition of the font traits.
-	var symbolicTraits: SymbolicTraits {
+	@inlinable var symbolicTraits: SymbolicTraits {
 		return CTFontGetSymbolicTraits(self)
 	}
 	
@@ -581,35 +581,35 @@ public extension CTFont {
 	/// The scaled font ascent metric.
 	///
 	/// The font ascent metric scaled based on the point size and matrix of the font reference.
-	var ascent: CGFloat {
+	@inlinable var ascent: CGFloat {
 		return CTFontGetAscent(self)
 	}
 	
 	/// The scaled font descent metric.
 	///
 	/// The font descent metric scaled based on the point size and matrix of the font reference.
-	var descent: CGFloat {
+	@inlinable var descent: CGFloat {
 		return CTFontGetDescent(self)
 	}
 	
 	/// The scaled font leading metric.
 	///
 	/// The font leading metric scaled based on the point size and matrix of the font reference.
-	var leading: CGFloat {
+	@inlinable var leading: CGFloat {
 		return CTFontGetLeading(self)
 	}
 	
 	/// The units per em metric.
 	///
 	/// The units per em of the font.
-	var unitsPerEm: UInt32 {
+	@inlinable var unitsPerEm: UInt32 {
 		return CTFontGetUnitsPerEm(self)
 	}
 	
 	/// The number of glyphs.
 	///
 	/// The number of glyphs in the font.
-	var countOfGlyphs: Int {
+	@inlinable var countOfGlyphs: Int {
 		return CTFontGetGlyphCount(self)
 	}
 	
@@ -617,21 +617,21 @@ public extension CTFont {
 	///
 	/// The design bounding box of the font, which is the rectangle defined by *xMin*, *yMin*, *xMax*, and
 	/// *yMax* values for the font.
-	var boundingBox: CGRect {
+	@inlinable var boundingBox: CGRect {
 		return CTFontGetBoundingBox(self)
 	}
 	
 	/// The scaled underline position.
 	///
 	/// The font underline position metric scaled based on the point size and matrix of the font reference.
-	var underlinePosition: CGFloat {
+	@inlinable var underlinePosition: CGFloat {
 		return CTFontGetUnderlinePosition(self)
 	}
 	
 	/// The scaled underline thickness metric.
 	///
 	/// The font underline thickness metric scaled based on the point size and matrix of the font reference.
-	var underlineThickness: CGFloat {
+	@inlinable var underlineThickness: CGFloat {
 		return CTFontGetUnderlineThickness(self)
 	}
 	
@@ -639,21 +639,21 @@ public extension CTFont {
 	///
 	/// The transformed slant angle of the font. This is equivalent to the italic or caret angle with any skew
 	/// from the transformation matrix applied.
-	var slantAngle: CGFloat {
+	@inlinable var slantAngle: CGFloat {
 		return CTFontGetSlantAngle(self)
 	}
 	
 	/// The cap height metric.
 	///
 	/// The font cap height metric scaled based on the point size and matrix of the font reference.
-	var capHeight: CGFloat {
+	@inlinable var capHeight: CGFloat {
 		return CTFontGetCapHeight(self)
 	}
 	
 	/// The X height metric.
 	///
 	/// The font X height metric scaled based on the point size and matrix of the font reference.
-	var xHeight: CGFloat {
+	@inlinable var xHeight: CGFloat {
 		return CTFontGetXHeight(self)
 	}
 	

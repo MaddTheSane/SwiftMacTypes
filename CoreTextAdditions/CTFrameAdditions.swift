@@ -28,7 +28,7 @@ public extension CTFrame {
 	/// Returns the Core Foundation type identifier for CoreText frames.
 	///
 	/// - returns: The identifier for the opaque type `CTFrameRef`.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return CTFrameGetTypeID()
 	}
 	
@@ -39,7 +39,7 @@ public extension CTFrame {
 	/// store range of characters that were originally requested
 	/// to fill the frame. If the function call is not successful,
 	/// then an empty range will be returned.
-	var stringRange: CFRange {
+	@inlinable var stringRange: CFRange {
 		return CTFrameGetStringRange(self)
 	}
 	
@@ -49,7 +49,7 @@ public extension CTFrame {
 	/// This can be used to chain frames, as it returns the range of
 	/// characters that can be seen in the frame. The next frame would
 	/// start where this frame ends.
-	var visibleStringRange: CFRange {
+	@inlinable var visibleStringRange: CFRange {
 		return CTFrameGetVisibleStringRange(self)
 	}
 	
@@ -59,7 +59,7 @@ public extension CTFrame {
 	}
 	
 	/// The path used to create the frame.
-	var path: CGPath {
+	@inlinable var path: CGPath {
 		return CTFrameGetPath(self)
 	}
 	
@@ -112,7 +112,7 @@ public extension CTFrame {
 	/// This function will draw an entire frame to the context. Note
 	/// that this call may leave the context in any state and does not
 	/// flush it after the draw operation.
-	func draw(in context: CGContext) {
+	@inlinable func draw(in context: CGContext) {
 		CTFrameDraw(self, context)
 	}
 }

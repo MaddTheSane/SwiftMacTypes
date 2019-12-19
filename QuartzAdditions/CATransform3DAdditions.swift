@@ -10,25 +10,25 @@ import QuartzCore.CATransform3D
 
 extension CATransform3D {
 	/// Creates a transform with the same effect as affine transform `m`.
-	@_transparent
+	@inlinable
 	public init(affineTransform m: CGAffineTransform) {
 		self = CATransform3DMakeAffineTransform(m)
 	}
 	
 	/// The identity transform: `[1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1]`.
-	@_transparent
+	@inlinable
 	public static var identity: CATransform3D  {
 		return CATransform3DIdentity
 	}
 	
 	/// Is `true` if this transform is the identity transformation.
-	@_transparent
+	@inlinable
 	public var isIdentity: Bool {
 		return CATransform3DIsIdentity(self)
 	}
 	
 	/// Is `true` if this transform can be represented exactly by an affine transform.
-	@_transparent
+	@inlinable
 	public var isAffine: Bool {
 		return CATransform3DIsAffine(self)
 	}
@@ -38,7 +38,7 @@ extension CATransform3D {
 	/// If this transform cannot be
 	/// represented exactly by an affine transform, the value is
 	/// `nil`.
-	@_transparent
+	@inlinable
 	public var affine: CGAffineTransform? {
 		guard isAffine else {
 			return nil
@@ -48,7 +48,7 @@ extension CATransform3D {
 	
 	/// Returns a transform that translates by `(tx, ty, tz)`:
 	/// **t' =  [1 0 0 0; 0 1 0 0; 0 0 1 0; tx ty tz 1]**.
-	@_transparent
+	@inlinable
 	public init(translateTx tx: CGFloat, ty: CGFloat, tz: CGFloat) {
 		self = CATransform3DMakeTranslation(tx, ty, tz)
 	}
@@ -56,7 +56,7 @@ extension CATransform3D {
 	/// Creates a transform that scales by `(sx, sy, sz)`.
 	///
 	/// `self = [sx 0 0 0; 0 sy 0 0; 0 0 sz 0; 0 0 0 1]`.
-	@_transparent
+	@inlinable
 	public init(scaleSx sx: CGFloat, sy: CGFloat, sz: CGFloat) {
 		self = CATransform3DMakeScale(sx, sy, sz)
 	}
@@ -66,14 +66,14 @@ extension CATransform3D {
 	///
 	/// If the vector has length zero, the identity transform is
 	/// created.
-	@_transparent
+	@inlinable
 	public init(rotateAngle angle: CGFloat, x: CGFloat, y: CGFloat, z: CGFloat) {
 		self = CATransform3DMakeRotation(angle, x, y, z)
 	}
 	
 	/// Translate this transform by `(tx, ty, tz)`:
 	/// **self = translate(tx, ty, tz) * self**.
-	@_transparent
+	@inlinable
 	public mutating func translate(tx: CGFloat, ty: CGFloat, tz: CGFloat) {
 		self = CATransform3DTranslate(self, tx, ty, tz)
 	}
@@ -86,14 +86,14 @@ extension CATransform3D {
 	
 	/// Scales this transform by `(sx, sy, sz)`:
 	/// **self = scale(sx, sy, sz) * self**.
-	@_transparent
+	@inlinable
 	public mutating func scale(sx: CGFloat, sy: CGFloat, sz: CGFloat) {
 		self = CATransform3DScale(self, sx, sy, sz)
 	}
 	
 	/// Scales this transform by `(sx, sy, sz)` and return the result:
 	/// **self' = scale(sx, sy, sz) * self**.
-	@_transparent
+	@inlinable
 	public func scaled(sx: CGFloat, sy: CGFloat, sz: CGFloat) -> CATransform3D {
 		return CATransform3DScale(self, sx, sy, sz)
 	}
@@ -103,7 +103,7 @@ extension CATransform3D {
 	///
 	/// If the vector has zero length the behavior is undefined:
 	/// **self = rotation(angle, x, y, z) * self**.
-	@_transparent
+	@inlinable
 	public mutating func rotate(angle: CGFloat, x: CGFloat, y: CGFloat, z: CGFloat) {
 		self = CATransform3DRotate(self, angle, x, y, z)
 	}
@@ -113,7 +113,7 @@ extension CATransform3D {
 	///
 	/// If the vector has zero length the behavior is undefined:
 	/// **self' = rotation(angle, x, y, z) * self**.
-	@_transparent
+	@inlinable
 	public func rotated(angle: CGFloat, x: CGFloat, y: CGFloat, z: CGFloat) -> CATransform3D {
 		return CATransform3DRotate(self, angle, x, y, z)
 	}
@@ -122,7 +122,7 @@ extension CATransform3D {
 	/// Inverts this transform.
 	///
 	/// Does nothing if there's no inverse.
-	@_transparent
+	@inlinable
 	public mutating func invert() {
 		self = CATransform3DInvert(self)
 	}
@@ -130,7 +130,7 @@ extension CATransform3D {
 	/// Inverts this transform and return the result.
 	///
 	/// Returns `self` if there's no inverse.
-	@_transparent
+	@inlinable
 	public var inverted: CATransform3D {
 		return CATransform3DInvert(self)
 	}

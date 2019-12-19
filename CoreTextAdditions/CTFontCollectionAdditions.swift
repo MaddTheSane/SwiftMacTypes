@@ -18,7 +18,7 @@ public extension CTFontCollection {
 	/// The Core Foundation type identifier for CoreText font collections.
 	///
 	/// - returns: The identifier for the opaque type `CTFontCollectionRef`.
-	class var typeID: CFTypeID {
+	@inlinable class var typeID: CFTypeID {
 		return CTFontCollectionGetTypeID()
 	}
 	
@@ -56,7 +56,7 @@ public extension CTFontCollection {
 	/// Returns a mutable copy of the original collection.
 	///
 	/// - returns: This function creates a mutable copy of the original font collection.
-	func mutableCopy() -> CTMutableFontCollection {
+	@inlinable func mutableCopy() -> CTMutableFontCollection {
 		return CTFontCollectionCreateMutableCopy(self)
 	}
 	
