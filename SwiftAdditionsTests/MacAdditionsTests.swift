@@ -12,78 +12,78 @@ import XCTest
 import CoreFoundation.CFStringEncodingExt
 
 class MacAdditionsTests: XCTestCase {
-
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
+	
+	override func setUp() {
+		super.setUp()
+		// Put setup code here. This method is called before the invocation of each test method in the class.
+	}
+	
+	override func tearDown() {
+		// Put teardown code here. This method is called after the invocation of each test method in the class.
+		super.tearDown()
+	}
 	
 	func testPascalStrings() {
 		let pStr255: String.PStr255 = (2, 72, 105, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0)
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									   0, 0, 0, 0, 0, 0, 0, 0, 0)
 		/// A pascal string that is 64 bytes long, containing at least 63 characters.
 		let pStr63: String.PStr63 = (2, 72, 105, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0)
+									 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									 0, 0, 0, 0, 0, 0, 0)
 		/// A pascal string that is 33 bytes long, containing at least 32 characters.
 		let pStr32: String.PStr32 = (2, 72, 105, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0)
+									 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									 0, 0, 0, 0, 0, 0)
 		/// A pascal string that is 32 bytes long, containing at least 31 characters.
 		let pStr31: String.PStr31 = (2, 72, 105, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0)
+									 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									 0, 0, 0, 0, 0)
 		/// A pascal string that is 28 bytes long, containing at least 27 characters.
 		let pStr27: String.PStr27 = (2, 72, 105, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0)
+									 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+									 0)
 		/// A pascal string that is 16 bytes long, containing at least 15 characters.
 		let pStr15: String.PStr15 = (2, 72, 105, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0)
+									 0, 0, 0, 0, 0, 0, 0, 0, 0)
 		/// A pascal string that is 34 bytes long, containing at least 32 characters.
 		///
 		/// The last byte is unused as it was used for padding over a network.
 		let pStr32Field: String.PStr32Field = (2, 72, 105, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0)
-
+											   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+											   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+											   0, 0, 0, 0, 0, 0, 0, 0)
+		
 		var aStr = String(pascalString: pStr255)
 		XCTAssertNotNil(aStr, "Pascal String '\(pStr255)' invalid")
 		aStr = String(pascalString: pStr63)

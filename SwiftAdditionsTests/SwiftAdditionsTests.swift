@@ -68,7 +68,7 @@ class SwiftAdditionsTests: XCTestCase {
 		subString = testString.substringWithLength(utf8: 10)
 		subString2 = testString.substringWithLength(utf16: 10)
 		XCTAssertNotEqual(subString, subString2)
-
+		
 		//Simple, short non-ASCII string
 		testString = "Olé"
 		subString = testString.substringWithLength(utf8: 10)
@@ -76,7 +76,7 @@ class SwiftAdditionsTests: XCTestCase {
 		subString2 = testString.substringWithLength(utf16: 10)
 		XCTAssertEqual(testString, subString2)
 		XCTAssertEqual(subString2, subString)
-
+		
 		//bounds testing
 		testString = "Résumé"
 		subString = testString.substringWithLength(utf8: 6)

@@ -13,19 +13,19 @@ import CoreAudio
 import XCTest
 
 class SwiftAudioAdditionsTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testASBDStringInit() {
-        var asbd = AudioStreamBasicDescription()
+	
+	override func setUp() {
+		super.setUp()
+		// Put setup code here. This method is called before the invocation of each test method in the class.
+	}
+	
+	override func tearDown() {
+		// Put teardown code here. This method is called after the invocation of each test method in the class.
+		super.tearDown()
+	}
+	
+	func testASBDStringInit() {
+		var asbd = AudioStreamBasicDescription()
 		XCTAssertNoThrow(asbd = try AudioStreamBasicDescription(fromText: "BEI16@44100,2"))
 		XCTAssertNoThrow(asbd = try AudioStreamBasicDescription(fromText: "BEI16@44100,2"))
 		XCTAssertNoThrow(asbd = try AudioStreamBasicDescription(fromText: "BEI16.1@44100:L5"))
@@ -38,7 +38,7 @@ class SwiftAudioAdditionsTests: XCTestCase {
 		XCTAssertNoThrow(asbd = try AudioStreamBasicDescription(fromText: "aac"))
 		XCTAssertNoThrow(asbd = try AudioStreamBasicDescription(fromText: "aac/5bE"))
 		_=asbd
-    }
+	}
 	
 	func testInvalidASBDStringInits() {
 		var asbd: AudioStreamBasicDescription?
