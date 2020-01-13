@@ -316,20 +316,6 @@ public extension AudioStreamBasicDescription {
 		self.init(mSampleRate: sampleRate, mFormatID: formatID.rawValue, mFormatFlags: formatFlags.rawValue, mBytesPerPacket: bytesPerFrame * framesPerPacket, mFramesPerPacket: framesPerPacket, mBytesPerFrame: bytesPerFrame, mChannelsPerFrame: channelsPerFrame, mBitsPerChannel: bitsPerChannel, mReserved: 0)
 	}
 	
-	@available(*, deprecated, message: "AudioFormatID and AudioFormatFlags constants should now be typed correctly")
-	init(sampleRate: Float64, formatID: Int, formatFlags: Int, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
-		self.init()
-		mSampleRate = sampleRate
-		mFormatID = UInt32(formatID)
-		mFormatFlags = UInt32(formatFlags)
-		mBitsPerChannel = bitsPerChannel
-		mChannelsPerFrame = channelsPerFrame
-		mFramesPerPacket = framesPerPacket
-		mBytesPerFrame = mBitsPerChannel * mChannelsPerFrame / 8
-		mBytesPerPacket = mBytesPerFrame * mFramesPerPacket
-		mReserved = 0
-	}
-	
 	init(sampleRate: Float64, formatID: AudioFormatID, formatFlags: AudioFormatFlags, bitsPerChannel: UInt32, channelsPerFrame: UInt32, framesPerPacket: UInt32 = 1) {
 		let bytesPerFrame = bitsPerChannel * channelsPerFrame / 8
 		self.init(mSampleRate: sampleRate, mFormatID: formatID, mFormatFlags: formatFlags, mBytesPerPacket: bytesPerFrame * framesPerPacket, mFramesPerPacket: framesPerPacket, mBytesPerFrame: bytesPerFrame, mChannelsPerFrame: channelsPerFrame, mBitsPerChannel: bitsPerChannel, mReserved: 0)

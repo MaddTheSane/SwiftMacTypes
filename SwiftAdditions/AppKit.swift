@@ -65,7 +65,7 @@ import Cocoa
 		/// Because future releases may include other compression types, always use this
 		/// method to get the available compression types—for example, when you implement a
 		/// user interface for selecting compression types.
-		class var tiffCompressionTypes: UnsafeBufferPointer<NSBitmapImageRep.TIFFCompression> {
+		static var tiffCompressionTypes: UnsafeBufferPointer<NSBitmapImageRep.TIFFCompression> {
 			var compPtr: UnsafePointer<NSBitmapImageRep.TIFFCompression>? = nil
 			var count = 0
 			getTIFFCompressionTypes(&compPtr, count: &count)

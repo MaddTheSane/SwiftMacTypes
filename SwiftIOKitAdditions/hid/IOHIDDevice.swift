@@ -150,7 +150,7 @@ public extension IOHIDDevice {
 	/// queue. A call to `setDispatchQueue(_:)` should only be made once.
 	///
 	/// If a dispatch queue is set but never used, a call to `cancel()` followed
-	/// by IOHIDDeviceActivate should be performed in that order.
+	/// by `activate()` should be performed in that order.
 	///
 	/// After a dispatch queue is set, the `IOHIDDevice` must make a call to activate
 	/// via `activate()` and cancel via `cancel()`. All calls to "Register"

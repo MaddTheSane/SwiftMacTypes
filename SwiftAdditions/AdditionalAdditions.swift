@@ -260,7 +260,7 @@ public extension UnsafeBufferPointer {
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
 	/// - parameter toCheck: The current element to check.
-	init(start: UnsafePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
+	@inlinable init(start: UnsafePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
 		var toIterate = start
 		
 		while !(try sentinelChecker(toIterate.pointee)) {
@@ -284,7 +284,7 @@ public extension UnsafeBufferPointer {
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
 	/// - parameter toCheck: The current element to check.
-	init(start: UnsafePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
+	@inlinable init(start: UnsafePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
 		var toIterate = start
 		
 		while !(try sentinelChecker(toIterate.pointee)) && start.distance(to: toIterate) > maximum {
@@ -307,7 +307,7 @@ public extension UnsafeMutableBufferPointer {
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
 	/// - parameter toCheck: The current element to check.
-	init(start: UnsafeMutablePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
+	@inlinable init(start: UnsafeMutablePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
 		var toIterate = start
 		
 		while !(try sentinelChecker(toIterate.pointee)) {
@@ -331,7 +331,7 @@ public extension UnsafeMutableBufferPointer {
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
 	/// - parameter toCheck: The current element to check.
-	init(start: UnsafeMutablePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
+	@inlinable init(start: UnsafeMutablePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
 		var toIterate = start
 		
 		while !(try sentinelChecker(toIterate.pointee)) && start.distance(to: toIterate) > maximum {

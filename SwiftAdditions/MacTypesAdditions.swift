@@ -50,6 +50,12 @@ public func toOSType(string theString: String, detectHex: Bool = false) -> OSTyp
 }
 
 /// Converts a `String` value to an `OSType`, truncating to the first four characters.
+///
+/// If `theString` is longer than four characters, only the first four characters are used.
+/// If `theString` is shorter than four characters, the missing character spots are filled in with spaces (*0x20*).
+/// - parameter theString: The `String` to get the OSType value from
+/// - parameter detectHex: If `true`, attempts to detect if the string is formatted as  a hexadecimal value.
+/// - returns: `theString` converted to an OSType, or *0* if the string can't be represented in the Mac OS Roman string encoding.
 public func toOSType(_ theString: String, detectHex: Bool = false) -> OSType {
 	if detectHex && theString.count > 4 {
 		let aScann = Scanner(string: theString)
@@ -136,7 +142,7 @@ public extension String.Encoding {
 	
 	/// Converts the current encoding to the equivalent `CFStringEncoding`.
 	///
-	/// Deprecated. Use `cfStringEncoding` instead
+	/// Deprecated. Use `cfStringEncoding` instead.
 	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "cfStringEncoding")
 	var toCFStringEncoding: CFStringEncoding {
 		return cfStringEncoding

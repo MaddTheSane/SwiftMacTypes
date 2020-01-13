@@ -254,7 +254,7 @@ public extension NSIndexSet {
 
 public extension IndexSet {
 	/// Creates an index set from a sequence of `Int`s.
-	init<B: Sequence>(indexes: B) where B.Element == Int {
+	@inlinable init<B: Sequence>(indexes: B) where B.Element == Int {
 		self.init()
 		for idx in indexes {
 			insert(idx)

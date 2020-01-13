@@ -204,7 +204,7 @@ public extension ASCIICharacter {
 
 public extension String {
 	/// Creates a string from a sequence of `ASCIICharacter`s.
-	init<A: Sequence>(asciiCharacters: A) where A.Element == ASCIICharacter {
+	@inlinable init<A: Sequence>(asciiCharacters: A) where A.Element == ASCIICharacter {
 		let asciiCharMap = asciiCharacters.map { (cha) -> Character in
 			return cha.characterValue
 		}
