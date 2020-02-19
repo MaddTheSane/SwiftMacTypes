@@ -13,18 +13,18 @@ import Foundation
 
 public extension NSRange {
 	/// An `NSRange` with a `location` of `NSNotFound` and a `length` of `0`.
-	static var notFound: NSRange {
+	@inlinable static var notFound: NSRange {
 		return NSRange(location: NSNotFound, length: 0)
 	}
 	
 	/// Is `true` if `location` is equal to `NSNotFound`.
-	var notFound: Bool {
+	@inlinable var notFound: Bool {
 		return location == NSNotFound
 	}
 	
 	/// Set the current `NSRange` to an intersection of this range and another.
 	/// - parameter otherRange: the other range to intersect with.
-	mutating func intersect(_ otherRange: NSRange) {
+	@inlinable mutating func intersect(_ otherRange: NSRange) {
 		self = NSIntersectionRange(self, otherRange)
 	}
 	
@@ -53,6 +53,7 @@ public extension NSRange {
 	var cfRange: CoreFoundation.CFRange {
 		return CFRange(location: location, length: length)
 	}
+	// MARK: -
 }
 
 public extension CGPoint {
@@ -449,7 +450,7 @@ public extension UserDefaults {
 	/// When getting, the following is attempted by the Foundation
 	/// framework to convert it to a `URL`:
 	/// * If the value is a `String` path, then it will construct a file URL to that path. 
-	/// * If the value is an archived URL from `-setURL:forKey:`, or is set via the URL subscript, it will be unarchived.
+	/// * If the value is an archived URL from `-setURL:forKey:`, or is set via this URL subscript setter, it will be unarchived.
 	/// * If the value is absent or can't be converted to a `URL`, `nil` will be returned.
 	@nonobjc subscript(key: String) -> URL? {
 		get {

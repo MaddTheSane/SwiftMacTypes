@@ -66,6 +66,9 @@ public struct SAMacError: _BridgedStoredNSError {
 
 		/// User cancelled action
 		case userCancelled = -128
+		
+		/// Directory not found
+		case directoryNotFound = -120
 	}
 	
 	/// error in user parameter list
@@ -103,6 +106,9 @@ public struct SAMacError: _BridgedStoredNSError {
 	
 	/// User cancelled action
 	public static var userCancelled: SAMacError.Code { return .userCancelled }
+	
+	/// Directory not found
+	public static var directoryNotFound: SAMacError.Code { return .directoryNotFound }
 }
 #endif
 

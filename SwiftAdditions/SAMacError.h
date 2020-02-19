@@ -26,6 +26,7 @@
 #define nsvErr -35
 #define fLckdErr -45
 #define userCanceledErr -128
+#define dirNFErr -120
 #endif
 
 #ifndef MTS_ERROR_ENUM
@@ -70,6 +71,8 @@ typedef MTS_ERROR_ENUM(OSStatus, NSOSStatusErrorDomain, SAMacError) {
 	SAMacErrorFileLocked = fLckdErr,
 	/*! User cancelled action */
 	SAMacErrorUserCancelled = userCanceledErr,
+	/*! Directory not found */
+	SAMacErrorDirectoryNotFound = dirNFErr,
 };
 
 #endif /* SAMacError_h */
