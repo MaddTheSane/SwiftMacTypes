@@ -73,6 +73,27 @@ typedef MTS_ERROR_ENUM(OSStatus, NSOSStatusErrorDomain, SAMacError) {
 	SAMacErrorUserCancelled = userCanceledErr,
 	/*! Directory not found */
 	SAMacErrorDirectoryNotFound = dirNFErr,
+	
+	#if TARGET_OS_OSX
+	SAMacErrorOSASystemError             = -1750,
+	SAMacErrorOSAInvalidID               = -1751,
+	SAMacErrorOSABadStorageType          = -1752,
+	SAMacErrorOSAScriptError             = -1753,
+	SAMacErrorOSABadSelector             = -1754,
+	SAMacErrorOSASourceNotAvailable      = -1756,
+	SAMacErrorOSANoSuchDialect           = -1757,
+	SAMacErrorOSADataFormatObsolete      = -1758,
+	SAMacErrorOSADataFormatTooNew        = -1759,
+	SAMacErrorOSACorruptData             = -1702,
+	SAMacErrorOSARecordingIsAlreadyOn    = -1732,
+	
+	/*! Parameters are from 2 different components */
+	SAMacErrorOSAComponentMismatch       = -1761,
+	/*! Can't connect to scripting system with that ID */
+	SAMacErrorOSACantOpenComponent       = -1762,
+	/*! Can't store memory pointers in a saved script */
+	SAMacErrorOSACantStorePointers       = -1763
+#endif
 };
 
 #endif /* SAMacError_h */

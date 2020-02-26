@@ -9,7 +9,7 @@
 import Foundation
 
 #if os(OSX)
-	private func getError(dict: NSDictionary?) -> NSError {
+	private func getError(dict: NSDictionary?) -> Error {
 		if var dict = dict as? [String : Any] {
 			let errNum = dict[NSAppleScript.errorNumber] as? Int ?? errOSAScriptError
 			
@@ -17,7 +17,7 @@ import Foundation
 			dict[NSLocalizedDescriptionKey] = dict[NSAppleScript.errorBriefMessage]
 			return NSError(domain: NSOSStatusErrorDomain, code: errNum, userInfo: dict)
 		} else {
-			return NSError(domain: NSOSStatusErrorDomain, code: errOSAScriptError)
+			return SAMacError(.osaScriptError)
 		}
 	}
 

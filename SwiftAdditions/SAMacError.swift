@@ -69,6 +69,29 @@ public struct SAMacError: _BridgedStoredNSError {
 		
 		/// Directory not found
 		case directoryNotFound = -120
+		
+		#if os(OSX)
+		case osaSystemError = -1750
+		case osaInvalidID = -1751
+		case osaBadStorageType = -1752
+		case osaScriptError = -1753
+		case osaBadSelector = -1754
+		case osaSourceNotAvailable = -1755
+		case osaNoSuchDialect = -1756
+		case osaDataFormatObsolete = -1758
+		case osaDataFormatTooNew = -1759
+		case osaCorruptData = -1702
+		case osaRecordingIsAlreadyOn = -1732
+		
+		/// Parameters are from 2 different components
+		case osaComponentMismatch = -1761
+
+		/// Can't connect to scripting system with that ID
+		case osaCantOpenComponent = -1762
+
+		/// Can't store memory pointers in a saved script
+		case osaCantStorePointers = -1763
+		#endif
 	}
 	
 	/// error in user parameter list
@@ -109,6 +132,39 @@ public struct SAMacError: _BridgedStoredNSError {
 	
 	/// Directory not found
 	public static var directoryNotFound: SAMacError.Code { return .directoryNotFound }
+	
+	#if os(OSX)
+	public static var osaSystemError: SAMacError.Code { return .osaSystemError }
+
+	public static var osaInvalidID: SAMacError.Code { return .osaInvalidID }
+
+	public static var osaBadStorageType: SAMacError.Code { return .osaBadStorageType }
+
+	public static var osaScriptError: SAMacError.Code { return .osaScriptError }
+
+	public static var osaBadSelector: SAMacError.Code { return .osaBadSelector }
+
+	public static var osaSourceNotAvailable: SAMacError.Code { return .osaSourceNotAvailable }
+
+	public static var osaNoSuchDialect: SAMacError.Code { return .osaNoSuchDialect }
+
+	public static var osaDataFormatObsolete: SAMacError.Code { return .osaDataFormatObsolete }
+
+	public static var osaDataFormatTooNew: SAMacError.Code { return .osaDataFormatTooNew }
+
+	public static var osaCorruptData: SAMacError.Code { return .osaCorruptData }
+
+	public static var osaRecordingIsAlreadyOn: SAMacError.Code { return .osaRecordingIsAlreadyOn }
+
+	/// Parameters are from 2 different components
+	public static var osaComponentMismatch: SAMacError.Code { return .osaComponentMismatch }
+
+	/// Can't connect to scripting system with that ID
+	public static var osaCantOpenComponent: SAMacError.Code { return .osaCantOpenComponent }
+
+	/// Can't store memory pointers in a saved script
+	public static var osaCantStorePointers: SAMacError.Code { return .osaCantStorePointers }
+	#endif
 }
 #endif
 
@@ -126,9 +182,7 @@ public extension SAMacError.Code {
 public extension SAMacError {
 	/// This throws the passed-in error as an `NSOSStatusErrorDomain` error.
 	///
-	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used! Trying
-	/// to catch `SAMacError` thrown here may result in some `NSOSStatusErrorDomain` errors
-	/// being overlooked.
+	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used!
 	/// - parameter userInfo: Additional user info dictionary. Optional, default value is a
 	/// blank dictionary.
 	/// - parameter status: The `OSStatus` to throw as an `NSOSStatusErrorDomain` error.
@@ -138,12 +192,10 @@ public extension SAMacError {
 	
 	/// This throws the passed-in error as an `NSOSStatusErrorDomain` error.
 	///
-	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used! Trying
-	/// to catch `SAMacError` thrown here may result in some `NSOSStatusErrorDomain` errors
-	/// being overlooked.
+	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used!
 	///
 	/// `OSErr`s are returned by older APIs. These APIs may be deprecated and not available to
-	/// Swift
+	/// Swift.
 	/// - parameter userInfo: Additional user info dictionary. Optional, default value is a
 	/// blank dictionary.
 	/// - parameter status: The `OSErr` to throw as an `NSOSStatusErrorDomain` error.
