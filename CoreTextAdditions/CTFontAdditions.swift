@@ -133,7 +133,17 @@ public extension CTFont {
 		return CTFontCreateUIFontForLanguage(uiType, size, language as NSString?)
 	}
 	
-	enum FontNameKey: CustomStringConvertible {
+	enum FontNameKey: CustomStringConvertible, RawRepresentable {
+		public typealias RawValue = String
+		
+		public init?(rawValue: String) {
+			self.init(stringValue: rawValue)
+		}
+		
+		public var rawValue: String {
+			return cfString as String
+		}
+		
 		/// The name specifier for the copyright name.
 		case copyright
 		

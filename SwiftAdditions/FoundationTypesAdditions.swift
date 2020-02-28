@@ -236,11 +236,11 @@ public extension NSMutableData {
 #if os(OSX)
 @available(OSX, introduced: 10.10)
 extension NSEdgeInsets: Equatable {
-	public static var zero: NSEdgeInsets {
+	@inlinable public static var zero: NSEdgeInsets {
 		return NSEdgeInsetsZero
 	}
 	
-	public static func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
+	@inlinable public static func ==(rhs: NSEdgeInsets, lhs: NSEdgeInsets) -> Bool {
 		return NSEdgeInsetsEqual(rhs, lhs)
 	}
 }

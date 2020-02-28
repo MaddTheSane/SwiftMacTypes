@@ -397,7 +397,7 @@ public enum FontManager {
 	/// invalidate this run loop source. Will return `nil` on error, in the case of a duplicate requestPortName
 	/// or invalid context structure.
 	@available(OSX 10.6, *)
-	public static func createFontRequestRunLoopSource(order sourceOrder: Int, _ createMatchesCallback: @escaping @convention(block) (_ requestAttributes: CFDictionary, _ requestingProcess: pid_t) -> Unmanaged<CFArray>) -> CFRunLoopSource? {
+	@inlinable public static func createFontRequestRunLoopSource(order sourceOrder: Int, _ createMatchesCallback: @escaping @convention(block) (_ requestAttributes: CFDictionary, _ requestingProcess: pid_t) -> Unmanaged<CFArray>) -> CFRunLoopSource? {
 			return CTFontManagerCreateFontRequestRunLoopSource(sourceOrder, createMatchesCallback)
 	}
 	

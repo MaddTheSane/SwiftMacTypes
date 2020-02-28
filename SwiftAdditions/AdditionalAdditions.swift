@@ -168,7 +168,7 @@ public extension Array {
 	///
 	/// Internally creates an `IndexSet` so the items are in order.
 	/// - parameter ixs: the integer sequence containing the indexes of objects that will be removed
-	mutating func remove<B: Sequence>(indexes ixs: B) where B.Iterator.Element == Int {
+	@inlinable mutating func remove<B: Sequence>(indexes ixs: B) where B.Iterator.Element == Int {
 		var idxSet = IndexSet()
 		for i in ixs {
 			idxSet.insert(i)
