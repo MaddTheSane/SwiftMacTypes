@@ -42,6 +42,7 @@
 /* Begin PBXBuildFile section */
 		550404E721584E7D002D2702 /* SAAError.h in Headers */ = {isa = PBXBuildFile; fileRef = 550404E521584E7C002D2702 /* SAAError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		550404E821584E7D002D2702 /* SAAError.m in Sources */ = {isa = PBXBuildFile; fileRef = 550404E621584E7D002D2702 /* SAAError.m */; };
+		5505E0BB2408D62B002339C7 /* CTParagraphStyleAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5505E0BA2408D62B002339C7 /* CTParagraphStyleAdditions.swift */; };
 		550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550B049F1A0D5932002BD56E /* COMUUIDs.swift */; };
 		550FBAC419A7ADC500EFBD3D /* SwiftAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		550FBACE19A7ADC500EFBD3D /* SwiftAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */; };
@@ -261,6 +262,7 @@
 /* Begin PBXFileReference section */
 		550404E521584E7C002D2702 /* SAAError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAAError.h; sourceTree = "<group>"; };
 		550404E621584E7D002D2702 /* SAAError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAAError.m; sourceTree = "<group>"; };
+		5505E0BA2408D62B002339C7 /* CTParagraphStyleAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTParagraphStyleAdditions.swift; sourceTree = "<group>"; };
 		550B049F1A0D5932002BD56E /* COMUUIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COMUUIDs.swift; sourceTree = "<group>"; };
 		550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		550FBAC219A7ADC500EFBD3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 				5527AC371FAE7CE8009CC7FC /* CTFontManagerAdditions.swift */,
 				5527AC301FAE7CE7009CC7FC /* CTFrameAdditions.swift */,
 				5527AC331FAE7CE8009CC7FC /* CTLineAdditions.swift */,
+				5505E0BA2408D62B002339C7 /* CTParagraphStyleAdditions.swift */,
 				5527AC2C1FAE7CE7009CC7FC /* CTRubyAnnotationAdditions.swift */,
 				5527AC341FAE7CE8009CC7FC /* CTRunAdditions.swift */,
 				5527AC2E1FAE7CE7009CC7FC /* CTStringAttributesAdditions.swift */,
@@ -1230,6 +1233,7 @@
 				5527AC431FAE7CE8009CC7FC /* CTFontAdditions.swift in Sources */,
 				5527AC441FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift in Sources */,
 				5527AC451FAE7CE8009CC7FC /* CTFontManagerAdditions.swift in Sources */,
+				5505E0BB2408D62B002339C7 /* CTParagraphStyleAdditions.swift in Sources */,
 				5527AC3E1FAE7CE8009CC7FC /* CTFrameAdditions.swift in Sources */,
 				5527AC411FAE7CE8009CC7FC /* CTLineAdditions.swift in Sources */,
 				5527AC381FAE7CE8009CC7FC /* CTTextTabAdditions.swift in Sources */,
