@@ -31,6 +31,7 @@ extension NSAttributedString.Key {
 			return NSAttributedString.Key(rawValue: kCTFontAttributeName as String)
 		}
 		
+		/// The dictionary of font traits for stylistic information.
 		public static var fontTraits: NSAttributedString.Key {
 			return NSAttributedString.Key(rawValue: kCTFontTraitsAttribute as String)
 		}
@@ -255,10 +256,10 @@ extension NSAttributedString.Key {
 
 		/// Specifies a bidirectional override or embedding.
 		///
-		/// Value must be a CFArray of CFNumberRefs, each of which should
-		/// have a value of either kCTWritingDirectionLeftToRight or
-		/// kCTWritingDirectionRightToLeft, plus one of
-		/// kCTWritingDirectionEmbedding or kCTWritingDirectionOverride.
+		/// Value must be a `CFArray` of `CFNumber`s, each of which should
+		/// have a value of either `kCTWritingDirectionLeftToRight` or
+		/// `kCTWritingDirectionRightToLeft`, plus one of
+		/// `kCTWritingDirectionEmbedding` or `kCTWritingDirectionOverride`.
 		/// This array represents a sequence of nested bidirectional
 		/// embeddings or overrides, in order from outermost to innermost,
 		/// with `(kCTWritingDirectionLeftToRight | kCTWritingDirectionEmbedding)`
