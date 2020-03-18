@@ -73,7 +73,7 @@ public enum ReflectError: Error {
 ///
 /// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
 /// - parameter block: The block to execute syncronously on the main thread.
-public func runOnMainThreadSync(block: () -> Void) {
+public func runOnMainThreadSync(_ block: () -> Void) {
 	if Thread.isMainThread {
 		block()
 	} else {
@@ -86,7 +86,7 @@ public func runOnMainThreadSync(block: () -> Void) {
 ///
 /// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
 /// - parameter block: The block to execute asyncronously on the main thread.
-public func runOnMainThreadAsync(block: @escaping () -> Void) {
+public func runOnMainThreadAsync(_ block: @escaping () -> Void) {
 	if Thread.isMainThread {
 		block()
 	} else {
@@ -96,21 +96,21 @@ public func runOnMainThreadAsync(block: @escaping () -> Void) {
 
 // Code taken from http://stackoverflow.com/a/33957196/1975001
 public extension Dictionary {
-	mutating func formUnion(_ dictionary: Dictionary) {
+	@inlinable mutating func formUnion(_ dictionary: Dictionary) {
 		if capacity < count + dictionary.count {
 			reserveCapacity(count + dictionary.count)
 		}
 		dictionary.forEach { self.updateValue($1, forKey: $0) }
 	}
 	
-	func union(_ dictionary: Dictionary) -> Dictionary {
+	@inlinable func union(_ dictionary: Dictionary) -> Dictionary {
 		var dict1 = self
 		dict1.formUnion(dictionary)
 		return dict1
 	}
 
 	// Code taken from http://stackoverflow.com/a/24052094/1975001
-	static func +=(left: inout Dictionary, right: Dictionary) {
+	@inlinable static func +=(left: inout Dictionary, right: Dictionary) {
 		if left.capacity < left.count + right.count {
 			left.reserveCapacity(left.count + right.count)
 		}
@@ -121,7 +121,7 @@ public extension Dictionary {
 	
 	/// Adds two dictionaries together, returning the result.
 	/// For any key in both `left` and `right`, the value in `right` is used.
-	static func +(left: Dictionary, right: Dictionary) -> Dictionary {
+	@inlinable static func +(left: Dictionary, right: Dictionary) -> Dictionary {
 		var map = Dictionary<Key, Value>()
 		map.reserveCapacity(left.count + right.count)
 		for (k, v) in left {

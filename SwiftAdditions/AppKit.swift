@@ -77,7 +77,7 @@ import Cocoa
 	
 	public extension NSBitmapImageRep.Format {
 		/// The native 32-bit byte order format.
-		static var thirtyTwoBitNativeEndian: NSBitmapImageRep.Format {
+		@inlinable static var thirtyTwoBitNativeEndian: NSBitmapImageRep.Format {
 			#if _endian(little)
 				return .thirtyTwoBitLittleEndian
 			#elseif _endian(big)
@@ -88,7 +88,7 @@ import Cocoa
 		}
 		
 		/// The native 16-bit byte order format.
-		static var sixteenBitNativeEndian: NSBitmapImageRep.Format {
+		@inlinable static var sixteenBitNativeEndian: NSBitmapImageRep.Format {
 			#if _endian(little)
 				return .sixteenBitLittleEndian
 			#elseif _endian(big)

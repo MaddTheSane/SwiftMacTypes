@@ -272,7 +272,7 @@ public extension UserDefaults {
 	/// `String`, Foundation will convert it to a string 
 	/// if the value is a number value. Otherwise `nil` will
 	/// be returned.
-	@nonobjc subscript(key: String) -> String? {
+	@nonobjc @inlinable subscript(key: String) -> String? {
 		get {
 			return string(forKey: key)
 		}
@@ -286,7 +286,7 @@ public extension UserDefaults {
 	///
 	/// When getting, if the user default specified by `key` is not a `Data`
 	/// or is not present, this will return `nil`.
-	@nonobjc subscript(key: String) -> Data? {
+	@nonobjc @inlinable subscript(key: String) -> Data? {
 		get {
 			return data(forKey: key)
 		}
@@ -300,7 +300,7 @@ public extension UserDefaults {
 	///
 	/// When getting, if the user default specified by `key` is not a `Date`
 	/// or is not present, this will return `nil`.
-	@nonobjc subscript(key: String) -> Date? {
+	@nonobjc @inlinable subscript(key: String) -> Date? {
 		get {
 			return object(forKey: key) as? Date
 		}
@@ -314,7 +314,7 @@ public extension UserDefaults {
 	///
 	/// When getting, if the user default specified by `key` is not an `Array`
 	/// or is not present, this will return `nil`.
-	@nonobjc subscript(key: String) -> [Any]? {
+	@nonobjc @inlinable subscript(key: String) -> [Any]? {
 		get {
 			return array(forKey: key)
 		}
@@ -328,7 +328,7 @@ public extension UserDefaults {
 	///
 	/// When getting, if any of the objects in the user default array specified by `key`
 	/// is not a `String` or is not present, this will return `nil`.
-	@nonobjc subscript(key: String) -> [String]? {
+	@nonobjc @inlinable subscript(key: String) -> [String]? {
 		get {
 			return stringArray(forKey: key)
 		}
@@ -342,7 +342,7 @@ public extension UserDefaults {
 	///
 	/// When getting, if the user default specified by `key` is not a `Dictionary`
 	/// or is not present, this will return `nil`.
-	@nonobjc subscript(key: String) -> [String: Any]? {
+	@nonobjc @inlinable subscript(key: String) -> [String: Any]? {
 		get {
 			return dictionary(forKey: key)
 		}
@@ -452,7 +452,7 @@ public extension UserDefaults {
 	/// * If the value is a `String` path, then it will construct a file URL to that path. 
 	/// * If the value is an archived URL from `-setURL:forKey:`, or is set via this URL subscript setter, it will be unarchived.
 	/// * If the value is absent or can't be converted to a `URL`, `nil` will be returned.
-	@nonobjc subscript(key: String) -> URL? {
+	@nonobjc @inlinable subscript(key: String) -> URL? {
 		get {
 			return url(forKey: key)
 		}
