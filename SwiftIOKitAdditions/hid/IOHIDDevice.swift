@@ -174,7 +174,16 @@ public extension IOHIDDevice {
 	///
 	/// The `IOHIDDevice` should only be released after the device has been
 	/// cancelled, and the cancel handler has been called. This is to ensure all
-	/// asynchronous objects are released.
+	/// asynchronous objects are released. For example:
+	///````
+	/// let deviceRetained = Unmanaged.passRetained(device)
+	/// let cancelHandler = {
+	///     deviceRetained.release()
+	/// }()
+	/// device.setCancelHandler(cancelHandler)
+	/// device.activate()
+	/// device.cancel()
+	///````
 	/// - parameter handler: The cancellation handler block to be associated with
 	/// the dispatch queue.
 	@available(OSX 10.15, *)
