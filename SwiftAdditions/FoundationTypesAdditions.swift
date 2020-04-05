@@ -39,18 +39,18 @@ public extension NSRange {
 	
 	/// Initializes an `NSRange` struct from a `CFRange` struct.
 	/// - parameter range: The `CFRange` to convert from.
-	init(_ range: CoreFoundation.CFRange) {
+	@inlinable init(_ range: CoreFoundation.CFRange) {
 		self.init(location: range.location, length: range.length)
 	}
 	
 	/// Initializes an `NSRange` struct from a `CFRange` struct.
 	/// - parameter range: The `CFRange` to convert from.
-	init(range: CoreFoundation.CFRange) {
+	@inlinable init(range: CoreFoundation.CFRange) {
 		self.init(range)
 	}
 	
 	/// The current range, represented as a `CFRange`.
-	var cfRange: CoreFoundation.CFRange {
+	@inlinable var cfRange: CoreFoundation.CFRange {
 		return CFRange(location: location, length: length)
 	}
 	// MARK: -
@@ -197,37 +197,48 @@ public extension NSUUID {
 	
 	/// Get a CoreFoundation UUID from the current UUID.
 	@objc(CFUUID) var cfUUID: CFUUID {
-		let tmpStr = self.uuidString
+		let tmp = (self as UUID).uuid
+		let tmp2 = unsafeBitCast(tmp, to: CFUUIDBytes.self)
 		
-		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
+		return CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, tmp2)
 	}
 }
 
 public extension UUID {
 	/// Create a new `Foundation.UUID` from a CoreFoundation `CFUUID`.
 	init(cfUUID: CFUUID) {
-		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
+		let tmp = CFUUIDGetUUIDBytes(cfUUID)
+		let tmp2 = unsafeBitCast(tmp, to: uuid_t.self)
 		
-		self.init(uuidString: tempUIDStr)!
+		self.init(uuid: tmp2)
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
 	var cfUUID: CFUUID {
-		let tmpStr = self.uuidString
+		let tmp = self.uuid
+		let tmp2 = unsafeBitCast(tmp, to: CFUUIDBytes.self)
 		
-		return CFUUIDCreateFromString(kCFAllocatorDefault, tmpStr as NSString)
+		return CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, tmp2)
 	}
 }
 
 public extension NSMutableData {
+	/// Appends to the receiver the bytes from a given array.
+	/// - parameter byteArray: The array of bytes to add.
 	@nonobjc func append(byteArray: [UInt8]) {
 		append(byteArray, length: byteArray.count)
 	}
 	
+	/// Replaces with a given set of bytes a given range within the contents of the receiver.
+	/// - parameter range: The range within the receiver's contents to replace with bytes. The range must not exceed the bounds of the receiver.
+	/// - parameter replacementBytes: The array of bytes to be replaced with.
 	@nonobjc func replaceBytes(in range: NSRange, with replacementBytes: [UInt8]) {
 		replaceBytes(in: range, withBytes: replacementBytes, length: replacementBytes.count)
 	}
 
+	/// Replaces with a given set of bytes a given range within the contents of the receiver.
+	/// - parameter range: The range within the receiver's contents to replace with bytes. The range must not exceed the bounds of the receiver.
+	/// - parameter replacementBytes: The pointer of bytes and length to be replaced with.
 	@nonobjc func replaceBytes(in range: NSRange, with replacementBytes: UnsafeRawBufferPointer) {
 		replaceBytes(in: range, withBytes: replacementBytes.baseAddress, length: replacementBytes.count)
 	}
@@ -249,17 +260,15 @@ extension NSEdgeInsets: Equatable {
 public extension NSIndexSet {
 	/// Creates an index set from a sequence of `Int`s.
 	convenience init<B: Sequence>(indexes: B) where B.Element == Int {
-		self.init(indexSet: IndexSet(indexes: indexes))
+		self.init(indexSet: IndexSet(indexes))
 	}
 }
 
 public extension IndexSet {
 	/// Creates an index set from a sequence of `Int`s.
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "init(_:)")
 	@inlinable init<B: Sequence>(indexes: B) where B.Element == Int {
-		self.init()
-		for idx in indexes {
-			insert(idx)
-		}
+		self.init(indexes)
 	}
 }
 
