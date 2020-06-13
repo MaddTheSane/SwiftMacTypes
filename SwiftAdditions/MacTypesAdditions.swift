@@ -100,7 +100,7 @@ public func toOSType(_ theString: String, detectHex: Bool = false) -> OSType {
 /// Deprecated. Usage of the underlying APIs are discouraged.
 /// If you really need this info, call `CFStringGetMostCompatibleMacStringEncoding`
 /// with the value from `CFStringGetSystemEncoding` instead.
-@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, message: "Usage is discouraged. Read documentation about CFStringGetSystemEncoding() for more info.")
+@available(swift, introduced: 2.0, deprecated: 5.0, message: "Usage is discouraged. Read documentation about CFStringGetSystemEncoding() for more info.")
 public var currentCFMacStringEncoding: CFStringEncoding {
 	let cfEnc = CFStringGetSystemEncoding()
 	return CFStringGetMostCompatibleMacStringEncoding(cfEnc)
@@ -336,36 +336,43 @@ public extension String {
 	}
 	
 	/// Convenience initializer, passing a `PStr255` (or a tuple with *256* `UInt8`s)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
 	init?(_ pStr: PStr255) {
 		self.init(pascalString: pStr)
 	}
 	
 	/// Convenience initializer, passing a `PStr63` (or a tuple with 64 `UInt8`s)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
 	init?(_ pStr: PStr63) {
 		self.init(pascalString: pStr)
 	}
 	
 	/// Convenience initializer, passing a `PStr32` (or a tuple with 33 `UInt8`s)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
 	init?(_ pStr: PStr32) {
 		self.init(pascalString: pStr)
 	}
 	
 	/// Convenience initializer, passing a `PStr31` (or a tuple with 32 `UInt8`s)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
 	init?(_ pStr: PStr31) {
 		self.init(pascalString: pStr)
 	}
 	
 	/// Convenience initializer, passing a `PStr27` (or a tuple with 28 `UInt8`s)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
 	init?(_ pStr: PStr27) {
 		self.init(pascalString: pStr)
 	}
 	
 	/// Convenience initializer, passing a `PStr15` (or a tuple with 16 `UInt8`s)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
 	init?(_ pStr: PStr15) {
 		self.init(pascalString: pStr)
 	}
 	
 	/// Convenience initializer, passing a `PStr32Field` (or a tuple with 34 `UInt8`s, with the last byte ignored)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
 	init?(_ pStr: PStr32Field) {
 		self.init(pascalString: pStr)
 	}

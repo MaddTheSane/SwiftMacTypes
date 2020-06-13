@@ -183,6 +183,8 @@ public extension SAMacError {
 	/// This throws the passed-in error as an `NSOSStatusErrorDomain` error.
 	///
 	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used!
+	/// Catching `SAMacError` may also catch error values that aren't included in
+	/// the `SAMacError.Code` enum.
 	/// - parameter userInfo: Additional user info dictionary. Optional, default value is a
 	/// blank dictionary.
 	/// - parameter status: The `OSStatus` to throw as an `NSOSStatusErrorDomain` error.
@@ -193,6 +195,8 @@ public extension SAMacError {
 	/// This throws the passed-in error as an `NSOSStatusErrorDomain` error.
 	///
 	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used!
+	/// Catching `SAMacError` may also catch error values that aren't included in
+	/// the `SAMacError.Code` enum.
 	///
 	/// `OSErr`s are returned by older APIs. These APIs may be deprecated and not available to
 	/// Swift.
