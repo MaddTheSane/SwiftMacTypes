@@ -11,7 +11,7 @@ import Foundation
 public extension CFBitVector {
 	/// The type identifier for the `CFBitVector` opaque type.
 	///
-	/// CFMutableBitVector objects have the same type identifier as CFBitVector objects.
+	/// `CFMutableBitVector` objects have the same type identifier as `CFBitVector` objects.
 	@inlinable class var typeID: CFTypeID {
 		return CFBitVectorGetTypeID()
 	}
@@ -82,6 +82,22 @@ public extension CFBitVector {
 		}
 		return retVal
 	}
+	
+	/// Creates an immutable bit vector that is a copy of another bit vector.
+	/// - parameter allocator: The allocator to use to allocate memory for the new bit vector. Pass `nil` or kCFAllocatorDefault to use the current default allocator.
+	/// - returns: A new bit vector holding the same bit values.
+	@inlinable func copy(allocator: CFAllocator? = kCFAllocatorDefault) -> CFBitVector {
+		return CFBitVectorCreateCopy(allocator, self)
+	}
+	
+	/// Creates a new mutable bit vector from a pre-existing bit vector.
+	/// - parameter allocator: The allocator to use to allocate memory for the new bit vector. Pass `nil` or kCFAllocatorDefault to use the current default allocator.
+	/// - parameter capacity: The maximum number of values that can be contained by the new bit vector. The bit vector starts with the same number of values as bv and can grow to this number of values (it can have less).
+	/// Pass `0` to specify that the maximum capacity is not limited. If non-`0`, `capacity` must be large enough to hold all bit values.
+	/// - returns: A new bit vector holding the same bit values.
+	@inlinable func mutableCopy(allocator: CFAllocator? = kCFAllocatorDefault, capacity: Int) -> CFMutableBitVector {
+		return CFBitVectorCreateMutableCopy(allocator, capacity, self)
+	}
 }
 
 public extension CFMutableBitVector {
@@ -96,20 +112,24 @@ public extension CFMutableBitVector {
 	
 	/// Changes the size of a mutable bit vector.
 	///
-	/// If bv was created with a fixed capacity, you cannot increase its size beyond that capacity.
-	/// - parameter count: The new size for `bv`. If `count` is greater than the current size of `bv`, the additional bit values are set to `0`.
+	/// If this vector was created with a fixed capacity, you cannot increase its
+	/// size beyond that capacity.
+	/// - parameter count: The new size for this vector. If `count` is greater than
+	/// the current size, the additional bit values are set to `0`.
 	@inlinable func setCount(_ count: Int) {
 		CFBitVectorSetCount(self, count)
 	}
 	
 	/// Flips a bit value in a bit vector.
-	/// - parameter idx: The index of the bit value to flip. The index must be in the range `0…N-1`, where `N` is the count of the vector.
+	/// - parameter idx: The index of the bit value to flip. The index must be in the
+	/// range `0…N-1`, where `N` is the count of the vector.
 	@inlinable func flipBit(at idx: Int) {
 		CFBitVectorFlipBitAtIndex(self, idx)
 	}
 	
 	/// Flips a range of bit values in a bit vector.
-	/// - parameter range: The range of bit values in bv to flip. The range must not exceed `0…N-1`, where `N` is the count of the vector.
+	/// - parameter range: The range of bit values in bv to flip. The range must
+	/// not exceed `0…N-1`, where `N` is the count of the vector.
 	@inlinable func flipBits(in range: CFRange) {
 		CFBitVectorFlipBits(self, range)
 	}
@@ -123,7 +143,8 @@ public extension CFMutableBitVector {
 	}
 	
 	/// Sets a range of bits in a bit vector to a particular value.
-	/// - parameter range: The range of bits to set. The range must not exceed `0…N-1`, where `N` is the count of the vector.
+	/// - parameter range: The range of bits to set. The range must not exceed
+	/// `0…N-1`, where `N` is the count of the vector.
 	/// - parameter value: The bit value to which to set the range of bits.
 	@inlinable func setBits(in range: CFRange, to value: CFBit) {
 		CFBitVectorSetBits(self, range, value)
