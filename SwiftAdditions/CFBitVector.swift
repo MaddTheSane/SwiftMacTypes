@@ -9,7 +9,14 @@
 import Foundation
 
 public extension CFBitVector {
-	/// the number of bit values.
+	/// The type identifier for the `CFBitVector` opaque type.
+	///
+	/// CFMutableBitVector objects have the same type identifier as CFBitVector objects.
+	@inlinable class var typeID: CFTypeID {
+		return CFBitVectorGetTypeID()
+	}
+
+	/// The number of bit values.
 	@inlinable var count: Int {
 		return CFBitVectorGetCount(self)
 	}
