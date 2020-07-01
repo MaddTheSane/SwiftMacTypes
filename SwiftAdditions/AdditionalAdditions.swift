@@ -139,14 +139,14 @@ public extension Dictionary {
 public extension Array {
 	/// Removes objects at indexes that are in the specified `NSIndexSet`.
 	/// - parameter indexes: the index set containing the indexes of objects that will be removed
-	mutating func remove(indexes: NSIndexSet) {
+	@inlinable mutating func remove(indexes: NSIndexSet) {
 		self.remove(indexes: indexes as IndexSet)
 	}
 	
 	// Code taken from https://stackoverflow.com/a/50835467/1975001
 	/// Removes objects at indexes that are in the specified `IndexSet`.
 	/// - parameter indexes: the index set containing the indexes of objects that will be removed
-	mutating func remove(indexes: IndexSet) {
+	@inlinable mutating func remove(indexes: IndexSet) {
 		guard var i = indexes.first, i < count else {
 			return
 		}

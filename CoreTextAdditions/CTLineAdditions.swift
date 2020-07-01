@@ -139,7 +139,7 @@ public extension CTLine {
 	}
 	
 	/// Calculates the bounds for a line.
-	/// - parameter options: Desired options or 0 if none.
+	/// - parameter options: Desired options or `[]` if none.
 	/// - returns: The bounds of the line as specified by the type and options,
 	/// such that the coordinate origin is coincident with the line
 	/// origin and the rect origin is at the bottom left. If the line

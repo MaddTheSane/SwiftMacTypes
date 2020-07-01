@@ -197,10 +197,7 @@ public extension NSUUID {
 	
 	/// Get a CoreFoundation UUID from the current UUID.
 	@objc(CFUUID) var cfUUID: CFUUID {
-		let tmp = (self as UUID).uuid
-		let tmp2 = unsafeBitCast(tmp, to: CFUUIDBytes.self)
-		
-		return CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, tmp2)
+		return (self as UUID).cfUUID
 	}
 }
 

@@ -14,7 +14,7 @@ public enum FontManager {
 	/// Sets the auto-activation for the specified bundle identifier.
 	public typealias AutoActivationSetting = CTFontManagerAutoActivationSetting
 	
-	/// Scope for font registration.
+	/// These constants define the scope for font registration.
 	public typealias Scope = CTFontManagerScope
 	
 	/// An array of unique PostScript font names.
@@ -62,7 +62,7 @@ public enum FontManager {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
-				return newHand(errs as! [CFError], isDone)
+				return newHand(errs as! [Error], isDone)
 			}
 		} else {
 			regHand = nil
@@ -90,11 +90,11 @@ public enum FontManager {
 	/// return `false` if the operation is to be stopped. This may be desirable after
 	/// receiving an error.
 	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-	public static func unregister(fontURLs: [URL], scope: Scope, registrationHandler: (([CFError], Bool) -> Bool)?) {
+	public static func unregister(fontURLs: [URL], scope: Scope, registrationHandler: (([Error], Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
-				return newHand(errs as! [CFError], isDone)
+				return newHand(errs as! [Error], isDone)
 			}
 		} else {
 			regHand = nil
@@ -132,11 +132,11 @@ public enum FontManager {
 	/// completed. The handler should return `false` if the operation is to be stopped. This
 	/// may be desirable after receiving an error.
 	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-	public static func register(fontDescriptors: [CTFontDescriptor], scope: Scope, enabled: Bool, registrationHandler: (([CFError], Bool) -> Bool)?) {
+	public static func register(fontDescriptors: [CTFontDescriptor], scope: Scope, enabled: Bool, registrationHandler: (([Error], Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
-				return newHand(errs as! [CFError], isDone)
+				return newHand(errs as! [Error], isDone)
 			}
 		} else {
 			regHand = nil
@@ -162,11 +162,11 @@ public enum FontManager {
 	/// handler should return `false` if the operation is to be stopped. This may be
 	/// desirable after receiving an error.
 	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-	public static func unregister(fontDescriptors: [CTFontDescriptor], scope: Scope, registrationHandler: (([CFError], Bool) -> Bool)?) {
+	public static func unregister(fontDescriptors: [CTFontDescriptor], scope: Scope, registrationHandler: (([Error], Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
-				return newHand(errs as! [CFError], isDone)
+				return newHand(errs as! [Error], isDone)
 			}
 		} else {
 			regHand = nil
@@ -243,7 +243,7 @@ public enum FontManager {
 			if let maybeErr = maybeErr?.takeRetainedValue() {
 				throw maybeErr
 			} else {
-				throw NSError(domain: NSCocoaErrorDomain, code: -1)
+				throw NSError(domain: NSCocoaErrorDomain, code: -1, userInfo: [NSURLErrorKey: fontURL])
 			}
 		}
 	}
@@ -263,7 +263,7 @@ public enum FontManager {
 			if let maybeErr = maybeErr?.takeRetainedValue() {
 				throw maybeErr
 			} else {
-				throw NSError(domain: NSCocoaErrorDomain, code: -1)
+				throw NSError(domain: NSCocoaErrorDomain, code: -1, userInfo: [NSURLErrorKey: fontURL])
 			}
 		}
 	}
@@ -337,11 +337,11 @@ public enum FontManager {
 	/// return `false` if the operation is to be stopped. This may be desirable after
 	/// receiving an error.
 	@available(iOS 13.0, *)
-	public static func registerFonts(withAssetNames fontAssetNames: [String], bundle: CFBundle? = nil, scope: Scope, enabled: Bool, registrationHandler: (([CFError], Bool) -> Bool)?) {
+	public static func registerFonts(withAssetNames fontAssetNames: [String], bundle: CFBundle? = nil, scope: Scope, enabled: Bool, registrationHandler: (([Error], Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
-				return newHand(errs as! [CFError], isDone)
+				return newHand(errs as! [Error], isDone)
 			}
 		} else {
 			regHand = nil
@@ -367,7 +367,7 @@ public enum FontManager {
 	}
 	
 	/// Returns the registration scope of the specified URL.
-	/// - parameter fontURL: Font URL.
+	/// - parameter fontURL: The font URL.
 	/// - returns: Returns the registration scope of the specified URL, will return `FontManager.Scope.none` if
 	/// not currently registered.
 	@available(OSX 10.6, *)

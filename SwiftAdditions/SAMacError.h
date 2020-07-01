@@ -74,7 +74,7 @@ typedef MTS_ERROR_ENUM(OSStatus, NSOSStatusErrorDomain, SAMacError) {
 	/*! Directory not found */
 	SAMacErrorDirectoryNotFound = dirNFErr,
 	
-	#if TARGET_OS_OSX
+#if TARGET_OS_OSX
 	SAMacErrorOSASystemError             = -1750,
 	SAMacErrorOSAInvalidID               = -1751,
 	SAMacErrorOSABadStorageType          = -1752,

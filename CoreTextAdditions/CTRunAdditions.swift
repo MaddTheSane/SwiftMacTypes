@@ -68,7 +68,7 @@ public extension CTRun {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
 		} else {
 			var preArr = [CGGlyph](repeating: 0, count: glyphCount)
-			CTRunGetGlyphs(self, CFRangeMake(0, 0), &preArr)
+			CTRunGetGlyphs(self, CFRange(location: 0, length: 0), &preArr)
 			return AnyRandomAccessCollection(preArr)
 		}
 	}
@@ -103,7 +103,7 @@ public extension CTRun {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
 		} else {
 			var preArr = [CGPoint](repeating: CGPoint(), count: glyphCount)
-			CTRunGetPositions(self, CFRangeMake(0, 0), &preArr)
+			CTRunGetPositions(self, CFRange(location: 0, length: 0), &preArr)
 			return AnyRandomAccessCollection(preArr)
 		}
 	}
@@ -141,7 +141,7 @@ public extension CTRun {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preAdv, count: glyphCount))
 		} else {
 			var preArr = [CGSize](repeating: CGSize(), count: glyphCount)
-			CTRunGetAdvances(self, CFRangeMake(0, 0), &preArr)
+			CTRunGetAdvances(self, CFRange(location: 0, length: 0), &preArr)
 			return AnyRandomAccessCollection(preArr)
 		}
 	}
@@ -178,7 +178,7 @@ public extension CTRun {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
 		} else {
 			var preArr = [CFIndex](repeating: 0, count: glyphCount)
-			CTRunGetStringIndices(self, CFRangeMake(0, 0), &preArr)
+			CTRunGetStringIndices(self, CFRange(location: 0, length: 0), &preArr)
 			return AnyRandomAccessCollection(preArr)
 		}
 	}

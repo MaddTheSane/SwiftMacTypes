@@ -10,27 +10,27 @@
 import Cocoa
 
 	// MARK: CGWindowLevel values
-	public var kCGBaseWindowLevel: CGWindowLevel {
+	@inlinable public var kCGBaseWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.baseWindow)
 	}
 	
-	public var kCGMinimumWindowLevel: CGWindowLevel {
+	@inlinable public var kCGMinimumWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.minimumWindow)
 	}
 
-	public var kCGDesktopWindowLevel: CGWindowLevel {
+	@inlinable public var kCGDesktopWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.desktopWindow)
 	}
 	
-	public var kCGMaximumWindowLevel: CGWindowLevel {
+	@inlinable public var kCGMaximumWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.maximumWindow)
 	}
 	
-	public var kCGDesktopIconWindowLevel: CGWindowLevel {
+	@inlinable public var kCGDesktopIconWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.desktopIconWindow)
 	}
 	
-	public var kCGCursorWindowLevel: CGWindowLevel {
+	@inlinable public var kCGCursorWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.cursorWindow)
 	}
 	
@@ -55,7 +55,8 @@ import Cocoa
 	public extension NSBitmapImageRep {
 		/// Returns an array of all available compression types that can be used when writing
 		/// a TIFF image.
-		/// - returns: An `UnsafeBufferPointer` C array of `NSTIFFCompression` constants.
+		///
+		/// This is an `UnsafeBufferPointer` C array of `NSBitmapImageRep.TIFFCompression` constants.
 		/// This array belongs to the `NSBitmapImageRep` class; it shouldn’t be freed or
 		/// altered. See `NSBitmapImageRep.TIFFCompression` for the supported TIFF
 		/// compression types.
