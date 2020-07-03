@@ -189,8 +189,25 @@ public extension SAMacError {
 	/// blank dictionary.
 	/// - parameter status: The `OSStatus` to throw as an `NSOSStatusErrorDomain` error.
 	static func throwOSStatus(_ status: OSStatus, userInfo: [String: Any] = [:]) throws {
-		throw NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: userInfo)
+		throw osStatus(status, userInfo: userInfo)
 	}
+	
+	/// This creates an error based on the `status` and anything passed into the `userInfo` dictionary.
+	///
+	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used!
+	/// Catching `SAMacError` may also catch error values that aren't included in
+	/// the `SAMacError.Code` enum.
+	/// - parameter userInfo: Additional user info dictionary. Optional, default value is a
+	/// blank dictionary.
+	/// - parameter status: The `OSStatus` to create an error in the `NSOSStatusErrorDomain` error domain.
+	/// - returns: An object conforming to the `Error` protocol, either `SAMacError` or `NSError`.
+	static func osStatus(_ status: OSStatus, userInfo: [String: Any] = [:]) -> Error {
+		if let saCode = SAMacError.Code(rawValue: status) {
+			return SAMacError(saCode, userInfo: userInfo)
+		}
+		return NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: userInfo)
+	}
+
 	
 	/// This throws the passed-in error as an `NSOSStatusErrorDomain` error.
 	///
@@ -204,6 +221,26 @@ public extension SAMacError {
 	/// blank dictionary.
 	/// - parameter status: The `OSErr` to throw as an `NSOSStatusErrorDomain` error.
 	static func throwOSErr(_ status: OSErr, userInfo: [String: Any] = [:]) throws {
-		throw NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: userInfo)
+		throw osErr(status, userInfo: userInfo)
 	}
+	
+	/// This throws the passed-in error as an `NSOSStatusErrorDomain` error.
+	///
+	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used!
+	/// Catching `SAMacError` may also catch error values that aren't included in
+	/// the `SAMacError.Code` enum.
+	///
+	/// `OSErr`s are returned by older APIs. These APIs may be deprecated and not available to
+	/// Swift.
+	/// - parameter userInfo: Additional user info dictionary. Optional, default value is a
+	/// blank dictionary.
+	/// - parameter status: The `OSErr` to create an error in the `NSOSStatusErrorDomain` error domain.
+	/// - returns: An object conforming to the `Error` protocol, either `SAMacError` or `NSError`.
+	static func osErr(_ status: OSErr, userInfo: [String: Any] = [:]) -> Error {
+		if let saCode = SAMacError.Code(osErrValue: status) {
+			return SAMacError(saCode, userInfo: userInfo)
+		}
+		return NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: userInfo)
+	}
+
 }

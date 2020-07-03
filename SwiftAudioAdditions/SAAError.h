@@ -59,32 +59,6 @@ typedef MTS_ERROR_ENUM(OSStatus, SAACoreAudioErrorDomain, SAACoreAudioError) {
 	SAACoreAudioErrorExtensionNotFound = kAudioUnitErr_ExtensionNotFound,
 	SAACoreAudioErrorInvalidParameterValue = kAudioUnitErr_InvalidParameterValue,
 	SAACoreAudioErrorBadFilePath = kAudio_BadFilePathError,
-	SAACoreAudioErrorFileUnspecified = kAudioFileUnspecifiedError,
-	SAACoreAudioErrorFileUnsupportedFileType = kAudioFileUnsupportedFileTypeError,
-	SAACoreAudioErrorFileUnsupportedDataFormat = kAudioFileUnsupportedDataFormatError,
-	SAACoreAudioErrorFileUnsupportedProperty = kAudioFileUnsupportedPropertyError,
-	SAACoreAudioErrorFileBadPropertySize = kAudioFileBadPropertySizeError,
-	SAACoreAudioErrorFilePermissions = kAudioFilePermissionsError,
-	SAACoreAudioErrorFileNotOptomized = kAudioFileNotOptimizedError,
-	SAACoreAudioErrorFileInvalidChunk = kAudioFileInvalidChunkError,
-	SAACoreAudioErrorFileDoesNotAllow64BitDataSize = kAudioFileDoesNotAllow64BitDataSizeError,
-	SAACoreAudioErrorFileInvalidPacketOffset = kAudioFileInvalidPacketOffsetError,
-	SAACoreAudioErrorFileInvalidFile = kAudioFileInvalidFileError,
-	SAACoreAudioErrorFileOperationNotSupported = kAudioFileOperationNotSupportedError,
-	SAACoreAudioErrorMIDIInvalidClient = kMIDIInvalidClient,
-	SAACoreAudioErrorMIDIInvalidPort = kMIDIInvalidPort,
-	SAACoreAudioErrorMIDIWrongEndpointType = kMIDIWrongEndpointType,
-	SAACoreAudioErrorMIDINoConnection = kMIDINoConnection,
-	SAACoreAudioErrorMIDIUnknownEndpoint = kMIDIUnknownEndpoint,
-	SAACoreAudioErrorMIDIUnknownProperty = kMIDIUnknownProperty,
-	SAACoreAudioErrorMIDIWrongPropertyType = kMIDIWrongPropertyType,
-	SAACoreAudioErrorMIDINoCurrentSetup = kMIDINoCurrentSetup,
-	SAACoreAudioErrorMIDIMessageSend = kMIDIMessageSendErr,
-	SAACoreAudioErrorMIDIServerStart = kMIDIServerStartErr,
-	SAACoreAudioErrorMIDISetupFormat = kMIDISetupFormatErr,
-	SAACoreAudioErrorMIDIWrongThread = kMIDIWrongThread,
-	SAACoreAudioErrorMIDIObjectNotFound = kMIDIObjectNotFound,
-	SAACoreAudioErrorMIDINotUnique = kMIDIIDNotUnique,
 	SAACoreAudioErrorMIDINotPermitted = kMIDINotPermitted,
 	SAACoreAudioErrorMIDIUnknown = kMIDIUnknownError,
 	SAACoreAudioErrorExtAudioFileInvalidProperty = kExtAudioFileError_InvalidProperty,
@@ -94,11 +68,63 @@ typedef MTS_ERROR_ENUM(OSStatus, SAACoreAudioErrorDomain, SAACoreAudioError) {
 	SAACoreAudioErrorExtAudioFileInvalidDataFormat = kExtAudioFileError_InvalidDataFormat,
 	SAACoreAudioErrorExtAudioFileMaxPacketSizeUnknown = kExtAudioFileError_MaxPacketSizeUnknown,
 	SAACoreAudioErrorExtAudioFileAsyncWriteTooLarge = kExtAudioFileError_AsyncWriteTooLarge,
-	//! number of channels doesn't match format
+	//! An unspecified error has occurred.
+	SAACoreAudioErrorFileUnspecified = kAudioFileUnspecifiedError,
+	//! The file type is not supported.
+	SAACoreAudioErrorFileUnsupportedFileType = kAudioFileUnsupportedFileTypeError,
+	//! The data format is not supported by this file type.
+	SAACoreAudioErrorFileUnsupportedDataFormat = kAudioFileUnsupportedDataFormatError,
+	//! The property is not supported.
+	SAACoreAudioErrorFileUnsupportedProperty = kAudioFileUnsupportedPropertyError,
+	//! The size of the property data was not correct.
+	SAACoreAudioErrorFileBadPropertySize = kAudioFileBadPropertySizeError,
+	//! The operation violated the file permissions. For example, an attempt was made to write to a file opened with the \c kAudioFileReadPermission constant.
+	SAACoreAudioErrorFilePermissions = kAudioFilePermissionsError,
+	//! The chunks following the audio data chunk are preventing the extension of the audio data chunk. To write more data, you must optimize the file.
+	SAACoreAudioErrorFileNotOptomized = kAudioFileNotOptimizedError,
+	//! Either the chunk does not exist in the file or it is not supported by the file.
+	SAACoreAudioErrorFileInvalidChunk = kAudioFileInvalidChunkError,
+	//! The file offset was too large for the file type. The AIFF and WAVE file format types have 32-bit file size limits.
+	SAACoreAudioErrorFileDoesNotAllow64BitDataSize = kAudioFileDoesNotAllow64BitDataSizeError,
+	//! A packet offset was past the end of the file, or not at the end of the file when a VBR format was written, or a corrupt packet size was read when the packet table was built.
+	SAACoreAudioErrorFileInvalidPacketOffset = kAudioFileInvalidPacketOffsetError,
+	//! The file is malformed, or otherwise not a valid instance of an audio file of its type.
+	SAACoreAudioErrorFileInvalidFile = kAudioFileInvalidFileError,
+	//! The operation cannot be performed. For example, setting the \c kAudioFilePropertyAudioDataByteCount constant to increase the size of the audio data in a file is not a supported operation. Write the data instead.
+	SAACoreAudioErrorFileOperationNotSupported = kAudioFileOperationNotSupportedError,
+	//! An invalid \c MIDIClientRef was passed.
+	SAACoreAudioErrorMIDIInvalidClient = kMIDIInvalidClient,
+	//! An invalid \c MIDIPortRef was passed.
+	SAACoreAudioErrorMIDIInvalidPort = kMIDIInvalidPort,
+	//! A source endpoint was passed to a function expecting a destination, or vice versa.
+	SAACoreAudioErrorMIDIWrongEndpointType = kMIDIWrongEndpointType,
+	//! Attempt to close a non-existant connection.
+	SAACoreAudioErrorMIDINoConnection = kMIDINoConnection,
+	//! An invalid \c MIDIEndpointRef was passed.
+	SAACoreAudioErrorMIDIUnknownEndpoint = kMIDIUnknownEndpoint,
+	//! Attempt to query a property not set on the object.
+	SAACoreAudioErrorMIDIUnknownProperty = kMIDIUnknownProperty,
+	//! Attempt to set a property with a value not of the correct type.
+	SAACoreAudioErrorMIDIWrongPropertyType = kMIDIWrongPropertyType,
+	//! Internal error; there is no current MIDI setup object.
+	SAACoreAudioErrorMIDINoCurrentSetup = kMIDINoCurrentSetup,
+	//! Communication with MIDIServer failed.
+	SAACoreAudioErrorMIDIMessageSend = kMIDIMessageSendErr,
+	//! Unable to start MIDIServer.
+	SAACoreAudioErrorMIDIServerStart = kMIDIServerStartErr,
+	//! Unable to read the saved state.
+	SAACoreAudioErrorMIDISetupFormat = kMIDISetupFormatErr,
+	//! A driver is calling a non-I/O function in the server from a thread other than the server's main thread.
+	SAACoreAudioErrorMIDIWrongThread = kMIDIWrongThread,
+	//! The requested object does not exist.
+	SAACoreAudioErrorMIDIObjectNotFound = kMIDIObjectNotFound,
+	//! Attempt to set a non-unique \c kMIDIPropertyUniqueID on an object.
+	SAACoreAudioErrorMIDINotUnique = kMIDIIDNotUnique,
+	//! The number of channels does not match the specified format.
 	SAACoreAudioErrorExtAudioFileInvalidChannelMap = kExtAudioFileError_InvalidChannelMap,
-	//! writing, or offset out of bounds
+	//! An attempt to write, or an offset, is out of bounds.
 	SAACoreAudioErrorExtAudioFileInvalidSeek = kExtAudioFileError_InvalidSeek,
-	//! an async write could not be completed in time
+	//! An asynchronous write operation could not be completed in time.
 	SAACoreAudioErrorExtAudioFileAsyncWriteBufferOverflow = kExtAudioFileError_AsyncWriteBufferOverflow,
 };
 

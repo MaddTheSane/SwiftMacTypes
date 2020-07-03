@@ -23,7 +23,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr, userInfo: [NSURLErrorKey: openURL])
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: [NSURLErrorKey: openURL])
+			throw SAMacError.osStatus(iErr, userInfo: [NSURLErrorKey: openURL])
 		}
 		internalPtr = aPtr!
 	}
@@ -47,7 +47,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
+			throw SAMacError.osStatus(iErr)
 		}
 		internalPtr = aPtr!
 	}
@@ -71,7 +71,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr, userInfo: [NSURLErrorKey: inURL])
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: [NSURLErrorKey: inURL])
+			throw SAMacError.osStatus(iErr, userInfo: [NSURLErrorKey: inURL])
 		}
 		internalPtr = aPtr!
 	}
@@ -89,7 +89,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
+			throw SAMacError.osStatus(iErr)
 		}
 	}
 	
@@ -117,7 +117,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
+			throw SAMacError.osStatus(iErr)
 		}
 	}
 	
@@ -140,7 +140,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
+			throw SAMacError.osStatus(iErr)
 		}
 	}
 	
@@ -161,7 +161,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
+			throw SAMacError.osStatus(iErr)
 		}
 
 		return (outSize, outWritable.boolValue)
@@ -182,7 +182,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
+			throw SAMacError.osStatus(iErr)
 		}
 	}
 	
@@ -197,7 +197,7 @@ final public class ExtAudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr))
+			throw SAMacError.osStatus(iErr)
 		}
 	}
 	
@@ -243,7 +243,7 @@ final public class ExtAudioFile {
 			let (size, writable) = try! get(propertyInfo: kExtAudioFileProperty_ClientDataFormat)
 			if !writable {
 				//throw SAMacError(.parameter)
-				fatalError(NSError(domain: NSOSStatusErrorDomain, code: Int(SAMacError.parameter.rawValue), userInfo: nil).description)
+				fatalError((SAMacError(.parameter) as NSError).description)
 			}
 			try! set(property: kExtAudioFileProperty_ClientDataFormat, dataSize: size, data: &newVal)
 		}

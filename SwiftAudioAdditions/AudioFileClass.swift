@@ -22,7 +22,7 @@ public final class AudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr, userInfo: [NSURLErrorKey: url])
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: [NSURLErrorKey: url])
+			throw SAMacError.osStatus(iErr, userInfo: [NSURLErrorKey: url])
 		}
 		self.fileID = fileID!
 	}
@@ -35,7 +35,7 @@ public final class AudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr, userInfo: [NSURLErrorKey: openURL])
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: [NSURLErrorKey: openURL])
+			throw SAMacError.osStatus(iErr, userInfo: [NSURLErrorKey: openURL])
 		}
 		self.fileID = fileID!
 	}
@@ -49,7 +49,7 @@ public final class AudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw SAMacError.osStatus(iErr)
 		}
 		self.fileID = fileID!
 	}
@@ -62,7 +62,7 @@ public final class AudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw SAMacError.osStatus(iErr)
 		}
 	}
 	
@@ -73,7 +73,7 @@ public final class AudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw SAMacError.osStatus(iErr)
 		}
 	}
 	
@@ -84,7 +84,7 @@ public final class AudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw SAMacError.osStatus(iErr)
 		}
 	}
 	
@@ -95,7 +95,7 @@ public final class AudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw SAMacError.osStatus(iErr)
 		}
 		
 		return Int(outNumberItems)
@@ -108,7 +108,7 @@ public final class AudioFile {
 			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
 				throw SAACoreAudioError(caErr)
 			}
-			throw NSError(domain: NSOSStatusErrorDomain, code: Int(iErr), userInfo: nil)
+			throw SAMacError.osStatus(iErr)
 		}
 		
 		return Int(outNumberSize)
