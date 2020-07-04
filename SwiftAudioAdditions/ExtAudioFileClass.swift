@@ -20,10 +20,7 @@ final public class ExtAudioFile {
 		let iErr = ExtAudioFileOpenURL(openURL as NSURL, &aPtr)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr, userInfo: [NSURLErrorKey: openURL])
-			}
-			throw SAMacError.osStatus(iErr, userInfo: [NSURLErrorKey: openURL])
+			throw errorFromOSStatus(iErr, userInfo: [NSURLErrorKey: openURL])
 		}
 		internalPtr = aPtr!
 	}
@@ -44,10 +41,7 @@ final public class ExtAudioFile {
 		let iErr = ExtAudioFileWrapAudioFileID(audioFile, forWriting, &aPtr)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 		internalPtr = aPtr!
 	}
@@ -68,10 +62,7 @@ final public class ExtAudioFile {
 		let iErr = ExtAudioFileCreate(url: inURL, fileType: inFileType, streamDescription: &inStreamDesc, channelLayout: inChannelLayout, flags: flags, audioFile: &aPtr)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr, userInfo: [NSURLErrorKey: inURL])
-			}
-			throw SAMacError.osStatus(iErr, userInfo: [NSURLErrorKey: inURL])
+			throw errorFromOSStatus(iErr, userInfo: [NSURLErrorKey: inURL])
 		}
 		internalPtr = aPtr!
 	}
@@ -86,10 +77,7 @@ final public class ExtAudioFile {
 		let iErr = ExtAudioFileWrite(internalPtr, frames, data)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 	}
 	
@@ -114,10 +102,7 @@ final public class ExtAudioFile {
 		let iErr = ExtAudioFileWriteAsync(internalPtr, frames, data)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 	}
 	
@@ -137,10 +122,7 @@ final public class ExtAudioFile {
 		let iErr = ExtAudioFileRead(internalPtr, &frames, data)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 	}
 	
@@ -158,10 +140,7 @@ final public class ExtAudioFile {
 		let iErr = ExtAudioFileGetPropertyInfo(internalPtr, ID, &outSize, &outWritable)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 
 		return (outSize, outWritable.boolValue)
@@ -179,10 +158,7 @@ final public class ExtAudioFile {
 		let iErr = ExtAudioFileGetProperty(internalPtr, ID, &dataSize, data)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 	}
 	
@@ -194,10 +170,7 @@ final public class ExtAudioFile {
 		let iErr = ExtAudioFileSetProperty(internalPtr, ID, dataSize, data)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 	}
 	

@@ -19,10 +19,7 @@ public final class AudioFile {
 		let iErr = AudioFileCreateWithURL(url as NSURL, fileType, &format, flags, &fileID)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr, userInfo: [NSURLErrorKey: url])
-			}
-			throw SAMacError.osStatus(iErr, userInfo: [NSURLErrorKey: url])
+			throw errorFromOSStatus(iErr, userInfo: [NSURLErrorKey: url])
 		}
 		self.fileID = fileID!
 	}
@@ -32,10 +29,7 @@ public final class AudioFile {
 		let iErr = AudioFileOpenURL(openURL as NSURL, permissions, fileHint, &fileID)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr, userInfo: [NSURLErrorKey: openURL])
-			}
-			throw SAMacError.osStatus(iErr, userInfo: [NSURLErrorKey: openURL])
+			throw errorFromOSStatus(iErr, userInfo: [NSURLErrorKey: openURL])
 		}
 		self.fileID = fileID!
 	}
@@ -46,10 +40,7 @@ public final class AudioFile {
 		let iErr = AudioFileOpenWithCallbacks(clientData, readFunc, writeFunction, getSizeFunction, setSizeFunction, fileTypeHint, &fileID)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 		self.fileID = fileID!
 	}
@@ -59,10 +50,7 @@ public final class AudioFile {
 		let iErr = AudioFileOptimize(fileID)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 	}
 	
@@ -70,10 +58,7 @@ public final class AudioFile {
 		let iErr = AudioFileReadBytes(fileID, useCache, startingByte, &byteCount, outBuffer)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 	}
 	
@@ -81,10 +66,7 @@ public final class AudioFile {
 		let iErr = AudioFileWriteBytes(fileID, useCache, startingByte, &byteCount, outBuffer)
 		
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 	}
 	
@@ -92,10 +74,7 @@ public final class AudioFile {
 		var outNumberItems: UInt32 = 0
 		let iErr = AudioFileCountUserData(fileID, userDataID, &outNumberItems)
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 		
 		return Int(outNumberItems)
@@ -105,10 +84,7 @@ public final class AudioFile {
 		var outNumberSize: UInt32 = 0
 		let iErr = AudioFileGetUserDataSize(fileID, inUserDataID, UInt32(index), &outNumberSize)
 		guard iErr == noErr else {
-			if let caErr = SAACoreAudioError.Code(rawValue: iErr) {
-				throw SAACoreAudioError(caErr)
-			}
-			throw SAMacError.osStatus(iErr)
+			throw errorFromOSStatus(iErr)
 		}
 		
 		return Int(outNumberSize)

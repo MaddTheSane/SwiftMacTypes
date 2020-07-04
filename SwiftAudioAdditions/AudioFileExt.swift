@@ -484,8 +484,8 @@ public extension AudioStreamBasicDescription {
 		
 		self.init()
 		
-		var isPCM = true;	// until proven otherwise
-		var pcmFlags = kAudioFormatFlagIsPacked | kAudioFormatFlagIsSignedInteger;
+		var isPCM = true	// until proven otherwise
+		var pcmFlags = kAudioFormatFlagIsPacked | kAudioFormatFlagIsSignedInteger
 		
 		if fromText[charIterator] == "-" {	// previously we required a leading dash on PCM formats
 			charIterator = fromText.index(after: charIterator)
@@ -551,7 +551,7 @@ public extension AudioStreamBasicDescription {
 						
 						//TODO: use Scanner
 						if (withVaList([withUnsafeMutablePointer(to: &x, {return $0})], { (vaPtr) -> Int32 in
-							charIterator = fromText.index(after: charIterator)
+							fromText.formIndex(after: &charIterator)
 							let str = fromText[charIterator ..< fromText.endIndex]
 							return str.withCString({ (cStr) -> Int32 in
 								return vsscanf(cStr, "%02X", vaPtr)
@@ -568,8 +568,8 @@ public extension AudioStreamBasicDescription {
 				
 				if strchr("-@/#", Int32(buf[3])) != nil {
 					// further special-casing for 'aac'
-					buf[3] = 0x20;
-					charIterator = fromText.index(before: charIterator)
+					buf[3] = 0x20
+					fromText.formIndex(after: &charIterator)
 				}
 				
 				memcpy(&mFormatID, buf, 4);
@@ -579,35 +579,35 @@ public extension AudioStreamBasicDescription {
 		
 		if isPCM {
 			mFormatID = kAudioFormatLinearPCM;
-			mFormatFlags = pcmFlags;
-			mFramesPerPacket = 1;
-			mChannelsPerFrame = 1;
+			mFormatFlags = pcmFlags
+			mFramesPerPacket = 1
+			mChannelsPerFrame = 1
 			var bitdepth: UInt32 = 0
 			var fracbits: UInt32 = 0
 			while let aNum = numFromCurrentChar() {
 				bitdepth = 10 * bitdepth + UInt32(aNum)
-				charIterator = fromText.index(after: charIterator)
+				fromText.formIndex(after: &charIterator)
 			}
-			if (nextChar() == ".") {
-				charIterator = fromText.index(after: charIterator)
+			if nextChar() == "." {
+				fromText.formIndex(after: &charIterator)
 				guard let _ = numFromCurrentChar() else {
 					throw ASBDError.expectedFractionalBits
 				}
 				while let aNum = numFromCurrentChar() {
 					fracbits = 10 * fracbits + UInt32(aNum)
-					charIterator = fromText.index(after: charIterator)
+					fromText.formIndex(after: &charIterator)
 				}
-				bitdepth += fracbits;
-				mFormatFlags |= (fracbits << kLinearPCMFormatFlagsSampleFractionShift);
+				bitdepth += fracbits
+				mFormatFlags |= (fracbits << kLinearPCMFormatFlagsSampleFractionShift)
 			}
 			mBitsPerChannel = bitdepth;
-			mBytesPerFrame = (bitdepth + 7) / 8;
+			mBytesPerFrame = (bitdepth + 7) / 8
 			mBytesPerPacket = mBytesPerFrame
 			if (bitdepth & 7) != 0 {
 				// assume unpacked. (packed odd bit depths are describable but not supported in AudioConverter.)
 				mFormatFlags &= ~kLinearPCMFormatFlagIsPacked
 				// alignment matters; default to high-aligned. use ':L_' for low.
-				mFormatFlags |= kLinearPCMFormatFlagIsAlignedHigh;
+				mFormatFlags |= kLinearPCMFormatFlagIsAlignedHigh
 			}
 		}
 		if nextChar() == "@" {
@@ -651,9 +651,9 @@ public extension AudioStreamBasicDescription {
 		if nextChar() == ":" {
 			charIterator = fromText.index(after: charIterator)
 			mFormatFlags &= ~kLinearPCMFormatFlagIsPacked
-			if (fromText[charIterator] == "L") {
+			if fromText[charIterator] == "L" {
 				mFormatFlags &= ~kLinearPCMFormatFlagIsAlignedHigh
-			} else if (fromText[charIterator] == "H") {
+			} else if fromText[charIterator] == "H" {
 				mFormatFlags |= kLinearPCMFormatFlagIsAlignedHigh;
 			} else {
 				throw ASBDError.invalidFormat
@@ -672,7 +672,7 @@ public extension AudioStreamBasicDescription {
 			var ch = 0;
 			while let aNum = numFromCurrentChar() {
 				ch = 10 * ch + aNum
-				charIterator = fromText.index(after: charIterator)
+				fromText.formIndex(after: &charIterator)
 			}
 			mChannelsPerFrame = UInt32(ch);
 			if nextChar() == "D" {
@@ -683,7 +683,7 @@ public extension AudioStreamBasicDescription {
 				mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
 			} else {
 				if nextChar() == "I" {
-					charIterator = fromText.index(after: charIterator)
+					fromText.formIndex(after: &charIterator)
 				}	// default
 				if mFormatID == kAudioFormatLinearPCM {
 					mBytesPerFrame *= UInt32(ch)
@@ -962,6 +962,6 @@ extension AudioStreamBasicDescription: Comparable {
 			}
 		}
 		
-		return theAnswer;
+		return theAnswer
 	}
 }

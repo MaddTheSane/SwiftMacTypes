@@ -20,6 +20,7 @@ public enum AudioComponentType {
 	case generator(AUGenerator)
 	case offlineEffect(AUEffect)
 	case MIDIProcessor(OSType)
+	/// Components don't match any of the other values.
 	case unknown(type: OSType, subType: OSType)
 	
 	public init(type rawType: OSType, subType AUSubtype: OSType) {

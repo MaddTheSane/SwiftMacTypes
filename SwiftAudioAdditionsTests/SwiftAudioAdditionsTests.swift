@@ -57,4 +57,28 @@ class SwiftAudioAdditionsTests: XCTestCase {
 		XCTAssertThrowsError(asbd = try AudioStreamBasicDescription(fromText: "aac/5bG"))
 		_=asbd
 	}
+	
+	func testSoundBankFunctions() {
+		let caInstruments = URL(fileURLWithPath: "/System/Library/Components/CoreAudio.component/Contents/Resources/gs_instruments.dls")
+		var bankName = ""
+		XCTAssertNoThrow(bankName = try nameFromSoundBank(at: caInstruments))
+		print(bankName)
+		
+		var banks = [[InstrumentInfoKey: Any]]()
+		XCTAssertNoThrow(banks = try instrumentInfoFromSoundBank(at: caInstruments))
+		_=banks
+		
+		XCTAssertThrowsError(bankName = try nameFromSoundBank(at: URL(fileURLWithPath:"/System/Library/Components/CoreAudio.component/Contents/MacOS/CoreAudio")))
+	}
+	
+	func testSwiftErrorCatch() {
+		var bankName = ""
+		do {
+			bankName = try nameFromSoundBank(at: URL(fileURLWithPath:"/System/Library/Components/CoreAudio.component/Contents/MacOS/CoreAudio"))
+		} catch let error as NSError {
+			XCTAssertEqual(error.domain, NSOSStatusErrorDomain)
+			print(error)
+		}
+		_=bankName
+	}
 }

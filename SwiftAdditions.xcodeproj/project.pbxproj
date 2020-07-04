@@ -48,6 +48,7 @@
 		550FBACE19A7ADC500EFBD3D /* SwiftAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */; };
 		550FBADA19A7AE6F00EFBD3D /* FoundationTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */; };
 		5510696D24ADDDC9004C2486 /* SoundBankAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5510696C24ADDDC9004C2486 /* SoundBankAdditions.swift */; };
+		5510696E24AFFF52004C2486 /* CoreAudioError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5BE1E215EA2C000D31F29 /* CoreAudioError.swift */; };
 		5518A4351B03F2CF005AF928 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		55251E2C24937417007BC863 /* CFBitVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55251E2B24937417007BC863 /* CFBitVector.swift */; };
 		552627A11BDF52A4005AAF63 /* Characters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552627A01BDF52A4005AAF63 /* Characters.swift */; };
@@ -1320,6 +1321,7 @@
 				550404E821584E7D002D2702 /* SAAError.m in Sources */,
 				55A02E311C61F07B00F75116 /* AudioFileClass.swift in Sources */,
 				55E11DFC1AE711C600815555 /* AudioUnit.swift in Sources */,
+				5510696E24AFFF52004C2486 /* CoreAudioError.swift in Sources */,
 				55721B7C21599B7C00F048AA /* AUOutputBL.swift in Sources */,
 				55E11DFB1AE711C600815555 /* ExtAudioFileExt.swift in Sources */,
 				55A02E331C61F09900F75116 /* ExtAudioFileClass.swift in Sources */,

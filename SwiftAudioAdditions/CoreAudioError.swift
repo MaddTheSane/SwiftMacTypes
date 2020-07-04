@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftAdditions
 #if SWIFT_PACKAGE
 
 public var SAACoreAudioErrorDomain: String {
@@ -235,3 +236,18 @@ public struct SAACoreAudioError: _BridgedStoredNSError {
 }
 
 #endif
+
+internal func errorFromOSStatus(_ err: OSStatus, userInfo: [String: Any] = [:]) -> Error {
+	let carbErrs: Set<OSStatus> = Set([-38, -39, -40, -43])
+	/*
+	kAudioFileNotOpenError							= -38,
+	kAudioFileEndOfFileError						= -39,
+	kAudioFilePositionError							= -40,
+	kAudioFileFileNotFoundError						= -43
+
+	*/
+	guard !carbErrs.contains(err), let caErr = SAACoreAudioError.Code(rawValue: err) else {
+		return SAMacError.osStatus(err, userInfo: userInfo)
+	}
+	return SAACoreAudioError(caErr, userInfo: userInfo)
+}
