@@ -13,7 +13,7 @@ import SwiftAdditions
 
 // MARK: Audio File
 
-public var kLinearPCMFormatFlagNativeEndian: AudioFormatFlags {
+@inlinable public var kLinearPCMFormatFlagNativeEndian: AudioFormatFlags {
 	#if _endian(big)
 		return kLinearPCMFormatFlagIsBigEndian
 	#else
@@ -488,28 +488,28 @@ public extension AudioStreamBasicDescription {
 		var pcmFlags = kAudioFormatFlagIsPacked | kAudioFormatFlagIsSignedInteger
 		
 		if fromText[charIterator] == "-" {	// previously we required a leading dash on PCM formats
-			charIterator = fromText.index(after: charIterator)
+			fromText.formIndex(after: &charIterator)
 		}
 		
 		if fromText[charIterator] == "B" && fromText[fromText.index(after: charIterator)] == "E" {
 			pcmFlags |= kLinearPCMFormatFlagIsBigEndian;
-			charIterator = fromText.index(charIterator, offsetBy: 2)
+			fromText.formIndex(&charIterator, offsetBy: 2)
 		} else if fromText[charIterator] == "L" && fromText[fromText.index(after: charIterator)] == "E" {
-			charIterator = fromText.index(charIterator, offsetBy: 2)
+			fromText.formIndex(&charIterator, offsetBy: 2)
 		} else {
 			// default is native-endian
 			pcmFlags |= kLinearPCMFormatFlagNativeEndian
 		}
 		if nextChar() == "F" {
 			pcmFlags = (pcmFlags & ~kAudioFormatFlagIsSignedInteger) | kAudioFormatFlagIsFloat
-			charIterator = fromText.index(after: charIterator)
+			fromText.formIndex(after: &charIterator)
 		} else {
 			if nextChar() == "U" {
 				pcmFlags &= ~kAudioFormatFlagIsSignedInteger;
-				charIterator = fromText.index(after: charIterator)
+				fromText.formIndex(after: &charIterator)
 			}
 			if nextChar() == "I" {
-				charIterator = fromText.index(after: charIterator)
+				fromText.formIndex(after: &charIterator)
 			} else {
 				// it's not PCM; presumably some other format (NOT VALIDATED; use AudioFormat for that)
 				isPCM = false;
@@ -519,9 +519,9 @@ public extension AudioStreamBasicDescription {
 					if nextChar() != "\\" {
 						let wasAdvanced: Bool
 						if let cChar = nextChar() {
-							let bBuf = String(cChar).cString(using: String.Encoding.macOSRoman) ?? [0]
+							let bBuf = String(cChar).cString(using: .macOSRoman) ?? [0]
 							aBuf = bBuf[0]
-							charIterator = fromText.index(after: charIterator)
+							fromText.formIndex(after: &charIterator)
 							wasAdvanced = true
 						} else {
 							aBuf = 0
@@ -535,7 +535,7 @@ public extension AudioStreamBasicDescription {
 								throw ASBDError.invalidFormat
 							}
 							if wasAdvanced {
-								charIterator = fromText.index(before: charIterator)	// keep pointing at the terminating null
+								fromText.formIndex(before: &charIterator)	// keep pointing at the terminating null
 							}
 							aBuf = 0x20;
 							buf[i] = aBuf
@@ -543,7 +543,7 @@ public extension AudioStreamBasicDescription {
 						}
 					} else {
 						// "\xNN" is a hex byte
-						charIterator = fromText.index(after: charIterator)
+						fromText.formIndex(after: &charIterator)
 						if (nextChar() != "x") {
 							throw ASBDError.invalidFormat
 						}
@@ -569,7 +569,7 @@ public extension AudioStreamBasicDescription {
 				if strchr("-@/#", Int32(buf[3])) != nil {
 					// further special-casing for 'aac'
 					buf[3] = 0x20
-					fromText.formIndex(after: &charIterator)
+					fromText.formIndex(before: &charIterator)
 				}
 				
 				memcpy(&mFormatID, buf, 4);
@@ -578,7 +578,7 @@ public extension AudioStreamBasicDescription {
 		}
 		
 		if isPCM {
-			mFormatID = kAudioFormatLinearPCM;
+			mFormatID = kAudioFormatLinearPCM
 			mFormatFlags = pcmFlags
 			mFramesPerPacket = 1
 			mChannelsPerFrame = 1
@@ -611,30 +611,28 @@ public extension AudioStreamBasicDescription {
 			}
 		}
 		if nextChar() == "@" {
-			charIterator = fromText.index(after: charIterator)
+			fromText.formIndex(after: &charIterator)
 			while let aNum = numFromCurrentChar() {
 				mSampleRate = 10 * mSampleRate + Float64(aNum)
-				charIterator = fromText.index(after: charIterator)
+				fromText.formIndex(after: &charIterator)
 			}
 		}
 		if nextChar() == "/" {
 			var flags: UInt32 = 0;
 			while true {
-				charIterator = fromText.index(after: charIterator)
-				guard charIterator < fromText.endIndex else {
-					break
-				}
-				guard let bChar = ASCIICharacter(swiftCharacter: fromText[charIterator]) else {
-					break
+				fromText.formIndex(after: &charIterator)
+				guard charIterator < fromText.endIndex,
+					let bChar = ASCIICharacter(swiftCharacter: fromText[charIterator]) else {
+						break
 				}
 				//Int(hex)
 				
 				if (ASCIICharacter.numberZero ... ASCIICharacter.numberNine).contains(bChar) {
 					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.numberZero.rawValue);
 				} else if (ASCIICharacter.letterUppercaseA ... ASCIICharacter.letterUppercaseF).contains(bChar) {
-					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.letterUppercaseA.rawValue + 10);
+					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.letterUppercaseA.rawValue + 10)
 				} else if (ASCIICharacter.letterLowercaseA ... ASCIICharacter.letterLowercaseF).contains(bChar) {
-					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.letterLowercaseA.rawValue + 10);
+					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.letterLowercaseA.rawValue + 10)
 				} else {
 					break;
 				}
@@ -642,14 +640,14 @@ public extension AudioStreamBasicDescription {
 			mFormatFlags = flags;
 		}
 		if nextChar() == "#" {
-			charIterator = fromText.index(after: charIterator)
+			fromText.formIndex(after: &charIterator)
 			while let aNum = numFromCurrentChar() {
 				mFramesPerPacket = 10 * mFramesPerPacket + UInt32(aNum)
-				charIterator = fromText.index(after: charIterator)
+				fromText.formIndex(after: &charIterator)
 			}
 		}
 		if nextChar() == ":" {
-			charIterator = fromText.index(after: charIterator)
+			fromText.formIndex(after: &charIterator)
 			mFormatFlags &= ~kLinearPCMFormatFlagIsPacked
 			if fromText[charIterator] == "L" {
 				mFormatFlags &= ~kLinearPCMFormatFlagIsAlignedHigh
@@ -658,17 +656,17 @@ public extension AudioStreamBasicDescription {
 			} else {
 				throw ASBDError.invalidFormat
 			}
-			charIterator = fromText.index(after: charIterator)
+			fromText.formIndex(after: &charIterator)
 			var bytesPerFrame: UInt32 = 0;
 			while let aNum = numFromCurrentChar() {
 				bytesPerFrame = 10 * bytesPerFrame + UInt32(aNum)
-				charIterator = fromText.index(after: charIterator)
+				fromText.formIndex(after: &charIterator)
 			}
 			mBytesPerPacket = bytesPerFrame
 			mBytesPerFrame = mBytesPerPacket
 		}
 		if nextChar() == "," {
-			charIterator = fromText.index(after: charIterator)
+			fromText.formIndex(after: &charIterator)
 			var ch = 0;
 			while let aNum = numFromCurrentChar() {
 				ch = 10 * ch + aNum
@@ -676,7 +674,7 @@ public extension AudioStreamBasicDescription {
 			}
 			mChannelsPerFrame = UInt32(ch);
 			if nextChar() == "D" {
-				charIterator = fromText.index(after: charIterator)
+				fromText.formIndex(after: &charIterator)
 				guard mFormatID == kAudioFormatLinearPCM else {
 					throw ASBDError.invalidInterleavedFlag
 				}
