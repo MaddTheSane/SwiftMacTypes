@@ -450,7 +450,7 @@ extension String {
 	}
 }
 
-public enum CarbonToolbarIcons: OSType {
+public enum CarbonToolbarIcons: OSType, OSTypeConvertable {
 	case customize = 0x74637573
 	case delete = 0x7464656C
 	case favorite = 0x74666176
@@ -470,16 +470,12 @@ public enum CarbonToolbarIcons: OSType {
 	case utilitiesFolder = 0x7455746C
 	case sitesFolder = 0x74537473
 
-	public var stringValue: String {
-		return OSTypeToString(rawValue) ?? "    "
-	}
-	
 	public var iconRepresentation: NSImage {
 		return NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(rawValue))
 	}
 }
 
-public enum CarbonFolderIcons: OSType {
+public enum CarbonFolderIcons: OSType, OSTypeConvertable {
 	case generic = 0x666C6472
 	case drop = 0x64626F78
 	case mounted = 0x6D6E7464
@@ -487,10 +483,6 @@ public enum CarbonFolderIcons: OSType {
 	case owned = 0x6F776E64
 	case `private` = 0x70727666
 	case shared = 0x7368666C
-	
-	public var stringValue: String {
-		return OSTypeToString(rawValue) ?? "    "
-	}
 	
 	public var iconRepresentation: NSImage {
 		return NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(rawValue))

@@ -338,3 +338,14 @@ public extension UnsafeMutableBufferPointer {
 		self = UnsafeMutableBufferPointer(start: start, count: start.distance(to: toIterate))
 	}
 }
+
+public protocol OSTypeConvertable: RawRepresentable where RawValue == OSType {
+	/// The value's string representation.
+	var stringValue: String { get }
+}
+
+public extension OSTypeConvertable {
+	var stringValue: String {
+		return OSTypeToString(self.rawValue) ?? "    "
+	}
+}

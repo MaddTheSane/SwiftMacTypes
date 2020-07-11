@@ -13,6 +13,8 @@ import SwiftAdditions
 
 // MARK: Audio File
 
+/// Defined to set or clear `kAudioFormatFlagIsBigEndian` depending on the
+/// endianness of the processor at build time.
 @inlinable public var kLinearPCMFormatFlagNativeEndian: AudioFormatFlags {
 	#if _endian(big)
 		return kLinearPCMFormatFlagIsBigEndian
@@ -21,7 +23,7 @@ import SwiftAdditions
 	#endif
 }
 
-public enum AudioFileType: OSType {
+public enum AudioFileType: OSType, OSTypeConvertable {
 	case unknown			= 0
 	case AIFF				= 1095321158
 	case AIFC				= 1095321155
@@ -40,41 +42,79 @@ public enum AudioFileType: OSType {
 	case threeGP			= 862417008
 	case threeGP2			= 862416946
 	case AMR				= 1634562662
-	
-	public var stringValue: String {
-		return OSTypeToString(self.rawValue) ?? "    "
-	}
 }
 
+/// Creates a new audio file, or initializes an existing file, specified by a URL.
+/// - parameter inFileRef: The fully specified path of the file to create or initialize.
+/// - parameter inFileType: The type of audio file to create. See `AudioFileTypeID` for constants that can be used.
+/// - parameter format: A pointer to the structure that describes the format of the data.
+/// - parameter flags: Relevant flags for creating or opening the file. If `eraseFile` is set, it erases an existing file. If the flag is not set, the function fails if the URL is an existing file.
+/// - parameter outAudioFile: On output, a pointer to a newly created or initialized file.
+/// - returns: A result code.
+///
+/// This function uses a `URL` type rather than the `FSRef` type used by the deprecated `AudioFileCreate` function.
 public func AudioFileCreate(url inFileRef: URL, fileType inFileType: AudioFileType, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
 	return AudioFileCreateWithURL(inFileRef as NSURL, inFileType.rawValue, &format, flags, &outAudioFile)
 }
 
+/// Creates a new audio file, or initializes an existing file, specified by a string path.
+/// - parameter inFileType: The type of audio file to create. See `AudioFileTypeID` for constants that can be used.
+/// - parameter format: A pointer to the structure that describes the format of the data.
+/// - parameter flags: Relevant flags for creating or opening the file. If `eraseFile` is set, it erases an existing file. If the flag is not set, the function fails if the URL is an existing file.
+/// - parameter outAudioFile: On output, a pointer to a newly created or initialized file.
+/// - returns: A result code.
 public func AudioFileCreate(path: String, fileType inFileType: AudioFileType, format: inout AudioStreamBasicDescription, flags: AudioFileFlags = AudioFileFlags(rawValue: 0), audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
 	let inFileRef = URL(fileURLWithPath: path)
 	return AudioFileCreate(url: inFileRef, fileType: inFileType, format: &format, flags: flags, audioFile: &outAudioFile)
 }
 
+/// Open an existing audio file specified by a URL.
+/// - parameter inFileRef: The URL of an existing audio file.
+/// - parameter permissions: The read-write permissions you want to assign to the file. Use the permission constants in AudioFilePermissions.
+/// - parameter fileTypeHint: A hint for the file type of the designated file. For files without filename extensions and with types not easily or uniquely determined from the data (such as ADTS or AC3), use this hint to indicate the file type. Otherwise, pass 0. Only use this hint in macOS versions 10.3.1 or greater. In all earlier versions, any attempt to open these files fails.
+/// - parameter outAudioFile: On output, a pointer to the newly opened audio file.
+/// - returns: A result code.
 public func AudioFileOpen(url inFileRef: URL, permissions: AudioFilePermissions = .readPermission, fileTypeHint: AudioFileType? = nil, audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
 	return AudioFileOpenURL(inFileRef as NSURL, permissions, fileTypeHint?.rawValue ?? 0, &outAudioFile)
 }
 
+/// - returns: A result code.
 public func AudioFileOpen(path: String, permissions: AudioFilePermissions = .readPermission, fileTypeHint: AudioFileType? = nil, audioFile outAudioFile: inout AudioFileID?) -> OSStatus {
 	let inFileRef = URL(fileURLWithPath: path)
 	return AudioFileOpen(url: inFileRef, permissions: permissions, fileTypeHint: fileTypeHint, audioFile: &outAudioFile)
 }
 
+/// Reads bytes of audio data from an audio file.
+/// - parameter audioFile: The audio file whose bytes of audio data you want to read.
+/// - parameter useCache: Set to `true` if you want to cache the data. You should cache reads and writes if you read or write the same portion of a file multiple times. To request that the data not be cached, if possible, set to `false`. You should not cache reads and writes if you read or write data from a file only once.
+/// - parameter startingByte: The byte offset of the audio data you want to be returned.
+/// - parameter numberBytes: On input, a pointer to the number of bytes to read. On output, a pointer to the number of bytes actually read.
+/// - parameter buffer: A pointer to user-allocated memory large enough for the requested bytes.
+/// - returns: A result code.
+///
+/// In most cases, you should use `AudioFileReadPackets(_:_:_:_:_:_:_:)` instead of this function.
+///
+/// This function returns `eofErr` when the read operation encounters the end of the file. Note that Audio File Services only reads one 32-bit chunk of a file at a time.
 public func AudioFileReadBytes(audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, numberBytes: inout UInt32, buffer: UnsafeMutableRawPointer) -> OSStatus {
 	return AudioFileReadBytes(audioFile, useCache, startingByte, &numberBytes, buffer)
 }
 
+/// Writes bytes of audio data to an audio file.
+/// - parameter audioFile: The audio file to which you want to write bytes of data.
+/// - parameter useCache: Set to `true` if you want to cache the data. Otherwise, set to `false`.
+/// - parameter startingByte: The byte offset where the audio data should be written.
+/// - parameter numberBytes: On input, a pointer the number of bytes to write. On output, a pointer to the number of bytes actually written.
+/// - parameter buffer: A pointer to a buffer containing the bytes to be written.
+/// - returns: A result code.
+///
+/// In most cases, you should use `AudioFileWritePackets(_:_:_:_:_:_:_:)` instead of this function.
 public func AudioFileWriteBytes(audioFile: AudioFileID, useCache: Bool = false, startingByte: Int64 = 0, numberBytes: inout UInt32, buffer: UnsafeRawPointer) -> OSStatus {
 	return AudioFileWriteBytes(audioFile, useCache, startingByte, &numberBytes, buffer)
 }
 
 // MARK: Audio Format
 
-public enum AudioFormat: OSType {
+public enum AudioFormat: OSType, OSTypeConvertable {
 	case unknown				= 0
 	/// DVI/Intel IMA ADPCM - ACM code 17.
 	case DVIIntelIMA			= 0x6D730011
@@ -122,7 +162,7 @@ public enum AudioFormat: OSType {
 	/// A stream of MIDIPacketLists where the time stamps in the MIDIPacketList are
 	/// sample offsets in the stream.
 	///
-	/// The mSampleRate field is used to describe how
+	/// The `mSampleRate` field is used to describe how
 	/// time is passed in this kind of stream and an AudioUnit that receives or
 	/// generates this stream can use this sample rate, the number of frames it is
 	/// rendering and the sample offsets within the MIDIPacketList to define the
@@ -173,11 +213,6 @@ public enum AudioFormat: OSType {
 	public static var uLaw: AudioFormat {
 		return .µLaw
 	}
-	
-	/// The value's string representation.
-	public var stringValue: String {
-		return OSTypeToString(self.rawValue) ?? "    "
-	}
 }
 
 public struct AudioFormatFlag : OptionSet {
@@ -220,6 +255,20 @@ public struct AudioFormatFlag : OptionSet {
 		#else
 			fatalError("Unknown endianness")
 		#endif
+	}
+}
+
+func calculateLPCMFlags(validBitsPerChannel inValidBitsPerChannel: UInt32, totalBitsPerChannel inTotalBitsPerChannel: UInt32, isFloat inIsFloat: Bool, isBigEndian inIsBigEndian: Bool, isNonInterleaved inIsNonInterleaved: Bool = false) -> AudioFormatFlags {
+	return (inIsFloat ? kAudioFormatFlagIsFloat : kAudioFormatFlagIsSignedInteger) | (inIsBigEndian ? ((UInt32)(kAudioFormatFlagIsBigEndian)) : 0) | ((inValidBitsPerChannel == inTotalBitsPerChannel) ? kAudioFormatFlagIsPacked : kAudioFormatFlagIsAlignedHigh) | (inIsNonInterleaved ? ((UInt32)(kAudioFormatFlagIsNonInterleaved)) : 0)
+	
+}
+
+public extension AudioStreamBasicDescription {
+	init(lpcmSampleRate inSampleRate: Float64, channelsPerFrame inChannelsPerFrame: UInt32, validBitsPerChanel inValidBitsPerChannel: UInt32, totalBitsPerChannel inTotalBitsPerChannel: UInt32, isFloat inIsFloat: Bool, isBigEndian inIsBigEndian: Bool, isNonInterleaved inIsNonInterleaved: Bool = false) {
+		let formatFlags = calculateLPCMFlags(validBitsPerChannel: inValidBitsPerChannel, totalBitsPerChannel: inTotalBitsPerChannel, isFloat: inIsFloat, isBigEndian: inIsBigEndian, isNonInterleaved: inIsNonInterleaved)
+		let bytesPerPacket = (inIsNonInterleaved ? 1 : inChannelsPerFrame) * (inTotalBitsPerChannel / 8)
+		let bytesPerFrame = (inIsNonInterleaved ? 1 : inChannelsPerFrame) * (inTotalBitsPerChannel / 8)
+		self.init(mSampleRate: inSampleRate, mFormatID: kAudioFormatLinearPCM, mFormatFlags: formatFlags, mBytesPerPacket: bytesPerPacket, mFramesPerPacket: 1, mBytesPerFrame: bytesPerFrame, mChannelsPerFrame: inChannelsPerFrame, mBitsPerChannel: inValidBitsPerChannel, mReserved: 0)
 	}
 }
 
@@ -544,7 +593,7 @@ public extension AudioStreamBasicDescription {
 					} else {
 						// "\xNN" is a hex byte
 						fromText.formIndex(after: &charIterator)
-						if (nextChar() != "x") {
+						if nextChar() != "x" {
 							throw ASBDError.invalidFormat
 						}
 						var x: Int32 = 0
