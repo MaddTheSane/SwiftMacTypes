@@ -14,6 +14,7 @@
 #include <AudioToolbox/AUComponent.h>
 #include <AudioToolbox/AudioFile.h>
 #include <AudioToolbox/ExtendedAudioFile.h>
+#include <AudioToolbox/AudioUnitProperties.h>
 #include <CoreAudio/CoreAudioTypes.h>
 #include <CoreMIDI/MIDIServices.h>
 
@@ -126,6 +127,22 @@ typedef MTS_ERROR_ENUM(OSStatus, SAACoreAudioErrorDomain, SAACoreAudioError) {
 	SAACoreAudioErrorExtAudioFileInvalidSeek = kExtAudioFileError_InvalidSeek,
 	//! An asynchronous write operation could not be completed in time.
 	SAACoreAudioErrorExtAudioFileAsyncWriteBufferOverflow = kExtAudioFileError_AsyncWriteBufferOverflow,
+	
+#if TARGET_OS_IPHONE
+	//! Returned from \c AudioConverterFillComplexBuffer if the underlying hardware codec has
+	//! become unavailable, probably due to an interruption. In this case, your application
+	//! must stop calling <code>AudioConverterFillComplexBuffer</code>. If the converter can resume from an
+	//! interruption (see <code>kAudioConverterPropertyCanResumeFromInterruption</code>), you must
+	//! wait for an EndInterruption notification from AudioSession, and call AudioSessionSetActive(true)
+	//! before resuming.
+	SAACoreAudioErrorConverterHardwareInUse = kAudioConverterErr_HardwareInUse,
+	//! Returned from \c AudioConverterNew if the new converter would use a hardware codec
+	//! which the application does not have permission to use.
+	SAACoreAudioErrorConverterNoHardwarePermission = kAudioConverterErr_NoHardwarePermission,
+#else
+	//! This error indicates that an unexpected number of input channels was encountered during initialization of voice processing audio unit
+	SAACoreAudioErrorVoiceIOUnexpectedNumberOfInputChannels = kAUVoiceIOErr_UnexpectedNumberOfInputChannels,
+#endif
 };
 
 #endif /* SAAError_h */

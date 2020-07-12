@@ -8,6 +8,7 @@
 
 import Foundation
 import AudioUnit
+import SwiftAdditions
 
 public enum AudioComponentType {
 	case output(AUOutput)
@@ -89,7 +90,7 @@ public enum AudioComponentType {
 		self = .unknown(type: rawType, subType: AUSubtype)
 	}
 	
-	public enum AUType: OSType {
+	public enum AUType: OSType, OSTypeConvertable {
 		case output = 0x61756F75
 		case musicDevice = 0x61756D75
 		case musicEffect = 0x61756D66
@@ -102,7 +103,7 @@ public enum AudioComponentType {
 		case MIDIProcessor = 0x61756D69
 	}
 	
-	public enum AUOutput: OSType {
+	public enum AUOutput: OSType, OSTypeConvertable {
 		case generic = 0x67656E72
 		case HAL = 0x6168616C
 		case `default` = 0x64656620
@@ -110,7 +111,7 @@ public enum AudioComponentType {
 		case voiceProcessingIO = 0x7670696F
 	}
 	
-	public enum AUInstrument: OSType {
+	public enum AUInstrument: OSType, OSTypeConvertable {
 		#if os(OSX)
 		case DLS = 0x646C7320
 		#endif
@@ -118,7 +119,7 @@ public enum AudioComponentType {
 		case MIDI = 0x6D73796E
 	}
 	
-	public enum AUConverter: OSType {
+	public enum AUConverter: OSType, OSTypeConvertable {
 		case AUConverter = 0x636F6E76
 		#if os(OSX)
 		case timePitch = 0x746D7074
@@ -134,7 +135,7 @@ public enum AudioComponentType {
 		case iPodTimeOther = 0x6970746F
 	}
 	
-	public enum AUEffect: OSType {
+	public enum AUEffect: OSType, OSTypeConvertable {
 		case delay = 0x64656C79
 		case lowPassFilter = 0x6C706173
 		case highPassFilter = 0x68706173
@@ -162,21 +163,21 @@ public enum AudioComponentType {
 		#endif
 	}
 	
-	public enum AUMixer: OSType {
+	public enum AUMixer: OSType, OSTypeConvertable {
 		case multiChannel = 0x6D636D78
 		case spatial = 0x3364656D
 		case stereo = 0x736D7872
 		case matrix = 0x6D786D78
 	}
 	
-	public enum AUPanner: OSType {
+	public enum AUPanner: OSType, OSTypeConvertable {
 		case sphericalHead = 0x73706872
 		case vector = 0x76626173
 		case soundField = 0x616D6269
 		case HRTF = 0x68727466
 	}
 	
-	public enum AUGenerator: OSType {
+	public enum AUGenerator: OSType, OSTypeConvertable {
 		case netReceive = 0x6E726376
 		case scheduledSoundPlayer = 0x7373706C
 		case audioFilePlayer = 0x6166706C

@@ -128,6 +128,23 @@ public struct SAACoreAudioError: _BridgedStoredNSError {
 		
 		/// An asynchronous write operation could not be completed in time.
 		case extAudioFileAsyncWriteBufferOverflow = -66570
+		
+		#if os(iOS)
+		/// Returned from `AudioConverterFillComplexBuffer` if the underlying hardware codec
+		/// has become unavailable, probably due to an interruption. In this case, your
+		/// application must stop calling `AudioConverterFillComplexBuffer`. If the converter
+		/// can resume from an interruption (see `kAudioConverterPropertyCanResumeFromInterruption`),
+		/// you must wait for an EndInterruption notification from AudioSession,
+		/// and call `AudioSessionSetActive(true)` before resuming.
+		case converterHardwareInUse = 1752656245
+		/// Returned from `AudioConverterNew` if the new converter would use a hardware codec
+		/// which the application does not have permission to use.
+		case converterNoHardwarePermission = 1885696621
+		#else
+		/// This error indicates that an unexpected number of input channels was encountered
+		/// during initialization of voice processing audio unit
+		case voiceIOUnexpectedNumberOfInputChannels = -66784
+		#endif
 	}
 	
 	public init(_nsError error: NSError) {
@@ -233,19 +250,28 @@ public struct SAACoreAudioError: _BridgedStoredNSError {
 	
 	/// An asynchronous write operation could not be completed in time.
 	public static var extAudioFileAsyncWriteBufferOverflow: SAACoreAudioError.Code { return .extAudioFileAsyncWriteBufferOverflow }
+	#if os(iOS)
+	/// Returned from `AudioConverterFillComplexBuffer` if the underlying hardware codec has
+	/// become unavailable, probably due to an interruption. In this case, your application
+	/// must stop calling `AudioConverterFillComplexBuffer`. If the converter can resume from an
+	/// interruption (see `kAudioConverterPropertyCanResumeFromInterruption`), you must
+	/// wait for an EndInterruption notification from AudioSession, and call `AudioSessionSetActive(true)`
+	/// before resuming.
+	public static var converterHardwareInUse: SAACoreAudioError.Code { return .converterHardwareInUse }
+	/// Returned from `AudioConverterNew` if the new converter would use a hardware codec
+	/// which the application does not have permission to use.
+	public static var converterNoHardwarePermission: SAACoreAudioError.Code { return .converterNoHardwarePermission }
+	#else
+	/// This error indicates that an unexpected number of input channels was encountered
+	/// during initialization of voice processing audio unit
+	public static var voiceIOUnexpectedNumberOfInputChannels: SAACoreAudioError.Code { return .voiceIOUnexpectedNumberOfInputChannels }
+	#endif
 }
 
 #endif
 
+private let carbErrs: Set<OSStatus> = Set([kAudioFileNotOpenError, kAudioFileEndOfFileError, kAudioFilePositionError, kAudioFileFileNotFoundError])
 internal func errorFromOSStatus(_ err: OSStatus, userInfo: [String: Any] = [:]) -> Error {
-	let carbErrs: Set<OSStatus> = Set([-38, -39, -40, -43])
-	/*
-	kAudioFileNotOpenError							= -38,
-	kAudioFileEndOfFileError						= -39,
-	kAudioFilePositionError							= -40,
-	kAudioFileFileNotFoundError						= -43
-
-	*/
 	guard !carbErrs.contains(err), let caErr = SAACoreAudioError.Code(rawValue: err) else {
 		return SAMacError.osStatus(err, userInfo: userInfo)
 	}

@@ -190,9 +190,10 @@ public extension CGRect {
 public extension NSUUID {
 	/// Create a new `NSUUID` from a CoreFoundation `CFUUID`.
 	@objc(initWithCFUUID:) convenience init(cfUUID: CFUUID) {
-		let tempUIDStr = CFUUIDCreateString(kCFAllocatorDefault, cfUUID)! as String
-		
-		self.init(uuidString: tempUIDStr)!
+		let tmp = CFUUIDGetUUIDBytes(cfUUID)
+		let tmp2 = [tmp.byte0, tmp.byte1, tmp.byte2, tmp.byte3, tmp.byte4, tmp.byte5, tmp.byte6, tmp.byte7, tmp.byte8, tmp.byte9, tmp.byte10, tmp.byte11, tmp.byte12, tmp.byte13, tmp.byte14, tmp.byte15]
+
+		self.init(uuidBytes: tmp2)
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
