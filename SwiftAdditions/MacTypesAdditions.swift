@@ -17,6 +17,8 @@ import CoreGraphics
 
 
 /// Converts an `OSType` to a `String` value. May return `nil`.
+/// - parameter theType: The `OSType` to convert to a string representation.
+/// - returns: A string representation of `theType`, or `nil` if it can't be converted.
 public func OSTypeToString(_ theType: OSType) -> String? {
 	func OSType2Ptr(type: OSType) -> [CChar] {
 		var ourOSType = [Int8](repeating: 0, count: 5)
@@ -35,7 +37,9 @@ public func OSTypeToString(_ theType: OSType) -> String? {
 	return NSString(bytes: ourOSType, length: 4, encoding: String.Encoding.macOSRoman.rawValue) as String?
 }
 
-/// Converts an `OSType` to a `String` value. May return a hexadecimal string.
+/// Converts an `OSType` to a `String` value. May return a hexadecimal representation.
+/// - parameter theType: The `OSType` to convert to a string representation.
+/// - returns: A string representation of `theType`, or the hexadecimal representation of `theType` if it can't be converted.
 public func OSTypeToString(_ theType: OSType, useHexIfInvalid: ()) -> String {
 	if let ourStr = OSTypeToString(theType), ourStr.count == 4 {
 		return ourStr
@@ -76,14 +80,14 @@ public func toOSType(_ theString: String, detectHex: Bool = false) -> OSType {
 		return type
 	}
 	var ourOSType = [Int8](repeating: 0, count: 5)
-	var ourLen = theString.lengthOfBytes(using: String.Encoding.macOSRoman)
+	var ourLen = theString.lengthOfBytes(using: .macOSRoman)
 	if ourLen > 4 {
 		ourLen = 4
 	} else if ourLen == 0 {
 		return 0
 	}
 	
-	guard let aData = theString.cString(using: String.Encoding.macOSRoman) else {
+	guard let aData = theString.cString(using: .macOSRoman) else {
 		return 0
 	}
 	
