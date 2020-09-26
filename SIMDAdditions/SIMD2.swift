@@ -17,5 +17,9 @@ public extension SIMD2 where Scalar: Numeric {
     @inlinable static func ==(left: SIMD2<Scalar>, right: SIMD2<Scalar>) -> simd_int2 {
         return simd_int2(left.x == right.x ? -1: 0, left.y == right.y ? -1: 0)
     }
+	
+    @inlinable static func !=(left: SIMD2<Scalar>, right: SIMD2<Scalar>) -> simd_int2 {
+        return simd_int2(left.x != right.x ? -1: 0, left.y != right.y ? -1: 0)
+    }
 }
 

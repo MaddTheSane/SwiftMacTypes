@@ -20,7 +20,9 @@ public extension SIMD3 where Scalar: Numeric {
     @inlinable static func !=(left: SIMD3<Scalar>, right: SIMD3<Scalar>) -> simd_int3 {
         return simd_int3(left.x != right.x ? -1: 0, left.y != right.y ? -1: 0, left.z != right.z ? -1: 0)
     }
-	
+}
+
+public extension SIMD3 {
 	@inlinable var xy: SIMD2<Scalar> {
         get {
             return SIMD2<Scalar>(x, y)
@@ -30,7 +32,6 @@ public extension SIMD3 where Scalar: Numeric {
             y = newValue.y
         }
     }
-
 	
 	@inlinable var yz: SIMD2<Scalar> {
         get {
@@ -62,5 +63,4 @@ public extension SIMD3 where Scalar: Numeric {
             z = newValue.x
         }
     }
-
 }
