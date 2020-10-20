@@ -12,6 +12,8 @@ import CoreText.CTStringAttributes
 extension NSAttributedString.Key {
 	
 	/// Namespace of CoreText attributed string keys.
+	///
+	/// Note that these may overlap or be different than the ones provided by AppKit/UIKit.
 	public enum CoreText {
 		/// Allows the setting of an underline to be applied at render time.
 		///
@@ -20,6 +22,10 @@ extension NSAttributedString.Key {
 		/// an underline. In addition, the `CTUnderlineStyleModifiers` can be
 		/// used to modify the look of the underline. The underline color
 		/// will be determined by the text's foreground color.
+		///
+		/// Remember to unwrap `enum`s and `OptionSet`s when interacting with
+		/// CoreFoundation/Objective-C code by calling `.rawValue`, otherwise Foundation
+		/// won't know how to read it.
 		public static var underlineStyle: NSAttributedString.Key {
 			return NSAttributedString.Key(rawValue: kCTUnderlineStyleAttributeName as String)
 		}
@@ -174,7 +180,7 @@ extension NSAttributedString.Key {
 		/// `CTGlyphInfo` object is assigned to the entire attribute range,
 		/// provided that its contents match the specified base string and
 		/// that the specified glyph is available in the font specified by
-		/// `.font`. See CTGlyphInfo.h for more information.
+		/// `.font`. See **CTGlyphInfo.h** for more information.
 		public static var glyphInfo: NSAttributedString.Key {
 			return NSAttributedString.Key(rawValue: kCTGlyphInfoAttributeName as String)
 		}
@@ -249,6 +255,10 @@ extension NSAttributedString.Key {
 		/// text) the text baseline and a negative baseline value indicates a
 		/// shift below (or to the left for vertical text) the text baseline.
 		/// If this value is set to `0.0`, no baseline shift will be performed.
+		///
+		/// **Important:** This attribute is different from `NSBaselineOffsetAttributeName`.
+		/// If you are writing code for TextKit, you need to use
+		/// `NSBaselineOffsetAttributeName`.
 		@available(OSX 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *)
 		public static var baselineOffset: NSAttributedString.Key {
 			return NSAttributedString.Key(rawValue: kCTBaselineOffsetAttributeName as String)
