@@ -97,6 +97,7 @@
 		55721B7E21599BDC00F048AA /* AudioFileFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55721B7D21599BDC00F048AA /* AudioFileFormats.swift */; };
 		5576C14C1F6AFA4400C8C01F /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577287719ABE259008328D0 /* MacTypesAdditions.swift */; };
+		557EA35E25861EE8005AEADC /* ForceFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557EA35D25861EE8005AEADC /* ForceFeedback.framework */; };
 		5587E0C01A0A115D00CA1400 /* Endianness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5587E0BF1A0A115D00CA1400 /* Endianness.swift */; };
 		558DC059217D04840022E081 /* QuartzAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558DC050217D04830022E081 /* QuartzAdditions.framework */; };
 		558DC05E217D04840022E081 /* QuartzAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558DC05D217D04840022E081 /* QuartzAdditionsTests.swift */; };
@@ -359,6 +360,7 @@
 		55721B7B21599B7C00F048AA /* AUOutputBL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AUOutputBL.swift; sourceTree = "<group>"; };
 		55721B7D21599BDC00F048AA /* AudioFileFormats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileFormats.swift; sourceTree = "<group>"; };
 		5577287719ABE259008328D0 /* MacTypesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacTypesAdditions.swift; sourceTree = "<group>"; };
+		557EA35D25861EE8005AEADC /* ForceFeedback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ForceFeedback.framework; path = System/Library/Frameworks/ForceFeedback.framework; sourceTree = SDKROOT; };
 		5587E0BF1A0A115D00CA1400 /* Endianness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endianness.swift; sourceTree = "<group>"; };
 		558DC050217D04830022E081 /* QuartzAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuartzAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		558DC052217D04840022E081 /* QuartzAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuartzAdditions.h; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				557EA35E25861EE8005AEADC /* ForceFeedback.framework in Frameworks */,
 				55403A1D1A745283007A488E /* SwiftAdditions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -809,6 +812,7 @@
 		55E18FCB1A43AC3300834004 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				557EA35D25861EE8005AEADC /* ForceFeedback.framework */,
 				55E18FC81A43AC2B00834004 /* Foundation.framework */,
 				55E18FC71A43AC2B00834004 /* CoreFoundation.framework */,
 			);

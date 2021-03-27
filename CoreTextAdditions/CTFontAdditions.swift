@@ -129,7 +129,7 @@ public extension CTFont {
 	/// - parameter size: The point size for the font reference. If *0.0* is specified, the default size for the requested uiType is used.
 	/// - parameter language: Language identifier to select a font for a particular localization. If unspecified, the current system language is used. The format of the language identifier should conform to *UTS #35*.
 	/// - returns: This function returns the correct font for various UI uses. The only required parameter is the `uiType` selector, unspecified optional parameters will use default values.
-	class func create(uiType: UIFontType, size: CGFloat, language: String?) -> CTFont? {
+	class func create(uiType: UIFontType, size: CGFloat, forLanguage language: String?) -> CTFont? {
 		return CTFontCreateUIFontForLanguage(uiType, size, language as NSString?)
 	}
 	
@@ -565,7 +565,7 @@ public extension CTFont {
 	
 	/// Performs basic character-to-glyph mapping.
 	///
-	/// This method only provides the nominal mapping as specified by the font's Unicode cmap (or
+	/// This method only provides the nominal mapping as specified by the font's Unicode `cmap` (or
 	/// equivalent); such mapping does not constitute proper Unicode layout: it is the caller's responsibility
 	/// to handle the Unicode properties of the characters.
 	/// - parameter characters: An array of characters (UTF-16 code units). Non-BMP characters must be encoded

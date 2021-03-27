@@ -14,6 +14,7 @@ import Foundation
 			let errNum = dict[NSAppleScript.errorNumber] as? Int ?? errOSAScriptError
 			
 			dict[NSLocalizedFailureReasonErrorKey] = dict[NSAppleScript.errorMessage]
+			dict[NSDebugDescriptionErrorKey] = dict[NSAppleScript.errorMessage]
 			dict[NSLocalizedDescriptionKey] = dict[NSAppleScript.errorBriefMessage]
 			return NSError(domain: NSOSStatusErrorDomain, code: errNum, userInfo: dict)
 		} else {
