@@ -586,7 +586,7 @@ public extension String.Encoding {
 	
 	/// CNS 11643-1992 plane 1.
 	static var CNS_11643_92_P1: String.Encoding {
-		return String.Encoding(rawValue: convertToNSStrEnc(from: CFStringEncodings.CNS_11643_92_P1))
+		return String.Encoding(rawValue: convertToNSStrEnc(from: .CNS_11643_92_P1))
 	}
 	
 	/// CNS 11643-1992 plane 2.
@@ -1010,7 +1010,7 @@ public extension OSType {
 
 #if os(OSX)
 extension String {
-	// HFSUniStr255 is declared internally on OS X as part of the HFS headers. iOS doesn't have this struct public.
+	/// `HFSUniStr255` is declared internally on OS X as part of the HFS headers. iOS doesn't have this struct public.
 	public init?(HFSUniStr: HFSUniStr255) {
 		guard HFSUniStr.length < 256 else {
 			return nil
@@ -1027,7 +1027,21 @@ extension String {
 	}
 }
 
-public enum CarbonToolbarIcons: OSType, OSTypeConvertable {
+public protocol OSTypeIconConvertable: RawRepresentable where RawValue == OSType {
+	/// The icon representation of the `OSType`.
+	///
+	/// Note that some icons might be the default icon.
+	var iconRepresentation: NSImage { get }
+}
+
+public extension OSTypeIconConvertable {
+	var iconRepresentation: NSImage {
+		return NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(rawValue))
+	}
+}
+
+/// Toolbar icons
+public enum CarbonToolbarIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
 	case customize = 0x74637573
 	case delete = 0x7464656C
 	case favorite = 0x74666176
@@ -1046,13 +1060,10 @@ public enum CarbonToolbarIcons: OSType, OSTypeConvertable {
 	case libraryFolder = 0x744C6962
 	case utilitiesFolder = 0x7455746C
 	case sitesFolder = 0x74537473
-
-	public var iconRepresentation: NSImage {
-		return NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(rawValue))
-	}
 }
 
-public enum CarbonFolderIcons: OSType, OSTypeConvertable {
+/// Folders
+public enum CarbonFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
 	case generic = 0x666C6472
 	case drop = 0x64626F78
 	case mounted = 0x6D6E7464
@@ -1060,10 +1071,185 @@ public enum CarbonFolderIcons: OSType, OSTypeConvertable {
 	case owned = 0x6F776E64
 	case `private` = 0x70727666
 	case shared = 0x7368666C
-	
-	public var iconRepresentation: NSImage {
-		return NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(rawValue))
-	}
+}
+
+/// Sharing Privileges icons
+public enum CarbonSharingPrivilegesIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+	case notApplicable = 0x73686e61
+	case readOnly = 0x7368726f
+	case readWrite = 0x73687277
+	case unknown = 0x7368756b
+	case writable = 0x77726974
+}
+
+/// Users and Groups icons
+public enum CarbonUserAndGroupIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+	case userFolder = 0x75666c64
+	case workgroupFolder = 0x77666c64
+	case guestUser = 0x67757372
+	case user = 0x75736572
+	case owner = 0x73757372
+	case group = 0x67727570
+}
+
+/// Badges
+public enum CarbonBadgeIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+	case appleScript = 0x73637270
+	case locked = 0x6c626467
+	case mounted = 0x6d626467
+	case shared = 0x73626467
+	case alias = 0x61626467
+	case alertCaution = 0x63626467
+}
+
+/// Alert icons
+public enum CarbonAlertIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+	case note = 0x6e6f7465
+	case caution = 0x63617574
+	case stop = 0x73746f70
+}
+
+/// Networking icons
+public enum CarbonNetworkingIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+	case appleTalk = 0x61746c6b
+	case appleTalkZone = 0x61747a6e
+	case afpServer = 0x61667073
+	case ftpServer = 0x66747073
+	case httpServer = 0x68747073
+	case genericNetwork = 0x676e6574
+	case ipFileServer = 0x69737276
+}
+
+/// Other icons
+public enum CarbonOtherIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+	case appleLogo = 0x6361706c
+	case appleMenu = 0x7361706c
+	case backwardArrow = 0x6261726f
+	case favoriteItems = 0x66617672
+	case korwardArrow = 0x6661726f
+	case grid = 0x67726964
+	case help = 0x68656c70
+	case keepArranged = 0x61726e67
+	case locked = 0x6c6f636b
+	case noFiles = 0x6e66696c
+	case noFolder = 0x6e666c64
+	case noWrite = 0x6e777274
+	case protectedApplicationFolder = 0x70617070
+	case protectedSystemFolder = 0x70737973
+	case recentItems = 0x72636e74
+	case shortcut = 0x73687274
+	case sortAscending = 0x61736e64
+	case sortDescending = 0x64736e64
+	case unlocked = 0x756c636b
+	case connectTo = 0x636e6374
+	case genericWindow = 0x6777696e
+	case questionMark = 0x71756573
+	case deleteAlias = 0x64616c69
+	case ejectMedia = 0x656a6563
+	case burning = 0x6275726e
+	case rightContainerArrow = 0x72636172
+}
+
+/// Special folders
+///
+/// This was created back in the Mac OS 8/9 days: most of these don't have a modern macOS version.
+public enum CarbonSpecialFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+	case appearance = 0x61707072
+	case appleMenu = 0x616d6e75
+	case applications = 0x61707073
+	case applicationSupport = 0x61737570
+	case colorSync = 0x70726f66
+	case contextualMenuItems = 0x636d6e75
+	case controlPanelDisabled = 0x63747244
+	case controlPanel = 0x6374726c
+	case documents = 0x646f6373
+	case extensionsDisabled = 0x65787444
+	case extensions = 0x6578746e
+	case favorites = 0x66617673
+	case fonts = 0x666f6e74
+	case internetSearchSites = 0x69737366
+	case `public` = 0x70756266
+	case printerDescription = 0x70706466
+	case printMonitor = 0x70726e74
+	case recentApplications = 0x72617070
+	case recentDocuments = 0x72646f63
+	case recentServers = 0x72737276
+	case shutdownItemsDisabled = 0x73686444
+	case shutdownItems = 0x73686466
+	case speakableItems = 0x73706b69
+	case startupItemsDisabled = 0x73747244
+	case startupItems = 0x73747274
+	case systemExtensionDisabled = 0x6d616344
+	case systemFolder = 0x6d616373
+	case voices = 0x66766f63
+	case appleExtras = 0x616578c4
+	case assistants = 0x617374c4
+	case controlStripModules = 0x736476c4
+	case help = 0xc4686c70
+	case internet = 0x696e74c4
+	case internetPlugIn = 0xc46e6574
+	case locales = 0xc46c6f63
+	case macOSReadMe = 0x6d6f72c4
+	case preferences = 0x707266c4
+	case printerDriver = 0xc4707264
+	case scriptingAdditions = 0xc4736372
+	case sharedLibraries = 0xc46c6962
+	case scripts = 0x736372c4
+	case textEncodings = 0xc4746578
+	case users = 0x757372c4
+	case utilities = 0x757469c4
+}
+
+/// Generic Finder icons
+///
+/// This was created back in the Mac OS 8/9 days: most of these don't have a modern macOS version.
+public enum CarbonGenericFinderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+	case clipboard = 0x434c4950
+	case clippingUnknownType = 0x636c7075
+	case clippingPictureType = 0x636c7070
+	case clippingTextType = 0x636c7074
+	case clippingSoundType = 0x636c7073
+	case desktop = 0x6465736b
+	case finder = 0x464e4452
+	case computer = 0x726f6f74
+	case fontSuitcase = 0x4646494c
+	case fullTrash = 0x66747268
+	case application = 0x4150504c
+	case cdrom = 0x63646472
+	case controlPanel = 0x41505043
+	case controlStripModule = 0x73646576
+	case component = 0x74686e67
+	case deskAccessory = 0x41505044
+	case document = 0x646f6375
+	case editionFile = 0x65647466
+	case `extension` = 0x494e4954
+	case fileServer = 0x73727672
+	case font = 0x6666696c
+	case fontScaler = 0x73636c72
+	case floppy = 0x666c7079
+	case hardDisk = 0x6864736b
+	case iDisk = 0x6964736b
+	case removableMedia = 0x726d6f76
+	case moverObject = 0x6d6f7672
+	case pcCard = 0x70636d63
+	case preferences = 0x70726566
+	case queryDocument = 0x71657279
+	case ramDisk = 0x72616d64
+	case sharedLibary = 0x73686c62
+	case stationery = 0x73646f63
+	case suitcase = 0x73756974
+	case url = 0x6775726c
+	case worm = 0x776f726d
+	case internationalResources = 0x6966696c
+	case keyboardLayout = 0x6b66696c
+	case soundFile = 0x7366696c
+	case systemSuitcase = 0x7a737973
+	case trash = 0x74727368
+	case trueTypeFont = 0x7466696c
+	case trueTypeFlatFont = 0x73666e74
+	case trueTypeMultiFlatFont = 0x74746366
+	case userIDisk = 0x7564736b
+	case unknownFSObject = 0x756e6673
 }
 
 #endif
