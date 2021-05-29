@@ -77,6 +77,7 @@
 		5527AC451FAE7CE8009CC7FC /* CTFontManagerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC371FAE7CE8009CC7FC /* CTFontManagerAdditions.swift */; };
 		554536E926621C420097DD71 /* CFTypeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554536E826621C420097DD71 /* CFTypeProtocol.swift */; };
 		554536EB266222EC0097DD71 /* CTMisc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554536EA266222EC0097DD71 /* CTMisc.swift */; };
+		554536ED266235F40097DD71 /* CTFramesetterAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554536EC266235F40097DD71 /* CTFramesetterAdditions.swift */; };
 		555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */; };
 		5563E582239F3033007A1600 /* IOHIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5563E581239F3033007A1600 /* IOHIDManager.swift */; };
 		5563E584239F453F007A1600 /* IOHIDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5563E583239F453F007A1600 /* IOHIDDevice.swift */; };
@@ -311,6 +312,7 @@
 		553C2B991A0C4B0500700F83 /* AudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUnit.swift; sourceTree = "<group>"; };
 		554536E826621C420097DD71 /* CFTypeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFTypeProtocol.swift; sourceTree = "<group>"; };
 		554536EA266222EC0097DD71 /* CTMisc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTMisc.swift; sourceTree = "<group>"; };
+		554536EC266235F40097DD71 /* CTFramesetterAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTFramesetterAdditions.swift; sourceTree = "<group>"; };
 		555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaComparable.swift; sourceTree = "<group>"; };
 		5563E581239F3033007A1600 /* IOHIDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDManager.swift; sourceTree = "<group>"; };
 		5563E583239F453F007A1600 /* IOHIDDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDDevice.swift; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 				5527AC2B1FAE7CE7009CC7FC /* CTFontDescriptorAdditions.swift */,
 				5527AC371FAE7CE8009CC7FC /* CTFontManagerAdditions.swift */,
 				5527AC301FAE7CE7009CC7FC /* CTFrameAdditions.swift */,
+				554536EC266235F40097DD71 /* CTFramesetterAdditions.swift */,
 				5527AC331FAE7CE8009CC7FC /* CTLineAdditions.swift */,
 				5505E0BA2408D62B002339C7 /* CTParagraphStyleAdditions.swift */,
 				5527AC2C1FAE7CE7009CC7FC /* CTRubyAnnotationAdditions.swift */,
@@ -1254,6 +1257,7 @@
 				5527AC431FAE7CE8009CC7FC /* CTFontAdditions.swift in Sources */,
 				5527AC441FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift in Sources */,
 				5527AC451FAE7CE8009CC7FC /* CTFontManagerAdditions.swift in Sources */,
+				554536ED266235F40097DD71 /* CTFramesetterAdditions.swift in Sources */,
 				554536EB266222EC0097DD71 /* CTMisc.swift in Sources */,
 				5505E0BB2408D62B002339C7 /* CTParagraphStyleAdditions.swift in Sources */,
 				5527AC3E1FAE7CE8009CC7FC /* CTFrameAdditions.swift in Sources */,

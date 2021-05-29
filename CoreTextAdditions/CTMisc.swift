@@ -13,7 +13,7 @@ extension CTFont: CFTypeProtocol { }
 extension CTFontCollection: CFTypeProtocol { }
 extension CTFontDescriptor: CFTypeProtocol { }
 extension CTFrame: CFTypeProtocol { }
-//extension CTFramesetter: CFTypeProtocol { }
+extension CTFramesetter: CFTypeProtocol { }
 extension CTLine: CFTypeProtocol { }
 extension CTParagraphStyle: CFTypeProtocol { }
 extension CTRubyAnnotation: CFTypeProtocol { }
