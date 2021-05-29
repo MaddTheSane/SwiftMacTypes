@@ -11,10 +11,12 @@
 import Foundation
 import Carbon.HIToolbox
 
+extension TISInputSource: CFTypeProtocol {}
+
 public extension TISInputSource {
 	
 	/// Property value constants for input source type
-	enum SourceType: RawRepresentable {
+	enum SourceType: RawRepresentable, Hashable {
 		/// The property value constant for one input source type value
 		/// associated with the property key `kTISPropertyInputSourceType`.
 		///
@@ -403,14 +405,10 @@ public extension TISInputSource {
 		}
 		
 		public typealias RawValue = CFString
-		
-		public func hash(into hasher: inout Hasher) {
-			(rawValue as String).hash(into: &hasher)
-		}
 	}
 	
 	/// Property value constants for input source category
-	enum SourceCategory: RawRepresentable {
+	enum SourceCategory: RawRepresentable, Hashable {
 		/// The property value constant for one input source category value
 		/// associated with the property key `Properties.category`.
 		///

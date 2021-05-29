@@ -75,6 +75,8 @@
 		5527AC431FAE7CE8009CC7FC /* CTFontAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC351FAE7CE8009CC7FC /* CTFontAdditions.swift */; };
 		5527AC441FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC361FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift */; };
 		5527AC451FAE7CE8009CC7FC /* CTFontManagerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC371FAE7CE8009CC7FC /* CTFontManagerAdditions.swift */; };
+		554536E926621C420097DD71 /* CFTypeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554536E826621C420097DD71 /* CFTypeProtocol.swift */; };
+		554536EB266222EC0097DD71 /* CTMisc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554536EA266222EC0097DD71 /* CTMisc.swift */; };
 		555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */; };
 		5563E582239F3033007A1600 /* IOHIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5563E581239F3033007A1600 /* IOHIDManager.swift */; };
 		5563E584239F453F007A1600 /* IOHIDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5563E583239F453F007A1600 /* IOHIDDevice.swift */; };
@@ -307,6 +309,8 @@
 		5527AC361FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTFontCollectionAdditions.swift; sourceTree = "<group>"; };
 		5527AC371FAE7CE8009CC7FC /* CTFontManagerAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTFontManagerAdditions.swift; sourceTree = "<group>"; };
 		553C2B991A0C4B0500700F83 /* AudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioUnit.swift; sourceTree = "<group>"; };
+		554536E826621C420097DD71 /* CFTypeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFTypeProtocol.swift; sourceTree = "<group>"; };
+		554536EA266222EC0097DD71 /* CTMisc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTMisc.swift; sourceTree = "<group>"; };
 		555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaComparable.swift; sourceTree = "<group>"; };
 		5563E581239F3033007A1600 /* IOHIDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDManager.swift; sourceTree = "<group>"; };
 		5563E583239F453F007A1600 /* IOHIDDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDDevice.swift; sourceTree = "<group>"; };
@@ -516,6 +520,7 @@
 				556B05AE216DEB750025EFC5 /* SAMacError.swift */,
 				55251E2B24937417007BC863 /* CFBitVector.swift */,
 				551BFC31265EF46A00554FAA /* TextInputSources.swift */,
+				554536E826621C420097DD71 /* CFTypeProtocol.swift */,
 				550FBAC119A7ADC500EFBD3D /* Supporting Files */,
 			);
 			path = SwiftAdditions;
@@ -587,6 +592,7 @@
 				5527AC341FAE7CE8009CC7FC /* CTRunAdditions.swift */,
 				5527AC2E1FAE7CE7009CC7FC /* CTStringAttributesAdditions.swift */,
 				5527AC2A1FAE7CE7009CC7FC /* CTTextTabAdditions.swift */,
+				554536EA266222EC0097DD71 /* CTMisc.swift */,
 				5527AC161FAE7CB1009CC7FC /* Info.plist */,
 			);
 			path = CoreTextAdditions;
@@ -1199,6 +1205,7 @@
 				5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */,
 				550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */,
 				556B05AF216DEB750025EFC5 /* SAMacError.swift in Sources */,
+				554536E926621C420097DD71 /* CFTypeProtocol.swift in Sources */,
 				5587E0C01A0A115D00CA1400 /* Endianness.swift in Sources */,
 				55251E2C24937417007BC863 /* CFBitVector.swift in Sources */,
 				5568C1021C63F1840050E2BA /* AppleScriptFoundation.swift in Sources */,
@@ -1247,6 +1254,7 @@
 				5527AC431FAE7CE8009CC7FC /* CTFontAdditions.swift in Sources */,
 				5527AC441FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift in Sources */,
 				5527AC451FAE7CE8009CC7FC /* CTFontManagerAdditions.swift in Sources */,
+				554536EB266222EC0097DD71 /* CTMisc.swift in Sources */,
 				5505E0BB2408D62B002339C7 /* CTParagraphStyleAdditions.swift in Sources */,
 				5527AC3E1FAE7CE8009CC7FC /* CTFrameAdditions.swift in Sources */,
 				5527AC411FAE7CE8009CC7FC /* CTLineAdditions.swift in Sources */,
