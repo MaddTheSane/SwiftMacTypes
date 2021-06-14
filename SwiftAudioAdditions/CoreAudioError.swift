@@ -10,9 +10,7 @@ import Foundation
 import SwiftAdditions
 #if SWIFT_PACKAGE
 
-public var SAACoreAudioErrorDomain: String {
-	return "com.github.maddthesane.SwiftAudioAdditions.errors"
-}
+public let SAACoreAudioErrorDomain: String = "com.github.maddthesane.SwiftAudioAdditions.errors"
 
 /// Errors found in the audio frameworks of Mac OS X/iOS
 public struct SAACoreAudioError: _BridgedStoredNSError {

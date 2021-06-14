@@ -32,6 +32,13 @@ extension CFNumber: CFTypeProtocol {
 	}
 }
 
+extension CFBoolean: CFTypeProtocol {
+	/// Core Foundation type identifier for the `CFBoolean` opaque type.
+	@inlinable public static var typeID: CFTypeID {
+		CFBooleanGetTypeID()
+	}
+}
+
 extension CFURL: CFTypeProtocol {
 	/// The type identifier for the `CFURL` opaque type.
 	@inlinable public static var typeID: CFTypeID {
@@ -269,11 +276,19 @@ extension CFDate: CFTypeProtocol {
 	}
 }
 
+extension CFAttributedString: CFTypeProtocol {
+	/// The type identifier for the `CFAttributedString` opaque type.
+	@inlinable public static var typeID: CFTypeID {
+		return CFAttributedStringGetTypeID()
+	}
+}
 
+/// Checks to see if the passed in object is a CoreFoundation of type `aType`.
 public func cfType<A: CFTypeProtocol>(_ theType: AnyObject, isOf aType: A.Type) -> Bool {
 	return CFGetTypeID(theType) == aType.typeID
 }
 
+/// Dynamically cast the type `theType` to `aType`, returning `nil` if it can't be done.
 public func castCFType<A: CFTypeProtocol>(_ theType: AnyObject, to aType: A.Type) -> A? {
 	guard cfType(theType, isOf: aType) else {
 		return nil
