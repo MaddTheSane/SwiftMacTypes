@@ -10,7 +10,7 @@ import Foundation
 import AudioUnit
 import SwiftAdditions
 
-public enum AudioComponentType {
+public enum AudioComponentType: Hashable {
 	case output(AUOutput)
 	case musicDevice(AUInstrument)
 	case musicEffect(OSType)
