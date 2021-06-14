@@ -37,7 +37,7 @@ public extension IOHIDManager {
 	/// `kIOHIDOptionsTypeSeizeDevice` option.
 	/// - parameter options: Option bits to be sent down to the manager and device.
 	/// - returns: Returns `kIOReturnSuccess` if successful.
-	@inlinable func open(options: Options = []) -> IOReturn {
+	@inlinable func `open`(options: Options = []) -> IOReturn {
 		return IOHIDManagerOpen(self, options.rawValue)
 	}
 	

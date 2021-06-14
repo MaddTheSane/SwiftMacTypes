@@ -39,7 +39,7 @@ public extension IOHIDValue {
 	/// - parameter bytes: Pointer to a buffer of uint8_t to be copied to this object.
 	/// - parameter length: Number of bytes in the passed buffer.
 	/// - returns: Returns a reference to a new `IOHIDValue`.
-	@inlinable class func create(allocator: CFAllocator?, element: IOHIDElement, timeStamp: UInt64 = mach_absolute_time(), bytes: UnsafePointer<UInt8>, length: CFIndex) -> IOHIDValue? {
+	@inlinable class func create(allocator: CFAllocator? = kCFAllocatorDefault, element: IOHIDElement, timeStamp: UInt64 = mach_absolute_time(), bytes: UnsafePointer<UInt8>, length: CFIndex) -> IOHIDValue? {
 		return IOHIDValueCreateWithBytes(allocator, element, timeStamp, bytes, length)
 	}
 	
@@ -53,7 +53,7 @@ public extension IOHIDValue {
 	/// - parameter bytes: Pointer to a buffer of uint8_t to be copied to this object.
 	/// - parameter length: Number of bytes in the passed buffer.
 	/// - returns: Returns a reference to a new `IOHIDValue`.
-	@inlinable class func create(allocator: CFAllocator?, element: IOHIDElement, timeStamp: UInt64 = mach_absolute_time(), bytesNoCopy bytes: UnsafePointer<UInt8>, length: CFIndex) -> IOHIDValue? {
+	@inlinable class func create(allocator: CFAllocator? = kCFAllocatorDefault, element: IOHIDElement, timeStamp: UInt64 = mach_absolute_time(), bytesNoCopy bytes: UnsafePointer<UInt8>, length: CFIndex) -> IOHIDValue? {
 		return IOHIDValueCreateWithBytesNoCopy(allocator, element, timeStamp, bytes, length)
 	}
 	
@@ -116,7 +116,7 @@ public extension IOHIDValue {
 	/// - parameter timeStamp: OS absolute time timestamp for this value.
 	/// - parameter data: Data object to be copied to this object.
 	/// - returns: Returns a reference to a new `IOHIDValue`.
-	class func create(allocator: CFAllocator?, element: IOHIDElement, timeStamp: UInt64 = mach_absolute_time(), data: Data) -> IOHIDValue? {
+	class func create(allocator: CFAllocator? = kCFAllocatorDefault, element: IOHIDElement, timeStamp: UInt64 = mach_absolute_time(), data: Data) -> IOHIDValue? {
 		return data.withUnsafeBytes { (bufPtr) -> IOHIDValue? in
 			return IOHIDValueCreateWithBytes(allocator, element, timeStamp, bufPtr.bindMemory(to: UInt8.self).baseAddress!, bufPtr.count)
 		}

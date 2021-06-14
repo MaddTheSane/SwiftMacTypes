@@ -22,7 +22,7 @@ public extension IOHIDDevice {
 	/// - parameter allocator: Allocator to be used during creation.
 	/// - parameter service: Reference to service object in the kernel.
 	/// - returns: Returns a new `IOHIDDevice`.
-	@inlinable class func create(allocator: CFAllocator?, service: io_service_t) -> IOHIDDevice? {
+	@inlinable class func create(allocator: CFAllocator? = kCFAllocatorDefault, service: io_service_t) -> IOHIDDevice? {
 		return IOHIDDeviceCreate(allocator, service)
 	}
 	
