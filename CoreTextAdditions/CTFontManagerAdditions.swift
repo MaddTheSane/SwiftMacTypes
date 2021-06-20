@@ -270,8 +270,10 @@ public enum FontManager {
 
 	/// Registers the specified graphics font with the font manager. Registered fonts participate in font
 	/// descriptor matching.
+	///
 	/// Attempts to register a font that is either already registered or contains the same PostScript name of
 	/// an already registered font will fail.
+	///
 	/// This functionality is useful for fonts that may be embedded in documents or present/constructed in
 	/// memory. A graphics font is obtained by calling `CGFontCreateWithDataProvider`. Fonts that are backed by
 	/// files should be registered using `FontManager.registerFonts(at:scope:)`.
@@ -434,9 +436,11 @@ public enum FontManager {
 	///
 	/// This is the string to use as the notification name when subscribing to `CTFontManager` notifications.
 	/// This notification will be posted when fonts are added or removed.
-	/// OS X clients should register as an observer of the notification with the distributed notification
+	///
+	/// macOS clients should register as an observer of the notification with the distributed notification
 	/// center for changes in session or user scopes and with the local notification center for changes in
 	/// process scope.
+	///
 	/// iOS clients should register as an observer of the notification with the local notification center for
 	/// all changes.
 	@available(OSX 10.6, iOS 7.0, watchOS 2.0, tvOS 9.0, *)

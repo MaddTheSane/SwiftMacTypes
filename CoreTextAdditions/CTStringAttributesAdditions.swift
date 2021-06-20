@@ -13,7 +13,7 @@ extension NSAttributedString.Key {
 	
 	/// Namespace of CoreText attributed string keys.
 	///
-	/// Note that these may overlap or be different than the ones provided by AppKit/UIKit.
+	/// Note that these may overlap *or* be different than the ones provided by AppKit/UIKit.
 	public enum CoreText {
 		/// Allows the setting of an underline to be applied at render time.
 		///

@@ -13,9 +13,9 @@ let package = Package(
         .library(
             name: "SwiftAudioAdditions",
             targets: ["SwiftAudioAdditions"]),
-        //.library(
-        //    name: "CoreTextAdditions",
-        //    targets: ["CoreTextAdditions"]),
+//        .library(
+//           name: "CoreTextAdditions",
+//           targets: ["CoreTextAdditions"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.

@@ -21,7 +21,7 @@ NSArray *__nullable CTAFontCopyAvailableTables(CTFontRef __nonnull font, CTFontT
 		}
 		
 		CFRelease(preGoodArray);
-		return [ourArray copy];
+		return ourArray;
 	}
 	
 	return nil;

@@ -134,14 +134,128 @@ public extension CTFont {
 	}
 	
 	enum FontNameKey: CustomStringConvertible, RawRepresentable {
-		public typealias RawValue = String
+		public typealias RawValue = CFString
 		
-		public init?(rawValue: String) {
-			self.init(stringValue: rawValue)
+		public init?(rawValue: CFString) {
+			switch rawValue {
+			case kCTFontCopyrightNameKey:
+				self = .copyright
+				
+			case kCTFontFamilyNameKey:
+				self = .family
+				
+			case kCTFontSubFamilyNameKey:
+				self = .subFamily
+				
+			case kCTFontStyleNameKey:
+				self = .style
+				
+			case kCTFontUniqueNameKey:
+				self = .unique
+				
+			case kCTFontFullNameKey:
+				self = .full
+				
+			case kCTFontVersionNameKey:
+				self = .version
+				
+			case kCTFontPostScriptNameKey:
+				self = .postScript
+				
+			case kCTFontCopyrightNameKey:
+				self = .copyright
+				
+			case kCTFontTrademarkNameKey:
+				self = .trademark
+				
+			case kCTFontManufacturerNameKey:
+				self = .manufacturer
+				
+			case kCTFontDesignerNameKey:
+				self = .designer
+				
+			case kCTFontDescriptionNameKey:
+				self = .fontDescription
+				
+			case kCTFontVendorURLNameKey:
+				self = .vendorURL
+				
+			case kCTFontDesignerURLNameKey:
+				self = .designerURL
+				
+			case kCTFontLicenseNameKey:
+				self = .license
+				
+			case kCTFontLicenseURLNameKey:
+				self = .licenseURL
+				
+			case kCTFontSampleTextNameKey:
+				self = .sampleText
+				
+			case kCTFontPostScriptCIDNameKey:
+				self = .postScriptCID
+				
+			default:
+				return nil
+			}
 		}
 		
-		public var rawValue: String {
-			return cfString as String
+		public var rawValue: CFString {
+			switch self {
+			case .copyright:
+				return kCTFontCopyrightNameKey
+				
+			case .family:
+				return kCTFontFamilyNameKey
+				
+			case .subFamily:
+				return kCTFontSubFamilyNameKey
+				
+			case .style:
+				return kCTFontStyleNameKey
+				
+			case .unique:
+				return kCTFontUniqueNameKey
+				
+			case .full:
+				return kCTFontFullNameKey
+				
+			case .version:
+				return kCTFontVersionNameKey
+				
+			case .postScript:
+				return kCTFontPostScriptNameKey
+				
+			case .trademark:
+				return kCTFontTrademarkNameKey
+				
+			case .manufacturer:
+				return kCTFontManufacturerNameKey
+				
+			case .designer:
+				return kCTFontDesignerNameKey
+				
+			case .fontDescription:
+				return kCTFontDescriptionNameKey
+				
+			case .vendorURL:
+				return kCTFontVendorURLNameKey
+				
+			case .designerURL:
+				return kCTFontDesignerURLNameKey
+				
+			case .license:
+				return kCTFontLicenseNameKey
+				
+			case .licenseURL:
+				return kCTFontLicenseURLNameKey
+				
+			case .sampleText:
+				return kCTFontSampleTextNameKey
+				
+			case .postScriptCID:
+				return kCTFontPostScriptCIDNameKey
+			}
 		}
 		
 		/// The name specifier for the copyright name.
@@ -268,66 +382,8 @@ public extension CTFont {
 			}
 		}
 		
-		var cfString: CFString {
-			switch self {
-			case .copyright:
-				return kCTFontCopyrightNameKey
-				
-			case .family:
-				return kCTFontFamilyNameKey
-				
-			case .subFamily:
-				return kCTFontSubFamilyNameKey
-				
-			case .style:
-				return kCTFontStyleNameKey
-				
-			case .unique:
-				return kCTFontUniqueNameKey
-				
-			case .full:
-				return kCTFontFullNameKey
-				
-			case .version:
-				return kCTFontVersionNameKey
-				
-			case .postScript:
-				return kCTFontPostScriptNameKey
-				
-			case .trademark:
-				return kCTFontTrademarkNameKey
-				
-			case .manufacturer:
-				return kCTFontManufacturerNameKey
-				
-			case .designer:
-				return kCTFontDesignerNameKey
-				
-			case .fontDescription:
-				return kCTFontDescriptionNameKey
-				
-			case .vendorURL:
-				return kCTFontVendorURLNameKey
-				
-			case .designerURL:
-				return kCTFontDesignerURLNameKey
-				
-			case .license:
-				return kCTFontLicenseNameKey
-				
-			case .licenseURL:
-				return kCTFontLicenseURLNameKey
-				
-			case .sampleText:
-				return kCTFontSampleTextNameKey
-				
-			case .postScriptCID:
-				return kCTFontPostScriptCIDNameKey
-			}
-		}
-		
 		public var description: String {
-			return cfString as String
+			return rawValue as String
 		}
 	}
 	
@@ -516,7 +572,7 @@ public extension CTFont {
 	/// requested name. The Unicode version of the name will be preferred, otherwise the first available
 	/// will be used.
 	func name(ofKey nameKey: FontNameKey) -> String? {
-		return CTFontCopyName(self, nameKey.cfString) as String?
+		return CTFontCopyName(self, nameKey.rawValue) as String?
 	}
 	
 	/// Returns a localized font name and the actual language, if present.
@@ -529,7 +585,7 @@ public extension CTFont {
 	/// If CoreText can supply its own localized string where the font cannot, this value will be `nil`.
 	func localizedName(ofKey nameKey: FontNameKey) -> (name: String, actualLanguage: String?)? {
 		var actualName: Unmanaged<CFString>? = nil
-		guard let name = CTFontCopyLocalizedName(self, nameKey.cfString, &actualName) as String? else {
+		guard let name = CTFontCopyLocalizedName(self, nameKey.rawValue, &actualName) as String? else {
 			return nil
 		}
 		return (name, actualName?.takeRetainedValue() as String?)
