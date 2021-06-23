@@ -347,9 +347,9 @@ public extension TISInputSource {
 				self = .unicodeKeyLayoutData
 			} else if rawValue == kTISPropertyInputSourceType {
 				self = .sourceType
+			} else {
+				self = .other(rawValue)
 			}
-			
-			self = .other(rawValue)
 		}
 		
 		public var rawValue: CFString {
