@@ -55,3 +55,22 @@ public extension CGBitmapInfo {
 		#endif
 	}
 }
+
+extension CGFont: CFTypeProtocol {}
+extension CGImage: CFTypeProtocol {}
+extension CGLayer: CFTypeProtocol {}
+extension CGPath: CFTypeProtocol {}
+extension CGPattern: CFTypeProtocol {}
+extension CGShading: CFTypeProtocol {}
+extension CGPSConverter: CFTypeProtocol {}
+extension CGColor: CFTypeProtocol {}
+extension CGColorConversionInfo: CFTypeProtocol {}
+extension CGColorSpace: CFTypeProtocol {}
+extension CGContext: CFTypeProtocol {}
+extension CGDataConsumer: CFTypeProtocol {}
+extension CGDataProvider: CFTypeProtocol {}
+extension CGDisplayMode: CFTypeProtocol {}
+extension CGDisplayStream: CFTypeProtocol {}
+extension CGEvent: CFTypeProtocol {}
+extension CGEventSource: CFTypeProtocol {}
+extension CGGradient: CFTypeProtocol {}
