@@ -570,17 +570,17 @@ public extension String.Encoding {
 	}
 	
 	
-	static var gB_18030_2000: String.Encoding {
+	static var GB_18030_2000: String.Encoding {
 		return String.Encoding(rawValue: convertToNSStrEnc(from: .GB_18030_2000))
 	}
 	
 	/// same as KSC 5601-92 without Johab annex.
-	static var kSC_5601_87: String.Encoding {
+	static var KSC_5601_87: String.Encoding {
 		return String.Encoding(rawValue: convertToNSStrEnc(from: .KSC_5601_87))
 	}
 	
 	/// KSC 5601-92 Johab annex.
-	static var kSC_5601_92_Johab: String.Encoding {
+	static var KSC_5601_92_Johab: String.Encoding {
 		return String.Encoding(rawValue: convertToNSStrEnc(from: .ksc_5601_92_Johab))
 	}
 	
@@ -911,43 +911,43 @@ public extension String {
 	}
 	
 	/// Convenience initializer, passing a `PStr255` (or a tuple with *256* `UInt8`s)
-	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "init(pascalString:encoding:)")
 	init?(_ pStr: PStr255) {
 		self.init(pascalString: pStr)
 	}
 	
 	/// Convenience initializer, passing a `PStr63` (or a tuple with 64 `UInt8`s)
-	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "init(pascalString:encoding:)")
 	init?(_ pStr: PStr63) {
 		self.init(pascalString: pStr)
 	}
 	
 	/// Convenience initializer, passing a `PStr32` (or a tuple with 33 `UInt8`s)
-	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "init(pascalString:encoding:)")
 	init?(_ pStr: PStr32) {
 		self.init(pascalString: pStr)
 	}
 	
 	/// Convenience initializer, passing a `PStr31` (or a tuple with 32 `UInt8`s)
-	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "init(pascalString:encoding:)")
 	init?(_ pStr: PStr31) {
 		self.init(pascalString: pStr)
 	}
 	
 	/// Convenience initializer, passing a `PStr27` (or a tuple with 28 `UInt8`s)
-	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "init(pascalString:encoding:)")
 	init?(_ pStr: PStr27) {
 		self.init(pascalString: pStr)
 	}
 	
 	/// Convenience initializer, passing a `PStr15` (or a tuple with 16 `UInt8`s)
-	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "init(pascalString:encoding:)")
 	init?(_ pStr: PStr15) {
 		self.init(pascalString: pStr)
 	}
 	
 	/// Convenience initializer, passing a `PStr32Field` (or a tuple with 34 `UInt8`s, with the last byte ignored)
-	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0)
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "init(pascalString:encoding:)")
 	init?(_ pStr: PStr32Field) {
 		self.init(pascalString: pStr)
 	}
