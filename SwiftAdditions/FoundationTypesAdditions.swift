@@ -206,7 +206,7 @@ public extension UUID {
 	/// Create a new `Foundation.UUID` from a CoreFoundation `CFUUID`.
 	init(cfUUID: CFUUID) {
 		let tmp = CFUUIDGetUUIDBytes(cfUUID)
-		let tmp2 = unsafeBitCast(tmp, to: uuid_t.self)
+		let tmp2 = uuid_t(tmp.byte0, tmp.byte1, tmp.byte2, tmp.byte3, tmp.byte4, tmp.byte5, tmp.byte6, tmp.byte7, tmp.byte8, tmp.byte9, tmp.byte10, tmp.byte11, tmp.byte12, tmp.byte13, tmp.byte14, tmp.byte15)
 		
 		self.init(uuid: tmp2)
 	}
@@ -214,7 +214,7 @@ public extension UUID {
 	/// Get a CoreFoundation UUID from the current UUID.
 	var cfUUID: CFUUID {
 		let tmp = self.uuid
-		let tmp2 = unsafeBitCast(tmp, to: CFUUIDBytes.self)
+		let tmp2 = CFUUIDBytes(byte0: tmp.0, byte1: tmp.1, byte2: tmp.2, byte3: tmp.3, byte4: tmp.4, byte5: tmp.5, byte6: tmp.6, byte7: tmp.7, byte8: tmp.8, byte9: tmp.9, byte10: tmp.10, byte11: tmp.11, byte12: tmp.12, byte13: tmp.13, byte14: tmp.14, byte15: tmp.15)
 		
 		return CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, tmp2)
 	}

@@ -243,7 +243,7 @@ public enum FontManager {
 			if let maybeErr = maybeErr?.takeRetainedValue() {
 				throw maybeErr
 			} else {
-				throw NSError(domain: NSCocoaErrorDomain, code: -1, userInfo: [NSURLErrorKey: fontURL])
+				throw CocoaError(.fileReadUnknown, userInfo: [NSURLErrorKey: fontURL])
 			}
 		}
 	}

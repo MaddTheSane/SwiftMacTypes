@@ -35,7 +35,10 @@ import Foundation
 	})
 }
 
+/// Errors encountered when attempting to create an array by reflecting into
+/// the data type.
 public enum ReflectError: Error {
+	/// The type encountered wasn't the expected type.
 	case unexpectedType(type: Any.Type, named: String?)
 }
 

@@ -11,52 +11,57 @@
 import Foundation
 import Carbon.HIToolbox
 
-extension TISInputSource: CFTypeProtocol {}
+extension TISInputSource: CFTypeProtocol {
+	/// Returns the Core Foundation type identifier for TISInputSource.
+	@inlinable public class var typeID: CFTypeID {
+		return TISInputSourceGetTypeID()
+	}
+}
 
 public extension TISInputSource {
 	
 	/// Property value constants for input source type
 	enum SourceType: RawRepresentable, Hashable {
 		/// The property value constant for one input source type value
-		/// associated with the property key `kTISPropertyInputSourceType`.
+		/// associated with the property key `TISInputSource.Properties.sourceType`.
 		///
-		/// This type belongs to the category `kTISCategoryKeyboardInputSource`.
+		/// This type belongs to the category `TISInputSource.SourceCategory.keyboard`.
 		case keyboardLayout
 		
 		/// The property value constant for one input source type value
-		/// associated with the property key `kTISPropertyInputSourceType`.
+		/// associated with the property key `TISInputSource.Properties.sourceType`.
 		///
-		/// This type belongs to the category `kTISCategoryKeyboardInputSource`.
+		/// This type belongs to the category `TISInputSource.SourceCategory.keyboard`.
 		case keyboardInputMethodWithoutModes
 		
 		/// The property value constant for one input source type value
-		/// associated with the property key `kTISPropertyInputSourceType`.
+		/// associated with the property key `TISInputSource.Properties.sourceType`.
 		///
-		/// This type belongs to the category `kTISCategoryKeyboardInputSource`.
+		/// This type belongs to the category `TISInputSource.SourceCategory.keyboard`.
 		case keyboardInputMethodModeEnabled
 		
 		/// The property value constant for one input source type value
-		/// associated with the property key `kTISPropertyInputSourceType`.
+		/// associated with the property key `TISInputSource.Properties.sourceType`.
 		///
-		/// This type belongs to the category `kTISCategoryKeyboardInputSource`.
+		/// This type belongs to the category `TISInputSource.SourceCategory.keyboard`.
 		case keyboardInputMode
 		
 		/// The property value constant for one input source type value
-		/// associated with the property key `kTISPropertyInputSourceType`.
+		/// associated with the property key `TISInputSource.Properties.sourceType`.
 		///
-		/// This type belongs to the category `kTISCategoryPaletteInputSource`.
+		/// This type belongs to the category `TISInputSource.SourceCategory.palette`.
 		case characterPalette
 		
 		/// The property value constant for one input source type value
-		/// associated with the property key `kTISPropertyInputSourceType`.
+		/// associated with the property key `TISInputSource.Properties.sourceType`.
 		///
-		/// This type belongs to the category `kTISCategoryPaletteInputSource`.
+		/// This type belongs to the category `TISInputSource.SourceCategory.palette`.
 		case keyboardViewer
 		
 		/// The property value constant for one input source type value
-		/// associated with the property key `kTISPropertyInputSourceType`.
+		/// associated with the property key `TISInputSource.Properties.sourceType`.
 		///
-		/// This type belongs to the category `kTISCategoryInkInputSource`.
+		/// This type belongs to the category `TISInputSource.SourceCategory.ink`.
 		/// Even though it is the only type in that category, a type is
 		/// provided so that clients who don't need category information can
 		/// just check input source type.
@@ -85,6 +90,7 @@ public extension TISInputSource {
 				
 			case kTISTypeInk:
 				self = .ink
+				
 			default:
 				return nil
 			}
@@ -125,7 +131,7 @@ public extension TISInputSource {
 	/// listed here. The property value for a particular input source can be
 	/// obtained using `TISGetInputSourceProperty`. A set of specific property
 	/// key-value pairs can also be used as a filter when creating a list of
-	/// input sources using TISCreateInputSourceList.
+	/// input sources using `TISCreateInputSourceList`.
 	enum Properties: RawRepresentable, Hashable {
 
 		/// The property key constant for a CFStringRef value that indicates
@@ -464,11 +470,6 @@ public extension TISInputSource {
 		public typealias RawValue = CFString
 	}
 
-	/// Returns the Core Foundation type identifier for TISInputSource.
-	@inlinable class var typeID: CFTypeID {
-		return TISInputSourceGetTypeID()
-	}
-
 	/// Creates a list of input sources that match specified properties.
 	///
 	/// This list represents a snapshot of input sources that matched the
@@ -476,7 +477,7 @@ public extension TISInputSource {
 	/// desires to include input sources that are installed but not
 	/// currently enabled, the includeAllInstalled parameter may be set
 	/// true. Typically this is done in order to obtain a
-	/// `TISInputSourceRef` for a newly-installed input source; in this
+	/// `TISInputSource` for a newly-installed input source; in this
 	/// case the properties parameter would include very specific
 	/// criteria limiting the matching input sources.
 	///
@@ -504,7 +505,7 @@ public extension TISInputSource {
 	/// Normally `false` so that only enabled input sources will be
 	/// included; set `true` to include all installed input sources that
 	/// match the filter (see discussion).
-	/// - returns: Returns an `Array` for a list of `TISInputSourceRef`s that match
+	/// - returns: Returns an `Array` for a list of `TISInputSource`s that match
 	/// the specified properties.
 	static func inputSourceList(matching properties: [Properties: Any]?, includeAllInstalled: Bool = false) -> [TISInputSource] {
 		if let props = properties {
@@ -525,23 +526,23 @@ public extension TISInputSource {
 	
 	// MARK: - Get specific input sources
 	
-	/// Returns a `TISInputSourceRef` for the currently-selected keyboard
+	/// Returns a `TISInputSource` for the currently-selected keyboard
 	/// input source; convenience function.
 	@inlinable static var currentKeyboard: TISInputSource {
 		return TISCopyCurrentKeyboardInputSource().takeRetainedValue()
 	}
 
-	/// Returns a `TISInputSourceRef` for the keyboard layout currently
+	/// Returns a `TISInputSource` for the keyboard layout currently
 	/// being used. If the currently-selected keyboard input source is a
-	/// keyboard layout, the `TISInputSourceRef` refers to that layout; if
+	/// keyboard layout, the `TISInputSource` refers to that layout; if
 	/// the currently-selected keyboard input source is an input method
-	/// or mode, the `TISInputSourceRef` refers to the keyboard layout
+	/// or mode, the `TISInputSource` refers to the keyboard layout
 	/// being used by that input method or mode.
 	@inlinable static var currentKeyboardLayout: TISInputSource {
 		return TISCopyCurrentKeyboardLayoutInputSource().takeRetainedValue()
 	}
 
-	/// Returns a `TISInputSourceRef` for the most-recently-used
+	/// Returns a `TISInputSource` for the most-recently-used
 	/// ASCII-capable keyboard input source.
 	///
 	/// If no ASCII-capable keyboard input source has been used yet,
@@ -551,7 +552,7 @@ public extension TISInputSource {
 		return TISCopyCurrentASCIICapableKeyboardInputSource().takeRetainedValue()
 	}
 
-	/// Returns a `TISInputSourceRef` for the most-recently-used
+	/// Returns a `TISInputSource` for the most-recently-used
 	/// ASCII-capable keyboard layout.
 	///
 	/// If no ASCII-capable keyboard input source has been used yet,
@@ -568,7 +569,7 @@ public extension TISInputSource {
 		return TISCopyCurrentASCIICapableKeyboardLayoutInputSource().takeRetainedValue()
 	}
 
-	/// Returns a `TISInputSourceRef` for the input source that should be
+	/// Returns a `TISInputSource` for the input source that should be
 	/// used to input the specified language.
 	///
 	/// Sample usage: If a text field is expected to have input in a
@@ -588,7 +589,7 @@ public extension TISInputSource {
 	/// represents the language for which an input source should be
 	/// returned.
 	///
-	/// - returns: `TISInputSourceRef` for an enabled input source that can input the
+	/// - returns: `TISInputSource` for an enabled input source that can input the
 	/// specified language. If there is more than one such input source
 	/// and at least one has previously been used, then the
 	/// most-recently-used one will be chosen. If none of them has
@@ -746,11 +747,11 @@ public extension TISInputSource {
 		}
 	}
 
-	/// Returns a `TISInputSourceRef` for the currently-selected input
+	/// Returns a `TISInputSource` for the currently-selected input
 	/// method's keyboard layout override, if any.
 	///
 	/// If the current keyboard input source is an input method or mode
-	/// that has a keyboard layout override, then a `TISInputSourceRef` for
+	/// that has a keyboard layout override, then a `TISInputSource` for
 	/// that keyboard layout is returned; otherwise, `nil` is returned.
 	@inlinable static var keyboardLayoutOverride: TISInputSource? {
 		return TISCopyInputMethodKeyboardLayoutOverride()?.takeRetainedValue()
@@ -759,7 +760,7 @@ public extension TISInputSource {
 	// MARK: - Install/register an input source
 	
 	/// Registers the new input source(s) in a file or bundle so that a
-	/// TISInputSourceRef can immediately be obtained for each of the new
+	/// `TISInputSource` can immediately be obtained for each of the new
 	/// input source(s).
 	///
 	/// This allows an installer for an input method bundle or a keyboard
@@ -768,7 +769,7 @@ public extension TISInputSource {
 	/// specified file or bundle and perform any necessary cache rebuilds
 	/// so that the installer can immediately call
 	/// `TISCreateInputSourceList` with appropriate properties (e.g.
-	/// `BundleID` or `InputSourceID`) in order to get TISInputSourceRefs for
+	/// `BundleID` or `InputSourceID`) in order to get `TISInputSource`s for
 	/// one or more of the newly registered input sources.
 	///
 	/// This can only be used to register the following:
