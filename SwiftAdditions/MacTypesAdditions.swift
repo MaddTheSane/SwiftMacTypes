@@ -772,10 +772,12 @@ extension String {
 	}
 }
 
+/// For `OSType`s that have icon representations somewhere in macOS code.
 public protocol OSTypeIconConvertable: RawRepresentable where RawValue == OSType {
 	/// The icon representation of the `OSType`.
 	///
-	/// Note that some icons might be the default icon.
+	/// Note that some icons might not be present on modern versions of macOS, as some icons were
+	/// used for pre-Mac OS X versions of Mac OS.
 	var iconRepresentation: NSImage { get }
 }
 

@@ -339,6 +339,8 @@ public extension UnsafeMutableBufferPointer {
 	}
 }
 
+/// For `OSType` values that can be represented as a four-character string with values in the
+/// *Mac OS Roman* string encoding.
 public protocol OSTypeConvertable: RawRepresentable where RawValue == OSType {
 	/// The value's string representation.
 	///
