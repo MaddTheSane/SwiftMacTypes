@@ -805,7 +805,7 @@ public extension TISInputSource {
 	
 	/// Gets value of specified property for this input source.
 	///
-	/// - parameter propertyKey:
+	/// - parameter key:
 	/// The property key constant specifying the desired property value.
 	///
 	/// Returns a pointer type appropriate for value object associated
@@ -813,9 +813,6 @@ public extension TISInputSource {
 	/// each key. Typically it is a `CFTypeRef` of some sort, but in one
 	/// case it is `IconRef`. The function may return `nil` if the specified
 	/// property is missing or invalid for the specified input source.
-	/// The objects referred to by the pointer follow the "Get" rule and
-	/// should not be be released by the caller (unless first retained by
-	/// the caller).
 	func value(for key: Properties) -> Any? {
 		return TISGetInputSourceProperty(self, key.rawValue)
 	}
