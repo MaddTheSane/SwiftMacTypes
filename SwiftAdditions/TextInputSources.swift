@@ -323,37 +323,53 @@ public extension TISInputSource {
 		case other(CFString)
 
 		public init?(rawValue: CFString) {
-			if rawValue == kTISPropertyInputSourceCategory {
+			switch rawValue {
+			case kTISPropertyInputSourceCategory:
 				self = .category
-			} else if rawValue == kTISPropertyIconRef {
+				
+			case kTISPropertyIconRef:
 				self = .iconRef
-			} else if rawValue == kTISPropertyInputSourceIsEnableCapable {
+				
+			case kTISPropertyInputSourceIsEnableCapable:
 				self = .isEnableCapable
-			} else if rawValue == kTISPropertyInputSourceIsSelectCapable {
+				
+			case kTISPropertyInputSourceIsSelectCapable:
 				self = .isSelectCapable
-			} else if rawValue == kTISPropertyInputSourceIsEnabled {
+				
+			case kTISPropertyInputSourceIsEnabled:
 				self = .isEnabled
-			} else if rawValue == kTISPropertyInputSourceIsSelected {
+				
+			case kTISPropertyInputSourceIsSelected:
 				self = .isSelected
-			} else if rawValue == kTISPropertyIconImageURL {
+				
+			case kTISPropertyIconImageURL:
 				self = .imageURL
-			} else if rawValue == kTISPropertyLocalizedName {
+				
+			case kTISPropertyLocalizedName:
 				self = .localizedName
-			} else if rawValue == kTISPropertyBundleID {
+				
+			case kTISPropertyBundleID:
 				self = .bundleID
-			} else if rawValue == kTISPropertyInputModeID {
+				
+			case kTISPropertyInputModeID:
 				self = .inputModeID
-			} else if rawValue == kTISPropertyInputSourceID {
+				
+			case kTISPropertyInputSourceID:
 				self = .inputSourceID
-			} else if rawValue == kTISPropertyInputSourceIsASCIICapable {
+				
+			case kTISPropertyInputSourceIsASCIICapable:
 				self = .isASCIICapable
-			} else if rawValue == kTISPropertyInputSourceLanguages {
+				
+			case kTISPropertyInputSourceLanguages:
 				self = .languages
-			} else if rawValue == kTISPropertyUnicodeKeyLayoutData {
+				
+			case kTISPropertyUnicodeKeyLayoutData:
 				self = .unicodeKeyLayoutData
-			} else if rawValue == kTISPropertyInputSourceType {
+				
+			case kTISPropertyInputSourceType:
 				self = .sourceType
-			} else {
+				
+			default:
 				self = .other(rawValue)
 			}
 		}
