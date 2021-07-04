@@ -510,6 +510,7 @@ public extension TISInputSource {
 	static func inputSourceList(matching properties: [Properties: Any]?, includeAllInstalled: Bool = false) -> [TISInputSource] {
 		if let props = properties {
 			var prop2: [CFString: Any] = [:]
+			prop2.reserveCapacity(props.count)
 			for (key, val) in props {
 				if key == .category, let aVal = val as? SourceCategory {
 					prop2[kTISPropertyInputSourceCategory] = aVal.rawValue
@@ -734,11 +735,11 @@ public extension TISInputSource {
 	///
 	/// *The default behavior is new for Mac OS X 10.5, and is meant to
 	/// eliminate the necessity for input methods to have UI for setting
-	/// which ASCII- capable keyboard to use for latin-character-based
+	/// which ASCII-capable keyboard to use for latin-character-based
 	/// phonetic input.
 	///
 	/// - throws: `paramErr` if the current keyboard input
-	/// source is not an input method/mode or if keyboardLayout does not
+	/// source is not an input method/mode or if this layout does not
 	/// designate a keyboard layout.
 	func setAsOverride() throws {
 		let err = TISSetInputMethodKeyboardLayoutOverride(self)
