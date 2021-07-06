@@ -860,7 +860,7 @@ public extension TISInputSource {
 	}
 	
 	/// IconRefs are the normal icon format for keyboard layouts and
-	/// input methods. If an IconRef is not available for the specified
+	/// input methods. If an `IconRef` is not available for the specified
 	/// input source, the value is `nil`.
 	var iconRef: IconRef? {
 		guard let val = TISGetInputSourceProperty(self, kTISPropertyIconRef) else {
@@ -1095,6 +1095,24 @@ public extension TISInputSource {
 		let rawDat = TISGetInputSourceProperty(self, kTISPropertyInputSourceType)!
 		let theDat = Unmanaged<CFString>.fromOpaque(rawDat).takeUnretainedValue()
 		return SourceType(rawValue: theDat)!
+	}
+}
+
+extension TISInputSource.SourceType: CustomStringConvertible {
+	public var description: String {
+		return rawValue as String
+	}
+}
+
+extension TISInputSource.Properties: CustomStringConvertible {
+	public var description: String {
+		return rawValue as String
+	}
+}
+
+extension TISInputSource.SourceCategory: CustomStringConvertible {
+	public var description: String {
+		return rawValue as String
 	}
 }
 

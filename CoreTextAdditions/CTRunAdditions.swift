@@ -38,8 +38,8 @@ public extension CTRun {
 	/// or a dictionary that has been manufactured by the layout engine.
 	/// Attribute dictionaries can be manufactured in the case of font
 	/// substitution or if they are missing critical attributes.
-	var attributes: [String: Any] {
-		return CTRunGetAttributes(self) as! [String: Any]
+	var attributes: [String: Any]? {
+		return CTRunGetAttributes(self) as? [String: Any]
 	}
 	
 	/// The run's current status.
@@ -66,10 +66,12 @@ public extension CTRun {
 	var glyphs: AnyRandomAccessCollection<CGGlyph> {
 		if let preGlyph = CTRunGetGlyphsPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
-		} else {
+		} else if glyphCount > 0 {
 			var preArr = [CGGlyph](repeating: 0, count: glyphCount)
 			CTRunGetGlyphs(self, CFRange(location: 0, length: 0), &preArr)
 			return AnyRandomAccessCollection(preArr)
+		} else {
+			return AnyRandomAccessCollection([])
 		}
 	}
 
@@ -101,10 +103,12 @@ public extension CTRun {
 	var positions: AnyRandomAccessCollection<CGPoint> {
 		if let preGlyph = CTRunGetPositionsPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
-		} else {
+		} else if glyphCount > 0 {
 			var preArr = [CGPoint](repeating: CGPoint(), count: glyphCount)
 			CTRunGetPositions(self, CFRange(location: 0, length: 0), &preArr)
 			return AnyRandomAccessCollection(preArr)
+		} else {
+			return AnyRandomAccessCollection([])
 		}
 	}
 	
@@ -139,18 +143,20 @@ public extension CTRun {
 	var advances: AnyRandomAccessCollection<CGSize> {
 		if let preAdv = CTRunGetAdvancesPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preAdv, count: glyphCount))
-		} else {
+		} else if glyphCount > 0 {
 			var preArr = [CGSize](repeating: CGSize(), count: glyphCount)
 			CTRunGetAdvances(self, CFRange(location: 0, length: 0), &preArr)
 			return AnyRandomAccessCollection(preArr)
+		} else {
+			return AnyRandomAccessCollection([])
 		}
 	}
 	
 	/// Copies a range of glyph advances.
 	/// - parameter range:
 	/// The range of glyph advances to be copied, with the entire range
-	/// having a location of 0 and a length of CTRunGetGlyphCount. If the
-	/// length of the range is set to 0, then the operation will continue
+	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// length of the range is set to `0`, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: An array of glyph advances.
 	func advances(in range: CFRange) -> [CGSize] {
@@ -176,10 +182,12 @@ public extension CTRun {
 	var stringIndices: AnyRandomAccessCollection<CFIndex> {
 		if let preGlyph = CTRunGetStringIndicesPtr(self) {
 			return AnyRandomAccessCollection(UnsafeBufferPointer(start: preGlyph, count: glyphCount))
-		} else {
+		} else if glyphCount > 0 {
 			var preArr = [CFIndex](repeating: 0, count: glyphCount)
 			CTRunGetStringIndices(self, CFRange(location: 0, length: 0), &preArr)
 			return AnyRandomAccessCollection(preArr)
+		} else {
+			return AnyRandomAccessCollection([])
 		}
 	}
 	

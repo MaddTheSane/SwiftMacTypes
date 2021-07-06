@@ -133,7 +133,7 @@ public extension CTFont {
 		return CTFontCreateUIFontForLanguage(uiType, size, language as NSString?)
 	}
 	
-	enum FontNameKey: CustomStringConvertible, RawRepresentable {
+	enum FontNameKey: CustomStringConvertible, RawRepresentable, Hashable {
 		public typealias RawValue = CFString
 		
 		public init?(rawValue: CFString) {
@@ -319,67 +319,7 @@ public extension CTFont {
 		/// If `stringValue` doesn't match any of the `kCTFont...NameKey`s, returns `nil`.
 		/// - parameter stringValue: The string value to attempt to init `FontNameKey` from.
 		public init?(stringValue: String) {
-			switch stringValue {
-			case (kCTFontCopyrightNameKey as NSString as String):
-				self = .copyright
-				
-			case (kCTFontFamilyNameKey as NSString as String):
-				self = .family
-				
-			case (kCTFontSubFamilyNameKey as NSString as String):
-				self = .subFamily
-				
-			case (kCTFontStyleNameKey as NSString as String):
-				self = .style
-				
-			case (kCTFontUniqueNameKey as NSString as String):
-				self = .unique
-				
-			case (kCTFontFullNameKey as NSString as String):
-				self = .full
-				
-			case (kCTFontVersionNameKey as NSString as String):
-				self = .version
-				
-			case (kCTFontPostScriptNameKey as NSString as String):
-				self = .postScript
-				
-			case (kCTFontCopyrightNameKey as NSString as String):
-				self = .copyright
-				
-			case (kCTFontTrademarkNameKey as NSString as String):
-				self = .trademark
-				
-			case (kCTFontManufacturerNameKey as NSString as String):
-				self = .manufacturer
-				
-			case (kCTFontDesignerNameKey as NSString as String):
-				self = .designer
-				
-			case (kCTFontDescriptionNameKey as NSString as String):
-				self = .fontDescription
-				
-			case (kCTFontVendorURLNameKey as NSString as String):
-				self = .vendorURL
-				
-			case (kCTFontDesignerURLNameKey as NSString as String):
-				self = .designerURL
-				
-			case (kCTFontLicenseNameKey as NSString as String):
-				self = .license
-				
-			case (kCTFontLicenseURLNameKey as NSString as String):
-				self = .licenseURL
-				
-			case (kCTFontSampleTextNameKey as NSString as String):
-				self = .sampleText
-				
-			case (kCTFontPostScriptCIDNameKey as NSString as String):
-				self = .postScriptCID
-				
-			default:
-				return nil
-			}
+			self.init(rawValue: stringValue as CFString)
 		}
 		
 		public var description: String {
@@ -527,7 +467,7 @@ public extension CTFont {
 	/// The symbolic font traits.
 	///
 	/// This getter returns the symbolic traits of the font. This is equivalent to the `kCTFontSymbolicTrait`
-	/// of traits dictionary. See *CTFontTraits.h* for a definition of the font traits.
+	/// of `traits` dictionary. See *CTFontTraits.h* for a definition of the font traits.
 	@inlinable var symbolicTraits: SymbolicTraits {
 		return CTFontGetSymbolicTraits(self)
 	}
@@ -571,7 +511,7 @@ public extension CTFont {
 	/// - returns: The requested name for the font, or `nil` if the font does not have an entry for the
 	/// requested name. The Unicode version of the name will be preferred, otherwise the first available
 	/// will be used.
-	func name(ofKey nameKey: FontNameKey) -> String? {
+	func name(of nameKey: FontNameKey) -> String? {
 		return CTFontCopyName(self, nameKey.rawValue) as String?
 	}
 	
@@ -583,7 +523,7 @@ public extension CTFont {
 	/// `actualLanguage`: A `String` of the language identifier of the returned name string. The format of the
 	/// language identifier will conform to *UTS #35*.
 	/// If CoreText can supply its own localized string where the font cannot, this value will be `nil`.
-	func localizedName(ofKey nameKey: FontNameKey) -> (name: String, actualLanguage: String?)? {
+	func localizedName(of nameKey: FontNameKey) -> (name: String, actualLanguage: String?)? {
 		var actualName: Unmanaged<CFString>? = nil
 		guard let name = CTFontCopyLocalizedName(self, nameKey.rawValue, &actualName) as String? else {
 			return nil
@@ -823,13 +763,123 @@ public extension CTFont {
 	*/
 	//--------------------------------------------------------------------------
 	
+	/// Font Variation Axis Dictionary Keys
+	///
+	/// These constants provide keys to font variation axis dictionary values.
+	enum VariationAxisKey: RawRepresentable, Hashable, CustomStringConvertible {
+		
+		/// Key to get the variation axis identifier.
+		///
+		/// This key is used with a variation axis dictionary to get the axis identifier value as a `CFNumber`.
+		case identifier
+		
+		/// Key to get the variation axis minimum value.
+		///
+		/// This key is used with a variation axis dictionary to get the minimum axis value as a `CFNumber`.
+		case minimumValue
+		
+		/// Key to get the variation axis maximum value.
+		///
+		/// This key is used with a variation axis dictionary to get the maximum axis value as a `CFNumber`.
+		case maximumValue
+		
+		/// Key to get the variation axis default value.
+		///
+		/// This key is used with a variation axis dictionary to get the default axis value as a `CFNumber`.
+		case defaultValue
+		
+		/// Key to get the variation axis name string.
+		///
+		/// This key is used with a variation axis dictionary to get the localized variation axis name.
+		case name
+		
+		/// Key to get the hidden axis flag.
+		///
+		/// This key contains a CFBoolean value that is true when the font designer recommends the axis
+		/// not be exposed directly to end users in application interfaces.
+		@available(macOS 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *)
+		case isHidden
+		
+		public init?(rawValue: CFString) {
+			if #available(macOS 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *) {
+				if rawValue == kCTFontVariationAxisHiddenKey {
+					self = .isHidden
+					return
+				}
+			}
+			switch rawValue {
+			case kCTFontVariationAxisIdentifierKey:
+				self = .identifier
+				
+			case kCTFontVariationAxisMinimumValueKey:
+				self = .minimumValue
+				
+			case kCTFontVariationAxisMaximumValueKey:
+				self = .maximumValue
+				
+			case kCTFontVariationAxisDefaultValueKey:
+				self = .defaultValue
+				
+			case kCTFontVariationAxisNameKey:
+				self = .name
+				
+			default:
+				return nil
+			}
+		}
+
+		public var rawValue: CFString {
+			if #available(macOS 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *) {
+				if self == .isHidden {
+					return kCTFontVariationAxisHiddenKey
+				}
+			}
+			switch self {
+			case .identifier:
+				return kCTFontVariationAxisIdentifierKey
+
+			case .minimumValue:
+				return kCTFontVariationAxisMinimumValueKey
+
+			case .maximumValue:
+				return kCTFontVariationAxisMaximumValueKey
+
+			case .defaultValue:
+				return kCTFontVariationAxisDefaultValueKey
+
+			case .name:
+				return kCTFontVariationAxisNameKey
+				
+			case .isHidden:
+				fatalError("We shouldn't be getting here!")
+			}
+		}
+		
+		public var description: String {
+			return rawValue as String
+		}
+	}
 	
 	/// An array of variation axis dictionaries.
 	///
 	/// This getter returns an array of variation axis dictionaries or `nil` if the font does not support
 	/// variations. Each variation axis dictionary contains the five `kCTFontVariationAxis`* keys.
-	var variationAxes: [[String: Any]]? {
-		return CTFontCopyVariationAxes(self) as? [[String: Any]]
+	var variationAxes: [[VariationAxisKey: Any]]? {
+		guard let val = CTFontCopyVariationAxes(self) as? [[CFString: Any]] else {
+			return nil
+		}
+		return val.map { val1 -> [VariationAxisKey: Any] in
+			var dictRet = [VariationAxisKey: Any]()
+			dictRet.reserveCapacity(val1.count)
+			for (key, val2) in val1 {
+				guard let key2 = VariationAxisKey(rawValue: key) else {
+					print("\((CFCopyDescription(self) as String?) ?? "Unknown Font"): Unknown key \(key)?")
+					continue
+				}
+				dictRet[key2] = val2
+			}
+			return dictRet
+		}
 	}
 	
 	/// A variation dictionary.
@@ -840,8 +890,16 @@ public extension CTFont {
 	///
 	/// - seealso: kCTFontVariationAxisIdentifierKey
 	/// - seealso: kCTFontVariationAxisDefaultValueKey
-	var variationInfo: [String: Any]? {
-		return CTFontCopyVariation(self) as? [String: Any]
+	var variationInfo: [OSType: Double]? {
+		guard let tmp = CTFontCopyVariation(self) as? [CFNumber: CFNumber] else {
+			return nil
+		}
+		var toRet: [OSType: Double] = [:]
+		toRet.reserveCapacity(tmp.count)
+		for (key, val) in tmp {
+			toRet[(key as NSNumber).uint32Value] = (val as NSNumber).doubleValue
+		}
+		return toRet
 	}
 	
 	// MARK: - Font Features
