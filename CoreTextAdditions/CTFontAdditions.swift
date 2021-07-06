@@ -931,6 +931,7 @@ public extension CTFont {
 	*/
 	//--------------------------------------------------------------------------
 	
+	/// Returns a Core Graphics font reference and attributes.
 	/// - returns: A `CGFont` for the given font reference. Additional attributes from the font will be
 	/// returned as a font descriptor via the `attributes` tuple.
 	func graphicsFont() -> (font: CGFont, attributes: CTFontDescriptor?) {
