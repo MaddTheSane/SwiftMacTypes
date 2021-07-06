@@ -11,7 +11,7 @@ import AudioToolbox
 import SwiftAdditions
 
 /// Keys for dictionaries returned by `instrumentInfoFromSoundBank(at:)`
-public enum InstrumentInfoKey: RawRepresentable {
+public enum InstrumentInfoKey: RawRepresentable, CustomStringConvertible, CaseIterable {
 	public init?(rawValue: String) {
 		switch rawValue {
 		case kInstrumentInfoKey_Name:
@@ -44,6 +44,10 @@ public enum InstrumentInfoKey: RawRepresentable {
 		}
 	}
 	
+	public var description: String {
+		return rawValue
+	}
+	
 	public typealias RawValue = String
 	
 	/// A `String` containing the name of the instrument.
@@ -64,11 +68,11 @@ public enum InstrumentInfoKey: RawRepresentable {
 public func nameFromSoundBank(at inURL: URL) throws -> String {
 	var str: Unmanaged<CFString>? = nil
 	let status = CopyNameFromSoundBank(inURL as NSURL, &str)
-	guard status == noErr else {
+	guard status == noErr, let toRet = str?.takeRetainedValue() else {
 		throw errorFromOSStatus(status, userInfo: [NSURLErrorKey: inURL])
 	}
 	
-	return str!.takeRetainedValue() as String
+	return toRet as String
 }
 
 /// This will return an `Array` of Dictionaries, one per instrument found in the DLS or SF2 bank.
@@ -81,10 +85,9 @@ public func nameFromSoundBank(at inURL: URL) throws -> String {
 func instrumentInfoFromSoundBank(at inURL: URL) throws -> [[InstrumentInfoKey: Any]] {
 	var tmpArr: Unmanaged<CFArray>?
 	let status = CopyInstrumentInfoFromSoundBank(inURL as NSURL, &tmpArr)
-	guard status == noErr else {
+	guard status == noErr, let tmpArr2 = tmpArr?.takeRetainedValue() as? [[String: Any]] else {
 		throw errorFromOSStatus(status, userInfo: [NSURLErrorKey: inURL])
 	}
-	let tmpArr2 = tmpArr!.takeRetainedValue() as! [[String: Any]]
 	let toRet = tmpArr2.map { (aDict) -> [InstrumentInfoKey: Any] in
 		var tmpDict = [InstrumentInfoKey: Any]()
 		for (key, val) in aDict {
