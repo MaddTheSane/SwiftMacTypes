@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftAdditions
+import AudioToolbox.AudioFile
 #if SWIFT_PACKAGE
 
 public let SAACoreAudioErrorDomain: String = "com.github.maddthesane.SwiftAudioAdditions.errors"
