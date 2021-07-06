@@ -59,7 +59,7 @@ public class AudioFileFormats {
 					return " not"
 				}
 			}
-			var toRet = "    '\(OSTypeToStr(formatID))': \(ny(readable))readable \(ny(writable))writable\n"
+			var toRet = "    '\(OSTypeToStr(formatID))':\(ny(readable)) readable\(ny(writable)) writable\n"
 			for variant in variants {
 				toRet += "      \(variant.description)\n"
 			}
