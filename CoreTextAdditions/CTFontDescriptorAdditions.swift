@@ -61,4 +61,67 @@ public extension CTFontDescriptor {
 	func descriptorsMatching(attributes: Set<String>?) -> [CTFontDescriptor]? {
 		return CTFontDescriptorCreateMatchingFontDescriptors(self, attributes as NSSet?) as! [CTFontDescriptor]?
 	}
+	
+	/// Copies a font descriptor with new feature setting.
+	///
+	/// This is a convenience method to more easily toggle the state of individual features.
+	/// - parameter featureTypeIdentifier: The feature type identifier.
+	/// - parameter featureSelectorIdentifier: The feature selector identifier.
+	/// - returns: A copy of the original font descriptor modified with the given feature settings.
+	@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
+	func copyWithFeature(type featureTypeIdentifier: CFNumber, selector featureSelectorIdentifier: CFNumber) -> CTFontDescriptor {
+		return CTFontDescriptorCreateCopyWithFeature(self, featureTypeIdentifier, featureSelectorIdentifier)
+	}
+
+	/// Creates a copy of the original font descriptor with a new variation instance.
+	/// - parameter variationIdentifier: The variation axis identifier. This is the four
+	/// character code of the variation axis as an `OSType`.
+	/// - parameter variationValue: The value corresponding with the variation instance.
+	/// - returns: This function returns a copy of the original font descriptor with a new variation instance.
+	/// This is a convenience method for easily creating new variation font instances.
+	@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
+	func copyWithVariation(identifier variationIdentifier: OSType, value variationValue: CGFloat) -> CTFontDescriptor {
+		return CTFontDescriptorCreateCopyWithVariation(self, NSNumber(value: variationIdentifier), variationValue)
+	}
+	
+	/// Returns a new font descriptor based on the original descriptor having the specified symbolic traits.
+	/// - parameter symTraitValue: The value of the symbolic traits. This bitfield is used to indicate
+	/// the desired value for the traits specified by the `symTraitMask` parameter. Used in conjunction,
+	/// they can allow for trait removal as well as addition.
+	/// - parameter symTraitMask: The mask bits of the symbolic traits. This bitfield is used to indicate the
+	/// traits that should be changed.
+	/// - returns: Returns a new font descriptor reference in the same family with the given symbolic traits,
+	/// or `nil` if none found in the system.
+	@available(macOS 10.9, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
+	func copyWithSymbolicTraits(value symTraitValue: CTFont.SymbolicTraits, mask symTraitMask: CTFont.SymbolicTraits) -> CTFontDescriptor? {
+		return CTFontDescriptorCreateCopyWithSymbolicTraits(self, symTraitValue, symTraitMask)
+	}
+
+	/// Returns a new font descriptor in the specified family based on the traits of the original descriptor.
+	/// - parameter family: The name of the desired family.
+	/// - returns: Returns a new font reference with the original traits in the given family,
+	/// or `nil` if none found in the system.
+	@available(macOS 10.9, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
+	func copy(withFamily family: String) -> CTFontDescriptor? {
+		return CTFontDescriptorCreateCopyWithFamily(self, family as NSString)
+	}
+
+	/// Creates a copy of the original font descriptor with new attributes.
+	/// - parameter attributes: A CFDictionaryRef of arbitrary attributes.
+	/// - returns: This function creates a new copy of the original font descriptor with attributes augmented
+	/// by those specified. If there are conflicts between attributes, the new attributes will replace existing ones,
+	/// except for `kCTFontVariationAttribute` and `kCTFontFeatureSettingsAttribute` which
+	/// will be merged.
+	///
+	/// Starting with macOS 10.12 and iOS 10.0, setting the value of `kCTFontFeatureSettingsAttribute`
+	/// to `kCFNull` will clear the feature settings of the original font descriptor. Setting the value of any individual
+	/// feature settings pair in the `kCTFontFeatureSettingsAttribute` value array to `kCFNull` will clear
+	/// that feature setting alone. For example, an element like
+	/// `@{ (id)kCTFontFeatureTypeIdentifierKey: @(kLigaturesType), (id)kCTFontFeatureSelectorIdentifierKey: (id)kCFNull }`
+	/// means clear the `kLigatureType` feature set in the original font descriptor. An element
+	/// like `@[ @"liga", (id)kCFNull ]` will have the same effect.
+	@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
+	func copy(withAttributes attributes: [String: Any]) -> CTFontDescriptor {
+		return CTFontDescriptorCreateCopyWithAttributes(self, attributes as NSDictionary)
+	}
 }

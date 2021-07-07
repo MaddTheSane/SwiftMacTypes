@@ -226,7 +226,7 @@ public extension CTRun {
 	/// a location of `0` and a length of `CTRun.glyphCount`. If the length
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
-	func typographicBounds(_ range: CFRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
+	func typographicBounds(in range: CFRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
 		var ascent: CGFloat = 0, descent: CGFloat = 0, leading: CGFloat = 0
 		let width = CTRunGetTypographicBounds(self, range, &ascent, &descent, &leading)
 		return (width, ascent, descent, leading)
@@ -306,6 +306,17 @@ public extension CTRun {
 	func glyphs(in range: NSRange) -> [CGGlyph] {
 		return glyphs(in: range.cfRange)
 	}
+	
+	/// Copies a range of glyphs.
+	/// - parameter range:
+	/// The range of glyphs to be copied, with the entire range having a
+	/// location of `0` and a length of `CTRun.glyphCount`. If the length
+	/// of the range is set to `0`, then the operation will continue from
+	/// the range's start index to the end of the run.
+	/// - returns: The glyphs in the specified range.
+	func glyphs(in range: Range<Int>) -> [CGGlyph] {
+		return glyphs(in: NSRange(range).cfRange)
+	}
 
 	
 	/// Gets the typographic bounds of the run.
@@ -314,8 +325,18 @@ public extension CTRun {
 	/// a location of `0` and a length of `CTRun.glyphCount`. If the length
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
-	func typographicBounds(_ range: NSRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
-		return typographicBounds(range.cfRange)
+	func typographicBounds(in range: NSRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
+		return typographicBounds(in: range.cfRange)
+	}
+
+	/// Gets the typographic bounds of the run.
+	/// - parameter range:
+	/// The range of glyphs to be measured, with the entire range having
+	/// a location of `0` and a length of `CTRun.glyphCount`. If the length
+	/// of the range is set to `0`, then the operation will continue from
+	/// the range's start index to the end of the run.
+	func typographicBounds(in range: Range<Int>) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
+		return typographicBounds(in: NSRange(range).cfRange)
 	}
 
 	/// Copies a range of string indices.
@@ -331,6 +352,21 @@ public extension CTRun {
 	/// in the run back to the characters in the backing store.
 	func stringIndicies(in range: NSRange) -> [CFIndex] {
 		return stringIndicies(in: range.cfRange)
+	}
+	
+	/// Copies a range of string indices.
+	/// - parameter range:
+	/// The range of string indices to be copied, with the entire range
+	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// length of the range is set to `0`, then the operation will continue
+	/// from the range's start index to the end of the run.
+	/// - returns: The string indices in the specified range.
+	///
+	/// The indices are the character indices that originally spawned the
+	/// glyphs that make up the run. They can be used to map the glyphs
+	/// in the run back to the characters in the backing store.
+	func stringIndicies(in range: Range<Int>) -> [CFIndex] {
+		return stringIndicies(in: NSRange(range).cfRange)
 	}
 	
 	/// Copies a range of glyph advances.
@@ -352,7 +388,7 @@ public extension CTRun {
 	/// from the range's start index to the end of the run.
 	/// - returns: An array of glyph advances.
 	func advances(in range: Range<Int>) -> [CGSize] {
-		return advances(in: NSRange(range))
+		return advances(in: NSRange(range).cfRange)
 	}
 	
 	/// Copies a range of glyph positions.
@@ -374,6 +410,6 @@ public extension CTRun {
 	/// from the range's start index to the end of the run.
 	/// - returns: The glyph positions.
 	func positions(in range: Range<Int>) -> [CGPoint] {
-		return positions(in: NSRange(range))
+		return positions(in: NSRange(range).cfRange)
 	}
 }
