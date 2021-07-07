@@ -89,7 +89,6 @@
 		55706D941A1EC2440000FD93 /* SwiftIOKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55706D9A1A1EC2440000FD93 /* SwiftIOKitAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55706D8F1A1EC2440000FD93 /* SwiftIOKitAdditions.framework */; };
 		55706DA11A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55706DA01A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift */; };
-		55706DA91A1EC2880000FD93 /* IOCFPlugInClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55706DA81A1EC2880000FD93 /* IOCFPlugInClass.swift */; };
 		55706DAC1A1EC3BC0000FD93 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		55721B7C21599B7C00F048AA /* AUOutputBL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55721B7B21599B7C00F048AA /* AUOutputBL.swift */; };
 		55721B7E21599BDC00F048AA /* AudioFileFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55721B7D21599BDC00F048AA /* AudioFileFormats.swift */; };
@@ -108,7 +107,6 @@
 		55C04E952075591700ABFD58 /* MacAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C04E942075591700ABFD58 /* MacAdditionsTests.swift */; };
 		55C1A6AF1A07223B00C7A733 /* AdditionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */; };
 		55D8DD861A7EE48B0046C1F7 /* AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8DD851A7EE48B0046C1F7 /* AppKit.swift */; };
-		55DAF5931A337C91008281ED /* COMUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DAF5921A337C91008281ED /* COMUUIDs.swift */; };
 		55E11DE61AE7114000815555 /* SwiftAudioAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E11DE51AE7114000815555 /* SwiftAudioAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E11DEC1AE7114000815555 /* SwiftAudioAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DE11AE7114000815555 /* SwiftAudioAdditions.framework */; };
 		55E11DF31AE7114000815555 /* SwiftAudioAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E11DF21AE7114000815555 /* SwiftAudioAdditionsTests.swift */; };
@@ -329,7 +327,6 @@
 		55706D991A1EC2440000FD93 /* SwiftIOKitAdditionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftIOKitAdditionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55706D9F1A1EC2450000FD93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55706DA01A1EC2450000FD93 /* SwiftIOKitAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftIOKitAdditionsTests.swift; sourceTree = "<group>"; };
-		55706DA81A1EC2880000FD93 /* IOCFPlugInClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOCFPlugInClass.swift; sourceTree = "<group>"; };
 		55721B7B21599B7C00F048AA /* AUOutputBL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AUOutputBL.swift; sourceTree = "<group>"; };
 		55721B7D21599BDC00F048AA /* AudioFileFormats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileFormats.swift; sourceTree = "<group>"; };
 		5577287719ABE259008328D0 /* MacTypesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacTypesAdditions.swift; sourceTree = "<group>"; };
@@ -350,7 +347,6 @@
 		55C04E942075591700ABFD58 /* MacAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacAdditionsTests.swift; sourceTree = "<group>"; };
 		55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalAdditions.swift; sourceTree = "<group>"; };
 		55D8DD851A7EE48B0046C1F7 /* AppKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKit.swift; sourceTree = "<group>"; };
-		55DAF5921A337C91008281ED /* COMUUIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COMUUIDs.swift; sourceTree = "<group>"; };
 		55E11DE11AE7114000815555 /* SwiftAudioAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftAudioAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E11DE41AE7114000815555 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55E11DE51AE7114000815555 /* SwiftAudioAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftAudioAdditions.h; sourceTree = "<group>"; };
@@ -616,8 +612,6 @@
 			isa = PBXGroup;
 			children = (
 				559398E623A61C270052B4E9 /* hid */,
-				55706DA81A1EC2880000FD93 /* IOCFPlugInClass.swift */,
-				55DAF5921A337C91008281ED /* COMUUIDs.swift */,
 				55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */,
 				55706D911A1EC2440000FD93 /* Supporting Files */,
 			);
@@ -1288,8 +1282,6 @@
 				55E5D0C4267801D0000355FE /* misc.swift in Sources */,
 				5563E586239F4C8F007A1600 /* IOHIDValue.swift in Sources */,
 				55E6D09123A9D92A009BF006 /* IOHIDTransaction.swift in Sources */,
-				55706DA91A1EC2880000FD93 /* IOCFPlugInClass.swift in Sources */,
-				55DAF5931A337C91008281ED /* COMUUIDs.swift in Sources */,
 				55E6D08F23A9CC8B009BF006 /* IOHIDQueue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
