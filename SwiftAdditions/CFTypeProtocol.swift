@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// For classes that are Core Foundation objects (Can be passed to `CFRetain` `CFRelease`, etc.)
+/// For classes that are Core Foundation objects (Can be passed to `CFRetain`, `CFRelease`, etc.)
 /// and have a `*GetTypeID()` function.
 public protocol CFTypeProtocol: AnyObject {
 	/// The type identifier of the specified opaque type.
@@ -133,7 +133,6 @@ extension CFMessagePort: CFTypeProtocol {
 	}
 }
 
-
 extension CFNotificationCenter: CFTypeProtocol {
 	/// The type identifier for the `CFNotificationCenter` opaque type.
 	@inlinable public static var typeID: CFTypeID {
@@ -257,7 +256,6 @@ extension CFError: CFTypeProtocol {
 		return CFErrorGetTypeID()
 	}
 }
-
 
 extension CFData: CFTypeProtocol {
 	/// The type identifier for the `CFData` opaque type.
