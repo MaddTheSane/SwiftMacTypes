@@ -19,9 +19,8 @@ extension TISInputSource: CFTypeProtocol {
 }
 
 public extension TISInputSource {
-	
 	/// Property value constants for input source type
-	enum SourceType: RawRepresentable, Hashable {
+	enum SourceType: RawRepresentable, Hashable, CustomStringConvertible {
 		/// The property value constant for one input source type value
 		/// associated with the property key `TISInputSource.Properties.sourceType`.
 		///
@@ -67,6 +66,9 @@ public extension TISInputSource {
 		/// just check input source type.
 		case ink
 
+		public var description: String {
+			return rawValue as String
+		}
 		
 		public init?(rawValue: CFString) {
 			switch rawValue {
@@ -129,10 +131,10 @@ public extension TISInputSource {
 	/// Input sources may have additional properties beyond those listed here,
 	/// and some input sources do not have values for some of the properties
 	/// listed here. The property value for a particular input source can be
-	/// obtained using `TISGetInputSourceProperty`. A set of specific property
+	/// obtained using `TISInputSource.value(for:)`. A set of specific property
 	/// key-value pairs can also be used as a filter when creating a list of
-	/// input sources using `TISCreateInputSourceList`.
-	enum Properties: RawRepresentable, Hashable {
+	/// input sources using `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
+	enum Properties: RawRepresentable, Hashable, CustomStringConvertible {
 
 		/// The property key constant for a CFStringRef value that indicates
 		/// the category of input source.
@@ -151,7 +153,7 @@ public extension TISInputSource {
 		/// input source, the value is `nil`.
 		///
 		/// NOTE: This key (and a corresponding value) may not be used in the
-		/// filter dictionary passed to `TISCreateInputSourceList`.
+		/// filter dictionary passed to `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
 		case iconRef
 		
 		/// The property key constant for a `CFBooleanRef` value that indicates
@@ -285,7 +287,7 @@ public extension TISInputSource {
 		/// is not critical for the System to find and display the image properly.
 		///
 		/// NOTE: This key (and a corresponding value) may not be used in the
-		/// filter dictionary passed to `TISCreateInputSourceList`.
+		/// filter dictionary passed to `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
 		case imageURL
 		
 		/// The property key constant for a `CFBooleanRef` value that indicates
@@ -304,7 +306,7 @@ public extension TISInputSource {
 		/// empty string.
 		///
 		/// NOTE: This key (and a corresponding value) may not be used in the
-		/// filter dictionary passed to `TISCreateInputSourceList`.
+		/// filter dictionary passed to `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
 		case languages
 		
 		/// The property key constant for a value which is a `CFData` that
@@ -316,7 +318,7 @@ public extension TISInputSource {
 		/// '`KCHR` data' is available, the value is `nil`.
 		///
 		/// NOTE: This key (and a corresponding value) may not be used in the
-		/// filter dictionary passed to `TISCreateInputSourceList`.
+		/// filter dictionary passed to `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
 		case unicodeKeyLayoutData
 		
 		/// catch-all for non-default and/or non-documented values.
@@ -427,10 +429,14 @@ public extension TISInputSource {
 		}
 		
 		public typealias RawValue = CFString
+		
+		public var description: String {
+			return rawValue as String
+		}
 	}
 	
 	/// Property value constants for input source category
-	enum SourceCategory: RawRepresentable, Hashable {
+	enum SourceCategory: RawRepresentable, Hashable, CustomStringConvertible {
 		/// The property value constant for one input source category value
 		/// associated with the property key `Properties.category`.
 		///
@@ -484,6 +490,10 @@ public extension TISInputSource {
 		}
 		
 		public typealias RawValue = CFString
+		
+		public var description: String {
+			return rawValue as String
+		}
 	}
 
 	/// Creates a list of input sources that match specified properties.
@@ -1095,24 +1105,6 @@ public extension TISInputSource {
 		let rawDat = TISGetInputSourceProperty(self, kTISPropertyInputSourceType)!
 		let theDat = Unmanaged<CFString>.fromOpaque(rawDat).takeUnretainedValue()
 		return SourceType(rawValue: theDat)!
-	}
-}
-
-extension TISInputSource.SourceType: CustomStringConvertible {
-	public var description: String {
-		return rawValue as String
-	}
-}
-
-extension TISInputSource.Properties: CustomStringConvertible {
-	public var description: String {
-		return rawValue as String
-	}
-}
-
-extension TISInputSource.SourceCategory: CustomStringConvertible {
-	public var description: String {
-		return rawValue as String
 	}
 }
 
