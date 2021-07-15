@@ -169,7 +169,7 @@ public struct SAMacError: _BridgedStoredNSError {
 #endif
 
 public extension SAMacError.Code {
-	/// is `nil` if value is too big for `OSErr`.
+	/// is `nil` if value cannot fit into `OSErr`.
 	var toOSErr: OSErr? {
 		return OSErr(exactly: rawValue)
 	}

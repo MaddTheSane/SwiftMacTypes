@@ -56,7 +56,9 @@ public enum ReflectError: Error {
 @inlinable public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X? = nil) throws -> [X] {
 	var anArray = [X]()
 	let mirror = Mirror(reflecting: obj)
-	for val in mirror.children {
+	let children = mirror.children
+	anArray.reserveCapacity(children.count + 1)
+	for val in children {
 		guard let aChar = val.value as? X else {
 			throw ReflectError.unexpectedType(type: type(of: val.value), named: val.label)
 		}
