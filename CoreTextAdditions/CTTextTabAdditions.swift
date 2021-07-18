@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreText.CTTextTab
+import CoreText
 
 public extension CTTextTab {
 	/// These constants specify text alignment.

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreText.CTFrame
+import CoreText
 
 public extension CTFrame {
 	/// These constants specify frame progression types.
@@ -25,9 +25,7 @@ public extension CTFrame {
 	/// area of the path.
 	typealias PathFillRule = CTFramePathFillRule
 	
-	/// Returns the Core Foundation type identifier for CoreText frames.
-	///
-	/// - returns: The identifier for the opaque type `CTFrameRef`.
+	/// Returns the Core Foundation type identifier for the opaque type `CTFrame`.
 	@inlinable class var typeID: CFTypeID {
 		return CTFrameGetTypeID()
 	}
@@ -35,7 +33,7 @@ public extension CTFrame {
 	/// Returns the range of characters that were originally requested
 	/// to fill the frame.
 	///
-	/// This function will return a `CFRange` containing the backing
+	/// This getter will return a `CFRange` containing the backing
 	/// store range of characters that were originally requested
 	/// to fill the frame. If the function call is not successful,
 	/// then an empty range will be returned.
@@ -43,8 +41,8 @@ public extension CTFrame {
 		return CTFrameGetStringRange(self)
 	}
 	
-	/// Returns the range of characters that actually fit in the
-	/// frame.
+	/// A `CFRange` structure containing the backing store range of characters that fit into the
+	/// frame, or if the function call is not successful or no characters fit in the frame, an empty range.
 	///
 	/// This can be used to chain frames, as it returns the range of
 	/// characters that can be seen in the frame. The next frame would
@@ -53,7 +51,11 @@ public extension CTFrame {
 		return CTFrameGetVisibleStringRange(self)
 	}
 	
-	/// Returns the frame attributes used to create the frame.
+	/// Returns the frame attributes used to create the frame, or, if the frame was created without any frame
+	/// attributes, `nil`.
+	///
+	/// You can create a frame with an attributes dictionary to control various aspects of the framing process.
+	/// These attributes are different from the ones used to create an attributed string.
 	var frameAttributes: [String: Any]? {
 		return CTFrameGetFrameAttributes(self) as? [String: Any]
 	}
@@ -69,10 +71,9 @@ public extension CTFrame {
 	}
 	
 	/// Copies a range of line origins for a frame.
-	/// - parameter range:
-	/// The range of line origins you wish to copy. If the length of the
-	/// range is set to `0`, then the copy operation will continue from
-	/// the range's start index to the last line origin.
+	/// - parameter range: The range of line origins you wish to copy.
+	/// If the length of the range is set to `0`, then the copy operation will continue
+	/// from the range's start index to the last line origin.
 	///
 	/// This function will copy a range of `CGPoint` structures. Each
 	/// CGPoint is the origin of the corresponding line in the array of
@@ -92,10 +93,9 @@ public extension CTFrame {
 	}
 	
 	/// Copies a range of line origins for a frame.
-	/// - parameter range:
-	/// The range of line origins you wish to copy. If the length of the
-	/// range is set to `0`, then the copy operation will continue from
-	/// the range's start index to the last line origin.
+	/// - parameter range: The range of line origins you wish to copy.
+	/// If the length of the range is set to `0`, then the copy operation will continue
+	/// from the range's start index to the last line origin.
 	///
 	/// This function will copy a range of `CGPoint` structures. Each
 	/// CGPoint is the origin of the corresponding line in the array of

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreText.CTRun
+import CoreText
 
 public extension CTRun {
 	/// A bitfield passed back by the `CTRun.status` getter that is used to indicate the disposition of the

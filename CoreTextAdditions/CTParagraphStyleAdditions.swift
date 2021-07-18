@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreText.CTParagraphStyle
+import CoreText
 
 public extension CTParagraphStyle {
 	/// These constants specify text alignment.

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreText.CTFontManager
+import CoreText
 
 /// Namespace for CoreText's Font Manager functions.
 public enum FontManager {
@@ -37,7 +37,8 @@ public enum FontManager {
 	}
 	#endif
 	
-	/// Registers fonts from the specified font URLs with the font manager. Registered fonts are discoverable through font descriptor matching in the calling process.
+	/// Registers fonts from the specified font URLs with the font manager. Registered fonts are discoverable
+	/// through font descriptor matching in the calling process.
 	///
 	/// In iOS, fonts registered with the persistent scope are not automatically available
 	/// to other processes. Other process may call `CTFontManagerRequestFonts` to get access
@@ -90,7 +91,7 @@ public enum FontManager {
 	/// return `false` if the operation is to be stopped. This may be desirable after
 	/// receiving an error.
 	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-	public static func unregister(fontURLs: [URL], scope: Scope, registrationHandler: (([Error], Bool) -> Bool)?) {
+	public static func unregister(fontURLs: [URL], scope: Scope, registrationHandler: ((_ errors: [Error], _ done: Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
@@ -132,7 +133,7 @@ public enum FontManager {
 	/// completed. The handler should return `false` if the operation is to be stopped. This
 	/// may be desirable after receiving an error.
 	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-	public static func register(fontDescriptors: [CTFontDescriptor], scope: Scope, enabled: Bool, registrationHandler: (([Error], Bool) -> Bool)?) {
+	public static func register(fontDescriptors: [CTFontDescriptor], scope: Scope, enabled: Bool, registrationHandler: ((_ errors: [Error], _ done: Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
@@ -250,8 +251,9 @@ public enum FontManager {
 	
 	/// Unregisters fonts from the specified font URL with the font manager. Unregistered fonts do not
 	/// participate in font descriptor matching.
-	/// iOS note: only fonts registered with `FontManager.registerFonts(for:)`, `CTFontManagerRegisterFontsForURLs`,
-	/// or `CTFontManagerRegisterFontsForURLs` can be unregistered with this API.
+	/// iOS note: only fonts registered with `FontManager.registerFonts(for:)`,
+	/// `CTFontManagerRegisterFontsForURLs`, or `CTFontManagerRegisterFontsForURLs`
+	/// can be unregistered with this API.
 	/// - parameter fontURL: Font URL.
 	/// - parameter scope: Scope constant defining the availability and lifetime of the registration. Should
 	/// match the scope the fonts are registered in. See scope constants for more details.
@@ -263,7 +265,7 @@ public enum FontManager {
 			if let maybeErr = maybeErr?.takeRetainedValue() {
 				throw maybeErr
 			} else {
-				throw NSError(domain: NSCocoaErrorDomain, code: -1, userInfo: [NSURLErrorKey: fontURL])
+				throw CTAFontManagerError(.unsupportedScope, userInfo: [NSURLErrorKey: fontURL, (kCTFontManagerErrorFontURLsKey as String): [fontURL]])
 			}
 		}
 	}
@@ -275,8 +277,8 @@ public enum FontManager {
 	/// an already registered font will fail.
 	///
 	/// This functionality is useful for fonts that may be embedded in documents or present/constructed in
-	/// memory. A graphics font is obtained by calling `CGFontCreateWithDataProvider`. Fonts that are backed by
-	/// files should be registered using `FontManager.registerFonts(at:scope:)`.
+	/// memory. A graphics font is obtained by calling `CGFontCreateWithDataProvider`. Fonts that are
+	/// backed by files should be registered using `FontManager.registerFonts(at:scope:)`.
 	/// - parameter font: Graphics font to be registered.
 	@available(OSX 10.8, iOS 4.1, watchOS 2.0, tvOS 9.0, *)
 	public static func registerGraphicsFont(_ font: CGFont) throws {
@@ -286,7 +288,7 @@ public enum FontManager {
 			if let maybeErr = maybeErr?.takeRetainedValue() {
 				throw maybeErr
 			} else {
-				throw NSError(domain: NSCocoaErrorDomain, code: -1)
+				throw CTAFontManagerError(.unsupportedScope)
 			}
 		}
 	}
@@ -302,7 +304,7 @@ public enum FontManager {
 			if let maybeErr = maybeErr?.takeRetainedValue() {
 				throw maybeErr
 			} else {
-				throw NSError(domain: NSCocoaErrorDomain, code: -1)
+				throw CTAFontManagerError(.unsupportedScope)
 			}
 		}
 	}
@@ -339,7 +341,7 @@ public enum FontManager {
 	/// return `false` if the operation is to be stopped. This may be desirable after
 	/// receiving an error.
 	@available(iOS 13.0, *)
-	public static func registerFonts(withAssetNames fontAssetNames: [String], bundle: CFBundle? = nil, scope: Scope, enabled: Bool, registrationHandler: (([Error], Bool) -> Bool)?) {
+	public static func registerFonts(withAssetNames fontAssetNames: [String], bundle: CFBundle? = nil, scope: Scope, enabled: Bool, registrationHandler: ((_ errors: [Error], _ done: Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in

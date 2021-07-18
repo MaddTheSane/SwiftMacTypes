@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreText.CTFont
+import CoreText
 import SwiftAdditions
 
 public extension CTFont {
@@ -26,8 +26,8 @@ public extension CTFont {
 
 	/// These constants represent the specific user interface purpose to specify for font creation.
 	///
-	/// Use these constants with `CTFont.create(uiType:size:forLanguage:)` to indicate the intended user interface usage
-	/// of the font reference to be created.
+	/// Use these constants with `CTFont.create(uiType:size:forLanguage:)` to indicate the intended
+	/// user interface usage of the font reference to be created.
 	typealias UIFontType = CTFontUIFontType
 	
 	/// These constants describe font table options.
@@ -64,6 +64,24 @@ public extension CTFont {
 			return CTFontCreateWithName(name as NSString, size, nil)
 		}
 	}
+	
+	#if os(macOS)
+	/// Returns a font reference for the given Quickdraw instance.
+	///
+	/// This function is provided for compatibility support between Core Text and clients needing to
+	/// support QuickDraw font references. QuickDraw is a deprecated technology in macOS 10.4 and later.
+	/// - parameter name: The QuickDraw font name. If `nil` or zero length, an identifier must
+	/// be specified instead.
+	/// - parameter identifier: The QuickDraw font identifier. If `0`, a name must be specified instead.
+	/// - parameter style: The QuickDraw font style.
+	/// - parameter size: The point size for the font reference. If `0.0` is specified, the default
+	/// size of `12.0` is used.
+	/// - returns: The best font instance matching the Quickdraw instance information.
+	@available(macOS, introduced: 10.5, deprecated: 10.15, message: "Quickdraw font references are deprecated")
+	class func createWithQuickdrawInstance(name: UnsafePointer<UInt8>?, identifier: Int16, style: UInt8, size: CGFloat) -> CTFont {
+		return CTFontCreateWithQuickdrawInstance(name, identifier, style, size)
+	}
+	#endif
 	
 	/// Returns a new font reference that best matches the font descriptor.
 	/// - parameter descriptor: A font descriptor containing attributes that specify the requested font.
@@ -126,9 +144,12 @@ public extension CTFont {
 
 	/// Returns the special UI font for the given language and UI type.
 	/// - parameter uiType: A uiType constant specifying the intended UI use for the requested font reference.
-	/// - parameter size: The point size for the font reference. If *0.0* is specified, the default size for the requested uiType is used.
-	/// - parameter language: Language identifier to select a font for a particular localization. If unspecified, the current system language is used. The format of the language identifier should conform to *UTS #35*.
-	/// - returns: This function returns the correct font for various UI uses. The only required parameter is the `uiType` selector, unspecified optional parameters will use default values.
+	/// - parameter size: The point size for the font reference. If *0.0* is specified, the default size for the
+	/// requested uiType is used.
+	/// - parameter language: Language identifier to select a font for a particular localization. If unspecified,
+	/// the current system language is used. The format of the language identifier should conform to *UTS #35*.
+	/// - returns: This function returns the correct font for various UI uses. The only required parameter is
+	/// the `uiType` selector, unspecified optional parameters will use default values.
 	class func create(uiType: UIFontType, size: CGFloat, forLanguage language: String?) -> CTFont? {
 		return CTFontCreateUIFontForLanguage(uiType, size, language as NSString?)
 	}
@@ -136,6 +157,9 @@ public extension CTFont {
 	enum FontNameKey: CustomStringConvertible, RawRepresentable, Hashable {
 		public typealias RawValue = CFString
 		
+		/// Creates a `FontNameKey` from a supplied string.
+		/// If `rawValue` doesn't match any of the `kCTFont...NameKey`s, returns `nil`.
+		/// - parameter rawValue: The string value to attempt to init `FontNameKey` into.
 		public init?(rawValue: CFString) {
 			switch rawValue {
 			case kCTFontCopyrightNameKey:
@@ -315,7 +339,7 @@ public extension CTFont {
 		/// The name specifier for the PostScript CID name.
 		case postScriptCID
 		
-		/// Creates a `FontNameKey` from s supplied string.
+		/// Creates a `FontNameKey` from a supplied string.
 		/// If `stringValue` doesn't match any of the `kCTFont...NameKey`s, returns `nil`.
 		/// - parameter stringValue: The string value to attempt to init `FontNameKey` from.
 		public init?(stringValue: String) {
@@ -487,22 +511,22 @@ public extension CTFont {
 	//--------------------------------------------------------------------------
 	
 	/// The PostScript name.
-	var postScriptName: String {
+	@inlinable var postScriptName: String {
 		return CTFontCopyPostScriptName(self) as String
 	}
 	
 	/// The family name.
-	var familyName: String {
+	@inlinable var familyName: String {
 		return CTFontCopyFamilyName(self) as String
 	}
 	
 	/// The full name.
-	var fullName: String {
+	@inlinable var fullName: String {
 		return CTFontCopyFullName(self) as String
 	}
 	
 	/// The localized display name of the font
-	var displayName: String {
+	@inlinable var displayName: String {
 		return CTFontCopyDisplayName(self) as String
 	}
 
@@ -564,8 +588,8 @@ public extension CTFont {
 	/// This method only provides the nominal mapping as specified by the font's Unicode `cmap` (or
 	/// equivalent); such mapping does not constitute proper Unicode layout: it is the caller's responsibility
 	/// to handle the Unicode properties of the characters.
-	/// - parameter characters: An array of characters (UTF-16 code units). Non-BMP characters must be encoded
-	/// as surrogate pairs.
+	/// - parameter characters: An array of characters (UTF-16 code units). Non-BMP characters must
+	/// be encoded as surrogate pairs.
 	/// - returns: `glyphs`: Glyphs for non-BMP characters are sparse: the first glyph corresponds to the full
 	/// character and the second glyph will be `0`.<br/>
 	/// `allMapped`: Indicates whether all provided characters were successfully mapped. A return value of true
@@ -795,7 +819,7 @@ public extension CTFont {
 		
 		/// Key to get the hidden axis flag.
 		///
-		/// This key contains a CFBoolean value that is true when the font designer recommends the axis
+		/// This key contains a `CFBoolean` value that is true when the font designer recommends the axis
 		/// not be exposed directly to end users in application interfaces.
 		@available(macOS 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *)
 		case isHidden
@@ -1038,11 +1062,308 @@ public extension CTFont {
 	/// fallback region according to the given language preferences. The style of the given is also matched as
 	/// well as the weight and width of the font is not one of the system UI font, otherwise the UI font
 	/// fallback is applied.
-	/// - parameter languagePrefList: The language preference list - ordered array of `String`s of ISO language
-	/// codes.
+	/// - parameter languagePrefList: The language preference list - ordered array of `String`s of ISO
+	/// language codes.
 	/// - returns: The ordered list of fallback fonts - ordered array of `CTFontDescriptor`s.
 	@available(OSX 10.8, iOS 6.0, watchOS 2.0, tvOS 9.0, *)
 	func defaultCascadeList(forLanguages languagePrefList: [String]?) -> [CTFontDescriptor]? {
 		return CTFontCopyDefaultCascadeListForLanguages(self, languagePrefList as NSArray?) as! [CTFontDescriptor]?
 	}
+}
+
+/// Baseline data
+public var CTFontTableBASE: CTFontTableTag {
+	return 0x42415345
+}
+/// Color bitmap data
+public var CTFontTableCBDT: CTFontTableTag {
+	return 0x43424454
+}
+/// Color bitmap location data
+public var CTFontTableCBLC: CTFontTableTag {
+	return 0x43424c43
+}
+/// Compact Font Format 1.0
+public var CTFontTableCFF: CTFontTableTag {
+	return 0x43464620
+}
+/// Compact Font Format 2.0
+public var CTFontTableCFF2: CTFontTableTag {
+	return 0x43464632
+}
+/// Color table
+public var CTFontTableCOLR: CTFontTableTag {
+	return 0x434f4c52
+}
+/// Color palette table
+public var CTFontTableCPAL: CTFontTableTag {
+	return 0x4350414c
+}
+/// Digital signature
+public var CTFontTableDSIG: CTFontTableTag {
+	return 0x44534947
+}
+/// Embedded bitmap data
+public var CTFontTableEBDT: CTFontTableTag {
+	return 0x45424454
+}
+/// Embedded bitmap location data
+public var CTFontTableEBLC: CTFontTableTag {
+	return 0x45424c43
+}
+/// Embedded bitmap scaling data
+public var CTFontTableEBSC: CTFontTableTag {
+	return 0x45425343
+}
+/// Glyph definition data
+public var CTFontTableGDEF: CTFontTableTag {
+	return 0x47444546
+}
+/// Glyph positioning data
+public var CTFontTableGPOS: CTFontTableTag {
+	return 0x47504f53
+}
+/// Glyph substitution data
+public var CTFontTableGSUB: CTFontTableTag {
+	return 0x47535542
+}
+/// Horizontal metrics variations
+public var CTFontTableHVAR: CTFontTableTag {
+	return 0x48564152
+}
+/// Justification data
+public var CTFontTableJSTF: CTFontTableTag {
+	return 0x4a535446
+}
+/// Linear threshold data
+public var CTFontTableLTSH: CTFontTableTag {
+	return 0x4c545348
+}
+/// Math layout data
+public var CTFontTableMATH: CTFontTableTag {
+	return 0x4d415448
+}
+/// Merge
+public var CTFontTableMERG: CTFontTableTag {
+	return 0x4d455247
+}
+/// Metrics variations
+public var CTFontTableMVAR: CTFontTableTag {
+	return 0x4d564152
+}
+/// OS/2 and Windows specific metrics
+public var CTFontTableOS2: CTFontTableTag {
+	return 0x4f532f32
+}
+/// PCL 5 data
+public var CTFontTablePCLT: CTFontTableTag {
+	return 0x50434c54
+}
+/// Style attributes
+public var CTFontTableSTAT: CTFontTableTag {
+	return 0x53544154
+}
+/// Scalable vector graphics
+public var CTFontTableSVG: CTFontTableTag {
+	return 0x53564720
+}
+/// Vertical device metrics
+public var CTFontTableVDMX: CTFontTableTag {
+	return 0x56444d58
+}
+/// Vertical origin
+public var CTFontTableVORG: CTFontTableTag {
+	return 0x564f5247
+}
+/// Vertical metrics variations
+public var CTFontTableVVAR: CTFontTableTag {
+	return 0x56564152
+}
+/// Glyph reference
+public var CTFontTableZapf: CTFontTableTag {
+	return 0x5a617066
+}
+/// Accent attachment
+public var CTFontTableAcnt: CTFontTableTag {
+	return 0x61636e74
+}
+/// Anchor points
+public var CTFontTableAnkr: CTFontTableTag {
+	return 0x616e6b72
+}
+/// Axis variations
+public var CTFontTableAvar: CTFontTableTag {
+	return 0x61766172
+}
+/// Bitmap data
+public var CTFontTableBdat: CTFontTableTag {
+	return 0x62646174
+}
+/// Bitmap font header
+public var CTFontTableBhed: CTFontTableTag {
+	return 0x62686564
+}
+/// Bitmap location
+public var CTFontTableBloc: CTFontTableTag {
+	return 0x626c6f63
+}
+/// Baseline
+public var CTFontTableBsln: CTFontTableTag {
+	return 0x62736c6e
+}
+/// CID to glyph mapping
+public var CTFontTableCidg: CTFontTableTag {
+	return 0x63696467
+}
+/// Character to glyph mapping
+public var CTFontTableCmap: CTFontTableTag {
+	return 0x636d6170
+}
+/// CVT variations
+public var CTFontTableCvar: CTFontTableTag {
+	return 0x63766172
+}
+/// Control value table
+public var CTFontTableCvt: CTFontTableTag {
+	return 0x63767420
+}
+/// Font descriptor
+public var CTFontTableFdsc: CTFontTableTag {
+	return 0x66647363
+}
+/// Layout feature
+public var CTFontTableFeat: CTFontTableTag {
+	return 0x66656174
+}
+/// Font metrics
+public var CTFontTableFmtx: CTFontTableTag {
+	return 0x666d7478
+}
+/// 'FOND' and 'NFNT' data
+public var CTFontTableFond: CTFontTableTag {
+	return 0x666f6e64
+}
+/// Font program
+public var CTFontTableFpgm: CTFontTableTag {
+	return 0x6670676d
+}
+/// Font variations
+public var CTFontTableFvar: CTFontTableTag {
+	return 0x66766172
+}
+/// Grid-fitting/scan-conversion
+public var CTFontTableGasp: CTFontTableTag {
+	return 0x67617370
+}
+/// Glyph data
+public var CTFontTableGlyf: CTFontTableTag {
+	return 0x676c7966
+}
+/// Glyph variations
+public var CTFontTableGvar: CTFontTableTag {
+	return 0x67766172
+}
+/// Horizontal device metrics
+public var CTFontTableHdmx: CTFontTableTag {
+	return 0x68646d78
+}
+/// Font header
+public var CTFontTableHead: CTFontTableTag {
+	return 0x68656164
+}
+/// Horizontal header
+public var CTFontTableHhea: CTFontTableTag {
+	return 0x68686561
+}
+/// Horizontal metrics
+public var CTFontTableHmtx: CTFontTableTag {
+	return 0x686d7478
+}
+/// Horizontal style
+public var CTFontTableHsty: CTFontTableTag {
+	return 0x68737479
+}
+/// Justification
+public var CTFontTableJust: CTFontTableTag {
+	return 0x6a757374
+}
+/// Kerning
+public var CTFontTableKern: CTFontTableTag {
+	return 0x6b65726e
+}
+/// Extended kerning
+public var CTFontTableKerx: CTFontTableTag {
+	return 0x6b657278
+}
+/// Ligature caret
+public var CTFontTableLcar: CTFontTableTag {
+	return 0x6c636172
+}
+/// Index to location
+public var CTFontTableLoca: CTFontTableTag {
+	return 0x6c6f6361
+}
+/// Language tags
+public var CTFontTableLtag: CTFontTableTag {
+	return 0x6c746167
+}
+/// Maximum profile
+public var CTFontTableMaxp: CTFontTableTag {
+	return 0x6d617870
+}
+/// Metadata
+public var CTFontTableMeta: CTFontTableTag {
+	return 0x6d657461
+}
+/// Morph
+public var CTFontTableMort: CTFontTableTag {
+	return 0x6d6f7274
+}
+/// Extended morph
+public var CTFontTableMorx: CTFontTableTag {
+	return 0x6d6f7278
+}
+/// Naming table
+public var CTFontTableName: CTFontTableTag {
+	return 0x6e616d65
+}
+/// Optical bounds
+public var CTFontTableOpbd: CTFontTableTag {
+	return 0x6f706264
+}
+/// PostScript information
+public var CTFontTablePost: CTFontTableTag {
+	return 0x706f7374
+}
+/// CVT program
+public var CTFontTablePrep: CTFontTableTag {
+	return 0x70726570
+}
+/// Properties
+public var CTFontTableProp: CTFontTableTag {
+	return 0x70726f70
+}
+/// Bitmap data
+public var CTFontTableSbit: CTFontTableTag {
+	return 0x73626974
+}
+/// Standard bitmap graphics
+public var CTFontTableSbix: CTFontTableTag {
+	return 0x73626978
+}
+/// Tracking
+public var CTFontTableTrak: CTFontTableTag {
+	return 0x7472616b
+}
+/// Vertical header
+public var CTFontTableVhea: CTFontTableTag {
+	return 0x76686561
+}
+/// Vertical metrics
+public var CTFontTableVmtx: CTFontTableTag {
+	return 0x766d7478
+}
+/// Cross-reference
+public var CTFontTableXref: CTFontTableTag {
+	return 0x78726566
 }

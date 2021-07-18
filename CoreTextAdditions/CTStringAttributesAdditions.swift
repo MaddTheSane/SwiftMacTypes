@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreText.CTStringAttributes
+import CoreText
 
 extension NSAttributedString.Key {
 	
@@ -274,12 +274,14 @@ extension NSAttributedString.Key {
 		/// embeddings or overrides, in order from outermost to innermost,
 		/// with `(kCTWritingDirectionLeftToRight | kCTWritingDirectionEmbedding)`
 		/// corresponding to a LRE/PDF pair in plain text or
-		/// `<span dir="ltr"></span>` in HTML, `(kCTWritingDirectionRightToLeft | kCTWritingDirectionEmbedding)` corresponding to a RLE/PDF
-		/// pair in plain text or a `<span dir="rtl"></span>` in HTML,
+		/// `<span dir="ltr"></span>` in HTML,
+		/// `(kCTWritingDirectionRightToLeft | kCTWritingDirectionEmbedding)`
+		/// corresponding to a RLE/PDF pair in plain text or a `<span dir="rtl"></span>` in HTML,
 		/// `(kCTWritingDirectionLeftToRight | kCTWritingDirectionOverride)`
 		/// corresponding to a LRO/PDF pair in plain text or
-		/// `<bdo dir="ltr"></bdo>` in HTML, and `(kCTWritingDirectionRightToLeft | kCTWritingDirectionOverride)` corresponding to a RLO/PDF
-		/// pair in plain text or `<bdo dir="rtl"></bdo>` in HTML.
+		/// `<bdo dir="ltr"></bdo>` in HTML, and
+		/// `(kCTWritingDirectionRightToLeft | kCTWritingDirectionOverride)`
+		/// corresponding to a RLO/PDF pair in plain text or `<bdo dir="rtl"></bdo>` in HTML.
 		public static var writingDirection: NSAttributedString.Key {
 			return NSAttributedString.Key(rawValue: kCTWritingDirectionAttributeName as String)
 		}

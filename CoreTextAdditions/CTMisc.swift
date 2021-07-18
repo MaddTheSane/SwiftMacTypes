@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftAdditions
+import CoreText
 
 extension CTFont: CFTypeProtocol { }
 extension CTFontCollection: CFTypeProtocol { }

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreText.CTLine
+import CoreText
 
 public extension CTLine {
 	/// Options for `CTLine.bounds(with:)`.
@@ -231,8 +231,8 @@ public extension CTLine {
 	}
 
 	/// Enumerates caret offsets for characters in a line.
-	/// - parameter block: The `offset` parameter is relative to the line origin. The `leadingEdge` parameter
-	/// of this block refers to logical order.
+	/// - parameter block: The `offset` parameter is relative to the line origin. The `leadingEdge`
+	/// parameter of this block refers to logical order.
 	/// - parameter offset: Relative to the line origin.
 	/// - parameter stop: Stops the enumeration.
 	/// - parameter leadingEdge: The leading edge in logical order.

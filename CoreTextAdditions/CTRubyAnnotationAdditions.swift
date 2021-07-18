@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreText.CTRubyAnnotation
+import CoreText
 
 @available(OSX 10.10, iOS 8.0, watchOS 2.0, tvOS 9.0, *)
 public extension CTRubyAnnotation {
@@ -31,10 +31,10 @@ public extension CTRubyAnnotation {
 	/// - parameter alignment: Specifies how the ruby text and the base text should be aligned relative to each
 	/// other.
 	/// - parameter overhang: Specifies how the ruby text can overhang adjacent characters.
-	/// - parameter sizeFactor: Specifies the size of the annotation text as a percent of the size of the base
-	/// text.
-	/// - parameter text: An array of `String`s, indexed by `CTRubyPosition`. Supply `nil` for any unused
-	/// positions.
+	/// - parameter sizeFactor: Specifies the size of the annotation text as a percent of the size of the
+	/// base text.
+	/// - parameter text: An array of `String`s, indexed by `CTRubyPosition`. Supply `nil` for any
+	/// unused positions.
 	/// - returns: This function will return a reference to a `CTRubyAnnotation` object.
 	///
 	/// Using this function is the easiest and most efficient way to
@@ -51,13 +51,13 @@ public extension CTRubyAnnotation {
 	}
 	
 	/// Creates an immutable ruby annotation object.
-	/// - parameter alignment: Specifies how the ruby text and the base text should be aligned relative to each
-	/// other.
+	/// - parameter alignment: Specifies how the ruby text and the base text should be aligned relative
+	/// to each other.
 	/// - parameter overhang: Specifies how the ruby text can overhang adjacent characters.
-	/// - parameter sizeFactor: Specifies the size of the annotation text as a percent of the size of the base
-	/// text.
-	/// - parameter text: A tuple of `String`s, indexed by `CTRubyPosition`. Supply `nil` for any unused
-	/// positions.
+	/// - parameter sizeFactor: Specifies the size of the annotation text as a percent of the size of
+	/// the base text.
+	/// - parameter text: A tuple of `String`s, indexed by `CTRubyPosition`. Supply `nil` for
+	/// any unused positions.
 	/// - returns: This function will return a reference to a `CTRubyAnnotation` object.
 	///
 	/// Using this function is the easiest and most efficient way to

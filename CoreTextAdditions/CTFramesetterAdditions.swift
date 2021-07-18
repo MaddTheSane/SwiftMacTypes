@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreText.CTFramesetter
+import CoreText
 
 public extension CTFramesetter {
 	/// Returns the Core Foundation type identifier for CoreText framesetter.

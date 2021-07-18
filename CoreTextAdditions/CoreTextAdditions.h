@@ -15,3 +15,4 @@ FOUNDATION_EXPORT double CoreTextAdditionsVersionNumber;
 FOUNDATION_EXPORT const unsigned char CoreTextAdditionsVersionString[];
 
 #import <CoreTextAdditions/CTAdditionsSwiftHelpers.h>
+#import <CoreTextAdditions/CTAFontManagerErrors.h>
