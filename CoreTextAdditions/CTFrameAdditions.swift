@@ -25,11 +25,6 @@ public extension CTFrame {
 	/// area of the path.
 	typealias PathFillRule = CTFramePathFillRule
 	
-	/// Returns the Core Foundation type identifier for the opaque type `CTFrame`.
-	@inlinable class var typeID: CFTypeID {
-		return CTFrameGetTypeID()
-	}
-	
 	/// Returns the range of characters that were originally requested
 	/// to fill the frame.
 	///
@@ -76,7 +71,7 @@ public extension CTFrame {
 	/// from the range's start index to the last line origin.
 	///
 	/// This function will copy a range of `CGPoint` structures. Each
-	/// CGPoint is the origin of the corresponding line in the array of
+	/// `CGPoint` is the origin of the corresponding line in the array of
 	/// lines returned by `CTFrame.lines`, relative to the origin of the
 	/// frame's path. The maximum number of line origins returned by
 	/// this function is the count of the array of lines.

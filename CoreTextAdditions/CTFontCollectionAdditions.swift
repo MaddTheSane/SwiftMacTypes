@@ -15,13 +15,6 @@ public extension CTFontCollection {
 	typealias CopyOptions = CTFontCollectionCopyOptions
 	#endif
 	
-	/// The Core Foundation type identifier for CoreText font collections.
-	///
-	/// - returns: The identifier for the opaque type `CTFontCollectionRef`.
-	@inlinable class var typeID: CFTypeID {
-		return CTFontCollectionGetTypeID()
-	}
-	
 	// MARK: - Collection Creation
 	/*! --------------------------------------------------------------------------
 	@group Collection Creation

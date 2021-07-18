@@ -20,20 +20,20 @@ public enum FontManager {
 	/// An array of unique PostScript font names.
 	@available(OSX 10.6, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
 	public static var availablePostScriptNames: [String] {
-		return CTFontManagerCopyAvailablePostScriptNames() as NSArray as! [String]
+		return CTFontManagerCopyAvailablePostScriptNames() as! [String]
 	}
 	
 	/// An array of visible font family names sorted for UI display.
 	@available(OSX 10.6, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
 	public static var availableFontFamilyNames: [String] {
-		return CTFontManagerCopyAvailableFontFamilyNames() as NSArray as! [String]
+		return CTFontManagerCopyAvailableFontFamilyNames() as! [String]
 	}
 	
 	#if os(OSX)
 	/// An array of font URLs.
 	@available(OSX 10.6, *)
 	public static var availableFontURLs: [URL] {
-		return CTFontManagerCopyAvailableFontURLs() as NSArray as! [URL]
+		return CTFontManagerCopyAvailableFontURLs() as! [URL]
 	}
 	#endif
 	
@@ -42,7 +42,7 @@ public enum FontManager {
 	///
 	/// In iOS, fonts registered with the persistent scope are not automatically available
 	/// to other processes. Other process may call `CTFontManagerRequestFonts` to get access
-	///  to these fonts.
+	/// to these fonts.
 	/// - parameter fontURLs: Array of font URLs.
 	/// - parameter scope: Scope constant defining the availability and lifetime of the
 	/// registration. See scope constants for more details.
@@ -201,7 +201,8 @@ public enum FontManager {
 	#endif
 	
 	/// Returns an array of font descriptors representing each of the fonts in the specified URL.
-	/// Note: these font descriptors are not available through font descriptor matching.
+	///
+	/// **Note:** these font descriptors are not available through font descriptor matching.
 	/// - parameter fileURL: A file system URL referencing a valid font file.
 	/// - returns: An array of `CTFontDescriptor`s or `nil` if there are no valid fonts.
 	@available(OSX 10.6, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
@@ -210,7 +211,8 @@ public enum FontManager {
 	}
 	
 	/// Returns a font descriptor representing the font in the supplied data.
-	/// Note: the font descriptor is not available through font descriptor matching.
+	///
+	/// **Note:** the font descriptor is not available through font descriptor matching.
 	/// - parameter data: A `Data` containing font data.
 	/// - returns: A font descriptor created from the data or `nil` if it is not a valid font.
 	///
@@ -222,7 +224,8 @@ public enum FontManager {
 	}
 	
 	/// Returns an array of font descriptors for the fonts in the supplied data.
-	/// Note: the font descriptors are not available through font descriptor matching.
+	///
+	/// **Note:** the font descriptors are not available through font descriptor matching.
 	/// - parameter data: A `Data` containing font data.
 	/// - returns: An array of font descriptors. This can be an empty array in the event of
 	/// invalid or unsupported font data.
@@ -251,6 +254,7 @@ public enum FontManager {
 	
 	/// Unregisters fonts from the specified font URL with the font manager. Unregistered fonts do not
 	/// participate in font descriptor matching.
+	///
 	/// iOS note: only fonts registered with `FontManager.registerFonts(for:)`,
 	/// `CTFontManagerRegisterFontsForURLs`, or `CTFontManagerRegisterFontsForURLs`
 	/// can be unregistered with this API.
@@ -281,7 +285,7 @@ public enum FontManager {
 	/// backed by files should be registered using `FontManager.registerFonts(at:scope:)`.
 	/// - parameter font: Graphics font to be registered.
 	@available(OSX 10.8, iOS 4.1, watchOS 2.0, tvOS 9.0, *)
-	public static func registerGraphicsFont(_ font: CGFont) throws {
+	public static func register(_ font: CGFont) throws {
 		var maybeErr: Unmanaged<CFError>? = nil
 		let toRet = CTFontManagerRegisterGraphicsFont(font, &maybeErr)
 		guard toRet else {
@@ -297,7 +301,7 @@ public enum FontManager {
 	/// font descriptor matching.
 	/// - parameter font: Graphics font to be unregistered.
 	@available(OSX 10.8, iOS 4.1, watchOS 2.0, tvOS 9.0, *)
-	public static func unregisterGraphicsFont(_ font: CGFont) throws {
+	public static func unregister(_ font: CGFont) throws {
 		var maybeErr: Unmanaged<CFError>? = nil
 		let toRet = CTFontManagerUnregisterGraphicsFont(font, &maybeErr)
 		guard toRet else {
@@ -359,14 +363,14 @@ public enum FontManager {
 	/// Enables the matching font descriptors for font descriptor matching.
 	/// - parameter descriptors: Array of font descriptors.
 	@available(OSX 10.6, *)
-	public static func enableFontDescriptors(_ descriptors: [CTFontDescriptor]) {
+	public static func enable(_ descriptors: [CTFontDescriptor]) {
 		CTFontManagerEnableFontDescriptors(descriptors as NSArray, true)
 	}
 
 	/// Disables the matching font descriptors for font descriptor matching.
 	/// - parameter descriptors: Array of font descriptors.
 	@available(OSX 10.6, *)
-	public static func disableFontDescriptors(_ descriptors: [CTFontDescriptor]) {
+	public static func disable(_ descriptors: [CTFontDescriptor]) {
 		CTFontManagerEnableFontDescriptors(descriptors as NSArray, false)
 	}
 	

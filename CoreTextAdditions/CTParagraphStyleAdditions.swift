@@ -33,11 +33,6 @@ public extension CTParagraphStyle {
 	/// This structure is used to alter the paragraph style.
 	typealias Setting = CTParagraphStyleSetting
 	
-	/// Returns the Core Foundation type identifier of the paragraph style object.
-	@inlinable class var typeID: CFTypeID {
-		return CTParagraphStyleGetTypeID()
-	}
-	
 	/// Creates an immutable paragraph style.
 	/// - parameter settings: The settings that you wish to pre-load the paragraph style
 	/// with. If you wish to specify the default set of settings,

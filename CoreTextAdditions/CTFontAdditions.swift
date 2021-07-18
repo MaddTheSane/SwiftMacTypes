@@ -17,13 +17,6 @@ public extension CTFont {
 	/// Options for descriptor match and font creation.
 	typealias Options = CTFontOptions
 	
-	/// Returns the Core Foundation type identifier for CoreText fonts.
-	///
-	/// - returns: The identifier for the opaque type `CTFontRef`.
-	@inlinable class var typeID: CFTypeID {
-		return CTFontGetTypeID()
-	}
-
 	/// These constants represent the specific user interface purpose to specify for font creation.
 	///
 	/// Use these constants with `CTFont.create(uiType:size:forLanguage:)` to indicate the intended

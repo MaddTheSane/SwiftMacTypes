@@ -10,13 +10,6 @@ import Foundation
 import CoreText
 
 public extension CTFramesetter {
-	/// Returns the Core Foundation type identifier for CoreText framesetter.
-	///
-	/// - returns: The identifier for the opaque type `CTFramesetterRef`.
-	@inlinable class var typeID: CFTypeID {
-		return CTFramesetterGetTypeID()
-	}
-	
 	/// Creates a framesetter directly from a typesetter.
 	///
 	/// Each framesetter uses a typesetter internally to perform

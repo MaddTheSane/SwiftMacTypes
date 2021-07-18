@@ -14,13 +14,6 @@ public extension CTRun {
 	/// run.
 	typealias Status = CTRunStatus
 	
-	/// Returns the Core Foundation type identifier for CoreText runs.
-	///
-	/// - returns: The identifier for the opaque type `CTRunRef`.
-	@inlinable class var typeID: CFTypeID {
-		return CTRunGetTypeID()
-	}
-	
 	/// Gets the glyph count for the run.
 	///
 	/// The number of glyphs that the run contains. It is totally

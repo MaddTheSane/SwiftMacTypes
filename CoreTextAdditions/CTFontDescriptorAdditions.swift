@@ -18,13 +18,6 @@ public extension CTFontDescriptor {
 		return CTFontDescriptorCopyAttributes(self) as! [String : Any]
 	}
 	
-	/// Returns the Core Foundation type identifier for CoreText font descriptors.
-	///
-	/// - returns: The identifier for the opaque type `CTFontDescriptorRef`.
-	@inlinable class var typeID: CFTypeID {
-		return CTFontDescriptorGetTypeID()
-	}
-	
 	/// Returns the value associated with an arbitrary attribute.
 	/// - parameter key: The requested attribute.
 	/// - returns: A reference to an arbitrary attribute, or `nil` if the requested
