@@ -13,11 +13,6 @@ public extension IOHIDManager {
 	/// Various options that can be supplied to `IOHIDManager` functions.
 	typealias Options = IOHIDManagerOptions
 	
-	/// The type identifier of all `IOHIDManager` instances.
-	@inlinable class var typeID: CFTypeID {
-		return IOHIDManagerGetTypeID()
-	}
-	
 	/// Creates an `IOHIDManager` object.
 	///
 	/// The IOHIDManager object is meant as a global management system for

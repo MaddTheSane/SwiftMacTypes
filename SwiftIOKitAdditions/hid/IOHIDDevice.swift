@@ -10,11 +10,6 @@ import Foundation
 import IOKit.hid
 
 public extension IOHIDDevice {
-	/// The type identifier of all `IOHIDDevice` instances.
-	@inlinable class var typeID: CFTypeID {
-		return IOHIDDeviceGetTypeID()
-	}
-	
 	/// Creates an element from an `io_service_t`.
 	///
 	/// The `io_service_t` passed in this method must reference an object

@@ -10,11 +10,6 @@ import Foundation
 import IOKit.hid
 
 public extension IOHIDQueue {
-	/// The type identifier of all IOHIDQueue instances.
-	@inlinable class var typeID: CFTypeID {
-		return IOHIDQueueGetTypeID()
-	}
-	
 	/// Creates an IOHIDQueue object for the specified device.
 	///
 	/// Take care in specifying an appropriate depth to prevent dropping

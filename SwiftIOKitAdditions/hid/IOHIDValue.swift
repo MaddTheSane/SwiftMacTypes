@@ -11,11 +11,6 @@ import IOKit.hid
 import Darwin.Mach.mach_time
 
 public extension IOHIDValue {
-	/// The type identifier of all `IOHIDValue` instances.
-	@inlinable class var typeID: CFTypeID {
-		return IOHIDValueGetTypeID()
-	}
-	
 	/// Creates a new element value using an integer value.
 	///
 	/// `timeStamp` should represent OS AbsoluteTime, not `CFAbsoluteTime`.

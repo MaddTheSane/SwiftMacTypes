@@ -16,11 +16,6 @@ public extension IOHIDTransaction {
 	/// Various options that can be supplied to `IOHIDTransaction` functions.
 	typealias Options = IOHIDTransactionOptions
 	
-	/// The type identifier of all `IOHIDTransaction` instances.
-	@inlinable class var typeID: CFTypeID {
-		return IOHIDTransactionGetTypeID()
-	}
-	
 	/// Creates an `IOHIDTransaction` object for the specified device.
 	///
 	/// `IOHIDTransaction` objects can be used to either send or receive

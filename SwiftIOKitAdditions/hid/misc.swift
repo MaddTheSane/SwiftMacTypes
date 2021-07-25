@@ -10,9 +10,44 @@ import Foundation
 import SwiftAdditions
 import IOKit.hid
 
-extension IOHIDDevice: CFTypeProtocol {}
-extension IOHIDElement: CFTypeProtocol {}
-extension IOHIDManager: CFTypeProtocol {}
-extension IOHIDQueue: CFTypeProtocol {}
-extension IOHIDTransaction: CFTypeProtocol {}
-extension IOHIDValue: CFTypeProtocol {}
+extension IOHIDDevice: CFTypeProtocol {
+	/// The type identifier of all `IOHIDDevice` instances.
+	@inlinable public class var typeID: CFTypeID {
+		return IOHIDDeviceGetTypeID()
+	}
+}
+
+extension IOHIDElement: CFTypeProtocol {
+	/// Returns the type identifier of all `IOHIDElement` instances.
+	@inlinable public class var typeID: CFTypeID {
+		return IOHIDElementGetTypeID()
+	}
+}
+
+extension IOHIDManager: CFTypeProtocol {
+	/// The type identifier of all `IOHIDManager` instances.
+	@inlinable public class var typeID: CFTypeID {
+		return IOHIDManagerGetTypeID()
+	}
+}
+
+extension IOHIDQueue: CFTypeProtocol {
+	/// The type identifier of all IOHIDQueue instances.
+	@inlinable public class var typeID: CFTypeID {
+		return IOHIDQueueGetTypeID()
+	}
+}
+
+extension IOHIDTransaction: CFTypeProtocol {
+	/// The type identifier of all `IOHIDTransaction` instances.
+	@inlinable public class var typeID: CFTypeID {
+		return IOHIDTransactionGetTypeID()
+	}
+}
+
+extension IOHIDValue: CFTypeProtocol {
+	/// The type identifier of all `IOHIDValue` instances.
+	@inlinable public class var typeID: CFTypeID {
+		return IOHIDValueGetTypeID()
+	}
+}
