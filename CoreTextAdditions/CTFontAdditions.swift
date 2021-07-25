@@ -1065,298 +1065,298 @@ public extension CTFont {
 }
 
 /// Baseline data
-public var CTFontTableBASE: CTFontTableTag {
+@inlinable public var CTFontTableBASE: CTFontTableTag {
 	return 0x42415345
 }
 /// Color bitmap data
-public var CTFontTableCBDT: CTFontTableTag {
+@inlinable public var CTFontTableCBDT: CTFontTableTag {
 	return 0x43424454
 }
 /// Color bitmap location data
-public var CTFontTableCBLC: CTFontTableTag {
+@inlinable public var CTFontTableCBLC: CTFontTableTag {
 	return 0x43424c43
 }
 /// Compact Font Format 1.0
-public var CTFontTableCFF: CTFontTableTag {
+@inlinable public var CTFontTableCFF: CTFontTableTag {
 	return 0x43464620
 }
 /// Compact Font Format 2.0
-public var CTFontTableCFF2: CTFontTableTag {
+@inlinable public var CTFontTableCFF2: CTFontTableTag {
 	return 0x43464632
 }
 /// Color table
-public var CTFontTableCOLR: CTFontTableTag {
+@inlinable public var CTFontTableCOLR: CTFontTableTag {
 	return 0x434f4c52
 }
 /// Color palette table
-public var CTFontTableCPAL: CTFontTableTag {
+@inlinable public var CTFontTableCPAL: CTFontTableTag {
 	return 0x4350414c
 }
 /// Digital signature
-public var CTFontTableDSIG: CTFontTableTag {
+@inlinable public var CTFontTableDSIG: CTFontTableTag {
 	return 0x44534947
 }
 /// Embedded bitmap data
-public var CTFontTableEBDT: CTFontTableTag {
+@inlinable public var CTFontTableEBDT: CTFontTableTag {
 	return 0x45424454
 }
 /// Embedded bitmap location data
-public var CTFontTableEBLC: CTFontTableTag {
+@inlinable public var CTFontTableEBLC: CTFontTableTag {
 	return 0x45424c43
 }
 /// Embedded bitmap scaling data
-public var CTFontTableEBSC: CTFontTableTag {
+@inlinable public var CTFontTableEBSC: CTFontTableTag {
 	return 0x45425343
 }
 /// Glyph definition data
-public var CTFontTableGDEF: CTFontTableTag {
+@inlinable public var CTFontTableGDEF: CTFontTableTag {
 	return 0x47444546
 }
 /// Glyph positioning data
-public var CTFontTableGPOS: CTFontTableTag {
+@inlinable public var CTFontTableGPOS: CTFontTableTag {
 	return 0x47504f53
 }
 /// Glyph substitution data
-public var CTFontTableGSUB: CTFontTableTag {
+@inlinable public var CTFontTableGSUB: CTFontTableTag {
 	return 0x47535542
 }
 /// Horizontal metrics variations
-public var CTFontTableHVAR: CTFontTableTag {
+@inlinable public var CTFontTableHVAR: CTFontTableTag {
 	return 0x48564152
 }
 /// Justification data
-public var CTFontTableJSTF: CTFontTableTag {
+@inlinable public var CTFontTableJSTF: CTFontTableTag {
 	return 0x4a535446
 }
 /// Linear threshold data
-public var CTFontTableLTSH: CTFontTableTag {
+@inlinable public var CTFontTableLTSH: CTFontTableTag {
 	return 0x4c545348
 }
 /// Math layout data
-public var CTFontTableMATH: CTFontTableTag {
+@inlinable public var CTFontTableMATH: CTFontTableTag {
 	return 0x4d415448
 }
 /// Merge
-public var CTFontTableMERG: CTFontTableTag {
+@inlinable public var CTFontTableMERG: CTFontTableTag {
 	return 0x4d455247
 }
 /// Metrics variations
-public var CTFontTableMVAR: CTFontTableTag {
+@inlinable public var CTFontTableMVAR: CTFontTableTag {
 	return 0x4d564152
 }
 /// OS/2 and Windows specific metrics
-public var CTFontTableOS2: CTFontTableTag {
+@inlinable public var CTFontTableOS2: CTFontTableTag {
 	return 0x4f532f32
 }
 /// PCL 5 data
-public var CTFontTablePCLT: CTFontTableTag {
+@inlinable public var CTFontTablePCLT: CTFontTableTag {
 	return 0x50434c54
 }
 /// Style attributes
-public var CTFontTableSTAT: CTFontTableTag {
+@inlinable public var CTFontTableSTAT: CTFontTableTag {
 	return 0x53544154
 }
 /// Scalable vector graphics
-public var CTFontTableSVG: CTFontTableTag {
+@inlinable public var CTFontTableSVG: CTFontTableTag {
 	return 0x53564720
 }
 /// Vertical device metrics
-public var CTFontTableVDMX: CTFontTableTag {
+@inlinable public var CTFontTableVDMX: CTFontTableTag {
 	return 0x56444d58
 }
 /// Vertical origin
-public var CTFontTableVORG: CTFontTableTag {
+@inlinable public var CTFontTableVORG: CTFontTableTag {
 	return 0x564f5247
 }
 /// Vertical metrics variations
-public var CTFontTableVVAR: CTFontTableTag {
+@inlinable public var CTFontTableVVAR: CTFontTableTag {
 	return 0x56564152
 }
 /// Glyph reference
-public var CTFontTableZapf: CTFontTableTag {
+@inlinable public var CTFontTableZapf: CTFontTableTag {
 	return 0x5a617066
 }
 /// Accent attachment
-public var CTFontTableAcnt: CTFontTableTag {
+@inlinable public var CTFontTableAcnt: CTFontTableTag {
 	return 0x61636e74
 }
 /// Anchor points
-public var CTFontTableAnkr: CTFontTableTag {
+@inlinable public var CTFontTableAnkr: CTFontTableTag {
 	return 0x616e6b72
 }
 /// Axis variations
-public var CTFontTableAvar: CTFontTableTag {
+@inlinable public var CTFontTableAvar: CTFontTableTag {
 	return 0x61766172
 }
 /// Bitmap data
-public var CTFontTableBdat: CTFontTableTag {
+@inlinable public var CTFontTableBdat: CTFontTableTag {
 	return 0x62646174
 }
 /// Bitmap font header
-public var CTFontTableBhed: CTFontTableTag {
+@inlinable public var CTFontTableBhed: CTFontTableTag {
 	return 0x62686564
 }
 /// Bitmap location
-public var CTFontTableBloc: CTFontTableTag {
+@inlinable public var CTFontTableBloc: CTFontTableTag {
 	return 0x626c6f63
 }
 /// Baseline
-public var CTFontTableBsln: CTFontTableTag {
+@inlinable public var CTFontTableBsln: CTFontTableTag {
 	return 0x62736c6e
 }
 /// CID to glyph mapping
-public var CTFontTableCidg: CTFontTableTag {
+@inlinable public var CTFontTableCidg: CTFontTableTag {
 	return 0x63696467
 }
 /// Character to glyph mapping
-public var CTFontTableCmap: CTFontTableTag {
+@inlinable public var CTFontTableCmap: CTFontTableTag {
 	return 0x636d6170
 }
 /// CVT variations
-public var CTFontTableCvar: CTFontTableTag {
+@inlinable public var CTFontTableCvar: CTFontTableTag {
 	return 0x63766172
 }
 /// Control value table
-public var CTFontTableCvt: CTFontTableTag {
+@inlinable public var CTFontTableCvt: CTFontTableTag {
 	return 0x63767420
 }
 /// Font descriptor
-public var CTFontTableFdsc: CTFontTableTag {
+@inlinable public var CTFontTableFdsc: CTFontTableTag {
 	return 0x66647363
 }
 /// Layout feature
-public var CTFontTableFeat: CTFontTableTag {
+@inlinable public var CTFontTableFeat: CTFontTableTag {
 	return 0x66656174
 }
 /// Font metrics
-public var CTFontTableFmtx: CTFontTableTag {
+@inlinable public var CTFontTableFmtx: CTFontTableTag {
 	return 0x666d7478
 }
 /// 'FOND' and 'NFNT' data
-public var CTFontTableFond: CTFontTableTag {
+@inlinable public var CTFontTableFond: CTFontTableTag {
 	return 0x666f6e64
 }
 /// Font program
-public var CTFontTableFpgm: CTFontTableTag {
+@inlinable public var CTFontTableFpgm: CTFontTableTag {
 	return 0x6670676d
 }
 /// Font variations
-public var CTFontTableFvar: CTFontTableTag {
+@inlinable public var CTFontTableFvar: CTFontTableTag {
 	return 0x66766172
 }
 /// Grid-fitting/scan-conversion
-public var CTFontTableGasp: CTFontTableTag {
+@inlinable public var CTFontTableGasp: CTFontTableTag {
 	return 0x67617370
 }
 /// Glyph data
-public var CTFontTableGlyf: CTFontTableTag {
+@inlinable public var CTFontTableGlyf: CTFontTableTag {
 	return 0x676c7966
 }
 /// Glyph variations
-public var CTFontTableGvar: CTFontTableTag {
+@inlinable public var CTFontTableGvar: CTFontTableTag {
 	return 0x67766172
 }
 /// Horizontal device metrics
-public var CTFontTableHdmx: CTFontTableTag {
+@inlinable public var CTFontTableHdmx: CTFontTableTag {
 	return 0x68646d78
 }
 /// Font header
-public var CTFontTableHead: CTFontTableTag {
+@inlinable public var CTFontTableHead: CTFontTableTag {
 	return 0x68656164
 }
 /// Horizontal header
-public var CTFontTableHhea: CTFontTableTag {
+@inlinable public var CTFontTableHhea: CTFontTableTag {
 	return 0x68686561
 }
 /// Horizontal metrics
-public var CTFontTableHmtx: CTFontTableTag {
+@inlinable public var CTFontTableHmtx: CTFontTableTag {
 	return 0x686d7478
 }
 /// Horizontal style
-public var CTFontTableHsty: CTFontTableTag {
+@inlinable public var CTFontTableHsty: CTFontTableTag {
 	return 0x68737479
 }
 /// Justification
-public var CTFontTableJust: CTFontTableTag {
+@inlinable public var CTFontTableJust: CTFontTableTag {
 	return 0x6a757374
 }
 /// Kerning
-public var CTFontTableKern: CTFontTableTag {
+@inlinable public var CTFontTableKern: CTFontTableTag {
 	return 0x6b65726e
 }
 /// Extended kerning
-public var CTFontTableKerx: CTFontTableTag {
+@inlinable public var CTFontTableKerx: CTFontTableTag {
 	return 0x6b657278
 }
 /// Ligature caret
-public var CTFontTableLcar: CTFontTableTag {
+@inlinable public var CTFontTableLcar: CTFontTableTag {
 	return 0x6c636172
 }
 /// Index to location
-public var CTFontTableLoca: CTFontTableTag {
+@inlinable public var CTFontTableLoca: CTFontTableTag {
 	return 0x6c6f6361
 }
 /// Language tags
-public var CTFontTableLtag: CTFontTableTag {
+@inlinable public var CTFontTableLtag: CTFontTableTag {
 	return 0x6c746167
 }
 /// Maximum profile
-public var CTFontTableMaxp: CTFontTableTag {
+@inlinable public var CTFontTableMaxp: CTFontTableTag {
 	return 0x6d617870
 }
 /// Metadata
-public var CTFontTableMeta: CTFontTableTag {
+@inlinable public var CTFontTableMeta: CTFontTableTag {
 	return 0x6d657461
 }
 /// Morph
-public var CTFontTableMort: CTFontTableTag {
+@inlinable public var CTFontTableMort: CTFontTableTag {
 	return 0x6d6f7274
 }
 /// Extended morph
-public var CTFontTableMorx: CTFontTableTag {
+@inlinable public var CTFontTableMorx: CTFontTableTag {
 	return 0x6d6f7278
 }
 /// Naming table
-public var CTFontTableName: CTFontTableTag {
+@inlinable public var CTFontTableName: CTFontTableTag {
 	return 0x6e616d65
 }
 /// Optical bounds
-public var CTFontTableOpbd: CTFontTableTag {
+@inlinable public var CTFontTableOpbd: CTFontTableTag {
 	return 0x6f706264
 }
 /// PostScript information
-public var CTFontTablePost: CTFontTableTag {
+@inlinable public var CTFontTablePost: CTFontTableTag {
 	return 0x706f7374
 }
 /// CVT program
-public var CTFontTablePrep: CTFontTableTag {
+@inlinable public var CTFontTablePrep: CTFontTableTag {
 	return 0x70726570
 }
 /// Properties
-public var CTFontTableProp: CTFontTableTag {
+@inlinable public var CTFontTableProp: CTFontTableTag {
 	return 0x70726f70
 }
 /// Bitmap data
-public var CTFontTableSbit: CTFontTableTag {
+@inlinable public var CTFontTableSbit: CTFontTableTag {
 	return 0x73626974
 }
 /// Standard bitmap graphics
-public var CTFontTableSbix: CTFontTableTag {
+@inlinable public var CTFontTableSbix: CTFontTableTag {
 	return 0x73626978
 }
 /// Tracking
-public var CTFontTableTrak: CTFontTableTag {
+@inlinable public var CTFontTableTrak: CTFontTableTag {
 	return 0x7472616b
 }
 /// Vertical header
-public var CTFontTableVhea: CTFontTableTag {
+@inlinable public var CTFontTableVhea: CTFontTableTag {
 	return 0x76686561
 }
 /// Vertical metrics
-public var CTFontTableVmtx: CTFontTableTag {
+@inlinable public var CTFontTableVmtx: CTFontTableTag {
 	return 0x766d7478
 }
 /// Cross-reference
-public var CTFontTableXref: CTFontTableTag {
+@inlinable public var CTFontTableXref: CTFontTableTag {
 	return 0x78726566
 }
