@@ -54,8 +54,7 @@ typedef NS_ERROR_ENUM(kCTFontManagerErrorDomain, CTAFontManagerError) {
 	CTAFontManagerErrorInvalidFilePath          = kCTFontManagerErrorInvalidFilePath,
 	
 	//! The specified scope is not supported.
-	CTAFontManagerErrorUnsupportedScope         = kCTFontManagerErrorUnsupportedScope,
-
+	CTAFontManagerErrorUnsupportedScope         = kCTFontManagerErrorUnsupportedScope
 };
 
 #endif /* Header_h */

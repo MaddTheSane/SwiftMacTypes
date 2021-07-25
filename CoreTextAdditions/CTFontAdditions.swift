@@ -764,6 +764,7 @@ public extension CTFont {
 	/// - parameter matrix: An affine transform applied to the path. Can be `nil`, in which case
 	/// `CGAffineTransformIdentity` will be used.<br/>
 	/// Default is `nil`.
+	/// - returns: A `CGPath` object containing the glyph outlines, `nil` on error.
 	func path(forGlyph glyph: CGGlyph, matrix: CGAffineTransform? = nil) -> CGPath? {
 		let aPath: CGPath?
 		if var matrix = matrix {
