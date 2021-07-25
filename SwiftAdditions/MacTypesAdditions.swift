@@ -1000,3 +1000,38 @@ public enum CarbonGenericFinderIcons: OSType, OSTypeConvertable, OSTypeIconConve
 }
 
 #endif
+
+/// Old QuickDraw text styles.
+public struct QuickDrawStyle : OptionSet {
+	public let rawValue: UInt8
+
+	public init(rawValue value: UInt8) { self.rawValue = value }
+
+	public static var bold: QuickDrawStyle {
+		return QuickDrawStyle(rawValue: 1)
+	}
+
+	public static var italic: QuickDrawStyle {
+		return QuickDrawStyle(rawValue: 2)
+	}
+	
+	public static var underline: QuickDrawStyle {
+		return QuickDrawStyle(rawValue: 4)
+	}
+	
+	public static var outline: QuickDrawStyle {
+		return QuickDrawStyle(rawValue: 8)
+	}
+	
+	public static var shadow: QuickDrawStyle {
+		return QuickDrawStyle(rawValue: 0x10)
+	}
+	
+	public static var condensed: QuickDrawStyle {
+		return QuickDrawStyle(rawValue: 0x20)
+	}
+	
+	public static var extended: QuickDrawStyle {
+		return QuickDrawStyle(rawValue: 0x40)
+	}
+}

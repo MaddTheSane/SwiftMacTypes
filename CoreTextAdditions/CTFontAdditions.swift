@@ -63,16 +63,16 @@ public extension CTFont {
 	///
 	/// This function is provided for compatibility support between Core Text and clients needing to
 	/// support QuickDraw font references. QuickDraw is a deprecated technology in macOS 10.4 and later.
-	/// - parameter name: The QuickDraw font name. If `nil` or zero length, an identifier must
-	/// be specified instead.
+	/// - parameter name: The QuickDraw font name as a Pascal string. If `nil` or zero length, an
+	/// identifier must be specified instead.
 	/// - parameter identifier: The QuickDraw font identifier. If `0`, a name must be specified instead.
 	/// - parameter style: The QuickDraw font style.
 	/// - parameter size: The point size for the font reference. If `0.0` is specified, the default
 	/// size of `12.0` is used.
 	/// - returns: The best font instance matching the Quickdraw instance information.
 	@available(macOS, introduced: 10.5, deprecated: 10.15, message: "Quickdraw font references are deprecated")
-	class func createWithQuickdrawInstance(name: UnsafePointer<UInt8>?, identifier: Int16, style: UInt8, size: CGFloat) -> CTFont {
-		return CTFontCreateWithQuickdrawInstance(name, identifier, style, size)
+	class func createWithQuickdrawInstance(name: UnsafePointer<UInt8>?, identifier: Int16, style: QuickDrawStyle, size: CGFloat) -> CTFont {
+		return CTFontCreateWithQuickdrawInstance(name, identifier, style.rawValue, size)
 	}
 	#endif
 	
