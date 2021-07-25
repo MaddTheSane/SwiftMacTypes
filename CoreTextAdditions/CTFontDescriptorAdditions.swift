@@ -62,7 +62,7 @@ public extension CTFontDescriptor {
 	/// - parameter featureSelectorIdentifier: The feature selector identifier.
 	/// - returns: A copy of the original font descriptor modified with the given feature settings.
 	@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
-	func copyWithFeature(type featureTypeIdentifier: CFNumber, selector featureSelectorIdentifier: CFNumber) -> CTFontDescriptor {
+	@inlinable func copyWithFeature(type featureTypeIdentifier: CFNumber, selector featureSelectorIdentifier: CFNumber) -> CTFontDescriptor {
 		return CTFontDescriptorCreateCopyWithFeature(self, featureTypeIdentifier, featureSelectorIdentifier)
 	}
 
@@ -86,7 +86,7 @@ public extension CTFontDescriptor {
 	/// - returns: Returns a new font descriptor reference in the same family with the given symbolic traits,
 	/// or `nil` if none found in the system.
 	@available(macOS 10.9, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
-	func copyWithSymbolicTraits(value symTraitValue: CTFont.SymbolicTraits, mask symTraitMask: CTFont.SymbolicTraits) -> CTFontDescriptor? {
+	@inlinable func copyWithSymbolicTraits(value symTraitValue: CTFont.SymbolicTraits, mask symTraitMask: CTFont.SymbolicTraits) -> CTFontDescriptor? {
 		return CTFontDescriptorCreateCopyWithSymbolicTraits(self, symTraitValue, symTraitMask)
 	}
 
