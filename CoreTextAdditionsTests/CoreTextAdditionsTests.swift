@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import CoreTextAdditions
+@testable import CoreTextAdditions.CTAFontManagerErrors
 
 class CoreTextAdditionsTests: XCTestCase {
 	
@@ -38,10 +39,13 @@ class CoreTextAdditionsTests: XCTestCase {
 	
 	func testFontThing() {
 		let wmfURL = URL(fileURLWithPath: "/System/Library/Fonts/Times.ttc")
-		let fd = FontManager.fontDescriptors(from: wmfURL)
-		print(fd!)
-		for desc in fd! {
-			let aFont = CTFontCreateWithFontDescriptorAndOptions(desc, 14, nil, [])
+		guard let fd = FontManager.fontDescriptors(from: wmfURL) else {
+			XCTFail("")
+			return
+		}
+		print(fd)
+		for desc in fd {
+			let aFont = CTFont.create(with: desc, size: 14)
 			print(aFont)
 		}
 	}

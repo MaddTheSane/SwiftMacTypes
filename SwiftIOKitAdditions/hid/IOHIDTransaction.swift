@@ -80,8 +80,8 @@ public extension IOHIDTransaction {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func schedule(with runLoop: CFRunLoop, mode runLoopMode: String) {
-		IOHIDTransactionScheduleWithRunLoop(self, runLoop, runLoopMode as NSString)
+	func schedule(with runLoop: CFRunLoop, mode runLoopMode: CFString) {
+		IOHIDTransactionScheduleWithRunLoop(self, runLoop, runLoopMode)
 	}
 	
 	/// Unschedules transaction with run loop.
@@ -91,8 +91,8 @@ public extension IOHIDTransaction {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func unschedule(from runLoop: CFRunLoop, mode runLoopMode: String) {
-		IOHIDTransactionUnscheduleFromRunLoop(self, runLoop, runLoopMode as NSString)
+	func unschedule(from runLoop: CFRunLoop, mode runLoopMode: CFString) {
+		IOHIDTransactionUnscheduleFromRunLoop(self, runLoop, runLoopMode)
 	}
 	
 	/// Sets the value for a transaction element.
@@ -182,7 +182,7 @@ public extension IOHIDTransaction {
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
 	func schedule(with runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
+		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as CFString)
 	}
 
 	/// Unschedules transaction with run loop.
@@ -193,6 +193,6 @@ public extension IOHIDTransaction {
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
 	func unschedule(from runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
+		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as CFString)
 	}
 }

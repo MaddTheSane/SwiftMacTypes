@@ -89,8 +89,8 @@ public extension IOHIDQueue {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func schedule(with runLoop: CFRunLoop, mode runLoopMode: String) {
-		IOHIDQueueScheduleWithRunLoop(self, runLoop, runLoopMode as NSString)
+	func schedule(with runLoop: CFRunLoop, mode runLoopMode: CFString) {
+		IOHIDQueueScheduleWithRunLoop(self, runLoop, runLoopMode)
 	}
 	
 	/// Unschedules queue with run loop.
@@ -100,8 +100,8 @@ public extension IOHIDQueue {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func unschedule(from runLoop: CFRunLoop, mode runLoopMode: String) {
-		IOHIDQueueUnscheduleFromRunLoop(self, runLoop, runLoopMode as NSString)
+	func unschedule(from runLoop: CFRunLoop, mode runLoopMode: CFString) {
+		IOHIDQueueUnscheduleFromRunLoop(self, runLoop, runLoopMode)
 	}
 
 	/// Sets the dispatch queue to be associated with the IOHIDQueue.
@@ -234,7 +234,7 @@ public extension IOHIDQueue {
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
 	func schedule(with runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
+		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as CFString)
 	}
 	
 	/// Unschedules queue with run loop.
@@ -245,6 +245,6 @@ public extension IOHIDQueue {
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
 	func unschedule(from runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
+		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as CFString)
 	}
 }

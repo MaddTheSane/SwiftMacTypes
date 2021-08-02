@@ -123,8 +123,8 @@ public extension IOHIDDevice {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func schedule(with runLoop: CFRunLoop, mode runLoopMode: String) {
-		IOHIDDeviceScheduleWithRunLoop(self, runLoop, runLoopMode as NSString)
+	func schedule(with runLoop: CFRunLoop, mode runLoopMode: CFString) {
+		IOHIDDeviceScheduleWithRunLoop(self, runLoop, runLoopMode)
 	}
 	
 	/// Unschedules HID device with run loop.
@@ -134,8 +134,8 @@ public extension IOHIDDevice {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when unscheduling any
 	/// asynchronous activity.
-	func unschedule(from runLoop: CFRunLoop, mode runLoopMode: String) {
-		IOHIDDeviceUnscheduleFromRunLoop(self, runLoop, runLoopMode as NSString)
+	func unschedule(from runLoop: CFRunLoop, mode runLoopMode: CFString) {
+		IOHIDDeviceUnscheduleFromRunLoop(self, runLoop, runLoopMode)
 	}
 	
 	/// Sets the dispatch queue to be associated with the IOHIDDevice.
@@ -582,7 +582,7 @@ public extension IOHIDDevice {
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
 	func schedule(with runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
+		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as CFString)
 	}
 	
 	/// Unschedules HID device with run loop.
@@ -593,6 +593,6 @@ public extension IOHIDDevice {
 	/// - parameter runLoopMode: Run loop mode to be used when unscheduling any
 	/// asynchronous activity.
 	func unschedule(from runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
+		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as CFString)
 	}
 }

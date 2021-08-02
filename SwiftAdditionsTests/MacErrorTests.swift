@@ -9,6 +9,9 @@
 import Foundation
 import XCTest
 @testable import SwiftAdditions
+#if !SWIFT_PACKAGE
+@testable import SwiftAdditions.SAMacError
+#endif
 
 class MacErrorTests: XCTestCase {
 	

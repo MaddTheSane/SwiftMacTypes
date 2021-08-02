@@ -79,8 +79,8 @@ public extension IOHIDManager {
 	/// - parameter runLoop: RunLoop to be used when scheduling any asynchronous activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func schedule(with runLoop: CFRunLoop, mode runLoopMode: String) {
-		IOHIDManagerScheduleWithRunLoop(self, runLoop, runLoopMode as NSString)
+	func schedule(with runLoop: CFRunLoop, mode runLoopMode: CFString) {
+		IOHIDManagerScheduleWithRunLoop(self, runLoop, runLoopMode)
 	}
 	
 	/// Unschedules HID manager with run loop.
@@ -91,8 +91,8 @@ public extension IOHIDManager {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when unscheduling any
 	/// asynchronous activity.
-	func unschedule(from runLoop: CFRunLoop, mode runLoopMode: String) {
-		IOHIDManagerUnscheduleFromRunLoop(self, runLoop, runLoopMode as NSString)
+	func unschedule(from runLoop: CFRunLoop, mode runLoopMode: CFString) {
+		IOHIDManagerUnscheduleFromRunLoop(self, runLoop, runLoopMode)
 	}
 	
 	/// Sets the dispatch queue to be associated with the `IOHIDManager`.
@@ -335,7 +335,7 @@ public extension IOHIDManager {
 	/// - parameter runLoopMode: Run loop mode to be used when unscheduling any
 	/// asynchronous activity.
 	func unschedule(from runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
+		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as CFString)
 	}
 	
 	/// Schedules HID manager with run loop.
@@ -348,6 +348,6 @@ public extension IOHIDManager {
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
 	func schedule(with runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue)
+		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as CFString)
 	}
 }
