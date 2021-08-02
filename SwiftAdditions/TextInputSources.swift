@@ -154,6 +154,9 @@ public extension TISInputSource {
 		///
 		/// NOTE: This key (and a corresponding value) may not be used in the
 		/// filter dictionary passed to `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
+		///
+		/// `IconRef`s are very deprecated and might not even be accessible under Swift:
+		/// Use `.imageURL` to get the icon URL instead.
 		case iconRef
 		
 		/// The property key constant for a `CFBooleanRef` value that indicates
@@ -280,8 +283,10 @@ public extension TISInputSource {
 		/// an Input Method Info.plist mis-declares its icon path extension in its Info.plist.
 		/// In this case, the client should try other path extensions, by using, for example,
 		/// a combination of `CFURLResourceIsReachable`, `CFURLCopyPathExtension`,
-		/// `CFURLCreateCopyDeletingPathExtension`, and `CFURLCreateCopyAppendingPathExtension`.
-		///     For example, if the URL indicates **".png"**, be prepared to look for a **".tiff"**.
+		/// `CFURLCreateCopyDeletingPathExtension`, and
+		/// `CFURLCreateCopyAppendingPathExtension`.
+		///
+		/// For example, if the URL indicates **".png"**, be prepared to look for a **".tiff"**.
 		/// TIS uses `[NSBundle(NSBundleImageExtension) imageForResource:]`,
 		/// where possible, to obtain an input source image, so the path extension (i.e. ".png")
 		/// is not critical for the System to find and display the image properly.
@@ -869,16 +874,6 @@ public extension TISInputSource {
 		return SourceCategory(rawValue: theDat)!
 	}
 	
-	/// IconRefs are the normal icon format for keyboard layouts and
-	/// input methods. If an `IconRef` is not available for the specified
-	/// input source, the value is `nil`.
-	var iconRef: IconRef? {
-		guard let val = TISGetInputSourceProperty(self, kTISPropertyIconRef) else {
-			return nil
-		}
-		return OpaquePointer(val)
-	}
-	
 	/// The value that indicates
 	/// whether the input source can ever (given the right conditions) be
 	/// programmatically enabled using `TISEnableInputSource`.
@@ -988,8 +983,7 @@ public extension TISInputSource {
 		return theDat as Data
 	}
 	
-	/// The value indicating the
-	/// file containing the image (typically *TIFF*) to be used as the
+	/// The value indicating the file containing the image (typically *TIFF*) to be used as the
 	/// input source icon.
 	///
 	/// *TIFF* files are the normal icon format for input modes. If an
@@ -1016,8 +1010,7 @@ public extension TISInputSource {
 	
 	/// The value for the reverse DNS BundleID associated with the input source.
 	///
-	/// Not valid for all input sources (especially some keyboard
-	/// layouts).
+	/// Not valid for all input sources (especially some keyboard layouts).
 	var bundleID: String? {
 		guard let rawDat = TISGetInputSourceProperty(self, kTISPropertyBundleID) else {
 			return nil

@@ -76,7 +76,15 @@ extension CFBag: CFTypeProtocol {
 	}
 }
 
-extension CFBitVector: CFTypeProtocol {}
+extension CFBitVector: CFTypeProtocol {
+	/// The type identifier for the `CFBitVector` opaque type.
+	///
+	/// `CFMutableBitVector` objects have the same type identifier as `CFBitVector` objects.
+	@inlinable public class var typeID: CFTypeID {
+		return CFBitVectorGetTypeID()
+	}
+}
+
 extension CFBinaryHeap: CFTypeProtocol {
 	/// The type identifier for the `CFBinaryHeap` opaque type.
 	@inlinable public static var typeID: CFTypeID {

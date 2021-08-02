@@ -107,6 +107,7 @@
 		55C04E9320754E2B00ABFD58 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		55C04E952075591700ABFD58 /* MacAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C04E942075591700ABFD58 /* MacAdditionsTests.swift */; };
 		55C1A6AF1A07223B00C7A733 /* AdditionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */; };
+		55D373E926B8949500BFBCB4 /* CFBinaryHeap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D373E826B8949500BFBCB4 /* CFBinaryHeap.swift */; };
 		55D8DD861A7EE48B0046C1F7 /* AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8DD851A7EE48B0046C1F7 /* AppKit.swift */; };
 		55E11DE61AE7114000815555 /* SwiftAudioAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E11DE51AE7114000815555 /* SwiftAudioAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E11DEC1AE7114000815555 /* SwiftAudioAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E11DE11AE7114000815555 /* SwiftAudioAdditions.framework */; };
@@ -348,6 +349,7 @@
 		55B713121D0775EF00F2EA1F /* CharacterAdditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterAdditionsTests.swift; sourceTree = "<group>"; };
 		55C04E942075591700ABFD58 /* MacAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacAdditionsTests.swift; sourceTree = "<group>"; };
 		55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalAdditions.swift; sourceTree = "<group>"; };
+		55D373E826B8949500BFBCB4 /* CFBinaryHeap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFBinaryHeap.swift; sourceTree = "<group>"; };
 		55D8DD851A7EE48B0046C1F7 /* AppKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKit.swift; sourceTree = "<group>"; };
 		55E11DE11AE7114000815555 /* SwiftAudioAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftAudioAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E11DE41AE7114000815555 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 				556B05AB216DE4CB0025EFC5 /* SAMacError.m */,
 				556B05AE216DEB750025EFC5 /* SAMacError.swift */,
 				55251E2B24937417007BC863 /* CFBitVector.swift */,
+				55D373E826B8949500BFBCB4 /* CFBinaryHeap.swift */,
 				551BFC31265EF46A00554FAA /* TextInputSources.swift */,
 				554536E826621C420097DD71 /* CFTypeProtocol.swift */,
 				550FBAC119A7ADC500EFBD3D /* Supporting Files */,
@@ -1209,6 +1212,7 @@
 				5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */,
 				550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */,
 				556B05AF216DEB750025EFC5 /* SAMacError.swift in Sources */,
+				55D373E926B8949500BFBCB4 /* CFBinaryHeap.swift in Sources */,
 				554536E926621C420097DD71 /* CFTypeProtocol.swift in Sources */,
 				5587E0C01A0A115D00CA1400 /* Endianness.swift in Sources */,
 				55251E2C24937417007BC863 /* CFBitVector.swift in Sources */,
