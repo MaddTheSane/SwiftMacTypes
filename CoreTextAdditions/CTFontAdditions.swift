@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreText
+import FoundationAdditions
 import SwiftAdditions
 
 public extension CTFont {

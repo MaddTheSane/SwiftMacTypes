@@ -9,6 +9,7 @@
 import CoreFoundation
 import CoreFoundation.CFPlugInCOM
 import Foundation.NSUUID
+import FoundationAdditions
 
 /// The IUnknown UUID used by COM APIs.
 public var iUnknownUUID: UUID {

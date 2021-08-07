@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SwiftAdditions
+import FoundationAdditions
 import CoreText
 
 extension CTFont: CFTypeProtocol {

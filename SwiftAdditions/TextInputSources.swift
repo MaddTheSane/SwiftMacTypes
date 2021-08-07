@@ -10,6 +10,7 @@
 
 import Foundation
 import Carbon.HIToolbox
+import FoundationAdditions
 
 extension TISInputSource: CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for `TISInputSource`.

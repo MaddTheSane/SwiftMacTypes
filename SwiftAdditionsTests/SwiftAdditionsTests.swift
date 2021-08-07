@@ -9,6 +9,7 @@
 import Foundation
 import XCTest
 @testable import SwiftAdditions
+@testable import FoundationAdditions
 
 class SwiftAdditionsTests: XCTestCase {
 	
