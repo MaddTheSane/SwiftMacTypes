@@ -47,12 +47,12 @@ let package = Package(
             path: "SwiftAudioAdditionsTests"),
         .target(
             name: "CoreTextAdditions",
-            dependencies: ["SwiftAdditions"],
+            dependencies: ["FoundationAdditions", "SwiftAdditions"],
             path: "CoreTextAdditions",
 			exclude: ["CTAdditionsSwiftHelpers.m"]),
         .testTarget(
             name: "CoreTextAdditionsTests",
-            dependencies: ["SwiftAdditions", "CoreTextAdditions"],
+            dependencies: ["SwiftAdditions", "FoundationAdditions", "CoreTextAdditions"],
             path: "CoreTextAdditionsTests"),
         .target(
             name: "FoundationAdditions",
