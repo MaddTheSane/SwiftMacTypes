@@ -965,6 +965,7 @@ public extension CTFont {
 	*/
 	//--------------------------------------------------------------------------
 	
+	#if !SWIFT_PACKAGE
 	/// Returns an array of font table tags.
 	/// - parameter options: The options used when copying font tables.<br>
 	/// Default is no options.
@@ -977,6 +978,7 @@ public extension CTFont {
 		
 		return numArr.map({$0.uint32Value})
 	}
+	#endif
 	
 	/// Returns a reference to the font table data.
 	///

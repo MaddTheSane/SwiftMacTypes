@@ -57,4 +57,4 @@ typedef NS_ERROR_ENUM(kCTFontManagerErrorDomain, CTAFontManagerError) {
 	CTAFontManagerErrorUnsupportedScope         = kCTFontManagerErrorUnsupportedScope
 };
 
-#endif /* Header_h */
+#endif /* CTAFontManagerErrors_h */

@@ -73,6 +73,13 @@ extension CTRun: CFTypeProtocol {
 	}
 }
 
+extension CTRunDelegate: CFTypeProtocol {
+	/// The Core Foundation type identifier for the opaque type `CTRunDelegate`.
+	@inlinable public static var typeID: CFTypeID {
+		return CTRunDelegateGetTypeID()
+	}
+}
+
 extension CTTextTab: CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for the opaque type `CTTextTab`.
 	@inlinable public class var typeID: CFTypeID {

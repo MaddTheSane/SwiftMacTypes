@@ -103,6 +103,8 @@
 		55721B7E21599BDC00F048AA /* AudioFileFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55721B7D21599BDC00F048AA /* AudioFileFormats.swift */; };
 		5576C14C1F6AFA4400C8C01F /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577287719ABE259008328D0 /* MacTypesAdditions.swift */; };
+		558D71CE26DF54E8002F5255 /* CTRunDelegateAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558D71CD26DF54E8002F5255 /* CTRunDelegateAdditions.swift */; };
+		558D71D026DF5E43002F5255 /* CTAFontManagerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558D71CF26DF5E43002F5255 /* CTAFontManagerErrors.swift */; };
 		558DC059217D04840022E081 /* QuartzAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558DC050217D04830022E081 /* QuartzAdditions.framework */; };
 		558DC05E217D04840022E081 /* QuartzAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558DC05D217D04840022E081 /* QuartzAdditionsTests.swift */; };
 		558DC060217D04840022E081 /* QuartzAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 558DC052217D04840022E081 /* QuartzAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -359,6 +361,8 @@
 		5577287719ABE259008328D0 /* MacTypesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacTypesAdditions.swift; sourceTree = "<group>"; };
 		557EA35D25861EE8005AEADC /* ForceFeedback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ForceFeedback.framework; path = System/Library/Frameworks/ForceFeedback.framework; sourceTree = SDKROOT; };
 		5587E0BF1A0A115D00CA1400 /* Endianness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endianness.swift; sourceTree = "<group>"; };
+		558D71CD26DF54E8002F5255 /* CTRunDelegateAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTRunDelegateAdditions.swift; sourceTree = "<group>"; };
+		558D71CF26DF5E43002F5255 /* CTAFontManagerErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTAFontManagerErrors.swift; sourceTree = "<group>"; };
 		558DC050217D04830022E081 /* QuartzAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuartzAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		558DC052217D04840022E081 /* QuartzAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuartzAdditions.h; sourceTree = "<group>"; };
 		558DC053217D04840022E081 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -623,6 +627,7 @@
 				5535DD1226A4234900E766D5 /* CTAFontManagerErrors.h */,
 				5527AC321FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.h */,
 				5527AC311FAE7CE7009CC7FC /* CTAdditionsSwiftHelpers.m */,
+				558D71CF26DF5E43002F5255 /* CTAFontManagerErrors.swift */,
 				5527AC351FAE7CE8009CC7FC /* CTFontAdditions.swift */,
 				5527AC361FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift */,
 				5527AC2B1FAE7CE7009CC7FC /* CTFontDescriptorAdditions.swift */,
@@ -633,6 +638,7 @@
 				5505E0BA2408D62B002339C7 /* CTParagraphStyleAdditions.swift */,
 				5527AC2C1FAE7CE7009CC7FC /* CTRubyAnnotationAdditions.swift */,
 				5527AC341FAE7CE8009CC7FC /* CTRunAdditions.swift */,
+				558D71CD26DF54E8002F5255 /* CTRunDelegateAdditions.swift */,
 				5527AC2E1FAE7CE7009CC7FC /* CTStringAttributesAdditions.swift */,
 				5527AC2A1FAE7CE7009CC7FC /* CTTextTabAdditions.swift */,
 				554536EA266222EC0097DD71 /* CTMisc.swift */,
@@ -1381,6 +1387,7 @@
 				5527AC3C1FAE7CE8009CC7FC /* CTStringAttributesAdditions.swift in Sources */,
 				5527AC391FAE7CE8009CC7FC /* CTFontDescriptorAdditions.swift in Sources */,
 				5527AC3F1FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.m in Sources */,
+				558D71CE26DF54E8002F5255 /* CTRunDelegateAdditions.swift in Sources */,
 				5527AC3A1FAE7CE8009CC7FC /* CTRubyAnnotationAdditions.swift in Sources */,
 				5527AC431FAE7CE8009CC7FC /* CTFontAdditions.swift in Sources */,
 				5527AC441FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift in Sources */,
@@ -1389,6 +1396,7 @@
 				554536EB266222EC0097DD71 /* CTMisc.swift in Sources */,
 				5505E0BB2408D62B002339C7 /* CTParagraphStyleAdditions.swift in Sources */,
 				5527AC3E1FAE7CE8009CC7FC /* CTFrameAdditions.swift in Sources */,
+				558D71D026DF5E43002F5255 /* CTAFontManagerErrors.swift in Sources */,
 				5527AC411FAE7CE8009CC7FC /* CTLineAdditions.swift in Sources */,
 				5527AC381FAE7CE8009CC7FC /* CTTextTabAdditions.swift in Sources */,
 				5527AC421FAE7CE8009CC7FC /* CTRunAdditions.swift in Sources */,

@@ -7,15 +7,18 @@ let package = Package(
     name: "SwiftAdditions",
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
+		.library(
+			name: "FoundationAdditions",
+			targets: ["FoundationAdditions"]),
         .library(
             name: "SwiftAdditions",
             targets: ["SwiftAdditions"]),
         .library(
             name: "SwiftAudioAdditions",
             targets: ["SwiftAudioAdditions"]),
-//        .library(
-//           name: "CoreTextAdditions",
-//           targets: ["CoreTextAdditions"]),
+        .library(
+           name: "CoreTextAdditions",
+           targets: ["CoreTextAdditions"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -26,7 +29,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "SwiftAdditions",
-            dependencies: [],
+            dependencies: ["FoundationAdditions"],
             path: "SwiftAdditions",
             exclude: ["SAMacError.m"]),
         .testTarget(
@@ -35,20 +38,29 @@ let package = Package(
             path: "SwiftAdditionsTests"),
         .target(
             name: "SwiftAudioAdditions",
-            dependencies: ["SwiftAdditions"],
+            dependencies: ["FoundationAdditions", "SwiftAdditions"],
             path: "SwiftAudioAdditions",
             exclude: ["SAAError.m"]),
         .testTarget(
             name: "SwiftAudioAdditionsTests",
             dependencies: ["SwiftAdditions", "SwiftAudioAdditions"],
             path: "SwiftAudioAdditionsTests"),
-        //.target(
-        //    name: "CoreTextAdditions",
-        //    dependencies: ["SwiftAdditions"],
-        //    path: "CoreTextAdditions"),
-        //.testTarget(
-        //    name: "CoreTextAdditionsTests",
-        //    dependencies: ["SwiftAdditions", "CoreTextAdditions"],
-        //    path: "CoreTextAdditionsTests"),
+        .target(
+            name: "CoreTextAdditions",
+            dependencies: ["SwiftAdditions"],
+            path: "CoreTextAdditions",
+			exclude: ["CTAdditionsSwiftHelpers.m"]),
+        .testTarget(
+            name: "CoreTextAdditionsTests",
+            dependencies: ["SwiftAdditions", "CoreTextAdditions"],
+            path: "CoreTextAdditionsTests"),
+        .target(
+            name: "FoundationAdditions",
+            dependencies: [],
+            path: "FoundationAdditions"),
+        .testTarget(
+            name: "FoundationAdditionsTests",
+            dependencies: ["SwiftAdditions", "FoundationAdditions"],
+            path: "FoundationAdditionsTests"),
     ]
 )
