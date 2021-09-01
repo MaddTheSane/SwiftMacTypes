@@ -14,7 +14,7 @@ import Foundation
 ///
 /// This list is in no way, shape, or form exhaustive! A lot of the other
 /// errors make no sense under Mac OS X but were needed for pre-OS X systems.
-public struct SAMacError: _BridgedStoredNSError {
+public struct SAMacError: Error, _BridgedStoredNSError {
 	public let _nsError: NSError
 
 	public init(_nsError: NSError) {

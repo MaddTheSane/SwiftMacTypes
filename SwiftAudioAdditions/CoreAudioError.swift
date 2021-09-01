@@ -14,7 +14,7 @@ import AudioToolbox.AudioFile
 public let SAACoreAudioErrorDomain: String = "com.github.maddthesane.SwiftAudioAdditions.errors"
 
 /// Errors found in the audio frameworks of Mac OS X/iOS
-public struct SAACoreAudioError: _BridgedStoredNSError {
+public struct SAACoreAudioError: Error, _BridgedStoredNSError {
 	public let _nsError: NSError
 	
 	public static var _nsErrorDomain: String {
