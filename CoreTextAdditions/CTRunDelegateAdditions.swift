@@ -9,8 +9,13 @@
 import Foundation
 import CoreText
 
+// TODO: have Apple go over the API for CTRunDelegate, make sure all areas are supposed to be non-null.
 public extension CTRunDelegate {
-	var refCon: UnsafeMutableRawPointer {
+	@inlinable static func create(callbacks: UnsafePointer<CTRunDelegateCallbacks>, refCon: UnsafeMutableRawPointer?) -> CTRunDelegate? {
+		return CTRunDelegateCreate(callbacks, refCon)
+	}
+	
+	@inlinable var refCon: UnsafeMutableRawPointer {
 		return CTRunDelegateGetRefCon(self)
 	}
 }
