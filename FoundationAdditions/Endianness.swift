@@ -8,6 +8,7 @@
 
 import Swift
 
+@available(swift, introduced: 1.2, deprecated: 5.5, obsoleted: 6.0, message: "Use `_endian(little)` and `_endian(big)` 'macros' instead.")
 public enum ByteOrder {
 	case little
 	case big

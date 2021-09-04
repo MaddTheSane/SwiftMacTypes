@@ -70,7 +70,7 @@ public extension CGPoint {
 		#if os(OSX)
 			self = NSPointFromString(string)
 		#else
-		self = NSCoder.cgPoint(for: string)
+			self = NSCoder.cgPoint(for: string)
 		#endif
 	}
 
@@ -82,7 +82,7 @@ public extension CGPoint {
 		#if os(OSX)
 			return NSStringFromPoint(self)
 		#else
-		return NSCoder.string(for: self)
+			return NSCoder.string(for: self)
 		#endif
 	}
 }
@@ -102,7 +102,7 @@ public extension CGSize {
 		#if os(OSX)
 			self = NSSizeFromString(string)
 		#else
-		self = NSCoder.cgSize(for: string)
+			self = NSCoder.cgSize(for: string)
 		#endif
 	}
 
@@ -114,7 +114,7 @@ public extension CGSize {
 		#if os(OSX)
 			return NSStringFromSize(self)
 		#else
-		return NSCoder.string(for: self)
+			return NSCoder.string(for: self)
 		#endif
 	}
 }
@@ -147,7 +147,7 @@ public extension CGRect {
 		#if os(OSX)
 			self = NSRectFromString(string)
 		#else
-		self = NSCoder.cgRect(for: string)
+			self = NSCoder.cgRect(for: string)
 		#endif
 	}
 
@@ -159,7 +159,7 @@ public extension CGRect {
 		#if os(OSX)
 			return NSStringFromRect(self)
 		#else
-		return NSCoder.string(for: self)
+			return NSCoder.string(for: self)
 		#endif
 	}
 

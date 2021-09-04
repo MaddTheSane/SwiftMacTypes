@@ -154,8 +154,8 @@ public enum FontManager {
 	/// for more details.
 	/// - parameter registrationHandler: Block called as errors are discovered or upon
 	/// completion. The errors parameter will be an empty array if all font descriptors are
-	/// unregistered. Otherwise, it will contain an array of `CFError` references. Each error
-	/// reference will contain a `CFArray` of font descriptors corresponding to
+	/// unregistered. Otherwise, it will contain an array of `Error` references. Each error
+	/// reference will contain an `Array` of font descriptors corresponding to
 	/// `kCTFontManagerErrorFontDescriptorsKey`. These represent the font descriptors that
 	/// caused the error, and were not successfully unregistered. Note, the handler may be
 	/// called multiple times during the unregistration process. The `done` (second)
@@ -163,7 +163,7 @@ public enum FontManager {
 	/// handler should return `false` if the operation is to be stopped. This may be
 	/// desirable after receiving an error.
 	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-	public static func unregister(fontDescriptors: [CTFontDescriptor], scope: Scope, registrationHandler: (([Error], Bool) -> Bool)?) {
+	public static func unregister(fontDescriptors: [CTFontDescriptor], scope: Scope, registrationHandler: ((_ errors: [Error], _ done: Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
@@ -402,9 +402,9 @@ public enum FontManager {
 	/// - parameter sourceOrder: The order of the created run loop source.
 	/// - parameter createMatchesCallback: A block to handle the font request.
 	/// - returns: A `CFRunLoopSource` that should be added to the run loop. To stop receiving requests,
-	/// invalidate this run loop source. Will return `nil` on error, in the case of a duplicate requestPortName
+	/// invalidate this run loop source. Will return `nil` on error, in the case of a duplicate `requestPortName`
 	/// or invalid context structure.
-	@available(OSX 10.6, *)
+	@available(OSX, introduced: 10.6, deprecated: 11.0, message: "This functionality will be removed in a future release")
 	@inlinable public static func createFontRequestRunLoopSource(order sourceOrder: Int, _ createMatchesCallback: @escaping @convention(block) (_ requestAttributes: CFDictionary, _ requestingProcess: pid_t) -> Unmanaged<CFArray>) -> CFRunLoopSource? {
 			return CTFontManagerCreateFontRequestRunLoopSource(sourceOrder, createMatchesCallback)
 	}

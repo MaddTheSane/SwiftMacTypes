@@ -290,11 +290,17 @@ extension CFAttributedString: CFTypeProtocol {
 }
 
 /// Checks to see if the passed in object is a CoreFoundation of type `aType`.
+/// - parameter theType: The object to test.
+/// - parameter aType: The class to test against.
+/// - returns: `true` if `theType` is of type `aType`, `false` otherwise.
 public func cfType<A: CFTypeProtocol>(_ theType: AnyObject, isOf aType: A.Type) -> Bool {
 	return CFGetTypeID(theType) == aType.typeID
 }
 
 /// Dynamically cast the type `theType` to `aType`, returning `nil` if it can't be done.
+/// - parameter theType: The object to cast.
+/// - parameter aType: The class to cast to.
+/// - returns: `theType` cast to `aType`, if it is of `aType`, `nil` otherwise.
 public func castCFType<A: CFTypeProtocol>(_ theType: AnyObject, to aType: A.Type) -> A? {
 	guard cfType(theType, isOf: aType) else {
 		return nil

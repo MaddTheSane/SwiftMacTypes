@@ -136,7 +136,7 @@ public extension CTLine {
 	/// - returns: The bounds of the line as specified by the type and options,
 	/// such that the coordinate origin is coincident with the line
 	/// origin and the rect origin is at the bottom left. If the line
-	/// is invalid this function will return `nil`.
+	/// is invalid, this function will return `nil`.
 	func bounds(with options: BoundsOptions = []) -> CGRect? {
 		let retVal = CTLineGetBoundsWithOptions(self, options)
 		if retVal.isNull {
