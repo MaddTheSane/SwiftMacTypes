@@ -89,7 +89,7 @@ public extension IOHIDQueue {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func schedule(with runLoop: CFRunLoop, mode runLoopMode: CFString) {
+	@inlinable func schedule(with runLoop: CFRunLoop, mode runLoopMode: CFString) {
 		IOHIDQueueScheduleWithRunLoop(self, runLoop, runLoopMode)
 	}
 	
@@ -100,7 +100,7 @@ public extension IOHIDQueue {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func unschedule(from runLoop: CFRunLoop, mode runLoopMode: CFString) {
+	@inlinable func unschedule(from runLoop: CFRunLoop, mode runLoopMode: CFString) {
 		IOHIDQueueUnscheduleFromRunLoop(self, runLoop, runLoopMode)
 	}
 

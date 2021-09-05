@@ -80,7 +80,7 @@ public extension IOHIDTransaction {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func schedule(with runLoop: CFRunLoop, mode runLoopMode: CFString) {
+	@inlinable func schedule(with runLoop: CFRunLoop, mode runLoopMode: CFString) {
 		IOHIDTransactionScheduleWithRunLoop(self, runLoop, runLoopMode)
 	}
 	
@@ -91,7 +91,7 @@ public extension IOHIDTransaction {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func unschedule(from runLoop: CFRunLoop, mode runLoopMode: CFString) {
+	@inlinable func unschedule(from runLoop: CFRunLoop, mode runLoopMode: CFString) {
 		IOHIDTransactionUnscheduleFromRunLoop(self, runLoop, runLoopMode)
 	}
 	

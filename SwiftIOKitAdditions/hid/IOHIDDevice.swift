@@ -123,7 +123,7 @@ public extension IOHIDDevice {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
-	func schedule(with runLoop: CFRunLoop, mode runLoopMode: CFString) {
+	@inlinable func schedule(with runLoop: CFRunLoop, mode runLoopMode: CFString) {
 		IOHIDDeviceScheduleWithRunLoop(self, runLoop, runLoopMode)
 	}
 	
@@ -134,7 +134,7 @@ public extension IOHIDDevice {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when unscheduling any
 	/// asynchronous activity.
-	func unschedule(from runLoop: CFRunLoop, mode runLoopMode: CFString) {
+	@inlinable func unschedule(from runLoop: CFRunLoop, mode runLoopMode: CFString) {
 		IOHIDDeviceUnscheduleFromRunLoop(self, runLoop, runLoopMode)
 	}
 	

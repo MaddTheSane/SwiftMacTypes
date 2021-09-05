@@ -11,3 +11,4 @@
 **/xcuserdata/
 **/project.xcworkspace/
 .build/
+.swiftpm
