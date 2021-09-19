@@ -80,7 +80,7 @@ public extension CATransform3D {
 	
 	/// Translate this transform by `(tx, ty, tz)` and return the result:
 	/// **self' = translate(tx, ty, tz) * self**.
-	func translated(tx: CGFloat, ty: CGFloat, tz: CGFloat) -> CATransform3D {
+	@inlinable func translated(tx: CGFloat, ty: CGFloat, tz: CGFloat) -> CATransform3D {
 		return CATransform3DTranslate(self, tx, ty, tz)
 	}
 	

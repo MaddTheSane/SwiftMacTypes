@@ -44,7 +44,6 @@
 		550404E721584E7D002D2702 /* SAAError.h in Headers */ = {isa = PBXBuildFile; fileRef = 550404E521584E7C002D2702 /* SAAError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		550404E821584E7D002D2702 /* SAAError.m in Sources */ = {isa = PBXBuildFile; fileRef = 550404E621584E7D002D2702 /* SAAError.m */; };
 		5505E0BB2408D62B002339C7 /* CTParagraphStyleAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5505E0BA2408D62B002339C7 /* CTParagraphStyleAdditions.swift */; };
-		550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550B049F1A0D5932002BD56E /* COMUUIDs.swift */; };
 		550FBAC419A7ADC500EFBD3D /* SwiftAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		550FBACE19A7ADC500EFBD3D /* SwiftAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FBACD19A7ADC500EFBD3D /* SwiftAdditionsTests.swift */; };
 		5510696D24ADDDC9004C2486 /* SoundBankAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5510696C24ADDDC9004C2486 /* SoundBankAdditions.swift */; };
@@ -291,7 +290,6 @@
 		550404E521584E7C002D2702 /* SAAError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAAError.h; sourceTree = "<group>"; };
 		550404E621584E7D002D2702 /* SAAError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAAError.m; sourceTree = "<group>"; };
 		5505E0BA2408D62B002339C7 /* CTParagraphStyleAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTParagraphStyleAdditions.swift; sourceTree = "<group>"; };
-		550B049F1A0D5932002BD56E /* COMUUIDs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COMUUIDs.swift; sourceTree = "<group>"; };
 		550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		550FBAC219A7ADC500EFBD3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftAdditions.h; sourceTree = "<group>"; };
@@ -558,7 +556,6 @@
 			children = (
 				55D8DD851A7EE48B0046C1F7 /* AppKit.swift */,
 				552627A01BDF52A4005AAF63 /* Characters.swift */,
-				550B049F1A0D5932002BD56E /* COMUUIDs.swift */,
 				5577287719ABE259008328D0 /* MacTypesAdditions.swift */,
 				55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */,
 				5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */,
@@ -1345,7 +1342,6 @@
 				556B05AD216DE4CB0025EFC5 /* SAMacError.m in Sources */,
 				5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */,
 				553D4EFB26E41AE60041DB2E /* CoreGraphics.swift in Sources */,
-				550B04A01A0D5932002BD56E /* COMUUIDs.swift in Sources */,
 				556B05AF216DEB750025EFC5 /* SAMacError.swift in Sources */,
 				5568C1021C63F1840050E2BA /* AppleScriptFoundation.swift in Sources */,
 				552627A11BDF52A4005AAF63 /* Characters.swift in Sources */,

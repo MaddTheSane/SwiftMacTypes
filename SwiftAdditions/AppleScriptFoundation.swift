@@ -80,11 +80,5 @@ import Foundation
 				throw getError(dict: errDict)
 			}
 		}
-		
-		/// Deprecated, use `execute(event:) throws` instead.
-		@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "execute(event:)")
-		@nonobjc func executeAppleEvent(_ event: NSAppleEventDescriptor) throws -> NSAppleEventDescriptor {
-			return try execute(event: event)
-		}
 	}
 #endif

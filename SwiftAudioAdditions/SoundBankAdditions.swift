@@ -90,6 +90,7 @@ func instrumentInfoFromSoundBank(at inURL: URL) throws -> [[InstrumentInfoKey: A
 	}
 	let toRet = tmpArr2.map { (aDict) -> [InstrumentInfoKey: Any] in
 		var tmpDict = [InstrumentInfoKey: Any]()
+		tmpDict.reserveCapacity(aDict.count)
 		for (key, val) in aDict {
 			guard let key2 = InstrumentInfoKey(rawValue: key) else {
 				print("Uhh... unknown key \(key)?")

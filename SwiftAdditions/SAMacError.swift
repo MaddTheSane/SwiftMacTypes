@@ -180,21 +180,6 @@ public extension SAMacError.Code {
 }
 
 public extension SAMacError {
-	/// This throws the passed-in error as an `NSOSStatusErrorDomain` error.
-	///
-	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used!
-	/// Catching `SAMacError` may also catch error values that aren't included in
-	/// the `SAMacError.Code` enum.
-	///
-	/// Deprecated: Call `osStatus(_:userInfo:)`, then throw the created value.
-	/// - parameter userInfo: Additional user info dictionary. Optional, default value is a
-	/// blank dictionary.
-	/// - parameter status: The `OSStatus` to throw as an `NSOSStatusErrorDomain` error.
-	@available(swift, introduced: 3.0, deprecated: 5.0, obsoleted: 5.5, message: "Call osStatus(_:userInfo:), then throw the created value.")
-	static func throwOSStatus(_ status: OSStatus, userInfo: [String: Any] = [:]) throws {
-		throw osStatus(status, userInfo: userInfo)
-	}
-	
 	/// This creates an error based on the `status` and anything passed into the `userInfo` dictionary.
 	///
 	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used!
@@ -211,26 +196,7 @@ public extension SAMacError {
 		return NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: userInfo)
 	}
 
-	
-	/// This throws the passed-in error as an `NSOSStatusErrorDomain` error.
-	///
-	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used!
-	/// Catching `SAMacError` may also catch error values that aren't included in
-	/// the `SAMacError.Code` enum.
-	///
-	/// `OSErr`s are returned by older APIs. These APIs may be deprecated and not available to
-	/// Swift.
-	///
-	/// Deprecated: Call `osErr(_:userInfo:)`, then throw the created value.
-	/// - parameter userInfo: Additional user info dictionary. Optional, default value is a
-	/// blank dictionary.
-	/// - parameter status: The `OSErr` to throw as an `NSOSStatusErrorDomain` error.
-	@available(swift, introduced: 3.0, deprecated: 5.0, obsoleted: 5.5, message: "Call osErr(_:userInfo:), then throw the created value.")
-	static func throwOSErr(_ status: OSErr, userInfo: [String: Any] = [:]) throws {
-		throw osErr(status, userInfo: userInfo)
-	}
-	
-	/// This throws the passed-in error as an `NSOSStatusErrorDomain` error.
+	/// This creates an error based on the `status` and anything passed into the `userInfo` dictionary.
 	///
 	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used!
 	/// Catching `SAMacError` may also catch error values that aren't included in
