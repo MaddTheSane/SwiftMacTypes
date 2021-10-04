@@ -19,6 +19,9 @@ let package = Package(
         .library(
            name: "CoreTextAdditions",
            targets: ["CoreTextAdditions"]),
+		.library(
+		   name: "TISAdditions",
+		   targets: ["TISAdditions"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -64,5 +67,13 @@ let package = Package(
             name: "FoundationAdditionsTests",
             dependencies: ["SwiftAdditions", "FoundationAdditions"],
             path: "FoundationAdditionsTests"),
+		.target(
+			name: "TISAdditions",
+			dependencies: ["SwiftAdditions", "FoundationAdditions"],
+			path: "TISAdditions"),
+		.testTarget(
+			name: "TISAdditionsTests",
+			dependencies: ["SwiftAdditions", "FoundationAdditions", "TISAdditions"],
+			path: "TISAdditionsTests"),
     ]
 )

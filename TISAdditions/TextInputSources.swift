@@ -6,11 +6,14 @@
 //  Copyright © 2021 C.W. Betts. All rights reserved.
 //
 
-#if os(OSX)
-
 import Foundation
 import Carbon.HIToolbox
 import FoundationAdditions
+import SwiftAdditions
+
+#if !os(OSX)
+#error("TISInputSource is a Mac-only class: it makes no sense to add extensions for a Mac class on a non-Mac platform")
+#endif
 
 extension TISInputSource: CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for `TISInputSource`.
@@ -1101,5 +1104,3 @@ public extension TISInputSource {
 		return SourceType(rawValue: theDat)!
 	}
 }
-
-#endif
