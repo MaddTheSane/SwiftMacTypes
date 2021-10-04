@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "CTAdditionsSwiftHelpers.h"
-#import "CTAFontManagerErrors.h"
 
 NSArray *__nullable CTAFontCopyAvailableTables(CTFontRef __nonnull font, CTFontTableOptions options)
 {

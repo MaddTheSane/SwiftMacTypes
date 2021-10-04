@@ -214,13 +214,6 @@
 			remoteGlobalIDString = 5527AC121FAE7CB1009CC7FC;
 			remoteInfo = CoreTextAdditions;
 		};
-		5527AC4A1FAE8327009CC7FC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
-			remoteInfo = SwiftAdditions;
-		};
 		5531C6C62242489C00AFB442 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
@@ -277,6 +270,13 @@
 			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
 			remoteInfo = SwiftAdditions;
 		};
+		55BE4B26270BBED000100A7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5560389326BF2CC800CD1984;
+			remoteInfo = FoundationAdditions;
+		};
 		55E11DED1AE7114000815555 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
@@ -321,8 +321,8 @@
 		5527AC2C1FAE7CE7009CC7FC /* CTRubyAnnotationAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTRubyAnnotationAdditions.swift; sourceTree = "<group>"; };
 		5527AC2E1FAE7CE7009CC7FC /* CTStringAttributesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTStringAttributesAdditions.swift; sourceTree = "<group>"; };
 		5527AC301FAE7CE7009CC7FC /* CTFrameAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTFrameAdditions.swift; sourceTree = "<group>"; };
-		5527AC311FAE7CE7009CC7FC /* CTAdditionsSwiftHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAdditionsSwiftHelpers.m; sourceTree = "<group>"; };
-		5527AC321FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAdditionsSwiftHelpers.h; sourceTree = "<group>"; };
+		5527AC311FAE7CE7009CC7FC /* CTAdditionsSwiftHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTAdditionsSwiftHelpers.m; path = ../CTAdditionsSwiftHelpers/CTAdditionsSwiftHelpers.m; sourceTree = "<group>"; };
+		5527AC321FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTAdditionsSwiftHelpers.h; path = ../CTAdditionsSwiftHelpers/include/CTAdditionsSwiftHelpers.h; sourceTree = "<group>"; };
 		5527AC331FAE7CE8009CC7FC /* CTLineAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTLineAdditions.swift; sourceTree = "<group>"; };
 		5527AC341FAE7CE8009CC7FC /* CTRunAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTRunAdditions.swift; sourceTree = "<group>"; };
 		5527AC351FAE7CE8009CC7FC /* CTFontAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTFontAdditions.swift; sourceTree = "<group>"; };
@@ -953,7 +953,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				5527AC4B1FAE8327009CC7FC /* PBXTargetDependency */,
+				55BE4B27270BBED000100A7D /* PBXTargetDependency */,
 			);
 			name = CoreTextAdditions;
 			productName = CoreTextAdditions;
@@ -1556,11 +1556,6 @@
 			target = 5527AC121FAE7CB1009CC7FC /* CoreTextAdditions */;
 			targetProxy = 5527AC481FAE7D4A009CC7FC /* PBXContainerItemProxy */;
 		};
-		5527AC4B1FAE8327009CC7FC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 550FBABD19A7ADC500EFBD3D /* SwiftAdditions */;
-			targetProxy = 5527AC4A1FAE8327009CC7FC /* PBXContainerItemProxy */;
-		};
 		5531C6C72242489C00AFB442 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 558DC04F217D04830022E081 /* QuartzAdditions */;
@@ -1600,6 +1595,11 @@
 			isa = PBXTargetDependency;
 			target = 550FBABD19A7ADC500EFBD3D /* SwiftAdditions */;
 			targetProxy = 55ACBFD91D5A617900E4F677 /* PBXContainerItemProxy */;
+		};
+		55BE4B27270BBED000100A7D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5560389326BF2CC800CD1984 /* FoundationAdditions */;
+			targetProxy = 55BE4B26270BBED000100A7D /* PBXContainerItemProxy */;
 		};
 		55E11DEE1AE7114000815555 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
