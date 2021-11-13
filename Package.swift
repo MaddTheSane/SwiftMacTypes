@@ -22,6 +22,9 @@ let package = Package(
 		.library(
 		   name: "TISAdditions",
 		   targets: ["TISAdditions"]),
+		.library(
+		   name: "UTTypeOSTypesTests",
+		   targets: ["UTTypeOSTypesTests"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -75,5 +78,13 @@ let package = Package(
 			name: "TISAdditionsTests",
 			dependencies: ["SwiftAdditions", "FoundationAdditions", "TISAdditions"],
 			path: "TISAdditionsTests"),
+		.target(
+			name: "UTTypeOSTypes",
+			dependencies: [],
+			path: "UTTypeOSTypes"),
+		.testTarget(
+			name: "UTTypeOSTypesTests",
+			dependencies: ["UTTypeOSTypes"],
+			path: "UTTypeOSTypesTests"),
     ]
 )
