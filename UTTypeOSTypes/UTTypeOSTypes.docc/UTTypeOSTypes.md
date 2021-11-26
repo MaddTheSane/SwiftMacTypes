@@ -1,6 +1,8 @@
 # ``UTTypeOSTypes``
 
-<!--@START_MENU_TOKEN@-->Summary<!--@END_MENU_TOKEN@-->
+Additional helpers for `UTType`s to handle legacy Mac file type codes.
+
+If you need to convert to/from an `OSType`, use the SwiftAdditions framework.
 
 ## Overview
 
@@ -8,6 +10,8 @@
 
 ## Topics
 
-### <!--@START_MENU_TOKEN@-->Group<!--@END_MENU_TOKEN@-->
+### OSType UTType
 
-- <!--@START_MENU_TOKEN@-->``Symbol``<!--@END_MENU_TOKEN@-->
+- UTTagClass.osType
+- UTType.preferredOSType
+- UTType(osType:conformingTo:)

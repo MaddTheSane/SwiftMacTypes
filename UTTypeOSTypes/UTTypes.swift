@@ -36,4 +36,32 @@ public extension UTType {
 	var preferredOSType: String? {
 		tags[.osType]?.first
 	}
+	
+	/**
+			Create a type given an OSType.
+	
+			- Parameters:
+				- osType: The legacy OSType for which a type is
+					desired.
+				- supertype: Another type that the resulting type must conform to.
+					Typically, you would pass `.data`.
+	
+			- Returns: A type. If no types are known to the system with the
+				specified OS Type file code and conformance but the inputs were
+				otherwise valid, a dynamic type may be provided. If the inputs were
+				not valid, returns `nil`.
+	
+			This method is equivalent to:
+	
+			```
+			UTType(tag: osType, tagClass: .osType, conformingTo: supertype)
+			```
+	
+			To get the type of a file on disk, use `URLResourceValues.contentType`.
+			You should not attempt to derive the type of a file system object based
+			solely on its OSType file type.
+		*/
+	init?(osType: String, conformingTo supertype: UTType = .data) {
+		self.init(tag: osType, tagClass: .osType, conformingTo: supertype)
+	}
 }
