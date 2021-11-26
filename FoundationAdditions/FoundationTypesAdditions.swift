@@ -197,6 +197,9 @@ public extension NSUUID {
 	}
 	
 	/// Get a CoreFoundation UUID from the current UUID.
+	///
+	/// Make sure you `CFRetain` the returned `CFUUIDRef` if you use this getter in Objective-C and you want to keep
+	/// the value past the current scope.
 	@objc(CFUUID) var cfUUID: CFUUID {
 		return (self as UUID).cfUUID
 	}
@@ -512,7 +515,10 @@ public extension UserDefaults {
 }
 
 public extension Bundle {
-	/// Creates a new CoreFoundation `CFBundle` from the current bundle URL.
+	/// Creates a new CoreFoundation `CFBundle` from the current bundle's URL.
+	///
+	/// Make sure you `CFRetain` the returned `CFBundleRef` if you use this getter in Objective-C and you want to keep
+	/// the value past the current scope.
 	@objc(CFBundle) var cfBundle: CFBundle {
 		return CFBundleCreate(kCFAllocatorDefault, bundleURL as NSURL)
 	}
