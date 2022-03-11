@@ -736,7 +736,7 @@ public extension TISInputSource {
 		}
 	}
 
-	// MARK: -Allow input method to override keyboard layout
+	// MARK: - Allow input method to override keyboard layout
 
 	/// Sets the keyboard layout override for an input method or mode.
 	///
