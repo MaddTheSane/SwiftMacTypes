@@ -101,6 +101,7 @@
 		55721B7E21599BDC00F048AA /* AudioFileFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55721B7D21599BDC00F048AA /* AudioFileFormats.swift */; };
 		5576C14C1F6AFA4400C8C01F /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577287719ABE259008328D0 /* MacTypesAdditions.swift */; };
+		557D49CC27CF76B0006C2C69 /* pwr mgt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D49CB27CF76B0006C2C69 /* pwr mgt.swift */; };
 		558D71CE26DF54E8002F5255 /* CTRunDelegateAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558D71CD26DF54E8002F5255 /* CTRunDelegateAdditions.swift */; };
 		558D71D026DF5E43002F5255 /* CTAFontManagerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558D71CF26DF5E43002F5255 /* CTAFontManagerErrors.swift */; };
 		558DC059217D04840022E081 /* QuartzAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558DC050217D04830022E081 /* QuartzAdditions.framework */; };
@@ -380,6 +381,7 @@
 		55721B7B21599B7C00F048AA /* AUOutputBL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AUOutputBL.swift; sourceTree = "<group>"; };
 		55721B7D21599BDC00F048AA /* AudioFileFormats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileFormats.swift; sourceTree = "<group>"; };
 		5577287719ABE259008328D0 /* MacTypesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacTypesAdditions.swift; sourceTree = "<group>"; };
+		557D49CB27CF76B0006C2C69 /* pwr mgt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "pwr mgt.swift"; sourceTree = "<group>"; };
 		557EA35D25861EE8005AEADC /* ForceFeedback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ForceFeedback.framework; path = System/Library/Frameworks/ForceFeedback.framework; sourceTree = SDKROOT; };
 		5587E0BF1A0A115D00CA1400 /* Endianness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endianness.swift; sourceTree = "<group>"; };
 		558D71CD26DF54E8002F5255 /* CTRunDelegateAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTRunDelegateAdditions.swift; sourceTree = "<group>"; };
@@ -753,6 +755,7 @@
 		55706D901A1EC2440000FD93 /* SwiftIOKitAdditions */ = {
 			isa = PBXGroup;
 			children = (
+				557D49CA27CF764A006C2C69 /* Power Management */,
 				559398E623A61C270052B4E9 /* hid */,
 				55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */,
 				55706D911A1EC2440000FD93 /* Supporting Files */,
@@ -783,6 +786,14 @@
 				55706D9F1A1EC2450000FD93 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		557D49CA27CF764A006C2C69 /* Power Management */ = {
+			isa = PBXGroup;
+			children = (
+				557D49CB27CF76B0006C2C69 /* pwr mgt.swift */,
+			);
+			path = "Power Management";
 			sourceTree = "<group>";
 		};
 		558DC051217D04840022E081 /* QuartzAdditions */ = {
@@ -1677,6 +1688,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55E6D08D23A9988D009BF006 /* IOHIDElement.swift in Sources */,
+				557D49CC27CF76B0006C2C69 /* pwr mgt.swift in Sources */,
 				5563E582239F3033007A1600 /* IOHIDManager.swift in Sources */,
 				5563E584239F453F007A1600 /* IOHIDDevice.swift in Sources */,
 				55E5D0C4267801D0000355FE /* misc.swift in Sources */,
