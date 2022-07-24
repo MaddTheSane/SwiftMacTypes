@@ -13,6 +13,6 @@
 #include <CoreText/CTFont.h>
 
 //! Needed because \c CTFontCopyAvailableTables returns a \c CFArray with unboxed values, which Swift does not like at all.
-NSArray<NSNumber*> *__nullable CTAFontCopyAvailableTables(CTFontRef __nonnull font, CTFontTableOptions options) NS_REFINED_FOR_SWIFT;
+NSArray<NSNumber*> *__nullable CTAFontCopyAvailableTables(CTFontRef __nonnull font, CTFontTableOptions options) NS_REFINED_FOR_SWIFT NS_RETURNS_RETAINED;
 
 #endif /* CTAdditionsSwiftHelpers_h */

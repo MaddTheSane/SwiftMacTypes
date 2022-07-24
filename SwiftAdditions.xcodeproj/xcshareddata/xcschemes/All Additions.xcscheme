@@ -22,24 +22,10 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "55403A0A1A745003007A488E"
-               BuildableName = "ForceFeedbackAdditionsTests.xctest"
-               BlueprintName = "ForceFeedbackAdditionsTests"
-               ReferencedContainer = "container:SwiftAdditions.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "550FBAC819A7ADC500EFBD3D"
@@ -50,10 +36,10 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "55E11DEA1AE7114000815555"
@@ -64,15 +50,71 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "55706D981A1EC2440000FD93"
                BuildableName = "SwiftIOKitAdditionsTests.xctest"
                BlueprintName = "SwiftIOKitAdditionsTests"
+               ReferencedContainer = "container:SwiftAdditions.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "55BE4B35270BC16600100A7D"
+               BuildableName = "TISAdditionsTests.xctest"
+               BlueprintName = "TISAdditionsTests"
+               ReferencedContainer = "container:SwiftAdditions.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5560389B26BF2CC800CD1984"
+               BuildableName = "FoundationAdditionsTests.xctest"
+               BlueprintName = "FoundationAdditionsTests"
+               ReferencedContainer = "container:SwiftAdditions.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "558DC057217D04840022E081"
+               BuildableName = "QuartzAdditionsTests.xctest"
+               BlueprintName = "QuartzAdditionsTests"
+               ReferencedContainer = "container:SwiftAdditions.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "559E68D7273FC0DA0030C3DB"
+               BuildableName = "UTTypeOSTypesTests.xctest"
+               BlueprintName = "UTTypeOSTypesTests"
                ReferencedContainer = "container:SwiftAdditions.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -136,16 +178,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "55403A0A1A745003007A488E"
-               BuildableName = "ForceFeedbackAdditionsTests.xctest"
-               BlueprintName = "ForceFeedbackAdditionsTests"
-               ReferencedContainer = "container:SwiftAdditions.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "550FBAC819A7ADC500EFBD3D"
                BuildableName = "SwiftAdditionsTests.xctest"
                BlueprintName = "SwiftAdditionsTests"
@@ -193,7 +225,8 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
+      allowLocationSimulation = "YES"
+      queueDebuggingEnabled = "No">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"

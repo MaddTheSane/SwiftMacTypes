@@ -45,11 +45,11 @@ public class AudioFileFormats {
 	public static let shared = AudioFileFormats()
 	
 	public struct DataFormatInfo: CustomDebugStringConvertible, Hashable {
-		var formatID: OSType = 0
-		var variants = [AudioStreamBasicDescription]()
-		var readable = false
-		var writable = false
-		var eitherEndianPCM = false
+		public internal(set) var formatID: OSType = 0
+		public internal(set) var variants = [AudioStreamBasicDescription]()
+		public internal(set) var readable = false
+		public internal(set) var writable = false
+		public internal(set) var eitherEndianPCM = false
 		
 		public var debugDescription: String {
 			func ny(_ val: Bool) -> String {

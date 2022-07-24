@@ -13,6 +13,9 @@
 			buildPhases = (
 			);
 			dependencies = (
+				550A49AF2864F76000FBD6C8 /* PBXTargetDependency */,
+				550A49B12864F76000FBD6C8 /* PBXTargetDependency */,
+				550A49B32864F76000FBD6C8 /* PBXTargetDependency */,
 				5518F072251D5D9500528AED /* PBXTargetDependency */,
 				5527AC471FAE7D45009CC7FC /* PBXTargetDependency */,
 				5518A4201B03E931005AF928 /* PBXTargetDependency */,
@@ -140,6 +143,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		550A49AE2864F76000FBD6C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5560389326BF2CC800CD1984;
+			remoteInfo = FoundationAdditions;
+		};
+		550A49B02864F76000FBD6C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55BE4B2C270BC16600100A7D;
+			remoteInfo = TISAdditions;
+		};
+		550A49B22864F76000FBD6C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 559E68CE273FC0D90030C3DB;
+			remoteInfo = UTTypeOSTypes;
+		};
 		5518A41F1B03E931005AF928 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
@@ -1784,6 +1808,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		550A49AF2864F76000FBD6C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5560389326BF2CC800CD1984 /* FoundationAdditions */;
+			targetProxy = 550A49AE2864F76000FBD6C8 /* PBXContainerItemProxy */;
+		};
+		550A49B12864F76000FBD6C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55BE4B2C270BC16600100A7D /* TISAdditions */;
+			targetProxy = 550A49B02864F76000FBD6C8 /* PBXContainerItemProxy */;
+		};
+		550A49B32864F76000FBD6C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 559E68CE273FC0D90030C3DB /* UTTypeOSTypes */;
+			targetProxy = 550A49B22864F76000FBD6C8 /* PBXContainerItemProxy */;
+		};
 		5518A4201B03E931005AF928 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 550FBABD19A7ADC500EFBD3D /* SwiftAdditions */;

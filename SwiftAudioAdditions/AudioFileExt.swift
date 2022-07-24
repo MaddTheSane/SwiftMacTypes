@@ -928,7 +928,7 @@ extension AudioStreamBasicDescription: Comparable {
 	///
 	/// The semantics for equality are:
 	/// 1. Values must match exactly -- except for PCM format flags, see above.
-	/// 2. wildcard's are ignored in the comparison
+	/// 2. wildcards are ignored in the comparison
 	public static func ==(x: AudioStreamBasicDescription, y: AudioStreamBasicDescription) -> Bool {
 		return (x.mSampleRate == 0 || y.mSampleRate == 0 || x.mSampleRate == y.mSampleRate)
 			&& (x.mFormatID == 0 || y.mFormatID == 0 || x.mFormatID == y.mFormatID)

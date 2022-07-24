@@ -13,7 +13,7 @@ import CoreText
 /// Font registration errors
 ///
 /// Errors that would prevent registration of fonts for a specified font file URL.
-public struct CTAFontManagerError: Error, _BridgedStoredNSError {
+public struct CTAFontManagerError: Error, _BridgedStoredNSError, CustomNSError, Hashable {
 	/// Retrieves the embedded NSError.
 	public let _nsError: NSError
 
@@ -29,7 +29,7 @@ public struct CTAFontManagerError: Error, _BridgedStoredNSError {
 	/// Font registration errors
 	///
 	/// Errors that would prevent registration of fonts for a specified font file URL.
-	public enum Code : Int, _ErrorCodeProtocol {
+	public enum Code : Int, @unchecked Sendable, _ErrorCodeProtocol {
 
 		/// Font registration errors
 		///
