@@ -10,7 +10,7 @@ import Foundation
 import CoreText
 import FoundationAdditions
 #if SWIFT_PACKAGE
-import CTAdditionsSwiftHelpers
+@_implementationOnly import CTAdditionsSwiftHelpers
 #endif
 
 public extension CTFont {
@@ -872,16 +872,14 @@ public extension CTFont {
 			return nil
 		}
 		return val.map { val1 -> [VariationAxisKey: Any] in
-			var dictRet = [VariationAxisKey: Any]()
-			dictRet.reserveCapacity(val1.count)
-			for (key, val2) in val1 {
+			let val3 = val1.compactMap { (key: CFString, value: Any) -> (VariationAxisKey, Any)? in
 				guard let key2 = VariationAxisKey(rawValue: key) else {
 					print("\((CFCopyDescription(self) as String?) ?? "Unknown Font"): Unknown key \(key)?")
-					continue
+					return nil
 				}
-				dictRet[key2] = val2
+				return (key2, value)
 			}
-			return dictRet
+			return Dictionary(uniqueKeysWithValues: val3)
 		}
 	}
 	
