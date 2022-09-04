@@ -50,6 +50,21 @@ class CoreTextAdditionsTests: XCTestCase {
 		}
 	}
 	
+	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
+	func testAttributeScopes() {
+		var attrStr = AttributedString("Color")
+		attrStr.foregroundColor = CGColor(srgbRed: 1, green: 0, blue: 0, alpha: 1)
+		
+		do {
+			let nsAttr = try NSAttributedString(attrStr, including: AttributeScopes.CoreTextAttributes.self)
+			print(nsAttr)
+			attrStr.foregroundColor = nil
+			print(attrStr)
+		} catch {
+			XCTFail("")
+		}
+	}
+	
 	func testFeatures() {
 		let aFont = CTFont.create(withName: "Times", size: 0)
 		print(aFont.features!)

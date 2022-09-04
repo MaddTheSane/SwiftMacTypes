@@ -11,10 +11,16 @@ import CoreText
 
 @available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 public extension AttributeScopes {
+	/// Core Text attributed string scope.
+	///
+	/// Note that these may overlap *or* be different than the ones provided by AppKit/UIKit.
 	var coreText: AttributeScopes.CoreTextAttributes.Type {
 		return CoreTextAttributes.self
 	}
 	
+	/// Core Text attributed string scope.
+	///
+	/// Note that these may overlap *or* be different than the ones provided by AppKit/UIKit.
 	struct CoreTextAttributes: AttributeScope {
 		/// The font.
 		///
@@ -480,7 +486,7 @@ public extension AttributeScopes {
 				for (key, val) in value {
 					outDict[key.rawValue as String] = val
 				}
-				return NSDictionary(dictionary: outDict)
+				return outDict
 			}
 			
 			public static func value(for object: NSDictionary) throws -> [CTBaselineClass: Float] {
