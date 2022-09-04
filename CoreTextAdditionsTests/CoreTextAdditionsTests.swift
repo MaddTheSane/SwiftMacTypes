@@ -60,6 +60,14 @@ class CoreTextAdditionsTests: XCTestCase {
 			print(nsAttr)
 			attrStr.foregroundColor = nil
 			print(attrStr)
+			let attrStr1 = try AttributedString(nsAttr, including: AttributeScopes.CoreTextAttributes.self)
+			let nsAttr2 = NSMutableAttributedString(string: "Color")
+			nsAttr2.addAttribute(NSAttributedString.Key.CoreText.foregroundColor, value: CGColor(srgbRed: 1, green: 0, blue: 0, alpha: 1), range: NSRange(location: 0, length: 5))
+			let attrStr2 = try AttributedString(nsAttr2, including: AttributeScopes.CoreTextAttributes.self)
+			print(attrStr1)
+			print(attrStr2)
+//			XCTAssertNotEqual(attrStr1, attrStr)
+//			XCTAssertEqual(attrStr1, attrStr2)
 		} catch {
 			XCTFail("")
 		}

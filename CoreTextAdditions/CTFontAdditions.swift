@@ -769,7 +769,7 @@ public extension CTFont {
 	/// Font Variation Axis Dictionary Keys
 	///
 	/// These constants provide keys to font variation axis dictionary values.
-	enum VariationAxisKey: RawRepresentable, Hashable, CustomStringConvertible {
+	enum VariationAxisKey: RawRepresentable, Hashable, CustomStringConvertible, Codable {
 		
 		/// Key to get the variation axis identifier.
 		///
@@ -922,6 +922,9 @@ public extension CTFont {
 	/// This getter returns a normalized array of font feature setting dictionaries. The array will only
 	/// contain the non-default settings that should be applied to the font, or `nil` if the default settings
 	/// should be used.
+	///
+	/// The feature settings are verified against those that the font supports and any that do not apply are removed.
+	/// Further, feature settings that represent a default setting for the font are also removed.
 	var featureSettings: [[String: Any]]? {
 		return CTFontCopyFeatureSettings(self) as? [[String: Any]]
 	}
