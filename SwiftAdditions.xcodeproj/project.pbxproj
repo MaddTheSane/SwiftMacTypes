@@ -79,6 +79,8 @@
 		5540780E26C5E7440054E0B6 /* AdditionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */; };
 		554536EB266222EC0097DD71 /* CTMisc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554536EA266222EC0097DD71 /* CTMisc.swift */; };
 		554536ED266235F40097DD71 /* CTFramesetterAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554536EC266235F40097DD71 /* CTFramesetterAdditions.swift */; };
+		554FE7A228C4028900418258 /* CTAttributedStringAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554FE7A128C4028900418258 /* CTAttributedStringAdditions.swift */; };
+		555BB493288E458C00A255E0 /* CGColorSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555BB491288E447A00A255E0 /* CGColorSpace.swift */; };
 		555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */; };
 		5560389D26BF2CC800CD1984 /* FoundationAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5560389426BF2CC800CD1984 /* FoundationAdditions.framework */; };
 		556038A226BF2CC800CD1984 /* FoundationAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556038A126BF2CC800CD1984 /* FoundationAdditionsTests.swift */; };
@@ -381,6 +383,8 @@
 		554536E826621C420097DD71 /* CFTypeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFTypeProtocol.swift; sourceTree = "<group>"; };
 		554536EA266222EC0097DD71 /* CTMisc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTMisc.swift; sourceTree = "<group>"; };
 		554536EC266235F40097DD71 /* CTFramesetterAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTFramesetterAdditions.swift; sourceTree = "<group>"; };
+		554FE7A128C4028900418258 /* CTAttributedStringAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTAttributedStringAdditions.swift; sourceTree = "<group>"; };
+		555BB491288E447A00A255E0 /* CGColorSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGColorSpace.swift; sourceTree = "<group>"; };
 		555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaComparable.swift; sourceTree = "<group>"; };
 		5560389426BF2CC800CD1984 /* FoundationAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FoundationAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5560389626BF2CC800CD1984 /* FoundationAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FoundationAdditions.h; sourceTree = "<group>"; };
@@ -656,6 +660,7 @@
 				552627A01BDF52A4005AAF63 /* Characters.swift */,
 				5577287719ABE259008328D0 /* MacTypesAdditions.swift */,
 				55ABE82E1A0815FA006B6AF9 /* CoreGraphics.swift */,
+				555BB491288E447A00A255E0 /* CGColorSpace.swift */,
 				5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */,
 				550FBAC319A7ADC500EFBD3D /* SwiftAdditions.h */,
 				556B05AA216DE4CB0025EFC5 /* SAMacError.h */,
@@ -735,6 +740,7 @@
 				5527AC341FAE7CE8009CC7FC /* CTRunAdditions.swift */,
 				558D71CD26DF54E8002F5255 /* CTRunDelegateAdditions.swift */,
 				5527AC2E1FAE7CE7009CC7FC /* CTStringAttributesAdditions.swift */,
+				554FE7A128C4028900418258 /* CTAttributedStringAdditions.swift */,
 				5527AC2A1FAE7CE7009CC7FC /* CTTextTabAdditions.swift */,
 				554536EA266222EC0097DD71 /* CTMisc.swift */,
 				5527AC161FAE7CB1009CC7FC /* Info.plist */,
@@ -1617,6 +1623,7 @@
 			files = (
 				55D8DD861A7EE48B0046C1F7 /* AppKit.swift in Sources */,
 				556B05AD216DE4CB0025EFC5 /* SAMacError.m in Sources */,
+				555BB493288E458C00A255E0 /* CGColorSpace.swift in Sources */,
 				5577287819ABE259008328D0 /* MacTypesAdditions.swift in Sources */,
 				553D4EFB26E41AE60041DB2E /* CoreGraphics.swift in Sources */,
 				556B05AF216DEB750025EFC5 /* SAMacError.swift in Sources */,
@@ -1664,6 +1671,7 @@
 				558D71CE26DF54E8002F5255 /* CTRunDelegateAdditions.swift in Sources */,
 				5527AC3A1FAE7CE8009CC7FC /* CTRubyAnnotationAdditions.swift in Sources */,
 				5527AC431FAE7CE8009CC7FC /* CTFontAdditions.swift in Sources */,
+				554FE7A228C4028900418258 /* CTAttributedStringAdditions.swift in Sources */,
 				5527AC441FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift in Sources */,
 				5527AC451FAE7CE8009CC7FC /* CTFontManagerAdditions.swift in Sources */,
 				554536ED266235F40097DD71 /* CTFramesetterAdditions.swift in Sources */,

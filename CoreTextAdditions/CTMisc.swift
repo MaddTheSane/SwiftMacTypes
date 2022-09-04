@@ -86,3 +86,84 @@ extension CTTextTab: CFTypeProtocol {
 		return CTTextTabGetTypeID()
 	}
 }
+
+extension CTUnderlineStyle: Hashable {
+	
+}
+
+public enum CTBaselineClass: CustomStringConvertible, RawRepresentable, Hashable, Codable {
+	public typealias RawValue = CFString
+	
+	/// Creates a `CTBaselineClass` from a supplied string.
+	/// If `rawValue` doesn't match any of the `kCTBaselineClass...`s, returns `nil`.
+	/// - parameter rawValue: The string value to attempt to init `CTBaselineClass` into.
+	public init?(rawValue: CFString) {
+		switch rawValue {
+		case kCTBaselineClassMath:
+			self = .math
+			
+		case kCTBaselineClassRoman:
+			self = .roman
+			
+		case kCTBaselineClassHanging:
+			self = .hanging
+			
+		case kCTBaselineClassIdeographicLow:
+			self = .ideographicLow
+			
+		case kCTBaselineClassIdeographicHigh:
+			self = .ideographicHigh
+			
+		case kCTBaselineClassIdeographicCentered:
+			self = .ideographicCentered
+			
+		default:
+			return nil
+		}
+	}
+	
+	public var rawValue: CFString {
+		switch self {
+		case .math:
+			return kCTBaselineClassMath
+			
+		case .roman:
+			return kCTBaselineClassRoman
+			
+		case .hanging:
+			return kCTBaselineClassHanging
+			
+		case .ideographicLow:
+			return kCTBaselineClassIdeographicLow
+			
+		case .ideographicHigh:
+			return kCTBaselineClassIdeographicHigh
+			
+		case .ideographicCentered:
+			return kCTBaselineClassIdeographicCentered
+		}
+	}
+	
+	case math
+	
+	case roman
+	
+	case hanging
+	
+	case ideographicLow
+	
+	case ideographicHigh
+	
+	case ideographicCentered
+	
+	/// Creates a `CTBaselineClass` from a supplied string.
+	/// If `stringValue` doesn't match any of the `kCTBaselineClass...`s, returns `nil`.
+	/// - parameter stringValue: The string value to attempt to init `CTBaselineClass` from.
+	public init?(stringValue: String) {
+		self.init(rawValue: stringValue as CFString)
+	}
+	
+	public var description: String {
+		return rawValue as String
+	}
+}
