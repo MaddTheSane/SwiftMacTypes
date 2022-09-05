@@ -49,7 +49,7 @@ public extension AttributeScopes {
 		/// shift closer to the current character. If this attribute is not
 		/// present, standard kerning will be used. If this attribute is
 		/// set to `0.0`, no kerning will be done at all.
-		public let kern: KernAttribute
+		public let kerning: KernAttribute
 		
 		public let rubyAnnotation: RubyAnnotationAttribute
 		

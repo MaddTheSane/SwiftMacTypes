@@ -76,10 +76,17 @@ public extension CTRun {
 	/// the range's start index to the end of the run.
 	/// - returns: The glyphs in the specified range.
 	func glyphs(in range: CFRange) -> [CGGlyph] {
-		guard range.length != 0 else {
+		if range.length == 0 && range.location == 0 {
 			return Array(glyphs)
 		}
-		var preArr = [CGGlyph](repeating: 0, count: range.length)
+		let arraySize: Int
+		if range.length == 0 {
+			arraySize = (range.location ..< glyphCount).count
+		} else {
+			arraySize = range.length
+		}
+		
+		var preArr = [CGGlyph](repeating: 0, count: arraySize)
 		CTRunGetGlyphs(self, range, &preArr)
 		return preArr
 	}
@@ -113,10 +120,16 @@ public extension CTRun {
 	/// from the range's start index to the end of the run.
 	/// - returns: The glyph positions.
 	func positions(in range: CFRange) -> [CGPoint] {
-		guard range.length != 0 else {
+		if range.length == 0 && range.location == 0 {
 			return Array(positions)
 		}
-		var preArr = [CGPoint](repeating: CGPoint(), count: range.length)
+		let arraySize: Int
+		if range.length == 0 {
+			arraySize = (range.location ..< glyphCount).count
+		} else {
+			arraySize = range.length
+		}
+		var preArr = [CGPoint](repeating: CGPoint(), count: arraySize)
 		CTRunGetPositions(self, range, &preArr)
 		return preArr
 	}
@@ -153,10 +166,16 @@ public extension CTRun {
 	/// from the range's start index to the end of the run.
 	/// - returns: An array of glyph advances.
 	func advances(in range: CFRange) -> [CGSize] {
-		guard range.length != 0 else {
+		if range.length == 0 && range.location == 0 {
 			return Array(advances)
 		}
-		var preArr = [CGSize](repeating: CGSize(), count: range.length)
+		let arraySize: Int
+		if range.length == 0 {
+			arraySize = (range.location ..< glyphCount).count
+		} else {
+			arraySize = range.length
+		}
+		var preArr = [CGSize](repeating: CGSize(), count: arraySize)
 		CTRunGetAdvances(self, range, &preArr)
 		return preArr
 	}
@@ -196,10 +215,16 @@ public extension CTRun {
 	/// glyphs that make up the run. They can be used to map the glyphs
 	/// in the run back to the characters in the backing store.
 	func stringIndicies(in range: CFRange) -> [CFIndex] {
-		guard range.length != 0 else {
+		if range.length == 0 && range.location == 0 {
 			return Array(stringIndices)
 		}
-		var preArr = [CFIndex](repeating: 0, count: range.length)
+		let arraySize: Int
+		if range.length == 0 {
+			arraySize = (range.location ..< glyphCount).count
+		} else {
+			arraySize = range.length
+		}
+		var preArr = [CFIndex](repeating: 0, count: arraySize)
 		CTRunGetStringIndices(self, range, &preArr)
 		return preArr
 	}
