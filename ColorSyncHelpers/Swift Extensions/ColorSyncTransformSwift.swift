@@ -9,13 +9,9 @@
 import Foundation
 import ApplicationServices
 import ColorSync
+import FoundationAdditions
 
 public extension ColorSyncTransform {
-	/// The type identifier of all `ColorSyncTransform` instances.
-	@inlinable static var typeID: CFTypeID {
-		return ColorSyncTransformGetTypeID()
-	}
-	
 	/// The color depth of the data.
 	typealias Depth = ColorSyncDataDepth
 	
@@ -73,6 +69,13 @@ public extension ColorSyncTransform {
 		set {
 			ColorSyncTransformSetProperty(self, key, newValue as AnyObject?)
 		}
+	}
+}
+
+extension ColorSyncTransform: CFTypeProtocol {
+	/// The type identifier of all `ColorSyncTransform` instances.
+	@inlinable public static var typeID: CFTypeID {
+		return ColorSyncTransformGetTypeID()
 	}
 }
 

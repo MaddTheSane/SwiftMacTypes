@@ -8,13 +8,9 @@
 
 import Foundation
 import ApplicationServices
+import FoundationAdditions
 
 public extension ColorSyncCMM {
-	/// The type identifier of all `ColorSyncCMM` instances.
-	@inlinable static var typeID: CFTypeID {
-		return ColorSyncCMMGetTypeID()
-	}
-
 	/// Will return `nil` for Apple's built-in CMM
 	@inlinable var bundle: Bundle? {
 		if let cfBundle = ColorSyncCMMGetBundle(self)?.takeUnretainedValue() {
@@ -32,5 +28,12 @@ public extension ColorSyncCMM {
 	/// Returns the identifier of the ColorSync module
 	@inlinable var identifier: String {
 		return ColorSyncCMMCopyCMMIdentifier(self)!.takeRetainedValue() as String
+	}
+}
+
+extension ColorSyncCMM: CFTypeProtocol {
+	/// The type identifier of all `ColorSyncCMM` instances.
+	@inlinable public static var typeID: CFTypeID {
+		return ColorSyncCMMGetTypeID()
 	}
 }

@@ -8,13 +8,9 @@
 
 import Foundation
 import ApplicationServices
+import FoundationAdditions
 
 public extension ColorSyncProfile {
-	/// The type identifier of all `ColorSyncProfile` instances.
-	@inlinable static var typeID: CFTypeID {
-		return ColorSyncProfileGetTypeID()
-	}
-	
 	/// The data associated with the signature.
 	/// - parameter tag: signature of the tag to be retrieved
 	@inlinable subscript (tag: String) -> Data? {
@@ -119,6 +115,13 @@ public extension ColorSyncProfile {
 		}
 		
 		return (red, green, blue)
+	}
+}
+
+extension ColorSyncProfile: CFTypeProtocol {
+	/// The type identifier of all `ColorSyncProfile` instances.
+	@inlinable public static var typeID: CFTypeID {
+		return ColorSyncProfileGetTypeID()
 	}
 }
 
