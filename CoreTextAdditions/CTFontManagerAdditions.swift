@@ -378,7 +378,7 @@ public enum FontManager {
 	/// - parameter fontURL: The font URL.
 	/// - returns: Returns the registration scope of the specified URL, will return `FontManager.Scope.none` if
 	/// not currently registered.
-	@available(OSX 10.6, *)
+	@available(OSX 10.6, *) @inlinable
 	public static func scope(for fontURL: URL) -> Scope {
 		return CTFontManagerGetScopeForURL(fontURL as NSURL)
 	}
@@ -387,7 +387,7 @@ public enum FontManager {
 	/// - parameter fontURL: A URL to font data.
 	/// - returns: This function returns `true` if the URL represents a valid font that can be used on the
 	/// current platform.
-	@available(OSX 10.6, *)
+	@available(OSX 10.6, *) @inlinable
 	public static func isSupportedFont(at fontURL: URL) -> Bool {
 		return CTFontManagerIsSupportedFont(fontURL as NSURL)
 	}

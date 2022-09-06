@@ -19,7 +19,7 @@ public extension CTParagraphStyle {
 	/// These constants specify the writing direction.
 	typealias WritingDirection = CTWritingDirection
 	
-    /// These constants are used to query and modify the CTParagraphStyle
+    /// These constants are used to query and modify the `CTParagraphStyle`
     /// object.
 	///
 	/// Each specifier has a type and a default value associated with it.
