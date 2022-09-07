@@ -31,4 +31,13 @@ extension CSError: CustomStringConvertible, CustomDebugStringConvertible {
 			return "Unknown error \(self.rawValue)"
 		}
 	}
+	
+	public var localizedFailureReason: String {
+		switch self {
+		case .unwrappingError:
+			return "Unable to unwrap the error returned by a ColorSync function failing.\n\nThere's nothing you can do, other than create a ticket at https://feedbackassistant.apple.com as fixing this issue is impossible from an outside developer."
+		@unknown default:
+			return "Unknown error \(self.rawValue)"
+		}
+	}
 }
