@@ -192,8 +192,8 @@ public enum CSDevice {
 			return nil
 		}
 		guard let devIDC = devInfo.removeValue(forKey: kColorSyncDeviceID.takeUnretainedValue() as String) as CFTypeRef?,
-		let devDes = devInfo.removeValue(forKey: kColorSyncDeviceDescription.takeUnretainedValue() as String) as? String,
-		var factProf = devInfo.removeValue(forKey: kColorSyncDeviceDescription.takeUnretainedValue() as String) as? NSDictionary as? [String: Any],
+			  let devDes = devInfo.removeValue(forKey: kColorSyncDeviceDescription.takeUnretainedValue() as String) as? String,
+			  var factProf = devInfo.removeValue(forKey: kColorSyncDeviceDescription.takeUnretainedValue() as String) as? NSDictionary as? [String: Any],
 			  let defaultID = factProf.removeValue(forKey: kColorSyncDeviceDefaultProfileID.takeUnretainedValue() as String) as? String, let devID = castCFType(devIDC, to: CFUUID.self) else {
 			return nil
 		}
@@ -255,14 +255,14 @@ public enum CSDevice {
 				return nil
 			}
 			guard let devIDC = otherDict.removeValue(forKey: kColorSyncDeviceID.takeUnretainedValue() as String) as CFTypeRef?,
-				let devID = castCFType(devIDC, to: CFUUID.self),
-			let profID = otherDict.removeValue(forKey: kColorSyncDeviceProfileID.takeUnretainedValue() as String) as? String,
-			let profURL = otherDict.removeValue(forKey: kColorSyncDeviceProfileURL.takeUnretainedValue() as String) as? URL,
-			let devDes = otherDict.removeValue(forKey: kColorSyncDeviceDescription.takeUnretainedValue() as String) as? String,
-			let modeDes = otherDict.removeValue(forKey: kColorSyncDeviceModeDescription.takeUnretainedValue() as String) as? String,
-			let isFactory = otherDict.removeValue(forKey: kColorSyncDeviceProfileIsFactory.takeUnretainedValue() as String) as? Bool,
-			let isDefault = otherDict.removeValue(forKey: kColorSyncDeviceProfileIsDefault.takeUnretainedValue() as String) as? Bool,
-			let isCurrent = otherDict.removeValue(forKey: kColorSyncDeviceProfileIsCurrent.takeUnretainedValue() as String) as? Bool else {
+				  let devID = castCFType(devIDC, to: CFUUID.self),
+				  let profID = otherDict.removeValue(forKey: kColorSyncDeviceProfileID.takeUnretainedValue() as String) as? String,
+				  let profURL = otherDict.removeValue(forKey: kColorSyncDeviceProfileURL.takeUnretainedValue() as String) as? URL,
+				  let devDes = otherDict.removeValue(forKey: kColorSyncDeviceDescription.takeUnretainedValue() as String) as? String,
+				  let modeDes = otherDict.removeValue(forKey: kColorSyncDeviceModeDescription.takeUnretainedValue() as String) as? String,
+				  let isFactory = otherDict.removeValue(forKey: kColorSyncDeviceProfileIsFactory.takeUnretainedValue() as String) as? Bool,
+				  let isDefault = otherDict.removeValue(forKey: kColorSyncDeviceProfileIsDefault.takeUnretainedValue() as String) as? Bool,
+				  let isCurrent = otherDict.removeValue(forKey: kColorSyncDeviceProfileIsCurrent.takeUnretainedValue() as String) as? Bool else {
 				return nil
 			}
 			let userScopeStr = otherDict.removeValue(forKey: kColorSyncProfileUserScope.takeUnretainedValue() as String) as? NSString
