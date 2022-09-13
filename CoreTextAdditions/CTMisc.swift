@@ -87,6 +87,20 @@ extension CTTextTab: CFTypeProtocol {
 	}
 }
 
+extension CTTypesetter: CFTypeProtocol {
+	/// Returns the Core Foundation type identifier for the opaque type `CTTypesetter`.
+	@inlinable public static var typeID: CFTypeID {
+		return CTTypesetterGetTypeID()
+	}
+}
+
+extension CTGlyphInfo: CFTypeProtocol {
+	/// Returns the Core Foundation type identifier for the opaque type `CTGlyphInfo`.
+	@inlinable public static var typeID: CFTypeID {
+		return CTGlyphInfoGetTypeID()
+	}
+}
+
 extension CTUnderlineStyle: Hashable {
 	
 }
