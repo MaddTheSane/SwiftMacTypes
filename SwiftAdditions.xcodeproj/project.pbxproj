@@ -52,6 +52,7 @@
 		5510696D24ADDDC9004C2486 /* SoundBankAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5510696C24ADDDC9004C2486 /* SoundBankAdditions.swift */; };
 		5510696E24AFFF52004C2486 /* CoreAudioError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5BE1E215EA2C000D31F29 /* CoreAudioError.swift */; };
 		5515E14428CFFF8100FE6EEA /* CTGlyphInfoAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5515E14328CFFF8100FE6EEA /* CTGlyphInfoAdditions.swift */; };
+		5515E14628D07CFF00FE6EEA /* CTTypesetterAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5515E14528D07CFF00FE6EEA /* CTTypesetterAdditions.swift */; };
 		5518A4351B03F2CF005AF928 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550FBABE19A7ADC500EFBD3D /* SwiftAdditions.framework */; };
 		5518F063251D5D6600528AED /* SIMDAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5518F05A251D5D6600528AED /* SIMDAdditions.framework */; };
 		5518F068251D5D6600528AED /* SIMDAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518F067251D5D6600528AED /* SIMDAdditionsTests.swift */; };
@@ -375,6 +376,7 @@
 		550FBAD919A7AE6F00EFBD3D /* FoundationTypesAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationTypesAdditions.swift; sourceTree = "<group>"; };
 		5510696C24ADDDC9004C2486 /* SoundBankAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundBankAdditions.swift; sourceTree = "<group>"; };
 		5515E14328CFFF8100FE6EEA /* CTGlyphInfoAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTGlyphInfoAdditions.swift; sourceTree = "<group>"; };
+		5515E14528D07CFF00FE6EEA /* CTTypesetterAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTTypesetterAdditions.swift; sourceTree = "<group>"; };
 		5518F05A251D5D6600528AED /* SIMDAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SIMDAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5518F05C251D5D6600528AED /* SIMDAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIMDAdditions.h; sourceTree = "<group>"; };
 		5518F05D251D5D6600528AED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -793,6 +795,7 @@
 				5527AC301FAE7CE7009CC7FC /* CTFrameAdditions.swift */,
 				554536EC266235F40097DD71 /* CTFramesetterAdditions.swift */,
 				5515E14328CFFF8100FE6EEA /* CTGlyphInfoAdditions.swift */,
+				5515E14528D07CFF00FE6EEA /* CTTypesetterAdditions.swift */,
 				5527AC331FAE7CE8009CC7FC /* CTLineAdditions.swift */,
 				5505E0BA2408D62B002339C7 /* CTParagraphStyleAdditions.swift */,
 				5527AC2C1FAE7CE7009CC7FC /* CTRubyAnnotationAdditions.swift */,
@@ -1841,6 +1844,7 @@
 				5527AC3A1FAE7CE8009CC7FC /* CTRubyAnnotationAdditions.swift in Sources */,
 				5527AC431FAE7CE8009CC7FC /* CTFontAdditions.swift in Sources */,
 				554FE7A228C4028900418258 /* CTAttributedStringAdditions.swift in Sources */,
+				5515E14628D07CFF00FE6EEA /* CTTypesetterAdditions.swift in Sources */,
 				5527AC441FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift in Sources */,
 				5527AC451FAE7CE8009CC7FC /* CTFontManagerAdditions.swift in Sources */,
 				5515E14428CFFF8100FE6EEA /* CTGlyphInfoAdditions.swift in Sources */,

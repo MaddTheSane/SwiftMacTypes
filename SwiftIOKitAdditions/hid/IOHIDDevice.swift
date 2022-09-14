@@ -359,7 +359,7 @@ public extension IOHIDDevice {
 	/// `IOHIDValueCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
 	/// - returns: Returns `kIOReturnSuccess` if successful.
-	func setValue(_ value: IOHIDValue, element: IOHIDElement, timeout: CFTimeInterval, callback: IOHIDValueCallback?, context: UnsafeMutableRawPointer?) -> IOReturn {
+	@inlinable func setValue(_ value: IOHIDValue, element: IOHIDElement, timeout: CFTimeInterval, callback: IOHIDValueCallback?, context: UnsafeMutableRawPointer?) -> IOReturn {
 		return IOHIDDeviceSetValueWithCallback(self, element, value, timeout, callback, context)
 	}
 	

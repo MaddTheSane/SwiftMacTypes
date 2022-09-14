@@ -10,6 +10,47 @@ import Foundation
 import CoreText
 
 public extension CTGlyphInfo {
+	
+	// MARK: Glyph Info Creation
+	
+	/// Creates an immutable glyph info object with a glyph name.
+	///
+	/// This function creates an immutable glyph info object for a glyph name such as copyright using a specified font.
+	///
+	/// - parameter name: The name of the glyph.
+	/// - parameter font: The font to be associated with the returned `CTGlyphInfo` object.
+	/// - parameter baseString: The part of the string the returned object is intended to override.
+	/// - Returns: A valid reference to an immutable `CTGlyphInfo` object if glyph info creation was successful; otherwise, `nil`.
+	@inlinable static func create(glyphName name: String, font: CTFont, baseString base: String) -> CTGlyphInfo? {
+		return CTGlyphInfoCreateWithGlyphName(name as NSString, font, base as NSString)
+	}
+	
+	/// Creates an immutable glyph info object.
+	///
+	/// This function creates an immutable glyph info object for a glyph
+	/// index and a specified font.
+	/// - parameter glyph: The glyph identifier.
+	/// - parameter font: The font to be associated with the returned `CTGlyphInfo` object.
+	/// - parameter baseString: The part of the string the returned object is intended to override.
+	/// - Returns: This function will return a reference to a `CTGlyphInfo` object.
+	@inlinable static func create(glyph: CGGlyph, font: CTFont, baseString: String) -> CTGlyphInfo? {
+		return CTGlyphInfoCreateWithGlyph(glyph, font, baseString as NSString)
+	}
+	
+	/// Creates an immutable glyph info object.
+	///
+	/// This function creates an immutable glyph info object for a
+	/// character identifier and a character collection.
+	/// - parameter cid: A character identifier.
+	/// - parameter collection: A character collection identifier.
+	/// - parameter baseString: The part of the string the returned object is intended to override.
+	/// - Returns:  This function will return a reference to a `CTGlyphInfo` object.
+	@inlinable static func create(characterIdentifier cid: CGFontIndex, collection: CTCharacterCollection, baseString: String) -> CTGlyphInfo? {
+		return CTGlyphInfoCreateWithCharacterIdentifier(cid, collection, baseString as NSString)
+	}
+	
+	// MARK: Glyph Info Access
+	
 	/// The glyph name, if the glyph info object was created with a name; otherwise, `nil`.
 	var glyphName: String? {
 		return CTGlyphInfoGetGlyphName(self) as String?
