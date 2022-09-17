@@ -15,7 +15,7 @@ public extension CTRunDelegate {
 		return CTRunDelegateCreate(callbacks, refCon)
 	}
 	
-	@inlinable var refCon: UnsafeMutableRawPointer {
+	@inlinable var refCon: UnsafeMutableRawPointer? {
 		return CTRunDelegateGetRefCon(self)
 	}
 }

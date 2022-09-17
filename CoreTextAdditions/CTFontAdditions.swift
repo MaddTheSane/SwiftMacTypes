@@ -132,7 +132,21 @@ public extension CTFont {
 		return CTFontCreateUIFontForLanguage(uiType, size, language as NSString?)
 	}
 	
-	enum FontNameKey: CustomStringConvertible, RawRepresentable, Hashable {
+	/// Creates a new font reference from an existing Core Graphics font reference.
+	/// - parameter graphicsFont: A valid Core Graphics font reference.
+	/// - parameter size: The point size for the font reference. If *0.0* is specified the default font size of *12.0* is used.
+	/// - parameter matrix: The transformation matrix for the font. In most cases, set this parameter to be `nil`.
+	/// If `nil`, the identity matrix is used. Optional.
+	/// - parameter attributes: Additional attributes that should be matched. Can be nil, default is nil.
+	class func create(graphicsFont: CGFont, size: CGFloat, matrix: CGAffineTransform? = nil, attributes: CTFontDescriptor? = nil) -> CTFont {
+		if var matrix = matrix {
+			return CTFontCreateWithGraphicsFont(graphicsFont, size, &matrix, attributes)
+		} else {
+			return CTFontCreateWithGraphicsFont(graphicsFont, size, nil, attributes)
+		}
+	}
+	
+	enum FontNameKey: CustomStringConvertible, RawRepresentable, Hashable, Codable {
 		public typealias RawValue = CFString
 		
 		/// Creates a `FontNameKey` from a supplied string.
@@ -895,12 +909,10 @@ public extension CTFont {
 		guard let tmp = CTFontCopyVariation(self) as? [CFNumber: CFNumber] else {
 			return nil
 		}
-		var toRet: [OSType: Double] = [:]
-		toRet.reserveCapacity(tmp.count)
-		for (key, val) in tmp {
-			toRet[(key as NSNumber).uint32Value] = (val as NSNumber).doubleValue
+		let aval = tmp.map { (key: CFNumber, value: CFNumber) -> (OSType, Double) in
+			return ((key as NSNumber).uint32Value, (value as NSNumber).doubleValue)
 		}
-		return toRet
+		return Dictionary(uniqueKeysWithValues: aval)
 	}
 	
 	// MARK: - Font Features

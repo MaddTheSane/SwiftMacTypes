@@ -92,3 +92,17 @@ public extension CTFramesetter {
 		return CTFramesetterSuggestFrameSizeWithConstraints(self, stringRange, frameAttributes, constraints, fitRange)
 	}
 }
+
+@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 9.0, *)
+public extension CTFramesetter {
+	/// Creates an immutable framesetter object from an attributed string.
+	///
+	/// The resultant framesetter object can be used to create and
+	/// fill text frames with the `CTFramesetterCreateFrame` call.
+	/// - parameter attrString: The attributed string to construct the framesetter with. Only use with `CoreTextAttributes`.
+	/// - returns: This function will return a reference to a CTFramesetter object.
+	static func create(with attrString: AttributedString) throws -> CTFramesetter {
+		let nsAttrStr = try NSAttributedString(attrString, including: AttributeScopes.CoreTextAttributes.self)
+		return CTFramesetterCreateWithAttributedString(nsAttrStr)
+	}
+}

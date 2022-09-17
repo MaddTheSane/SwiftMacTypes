@@ -84,4 +84,35 @@ class CoreTextAdditionsTests: XCTestCase {
 			// Put the code you want to measure the time of here.
 		}
 	}
+	
+	func testTables() {
+		let aFont = CTFont.create(withName: "Times", size: 12)
+		guard let tables = aFont.availableTables() else {
+			XCTFail("Times should at least have tables...")
+			return;
+		}
+		print(tables)
+	}
+	
+	// This tests "PostCrypt", a PostScript Type 1 outline font.
+	// As there's no reliable way to store an old, Mac-style PostScript outlines,
+	// let's use the PC's way of storing PostScript outlines
+	func testNoTables() {
+		guard let PCURL = Bundle(for: type(of: self)).url(forResource: "PostCrypt", withExtension: "pfb") else {
+			XCTFail("PostCrypt should at least be findable...")
+			return
+		}
+
+		guard let datProvid = CGDataProvider(url: PCURL as NSURL),
+			  let cgFont = CGFont(datProvid) else {
+			XCTFail("Creation of the PostScript CGFont failed...")
+			return
+		}
+		let graphFont = CTFont.create(graphicsFont: cgFont, size: 12)
+		
+		if let tables2 = graphFont.availableTables() {
+			XCTFail("We got tables… \(tables2)")
+			return
+		}
+	}
 }

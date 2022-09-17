@@ -69,7 +69,7 @@ public extension CTTypesetter {
 	/// - returns: The value returned is a count of the characters from `startIndex`
 	/// that would cause the cluster break. This value returned can be
 	/// used to construct a character range for `CTTypesetterCreateLine`.
-	func suggestClusterBreak(atStartIndex startIndex: CFIndex, width: Double, offset: Double = 0.0) -> CFIndex {
+	func suggestClusterBreak(startIndex: CFIndex, width: Double, offset: Double = 0.0) -> CFIndex {
 		return CTTypesetterSuggestClusterBreakWithOffset(self, startIndex, width, offset)
 	}
 	
@@ -136,7 +136,7 @@ public extension CTTypesetter {
 			}
 			switch self {
 			case .allowUnboundedLayout:
-				fatalError("We shouldn't be getting this!")
+				fatalError("We shouldn't be getting here!")
 				
 			case .forcedEmbeddingLevel:
 				return kCTTypesetterOptionForcedEmbeddingLevel
@@ -155,14 +155,14 @@ public extension CTTypesetter {
 	/// characters in the string.
 	/// - parameter string: The `AttributedString` that you want to typeset.
 	/// This parameter must be scoped  with `CoreTextAttributes`.
-	/// - parameter options: A `CFDictionary` of typesetter options, or `nil` if there are none.
+	/// - parameter options: A `Dictionary` of typesetter options, or `nil` if there are none.
 	/// - returns: This class method will return either a reference to a `CTTypesetter`
 	/// or `nil` if layout cannot be performed due to an attributed
 	/// string that would require unreasonable effort.
 	///
 	/// - seeAlso: kCTTypesetterOptionAllowUnboundedLayout
 	static func create(with string: AttributedString, options: [Options: Any]? = nil) throws -> CTTypesetter? {
-		let preOpt = options?.map({ (key: Options, value: Any) -> (CFString, Any) in
+		let preOpt = options?.map({ (key: Options, value: Any) -> (NSString, Any) in
 			return (key.rawValue, value)
 		})
 		var dict: NSDictionary?
