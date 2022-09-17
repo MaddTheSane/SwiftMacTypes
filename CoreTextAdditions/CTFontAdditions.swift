@@ -137,7 +137,7 @@ public extension CTFont {
 	/// - parameter size: The point size for the font reference. If *0.0* is specified the default font size of *12.0* is used.
 	/// - parameter matrix: The transformation matrix for the font. In most cases, set this parameter to be `nil`.
 	/// If `nil`, the identity matrix is used. Optional.
-	/// - parameter attributes: Additional attributes that should be matched. Can be nil, default is nil.
+	/// - parameter attributes: Additional attributes that should be matched. Can be `nil`, default is `nil`.
 	class func create(graphicsFont: CGFont, size: CGFloat, matrix: CGAffineTransform? = nil, attributes: CTFontDescriptor? = nil) -> CTFont {
 		if var matrix = matrix {
 			return CTFontCreateWithGraphicsFont(graphicsFont, size, &matrix, attributes)

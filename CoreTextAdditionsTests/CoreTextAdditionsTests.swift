@@ -89,14 +89,15 @@ class CoreTextAdditionsTests: XCTestCase {
 		let aFont = CTFont.create(withName: "Times", size: 12)
 		guard let tables = aFont.availableTables() else {
 			XCTFail("Times should at least have tables...")
-			return;
+			return
 		}
 		print(tables)
 	}
 	
-	// This tests "PostCrypt", a PostScript Type 1 outline font.
-	// As there's no reliable way to store an old, Mac-style PostScript outlines,
-	// let's use the PC's way of storing PostScript outlines
+	/// This tests "PostCrypt", a PostScript Type 1 outline font.
+	///
+	/// As there's no reliable way to store an old, Mac-style PostScript outlines on git,
+	/// let's use the PC's way of storing PostScript outlines
 	func testNoTables() {
 		guard let PCURL = Bundle(for: type(of: self)).url(forResource: "PostCrypt", withExtension: "pfb") else {
 			XCTFail("PostCrypt should at least be findable...")
