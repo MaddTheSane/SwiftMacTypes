@@ -41,7 +41,7 @@ public extension CTFontDescriptor {
 			case .variation:
 				return kCTFontVariationAttribute
 			case .variationAxes:
-				fatalError("We should be getting here")
+				fatalError("We should not be getting here!")
 			case .size:
 				return kCTFontSizeAttribute
 			case .matrix:
@@ -69,7 +69,7 @@ public extension CTFontDescriptor {
 		
 		public init?(rawValue: CFString) {
 			if #available(macOS 10.13, *) {
-				if CFEqual(rawValue, kCTFontVariationAxesAttribute) {
+				if rawValue == kCTFontVariationAxesAttribute {
 					self = .variationAxes
 					return
 				}

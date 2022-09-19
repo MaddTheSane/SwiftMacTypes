@@ -78,13 +78,6 @@ class CoreTextAdditionsTests: XCTestCase {
 		print(aFont.features!)
 	}
 	
-	func testPerformanceExample() {
-		// This is an example of a performance test case.
-		self.measure {
-			// Put the code you want to measure the time of here.
-		}
-	}
-	
 	func testTables() {
 		let aFont = CTFont.create(withName: "Times", size: 12)
 		guard let tables = aFont.availableTables() else {
