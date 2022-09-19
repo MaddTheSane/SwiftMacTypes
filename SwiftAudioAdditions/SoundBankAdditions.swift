@@ -89,16 +89,14 @@ func instrumentInfoFromSoundBank(at inURL: URL) throws -> [[InstrumentInfoKey: A
 		throw errorFromOSStatus(status, userInfo: [NSURLErrorKey: inURL])
 	}
 	let toRet = tmpArr2.map { (aDict) -> [InstrumentInfoKey: Any] in
-		var tmpDict = [InstrumentInfoKey: Any]()
-		tmpDict.reserveCapacity(aDict.count)
-		for (key, val) in aDict {
+		let tmpDict = aDict.compactMap { (key: String, value: Any) -> (InstrumentInfoKey, Any)? in
 			guard let key2 = InstrumentInfoKey(rawValue: key) else {
-				print("Uhh... unknown key \(key)?")
-				continue
+				print("instrumentInfoFromSoundBank: Uhh... unknown key \(key)?")
+				return nil
 			}
-			tmpDict[key2] = val
+			return (key2, value)
 		}
-		return tmpDict
+		return Dictionary(uniqueKeysWithValues: tmpDict)
 	}
 	return toRet
 }
