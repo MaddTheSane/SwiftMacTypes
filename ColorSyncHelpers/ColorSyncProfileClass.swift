@@ -91,7 +91,7 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 	}
 	
 	convenience init?(iterateData: [String: Any]) {
-		guard let mURL = iterateData[kColorSyncProfileURL.takeUnretainedValue() as String] as? Foundation.URL else {
+		guard let mURL = iterateData[kColorSyncProfileURL.takeUnretainedValue() as String] as? URL else {
 			return nil
 		}
 		do {
@@ -120,7 +120,7 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 	}
 	
 	/// Creates a profile from a URL.
-	public convenience init(contentsOf url: Foundation.URL) throws {
+	public convenience init(contentsOf url: URL) throws {
 		var errVal: Unmanaged<CFError>?
 		if let csVal = ColorSyncProfileCreateWithURL(url as NSURL, &errVal)?.takeRetainedValue() {
 			self.init(internalPtr: csVal)
@@ -231,21 +231,8 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 		}
 	}
 	
-	/// Returns MD5 digest for the profile calculated as defined by
-	/// ICC specification, or `nil` in case of failure.
-	@available(*, deprecated, renamed: "md5")
-	public final var MD5: ColorSyncMD5? {
-		return md5
-	}
-	
 	/// The URL of the profile, or `nil` on error.
-	@available(*, deprecated, renamed: "url")
-	public final var URL: Foundation.URL? {
-		return url
-	}
-	
-	/// The URL of the profile, or `nil` on error.
-	public final var url: Foundation.URL? {
+	public final var url: URL? {
 		return ColorSyncProfileGetURL(profile, nil)?.takeUnretainedValue() as URL?
 	}
 	
@@ -374,6 +361,26 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 		}
 		return warnings?.takeRetainedValue()
 	}
+	
+	/// A variable estimating gamut of a display profile.
+	public final var isWideGamut: Bool {
+		return profile.isWideGamut
+	}
+	
+	/// A variable verifying if a profile is matrix-based.
+	public final var isMatrixBased: Bool {
+		return profile.isMatrixBased
+	}
+	
+	/// A variable verifying if a profile is using ITU BT.2100 PQ transfer functions.
+	public final var isPQBased: Bool {
+		return profile.isPQBased
+	}
+	
+	/// A variable verifying if a profile is using ITU BT.2100 HLG transfer functions.
+	public final var isHLGBased: Bool {
+		return profile.isHLGBased
+	}
 }
 
 #if os(macOS)
@@ -397,7 +404,7 @@ public func estimateGamma(displayID: Int32) throws -> Float {
 public final class CSMutableProfile: CSProfile {
 	private let mutPtr: ColorSyncMutableProfile
 	
-	/// returns empty CSMutableProfile
+	/// Creates an empty `CSMutableProfile`.
 	public init() {
 		mutPtr = ColorSyncProfileCreateMutable()!.takeRetainedValue()
 		super.init(internalPtr: mutPtr)

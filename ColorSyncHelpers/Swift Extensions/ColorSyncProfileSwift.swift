@@ -109,7 +109,7 @@ public extension ColorSyncProfile {
 	
 	/// A utility function converting `vcgt` tag (if `vcgt` tag exists in the profile and
 	/// conversion possible) to formula components used by `CGSetDisplayTransferByFormula`.
-	@inlinable final func displayTransferFormulaFromVCGT() -> (red: (min: Float, max: Float, gamma: Float), green: (min: Float, max: Float, gamma: Float), blue: (min: Float, max: Float, gamma: Float))? {
+	final func displayTransferFormulaFromVCGT() -> (red: (min: Float, max: Float, gamma: Float), green: (min: Float, max: Float, gamma: Float), blue: (min: Float, max: Float, gamma: Float))? {
 		typealias Component = (min: Float, max: Float, gamma: Float)
 		var red = Component(0, 0, 0)
 		var green = Component(0, 0, 0)
@@ -122,15 +122,25 @@ public extension ColorSyncProfile {
 	}
 #endif
 	
-	@inlinable var isWideGamut: Bool {
+	/// A variable estimating gamut of a display profile.
+	@inlinable final var isWideGamut: Bool {
 		return ColorSyncProfileIsWideGamut(self)
 	}
 	
-	/// verifying if a profile is matrix-based.
-	@inlinable var isMatrixBased: Bool {
+	/// A variable verifying if a profile is matrix-based.
+	@inlinable final var isMatrixBased: Bool {
 		return ColorSyncProfileIsMatrixBased(self)
 	}
-	//ColorSyncProfileIsMatrixBased
+	
+	/// A variable verifying if a profile is using ITU BT.2100 PQ transfer functions.
+	@inlinable final var isPQBased: Bool {
+		return ColorSyncProfileIsPQBased(self);
+	}
+	
+	/// A variable verifying if a profile is using ITU BT.2100 HLG transfer functions.
+	@inlinable final var isHLGBased: Bool {
+		return ColorSyncProfileIsHLGBased(self)
+	}
 }
 
 @available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
