@@ -7,9 +7,10 @@
 //
 
 import Foundation
-import ApplicationServices
+import ColorSync
 import FoundationAdditions
 
+@available(macOS 10.4, iOS 16.0, macCatalyst 16.0, *)
 public extension ColorSyncCMM {
 	/// Will return `nil` for Apple's built-in CMM
 	@inlinable var bundle: Bundle? {
@@ -31,6 +32,7 @@ public extension ColorSyncCMM {
 	}
 }
 
+@available(macOS 10.4, iOS 16.0, macCatalyst 16.0, *)
 extension ColorSyncCMM: CFTypeProtocol {
 	/// The type identifier of all `ColorSyncCMM` instances.
 	@inlinable public static var typeID: CFTypeID {

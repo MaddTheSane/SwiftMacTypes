@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ApplicationServices
 import ColorSync
 
 func sanitize(options: [String: Any]?) -> [String: Any]? {
@@ -15,14 +14,16 @@ func sanitize(options: [String: Any]?) -> [String: Any]? {
 		return nil
 	}
 	
+#if os(macOS)
 	if let cmm = options[kColorSyncPreferredCMM.takeUnretainedValue() as String] as? CSCMM {
 		options[kColorSyncPreferredCMM.takeUnretainedValue() as String] = cmm.cmmInt
 	}
+#endif
 	
 	return options
 }
 
-/// Make sure we don't pass our own `CSProfile`, but the `ColorSyncProfileRef` the API expects.
+/// Makes sure we don't pass our own `CSProfile`, but the `ColorSyncProfileRef` the API expects.
 func sanitize(profileInfo profileSequence: [[String: Any]]) -> [[String: Any]] {
 	let colorSyncProfKey = kColorSyncProfile.takeUnretainedValue() as String
 	// make sure we don't pass our own CSProfile, but the ColorSyncProfileRef the API expects
@@ -38,6 +39,7 @@ func sanitize(profileInfo profileSequence: [[String: Any]]) -> [[String: Any]] {
 
 //TODO: add dictionary generater
 /// A class that references a ColorSync profile.
+@available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
 public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 	/// Internal ColorSync profile reference that the class wraps around.
 	public let profile: ColorSyncProfile
@@ -161,6 +163,7 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 		self.init(internalPtr: prof)
 	}
 	
+#if os(macOS)
 	/// Creates a CSProfile from a display ID.
 	/// - parameter displayID: system-wide unique display ID (defined by IOKIt); pass `0` for main display.
 	///
@@ -184,6 +187,7 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 		}
 		return nil
 	}
+#endif
 
 	/// Creates a mutable copy of the current object
 	public final func mutableCopy() -> CSMutableProfile {
@@ -250,6 +254,7 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 		return ColorSyncProfileCopyHeader(profile)?.takeRetainedValue() as Data?
 	}
 	
+#if os(macOS)
 	/// Estimates the gamma of the profile.
 	public final func estimateGamma() throws -> Float {
 		var errVal: Unmanaged<CFError>?
@@ -263,9 +268,10 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 		}
 		return aRet
 	}
+#endif
 	
 	final public var description: String {
-		return ColorSyncProfileCopyDescriptionString(profile).takeRetainedValue() as String
+		return ColorSyncProfileCopyDescriptionString(profile)!.takeRetainedValue() as String
 	}
 	
 	public var debugDescription: String {
@@ -274,7 +280,7 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 	
 	/// Array of signatures of tags in the profile
 	public final var tagSignatures: [String] {
-		return ColorSyncProfileCopyTagSignatures(profile).takeRetainedValue() as NSArray as! [String]
+		return ColorSyncProfileCopyTagSignatures(profile)!.takeRetainedValue() as NSArray as! [String]
 	}
 	
 	/// Return the flattened data.
@@ -289,6 +295,7 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 		return aDat as Data
 	}
 	
+#if os(macOS)
 	/// An utility function creating three tables of floats (redTable, greenTable, blueTable)
 	/// each of size `samplesPerChannel`, packed into contiguous memory contained in the `Data`
 	/// to be returned from the `vcgt` tag of the profile (if `vcgt` tag exists in the profile).
@@ -346,6 +353,7 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 		
 		return (red, green, blue)
 	}
+#endif
 	
 	/// Verify the current profile.
 	/// - throws: If the profile cannot be used.
@@ -368,6 +376,7 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 	}
 }
 
+#if os(macOS)
 /// Estimates the display gamma for the passed-in display.
 /// - parameter displayID: system-wide unique display ID (defined by IOKIt)
 public func estimateGamma(displayID: Int32) throws -> Float {
@@ -382,6 +391,7 @@ public func estimateGamma(displayID: Int32) throws -> Float {
 	}
 	return aRet
 }
+#endif
 
 /// A mutable version of `CSProfile`.
 public final class CSMutableProfile: CSProfile {

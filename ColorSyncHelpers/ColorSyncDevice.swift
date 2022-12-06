@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ApplicationServices
+import ColorSync
 import FoundationAdditions
 
 public enum CSDevice {
@@ -172,7 +172,7 @@ public enum CSDevice {
 	///         kColorSyncDeviceHostScope              {kCFPreferencesAnyHost or kCFPreferencesCurrentHost}
 	///     >>
 	private static func copyDeviceInfo(withClass deviceClass: CFString, identifier: CFUUID) -> [String: Any] {
-		return ColorSyncDeviceCopyDeviceInfo(deviceClass, identifier).takeRetainedValue() as NSDictionary as! [String: Any]
+		return ColorSyncDeviceCopyDeviceInfo(deviceClass, identifier)!.takeRetainedValue() as NSDictionary as! [String: Any]
 	}
 	
 	@available(*, deprecated, renamed: "info(for:identifier:)")

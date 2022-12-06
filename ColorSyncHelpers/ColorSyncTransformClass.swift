@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ApplicationServices
+import ColorSync
 
 /// A class that references a ColorSync transform.
 ///
@@ -15,6 +15,7 @@ import ApplicationServices
 ///
 /// Note that you have to unwrap them, as Apple is being lazy
 /// about updating the APIs for Swift!
+@available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
 public final class CSTransform: CustomDebugStringConvertible {
 	
 	/// The color depth of the data.

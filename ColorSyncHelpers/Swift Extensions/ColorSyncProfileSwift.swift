@@ -7,9 +7,10 @@
 //
 
 import Foundation
-import ApplicationServices
+import ColorSync
 import FoundationAdditions
 
+@available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
 public extension ColorSyncProfile {
 	/// The data associated with the signature.
 	/// - parameter tag: signature of the tag to be retrieved
@@ -70,6 +71,7 @@ public extension ColorSyncProfile {
 		return ColorSyncProfileCopyHeader(self)?.takeRetainedValue() as Data?
 	}
 	
+#if os(macOS)
 	/// Estimates the gamma of the profile.
 	final func estimateGamma() throws -> Float {
 		var errVal: Unmanaged<CFError>?
@@ -83,6 +85,7 @@ public extension ColorSyncProfile {
 		}
 		return aRet
 	}
+#endif
 
 	/// Return the flattened data.
 	final func rawData() throws -> Data {
@@ -96,6 +99,7 @@ public extension ColorSyncProfile {
 		return aDat as Data
 	}
 	
+#if os(macOS)
 	/// An utility function creating three tables of floats (redTable, greenTable, blueTable)
 	/// each of size `samplesPerChannel`, packed into contiguous memory contained in the `Data`
 	/// to be returned from the `vcgt` tag of the profile (if `vcgt` tag exists in the profile).
@@ -116,8 +120,20 @@ public extension ColorSyncProfile {
 		
 		return (red, green, blue)
 	}
+#endif
+	
+	@inlinable var isWideGamut: Bool {
+		return ColorSyncProfileIsWideGamut(self)
+	}
+	
+	/// verifying if a profile is matrix-based.
+	@inlinable var isMatrixBased: Bool {
+		return ColorSyncProfileIsMatrixBased(self)
+	}
+	//ColorSyncProfileIsMatrixBased
 }
 
+@available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
 extension ColorSyncProfile: CFTypeProtocol {
 	/// The type identifier of all `ColorSyncProfile` instances.
 	@inlinable public static var typeID: CFTypeID {
@@ -125,6 +141,7 @@ extension ColorSyncProfile: CFTypeProtocol {
 	}
 }
 
+@available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
 public extension ColorSyncMutableProfile {
 	/*
 	/// `Data` containing the header data in host endianess

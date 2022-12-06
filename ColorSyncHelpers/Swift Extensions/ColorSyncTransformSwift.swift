@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import ApplicationServices
 import ColorSync
 import FoundationAdditions
 
+@available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
 public extension ColorSyncTransform {
 	/// The color depth of the data.
 	typealias Depth = ColorSyncDataDepth
@@ -72,6 +72,7 @@ public extension ColorSyncTransform {
 	}
 }
 
+@available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
 extension ColorSyncTransform: CFTypeProtocol {
 	/// The type identifier of all `ColorSyncTransform` instances.
 	@inlinable public static var typeID: CFTypeID {
@@ -79,6 +80,7 @@ extension ColorSyncTransform: CFTypeProtocol {
 	}
 }
 
+@available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
 public extension ColorSyncTransform {
 	enum RenderingIntent: RawRepresentable {
 		case perceptual
@@ -322,6 +324,10 @@ public extension ColorSyncTransform {
 		case extendedRange
 		
 		/// ColorSyncCMMRef of the preferred CMM
+		@available(iOS, unavailable)
+		@available(tvOS, unavailable)
+		@available(macCatalyst, unavailable)
+		@available(watchOS, unavailable)
 		case preferredCMM
 		
 		case convertQuality
@@ -352,8 +358,10 @@ public extension ColorSyncTransform {
 				self = .blackPointCompensation
 			case kColorSyncExtendedRange.takeUnretainedValue():
 				self = .extendedRange
+#if os(macOS)
 			case kColorSyncPreferredCMM.takeUnretainedValue():
 				self = .preferredCMM
+#endif
 			case kColorSyncConvertQuality.takeUnretainedValue():
 				self = .convertQuality
 			case kColorSyncConvertUseExtendedRange.takeUnretainedValue():
@@ -383,8 +391,10 @@ public extension ColorSyncTransform {
 				return kColorSyncBlackPointCompensation.takeUnretainedValue()
 			case .extendedRange:
 				return kColorSyncExtendedRange.takeUnretainedValue()
+#if os(macOS)
 			case .preferredCMM:
 				return kColorSyncPreferredCMM.takeUnretainedValue()
+#endif
 			case .convertQuality:
 				return kColorSyncConvertQuality.takeUnretainedValue()
 			case .convertUseExtendedRange:

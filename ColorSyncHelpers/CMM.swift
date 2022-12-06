@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ApplicationServices
+import ColorSync
 
 private func cmmIterator(_ cmm: ColorSyncCMM?, userInfo: UnsafeMutableRawPointer?) -> Bool {
 	guard let userInfo = userInfo, let cmm = cmm else {

@@ -227,12 +227,14 @@ extension CFURLEnumerator: CFTypeProtocol {
 	}
 }
 
+#if os(macOS)
 extension CFUserNotification: CFTypeProtocol {
 	/// The type identifier for the `CFUserNotification` opaque type.
 	@inlinable public static var typeID: CFTypeID {
 		return CFUserNotificationGetTypeID()
 	}
 }
+#endif
 
 extension CFUUID: CFTypeProtocol {
 	/// The type identifier for the `CFUUID` opaque type.
