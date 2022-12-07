@@ -342,7 +342,7 @@ public extension ColorSyncTransform {
 		case transformCodeFragmentMD5
 		
 		/// Represented as a `CFArray` of three `CFArrays` of four `CFNumbers` (`Float32`)
-		/// each, performin the following matrix operation:
+		/// each, performing the following matrix operation:
 		/// `y[3] = 3x3 matrix *x[3] + 3x1 vector` (last column)
 		case conversionMatrix
 		
