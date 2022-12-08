@@ -161,6 +161,10 @@ public enum AudioComponentType: Hashable {
 		case reverb2 = 0x72766232
 		case iPodEQ = 0x69706571
 		#endif
+		@available(macOS 13.0, iOS 16.0, macCatalyst 16.0, *)
+		@available(watchOS, unavailable)
+		@available(tvOS, unavailable)
+		case soundIsolation = 1987012979
 	}
 	
 	public enum AUMixer: OSType, OSTypeConvertable {
