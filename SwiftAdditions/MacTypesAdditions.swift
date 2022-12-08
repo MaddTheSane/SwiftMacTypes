@@ -832,7 +832,7 @@ public enum CarbonOtherIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
 	case appleMenu = 0x7361706c
 	case backwardArrow = 0x6261726f
 	case favoriteItems = 0x66617672
-	case korwardArrow = 0x6661726f
+	case forwardArrow = 0x6661726f
 	case grid = 0x67726964
 	case help = 0x68656c70
 	case keepArranged = 0x61726e67

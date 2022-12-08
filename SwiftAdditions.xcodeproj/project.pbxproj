@@ -95,6 +95,8 @@
 		554FE7CD28C74AC000418258 /* ColorSyncDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554FE7C428C74AC000418258 /* ColorSyncDevice.swift */; platformFilters = (macos, ); };
 		554FE7CE28C74AC000418258 /* ColorSyncTransformClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554FE7C528C74AC000418258 /* ColorSyncTransformClass.swift */; };
 		555BB493288E458C00A255E0 /* CGColorSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555BB491288E447A00A255E0 /* CGColorSpace.swift */; };
+		555C0269294296AA00587A40 /* FoundationAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5560389426BF2CC800CD1984 /* FoundationAdditions.framework */; };
+		555C026A294296B800587A40 /* FoundationAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5560389426BF2CC800CD1984 /* FoundationAdditions.framework */; };
 		555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */; };
 		5560389D26BF2CC800CD1984 /* FoundationAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5560389426BF2CC800CD1984 /* FoundationAdditions.framework */; };
 		556038A226BF2CC800CD1984 /* FoundationAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556038A126BF2CC800CD1984 /* FoundationAdditionsTests.swift */; };
@@ -538,6 +540,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				555C026A294296B800587A40 /* FoundationAdditions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,6 +556,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				555C0269294296AA00587A40 /* FoundationAdditions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1611,7 +1615,7 @@
 				};
 			};
 			buildConfigurationList = 550FBAB819A7ADC500EFBD3D /* Build configuration list for PBXProject "SwiftAdditions" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -2109,12 +2113,6 @@
 		};
 		554FE7D228C74CA700418258 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			platformFilters = (
-				ios,
-				maccatalyst,
-				macos,
-				tvos,
-			);
 			target = 5560389326BF2CC800CD1984 /* FoundationAdditions */;
 			targetProxy = 554FE7D128C74CA700418258 /* PBXContainerItemProxy */;
 		};
@@ -2155,12 +2153,6 @@
 		};
 		55BE4B27270BBED000100A7D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			platformFilters = (
-				ios,
-				maccatalyst,
-				macos,
-				tvos,
-			);
 			target = 5560389326BF2CC800CD1984 /* FoundationAdditions */;
 			targetProxy = 55BE4B26270BBED000100A7D /* PBXContainerItemProxy */;
 		};
@@ -3273,8 +3265,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx appletvsimulator appletvos";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 			};
 			name = Debug;
 		};
@@ -3300,7 +3295,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx appletvsimulator appletvos";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 			};
 			name = Release;
 		};
