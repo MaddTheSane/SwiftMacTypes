@@ -2314,7 +2314,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SwiftAdditions/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2014 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2341,7 +2343,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SwiftAdditions/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2014 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2542,7 +2546,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoreTextAdditions/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2017 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.CoreTextAdditions;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -2565,7 +2571,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoreTextAdditions/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2017 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.CoreTextAdditions;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -2744,6 +2752,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoundationAdditions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2773,6 +2782,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoundationAdditions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2844,7 +2854,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SwiftIOKitAdditions/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2014 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.MaddTheSane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2861,7 +2873,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SwiftIOKitAdditions/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2014 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.MaddTheSane.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2921,7 +2935,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QuartzAdditions/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2018 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2955,7 +2971,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QuartzAdditions/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2018 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3254,7 +3272,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SwiftAudioAdditions/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2015 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3284,7 +3304,9 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SwiftAudioAdditions/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2015 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

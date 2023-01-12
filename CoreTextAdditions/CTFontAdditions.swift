@@ -766,7 +766,7 @@ public extension CTFont {
 	/// - returns: A `CGPath` object containing the glyph outlines, `nil` on error.
 	func path(forGlyph glyph: CGGlyph, matrix: CGAffineTransform? = nil) -> CGPath? {
 		let aPath: CGPath?
-		if var matrix = matrix {
+		if var matrix {
 			aPath = CTFontCreatePathForGlyph(self, glyph, &matrix)
 		} else {
 			aPath = CTFontCreatePathForGlyph(self, glyph, nil)
@@ -783,7 +783,7 @@ public extension CTFont {
 	/// Font Variation Axis Dictionary Keys
 	///
 	/// These constants provide keys to font variation axis dictionary values.
-	enum VariationAxisKey: RawRepresentable, Hashable, CustomStringConvertible, Codable {
+	enum VariationAxisKey: RawRepresentable, Hashable, CustomStringConvertible, Codable, @unchecked Sendable {
 		
 		/// Key to get the variation axis identifier.
 		///
@@ -994,7 +994,7 @@ public extension CTFont {
 	/// Results from `glyphs(forCharacters:)` (or similar APIs) do not perform any Unicode text layout.
 	/// - parameter context: `CGContext` used to render the glyphs.
 	/// - parameter gp: The glyphs and positions (origins) to be rendered. The positions are in user space.
-	func draw(glyphsAndPositions gp: [(glyph: CGGlyph, position: CGPoint)], context: CGContext) {
+	func draw(glyphsAndPositions gp: [(glyph: CGGlyph, position: CGPoint)], in context: CGContext) {
 		let glyphs = gp.map({return $0.glyph})
 		let positions = gp.map({return $0.position})
 		CTFontDrawGlyphs(self, glyphs, positions, gp.count, context)
@@ -1011,9 +1011,9 @@ public extension CTFont {
 	/// derived.
 	/// - parameter positions: The positions (origins) for each glyph. The positions are in user space. The
 	/// number of positions passed in must be equivalent to the number of glyphs.
-	func draw(glyphs: [CGGlyph], positions: [CGPoint], context: CGContext) {
+	func draw(glyphs: [CGGlyph], atPositions positions: [CGPoint], in context: CGContext) {
 		let gp = zip(glyphs, positions).map({return $0})
-		draw(glyphsAndPositions: gp, context: context)
+		draw(glyphsAndPositions: gp, in: context)
 	}
 	
 	/// Returns caret positions within a glyph.

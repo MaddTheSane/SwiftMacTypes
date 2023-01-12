@@ -256,7 +256,7 @@ public extension UnsafeBufferPointer {
 	///
 	/// This is great for array pointers that have an unknown number of elements but does have
 	/// a terminating element, or *sentinel*, that indicates the end of the array.
-	/// The sentinal isn't included in the array.
+	/// The sentinal isn't included in the buffer.
 	/// - parameter start: the pointer to start from.
 	/// - parameter sentinelChecker: The block that checks if the current `Element`
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
@@ -278,7 +278,7 @@ public extension UnsafeBufferPointer {
 	///
 	/// This is great for array pointers that have an unknown number of elements but does have
 	/// a terminating element, or *sentinel*, that indicates the end of the array.
-	/// The sentinal isn't included in the array.
+	/// The sentinal isn't included in the buffer.
 	/// - parameter start: the pointer to start from.
 	/// - parameter maximum: The longest iteration to look out for. Any elements after this
 	/// are not included in the buffer.
@@ -303,7 +303,7 @@ public extension UnsafeMutableBufferPointer {
 	///
 	/// This is great for array pointers that have an unknown number of elements but does have
 	/// a terminating element, or *sentinel*, that indicates the end of the array.
-	/// The sentinal isn't included in the array.
+	/// The sentinal isn't included in the buffer.
 	/// - parameter start: the pointer to start from.
 	/// - parameter sentinelChecker: The block that checks if the current `Element`
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
@@ -325,7 +325,7 @@ public extension UnsafeMutableBufferPointer {
 	///
 	/// This is great for array pointers that have an unknown number of elements but does have
 	/// a terminating element, or *sentinel*, that indicates the end of the array.
-	/// The sentinal isn't included in the array.
+	/// The sentinal isn't included in the buffer.
 	/// - parameter start: the pointer to start from.
 	/// - parameter maximum: The longest iteration to look out for. Any elements after this
 	/// are not included in the buffer.

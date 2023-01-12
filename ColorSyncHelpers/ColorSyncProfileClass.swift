@@ -181,8 +181,8 @@ public class CSProfile: CustomStringConvertible, CustomDebugStringConvertible {
 	/// - parameter profileID: profileID registered with ColorSync; pass `kColorSyncDeviceDefaultProfileID` (the default) to get the default profile.
 	///
 	/// See ColorSyncDevice.h for more info on `deviceClass`, `deviceID` and `profileID`
-	public convenience init?(deviceClass: String, deviceID ID: CFUUID, profileID: AnyObject = kColorSyncDeviceDefaultProfileID.takeUnretainedValue()) {
-		if let aRet = ColorSyncProfileCreateDeviceProfile(deviceClass as NSString, ID, profileID)?.takeRetainedValue() {
+	public convenience init?(deviceClass: String, deviceID ID: UUID, profileID: AnyObject = kColorSyncDeviceDefaultProfileID.takeUnretainedValue()) {
+		if let aRet = ColorSyncProfileCreateDeviceProfile(deviceClass as NSString, ID.cfUUID, profileID)?.takeRetainedValue() {
 			self.init(internalPtr: aRet)
 		}
 		return nil

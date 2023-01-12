@@ -12,7 +12,7 @@ import CoreText
 public extension CTFontDescriptor {
 	
 	/// Font attributes key.
-	enum AttributeKey: RawRepresentable, Hashable, CustomStringConvertible, Codable {
+	enum AttributeKey: RawRepresentable, Hashable, CustomStringConvertible, Codable, @unchecked Sendable {
 		public typealias RawValue = CFString
 		
 		public var description: String {
@@ -268,8 +268,16 @@ public extension CTFontDescriptor {
 	///
 	/// The font descriptor attributes dictionary. This dictionary contains the minimum
 	/// number of attributes to specify fully this particular font descriptor.
-	var attributes: [String: Any] {
-		return CTFontDescriptorCopyAttributes(self) as! [String : Any]
+	var attributes: [AttributeKey: Any] {
+		let preDict = CTFontDescriptorCopyAttributes(self) as! [CFString: Any]
+		let preDict2 = preDict.compactMap { (key: CFString, value: Any) -> (AttributeKey, Any)? in
+			guard let wrappedKey = AttributeKey(rawValue: key) else {
+				print("CTFontDescriptor.attributes: Unknown key \(key)!")
+				return nil
+			}
+			return (wrappedKey, value)
+		}
+		return Dictionary(uniqueKeysWithValues: preDict2)
 	}
 	
 	/// Returns the value associated with an arbitrary attribute.
@@ -385,4 +393,52 @@ public extension CTFontDescriptor {
 	func copy(withAttributes attributes: [String: Any]) -> CTFontDescriptor {
 		return CTFontDescriptorCreateCopyWithAttributes(self, attributes as NSDictionary)
 	}
+	
+	/// Creates a copy of the original font descriptor with new attributes.
+	/// - parameter attributes: A `Dictionary` of arbitrary attributes.
+	/// - returns: This function creates a new copy of the original font descriptor with attributes augmented
+	/// by those specified. If there are conflicts between attributes, the new attributes will replace existing ones,
+	/// except for `kCTFontVariationAttribute` and `kCTFontFeatureSettingsAttribute` which
+	/// will be merged.
+	///
+	/// Starting with macOS 10.12 and iOS 10.0, setting the value of `kCTFontFeatureSettingsAttribute`
+	/// to `kCFNull` will clear the feature settings of the original font descriptor. Setting the value of any individual
+	/// feature settings pair in the `kCTFontFeatureSettingsAttribute` value array to `kCFNull` will clear
+	/// that feature setting alone. For example, an element like
+	/// `@{ (id)kCTFontFeatureTypeIdentifierKey: @(kLigaturesType), (id)kCTFontFeatureSelectorIdentifierKey: (id)kCFNull }`
+	/// means clear the `kLigatureType` feature set in the original font descriptor. An element
+	/// like `@[ @"liga", (id)kCFNull ]` will have the same effect.
+	@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
+	func copy(withAttributes attributes: [AttributeKey: Any]) -> CTFontDescriptor {
+		var scrubbed = [CFString: Any]()
+		for (key, val) in attributes {
+			if #available(macOS 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *) {
+				if key == .variationAxes {
+					if let val2 = val as? [CTFont.VariationAxisKey: Any] {
+						let vak = val2.map { (key: CTFont.VariationAxisKey, value: Any) -> (CFString, Any) in
+							return (key.rawValue, value)
+						}
+						scrubbed[key.rawValue] = Dictionary(uniqueKeysWithValues: vak)
+					} else {
+						scrubbed[key.rawValue] = val
+					}
+					continue
+				}
+			}
+			switch key {
+			case .matrix:
+				if var val2 = val as? CGAffineTransform {
+					scrubbed[key.rawValue] = withUnsafeBytes(of: &val2) { urbp in
+						return Data(urbp)
+					}
+				} else {
+					scrubbed[key.rawValue] = val
+				}
+			default:
+				scrubbed[key.rawValue] = val
+			}
+		}
+		return CTFontDescriptorCreateCopyWithAttributes(self, scrubbed as NSDictionary)
+	}
+
 }
