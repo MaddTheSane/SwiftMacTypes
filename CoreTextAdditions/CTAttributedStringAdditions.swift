@@ -546,17 +546,25 @@ public extension AttributeScopes {
 		
 		@frozen public enum WritingDirectionAttribute : CodableAttributedStringKey, ObjectiveCConvertibleAttributedStringKey {
 			public typealias ObjectiveCValue = NSArray
-			public typealias Value = [Int]
+			public typealias Value = [WritingDirection]
 
-			public static func objectiveCValue(for value: [Int]) throws -> NSArray {
-				return value as NSArray
+			public static func objectiveCValue(for value: [WritingDirection]) throws -> NSArray {
+				let value2 = value.map { wd -> Int in
+					wd.rawValue
+				}
+				return value2 as NSArray
 			}
 			
-			public static func value(for object: NSArray) throws -> [Int] {
+			public static func value(for object: NSArray) throws -> [WritingDirection] {
 				guard let toRet = object as? [Int] else {
 					throw CocoaError(.coderInvalidValue)
 				}
-				return toRet
+				return try toRet.map({ val -> WritingDirection in
+					guard let aVal = WritingDirection(rawValue: val) else {
+						throw CocoaError(.coderInvalidValue)
+					}
+					return aVal
+				})
 			}
 
 			public static var name: String {
@@ -567,6 +575,72 @@ public extension AttributeScopes {
 		public typealias DecodingConfiguration = AttributeScopeCodableConfiguration
 
 		public typealias EncodingConfiguration = AttributeScopeCodableConfiguration
+		
+		/// Wrapper used by `WritingDirectionAttribute` to make sure that only valid values are passed
+		/// to it.
+		public struct WritingDirection: RawRepresentable, Codable, Hashable {
+			public typealias RawValue = Int
+			private(set) public var rawValue: Int
+			
+			public init?(rawValue: Int) {
+				guard rawValue >= 0 else {
+					return nil
+				}
+				guard rawValue <= 3 else {
+					return nil
+				}
+				self.rawValue = rawValue
+			}
+
+			/// This can*not* be `CTWritingDirection.natural`!
+			public var writingDirection: CTWritingDirection {
+				get {
+					if (rawValue & 1) == 1 {
+						return .rightToLeft
+					} else {
+						return .leftToRight
+					}
+				}
+				set {
+					switch newValue {
+					case .natural:
+						fatalError("CTAWritingDirection.writingDirection cannot be .natural")
+					case .leftToRight:
+						rawValue &= ~1
+					case .rightToLeft:
+						rawValue |= 1
+					@unknown default:
+						fatalError("Unknown CTWritingDirection, \(newValue) (\(newValue.rawValue))")
+
+					}
+				}
+			}
+			
+			/// `.isOverride` and `.isEmbedding` are mutually exclusive
+			public var isOverride: Bool {
+				get {
+					return (rawValue & kCTWritingDirectionOverride) == kCTWritingDirectionOverride
+				}
+				set {
+					if newValue {
+						rawValue |= kCTWritingDirectionOverride
+					} else {
+						rawValue &= ~kCTWritingDirectionOverride
+					}
+				}
+			}
+			
+			/// `.isOverride` and `.isEmbedding` are mutually exclusive
+			public var isEmbedding: Bool {
+				get {
+					return (rawValue & kCTWritingDirectionOverride) == kCTWritingDirectionEmbedding
+				}
+				set {
+					isOverride = !newValue
+				}
+			}
+		}
+
 	}
 }
 

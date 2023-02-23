@@ -54,7 +54,7 @@ public extension CTFont {
 	/// be used for unspecified parameters. A best match will be found if all parameters cannot be
 	/// matched identically.
 	class func create(withName name: String, size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont {
-		if var matrix = matrix {
+		if var matrix {
 			return CTFontCreateWithName(name as NSString, size, &matrix)
 		} else {
 			return CTFontCreateWithName(name as NSString, size, nil)
@@ -72,7 +72,7 @@ public extension CTFont {
 	/// descriptor, unless they are unspecified. A best match font will always be returned, and default
 	/// values will be used for any unspecified.
 	class func create(with descriptor: CTFontDescriptor, size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont {
-		if var matrix = matrix {
+		if var matrix {
 			return CTFontCreateWithFontDescriptor(descriptor, size, &matrix)
 		} else {
 			return CTFontCreateWithFontDescriptor(descriptor, size, nil)
@@ -94,7 +94,7 @@ public extension CTFont {
 	/// be used for unspecified parameters. A best match will be found if all parameters cannot be
 	/// matched identically.
 	class func create(withName name: String, size: CGFloat, matrix: CGAffineTransform? = nil, options: Options) -> CTFont {
-		if var matrix = matrix {
+		if var matrix {
 			return CTFontCreateWithNameAndOptions(name as NSString, size, &matrix, options)
 		} else {
 			return CTFontCreateWithNameAndOptions(name as NSString, size, nil, options)
@@ -113,7 +113,7 @@ public extension CTFont {
 	/// descriptor, unless they are unspecified. A best match font will always be returned, and default
 	/// values will be used for any unspecified.
 	class func create(with descriptor: CTFontDescriptor, size: CGFloat, matrix: CGAffineTransform? = nil, options: Options) -> CTFont {
-		if var matrix = matrix {
+		if var matrix {
 			return CTFontCreateWithFontDescriptorAndOptions(descriptor, size, &matrix, options)
 		} else {
 			return CTFontCreateWithFontDescriptorAndOptions(descriptor, size, nil, options)
@@ -139,7 +139,7 @@ public extension CTFont {
 	/// If `nil`, the identity matrix is used. Optional.
 	/// - parameter attributes: Additional attributes that should be matched. Can be `nil`, default is `nil`.
 	class func create(graphicsFont: CGFont, size: CGFloat, matrix: CGAffineTransform? = nil, attributes: CTFontDescriptor? = nil) -> CTFont {
-		if var matrix = matrix {
+		if var matrix {
 			return CTFontCreateWithGraphicsFont(graphicsFont, size, &matrix, attributes)
 		} else {
 			return CTFontCreateWithGraphicsFont(graphicsFont, size, nil, attributes)
@@ -357,7 +357,7 @@ public extension CTFont {
 	/// slider.
 	/// - returns: A new font reference converted from the original with the specified attributes.
 	func copy(withAttributes attributes: CTFontDescriptor?, size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont {
-		if var matrix = matrix {
+		if var matrix {
 			return CTFontCreateCopyWithAttributes(self, size, &matrix, attributes)
 		} else {
 			return CTFontCreateCopyWithAttributes(self, size, nil, attributes)
@@ -376,7 +376,7 @@ public extension CTFont {
 	/// - returns: a new font reference in the same family with the given symbolic traits, or `nil` if none
 	/// found in the system.
 	func copy(withSymbolicTraits symTraits: (traits: SymbolicTraits, mask: SymbolicTraits), size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont? {
-		if var matrix = matrix {
+		if var matrix {
 			return CTFontCreateCopyWithSymbolicTraits(self, size, &matrix, symTraits.traits, symTraits.mask)
 		} else {
 			return CTFontCreateCopyWithSymbolicTraits(self, size, nil, symTraits.traits, symTraits.mask)
@@ -393,7 +393,7 @@ public extension CTFont {
 	/// - returns: Returns a new font reference with the original traits in the given family. `nil` if not
 	/// found in the system.
 	func copy(withFamilyName family: String, size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont? {
-		if var matrix = matrix {
+		if var matrix {
 			return CTFontCreateCopyWithFamily(self, size, &matrix, family as NSString)
 		} else {
 			return CTFontCreateCopyWithFamily(self, size, nil, family as NSString)

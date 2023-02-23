@@ -25,65 +25,66 @@ public enum AudioComponentType: Hashable {
 	case unknown(type: OSType, subType: OSType)
 	
 	public init(type rawType: OSType, subType AUSubtype: OSType) {
-		switch rawType {
-		case AUType.output.rawValue:
+		guard let aType = AUType(rawValue: rawType) else {
+			self = .unknown(type: rawType, subType: AUSubtype)
+			return
+		}
+		switch aType {
+		case .output:
 			if let aOut = AUOutput(rawValue: AUSubtype) {
 				self = .output(aOut)
 				return
 			}
 			
-		case AUType.musicDevice.rawValue:
+		case .musicDevice:
 			if let aDevice = AUInstrument(rawValue: AUSubtype) {
 				self = .musicDevice(aDevice)
 				return
 			}
 			
-		case AUType.musicEffect.rawValue:
+		case .musicEffect:
 			self = .musicEffect(AUSubtype)
 			return
 			
-		case AUType.formatConverter.rawValue:
+		case .formatConverter:
 			if let aForm = AUConverter(rawValue: AUSubtype) {
 				self = .formatConverter(aForm)
 				return
 			}
 			
-		case AUType.effect.rawValue:
+		case .effect:
 			if let aEffect = AUEffect(rawValue: AUSubtype) {
 				self = .effect(aEffect)
 				return
 			}
 			
-		case AUType.mixer.rawValue:
+		case .mixer:
 			if let aMix = AUMixer(rawValue: AUSubtype) {
 				self = .mixer(aMix)
 				return
 			}
 			
-		case AUType.panner.rawValue:
+		case .panner:
 			if let aPann = AUPanner(rawValue: AUSubtype) {
 				self = .panner(aPann)
 				return
 			}
 			
-		case AUType.generator.rawValue:
+		case .generator:
 			if let aGen = AUGenerator(rawValue: AUSubtype) {
 				self = .generator(aGen)
 				return
 			}
 			
-		case AUType.offlineEffect.rawValue:
+		case .offlineEffect:
 			if let aEffect = AUEffect(rawValue: AUSubtype) {
 				self = .offlineEffect(aEffect)
 				return
 			}
 			
-		case AUType.MIDIProcessor.rawValue:
+		case .MIDIProcessor:
 			self = .MIDIProcessor(AUSubtype)
 			return
-			
-		default:
-			break;
 		}
 		
 		
@@ -182,7 +183,9 @@ public enum AudioComponentType: Hashable {
 	}
 	
 	public enum AUGenerator: OSType, OSTypeConvertable {
+		#if os(OSX)
 		case netReceive = 0x6E726376
+		#endif
 		case scheduledSoundPlayer = 0x7373706C
 		case audioFilePlayer = 0x6166706C
 	}
