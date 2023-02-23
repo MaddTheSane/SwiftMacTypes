@@ -484,20 +484,20 @@ public extension AttributeScopes {
 			public static func objectiveCValue(for value: [CTBaselineClass: Float]) throws -> NSDictionary {
 				let outDict = NSMutableDictionary(capacity: value.count)
 				for (key, val) in value {
-					outDict[key.rawValue as String] = val
+					outDict[key.rawValue] = NSNumber(value: val)
 				}
 				return outDict
 			}
 			
 			public static func value(for object: NSDictionary) throws -> [CTBaselineClass: Float] {
-				guard let a = object as? [String: Float] else {
+				guard let a = object as? [NSString: NSNumber] else {
 					throw CocoaError(.coderInvalidValue)
 				}
-				let retDict = try a.map { (key: String, value: Float) -> (CTBaselineClass, Float) in
-					guard let val = CTBaselineClass(stringValue: key) else {
-						throw CocoaError(.coderInvalidValue)
+				let retDict = try a.map { (key: CFString, value: NSNumber) -> (CTBaselineClass, Float) in
+					guard let val = CTBaselineClass(rawValue: key) else {
+						throw CocoaError(.coderInvalidValue, userInfo: [NSLocalizedDescriptionKey: "Unknown baseline class \(key)"])
 					}
-					return (val, value)
+					return (val, value.floatValue)
 				}
 				return Dictionary(uniqueKeysWithValues: retDict)
 			}
