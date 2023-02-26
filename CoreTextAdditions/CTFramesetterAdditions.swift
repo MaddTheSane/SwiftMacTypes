@@ -57,6 +57,66 @@ public extension CTFramesetter {
 		return CTFramesetterCreateFrame(self, stringRange, path, frameAttributes)
 	}
 	
+	/// Creates an immutable frame from a framesetter.
+	///
+	/// This call will create a frame full of glyphs in the shape of
+	/// the path provided by the "path" parameter. The framesetter
+	/// will continue to fill the frame until it either runs out of
+	/// text or it finds that text no longer fits.
+	/// - parameter stringRange: The string range which the new frame will be based on. The
+	/// string range is a range over the string that was used to
+	/// create the framesetter. If the length portion of the range
+	/// is set to *0*, then the framesetter will continue to add lines
+	/// until it runs out of text or space.
+	/// - parameter path: A CGPath object that specifies the shape which the frame will
+	/// take on.
+	/// - parameter attributes: Additional attributes that control the frame filling process
+	/// can be specified here.
+	/// - returns: This function will return a reference to a new `CTFrame` object.
+	func frame(withStringRange stringRange: CFRange, path: CGPath, attributes: [CTFrame.Attributes: Any]) -> CTFrame {
+		//sanitize input
+		let preAttr = attributes.map { (key: CTFrame.Attributes, value: Any) -> (CFString, Any) in
+			switch key {
+			case .progression:
+				if let value = value as? CTFrameProgression {
+					return (key.rawValue, value.rawValue)
+				}
+			case .pathFillRule:
+				if let value = value as? CTFramePathFillRule {
+					return (key.rawValue, value.rawValue)
+				}
+			case .pathWidth:
+				break
+			case .clippingPaths:
+				if let value = value as? [[CTFrame.Attributes.ClippingPathKeys: Any]] {
+					let mapped1 = value.map { val2 -> [CFString: Any] in
+						let mapped2 = val2.map { (key: CTFrame.Attributes.ClippingPathKeys, value: Any) -> (CFString, Any) in
+							switch key {
+							case .fillRule:
+								if let value = value as? CTFramePathFillRule {
+									return (key.rawValue, value.rawValue)
+								}
+							case .width:
+								break
+							case .clippingPath:
+								break
+							}
+							return (key.rawValue, value)
+						}
+						return Dictionary(uniqueKeysWithValues: mapped2)
+					}
+					return (key.rawValue, mapped1)
+				}
+			case .pathClippingPath:
+				break
+			}
+			return (key.rawValue, value)
+		}
+		
+		var frameAttributes = Dictionary(uniqueKeysWithValues: preAttr)
+		return CTFramesetterCreateFrame(self, stringRange, path, frameAttributes as CFDictionary)
+	}
+	
 	/// Returns the typesetter object being used by the framesetter.
 	///
 	/// Each framesetter uses a typesetter internally to perform

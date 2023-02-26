@@ -25,6 +25,128 @@ public extension CTFrame {
 	/// area of the path.
 	typealias PathFillRule = CTFramePathFillRule
 	
+	enum Attributes: RawRepresentable {
+		public typealias RawValue = CFString
+		
+		public init?(rawValue: CFString) {
+			switch rawValue {
+			case kCTFrameProgressionAttributeName:
+				self = .progression
+				
+			case kCTFramePathFillRuleAttributeName:
+				self = .pathFillRule
+				
+			case kCTFramePathWidthAttributeName:
+				self = .pathWidth
+
+			case kCTFrameClippingPathsAttributeName:
+				self = .clippingPaths
+				
+			case kCTFramePathClippingPathAttributeName:
+				self = .pathClippingPath
+				
+			default:
+				return nil
+			}
+		}
+		
+		public var rawValue: CFString {
+			switch self {
+			case .progression:
+				return kCTFrameProgressionAttributeName
+			case .pathFillRule:
+				return kCTFramePathFillRuleAttributeName
+			case .pathWidth:
+				return kCTFramePathWidthAttributeName
+			case .clippingPaths:
+				return kCTFrameClippingPathsAttributeName
+			case .pathClippingPath:
+				return kCTFramePathClippingPathAttributeName
+			}
+		}
+		
+		/// Specifies progression for a frame.
+		///
+		/// Value must be a `CTFrame.Progression` or a `CFNumberRef` containing a `CTFrame.Progression`.
+		/// Default is `.topToBottom`. This value determines
+		/// the line stacking behavior for a frame and does not affect the
+		/// appearance of the glyphs within that frame.
+		case progression
+		
+		/// Specifies fill rule for a frame if this attribute is used at top level of `frameAttributes` dictionary.
+		///
+		/// Value must be a `CTFrame.PathFillRule` or a `CFNumber` containing `CTFrame.PathFillRule.evenOdd` or `CTFrame.PathFillRule.windingNumber`.<br/>
+		/// Default is `CTFrame.PathFillRule.evenOdd`.
+		case pathFillRule
+		
+		/// Specifies frame width if this attribute is used at top level of `frameAttributes` dictionary.
+		///
+		/// Value must be a `CFNumberRef` specifying frame width.<br/>
+		/// Default is zero.
+		case pathWidth
+		
+		/// Specifies array of paths to clip frame.
+		///
+		/// Value must be a `CFArray` containing `CFDictionary`s or `CGPath`s.  (`CGPath` is allowed on 10.8 or later.)
+		/// Each dictionary should have a `kCTFramePathClippingPathAttributeName` key-value pair, and can have a `kCTFramePathFillRuleAttributeName` key-value pair
+		/// and `kCTFramePathFillRuleAttributeName` key-value pair as optional parameters.  In case of CGPathRef, default fill rule (`CTFrame.PathFillRule.evenOdd`) and width (`0.0`) are used.
+		case clippingPaths
+
+		/// Specifies clipping path.  This attribute is valid in a dictionary contained in an array specified by kCTFrameClippingPathsAttributeName.
+		/// On 10.8 or later, This attribute is also valid in frameAttributes dictionary passed to `CTFramesetterCreateFrame`.
+		///
+		/// Value must be a `CGPath` specifying a clipping path.
+		case pathClippingPath
+		
+		public enum ClippingPathKeys: RawRepresentable {
+			public typealias RawValue = CFString
+			
+			public init?(rawValue: CFString) {
+				switch rawValue {
+				case kCTFramePathFillRuleAttributeName:
+					self = .fillRule
+					
+				case kCTFramePathWidthAttributeName:
+					self = .width
+
+				case kCTFramePathClippingPathAttributeName:
+					self = .clippingPath
+					
+				default:
+					return nil
+				}
+			}
+			
+			public var rawValue: CFString {
+				switch self {
+				case .fillRule:
+					return kCTFramePathFillRuleAttributeName
+				case .width:
+					return kCTFramePathWidthAttributeName
+				case .clippingPath:
+					return kCTFramePathClippingPathAttributeName
+				}
+			}
+			
+			/// Specifies fill rule for a clipping path.
+			///
+			/// Value must be a `CTFrame.PathFillRule` or a `CFNumber` containing `CTFrame.PathFillRule.evenOdd` or `CTFrame.PathFillRule.windingNumber`.<br/>
+			/// Default is `CTFrame.PathFillRule.evenOdd`.
+			case fillRule
+			
+			/// Specifies clipping path width.
+			///
+			/// Value must be a `CFNumberRef` specifying frame width.<br/>
+			/// Default is zero.
+			case width
+			
+			/// Specifies clipping path.
+			///
+			/// Value must be a `CGPath` specifying a clipping path.
+			case clippingPath
+		}
+	}
+	
 	/// Returns the range of characters that were originally requested
 	/// to fill the frame.
 	///
@@ -51,8 +173,46 @@ public extension CTFrame {
 	///
 	/// You can create a frame with an attributes dictionary to control various aspects of the framing process.
 	/// These attributes are different from the ones used to create an attributed string.
-	var frameAttributes: [String: Any]? {
-		return CTFrameGetFrameAttributes(self) as? [String: Any]
+	var frameAttributes: [Attributes: Any]? {
+		guard let preAttr = CTFrameGetFrameAttributes(self) as? [NSString: Any] else {
+			return nil
+		}
+		let postAttr = preAttr.compactMap { (key: NSString, value: Any) -> (Attributes, Any)? in
+			guard let key2 = Attributes(rawValue: key) else {
+				return nil
+			}
+			switch key2 {
+			case .progression:
+				if let val2 = value as? NSNumber,
+				   let val3 = Progression(rawValue: val2.uint32Value) {
+					return (key2, val3)
+				}
+			case .pathFillRule:
+				if let val2 = value as? NSNumber,
+				   let val3 = PathFillRule(rawValue: val2.uint32Value) {
+					return (key2, val3)
+				}
+			case .clippingPaths:
+				if let val2 = value as? [NSString: Any] {
+					let val3 = val2.compactMap { (key: NSString, value: Any) -> (Attributes.ClippingPathKeys, Any)? in
+						guard let key4 = Attributes.ClippingPathKeys(rawValue: key) else {
+							return nil
+						}
+						if key4 == .fillRule,
+						   let val4 = value as? NSNumber,
+						   let val5 = PathFillRule(rawValue: val4.uint32Value) {
+							return (key4, val5)
+						}
+						return (key4, value)
+					}
+					return (key2, Dictionary(uniqueKeysWithValues: val3))
+				}
+			default:
+				return (key2, value)
+			}
+			return nil
+		}
+		return Dictionary(uniqueKeysWithValues: postAttr)
 	}
 	
 	/// The path used to create the frame.
