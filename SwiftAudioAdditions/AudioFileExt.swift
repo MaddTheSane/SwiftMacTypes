@@ -418,7 +418,7 @@ public extension AudioStreamBasicDescription {
 	}
 	
 	var sampleWordSize: UInt32 {
-		return (mBytesPerFrame > 0 && interleavedChannels != 0) ? mBytesPerFrame / interleavedChannels :  0;
+		return (mBytesPerFrame > 0 && interleavedChannels != 0) ? mBytesPerFrame / interleavedChannels : 0
 	}
 	
 	/// The audio format must be PCM, otherwise this won't work!
@@ -470,7 +470,7 @@ public extension AudioStreamBasicDescription {
 		let wordSize: UInt32 = { // get this before changing ANYTHING
 			var ws = sampleWordSize
 			if ws == 0 {
-				ws = (mBitsPerChannel + 7) / 8;
+				ws = (mBitsPerChannel + 7) / 8
 			}
 			return ws
 		}()
@@ -502,7 +502,7 @@ public extension AudioStreamBasicDescription {
 				&& (mChannelsPerFrame <= 1024)
 				&& (mBitsPerChannel <= 1024)
 				&& (mFormatID != 0)
-				&& !(mFormatID == kAudioFormatLinearPCM && (mFramesPerPacket != 1 || mBytesPerPacket != mBytesPerFrame));
+				&& !(mFormatID == kAudioFormatLinearPCM && (mFramesPerPacket != 1 || mBytesPerPacket != mBytesPerFrame))
 	}
 	
 	///	format[@sample_rate_hz][/format_flags][#frames_per_packet][:LHbytesPerFrame][,channelsDI].
@@ -541,7 +541,7 @@ public extension AudioStreamBasicDescription {
 		}
 		
 		if fromText[charIterator] == "B" && fromText[fromText.index(after: charIterator)] == "E" {
-			pcmFlags |= kLinearPCMFormatFlagIsBigEndian;
+			pcmFlags |= kLinearPCMFormatFlagIsBigEndian
 			fromText.formIndex(&charIterator, offsetBy: 2)
 		} else if fromText[charIterator] == "L" && fromText[fromText.index(after: charIterator)] == "E" {
 			fromText.formIndex(&charIterator, offsetBy: 2)
@@ -554,16 +554,16 @@ public extension AudioStreamBasicDescription {
 			fromText.formIndex(after: &charIterator)
 		} else {
 			if nextChar() == "U" {
-				pcmFlags &= ~kAudioFormatFlagIsSignedInteger;
+				pcmFlags &= ~kAudioFormatFlagIsSignedInteger
 				fromText.formIndex(after: &charIterator)
 			}
 			if nextChar() == "I" {
 				fromText.formIndex(after: &charIterator)
 			} else {
 				// it's not PCM; presumably some other format (NOT VALIDATED; use AudioFormat for that)
-				isPCM = false;
-				charIterator = fromText.startIndex;	// go back to the beginning
-				var buf = Array<Int8>(repeating: 0x20, count: 4);
+				isPCM = false
+				charIterator = fromText.startIndex	// go back to the beginning
+				var buf = Array<Int8>(repeating: 0x20, count: 4)
 				for (i, var aBuf) in buf.enumerated() {
 					if nextChar() != "\\" {
 						let wasAdvanced: Bool
@@ -586,9 +586,9 @@ public extension AudioStreamBasicDescription {
 							if wasAdvanced {
 								fromText.formIndex(before: &charIterator)	// keep pointing at the terminating null
 							}
-							aBuf = 0x20;
+							aBuf = 0x20
 							buf[i] = aBuf
-							break;
+							break
 						}
 					} else {
 						// "\xNN" is a hex byte
@@ -621,7 +621,7 @@ public extension AudioStreamBasicDescription {
 					fromText.formIndex(before: &charIterator)
 				}
 				
-				memcpy(&mFormatID, buf, 4);
+				memcpy(&mFormatID, buf, 4)
 				mFormatID = mFormatID.bigEndian
 			}
 		}
@@ -649,7 +649,7 @@ public extension AudioStreamBasicDescription {
 				bitdepth += fracbits
 				mFormatFlags |= (fracbits << kLinearPCMFormatFlagsSampleFractionShift)
 			}
-			mBitsPerChannel = bitdepth;
+			mBitsPerChannel = bitdepth
 			mBytesPerFrame = (bitdepth + 7) / 8
 			mBytesPerPacket = mBytesPerFrame
 			if (bitdepth & 7) != 0 {
@@ -667,7 +667,7 @@ public extension AudioStreamBasicDescription {
 			}
 		}
 		if nextChar() == "/" {
-			var flags: UInt32 = 0;
+			var flags: UInt32 = 0
 			while true {
 				fromText.formIndex(after: &charIterator)
 				guard charIterator < fromText.endIndex,
@@ -677,16 +677,16 @@ public extension AudioStreamBasicDescription {
 				//Int(hex)
 				
 				if (ASCIICharacter.numberZero ... ASCIICharacter.numberNine).contains(bChar) {
-					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.numberZero.rawValue);
+					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.numberZero.rawValue)
 				} else if (ASCIICharacter.letterUppercaseA ... ASCIICharacter.letterUppercaseF).contains(bChar) {
 					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.letterUppercaseA.rawValue + 10)
 				} else if (ASCIICharacter.letterLowercaseA ... ASCIICharacter.letterLowercaseF).contains(bChar) {
 					flags = (flags << 4) | UInt32(bChar.rawValue - ASCIICharacter.letterLowercaseA.rawValue + 10)
 				} else {
-					break;
+					break
 				}
 			}
-			mFormatFlags = flags;
+			mFormatFlags = flags
 		}
 		if nextChar() == "#" {
 			fromText.formIndex(after: &charIterator)
@@ -701,12 +701,12 @@ public extension AudioStreamBasicDescription {
 			if fromText[charIterator] == "L" {
 				mFormatFlags &= ~kLinearPCMFormatFlagIsAlignedHigh
 			} else if fromText[charIterator] == "H" {
-				mFormatFlags |= kLinearPCMFormatFlagIsAlignedHigh;
+				mFormatFlags |= kLinearPCMFormatFlagIsAlignedHigh
 			} else {
 				throw ASBDError.invalidFormat
 			}
 			fromText.formIndex(after: &charIterator)
-			var bytesPerFrame: UInt32 = 0;
+			var bytesPerFrame: UInt32 = 0
 			while let aNum = numFromCurrentChar() {
 				bytesPerFrame = 10 * bytesPerFrame + UInt32(aNum)
 				fromText.formIndex(after: &charIterator)
@@ -716,18 +716,18 @@ public extension AudioStreamBasicDescription {
 		}
 		if nextChar() == "," {
 			fromText.formIndex(after: &charIterator)
-			var ch = 0;
+			var ch = 0
 			while let aNum = numFromCurrentChar() {
 				ch = 10 * ch + aNum
 				fromText.formIndex(after: &charIterator)
 			}
-			mChannelsPerFrame = UInt32(ch);
+			mChannelsPerFrame = UInt32(ch)
 			if nextChar() == "D" {
 				fromText.formIndex(after: &charIterator)
 				guard mFormatID == kAudioFormatLinearPCM else {
 					throw ASBDError.invalidInterleavedFlag
 				}
-				mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
+				mFormatFlags |= kAudioFormatFlagIsNonInterleaved
 			} else {
 				if nextChar() == "I" {
 					fromText.formIndex(after: &charIterator)
@@ -752,7 +752,7 @@ private func CAStringForOSType(_ val: OSType) -> String {
 		var tmpStr = val.bigEndian
 		memcpy(&str, &tmpStr, MemoryLayout<OSType>.size)
 	}
-	var hasNonPrint = false;
+	var hasNonPrint = false
 	for p in str {
 		if !(isprint(Int32(p)) != 0 && p != ASCIICharacter.backSlashCharacter.rawValue) {
 			hasNonPrint = true
@@ -784,14 +784,14 @@ extension AudioStreamBasicDescription: CustomStringConvertible {
 		
 		switch mFormatID {
 		case kAudioFormatLinearPCM:
-			let isInt = (mFormatFlags & kLinearPCMFormatFlagIsFloat) == 0;
+			let isInt = (mFormatFlags & kLinearPCMFormatFlagIsFloat) == 0
 			let wordSize = sampleWordSize
 			
 			let endian = (wordSize > 1) ?
-				((mFormatFlags & kLinearPCMFormatFlagIsBigEndian) == kLinearPCMFormatFlagIsBigEndian ? " big-endian" : " little-endian" ) : "";
+				((mFormatFlags & kLinearPCMFormatFlagIsBigEndian) == kLinearPCMFormatFlagIsBigEndian ? " big-endian" : " little-endian" ) : ""
 			let sign = isInt ?
-				((mFormatFlags & kLinearPCMFormatFlagIsSignedInteger) == kLinearPCMFormatFlagIsSignedInteger ? " signed" : " unsigned") : "";
-			let floatInt = isInt ? "integer" : "float";
+				((mFormatFlags & kLinearPCMFormatFlagIsSignedInteger) == kLinearPCMFormatFlagIsSignedInteger ? " signed" : " unsigned") : ""
+			let floatInt = isInt ? "integer" : "float"
 			
 			let packed: String
 			if wordSize > 0 && isPackednessSignificant {
@@ -805,13 +805,13 @@ extension AudioStreamBasicDescription: CustomStringConvertible {
 			}
 			
 			let align = (wordSize > 0 && isAlignmentSignificant) ?
-				((mFormatFlags & kLinearPCMFormatFlagIsAlignedHigh) == kLinearPCMFormatFlagIsAlignedHigh ? " high-aligned" : " low-aligned") : "";
-			let deinter = (mFormatFlags & kAudioFormatFlagIsNonInterleaved) == kAudioFormatFlagIsNonInterleaved ? ", deinterleaved" : "";
-			let commaSpace = (packed.isEmpty) || (!align.isEmpty) ? ", " : "";
+				((mFormatFlags & kLinearPCMFormatFlagIsAlignedHigh) == kLinearPCMFormatFlagIsAlignedHigh ? " high-aligned" : " low-aligned") : ""
+			let deinter = (mFormatFlags & kAudioFormatFlagIsNonInterleaved) == kAudioFormatFlagIsNonInterleaved ? ", deinterleaved" : ""
+			let commaSpace = (packed.isEmpty) || (!align.isEmpty) ? ", " : ""
 			
 			let bitdepth: String
 			
-			let fracbits = (mFormatFlags & kLinearPCMFormatFlagsSampleFractionMask) >> kLinearPCMFormatFlagsSampleFractionShift;
+			let fracbits = (mFormatFlags & kLinearPCMFormatFlagsSampleFractionMask) >> kLinearPCMFormatFlagsSampleFractionShift
 			if fracbits > 0 {
 				bitdepth = "\(mBitsPerChannel - fracbits).\(fracbits)"
 			} else {
@@ -854,46 +854,46 @@ extension AudioStreamBasicDescription: CustomStringConvertible {
 }
 
 private func matchFormatFlags(_ x: AudioStreamBasicDescription, _ y: AudioStreamBasicDescription) -> Bool {
-	var xFlags = x.mFormatFlags;
-	var yFlags = y.mFormatFlags;
+	var xFlags = x.mFormatFlags
+	var yFlags = y.mFormatFlags
 	
 	// match wildcards
 	if (x.mFormatID == 0 || y.mFormatID == 0 || xFlags == 0 || yFlags == 0) {
-		return true;
+		return true
 	}
 	
 	if x.mFormatID == kAudioFormatLinearPCM {
 		// knock off the all clear flag
-		xFlags &= ~kAudioFormatFlagsAreAllClear;
-		yFlags &= ~kAudioFormatFlagsAreAllClear;
+		xFlags &= ~kAudioFormatFlagsAreAllClear
+		yFlags &= ~kAudioFormatFlagsAreAllClear
 		
 		// if both kAudioFormatFlagIsPacked bits are set, then we don't care about the kAudioFormatFlagIsAlignedHigh bit.
 		if ((xFlags & yFlags & kAudioFormatFlagIsPacked) == kAudioFormatFlagIsPacked) {
-			xFlags &= ~kAudioFormatFlagIsAlignedHigh;
-			yFlags &= ~kAudioFormatFlagIsAlignedHigh;
+			xFlags &= ~kAudioFormatFlagIsAlignedHigh
+			yFlags &= ~kAudioFormatFlagIsAlignedHigh
 		}
 		
 		// if both kAudioFormatFlagIsFloat bits are set, then we don't care about the kAudioFormatFlagIsSignedInteger bit.
 		if (xFlags & yFlags & kAudioFormatFlagIsFloat) == kAudioFormatFlagIsFloat {
-			xFlags &= ~kAudioFormatFlagIsSignedInteger;
-			yFlags &= ~kAudioFormatFlagIsSignedInteger;
+			xFlags &= ~kAudioFormatFlagIsSignedInteger
+			yFlags &= ~kAudioFormatFlagIsSignedInteger
 		}
 		
 		//	if the bit depth is 8 bits or less and the format is packed, we don't care about endianness
 		if (x.mBitsPerChannel <= 8) && ((xFlags & kAudioFormatFlagIsPacked) == kAudioFormatFlagIsPacked) {
-			xFlags &= ~kAudioFormatFlagIsBigEndian;
+			xFlags &= ~kAudioFormatFlagIsBigEndian
 		}
 		if (y.mBitsPerChannel <= 8) && ((yFlags & kAudioFormatFlagIsPacked) == kAudioFormatFlagIsPacked) {
-			yFlags &= ~kAudioFormatFlagIsBigEndian;
+			yFlags &= ~kAudioFormatFlagIsBigEndian
 		}
 		
 		//	if the number of channels is 1, we don't care about non-interleavedness
 		if x.mChannelsPerFrame == 1 && y.mChannelsPerFrame == 1 {
-			xFlags &= ~kLinearPCMFormatFlagIsNonInterleaved;
-			yFlags &= ~kLinearPCMFormatFlagIsNonInterleaved;
+			xFlags &= ~kLinearPCMFormatFlagIsNonInterleaved
+			yFlags &= ~kLinearPCMFormatFlagIsNonInterleaved
 		}
 	}
-	return xFlags == yFlags;
+	return xFlags == yFlags
 }
 
 extension AudioStreamBasicDescription: Comparable {
@@ -941,8 +941,8 @@ extension AudioStreamBasicDescription: Comparable {
 	}
 
 	public static func <(x: AudioStreamBasicDescription, y: AudioStreamBasicDescription) -> Bool {
-		var theAnswer = false;
-		var isDone = false;
+		var theAnswer = false
+		var isDone = false
 		
 		//	note that if either side is 0, that field is skipped
 		
@@ -952,24 +952,24 @@ extension AudioStreamBasicDescription: Comparable {
 				//	formats are sorted numerically except that linear
 				//	PCM is always first
 				if x.mFormatID == kAudioFormatLinearPCM {
-					theAnswer = true;
+					theAnswer = true
 				} else if y.mFormatID == kAudioFormatLinearPCM {
-					theAnswer = false;
+					theAnswer = false
 				} else {
-					theAnswer = x.mFormatID < y.mFormatID;
+					theAnswer = x.mFormatID < y.mFormatID
 				}
-				isDone = true;
+				isDone = true
 			}
 		}
 		
 		//  mixable is always better than non-mixable for linear PCM and should be the second order sort item
 		if (!isDone) && ((x.mFormatID == kAudioFormatLinearPCM) && (y.mFormatID == kAudioFormatLinearPCM)) {
 			if ((x.mFormatFlags & kAudioFormatFlagIsNonMixable) == 0) && ((y.mFormatFlags & kAudioFormatFlagIsNonMixable) != 0) {
-				theAnswer = true;
-				isDone = true;
+				theAnswer = true
+				isDone = true
 			} else if ((x.mFormatFlags & kAudioFormatFlagIsNonMixable) != 0) && ((y.mFormatFlags & kAudioFormatFlagIsNonMixable) == 0) {
-				theAnswer = false;
-				isDone = true;
+				theAnswer = false
+				isDone = true
 			}
 		}
 		
@@ -978,7 +978,7 @@ extension AudioStreamBasicDescription: Comparable {
 			if (x.mFormatFlags & kAudioFormatFlagIsFloat) != (y.mFormatFlags & kAudioFormatFlagIsFloat) {
 				//	floating point is better than integer
 				theAnswer = (y.mFormatFlags & kAudioFormatFlagIsFloat) != 0
-				isDone = true;
+				isDone = true
 			}
 		}
 		
@@ -986,8 +986,8 @@ extension AudioStreamBasicDescription: Comparable {
 		if (!isDone) && (x.mBitsPerChannel != 0 && y.mBitsPerChannel != 0) {
 			if x.mBitsPerChannel != y.mBitsPerChannel {
 				//	deeper bit depths are higher quality
-				theAnswer = x.mBitsPerChannel < y.mBitsPerChannel;
-				isDone = true;
+				theAnswer = x.mBitsPerChannel < y.mBitsPerChannel
+				isDone = true
 			}
 		}
 		
@@ -995,8 +995,8 @@ extension AudioStreamBasicDescription: Comparable {
 		if (!isDone) && (x.mSampleRate != 0) && (y.mSampleRate != 0) {
 			if x.mSampleRate != y.mSampleRate {
 				//	higher sample rates are higher quality
-				theAnswer = x.mSampleRate < y.mSampleRate;
-				isDone = true;
+				theAnswer = x.mSampleRate < y.mSampleRate
+				isDone = true
 			}
 		}
 		
@@ -1004,8 +1004,8 @@ extension AudioStreamBasicDescription: Comparable {
 		if (!isDone) && (x.mChannelsPerFrame != 0 && y.mChannelsPerFrame != 0) {
 			if x.mChannelsPerFrame != y.mChannelsPerFrame {
 				//	more channels is higher quality
-				theAnswer = x.mChannelsPerFrame < y.mChannelsPerFrame;
-				//isDone = true;
+				theAnswer = x.mChannelsPerFrame < y.mChannelsPerFrame
+				//isDone = true
 			}
 		}
 		

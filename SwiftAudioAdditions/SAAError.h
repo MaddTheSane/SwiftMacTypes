@@ -32,7 +32,7 @@
 #endif
 
 extern NSErrorDomain const SAACoreAudioErrorDomain;
-//! Errors found in the audio frameworks of Mac OS X/iOS
+//! Errors found in the audio frameworks of macOS/iOS
 typedef MTS_ERROR_ENUM(OSStatus, SAACoreAudioErrorDomain, SAACoreAudioError) {
 	SAACoreAudioErrorInvalidProperty = kAudioUnitErr_InvalidProperty,
 	SAACoreAudioErrorInvalidParameter = kAudioUnitErr_InvalidParameter,
