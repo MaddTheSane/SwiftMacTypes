@@ -113,7 +113,7 @@ public extension CTFramesetter {
 			return (key.rawValue, value)
 		}
 		
-		var frameAttributes = Dictionary(uniqueKeysWithValues: preAttr)
+		let frameAttributes = Dictionary(uniqueKeysWithValues: preAttr)
 		return CTFramesetterCreateFrame(self, stringRange, path, frameAttributes as CFDictionary)
 	}
 	

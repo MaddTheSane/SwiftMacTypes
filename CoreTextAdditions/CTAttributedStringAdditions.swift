@@ -8,6 +8,11 @@
 
 import Foundation
 import CoreText
+#if os(OSX)
+import AppKit.NSFont
+#else
+import UIKit.UIFont
+#endif
 
 @available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
 public extension AttributeScopes {
@@ -228,9 +233,22 @@ public extension AttributeScopes {
 		/// corresponding to a RLO/PDF pair in plain text or `<bdo dir="rtl"></bdo>` in HTML.
 		public let writingDirection: WritingDirectionAttribute
 
-		@frozen public enum FontAttribute : AttributedStringKey {			
+		@frozen public enum FontAttribute : AttributedStringKey, ObjectiveCConvertibleAttributedStringKey {
+#if os(OSX)
+			public typealias ObjectiveCValue = NSFont
+#else
+			public typealias ObjectiveCValue = UIFont
+#endif
 			public typealias Value = CTFont
-						
+			
+			public static func objectiveCValue(for value: CTFont) throws -> ObjectiveCValue {
+				return value as ObjectiveCValue
+			}
+			
+			public static func value(for object: ObjectiveCValue) throws -> CTFont {
+				return object as CTFont
+			}
+			
 			public static var name: String {
 				return kCTFontAttributeName as String
 			}
@@ -241,7 +259,7 @@ public extension AttributeScopes {
 			public typealias Value = Bool
 
 			public static func objectiveCValue(for value: Bool) throws -> NSNumber {
-				return value as NSNumber
+				return NSNumber(booleanLiteral: value)
 			}
 			
 			public static func value(for object: NSNumber) throws -> Bool {
@@ -258,7 +276,7 @@ public extension AttributeScopes {
 			public typealias Value = Float
 
 			public static func objectiveCValue(for value: Float) throws -> NSNumber {
-				return value as NSNumber
+				return NSNumber(value: value)
 			}
 			
 			public static func value(for object: NSNumber) throws -> Float {
@@ -310,7 +328,7 @@ public extension AttributeScopes {
 			public typealias Value = Int
 
 			public static func objectiveCValue(for value: Int) throws -> NSNumber {
-				return value as NSNumber
+				return NSNumber(value: value)
 			}
 			
 			public static func value(for object: NSNumber) throws -> Int {
@@ -327,7 +345,7 @@ public extension AttributeScopes {
 			public typealias Value = Int
 
 			public static func objectiveCValue(for value: Int) throws -> NSNumber {
-				return value as NSNumber
+				return NSNumber(value: value)
 			}
 			
 			public static func value(for object: NSNumber) throws -> Int {
@@ -360,7 +378,7 @@ public extension AttributeScopes {
 			public typealias Value = Float
 
 			public static func objectiveCValue(for value: Float) throws -> NSNumber {
-				return value as NSNumber
+				return NSNumber(value: value)
 			}
 			
 			public static func value(for object: NSNumber) throws -> Float {
@@ -393,7 +411,7 @@ public extension AttributeScopes {
 			public typealias Value = Bool
 
 			public static func objectiveCValue(for value: Bool) throws -> NSNumber {
-				return value as NSNumber
+				return NSNumber(value: value)
 			}
 			
 			public static func value(for object: NSNumber) throws -> Bool {
@@ -410,7 +428,7 @@ public extension AttributeScopes {
 			public typealias Value = Int
 
 			public static func objectiveCValue(for value: Int) throws -> NSNumber {
-				return value as NSNumber
+				return NSNumber(value: value)
 			}
 			
 			public static func value(for object: NSNumber) throws -> Int {
@@ -578,7 +596,7 @@ public extension AttributeScopes {
 		
 		/// Wrapper used by `WritingDirectionAttribute` to make sure that only valid values are passed
 		/// to it.
-		public struct WritingDirection: RawRepresentable, Codable, Hashable {
+		public struct WritingDirection: RawRepresentable, Codable, Hashable, @unchecked Sendable, Equatable {
 			public typealias RawValue = Int
 			private(set) public var rawValue: Int
 			

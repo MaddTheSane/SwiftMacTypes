@@ -57,7 +57,7 @@ public extension CTFont {
 		if var matrix {
 			return CTFontCreateWithName(name as NSString, size, &matrix)
 		} else {
-			return CTFontCreateWithName(name as NSString, size, nil)
+			return self.init(name as NSString, size: size)
 		}
 	}
 	
@@ -75,7 +75,7 @@ public extension CTFont {
 		if var matrix {
 			return CTFontCreateWithFontDescriptor(descriptor, size, &matrix)
 		} else {
-			return CTFontCreateWithFontDescriptor(descriptor, size, nil)
+			return CTFont(descriptor, size: size)
 		}
 	}
 	
@@ -146,7 +146,7 @@ public extension CTFont {
 		}
 	}
 	
-	enum FontNameKey: CustomStringConvertible, RawRepresentable, Hashable, Codable {
+	enum FontNameKey: RawLosslessStringConvertibleCFString, RawRepresentable, Hashable, Codable, @unchecked Sendable, Equatable {
 		public typealias RawValue = CFString
 		
 		/// Creates a `FontNameKey` from a supplied string.
@@ -783,7 +783,7 @@ public extension CTFont {
 	/// Font Variation Axis Dictionary Keys
 	///
 	/// These constants provide keys to font variation axis dictionary values.
-	enum VariationAxisKey: RawRepresentable, Hashable, CustomStringConvertible, Codable, @unchecked Sendable {
+	enum VariationAxisKey: RawRepresentable, Hashable, RawLosslessStringConvertibleCFString, Codable, @unchecked Sendable, Equatable {
 		
 		/// Key to get the variation axis identifier.
 		///
@@ -870,10 +870,6 @@ public extension CTFont {
 			case .isHidden:
 				fatalError("We shouldn't be getting here!")
 			}
-		}
-		
-		public var description: String {
-			return rawValue as String
 		}
 	}
 	

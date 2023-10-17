@@ -28,7 +28,7 @@ public struct SAMacError: Error, _BridgedStoredNSError {
 	///
 	/// This list is in no way, shape, or form exhaustive! A lot of the other
 	/// errors make no sense under Mac OS X but were needed for pre-OS X systems.
-	public enum Code: OSStatus, _ErrorCodeProtocol {
+	public enum Code: OSStatus, _ErrorCodeProtocol, Hashable, @unchecked Sendable, Equatable {
 		public typealias _ErrorType = SAMacError
 		
 		/// error in user parameter list

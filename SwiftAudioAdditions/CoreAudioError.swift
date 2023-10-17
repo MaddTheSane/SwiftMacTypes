@@ -25,7 +25,7 @@ public struct SAACoreAudioError: Error, _BridgedStoredNSError {
 	}
 	
 	/// Errors found in the audio frameworks of macOS/iOS
-	public enum Code: OSStatus, _ErrorCodeProtocol {
+	public enum Code: OSStatus, _ErrorCodeProtocol, @unchecked Sendable, Equatable {
 		public typealias _ErrorType = SAACoreAudioError
 
 		case invalidProperty = -10879

@@ -343,3 +343,19 @@ public extension UnsafeMutableBufferPointer {
 		self = UnsafeMutableBufferPointer(start: start, count: start.distance(to: toIterate))
 	}
 }
+
+/// Protocol where Swift classes/structs where the `RawValue` is a `CFString`, making it so that `description`
+/// is the same as the `rawValue`; and `init?(_:)` is the same as converting the `String` to `CFString`
+/// and passing it to `init?(rawValue:)`.
+public protocol RawLosslessStringConvertibleCFString: LosslessStringConvertible, RawRepresentable where RawValue == CFString {
+}
+
+public extension RawLosslessStringConvertibleCFString {
+	init?(_ description: String) {
+		self.init(rawValue: description as CFString)
+	}
+	
+	var description: String {
+		return rawValue as String
+	}
+}

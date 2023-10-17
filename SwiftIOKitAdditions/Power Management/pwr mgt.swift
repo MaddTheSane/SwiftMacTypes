@@ -105,3 +105,14 @@ public struct PowerFlags: OptionSet {
 		return PowerFlags(rawValue: 0x00000200)
 	}
 }
+
+//public enum PowerManagement {
+//	func getThermalLevel() throws -> UInt32 {
+//		var toRet: UInt32 = 0
+//		let err = IOPMGetThermalWarningLevel(&toRet)
+//		guard err == kIOReturnSuccess else {
+//			throw err
+//		}
+//		return toRet
+//	}
+//}

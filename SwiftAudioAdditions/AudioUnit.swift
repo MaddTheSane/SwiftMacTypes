@@ -10,7 +10,7 @@ import Foundation
 import AudioUnit
 import SwiftAdditions
 
-public enum AudioComponentType: Hashable {
+public enum AudioComponentType: Hashable, @unchecked Sendable, Equatable {
 	case output(AUOutput)
 	case musicDevice(AUInstrument)
 	case musicEffect(OSType)
@@ -91,7 +91,7 @@ public enum AudioComponentType: Hashable {
 		self = .unknown(type: rawType, subType: AUSubtype)
 	}
 	
-	public enum AUType: OSType, OSTypeConvertable {
+	public enum AUType: OSType, OSTypeConvertable, Hashable, @unchecked Sendable, Equatable {
 		case output = 0x61756F75
 		case musicDevice = 0x61756D75
 		case musicEffect = 0x61756D66
@@ -104,7 +104,7 @@ public enum AudioComponentType: Hashable {
 		case MIDIProcessor = 0x61756D69
 	}
 	
-	public enum AUOutput: OSType, OSTypeConvertable {
+	public enum AUOutput: OSType, OSTypeConvertable, Hashable, @unchecked Sendable, Equatable {
 		case generic = 0x67656E72
 		case HAL = 0x6168616C
 		case `default` = 0x64656620
@@ -112,7 +112,7 @@ public enum AudioComponentType: Hashable {
 		case voiceProcessingIO = 0x7670696F
 	}
 	
-	public enum AUInstrument: OSType, OSTypeConvertable {
+	public enum AUInstrument: OSType, OSTypeConvertable, Hashable, @unchecked Sendable, Equatable {
 		#if os(OSX)
 		case DLS = 0x646C7320
 		#endif
@@ -120,7 +120,7 @@ public enum AudioComponentType: Hashable {
 		case MIDI = 0x6D73796E
 	}
 	
-	public enum AUConverter: OSType, OSTypeConvertable {
+	public enum AUConverter: OSType, OSTypeConvertable, Hashable, @unchecked Sendable, Equatable {
 		case AUConverter = 0x636F6E76
 		#if os(OSX)
 		case timePitch = 0x746D7074
@@ -136,7 +136,7 @@ public enum AudioComponentType: Hashable {
 		case iPodTimeOther = 0x6970746F
 	}
 	
-	public enum AUEffect: OSType, OSTypeConvertable {
+	public enum AUEffect: OSType, OSTypeConvertable, Hashable, @unchecked Sendable, Equatable {
 		case delay = 0x64656C79
 		case lowPassFilter = 0x6C706173
 		case highPassFilter = 0x68706173
@@ -168,21 +168,21 @@ public enum AudioComponentType: Hashable {
 		case soundIsolation = 1987012979
 	}
 	
-	public enum AUMixer: OSType, OSTypeConvertable {
+	public enum AUMixer: OSType, OSTypeConvertable, Hashable, @unchecked Sendable, Equatable {
 		case multiChannel = 0x6D636D78
 		case spatial = 0x3364656D
 		case stereo = 0x736D7872
 		case matrix = 0x6D786D78
 	}
 	
-	public enum AUPanner: OSType, OSTypeConvertable {
+	public enum AUPanner: OSType, OSTypeConvertable, Hashable, @unchecked Sendable, Equatable {
 		case sphericalHead = 0x73706872
 		case vector = 0x76626173
 		case soundField = 0x616D6269
 		case HRTF = 0x68727466
 	}
 	
-	public enum AUGenerator: OSType, OSTypeConvertable {
+	public enum AUGenerator: OSType, OSTypeConvertable, Hashable, @unchecked Sendable, Equatable {
 		#if os(OSX)
 		case netReceive = 0x6E726376
 		#endif

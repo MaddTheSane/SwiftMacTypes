@@ -105,7 +105,7 @@ extension CTUnderlineStyle: Hashable {
 	
 }
 
-public enum CTBaselineClass: CustomStringConvertible, RawRepresentable, Hashable, Codable {
+public enum CTBaselineClass: RawLosslessStringConvertibleCFString, RawRepresentable, Hashable, Codable, @unchecked Sendable {
 	public typealias RawValue = CFString
 	
 	/// Creates a `CTBaselineClass` from a supplied string.
@@ -173,6 +173,12 @@ public enum CTBaselineClass: CustomStringConvertible, RawRepresentable, Hashable
 	/// Creates a `CTBaselineClass` from a supplied string.
 	/// If `stringValue` doesn't match any of the `kCTBaselineClass...`s, returns `nil`.
 	/// - parameter stringValue: The string value to attempt to init `CTBaselineClass` from.
+	public init?(_ stringValue: String) {
+		self.init(rawValue: stringValue as CFString)
+	}
+
+	/// Deprecated. Use the newer initializer.
+	@available(*, deprecated, renamed: "CTBaselineClass(_:)")
 	public init?(stringValue: String) {
 		self.init(rawValue: stringValue as CFString)
 	}

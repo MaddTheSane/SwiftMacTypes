@@ -29,7 +29,7 @@ public struct CTAFontManagerError: Error, _BridgedStoredNSError, CustomNSError, 
 	/// Font registration errors
 	///
 	/// Errors that would prevent registration of fonts for a specified font file URL.
-	public enum Code : Int, @unchecked Sendable, _ErrorCodeProtocol {
+	public enum Code : Int, @unchecked Sendable, _ErrorCodeProtocol, Hashable, Equatable {
 
 		/// Font registration errors
 		///

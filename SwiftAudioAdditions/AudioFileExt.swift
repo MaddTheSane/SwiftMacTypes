@@ -23,7 +23,7 @@ import SwiftAdditions
 	#endif
 }
 
-public enum AudioFileType: OSType, OSTypeConvertable {
+public enum AudioFileType: OSType, OSTypeConvertable, Hashable, @unchecked Sendable, Equatable {
 	case unknown			= 0
 	case AIFF				= 1095321158
 	case AIFC				= 1095321155
@@ -114,7 +114,7 @@ public func AudioFileWriteBytes(audioFile: AudioFileID, useCache: Bool = false, 
 
 // MARK: Audio Format
 
-public enum AudioFormat: OSType, OSTypeConvertable {
+public enum AudioFormat: OSType, OSTypeConvertable, Hashable, @unchecked Sendable, Equatable {
 	case unknown				= 0
 	/// DVI/Intel IMA ADPCM - ACM code 17.
 	case DVIIntelIMA			= 0x6D730011

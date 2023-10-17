@@ -157,317 +157,318 @@ public extension String.Encoding {
 
 public extension String.Encoding {
 	
-	private static func convertToNSStrEnc(from cfEnc: CFStringEncodings) -> UInt {
-		return CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEnc.rawValue))
+	private static func convertToStrEnc(from cfEnc: CFStringEncodings) -> String.Encoding {
+		let val = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(cfEnc.rawValue))
+		return String.Encoding(rawValue: val)
 	}
 	
-	static let macOSJapanese = String.Encoding(rawValue: convertToNSStrEnc(from: .macJapanese))
+	static let macOSJapanese = convertToStrEnc(from: .macJapanese)
 	
-	static let macOSTraditionalChinese = String.Encoding(rawValue: convertToNSStrEnc(from: .macChineseTrad))
+	static let macOSTraditionalChinese = convertToStrEnc(from: .macChineseTrad)
 	
-	static let macOSKorean = String.Encoding(rawValue: convertToNSStrEnc(from: .macKorean))
+	static let macOSKorean = convertToStrEnc(from: .macKorean)
 
-	static let macOSArabic = String.Encoding(rawValue: convertToNSStrEnc(from: .macArabic))
+	static let macOSArabic = convertToStrEnc(from: .macArabic)
 
-	static let macOSHebrew = String.Encoding(rawValue: convertToNSStrEnc(from: .macHebrew))
+	static let macOSHebrew = convertToStrEnc(from: .macHebrew)
 
-	static let macOSGreek = String.Encoding(rawValue: convertToNSStrEnc(from: .macGreek))
+	static let macOSGreek = convertToStrEnc(from: .macGreek)
 
-	static let macOSCyrillic = String.Encoding(rawValue: convertToNSStrEnc(from: .macCyrillic))
+	static let macOSCyrillic = convertToStrEnc(from: .macCyrillic)
 	
-	static let macOSDevanagari = String.Encoding(rawValue: convertToNSStrEnc(from: .macDevanagari))
+	static let macOSDevanagari = convertToStrEnc(from: .macDevanagari)
 	
-	static let macOSGurmukhi = String.Encoding(rawValue: convertToNSStrEnc(from: .macGurmukhi))
+	static let macOSGurmukhi = convertToStrEnc(from: .macGurmukhi)
 	
-	static let macOSGujarati = String.Encoding(rawValue: convertToNSStrEnc(from: .macGujarati))
+	static let macOSGujarati = convertToStrEnc(from: .macGujarati)
 	
-	static let macOSOriya = String.Encoding(rawValue: convertToNSStrEnc(from: .macOriya))
+	static let macOSOriya = convertToStrEnc(from: .macOriya)
 	
-	static let macOSBengali = String.Encoding(rawValue: convertToNSStrEnc(from: .macBengali))
+	static let macOSBengali = convertToStrEnc(from: .macBengali)
 	
-	static let macOSTamil = String.Encoding(rawValue: convertToNSStrEnc(from: .macTamil))
+	static let macOSTamil = convertToStrEnc(from: .macTamil)
 	
-	static let macOSTelugu = String.Encoding(rawValue: convertToNSStrEnc(from: .macTelugu))
+	static let macOSTelugu = convertToStrEnc(from: .macTelugu)
 	
-	static let macOSKannada = String.Encoding(rawValue: convertToNSStrEnc(from: .macKannada))
+	static let macOSKannada = convertToStrEnc(from: .macKannada)
 	
-	static let macOSMalayalam = String.Encoding(rawValue: convertToNSStrEnc(from: .macMalayalam))
+	static let macOSMalayalam = convertToStrEnc(from: .macMalayalam)
 	
-	static let macOSSinhalese = String.Encoding(rawValue: convertToNSStrEnc(from: .macSinhalese))
+	static let macOSSinhalese = convertToStrEnc(from: .macSinhalese)
 	
-	static let macOSBurmese = String.Encoding(rawValue: convertToNSStrEnc(from: .macBurmese))
+	static let macOSBurmese = convertToStrEnc(from: .macBurmese)
 	
-	static let macOSKhmer = String.Encoding(rawValue: convertToNSStrEnc(from: .macKhmer))
+	static let macOSKhmer = convertToStrEnc(from: .macKhmer)
 	
-	static let macOSThai = String.Encoding(rawValue: convertToNSStrEnc(from: .macThai))
+	static let macOSThai = convertToStrEnc(from: .macThai)
 	
-	static let macOSLaotian = String.Encoding(rawValue: convertToNSStrEnc(from: .macLaotian))
+	static let macOSLaotian = convertToStrEnc(from: .macLaotian)
 	
-	static let macOSGeorgian = String.Encoding(rawValue: convertToNSStrEnc(from: .macGeorgian))
+	static let macOSGeorgian = convertToStrEnc(from: .macGeorgian)
 	
-	static let macOSArmenian = String.Encoding(rawValue: convertToNSStrEnc(from: .macArmenian))
+	static let macOSArmenian = convertToStrEnc(from: .macArmenian)
 	
-	static let macOSSimplifiedChinese = String.Encoding(rawValue: convertToNSStrEnc(from: .macChineseSimp))
+	static let macOSSimplifiedChinese = convertToStrEnc(from: .macChineseSimp)
 	
-	static let macOSTibetan = String.Encoding(rawValue: convertToNSStrEnc(from: .macTibetan))
+	static let macOSTibetan = convertToStrEnc(from: .macTibetan)
 	
-	static let macOSMongolian = String.Encoding(rawValue: convertToNSStrEnc(from: .macMongolian))
+	static let macOSMongolian = convertToStrEnc(from: .macMongolian)
 	
-	static let macOSEthiopic = String.Encoding(rawValue: convertToNSStrEnc(from: .macEthiopic))
+	static let macOSEthiopic = convertToStrEnc(from: .macEthiopic)
 	
-	static let macOSCentralEuropeRoman = String.Encoding(rawValue: convertToNSStrEnc(from: .macCentralEurRoman))
+	static let macOSCentralEuropeRoman = convertToStrEnc(from: .macCentralEurRoman)
 	
-	static let macOSVietnamese = String.Encoding(rawValue: convertToNSStrEnc(from: .macVietnamese))
+	static let macOSVietnamese = convertToStrEnc(from: .macVietnamese)
 	
-	static let macOSExtendedArabic = String.Encoding(rawValue: convertToNSStrEnc(from: .macExtArabic))
+	static let macOSExtendedArabic = convertToStrEnc(from: .macExtArabic)
 	
 	/* The following use script code 0, smRoman */
-	static let macOSSymbol = String.Encoding(rawValue: convertToNSStrEnc(from: .macSymbol))
+	static let macOSSymbol = convertToStrEnc(from: .macSymbol)
 	
-	static let macOSDingbats = String.Encoding(rawValue: convertToNSStrEnc(from: .macDingbats))
+	static let macOSDingbats = convertToStrEnc(from: .macDingbats)
 	
-	static let macOSTurkish = String.Encoding(rawValue: convertToNSStrEnc(from: .macTurkish))
+	static let macOSTurkish = convertToStrEnc(from: .macTurkish)
 	
-	static let macOSCroatian = String.Encoding(rawValue: convertToNSStrEnc(from: .macCroatian))
+	static let macOSCroatian = convertToStrEnc(from: .macCroatian)
 	
-	static let macOSIcelandic = String.Encoding(rawValue: convertToNSStrEnc(from: .macIcelandic))
+	static let macOSIcelandic = convertToStrEnc(from: .macIcelandic)
 	
-	static let macOSRomanian = String.Encoding(rawValue: convertToNSStrEnc(from: .macRomanian))
+	static let macOSRomanian = convertToStrEnc(from: .macRomanian)
 	
-	static let macOSCeltic = String.Encoding(rawValue: convertToNSStrEnc(from: .macCeltic))
+	static let macOSCeltic = convertToStrEnc(from: .macCeltic)
 	
-	static let macOSGaelic = String.Encoding(rawValue: convertToNSStrEnc(from: .macGaelic))
+	static let macOSGaelic = convertToStrEnc(from: .macGaelic)
 	/* The following use script code 4, smArabic */
 	/// Like `.macOSArabic` but uses Farsi digits.
-	static let macOSFarsi = String.Encoding(rawValue: convertToNSStrEnc(from: .macFarsi))
+	static let macOSFarsi = convertToStrEnc(from: .macFarsi)
 	/// The following use script code 7, `smCyrillic`.
-	static let macOSUkrainian = String.Encoding(rawValue: convertToNSStrEnc(from: .macUkrainian))
+	static let macOSUkrainian = convertToStrEnc(from: .macUkrainian)
 	/// The following use script code 32, `smUnimplemented`.
-	static let macOSInuit = String.Encoding(rawValue: convertToNSStrEnc(from: .macInuit))
+	static let macOSInuit = convertToStrEnc(from: .macInuit)
 	
 	/// VT100/102 font from Comm Toolbox: Latin-1 repertoire + box drawing etc.
-	static let macOSVT100 = String.Encoding(rawValue: convertToNSStrEnc(from: .macVT100))
+	static let macOSVT100 = convertToStrEnc(from: .macVT100)
 	
 	/// Meta-value, should never appear in a table.
-	static let macOSHFS = String.Encoding(rawValue: convertToNSStrEnc(from: .macHFS))
+	static let macOSHFS = convertToStrEnc(from: .macHFS)
 	
 	/* ISO 8-bit and 7-bit encodings begin at 0x200 */
 	/// ISO 8859-2.
-	static let isoLatin2 = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatin2))
+	static let isoLatin2 = convertToStrEnc(from: .isoLatin2)
 	
 	/// ISO 8859-3.
-	static let isoLatin3 = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatin3))
+	static let isoLatin3 = convertToStrEnc(from: .isoLatin3)
 	
 	/// ISO 8859-4.
-	static let isoLatin4 = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatin4))
+	static let isoLatin4 = convertToStrEnc(from: .isoLatin4)
 	
 	/// ISO 8859-5.
-	static let isoLatinCyrillic = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatinCyrillic))
+	static let isoLatinCyrillic = convertToStrEnc(from: .isoLatinCyrillic)
 	
 	/// ISO 8859-6, =ASMO 708, =DOS CP 708.
-	static let isoLatinArabic = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatinArabic))
+	static let isoLatinArabic = convertToStrEnc(from: .isoLatinArabic)
 	
 	/// ISO 8859-7.
-	static let isoLatinGreek = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatinGreek))
+	static let isoLatinGreek = convertToStrEnc(from: .isoLatinGreek)
 	
 	/// ISO 8859-8.
-	static let isoLatinHebrew = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatinHebrew))
+	static let isoLatinHebrew = convertToStrEnc(from: .isoLatinHebrew)
 	
 	/// ISO 8859-9.
-	static let isoLatin5 = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatin5))
+	static let isoLatin5 = convertToStrEnc(from: .isoLatin5)
 	
 	/// ISO 8859-10.
-	static let isoLatin6 = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatin6))
+	static let isoLatin6 = convertToStrEnc(from: .isoLatin6)
 	
 	/// ISO 8859-11.
-	static let isoLatinThai = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatinThai))
+	static let isoLatinThai = convertToStrEnc(from: .isoLatinThai)
 	
 	/// ISO 8859-13.
-	static let isoLatin7 = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatin7))
+	static let isoLatin7 = convertToStrEnc(from: .isoLatin7)
 	
 	/// ISO 8859-14.
-	static let isoLatin8 = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatin8))
+	static let isoLatin8 = convertToStrEnc(from: .isoLatin8)
 	
 	/// ISO 8859-15.
-	static let isoLatin9 = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatin9))
+	static let isoLatin9 = convertToStrEnc(from: .isoLatin9)
 	
 	/// ISO 8859-16.
-	static let isoLatin10 = String.Encoding(rawValue: convertToNSStrEnc(from: .isoLatin10))
+	static let isoLatin10 = convertToStrEnc(from: .isoLatin10)
 	
 	/* MS-DOS & Windows encodings begin at 0x400 */
 	/// code page 437.
-	static let dosLatinUS = String.Encoding(rawValue: convertToNSStrEnc(from: .dosLatinUS))
+	static let dosLatinUS = convertToStrEnc(from: .dosLatinUS)
 	/// code page 737 (formerly code page 437G).
-	static let dosGreek = String.Encoding(rawValue: convertToNSStrEnc(from: .dosGreek))
+	static let dosGreek = convertToStrEnc(from: .dosGreek)
 	/// code page 775.
-	static let dosBalticRim = String.Encoding(rawValue: convertToNSStrEnc(from: .dosBalticRim))
+	static let dosBalticRim = convertToStrEnc(from: .dosBalticRim)
 	/// code page 850, "Multilingual".
-	static let dosLatin1 = String.Encoding(rawValue: convertToNSStrEnc(from: .dosLatin1))
+	static let dosLatin1 = convertToStrEnc(from: .dosLatin1)
 	/// code page 851.
-	static let dosGreek1 = String.Encoding(rawValue: convertToNSStrEnc(from: .dosGreek1))
+	static let dosGreek1 = convertToStrEnc(from: .dosGreek1)
 	/// code page 852, Slavic.
-	static let dosLatin2 = String.Encoding(rawValue: convertToNSStrEnc(from: .dosLatin2))
+	static let dosLatin2 = convertToStrEnc(from: .dosLatin2)
 	/// code page 855, IBM Cyrillic.
-	static let dosCyrillic = String.Encoding(rawValue: convertToNSStrEnc(from: .dosCyrillic))
+	static let dosCyrillic = convertToStrEnc(from: .dosCyrillic)
 	/// code page 857, IBM Turkish.
-	static let dosTurkish = String.Encoding(rawValue: convertToNSStrEnc(from: .dosTurkish))
+	static let dosTurkish = convertToStrEnc(from: .dosTurkish)
 	/// code page 860.
-	static let dosPortuguese = String.Encoding(rawValue: convertToNSStrEnc(from: .dosPortuguese))
+	static let dosPortuguese = convertToStrEnc(from: .dosPortuguese)
 	/// code page 861.
-	static let dosIcelandic = String.Encoding(rawValue: convertToNSStrEnc(from: .dosIcelandic))
+	static let dosIcelandic = convertToStrEnc(from: .dosIcelandic)
 	/// code page 862.
-	static let dosHebrew = String.Encoding(rawValue: convertToNSStrEnc(from: .dosHebrew))
+	static let dosHebrew = convertToStrEnc(from: .dosHebrew)
 	/// code page 863.
-	static let dosCanadianFrench = String.Encoding(rawValue: convertToNSStrEnc(from: .dosCanadianFrench))
+	static let dosCanadianFrench = convertToStrEnc(from: .dosCanadianFrench)
 	/// code page 864.
-	static let dosArabic = String.Encoding(rawValue: convertToNSStrEnc(from: .dosArabic))
+	static let dosArabic = convertToStrEnc(from: .dosArabic)
 	/// code page 865.
-	static let dosNordic = String.Encoding(rawValue: convertToNSStrEnc(from: .dosNordic))
+	static let dosNordic = convertToStrEnc(from: .dosNordic)
 	/// code page 866.
-	static let dosRussian = String.Encoding(rawValue: convertToNSStrEnc(from: .dosRussian))
+	static let dosRussian = convertToStrEnc(from: .dosRussian)
 	/// code page 869, IBM Modern Greek.
-	static let dosGreek2 = String.Encoding(rawValue: convertToNSStrEnc(from: .dosGreek2))
+	static let dosGreek2 = convertToStrEnc(from: .dosGreek2)
 	/// code page 874, also for Windows.
-	static let dosThai = String.Encoding(rawValue: convertToNSStrEnc(from: .dosThai))
+	static let dosThai = convertToStrEnc(from: .dosThai)
 	/// code page 932, also for Windows.
-	static let dosJapanese = String.Encoding(rawValue: convertToNSStrEnc(from: .dosJapanese))
+	static let dosJapanese = convertToStrEnc(from: .dosJapanese)
 	/// code page 936, also for Windows.
-	static let dosSimplifiedChinese = String.Encoding(rawValue: convertToNSStrEnc(from: .dosChineseSimplif))
+	static let dosSimplifiedChinese = convertToStrEnc(from: .dosChineseSimplif)
 	/// code page 949, also for Windows; Unified Hangul Code.
-	static let dosKorean = String.Encoding(rawValue: convertToNSStrEnc(from: .dosKorean))
+	static let dosKorean = convertToStrEnc(from: .dosKorean)
 	/// code page 950, also for Windows.
-	static let dosTraditionalChinese = String.Encoding(rawValue: convertToNSStrEnc(from: .dosChineseTrad))
+	static let dosTraditionalChinese = convertToStrEnc(from: .dosChineseTrad)
 	/// code page 1250, Central Europe.
-	static let windowsLatin2 = String.Encoding(rawValue: convertToNSStrEnc(from: .windowsLatin2))
+	static let windowsLatin2 = convertToStrEnc(from: .windowsLatin2)
 	/// code page 1251, Slavic Cyrillic.
-	static let windowsCyrillic = String.Encoding(rawValue: convertToNSStrEnc(from: .windowsCyrillic))
+	static let windowsCyrillic = convertToStrEnc(from: .windowsCyrillic)
 	/// code page 1253.
-	static let windowsGreek = String.Encoding(rawValue: convertToNSStrEnc(from: .windowsGreek))
+	static let windowsGreek = convertToStrEnc(from: .windowsGreek)
 	/// code page 1254, Turkish.
-	static let windowsLatin5 = String.Encoding(rawValue: convertToNSStrEnc(from: .windowsLatin5))
+	static let windowsLatin5 = convertToStrEnc(from: .windowsLatin5)
 	/// code page 1255.
-	static let windowsHebrew = String.Encoding(rawValue: convertToNSStrEnc(from: .windowsHebrew))
+	static let windowsHebrew = convertToStrEnc(from: .windowsHebrew)
 	/// code page 1256.
-	static let windowsArabic = String.Encoding(rawValue: convertToNSStrEnc(from: .windowsArabic))
+	static let windowsArabic = convertToStrEnc(from: .windowsArabic)
 	/// code page 1257.
-	static let windowsBalticRim = String.Encoding(rawValue: convertToNSStrEnc(from: .windowsBalticRim))
+	static let windowsBalticRim = convertToStrEnc(from: .windowsBalticRim)
 	/// code page 1258.
-	static let windowsVietnamese = String.Encoding(rawValue: convertToNSStrEnc(from: .windowsVietnamese))
+	static let windowsVietnamese = convertToStrEnc(from: .windowsVietnamese)
 	/// code page 1361, for Windows NT.
-	static let windowsKoreanJohab = String.Encoding(rawValue: convertToNSStrEnc(from: .windowsKoreanJohab))
+	static let windowsKoreanJohab = convertToStrEnc(from: .windowsKoreanJohab)
 	
 	/* Various national standards begin at 0x600 */
 	/// ANSEL (ANSI Z39.47).
-	static let ANSEL = String.Encoding(rawValue: convertToNSStrEnc(from: .ANSEL))
-	static let JIS_X0201_76 = String.Encoding(rawValue: convertToNSStrEnc(from: .JIS_X0201_76))
-	static let JIS_X0208_83 = String.Encoding(rawValue: convertToNSStrEnc(from: .JIS_X0208_83))
-	static let JIS_X0208_90 = String.Encoding(rawValue: convertToNSStrEnc(from: .JIS_X0208_90))
-	static let JIS_X0212_90 = String.Encoding(rawValue: convertToNSStrEnc(from: .JIS_X0212_90))
-	static let JIS_C6226_78 = String.Encoding(rawValue: convertToNSStrEnc(from: .JIS_C6226_78))
+	static let ANSEL = convertToStrEnc(from: .ANSEL)
+	static let JIS_X0201_76 = convertToStrEnc(from: .JIS_X0201_76)
+	static let JIS_X0208_83 = convertToStrEnc(from: .JIS_X0208_83)
+	static let JIS_X0208_90 = convertToStrEnc(from: .JIS_X0208_90)
+	static let JIS_X0212_90 = convertToStrEnc(from: .JIS_X0212_90)
+	static let JIS_C6226_78 = convertToStrEnc(from: .JIS_C6226_78)
 	
 	/// Shift-JIS format encoding of JIS X0213 planes 1 and 2.
-	static let shiftJIS_X0213 = String.Encoding(rawValue: convertToNSStrEnc(from: .shiftJIS_X0213))
+	static let shiftJIS_X0213 = convertToStrEnc(from: .shiftJIS_X0213)
 	
 	/// JIS X0213 in plane-row-column notation.
-	static let shiftJIS_X0213_MenKuTen = String.Encoding(rawValue: convertToNSStrEnc(from: .shiftJIS_X0213_MenKuTen))
+	static let shiftJIS_X0213_MenKuTen = convertToStrEnc(from: .shiftJIS_X0213_MenKuTen)
 	
-	static let GB_2312_80 = String.Encoding(rawValue: convertToNSStrEnc(from: .GB_2312_80))
+	static let GB_2312_80 = convertToStrEnc(from: .GB_2312_80)
 	
 	/// annex to GB 13000-93; for Windows 95.
-	static let GBK_95 = String.Encoding(rawValue: convertToNSStrEnc(from: .GBK_95))
+	static let GBK_95 = convertToStrEnc(from: .GBK_95)
 	
 	
-	static let GB_18030_2000 = String.Encoding(rawValue: convertToNSStrEnc(from: .GB_18030_2000))
+	static let GB_18030_2000 = convertToStrEnc(from: .GB_18030_2000)
 	
 	/// same as KSC 5601-92 without Johab annex.
-	static let KSC_5601_87 = String.Encoding(rawValue: convertToNSStrEnc(from: .KSC_5601_87))
+	static let KSC_5601_87 = convertToStrEnc(from: .KSC_5601_87)
 	
 	/// KSC 5601-92 Johab annex.
-	static let KSC_5601_92_Johab = String.Encoding(rawValue: convertToNSStrEnc(from: .ksc_5601_92_Johab))
+	static let KSC_5601_92_Johab = convertToStrEnc(from: .ksc_5601_92_Johab)
 	
 	/// CNS 11643-1992 plane 1.
-	static let CNS_11643_92_P1 = String.Encoding(rawValue: convertToNSStrEnc(from: .CNS_11643_92_P1))
+	static let CNS_11643_92_P1 = convertToStrEnc(from: .CNS_11643_92_P1)
 	
 	/// CNS 11643-1992 plane 2.
-	static let CNS_11643_92_P2 = String.Encoding(rawValue: convertToNSStrEnc(from: .CNS_11643_92_P2))
+	static let CNS_11643_92_P2 = convertToStrEnc(from: .CNS_11643_92_P2)
 	
 	/// CNS 11643-1992 plane 3 (was plane 14 in 1986 version).
-	static let CNS_11643_92_P3 = String.Encoding(rawValue: convertToNSStrEnc(from: .CNS_11643_92_P3))
+	static let CNS_11643_92_P3 = convertToStrEnc(from: .CNS_11643_92_P3)
 
 	/* ISO 2022 collections begin at 0x800 */
-	static let ISO_2022_JP = String.Encoding(rawValue: convertToNSStrEnc(from: .ISO_2022_JP))
+	static let ISO_2022_JP = convertToStrEnc(from: .ISO_2022_JP)
 	
-	static let ISO_2022_JP_2 = String.Encoding(rawValue: convertToNSStrEnc(from: .ISO_2022_JP_2))
+	static let ISO_2022_JP_2 = convertToStrEnc(from: .ISO_2022_JP_2)
 	
 	/// RFC 2237.
-	static let ISO_2022_JP_1 = String.Encoding(rawValue: convertToNSStrEnc(from: .ISO_2022_JP_1))
+	static let ISO_2022_JP_1 = convertToStrEnc(from: .ISO_2022_JP_1)
 	
 	/// JIS X0213.
-	static let ISO_2022_JP_3 = String.Encoding(rawValue: convertToNSStrEnc(from: .ISO_2022_JP_3))
-	static let ISO_2022_CN = String.Encoding(rawValue: convertToNSStrEnc(from: .ISO_2022_CN))
+	static let ISO_2022_JP_3 = convertToStrEnc(from: .ISO_2022_JP_3)
+	static let ISO_2022_CN = convertToStrEnc(from: .ISO_2022_CN)
 	
-	static let ISO_2022_CN_EXT = String.Encoding(rawValue: convertToNSStrEnc(from: .ISO_2022_CN_EXT))
+	static let ISO_2022_CN_EXT = convertToStrEnc(from: .ISO_2022_CN_EXT)
 	
-	static let ISO_2022_KR = String.Encoding(rawValue: convertToNSStrEnc(from: .ISO_2022_KR))
+	static let ISO_2022_KR = convertToStrEnc(from: .ISO_2022_KR)
 
 			/* EUC collections begin at 0x900 */
 	/// ISO 646, 1-byte katakana, JIS 208, JIS 212.
-	static let EUC_JP = String.Encoding(rawValue: convertToNSStrEnc(from: .EUC_JP))
+	static let EUC_JP = convertToStrEnc(from: .EUC_JP)
 	
 	/// ISO 646, GB 2312-80.
-	static let EUC_CN = String.Encoding(rawValue: convertToNSStrEnc(from: .EUC_CN))
+	static let EUC_CN = convertToStrEnc(from: .EUC_CN)
 	
 	/// ISO 646, CNS 11643-1992 Planes 1-16.
-	static let EUC_TW = String.Encoding(rawValue: convertToNSStrEnc(from: .EUC_TW))
+	static let EUC_TW = convertToStrEnc(from: .EUC_TW)
 	
 	/// ISO 646, KS C 5601-1987.
-	static let EUC_KR = String.Encoding(rawValue: convertToNSStrEnc(from: .EUC_KR))
+	static let EUC_KR = convertToStrEnc(from: .EUC_KR)
 
 			/* Misc standards begin at 0xA00 */
 	/// plain Shift-JIS.
-	static let shiftJIS = String.Encoding(rawValue: convertToNSStrEnc(from: .shiftJIS))
+	static let shiftJIS = convertToStrEnc(from: .shiftJIS)
 	
 	/// Russian internet standard.
-	static let KOI8_R = String.Encoding(rawValue: convertToNSStrEnc(from: .KOI8_R))
+	static let KOI8_R = convertToStrEnc(from: .KOI8_R)
 	
 	/// Big-5 (has variants).
-	static let big5 = String.Encoding(rawValue: convertToNSStrEnc(from: .big5))
+	static let big5 = convertToStrEnc(from: .big5)
 	
 	/// Mac OS Roman permuted to align with ISO Latin-1.
-	static let macOSRomanLatin1 = String.Encoding(rawValue: convertToNSStrEnc(from: .macRomanLatin1))
+	static let macOSRomanLatin1 = convertToStrEnc(from: .macRomanLatin1)
 	
 	/// HZ (RFC 1842, for Chinese mail & news).
-	static let HZ_GB_2312 = String.Encoding(rawValue: convertToNSStrEnc(from: .HZ_GB_2312))
+	static let HZ_GB_2312 = convertToStrEnc(from: .HZ_GB_2312)
 	
 	
 	/// Big-5 with Hong Kong special char set supplement.
-	static let big5_HKSCS_1999 = String.Encoding(rawValue: convertToNSStrEnc(from: .big5_HKSCS_1999))
+	static let big5_HKSCS_1999 = convertToStrEnc(from: .big5_HKSCS_1999)
 	
 	/// RFC 1456, Vietnamese.
-	static let VISCII = String.Encoding(rawValue: convertToNSStrEnc(from: .VISCII))
+	static let VISCII = convertToStrEnc(from: .VISCII)
 	
 	/// RFC 2319, Ukrainian.
-	static let KOI8_U = String.Encoding(rawValue: convertToNSStrEnc(from: .KOI8_U))
+	static let KOI8_U = convertToStrEnc(from: .KOI8_U)
 	
 	/// Taiwan Big-5E standard.
-	static let big5_E = String.Encoding(rawValue: convertToNSStrEnc(from: .big5_E))
+	static let big5_E = convertToStrEnc(from: .big5_E)
 	
 	/* Other platform encodings*/
 	/// NextStep Japanese encoding.
-	static let nextStepJapanese = String.Encoding(rawValue: convertToNSStrEnc(from: .nextStepJapanese))
+	static let nextStepJapanese = convertToStrEnc(from: .nextStepJapanese)
 	
 	/* EBCDIC & IBM host encodings begin at 0xC00 */
 	/// basic EBCDIC-US.
-	static let EBCDIC_US = String.Encoding(rawValue: convertToNSStrEnc(from: .EBCDIC_US))
+	static let EBCDIC_US = convertToStrEnc(from: .EBCDIC_US)
 	
 	/// code page 037, extended EBCDIC (Latin-1 set) for US, Canada.
-	static let EBCDIC_CP037 = String.Encoding(rawValue: convertToNSStrEnc(from: .EBCDIC_CP037))
+	static let EBCDIC_CP037 = convertToStrEnc(from: .EBCDIC_CP037)
 	
 	/// `kTextEncodingUnicodeDefault` + `kUnicodeUTF7Format` RFC2152.
-	static let UTF7 = String.Encoding(rawValue: convertToNSStrEnc(from: .UTF7))
+	static let UTF7 = convertToStrEnc(from: .UTF7)
 	
 	/// UTF-7 (IMAP folder variant) RFC3501.
-	static let UTF7_IMAP = String.Encoding(rawValue: convertToNSStrEnc(from: .UTF7_IMAP))
+	static let UTF7_IMAP = convertToStrEnc(from: .UTF7_IMAP)
 }
 
 /// Pascal String extensions
@@ -747,7 +748,7 @@ public extension OSTypeIconConvertable {
 }
 
 /// Toolbar icons
-public enum CarbonToolbarIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+public enum CarbonToolbarIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
 	case customize = 0x74637573
 	case delete = 0x7464656C
 	case favorite = 0x74666176
@@ -769,7 +770,7 @@ public enum CarbonToolbarIcons: OSType, OSTypeConvertable, OSTypeIconConvertable
 }
 
 /// Folders
-public enum CarbonFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+public enum CarbonFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
 	case generic = 0x666C6472
 	case drop = 0x64626F78
 	case mounted = 0x6D6E7464
@@ -780,7 +781,7 @@ public enum CarbonFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable 
 }
 
 /// Sharing Privileges icons
-public enum CarbonSharingPrivilegesIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+public enum CarbonSharingPrivilegesIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
 	case notApplicable = 0x73686e61
 	case readOnly = 0x7368726f
 	case readWrite = 0x73687277
@@ -789,7 +790,7 @@ public enum CarbonSharingPrivilegesIcons: OSType, OSTypeConvertable, OSTypeIconC
 }
 
 /// Users and Groups icons
-public enum CarbonUserAndGroupIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+public enum CarbonUserAndGroupIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
 	case userFolder = 0x75666c64
 	case workgroupFolder = 0x77666c64
 	case guestUser = 0x67757372
@@ -799,7 +800,7 @@ public enum CarbonUserAndGroupIcons: OSType, OSTypeConvertable, OSTypeIconConver
 }
 
 /// Badges
-public enum CarbonBadgeIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+public enum CarbonBadgeIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
 	case appleScript = 0x73637270
 	case locked = 0x6c626467
 	case mounted = 0x6d626467
@@ -809,14 +810,14 @@ public enum CarbonBadgeIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
 }
 
 /// Alert icons
-public enum CarbonAlertIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+public enum CarbonAlertIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
 	case note = 0x6e6f7465
 	case caution = 0x63617574
 	case stop = 0x73746f70
 }
 
 /// Networking icons
-public enum CarbonNetworkingIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+public enum CarbonNetworkingIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
 	case appleTalk = 0x61746c6b
 	case appleTalkZone = 0x61747a6e
 	case afpServer = 0x61667073
@@ -827,7 +828,7 @@ public enum CarbonNetworkingIcons: OSType, OSTypeConvertable, OSTypeIconConverta
 }
 
 /// Other icons
-public enum CarbonOtherIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+public enum CarbonOtherIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
 	case appleLogo = 0x6361706c
 	case appleMenu = 0x7361706c
 	case backwardArrow = 0x6261726f
@@ -859,7 +860,7 @@ public enum CarbonOtherIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
 /// Special folders
 ///
 /// This was created back in the Mac OS 8/9 days: most of these don't have a modern macOS version.
-public enum CarbonSpecialFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+public enum CarbonSpecialFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
 	case appearance = 0x61707072
 	case appleMenu = 0x616d6e75
 	case applications = 0x61707073
@@ -909,7 +910,7 @@ public enum CarbonSpecialFolderIcons: OSType, OSTypeConvertable, OSTypeIconConve
 /// Generic Finder icons
 ///
 /// This was created back in the Mac OS 8/9 days: most of these don't have a modern macOS version.
-public enum CarbonGenericFinderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable {
+public enum CarbonGenericFinderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
 	case clipboard = 0x434c4950
 	case clippingUnknownType = 0x636c7075
 	case clippingPictureType = 0x636c7070

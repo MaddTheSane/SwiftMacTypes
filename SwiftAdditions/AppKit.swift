@@ -53,11 +53,11 @@ import Cocoa
 	}
 	
 	public extension NSBitmapImageRep {
-		/// Returns an array of all available compression types that can be used when writing
+		/// Returns a buffer of all available compression types that can be used when writing
 		/// a TIFF image.
 		///
-		/// This is an `UnsafeBufferPointer` C array of `NSBitmapImageRep.TIFFCompression` constants.
-		/// This array belongs to the `NSBitmapImageRep` class; it shouldn’t be freed or
+		/// This is an `UnsafeBufferPointer` of `NSBitmapImageRep.TIFFCompression` constants.
+		/// This buffer belongs to the `NSBitmapImageRep` class; it shouldn’t be freed or
 		/// altered. See `NSBitmapImageRep.TIFFCompression` for the supported TIFF
 		/// compression types.
 		///

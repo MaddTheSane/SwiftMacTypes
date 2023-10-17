@@ -12,7 +12,7 @@ import CoreText
 public extension CTFontDescriptor {
 	
 	/// Font attributes key.
-	enum AttributeKey: RawRepresentable, Hashable, CustomStringConvertible, Codable, @unchecked Sendable {
+	enum AttributeKey: RawRepresentable, Hashable, CustomStringConvertible, Codable, @unchecked Sendable, Equatable {
 		public typealias RawValue = CFString
 		
 		public var description: String {

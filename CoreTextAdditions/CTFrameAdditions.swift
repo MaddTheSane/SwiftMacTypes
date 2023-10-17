@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreText
+import FoundationAdditions
 
 public extension CTFrame {
 	/// These constants specify frame progression types.
@@ -25,7 +26,7 @@ public extension CTFrame {
 	/// area of the path.
 	typealias PathFillRule = CTFramePathFillRule
 	
-	enum Attributes: RawRepresentable {
+	enum Attributes: RawRepresentable, @unchecked Sendable, Codable, RawLosslessStringConvertibleCFString, Equatable {
 		public typealias RawValue = CFString
 		
 		public init?(rawValue: CFString) {
@@ -98,7 +99,7 @@ public extension CTFrame {
 		/// Value must be a `CGPath` specifying a clipping path.
 		case pathClippingPath
 		
-		public enum ClippingPathKeys: RawRepresentable {
+		public enum ClippingPathKeys: RawRepresentable, @unchecked Sendable, Codable, RawLosslessStringConvertibleCFString, Equatable {
 			public typealias RawValue = CFString
 			
 			public init?(rawValue: CFString) {

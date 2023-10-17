@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreText
+import FoundationAdditions
 
 public extension CTTypesetter {
 	
@@ -91,7 +92,7 @@ public extension CTTypesetter {
 	
 	// MARK: -
 	
-	enum Options: Hashable, Equatable, RawRepresentable, @unchecked Sendable {
+	enum Options: RawLosslessStringConvertibleCFString, Hashable, Equatable, RawRepresentable, @unchecked Sendable {
 		public typealias RawValue = CFString
 	 
 		/// Allows layout requiring a potentially unbounded amount of work.

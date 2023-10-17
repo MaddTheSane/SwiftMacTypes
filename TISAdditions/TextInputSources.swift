@@ -24,7 +24,7 @@ extension TISInputSource: CFTypeProtocol {
 
 public extension TISInputSource {
 	/// Property value constants for input source type
-	enum SourceType: RawRepresentable, Hashable, CustomStringConvertible {
+	enum SourceType: RawRepresentable, Hashable, RawLosslessStringConvertibleCFString {
 		/// The property value constant for one input source type value
 		/// associated with the property key `TISInputSource.Properties.sourceType`.
 		///
@@ -138,7 +138,7 @@ public extension TISInputSource {
 	/// obtained using `TISInputSource.value(for:)`. A set of specific property
 	/// key-value pairs can also be used as a filter when creating a list of
 	/// input sources using `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
-	enum Properties: RawRepresentable, Hashable, CustomStringConvertible {
+	enum Properties: RawRepresentable, Hashable, RawLosslessStringConvertibleCFString {
 
 		/// The property key constant for a CFStringRef value that indicates
 		/// the category of input source.
@@ -445,7 +445,7 @@ public extension TISInputSource {
 	}
 	
 	/// Property value constants for input source category
-	enum SourceCategory: RawRepresentable, Hashable, CustomStringConvertible {
+	enum SourceCategory: RawRepresentable, Hashable, RawLosslessStringConvertibleCFString {
 		/// The property value constant for one input source category value
 		/// associated with the property key `Properties.category`.
 		///
