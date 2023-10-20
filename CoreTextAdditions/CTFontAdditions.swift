@@ -693,6 +693,13 @@ public extension CTFont {
 		return CTFontGetGlyphWithName(self, glyphName as NSString)
 	}
 	
+	/// Returns the name for the specified glyph.
+	/// - parameter glyph: The glyph.
+	/// - returns: The glyph name as a `String` or `nil` if the glyph is invalid.
+	func name(forGlyph glyph: CGGlyph) -> String? {
+		return CTFontCopyNameForGlyph(self, glyph) as String?
+	}
+	
 	/// Calculates the bounding rects for an array of glyphs and returns the overall bounding rect for the run.
 	/// - parameter orientation: The intended drawing orientation of the glyphs. Used to determined which glyph
 	/// metrics to return.<br>
