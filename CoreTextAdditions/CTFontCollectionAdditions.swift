@@ -10,10 +10,9 @@ import Foundation
 import CoreText
 
 public extension CTFontCollection {
-	#if os(macOS)
 	/// Option bits for use with `CTFontCollectionCopyFontAttribute`(`s`).
+	@available(macOS 10.7, iOS 12.0, watchOS 5.0, tvOS 12.0, *)
 	typealias CopyOptions = CTFontCollectionCopyOptions
-	#endif
 	
 	// MARK: - Collection Creation
 	/*! --------------------------------------------------------------------------
@@ -112,6 +111,7 @@ public extension CTFontCollection {
 	func matchingFontDescriptors(familyName: String, options: [String: Any]? = nil)  -> [CTFontDescriptor]? {
 		return CTFontCollectionCreateMatchingFontDescriptorsForFamily(self, familyName as NSString, options as NSDictionary?) as? [CTFontDescriptor]
 	}
+	#endif
 
 	// MARK: - Bulk attribute access
 	/*! --------------------------------------------------------------------------
@@ -128,6 +128,7 @@ public extension CTFontCollection {
 	/// `nil`. When the `CTFontCollection.CopyOptions.unique` is set, duplicate values will be removed.
 	/// When `CTFontCollection.CopyOptions.standardSort` is set, the values will be sorted in standard
 	/// UI order.
+	@available(macOS 10.7, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
 	func fontAttribute(name attributeName: String, options: CopyOptions) -> [Any?] {
 		return (CTFontCollectionCopyFontAttribute(self, attributeName as NSString, options) as! [Any]).map({ (val) -> Any? in
 			if CFEqual(val as AnyObject, kCFNull) {
@@ -146,10 +147,10 @@ public extension CTFontCollection {
 	/// order as the results from `matchingFontDescriptors()`. When the
 	/// `CTFontCollection.CopyOptions.unique` is set, duplicate values will be removed. When
 	/// `CTFontCollection.CopyOptions.standardSort` is set, the values will be sorted in standard UI order.
+	@available(macOS 10.7, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
 	func fontAttributes(names attributeNames: Set<String>, options: CopyOptions) -> [[String: Any]] {
 		return CTFontCollectionCopyFontAttributes(self, attributeNames as NSSet, options) as! [[String: Any]]
 	}
-	#endif
 }
 
 #if os(macOS)

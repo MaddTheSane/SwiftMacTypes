@@ -255,9 +255,8 @@ public enum FontManager {
 	/// Unregisters fonts from the specified font URL with the font manager. Unregistered fonts do not
 	/// participate in font descriptor matching.
 	///
-	/// iOS note: only fonts registered with `FontManager.registerFonts(for:)`,
-	/// `CTFontManagerRegisterFontsForURLs`, or `CTFontManagerRegisterFontsForURLs`
-	/// can be unregistered with this API.
+	/// iOS note: only fonts registered with `FontManager.registerFonts(for:)` or
+	/// `CTFontManagerRegisterFontsForURLs` can be unregistered with this API.
 	/// - parameter fontURL: Font URL.
 	/// - parameter scope: Scope constant defining the availability and lifetime of the registration. Should
 	/// match the scope the fonts are registered in. See scope constants for more details.
@@ -337,7 +336,7 @@ public enum FontManager {
 	/// `CTFontManagerRequestFonts`.
 	/// - parameter registrationHandler: Block called as errors are discovered, or upon
 	/// completion. The errors parameter contains an array of `CFError` references. An empty
-	/// array indicates no errors. Each error reference will contain a `CFArray` of font
+	/// array indicates no errors. Each error reference will contain a `Array` of font
 	/// asset names corresponding to `kCTFontManagerErrorFontAssetNameKey`. These represent
 	/// the font asset names that were not successfully registered. Note, the handler may be
 	/// called multiple times during the registration process. The `done` (second) parameter

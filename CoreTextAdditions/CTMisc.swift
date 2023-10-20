@@ -182,8 +182,4 @@ public enum CTBaselineClass: RawLosslessStringConvertibleCFString, RawRepresenta
 	public init?(stringValue: String) {
 		self.init(rawValue: stringValue as CFString)
 	}
-	
-	public var description: String {
-		return rawValue as String
-	}
 }
