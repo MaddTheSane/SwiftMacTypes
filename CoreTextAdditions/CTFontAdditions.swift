@@ -918,8 +918,32 @@ public extension CTFont {
 	//--------------------------------------------------------------------------
 	
 	/// An array of font features
-	var features: [[String: Any]]? {
-		return CTFontCopyFeatures(self) as? [[String : Any]]
+	var features: [[FeatureKey: Any]]? {
+		guard let feats = CTFontCopyFeatures(self) as? [[CFString : Any]] else {
+			return nil
+		}
+		return feats.map { sa in
+			let preDict = sa.compactMap { (key: CFString, value: Any) -> (FeatureKey, Any)? in
+				guard let feat = FeatureKey(rawValue: key) else {
+					return nil
+				}
+				if feat == .typeSelectors, let valArr = value as? [[CFString: Any]] {
+					let newVal = valArr.map { sa2 in
+						let preDict2 = sa2.compactMap { (key2: CFString, value2: Any) -> (FeatureKey.SelectorKey, Any)? in
+							guard let newKey = FeatureKey.SelectorKey(rawValue: key2) else {
+								return nil
+							}
+							return (newKey, value2)
+						}
+						return Dictionary(uniqueKeysWithValues: preDict2)
+					}
+					return (.typeSelectors, newVal)
+				} else {
+					return (feat, value)
+				}
+			}
+			return Dictionary(uniqueKeysWithValues: preDict)
+		}
 	}
 	
 	/// An array of font feature setting tuples.
@@ -1056,6 +1080,190 @@ public extension CTFont {
 	@available(OSX 10.8, iOS 6.0, watchOS 2.0, tvOS 9.0, *)
 	func defaultCascadeList(forLanguages languagePrefList: [String]?) -> [CTFontDescriptor]? {
 		return CTFontCopyDefaultCascadeListForLanguages(self, languagePrefList as NSArray?) as! [CTFontDescriptor]?
+	}
+	
+	/// Font Features
+	enum FeatureKey: RawLosslessStringConvertibleCFString, Hashable, Codable, @unchecked Sendable {
+		public typealias RawValue = CFString
+		
+		/// Creates a `FontNameKey` from a supplied string.
+		/// If `rawValue` doesn't match any of the `kCTFont...NameKey`s, returns `nil`.
+		/// - parameter rawValue: The string value to attempt to init `FontNameKey` into.
+		public init?(rawValue: CFString) {
+			if #available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+				if rawValue == kCTFontFeatureSampleTextKey {
+					self = .sampleText
+					return
+				} else if rawValue == kCTFontFeatureTooltipTextKey {
+					self = .tooltipText
+					return
+				}
+			}
+			switch rawValue {
+			case kCTFontOpenTypeFeatureTag:
+				self = .openTypeTag
+				
+			case kCTFontOpenTypeFeatureValue:
+				self = .openTypeValue
+				
+			case kCTFontFeatureTypeIdentifierKey:
+				self = .typeIdentifier
+				
+			case kCTFontFeatureTypeNameKey:
+				self = .typeName
+				
+			case kCTFontFeatureTypeExclusiveKey:
+				self = .typeExclusive
+				
+			case kCTFontFeatureTypeSelectorsKey:
+				self = .typeSelectors
+				
+			default:
+				return nil
+			}
+		}
+		
+		public var rawValue: CFString {
+			if #available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+				switch self {
+				case .sampleText:
+					return kCTFontFeatureSampleTextKey
+				case .tooltipText:
+					return kCTFontFeatureTooltipTextKey
+
+				default:
+					break
+				}
+			}
+			switch self {
+			case .openTypeTag:
+				return kCTFontOpenTypeFeatureTag
+			case .openTypeValue:
+				return kCTFontOpenTypeFeatureValue
+			case .typeIdentifier:
+				return kCTFontFeatureTypeIdentifierKey
+			case .typeName:
+				return kCTFontFeatureTypeNameKey
+			case .typeExclusive:
+				return kCTFontFeatureTypeExclusiveKey
+			case .typeSelectors:
+				return kCTFontFeatureTypeSelectorsKey
+			case .sampleText, .tooltipText:
+				fatalError("We shouldn't have got here!")
+			}
+		}
+		
+		/// Key to get the OpenType feature tag.
+		///
+		/// This key can be used with a font feature dictionary to get the tag as a `CFString`.
+		@available(macOS 10.10, iOS 8.0, watchOS 2.0, tvOS 9.0, *)
+		case openTypeTag
+		
+		/// Key to get the OpenType feature value.
+		///
+		/// This key can be used with a font feature dictionary to get the value as a `CFNumber`.
+		@available(macOS 10.10, iOS 8.0, watchOS 2.0, tvOS 9.0, *)
+		case openTypeValue
+
+		/// Key to get the font feature type value.
+		///
+		/// This key can be used with a font feature dictionary to get the type identifier as a `CFNumber`.
+		@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
+		case typeIdentifier
+		
+		/// Key to get the font feature name.
+		///
+		/// This key can be used with a font feature dictionary to get the localized type name string as a `CFString`.
+		@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
+		case typeName
+
+		/// Key to get the font feature exclusive setting.
+		///
+		/// This key can be used with a font feature dictionary to get the the exclusive setting of the feature as
+		/// a `CFBoolean`. The value associated with this key indicates whether the feature selectors associated
+		/// with this type should be mutually exclusive.
+		@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
+		case typeExclusive
+		
+		/// Key to get the font feature selectors.
+		///
+		/// This key can be used with a font feature dictionary to get the array of font feature selectors as a `CFArray`.
+		/// This is an array of selector dictionaries that contain the values for the following selector keys.
+		@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
+		case typeSelectors
+
+		public enum SelectorKey: RawLosslessStringConvertibleCFString, Hashable, Codable, @unchecked Sendable {
+			public typealias RawValue = CFString
+
+			/// Key to get the font feature selector identifier.
+			///
+			/// This key can be used with a selector dictionary corresponding to a feature type to obtain the selector identifier value
+			/// as a `CFNumber`.
+			case identifier
+			
+			/// Key to get the font feature selector name.
+			///
+			/// This key is used with a selector dictionary to get the localized name string for the selector as a `CFString`.
+			case name
+			
+			/// Key to get the font feature selector default setting value.
+			///
+			/// This key is used with a selector dictionary to get the default indicator for the selector.
+			/// This value is a `CFBoolean` which if present and true indicates that this selector is the default setting
+			/// for the current feature type.
+			case `default`
+			
+			/// Key to get or specify the current feature setting.
+			///
+			/// This key is used with a selector dictionary to get or specify the current setting for the selector. This value
+			/// is a `CFBoolean` to indicate whether this selector is on or off. If this key is not present, the default
+			/// setting is used.
+			case setting
+			
+			public var rawValue: CFString {
+				switch self {
+				case .identifier:
+					return kCTFontFeatureSelectorIdentifierKey
+				case .name:
+					return kCTFontFeatureSelectorNameKey
+				case .default:
+					return kCTFontFeatureSelectorDefaultKey
+				case .setting:
+					return kCTFontFeatureSelectorSettingKey
+				}
+			}
+			
+			public init?(rawValue: CFString) {
+				switch rawValue {
+				case kCTFontFeatureSelectorIdentifierKey:
+					self = .identifier
+					
+				case kCTFontFeatureSelectorNameKey:
+					self = .name
+					
+				case kCTFontFeatureSelectorDefaultKey:
+					self = .default
+					
+				case kCTFontFeatureSelectorSettingKey:
+					self = .setting
+					
+				default:
+					return nil
+				}
+			}
+		}
+
+		/// Key to get the font feature sample text.
+		///
+		/// This key can be used with a font feature dictionary to get the localized sample text as a `CFString`.
+		@available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+		case sampleText
+
+		/// Key to get the font feature tooltip text.
+		///
+		/// This key can be used with a font feature dictionary to get the localized tooltip text as a `CFString`.
+		@available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+		case tooltipText
 	}
 }
 
