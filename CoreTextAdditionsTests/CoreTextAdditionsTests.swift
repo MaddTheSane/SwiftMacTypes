@@ -74,12 +74,17 @@ class CoreTextAdditionsTests: XCTestCase {
 	}
 	
 	func testFeatures() {
-		let aFont = CTFont.create(withName: "Times", size: 0)
-		print(aFont.features!)
+		let aFont = CTFont.create(withName: "Times New Roman", size: 0)
+		let aFeat = aFont.features
+		XCTAssertNotNil(aFeat)
+		guard let aFeat else {
+			return
+		}
+		print(aFeat)
 	}
 	
 	func testTables() {
-		let aFont = CTFont.create(withName: "Times", size: 12)
+		let aFont = CTFont.create(withName: "Times New Roman", size: 12)
 		guard let tables = aFont.availableTables() else {
 			XCTFail("Times should at least have tables...")
 			return

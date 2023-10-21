@@ -1227,6 +1227,18 @@ public extension CTFont {
 			/// setting is used.
 			case setting
 			
+			/// Key to get the OpenType feature tag.
+			///
+			/// This key can be used with a font feature dictionary to get the tag as a `CFString`.
+			@available(macOS 10.10, iOS 8.0, watchOS 2.0, tvOS 9.0, *)
+			case openTypeTag
+			
+			/// Key to get the OpenType feature value.
+			///
+			/// This key can be used with a font feature dictionary to get the value as a `CFNumber`.
+			@available(macOS 10.10, iOS 8.0, watchOS 2.0, tvOS 9.0, *)
+			case openTypeValue
+			
 			public var rawValue: CFString {
 				switch self {
 				case .identifier:
@@ -1237,6 +1249,10 @@ public extension CTFont {
 					return kCTFontFeatureSelectorDefaultKey
 				case .setting:
 					return kCTFontFeatureSelectorSettingKey
+				case .openTypeTag:
+					return kCTFontOpenTypeFeatureTag
+				case .openTypeValue:
+					return kCTFontOpenTypeFeatureValue
 				}
 			}
 			
@@ -1253,6 +1269,12 @@ public extension CTFont {
 					
 				case kCTFontFeatureSelectorSettingKey:
 					self = .setting
+					
+				case kCTFontOpenTypeFeatureTag:
+					self = .openTypeTag
+					
+				case kCTFontOpenTypeFeatureValue:
+					self = .openTypeValue
 					
 				default:
 					return nil
