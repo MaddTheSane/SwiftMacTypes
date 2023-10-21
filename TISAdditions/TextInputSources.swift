@@ -24,7 +24,9 @@ extension TISInputSource: CFTypeProtocol {
 
 public extension TISInputSource {
 	/// Property value constants for input source type
-	enum SourceType: RawRepresentable, Hashable, RawLosslessStringConvertibleCFString {
+	enum SourceType: RawLosslessStringConvertibleCFString, Hashable, Codable, @unchecked Sendable {
+		public typealias RawValue = CFString
+		
 		/// The property value constant for one input source type value
 		/// associated with the property key `TISInputSource.Properties.sourceType`.
 		///
@@ -70,10 +72,6 @@ public extension TISInputSource {
 		/// just check input source type.
 		case ink
 
-		public var description: String {
-			return rawValue as String
-		}
-		
 		public init?(rawValue: CFString) {
 			switch rawValue {
 			case kTISTypeKeyboardLayout:
@@ -126,8 +124,6 @@ public extension TISInputSource {
 				return kTISTypeInk
 			}
 		}
-		
-		public typealias RawValue = CFString
 	}
 	
 	/// Property key constants,
@@ -138,7 +134,8 @@ public extension TISInputSource {
 	/// obtained using `TISInputSource.value(for:)`. A set of specific property
 	/// key-value pairs can also be used as a filter when creating a list of
 	/// input sources using `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
-	enum Properties: RawRepresentable, Hashable, RawLosslessStringConvertibleCFString {
+	enum Properties: RawLosslessStringConvertibleCFString, Hashable, @unchecked Sendable {
+		public typealias RawValue = CFString
 
 		/// The property key constant for a CFStringRef value that indicates
 		/// the category of input source.
@@ -159,7 +156,7 @@ public extension TISInputSource {
 		/// NOTE: This key (and a corresponding value) may not be used in the
 		/// filter dictionary passed to `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
 		///
-		/// `IconRef`s are very deprecated and might not even be accessible under Swift:
+		/// `IconRef`s are very deprecated and are a pain to use under Swift:
 		/// Use `.imageURL` to get the icon URL instead.
 		case iconRef
 		
@@ -436,16 +433,12 @@ public extension TISInputSource {
 				return kTISPropertyInputSourceType
 			}
 		}
-		
-		public typealias RawValue = CFString
-		
-		public var description: String {
-			return rawValue as String
-		}
 	}
 	
 	/// Property value constants for input source category
-	enum SourceCategory: RawRepresentable, Hashable, RawLosslessStringConvertibleCFString {
+	enum SourceCategory: RawLosslessStringConvertibleCFString, Hashable, Codable, @unchecked Sendable {
+		public typealias RawValue = CFString
+		
 		/// The property value constant for one input source category value
 		/// associated with the property key `Properties.category`.
 		///
@@ -496,12 +489,6 @@ public extension TISInputSource {
 			case .ink:
 				return kTISCategoryInkInputSource
 			}
-		}
-		
-		public typealias RawValue = CFString
-		
-		public var description: String {
-			return rawValue as String
 		}
 	}
 
@@ -849,7 +836,7 @@ public extension TISInputSource {
 	/// each key. Typically it is a `CFTypeRef` of some sort, but in one
 	/// case it is `IconRef`. The function may return `nil` if the specified
 	/// property is missing or invalid for the specified input source.
-	func value(for key: Properties) -> Any? {
+	func value(for key: Properties) -> UnsafeMutableRawPointer? {
 		return TISGetInputSourceProperty(self, key.rawValue)
 	}
 }
@@ -1035,6 +1022,19 @@ public extension TISInputSource {
 		}
 		let theDat = Unmanaged<CFString>.fromOpaque(rawDat).takeUnretainedValue()
 		return theDat as String
+	}
+	
+	/// The `IconRef` of the input source.
+	///
+	/// `IconRef`s are the normal icon format for keyboard layouts and
+	/// input methods. If an `IconRef` is not available for the specified
+	/// input source, the value is `nil`.
+	@available(*, deprecated, message: "Use .imageURL instead.")
+	var icon: IconRef? {
+		guard let rawDat = TISGetInputSourceProperty(self, kTISPropertyIconRef) else {
+			return nil
+		}
+		return OpaquePointer(rawDat)
 	}
 
 	/// A value which is an `Array` of `String`s, where each `String` is the

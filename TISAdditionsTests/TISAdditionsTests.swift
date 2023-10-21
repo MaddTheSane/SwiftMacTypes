@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Carbon.HIToolbox
 @testable import TISAdditions
 
 class TISAdditionsTests: XCTestCase {

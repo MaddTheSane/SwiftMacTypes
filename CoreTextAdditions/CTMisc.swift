@@ -105,7 +105,7 @@ extension CTUnderlineStyle: Hashable {
 	
 }
 
-public enum CTBaselineClass: RawLosslessStringConvertibleCFString, RawRepresentable, Hashable, Codable, @unchecked Sendable {
+public enum CTBaselineClass: RawLosslessStringConvertibleCFString, Hashable, Codable, @unchecked Sendable {
 	public typealias RawValue = CFString
 	
 	/// Creates a `CTBaselineClass` from a supplied string.

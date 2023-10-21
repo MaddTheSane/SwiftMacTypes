@@ -10,7 +10,7 @@
 #define CTAFontManagerErrors_h
 
 #include <CoreText/CTFontManagerErrors.h>
-#include <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
 
 /**
  @enum       CTAFontManagerError
