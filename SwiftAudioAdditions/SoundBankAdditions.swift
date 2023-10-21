@@ -11,7 +11,9 @@ import AudioToolbox
 import SwiftAdditions
 
 /// Keys for dictionaries returned by `instrumentInfoFromSoundBank(at:)`
-public enum InstrumentInfoKey: RawRepresentable, CustomStringConvertible, CaseIterable {
+public enum InstrumentInfoKey: RawRepresentable, LosslessStringConvertible, CaseIterable {
+	public typealias RawValue = String
+	
 	public init?(rawValue: String) {
 		switch rawValue {
 		case kInstrumentInfoKey_Name:
@@ -31,6 +33,10 @@ public enum InstrumentInfoKey: RawRepresentable, CustomStringConvertible, CaseIt
 		}
 	}
 	
+	public init?(_ rawValue: String) {
+		self.init(rawValue: rawValue)
+	}
+	
 	public var rawValue: String {
 		switch self {
 		case .name:
@@ -47,8 +53,6 @@ public enum InstrumentInfoKey: RawRepresentable, CustomStringConvertible, CaseIt
 	public var description: String {
 		return rawValue
 	}
-	
-	public typealias RawValue = String
 	
 	/// A `String` containing the name of the instrument.
 	case name

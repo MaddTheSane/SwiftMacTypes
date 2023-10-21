@@ -110,7 +110,7 @@
 		5563E582239F3033007A1600 /* IOHIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5563E581239F3033007A1600 /* IOHIDManager.swift */; };
 		5563E584239F453F007A1600 /* IOHIDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5563E583239F453F007A1600 /* IOHIDDevice.swift */; };
 		5563E586239F4C8F007A1600 /* IOHIDValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5563E585239F4C8F007A1600 /* IOHIDValue.swift */; };
-		5568C1021C63F1840050E2BA /* AppleScriptFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */; };
+		5568C1021C63F1840050E2BA /* AppleScriptFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5568C1011C63F1840050E2BA /* AppleScriptFoundation.swift */; platformFilters = (macos, ); };
 		556B05AC216DE4CB0025EFC5 /* SAMacError.h in Headers */ = {isa = PBXBuildFile; fileRef = 556B05AA216DE4CB0025EFC5 /* SAMacError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		556B05AD216DE4CB0025EFC5 /* SAMacError.m in Sources */ = {isa = PBXBuildFile; fileRef = 556B05AB216DE4CB0025EFC5 /* SAMacError.m */; };
 		556B05AF216DEB750025EFC5 /* SAMacError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556B05AE216DEB750025EFC5 /* SAMacError.swift */; };
