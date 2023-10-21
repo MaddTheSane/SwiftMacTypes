@@ -92,7 +92,7 @@ public extension CTTypesetter {
 	
 	// MARK: -
 	
-	enum Options: RawLosslessStringConvertibleCFString, Hashable, Equatable, RawRepresentable, @unchecked Sendable {
+	enum Options: RawLosslessStringConvertibleCFString, Hashable, @unchecked Sendable {
 		public typealias RawValue = CFString
 	 
 		/// Allows layout requiring a potentially unbounded amount of work.

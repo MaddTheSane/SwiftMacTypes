@@ -146,7 +146,7 @@ public extension CTFont {
 		}
 	}
 	
-	enum FontNameKey: RawLosslessStringConvertibleCFString, RawRepresentable, Hashable, Codable, @unchecked Sendable, Equatable {
+	enum FontNameKey: RawLosslessStringConvertibleCFString, Hashable, Codable, @unchecked Sendable {
 		public typealias RawValue = CFString
 		
 		/// Creates a `FontNameKey` from a supplied string.
@@ -790,7 +790,7 @@ public extension CTFont {
 	/// Font Variation Axis Dictionary Keys
 	///
 	/// These constants provide keys to font variation axis dictionary values.
-	enum VariationAxisKey: RawRepresentable, Hashable, RawLosslessStringConvertibleCFString, Codable, @unchecked Sendable, Equatable {
+	enum VariationAxisKey: Hashable, RawLosslessStringConvertibleCFString, Codable, @unchecked Sendable {
 		
 		/// Key to get the variation axis identifier.
 		///
