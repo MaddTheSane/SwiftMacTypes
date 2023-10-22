@@ -337,10 +337,6 @@ public extension CTFont {
 		public init?(stringValue: String) {
 			self.init(rawValue: stringValue as CFString)
 		}
-		
-		public var description: String {
-			return rawValue as String
-		}
 	}
 	
 	/// Returns a new font with additional attributes based on the original font.
