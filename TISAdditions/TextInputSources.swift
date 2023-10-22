@@ -1029,8 +1029,11 @@ public extension TISInputSource {
 	/// `IconRef`s are the normal icon format for keyboard layouts and
 	/// input methods. If an `IconRef` is not available for the specified
 	/// input source, the value is `nil`.
-	@available(*, deprecated, message: "Use .imageURL instead.")
-	var icon: IconRef? {
+	///
+	/// `IconRef`s are not officially deprecated, but they are _very_ difficult to work with on Swift.
+	/// Either create bridge functions or interact with `IconRef`s under C/C++/Obj-C.
+	@available(*, deprecated, message: "`IconRef`s are a pain to use under Swift: Use `.imageURL` instead.")
+	var iconRef: IconRef? {
 		guard let rawDat = TISGetInputSourceProperty(self, kTISPropertyIconRef) else {
 			return nil
 		}
