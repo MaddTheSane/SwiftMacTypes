@@ -12,7 +12,7 @@ import FoundationAdditions
 
 public enum CSDevice {
 	
-	public enum UserScope: RawRepresentable, RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable, Equatable {
+	public enum UserScope: RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable {
 		case `any`
 		case current
 		
@@ -41,7 +41,7 @@ public enum CSDevice {
 		}
 	}
 	
-	public enum HostScope: RawRepresentable, RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable, Equatable {
+	public enum HostScope: RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable {
 		case `any`
 		case current
 		
@@ -71,7 +71,7 @@ public enum CSDevice {
 	}
 	
 	public struct Profile: CustomStringConvertible, CustomDebugStringConvertible {
-		public enum DeviceClass: RawRepresentable, RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable, Equatable {
+		public enum DeviceClass: RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable {
 			case camera
 			case display
 			case printer
@@ -194,7 +194,8 @@ public enum CSDevice {
 		guard let devIDC = devInfo.removeValue(forKey: kColorSyncDeviceID.takeUnretainedValue() as String) as CFTypeRef?,
 			  let devDes = devInfo.removeValue(forKey: kColorSyncDeviceDescription.takeUnretainedValue() as String) as? String,
 			  var factProf = devInfo.removeValue(forKey: kColorSyncDeviceDescription.takeUnretainedValue() as String) as? NSDictionary as? [String: Any],
-			  let defaultID = factProf.removeValue(forKey: kColorSyncDeviceDefaultProfileID.takeUnretainedValue() as String) as? String, let devID = castCFType(devIDC, to: CFUUID.self) else {
+			  let defaultID = factProf.removeValue(forKey: kColorSyncDeviceDefaultProfileID.takeUnretainedValue() as String) as? String,
+			  let devID = castCFType(devIDC, to: CFUUID.self) else {
 			return nil
 		}
 		var ahi: [String: CSDevice.Info.FactoryProfiles.Profile] = [:]

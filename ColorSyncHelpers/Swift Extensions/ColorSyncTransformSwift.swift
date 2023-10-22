@@ -82,7 +82,7 @@ extension ColorSyncTransform: CFTypeProtocol {
 
 @available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
 public extension ColorSyncTransform {
-	enum RenderingIntent: RawRepresentable, RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable, Equatable {
+	enum RenderingIntent: RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable {
 		case perceptual
 		
 		case relative
@@ -128,7 +128,7 @@ public extension ColorSyncTransform {
 		}
 	}
 	
-	enum TransformTag: RawRepresentable, RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable, Equatable {
+	enum TransformTag: RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable {
 		case deviceToPCS
 		case PCSToPCS
 		case PCSToDevice
@@ -170,7 +170,7 @@ public extension ColorSyncTransform {
 		}
 	}
 	
-	enum ConvertQuality: RawRepresentable, RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable, Equatable {
+	enum ConvertQuality: RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable {
 		/// do not coalesce profile transforms (default)
 		case best
 		
@@ -208,7 +208,7 @@ public extension ColorSyncTransform {
 		}
 	}
 	
-	enum TranformInfoKey: RawRepresentable, RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable, Equatable {
+	enum TranformInfoKey: RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable {
 		/// Name of the CMM that created the transform
 		case creator
 		
@@ -268,7 +268,7 @@ public extension ColorSyncTransform {
 	///                      only of parametric curves, matrices and BPC components.
 	///  3. Simplified:      Full conversion is collapsed to one
 	///                      multi-dimensional table with N inputs and M outputs.
-	enum TransformCodeFragmentConversionDataType: RawRepresentable, RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable, Equatable {
+	enum TransformCodeFragmentConversionDataType: RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable {
 		/// all non-`nil` components based on all the tags from the
 		/// sequence of profiles passed to create the ColorSyncTransform with
 		/// an exception of adjacent matrices that can be collapsed to
@@ -312,7 +312,7 @@ public extension ColorSyncTransform {
 	}
 	
 	/// Keys for profile specific info and options
-	enum OptionKeys: RawRepresentable, RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable, Equatable {
+	enum OptionKeys: RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable {
 		case profile
 		
 		case renderingIntent
