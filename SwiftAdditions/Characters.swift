@@ -198,7 +198,7 @@ public extension ASCIICharacter {
 			return "\u{FFFD}"
 		}
 		
-		return Character(UnicodeScalar(UInt8(numVal)))
+		return Character(Unicode.Scalar(UInt8(numVal)))
 	}
 }
 

@@ -53,6 +53,7 @@ public extension CTFont {
 	/// matrix attributes. The `name` parameter is the only required parameter, and default values will
 	/// be used for unspecified parameters. A best match will be found if all parameters cannot be
 	/// matched identically.
+	@available(swift, introduced: 2.0, deprecated: 5.8, message: "Use CTFont(_:size:) or CTFont(_:transform:)")
 	class func create(withName name: String, size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont {
 		if var matrix {
 			return CTFontCreateWithName(name as NSString, size, &matrix)
@@ -71,11 +72,12 @@ public extension CTFont {
 	/// font descriptor. The `size` and `matrix` parameters will override any specified in the font
 	/// descriptor, unless they are unspecified. A best match font will always be returned, and default
 	/// values will be used for any unspecified.
+	@available(swift, introduced: 2.0, deprecated: 5.8, message: "Use CTFont(_:size:) or CTFont(_:transform:)")
 	class func create(with descriptor: CTFontDescriptor, size: CGFloat, matrix: CGAffineTransform? = nil) -> CTFont {
 		if var matrix {
 			return CTFontCreateWithFontDescriptor(descriptor, size, &matrix)
 		} else {
-			return CTFont(descriptor, size: size)
+			return self.init(descriptor, size: size)
 		}
 	}
 	
@@ -128,8 +130,9 @@ public extension CTFont {
 	/// the current system language is used. The format of the language identifier should conform to *UTS #35*.
 	/// - returns: This function returns the correct font for various UI uses. The only required parameter is
 	/// the `uiType` selector, unspecified optional parameters will use default values.
-	class func create(uiType: UIFontType, size: CGFloat, forLanguage language: String?) -> CTFont? {
-		return CTFontCreateUIFontForLanguage(uiType, size, language as NSString?)
+	@available(swift, introduced: 2.0, deprecated: 5.8, message: "Use CTFont(_:size:) or CTFont(_:size:language:)")
+	class func create(uiType: UIFontType, size: CGFloat, forLanguage language: String? = nil) -> CTFont? {
+		return self.init(uiType, size: size, language: language as NSString?)
 	}
 	
 	/// Creates a new font reference from an existing Core Graphics font reference.
@@ -146,7 +149,7 @@ public extension CTFont {
 		}
 	}
 	
-	enum FontNameKey: RawLosslessStringConvertibleCFString, Hashable, Codable, @unchecked Sendable {
+	enum FontNameKey: RawLosslessStringConvertibleCFString, Hashable, Codable, @unchecked Sendable, CaseIterable {
 		public typealias RawValue = CFString
 		
 		/// Creates a `FontNameKey` from a supplied string.
@@ -887,7 +890,7 @@ public extension CTFont {
 		return val.map { val1 -> [VariationAxisKey: Any] in
 			let val3 = val1.compactMap { (key: CFString, value: Any) -> (VariationAxisKey, Any)? in
 				guard let key2 = VariationAxisKey(rawValue: key) else {
-					print("\((CFCopyDescription(self) as String?) ?? "Unknown Font"): Unknown key \(key)?")
+					print("CTFont.variationAxes: \((CFCopyDescription(self) as String?) ?? "Unknown Font"): Unknown key \(key)?")
 					return nil
 				}
 				return (key2, value)

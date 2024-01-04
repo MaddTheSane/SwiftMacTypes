@@ -73,5 +73,8 @@ extension CGDataProvider: CFTypeProtocol {}
 extension CGDisplayMode: CFTypeProtocol {}
 extension CGDisplayStream: CFTypeProtocol {}
 extension CGEvent: CFTypeProtocol {}
+extension CGFunction: CFTypeProtocol {}
 extension CGEventSource: CFTypeProtocol {}
 extension CGGradient: CFTypeProtocol {}
+extension CGPDFPage: CFTypeProtocol {}
+extension CGPDFDocument: CFTypeProtocol {}

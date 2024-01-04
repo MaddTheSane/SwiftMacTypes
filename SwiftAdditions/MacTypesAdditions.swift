@@ -781,7 +781,7 @@ public enum CarbonFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable,
 }
 
 /// Sharing Privileges icons
-public enum CarbonSharingPrivilegesIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
+public enum CarbonSharingPrivilegesIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable, CaseIterable {
 	case notApplicable = 0x73686e61
 	case readOnly = 0x7368726f
 	case readWrite = 0x73687277
@@ -810,7 +810,7 @@ public enum CarbonBadgeIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, 
 }
 
 /// Alert icons
-public enum CarbonAlertIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
+public enum CarbonAlertIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable, CaseIterable {
 	case note = 0x6e6f7465
 	case caution = 0x63617574
 	case stop = 0x73746f70
