@@ -185,8 +185,8 @@ public extension SAMacError {
 	/// `SAMacError` is not exhaustive: not every Mac OS 9/Carbon error is used!
 	/// Catching `SAMacError` may also catch error values that aren't included in
 	/// the `SAMacError.Code` enum.
-	/// - parameter userInfo: Additional user info dictionary. Optional, default value is a
-	/// blank dictionary.
+	/// - parameter userInfo: Additional user info dictionary. Optional, default value is an
+	/// empty dictionary.
 	/// - parameter status: The `OSStatus` to create an error in the `NSOSStatusErrorDomain` error domain.
 	/// - returns: An object conforming to the `Error` protocol, either `SAMacError` or `NSError`.
 	static func osStatus(_ status: OSStatus, userInfo: [String: Any] = [:]) -> Error {
@@ -214,5 +214,4 @@ public extension SAMacError {
 		}
 		return NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: userInfo)
 	}
-
 }

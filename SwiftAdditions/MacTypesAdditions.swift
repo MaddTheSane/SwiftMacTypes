@@ -473,7 +473,7 @@ public extension String.Encoding {
 
 /// Pascal String extensions
 public extension String {
-	/// A pascal string that is 256 bytes long, containing at least 255 characters.
+	/// A pascal string that is 256 bytes long, containing at most 255 characters.
 	typealias PStr255 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
@@ -500,7 +500,7 @@ public extension String {
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	/// A pascal string that is 64 bytes long, containing at least 63 characters.
+	/// A pascal string that is 64 bytes long, containing at most 63 characters.
 	typealias PStr63 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
@@ -508,25 +508,25 @@ public extension String {
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	/// A pascal string that is 33 bytes long, containing at least 32 characters.
+	/// A pascal string that is 33 bytes long, containing at most 32 characters.
 	typealias PStr32 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	/// A pascal string that is 32 bytes long, containing at least 31 characters.
+	/// A pascal string that is 32 bytes long, containing at most 31 characters.
 	typealias PStr31 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8)
-	/// A pascal string that is 28 bytes long, containing at least 27 characters.
+	/// A pascal string that is 28 bytes long, containing at most 27 characters.
 	typealias PStr27 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8)
-	/// A pascal string that is 16 bytes long, containing at least 15 characters.
+	/// A pascal string that is 16 bytes long, containing at most 15 characters.
 	typealias PStr15 = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-	/// A pascal string that is 34 bytes long, containing at least 32 characters.
+	/// A pascal string that is 34 bytes long, containing at most 32 characters.
 	///
 	/// The last byte is unused as it was used for padding over a network.
 	typealias PStr32Field = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
@@ -550,7 +550,7 @@ public extension String {
 			return nil
 		}
 		if let theStr = CFStringCreateWithPascalString(kCFAllocatorDefault, pStr, encoding) {
-			self = theStr as String
+			self = String(theStr)
 		} else {
 			return nil
 		}
@@ -721,7 +721,7 @@ extension String {
 			return nil
 		}
 		let uniChars: [UInt16] = try! arrayFromObject(reflecting: HFSUniStr.unicode)
-		let uniStr = Array(uniChars[0 ..< Int(HFSUniStr.length)])
+		let uniStr = uniChars[0 ..< Int(HFSUniStr.length)]
 		let dat = uniStr.withUnsafeBufferPointer { (buf) -> Data in
 			return Data(buffer: buf)
 		}
