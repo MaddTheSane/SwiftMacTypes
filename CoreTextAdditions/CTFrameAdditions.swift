@@ -26,7 +26,7 @@ public extension CTFrame {
 	/// area of the path.
 	typealias PathFillRule = CTFramePathFillRule
 	
-	enum Attributes: RawRepresentable, @unchecked Sendable, Codable, RawLosslessStringConvertibleCFString, Equatable {
+	enum Attributes: RawLosslessStringConvertibleCFString, @unchecked Sendable, Codable, Equatable {
 		public typealias RawValue = CFString
 		
 		public init?(rawValue: CFString) {
@@ -99,7 +99,7 @@ public extension CTFrame {
 		/// Value must be a `CGPath` specifying a clipping path.
 		case pathClippingPath
 		
-		public enum ClippingPathKeys: RawRepresentable, @unchecked Sendable, Codable, RawLosslessStringConvertibleCFString, Equatable {
+		public enum ClippingPathKeys: RawLosslessStringConvertibleCFString, @unchecked Sendable, Codable, Equatable {
 			public typealias RawValue = CFString
 			
 			public init?(rawValue: CFString) {
