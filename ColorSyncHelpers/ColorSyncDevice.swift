@@ -12,7 +12,7 @@ import FoundationAdditions
 
 public enum CSDevice {
 	
-	public enum UserScope: RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable {
+	public enum UserScope: RawLosslessStringConvertibleCFString, Codable, @unchecked Sendable, Hashable {
 		case `any`
 		case current
 		
@@ -41,7 +41,7 @@ public enum CSDevice {
 		}
 	}
 	
-	public enum HostScope: RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable {
+	public enum HostScope: RawLosslessStringConvertibleCFString, Codable, @unchecked Sendable, Hashable {
 		case `any`
 		case current
 		
@@ -71,7 +71,7 @@ public enum CSDevice {
 	}
 	
 	public struct Profile: CustomStringConvertible, CustomDebugStringConvertible {
-		public enum DeviceClass: RawLosslessStringConvertibleCFString, @unchecked Sendable, Hashable {
+		public enum DeviceClass: RawLosslessStringConvertibleCFString, Codable, @unchecked Sendable, Hashable {
 			case camera
 			case display
 			case printer
