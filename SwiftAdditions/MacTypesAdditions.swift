@@ -969,11 +969,11 @@ public protocol OSTypeConvertable: RawRepresentable where RawValue == OSType {
 	/// The value must be representable in the Mac OS Roman encoding.
 	/// If the value contains any escape characters (*0x00*..*0x20*)
 	/// or is unable to be seen as a Mac OS Roman string, will be an empty string.
-	var stringValue: String { get }
+	var macStringValue: String { get }
 }
 
 public extension OSTypeConvertable {
-	var stringValue: String {
+	var macStringValue: String {
 		return OSTypeToString(self.rawValue) ?? ""
 	}
 }

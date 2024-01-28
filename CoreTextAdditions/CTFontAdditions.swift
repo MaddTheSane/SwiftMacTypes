@@ -1293,6 +1293,231 @@ public extension CTFont {
 			}
 		}
 	}
+	
+	/// Common font tables.
+	enum FontTableTags: CTFontTableTag {
+		/// Baseline data
+		case tagBASE = 0x42415345
+		
+		/// Color bitmap data
+		case tagCBDT = 0x43424454
+
+		/// Color bitmap location data
+		case tagCBLC = 0x43424c43
+
+		/// Compact Font Format 1.0
+		case tagCFF = 0x43464620
+
+		/// Compact Font Format 2.0
+		case tagCFF2 = 0x43464632
+
+		/// Color table
+		case tagCOLR = 0x434f4c52
+
+		/// Color palette table
+		case tagCPAL = 0x4350414c
+
+		/// Digital signature
+		case tagDSIG = 0x44534947
+
+		/// Embedded bitmap data
+		case tagEBDT = 0x45424454
+
+		/// Embedded bitmap location data
+		case tagEBLC = 0x45424c43
+
+		/// Embedded bitmap scaling data
+		case tagEBSC = 0x45425343
+
+		/// Glyph definition data
+		case tagGDEF = 0x47444546
+
+		/// Glyph positioning data
+		case tagGPOS = 0x47504f53
+
+		/// Glyph substitution data
+		case tagGSUB = 0x47535542
+
+		/// Horizontal metrics variations
+		case tagHVAR = 0x48564152
+
+		/// Justification data
+		case tagJSTF = 0x4a535446
+
+		/// Linear threshold data
+		case tagLTSH = 0x4c545348
+
+		/// Math layout data
+		case tagMATH = 0x4d415448
+
+		/// Merge
+		case tagMERG = 0x4d455247
+
+		/// Metrics variations
+		case tagMVAR = 0x4d564152
+
+		/// OS/2 and Windows specific metrics
+		case tagOS2 = 0x4f532f32
+
+		/// PCL 5 data
+		case tagPCLT = 0x50434c54
+
+		/// Style attributes
+		case tagSTAT = 0x53544154
+
+		/// Scalable vector graphics
+		case tagSVG = 0x53564720
+
+		/// Vertical device metrics
+		case tagVDMX = 0x56444d58
+
+		/// Vertical origin
+		case tagVORG = 0x564f5247
+
+		/// Vertical metrics variations
+		case tagVVAR = 0x56564152
+
+		/// Glyph reference
+		case tagZapf = 0x5a617066
+
+		/// Accent attachment
+		case tagAcnt = 0x61636e74
+
+		/// Anchor points
+		case tagAnkr = 0x616e6b72
+
+		/// Axis variations
+		case tagAvar = 0x61766172
+
+		/// Bitmap data
+		case tagBdat = 0x62646174
+
+		/// Bitmap font header
+		case tagBhed = 0x62686564
+
+		/// Bitmap location
+		case tagBloc = 0x626c6f63
+
+		/// Baseline
+		case tagBsln = 0x62736c6e
+
+		/// CID to glyph mapping
+		case tagCidg = 0x63696467
+
+		/// Character to glyph mapping
+		case tagCmap = 0x636d6170
+
+		/// CVT variations
+		case tagCvar = 0x63766172
+
+		/// Control value table
+		case tagCvt = 0x63767420
+
+		/// Font descriptor
+		case tagFdsc = 0x66647363
+
+		/// Layout feature
+		case tagFeat = 0x66656174
+
+		/// Font metrics
+		case tagFmtx = 0x666d7478
+
+		/// 'FOND' and 'NFNT' data
+		case tagFond = 0x666f6e64
+
+		/// Font program
+		case tagFpgm = 0x6670676d
+
+		/// Font variations
+		case tagFvar = 0x66766172
+
+		/// Grid-fitting/scan-conversion
+		case tagGasp = 0x67617370
+
+		/// Glyph data
+		case tagGlyf = 0x676c7966
+
+		/// Glyph variations
+		case tagGvar = 0x67766172
+
+		/// Horizontal device metrics
+		case tagHdmx = 0x68646d78
+
+		/// Font header
+		case tagHead = 0x68656164
+
+		/// Horizontal header
+		case tagHhea = 0x68686561
+
+		/// Horizontal metrics
+		case tagHmtx = 0x686d7478
+
+		/// Horizontal style
+		case tagHsty = 0x68737479
+
+		/// Justification
+		case tagJust = 0x6a757374
+
+		/// Kerning
+		case tagKern = 0x6b65726e
+
+		/// Extended kerning
+		case tagKerx = 0x6b657278
+
+		/// Ligature caret
+		case tagLcar = 0x6c636172
+
+		/// Index to location
+		case tagLoca = 0x6c6f6361
+
+		/// Language tags
+		case tagLtag = 0x6c746167
+
+		/// Maximum profile
+		case tagMaxp = 0x6d617870
+
+		/// Metadata
+		case tagMeta = 0x6d657461
+
+		/// Morph
+		case tagMort = 0x6d6f7274
+
+		/// Extended morph
+		case tagMorx = 0x6d6f7278
+
+		/// Naming table
+		case tagName = 0x6e616d65
+
+		/// Optical bounds
+		case tagOpbd = 0x6f706264
+
+		/// PostScript information
+		case tagPost = 0x706f7374
+
+		/// CVT program
+		case tagPrep = 0x70726570
+
+		/// Properties
+		case tagProp = 0x70726f70
+
+		/// Bitmap data
+		case tagSbit = 0x73626974
+
+		/// Standard bitmap graphics
+		case tagSbix = 0x73626978
+
+		/// Tracking
+		case tagTrak = 0x7472616b
+
+		/// Vertical header
+		case tagVhea = 0x76686561
+
+		/// Vertical metrics
+		case tagVmtx = 0x766d7478
+
+		/// Cross-reference
+		case tagXref = 0x78726566
+	}
 }
 
 /// Baseline data
