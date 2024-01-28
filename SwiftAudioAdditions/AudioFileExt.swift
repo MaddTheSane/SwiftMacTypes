@@ -258,7 +258,7 @@ public struct AudioFormatFlag : OptionSet {
 	}
 }
 
-func calculateLPCMFlags(validBitsPerChannel inValidBitsPerChannel: UInt32, totalBitsPerChannel inTotalBitsPerChannel: UInt32, isFloat inIsFloat: Bool, isBigEndian inIsBigEndian: Bool, isNonInterleaved inIsNonInterleaved: Bool = false) -> AudioFormatFlags {
+private func calculateLPCMFlags(validBitsPerChannel inValidBitsPerChannel: UInt32, totalBitsPerChannel inTotalBitsPerChannel: UInt32, isFloat inIsFloat: Bool, isBigEndian inIsBigEndian: Bool, isNonInterleaved inIsNonInterleaved: Bool = false) -> AudioFormatFlags {
 	return (inIsFloat ? kAudioFormatFlagIsFloat : kAudioFormatFlagIsSignedInteger) | (inIsBigEndian ? ((UInt32)(kAudioFormatFlagIsBigEndian)) : 0) | ((inValidBitsPerChannel == inTotalBitsPerChannel) ? kAudioFormatFlagIsPacked : kAudioFormatFlagIsAlignedHigh) | (inIsNonInterleaved ? ((UInt32)(kAudioFormatFlagIsNonInterleaved)) : 0)
 	
 }

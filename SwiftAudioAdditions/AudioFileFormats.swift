@@ -229,20 +229,25 @@ public class AudioFileFormats {
 			// file type name
 			do {
 				size = UInt32(MemoryLayout<CFString>.size)
-				var fileName: CFString? = nil
+				var fileName: UnsafeMutableRawPointer? = nil
 				err = AudioFileGetGlobalInfo(kAudioFileGlobalInfo_FileTypeName, UInt32(MemoryLayout<UInt32>.size), &filetype, &size, &fileName)
-				if let fileName2 = fileName as String? {
-					ffi.fileTypeName = fileName2
+				
+				if let fileName {
+					let fileName2 = Unmanaged<CFString>.fromOpaque(fileName)
+					ffi.fileTypeName = fileName2.takeUnretainedValue() as String
 				}
 			}
 			
 			// file extensions
 			do {
 				size = UInt32(MemoryLayout<CFArray>.size)
-				var extensions: CFArray? = nil
+				var extensions: UnsafeMutableRawPointer? = nil
 				err = AudioFileGetGlobalInfo(kAudioFileGlobalInfo_ExtensionsForType, UInt32(MemoryLayout<UInt32>.size), &filetype, &size, &extensions)
-				if let ext2 = extensions as? [String] {
-					ffi.extensions = ext2
+				if let extensions {
+					let ext2 = Unmanaged<CFArray>.fromOpaque(extensions).takeUnretainedValue()
+					if let ext3 = ext2 as? [String] {
+						ffi.extensions = ext3
+					}
 				}
 			}
 			
@@ -322,7 +327,7 @@ public class AudioFileFormats {
 				}
 			}
 		}
-		if let theFileFormat = theFileFormat {
+		if let theFileFormat {
 			return theFileFormat.fileTypeID
 		}
 		return nil

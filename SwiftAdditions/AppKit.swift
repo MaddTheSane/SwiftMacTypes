@@ -13,7 +13,7 @@ import Cocoa
 	@inlinable public var kCGBaseWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.baseWindow)
 	}
-	
+
 	@inlinable public var kCGMinimumWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.minimumWindow)
 	}
@@ -21,37 +21,41 @@ import Cocoa
 	@inlinable public var kCGDesktopWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.desktopWindow)
 	}
-	
+
 	@inlinable public var kCGMaximumWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.maximumWindow)
 	}
-	
+
 	@inlinable public var kCGDesktopIconWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.desktopIconWindow)
 	}
-	
+
 	@inlinable public var kCGCursorWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.cursorWindow)
 	}
-	
-	public extension AffineTransform {
-		init(cgTransform cgAff: CGAffineTransform) {
-			self.init(m11: cgAff.a, m12: cgAff.b, m21: cgAff.c, m22: cgAff.d, tX: cgAff.tx, tY: cgAff.ty)
-		}
-		
-		var cgTransform: CGAffineTransform {
-			return CGAffineTransform(a: m11, b: m12, c: m21, d: m22, tx: tX, ty: tY)
-		}
+
+public extension AffineTransform {
+	init(cgTransform cgAff: CGAffineTransform) {
+		self.init(m11: cgAff.a, m12: cgAff.b, m21: cgAff.c, m22: cgAff.d, tX: cgAff.tx, tY: cgAff.ty)
 	}
 	
-	public extension NSAffineTransform {
-		convenience init(cgTransform: CGAffineTransform) {
-			let preStruct = AffineTransform(cgTransform: cgTransform)
-			self.init()
-			transformStruct = (preStruct as NSAffineTransform).transformStruct
-		}
+	var cgTransform: CGAffineTransform {
+		return CGAffineTransform(a: m11, b: m12, c: m21, d: m22, tx: tX, ty: tY)
+	}
+}
+
+public extension NSAffineTransform {
+	convenience init(cgTransform: CGAffineTransform) {
+		self.init()
+		transformStruct = NSAffineTransformStruct(m11: cgTransform.a, m12: cgTransform.b, m21: cgTransform.c, m22: cgTransform.d, tX: cgTransform.tx, tY: cgTransform.ty)
 	}
 	
+	var cgTransform: CGAffineTransform {
+		let theStruct = transformStruct
+		return CGAffineTransform(a: theStruct.m11, b: theStruct.m12, c: theStruct.m21, d: theStruct.m22, tx: theStruct.tX, ty: theStruct.tY)
+	}
+}
+
 	public extension NSBitmapImageRep {
 		/// Returns a buffer of all available compression types that can be used when writing
 		/// a TIFF image.
@@ -75,7 +79,7 @@ import Cocoa
 			return bufPtr
 		}
 	}
-	
+
 	public extension NSBitmapImageRep.Format {
 		/// The native 32-bit byte order format.
 		@inlinable static var thirtyTwoBitNativeEndian: NSBitmapImageRep.Format {
