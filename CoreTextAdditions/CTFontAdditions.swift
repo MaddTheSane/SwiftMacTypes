@@ -905,8 +905,8 @@ public extension CTFont {
 	/// with variation identifier number keys. As of macOS 10.12 and iOS 10.0, only non-default values (as
 	/// determined by the variation axis) are returned.
 	///
-	/// - seealso: kCTFontVariationAxisIdentifierKey
-	/// - seealso: kCTFontVariationAxisDefaultValueKey
+	/// - seealso: `kCTFontVariationAxisIdentifierKey`
+	/// - seealso: `kCTFontVariationAxisDefaultValueKey`
 	var variationInfo: [OSType: Double]? {
 		guard let tmp = CTFontCopyVariation(self) as? [CFNumber: CFNumber] else {
 			return nil
@@ -1052,7 +1052,7 @@ public extension CTFont {
 	/// This method may not be able to produce positions if the font does not
 	/// have the appropriate data, in which case it will return `nil`.
 	func ligatureCaretPositions(forGlyph glyph: CGGlyph, maxPositions: Int? = nil) -> [CGFloat]? {
-		if let maxPositions = maxPositions {
+		if let maxPositions {
 			var pos = [CGFloat](repeating: 0, count: maxPositions)
 			let neededCount = CTFontGetLigatureCaretPositions(self, glyph, &pos, maxPositions)
 			guard neededCount != 0 else {
@@ -1198,6 +1198,18 @@ public extension CTFont {
 		@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
 		case typeSelectors
 
+		/// Key to get the font feature sample text.
+		///
+		/// This key can be used with a font feature dictionary to get the localized sample text as a `CFString`.
+		@available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+		case sampleText
+
+		/// Key to get the font feature tooltip text.
+		///
+		/// This key can be used with a font feature dictionary to get the localized tooltip text as a `CFString`.
+		@available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+		case tooltipText
+
 		public enum SelectorKey: RawLosslessStringConvertibleCFString, Hashable, Codable, @unchecked Sendable {
 			public typealias RawValue = CFString
 
@@ -1280,18 +1292,6 @@ public extension CTFont {
 				}
 			}
 		}
-
-		/// Key to get the font feature sample text.
-		///
-		/// This key can be used with a font feature dictionary to get the localized sample text as a `CFString`.
-		@available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-		case sampleText
-
-		/// Key to get the font feature tooltip text.
-		///
-		/// This key can be used with a font feature dictionary to get the localized tooltip text as a `CFString`.
-		@available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-		case tooltipText
 	}
 }
 

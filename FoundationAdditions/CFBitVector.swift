@@ -149,3 +149,23 @@ public extension CFMutableBitVector {
 		CFBitVectorSetAllBits(self, value)
 	}
 }
+
+extension CFBitVector: Collection {
+	public typealias Element = CFBit
+
+	public func index(after i: CFIndex) -> CFIndex {
+		return i + 1
+	}
+	
+	public subscript(position: CFIndex) -> CFBit {
+		return CFBitVectorGetBitAtIndex(self, position)
+	}
+
+	@inlinable public var startIndex: CFIndex {
+		return 0
+	}
+
+	@inlinable public var endIndex: CFIndex {
+		return CFBitVectorGetCount(self)
+	}
+}
