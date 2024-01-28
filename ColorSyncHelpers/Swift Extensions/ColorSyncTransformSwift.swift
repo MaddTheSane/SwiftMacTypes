@@ -328,6 +328,7 @@ public extension ColorSyncTransform {
 		@available(tvOS, unavailable)
 		@available(macCatalyst, unavailable)
 		@available(watchOS, unavailable)
+		@available(visionOS, unavailable)
 		case preferredCMM
 		
 		case convertQuality
