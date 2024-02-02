@@ -11,6 +11,7 @@
 
 #import <Foundation/NSObjCRuntime.h>
 #import <Foundation/NSError.h>
+#import <AudioToolbox/AudioConverter.h>
 #include <AudioToolbox/AUComponent.h>
 #include <AudioToolbox/AudioFile.h>
 #include <AudioToolbox/ExtendedAudioFile.h>

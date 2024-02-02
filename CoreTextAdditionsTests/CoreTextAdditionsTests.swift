@@ -32,10 +32,12 @@ class CoreTextAdditionsTests: XCTestCase {
 		print(names)
 	}
 	
+#if os(OSX)
 	func testFontURLs() {
 		let names = FontManager.availableFontURLs
 		print(names)
 	}
+#endif
 	
 	func testFontThing() {
 		let wmfURL = URL(fileURLWithPath: "/System/Library/Fonts/Times.ttc")

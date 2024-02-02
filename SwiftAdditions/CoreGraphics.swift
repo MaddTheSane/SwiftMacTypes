@@ -63,18 +63,21 @@ extension CGLayer: CFTypeProtocol {}
 extension CGPath: CFTypeProtocol {}
 extension CGPattern: CFTypeProtocol {}
 extension CGShading: CFTypeProtocol {}
-extension CGPSConverter: CFTypeProtocol {}
 extension CGColor: CFTypeProtocol {}
 extension CGColorConversionInfo: CFTypeProtocol {}
 extension CGColorSpace: CFTypeProtocol {}
 extension CGContext: CFTypeProtocol {}
 extension CGDataConsumer: CFTypeProtocol {}
 extension CGDataProvider: CFTypeProtocol {}
-extension CGDisplayMode: CFTypeProtocol {}
-extension CGDisplayStream: CFTypeProtocol {}
-extension CGEvent: CFTypeProtocol {}
 extension CGFunction: CFTypeProtocol {}
-extension CGEventSource: CFTypeProtocol {}
 extension CGGradient: CFTypeProtocol {}
 extension CGPDFPage: CFTypeProtocol {}
 extension CGPDFDocument: CFTypeProtocol {}
+
+#if os(OSX)
+extension CGPSConverter: CFTypeProtocol {}
+extension CGEventSource: CFTypeProtocol {}
+extension CGDisplayMode: CFTypeProtocol {}
+extension CGDisplayStream: CFTypeProtocol {}
+extension CGEvent: CFTypeProtocol {}
+#endif
