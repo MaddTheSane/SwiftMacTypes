@@ -421,7 +421,7 @@ public enum FontManager {
 	/// - parameter setting: The new setting.
 	///
 	/// Function will apply the setting to the appropriate preferences location.
-	@available(OSX 10.6, *)
+	@available(OSX 10.6, *) @inlinable
 	public static func setAutoActivationSetting(forBundleIdentifier bundleIdentifier: String?, setting: AutoActivationSetting) {
 		CTFontManagerSetAutoActivationSetting(bundleIdentifier as NSString?, setting)
 	}
@@ -431,7 +431,7 @@ public enum FontManager {
 	/// If `nil`, the current application bundle will be used. If `FontManager.bundleIdentifier` is specified,
 	/// will get the global auto-activation settings.
 	/// - returns: Will return the auto-activation setting for specified bundle identifier.
-	@available(OSX 10.6,*)
+	@available(OSX 10.6,*) @inlinable
 	public static func autoActivationSetting(forBundleIdentifier bundleIdentifier: String?) -> AutoActivationSetting {
 		return CTFontManagerGetAutoActivationSetting(bundleIdentifier as NSString?)
 	}
@@ -449,6 +449,7 @@ public enum FontManager {
 	/// iOS clients should register as an observer of the notification with the local notification center for
 	/// all changes.
 	@available(OSX 10.6, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
+	@inlinable
 	public static var registeredFontsChanged: Notification.Name {
 		return Notification.Name(kCTFontManagerRegisteredFontsChangedNotification as String)
 	}

@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 #include <CoreText/CTFont.h>
 
-//! Needed because \c CTFontCopyAvailableTables returns a \c CFArray with unboxed values, which Swift does not like \b at \b all.
-NSArray<NSNumber*> *__nullable CTAFontCopyAvailableTables(CTFontRef __nonnull font, CTFontTableOptions options) NS_REFINED_FOR_SWIFT NS_RETURNS_RETAINED;
+//! Needed because \c CTFontCopyAvailableTables returns a \c CFArrayRef with unboxed values, which Swift does not like \b at \b all.
+NSArray<NSNumber*> *__nullable CTAFontCopyAvailableTables(CTFontRef __nonnull font, CTFontTableOptions options) NS_RETURNS_RETAINED;
 
 #endif /* CTAdditionsSwiftHelpers_h */

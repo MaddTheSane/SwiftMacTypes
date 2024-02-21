@@ -795,9 +795,9 @@
 			children = (
 				5527AC151FAE7CB1009CC7FC /* CoreTextAdditions.h */,
 				5535DD1226A4234900E766D5 /* CTAFontManagerErrors.h */,
+				558D71CF26DF5E43002F5255 /* CTAFontManagerErrors.swift */,
 				5527AC321FAE7CE8009CC7FC /* CTAdditionsSwiftHelpers.h */,
 				5527AC311FAE7CE7009CC7FC /* CTAdditionsSwiftHelpers.m */,
-				558D71CF26DF5E43002F5255 /* CTAFontManagerErrors.swift */,
 				5527AC351FAE7CE8009CC7FC /* CTFontAdditions.swift */,
 				5527AC361FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift */,
 				5527AC2B1FAE7CE7009CC7FC /* CTFontDescriptorAdditions.swift */,

@@ -65,9 +65,9 @@ public func toOSType(string theString: String, detectHex: Bool = false) -> OSTyp
 public func toOSType(_ theString: String, detectHex: Bool = false) -> OSType {
 	if detectHex && theString.count > 4 {
 		let aScann = Scanner(string: theString)
-		var tmpnum: UInt32 = 0
-		if aScann.scanHexInt32(&tmpnum) && tmpnum != UInt32.max {
-			return tmpnum
+		var tmpnum: UInt64 = 0
+		if aScann.scanHexInt64(&tmpnum) && tmpnum != UInt64.max {
+			return OSType(tmpnum)
 		}
 	}
 	func Ptr2OSType(str: [CChar]) -> OSType {

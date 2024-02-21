@@ -908,11 +908,11 @@ public extension CTFont {
 	/// - seealso: `kCTFontVariationAxisIdentifierKey`
 	/// - seealso: `kCTFontVariationAxisDefaultValueKey`
 	var variationInfo: [OSType: Double]? {
-		guard let tmp = CTFontCopyVariation(self) as? [CFNumber: CFNumber] else {
+		guard let tmp = CTFontCopyVariation(self) as? [NSNumber: NSNumber] else {
 			return nil
 		}
-		let aval = tmp.map { (key: CFNumber, value: CFNumber) -> (OSType, Double) in
-			return ((key as NSNumber).uint32Value, (value as NSNumber).doubleValue)
+		let aval = tmp.map { (key: NSNumber, value: NSNumber) -> (OSType, Double) in
+			return (key.uint32Value, value.doubleValue)
 		}
 		return Dictionary(uniqueKeysWithValues: aval)
 	}
@@ -994,7 +994,7 @@ public extension CTFont {
 	/// - returns: An array of `CTFont.TableTag` values for the given font and the
 	/// supplied options.
 	func availableTables(options: TableOptions = []) -> [TableTag]? {
-		guard let numArr = __CTAFontCopyAvailableTables(self, options) else {
+		guard let numArr = CTAFontCopyAvailableTables(self, options) else {
 			return nil
 		}
 		
@@ -1023,7 +1023,7 @@ public extension CTFont {
 	func draw(glyphsAndPositions gp: [(glyph: CGGlyph, position: CGPoint)], in context: CGContext) {
 		let glyphs = gp.map({return $0.glyph})
 		let positions = gp.map({return $0.position})
-		CTFontDrawGlyphs(self, glyphs, positions, gp.count, context)
+		draw(glyphs: glyphs, atPositions: positions, in: context)
 	}
 	
 	/// Renders the given glyphs from the CTFont at the given positions in the CGContext.
@@ -1037,9 +1037,8 @@ public extension CTFont {
 	/// derived.
 	/// - parameter positions: The positions (origins) for each glyph. The positions are in user space. The
 	/// number of positions passed in must be equivalent to the number of glyphs.
-	func draw(glyphs: [CGGlyph], atPositions positions: [CGPoint], in context: CGContext) {
-		let gp = zip(glyphs, positions).map({return $0})
-		draw(glyphsAndPositions: gp, in: context)
+	@inlinable func draw(glyphs: [CGGlyph], atPositions positions: [CGPoint], in context: CGContext) {
+		CTFontDrawGlyphs(self, glyphs, positions, glyphs.count, context)
 	}
 	
 	/// Returns caret positions within a glyph.
@@ -1295,7 +1294,7 @@ public extension CTFont {
 	}
 	
 	/// Common font tables.
-	enum FontTableTags: CTFontTableTag {
+	enum TableTags: CTFontTableTag {
 		/// Baseline data
 		case tagBASE = 0x42415345
 		
@@ -1518,301 +1517,4 @@ public extension CTFont {
 		/// Cross-reference
 		case tagXref = 0x78726566
 	}
-}
-
-/// Baseline data
-@inlinable public var CTFontTableBASE: CTFontTableTag {
-	return 0x42415345
-}
-/// Color bitmap data
-@inlinable public var CTFontTableCBDT: CTFontTableTag {
-	return 0x43424454
-}
-/// Color bitmap location data
-@inlinable public var CTFontTableCBLC: CTFontTableTag {
-	return 0x43424c43
-}
-/// Compact Font Format 1.0
-@inlinable public var CTFontTableCFF: CTFontTableTag {
-	return 0x43464620
-}
-/// Compact Font Format 2.0
-@inlinable public var CTFontTableCFF2: CTFontTableTag {
-	return 0x43464632
-}
-/// Color table
-@inlinable public var CTFontTableCOLR: CTFontTableTag {
-	return 0x434f4c52
-}
-/// Color palette table
-@inlinable public var CTFontTableCPAL: CTFontTableTag {
-	return 0x4350414c
-}
-/// Digital signature
-@inlinable public var CTFontTableDSIG: CTFontTableTag {
-	return 0x44534947
-}
-/// Embedded bitmap data
-@inlinable public var CTFontTableEBDT: CTFontTableTag {
-	return 0x45424454
-}
-/// Embedded bitmap location data
-@inlinable public var CTFontTableEBLC: CTFontTableTag {
-	return 0x45424c43
-}
-/// Embedded bitmap scaling data
-@inlinable public var CTFontTableEBSC: CTFontTableTag {
-	return 0x45425343
-}
-/// Glyph definition data
-@inlinable public var CTFontTableGDEF: CTFontTableTag {
-	return 0x47444546
-}
-/// Glyph positioning data
-@inlinable public var CTFontTableGPOS: CTFontTableTag {
-	return 0x47504f53
-}
-/// Glyph substitution data
-@inlinable public var CTFontTableGSUB: CTFontTableTag {
-	return 0x47535542
-}
-/// Horizontal metrics variations
-@inlinable public var CTFontTableHVAR: CTFontTableTag {
-	return 0x48564152
-}
-/// Justification data
-@inlinable public var CTFontTableJSTF: CTFontTableTag {
-	return 0x4a535446
-}
-/// Linear threshold data
-@inlinable public var CTFontTableLTSH: CTFontTableTag {
-	return 0x4c545348
-}
-/// Math layout data
-@inlinable public var CTFontTableMATH: CTFontTableTag {
-	return 0x4d415448
-}
-/// Merge
-@inlinable public var CTFontTableMERG: CTFontTableTag {
-	return 0x4d455247
-}
-/// Metrics variations
-@inlinable public var CTFontTableMVAR: CTFontTableTag {
-	return 0x4d564152
-}
-/// OS/2 and Windows specific metrics
-@inlinable public var CTFontTableOS2: CTFontTableTag {
-	return 0x4f532f32
-}
-/// PCL 5 data
-@inlinable public var CTFontTablePCLT: CTFontTableTag {
-	return 0x50434c54
-}
-/// Style attributes
-@inlinable public var CTFontTableSTAT: CTFontTableTag {
-	return 0x53544154
-}
-/// Scalable vector graphics
-@inlinable public var CTFontTableSVG: CTFontTableTag {
-	return 0x53564720
-}
-/// Vertical device metrics
-@inlinable public var CTFontTableVDMX: CTFontTableTag {
-	return 0x56444d58
-}
-/// Vertical origin
-@inlinable public var CTFontTableVORG: CTFontTableTag {
-	return 0x564f5247
-}
-/// Vertical metrics variations
-@inlinable public var CTFontTableVVAR: CTFontTableTag {
-	return 0x56564152
-}
-/// Glyph reference
-@inlinable public var CTFontTableZapf: CTFontTableTag {
-	return 0x5a617066
-}
-/// Accent attachment
-@inlinable public var CTFontTableAcnt: CTFontTableTag {
-	return 0x61636e74
-}
-/// Anchor points
-@inlinable public var CTFontTableAnkr: CTFontTableTag {
-	return 0x616e6b72
-}
-/// Axis variations
-@inlinable public var CTFontTableAvar: CTFontTableTag {
-	return 0x61766172
-}
-/// Bitmap data
-@inlinable public var CTFontTableBdat: CTFontTableTag {
-	return 0x62646174
-}
-/// Bitmap font header
-@inlinable public var CTFontTableBhed: CTFontTableTag {
-	return 0x62686564
-}
-/// Bitmap location
-@inlinable public var CTFontTableBloc: CTFontTableTag {
-	return 0x626c6f63
-}
-/// Baseline
-@inlinable public var CTFontTableBsln: CTFontTableTag {
-	return 0x62736c6e
-}
-/// CID to glyph mapping
-@inlinable public var CTFontTableCidg: CTFontTableTag {
-	return 0x63696467
-}
-/// Character to glyph mapping
-@inlinable public var CTFontTableCmap: CTFontTableTag {
-	return 0x636d6170
-}
-/// CVT variations
-@inlinable public var CTFontTableCvar: CTFontTableTag {
-	return 0x63766172
-}
-/// Control value table
-@inlinable public var CTFontTableCvt: CTFontTableTag {
-	return 0x63767420
-}
-/// Font descriptor
-@inlinable public var CTFontTableFdsc: CTFontTableTag {
-	return 0x66647363
-}
-/// Layout feature
-@inlinable public var CTFontTableFeat: CTFontTableTag {
-	return 0x66656174
-}
-/// Font metrics
-@inlinable public var CTFontTableFmtx: CTFontTableTag {
-	return 0x666d7478
-}
-/// 'FOND' and 'NFNT' data
-@inlinable public var CTFontTableFond: CTFontTableTag {
-	return 0x666f6e64
-}
-/// Font program
-@inlinable public var CTFontTableFpgm: CTFontTableTag {
-	return 0x6670676d
-}
-/// Font variations
-@inlinable public var CTFontTableFvar: CTFontTableTag {
-	return 0x66766172
-}
-/// Grid-fitting/scan-conversion
-@inlinable public var CTFontTableGasp: CTFontTableTag {
-	return 0x67617370
-}
-/// Glyph data
-@inlinable public var CTFontTableGlyf: CTFontTableTag {
-	return 0x676c7966
-}
-/// Glyph variations
-@inlinable public var CTFontTableGvar: CTFontTableTag {
-	return 0x67766172
-}
-/// Horizontal device metrics
-@inlinable public var CTFontTableHdmx: CTFontTableTag {
-	return 0x68646d78
-}
-/// Font header
-@inlinable public var CTFontTableHead: CTFontTableTag {
-	return 0x68656164
-}
-/// Horizontal header
-@inlinable public var CTFontTableHhea: CTFontTableTag {
-	return 0x68686561
-}
-/// Horizontal metrics
-@inlinable public var CTFontTableHmtx: CTFontTableTag {
-	return 0x686d7478
-}
-/// Horizontal style
-@inlinable public var CTFontTableHsty: CTFontTableTag {
-	return 0x68737479
-}
-/// Justification
-@inlinable public var CTFontTableJust: CTFontTableTag {
-	return 0x6a757374
-}
-/// Kerning
-@inlinable public var CTFontTableKern: CTFontTableTag {
-	return 0x6b65726e
-}
-/// Extended kerning
-@inlinable public var CTFontTableKerx: CTFontTableTag {
-	return 0x6b657278
-}
-/// Ligature caret
-@inlinable public var CTFontTableLcar: CTFontTableTag {
-	return 0x6c636172
-}
-/// Index to location
-@inlinable public var CTFontTableLoca: CTFontTableTag {
-	return 0x6c6f6361
-}
-/// Language tags
-@inlinable public var CTFontTableLtag: CTFontTableTag {
-	return 0x6c746167
-}
-/// Maximum profile
-@inlinable public var CTFontTableMaxp: CTFontTableTag {
-	return 0x6d617870
-}
-/// Metadata
-@inlinable public var CTFontTableMeta: CTFontTableTag {
-	return 0x6d657461
-}
-/// Morph
-@inlinable public var CTFontTableMort: CTFontTableTag {
-	return 0x6d6f7274
-}
-/// Extended morph
-@inlinable public var CTFontTableMorx: CTFontTableTag {
-	return 0x6d6f7278
-}
-/// Naming table
-@inlinable public var CTFontTableName: CTFontTableTag {
-	return 0x6e616d65
-}
-/// Optical bounds
-@inlinable public var CTFontTableOpbd: CTFontTableTag {
-	return 0x6f706264
-}
-/// PostScript information
-@inlinable public var CTFontTablePost: CTFontTableTag {
-	return 0x706f7374
-}
-/// CVT program
-@inlinable public var CTFontTablePrep: CTFontTableTag {
-	return 0x70726570
-}
-/// Properties
-@inlinable public var CTFontTableProp: CTFontTableTag {
-	return 0x70726f70
-}
-/// Bitmap data
-@inlinable public var CTFontTableSbit: CTFontTableTag {
-	return 0x73626974
-}
-/// Standard bitmap graphics
-@inlinable public var CTFontTableSbix: CTFontTableTag {
-	return 0x73626978
-}
-/// Tracking
-@inlinable public var CTFontTableTrak: CTFontTableTag {
-	return 0x7472616b
-}
-/// Vertical header
-@inlinable public var CTFontTableVhea: CTFontTableTag {
-	return 0x76686561
-}
-/// Vertical metrics
-@inlinable public var CTFontTableVmtx: CTFontTableTag {
-	return 0x766d7478
-}
-/// Cross-reference
-@inlinable public var CTFontTableXref: CTFontTableTag {
-	return 0x78726566
 }
