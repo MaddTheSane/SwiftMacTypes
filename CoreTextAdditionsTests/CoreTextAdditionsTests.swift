@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import SwiftAdditions
 @testable import CoreTextAdditions
 @testable import CoreTextAdditions.CTAFontManagerErrors
 
@@ -90,6 +91,15 @@ class CoreTextAdditionsTests: XCTestCase {
 		guard let tables = aFont.availableTables() else {
 			XCTFail("Times should at least have tables...")
 			return
+		}
+		for table in tables {
+			let osVal = OSTypeToString(table) ?? "Unknown decode error!"
+			if let tableDat = aFont.data(for: table) {
+				print("Table “\(osVal)”: data is \(tableDat.count) bytes long!")
+			} else {
+				XCTFail("Table for \(osVal) was not found.")
+
+			}
 		}
 		print(tables)
 	}

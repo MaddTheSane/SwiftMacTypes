@@ -13,7 +13,7 @@ NSArray *__nullable CTAFontCopyAvailableTables(CTFontRef __nonnull font, CTFontT
 {
 	CFArrayRef preGoodArray = CTFontCopyAvailableTables(font, options);
 	if (preGoodArray) {
-		CFIndex count = CFArrayGetCount(preGoodArray);
+		const CFIndex count = CFArrayGetCount(preGoodArray);
 		NSMutableArray *ourArray = [[NSMutableArray alloc] initWithCapacity:count];
 		for (NSInteger i = 0; i < count; i++) {
 			CTFontTableTag newTag = (CTFontTableTag)(uintptr_t)CFArrayGetValueAtIndex(preGoodArray, i);

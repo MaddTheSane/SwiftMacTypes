@@ -924,26 +924,26 @@ public extension CTFont {
 	//--------------------------------------------------------------------------
 	
 	/// An array of font features
-	var features: [[FeatureKey: Any]]? {
+	var features: [[FeatureType: Any]]? {
 		guard let feats = CTFontCopyFeatures(self) as? [[CFString : Any]] else {
 			return nil
 		}
 		return feats.map { sa in
-			let preDict = sa.compactMap { (key: CFString, value: Any) -> (FeatureKey, Any)? in
-				guard let feat = FeatureKey(rawValue: key) else {
+			let preDict = sa.compactMap { (key: CFString, value: Any) -> (FeatureType, Any)? in
+				guard let feat = FeatureType(rawValue: key) else {
 					return nil
 				}
-				if feat == .typeSelectors, let valArr = value as? [[CFString: Any]] {
+				if feat == .selectors, let valArr = value as? [[CFString: Any]] {
 					let newVal = valArr.map { sa2 in
-						let preDict2 = sa2.compactMap { (key2: CFString, value2: Any) -> (FeatureKey.SelectorKey, Any)? in
-							guard let newKey = FeatureKey.SelectorKey(rawValue: key2) else {
+						let preDict2 = sa2.compactMap { (key2: CFString, value2: Any) -> (FeatureType.SelectorKey, Any)? in
+							guard let newKey = FeatureType.SelectorKey(rawValue: key2) else {
 								return nil
 							}
 							return (newKey, value2)
 						}
 						return Dictionary(uniqueKeysWithValues: preDict2)
 					}
-					return (.typeSelectors, newVal)
+					return (.selectors, newVal)
 				} else {
 					return (feat, value)
 				}
@@ -1088,7 +1088,7 @@ public extension CTFont {
 	}
 	
 	/// Font Features
-	enum FeatureKey: RawLosslessStringConvertibleCFString, Hashable, Codable, @unchecked Sendable {
+	enum FeatureType: RawLosslessStringConvertibleCFString, Hashable, Codable, @unchecked Sendable {
 		public typealias RawValue = CFString
 		
 		/// Creates a `FontNameKey` from a supplied string.
@@ -1112,16 +1112,16 @@ public extension CTFont {
 				self = .openTypeValue
 				
 			case kCTFontFeatureTypeIdentifierKey:
-				self = .typeIdentifier
+				self = .identifier
 				
 			case kCTFontFeatureTypeNameKey:
-				self = .typeName
+				self = .name
 				
 			case kCTFontFeatureTypeExclusiveKey:
-				self = .typeExclusive
+				self = .exclusive
 				
 			case kCTFontFeatureTypeSelectorsKey:
-				self = .typeSelectors
+				self = .selectors
 				
 			default:
 				return nil
@@ -1145,13 +1145,13 @@ public extension CTFont {
 				return kCTFontOpenTypeFeatureTag
 			case .openTypeValue:
 				return kCTFontOpenTypeFeatureValue
-			case .typeIdentifier:
+			case .identifier:
 				return kCTFontFeatureTypeIdentifierKey
-			case .typeName:
+			case .name:
 				return kCTFontFeatureTypeNameKey
-			case .typeExclusive:
+			case .exclusive:
 				return kCTFontFeatureTypeExclusiveKey
-			case .typeSelectors:
+			case .selectors:
 				return kCTFontFeatureTypeSelectorsKey
 			case .sampleText, .tooltipText:
 				fatalError("We shouldn't have got here!")
@@ -1174,13 +1174,13 @@ public extension CTFont {
 		///
 		/// This key can be used with a font feature dictionary to get the type identifier as a `CFNumber`.
 		@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
-		case typeIdentifier
+		case identifier
 		
 		/// Key to get the font feature name.
 		///
 		/// This key can be used with a font feature dictionary to get the localized type name string as a `CFString`.
 		@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
-		case typeName
+		case name
 
 		/// Key to get the font feature exclusive setting.
 		///
@@ -1188,14 +1188,14 @@ public extension CTFont {
 		/// a `CFBoolean`. The value associated with this key indicates whether the feature selectors associated
 		/// with this type should be mutually exclusive.
 		@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
-		case typeExclusive
+		case exclusive
 		
 		/// Key to get the font feature selectors.
 		///
 		/// This key can be used with a font feature dictionary to get the array of font feature selectors as a `CFArray`.
 		/// This is an array of selector dictionaries that contain the values for the following selector keys.
 		@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
-		case typeSelectors
+		case selectors
 
 		/// Key to get the font feature sample text.
 		///
