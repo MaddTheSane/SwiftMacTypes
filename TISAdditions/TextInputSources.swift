@@ -134,7 +134,7 @@ public extension TISInputSource {
 	/// obtained using `TISInputSource.value(for:)`. A set of specific property
 	/// key-value pairs can also be used as a filter when creating a list of
 	/// input sources using `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
-	enum Properties: RawLosslessStringConvertibleCFString, Hashable, @unchecked Sendable {
+	enum Property: RawLosslessStringConvertibleCFString, Hashable, @unchecked Sendable {
 		public typealias RawValue = CFString
 
 		/// The property key constant for a CFStringRef value that indicates
@@ -529,7 +529,7 @@ public extension TISInputSource {
 	/// match the filter (see discussion).
 	/// - returns: Returns an `Array` for a list of `TISInputSource`s that match
 	/// the specified properties.
-	static func inputSourceList(matching properties: [Properties: Any]?, includeAllInstalled: Bool = false) -> [TISInputSource] {
+	static func inputSourceList(matching properties: [Property: Any]?, includeAllInstalled: Bool = false) -> [TISInputSource] {
 		if let props = properties {
 			var prop2: [CFString: Any] = [:]
 			prop2.reserveCapacity(props.count)
@@ -659,7 +659,6 @@ public extension TISInputSource {
 	/// (`.isEnabled` must be `true`). Furthermore, if
 	/// if the input source is an input mode, its parent must be enabled
 	/// for it to be selected.
-	///
 	/// - throws: `paramErr` if the input source is not selectable.
 	func select() throws {
 		let err = TISSelectInputSource(self)
@@ -696,7 +695,6 @@ public extension TISInputSource {
 	/// capable of being enabled (`.isEnableCapable`
 	/// must be `true`). Furthermore, if the input source is an input mode,
 	/// its parent must already be enabled for the mode to become enabled.
-	///
 	/// - throws: `paramErr` if the input source cannot be enabled.
 	func enable() throws {
 		let err = TISEnableInputSource(self)
@@ -714,7 +712,6 @@ public extension TISInputSource {
 	/// keyboard layouts and/or input modes). It makes the specified
 	/// input source unavailable for selection, and removes it from
 	/// system UI.
-	///
 	/// - throws: `paramErr` if the input source cannot be disabled.
 	func disable() throws {
 		let err = TISDisableInputSource(self)
@@ -759,7 +756,6 @@ public extension TISInputSource {
 	/// eliminate the necessity for input methods to have UI for setting
 	/// which ASCII-capable keyboard to use for latin-character-based
 	/// phonetic input.
-	///
 	/// - throws: `paramErr` if the current keyboard input
 	/// source is not an input method/mode or if this layout does not
 	/// designate a keyboard layout.
@@ -822,7 +818,7 @@ public extension TISInputSource {
 	static func registerInputSource(at location: URL) throws {
 		let err = TISRegisterInputSource(location as NSURL)
 		guard err == noErr else {
-			throw SAMacError.osStatus(err)
+			throw SAMacError.osStatus(err, userInfo: [NSURLErrorKey: location])
 		}
 	}
 	
@@ -836,7 +832,7 @@ public extension TISInputSource {
 	/// each key. Typically it is a `CFTypeRef` of some sort, but in one
 	/// case it is `IconRef`. The function may return `nil` if the specified
 	/// property is missing or invalid for the specified input source.
-	func value(for key: Properties) -> UnsafeMutableRawPointer? {
+	func value(for key: Property) -> UnsafeMutableRawPointer? {
 		return TISGetInputSourceProperty(self, key.rawValue)
 	}
 }
