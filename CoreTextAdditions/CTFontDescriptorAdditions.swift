@@ -336,7 +336,7 @@ public extension CTFontDescriptor {
 	/// - parameter featureSelectorIdentifier: The feature selector identifier.
 	/// - returns: A copy of the original font descriptor modified with the given feature settings.
 	@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
-	@inlinable func copyWithFeature(type featureTypeIdentifier: CFNumber, selector featureSelectorIdentifier: CFNumber) -> CTFontDescriptor {
+	@inlinable func createWithFeature(type featureTypeIdentifier: CFNumber, selector featureSelectorIdentifier: CFNumber) -> CTFontDescriptor {
 		return CTFontDescriptorCreateCopyWithFeature(self, featureTypeIdentifier, featureSelectorIdentifier)
 	}
 
@@ -347,7 +347,7 @@ public extension CTFontDescriptor {
 	/// - returns: This function returns a copy of the original font descriptor with a new variation instance.
 	/// This is a convenience method for easily creating new variation font instances.
 	@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
-	func copyWithVariation(identifier variationIdentifier: OSType, value variationValue: CGFloat) -> CTFontDescriptor {
+	func createWithVariation(identifier variationIdentifier: OSType, value variationValue: CGFloat) -> CTFontDescriptor {
 		return CTFontDescriptorCreateCopyWithVariation(self, NSNumber(value: variationIdentifier), variationValue)
 	}
 	
@@ -360,7 +360,7 @@ public extension CTFontDescriptor {
 	/// - returns: Returns a new font descriptor reference in the same family with the given symbolic traits,
 	/// or `nil` if none found in the system.
 	@available(macOS 10.9, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
-	@inlinable func copyWithSymbolicTraits(value symTraitValue: CTFont.SymbolicTraits, mask symTraitMask: CTFont.SymbolicTraits) -> CTFontDescriptor? {
+	@inlinable func createWithSymbolicTraits(value symTraitValue: CTFont.SymbolicTraits, mask symTraitMask: CTFont.SymbolicTraits) -> CTFontDescriptor? {
 		return CTFontDescriptorCreateCopyWithSymbolicTraits(self, symTraitValue, symTraitMask)
 	}
 
@@ -369,7 +369,7 @@ public extension CTFontDescriptor {
 	/// - returns: Returns a new font reference with the original traits in the given family,
 	/// or `nil` if none found in the system.
 	@available(macOS 10.9, iOS 7.0, watchOS 2.0, tvOS 9.0, *)
-	func copy(withFamily family: String) -> CTFontDescriptor? {
+	func create(withFamily family: String) -> CTFontDescriptor? {
 		return CTFontDescriptorCreateCopyWithFamily(self, family as NSString)
 	}
 
@@ -388,7 +388,7 @@ public extension CTFontDescriptor {
 	/// means clear the `kLigatureType` feature set in the original font descriptor. An element
 	/// like `[ "liga", kCFNull ]` will have the same effect.
 	@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
-	func copy(withAttributes attributes: [String: Any]) -> CTFontDescriptor {
+	func create(withAttributes attributes: [String: Any]) -> CTFontDescriptor {
 		return CTFontDescriptorCreateCopyWithAttributes(self, attributes as NSDictionary)
 	}
 	
@@ -407,7 +407,7 @@ public extension CTFontDescriptor {
 	/// means clear the `kLigatureType` feature set in the original font descriptor. An element
 	/// like `[ "liga", kCFNull ]` will have the same effect.
 	@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
-	func copy(withAttributes attributes: [AttributeKey: Any]) -> CTFontDescriptor {
+	func create(withAttributes attributes: [AttributeKey: Any]) -> CTFontDescriptor {
 		var scrubbed = [CFString: Any]()
 		for (key, val) in attributes {
 			if #available(macOS 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *) {

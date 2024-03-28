@@ -26,7 +26,7 @@ public extension CTFrame {
 	/// area of the path.
 	typealias PathFillRule = CTFramePathFillRule
 	
-	enum Attributes: RawLosslessStringConvertibleCFString, @unchecked Sendable, Codable, Equatable {
+	enum Attribute: RawLosslessStringConvertibleCFString, @unchecked Sendable, Codable, Equatable {
 		public typealias RawValue = CFString
 		
 		public init?(rawValue: CFString) {
@@ -174,12 +174,12 @@ public extension CTFrame {
 	///
 	/// You can create a frame with an attributes dictionary to control various aspects of the framing process.
 	/// These attributes are different from the ones used to create an attributed string.
-	var frameAttributes: [Attributes: Any]? {
+	var frameAttributes: [Attribute: Any]? {
 		guard let preAttr = CTFrameGetFrameAttributes(self) as? [NSString: Any] else {
 			return nil
 		}
-		let postAttr = preAttr.compactMap { (key: NSString, value: Any) -> (Attributes, Any)? in
-			guard let key2 = Attributes(rawValue: key) else {
+		let postAttr = preAttr.compactMap { (key: NSString, value: Any) -> (Attribute, Any)? in
+			guard let key2 = Attribute(rawValue: key) else {
 				return nil
 			}
 			switch key2 {
@@ -195,8 +195,8 @@ public extension CTFrame {
 				}
 			case .clippingPaths:
 				if let val2 = value as? [NSString: Any] {
-					let val3 = val2.compactMap { (key: NSString, value: Any) -> (Attributes.ClippingPathKeys, Any)? in
-						guard let key4 = Attributes.ClippingPathKeys(rawValue: key) else {
+					let val3 = val2.compactMap { (key: NSString, value: Any) -> (Attribute.ClippingPathKeys, Any)? in
+						guard let key4 = Attribute.ClippingPathKeys(rawValue: key) else {
 							return nil
 						}
 						if key4 == .fillRule,

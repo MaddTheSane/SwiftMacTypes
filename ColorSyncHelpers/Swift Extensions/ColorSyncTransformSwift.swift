@@ -312,7 +312,7 @@ public extension ColorSyncTransform {
 	}
 	
 	/// Keys for profile specific info and options
-	enum OptionKeys: RawLosslessStringConvertibleCFString, Codable, @unchecked Sendable, Hashable {
+	enum OptionKey: RawLosslessStringConvertibleCFString, Codable, @unchecked Sendable, Hashable {
 		case profile
 		
 		case renderingIntent

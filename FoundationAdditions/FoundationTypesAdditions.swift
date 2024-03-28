@@ -260,6 +260,7 @@ extension NSEdgeInsets: Equatable {
 
 public extension NSIndexSet {
 	/// Creates an index set from a sequence of `Int`s.
+	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "init(_:)")
 	convenience init<B: Sequence>(indexes: B) where B.Element == Int {
 		self.init(indexSet: IndexSet(indexes))
 	}
@@ -382,7 +383,7 @@ public extension UserDefaults {
 			return nil
 		}
 		set {
-			if let newValue = newValue {
+			if let newValue {
 				set(newValue, forKey: key)
 			} else {
 				removeObject(forKey: key)
@@ -414,7 +415,7 @@ public extension UserDefaults {
 			return nil
 		}
 		set {
-			if let newValue = newValue {
+			if let newValue {
 				set(newValue, forKey: key)
 			} else {
 				removeObject(forKey: key)
@@ -446,7 +447,7 @@ public extension UserDefaults {
 			return nil
 		}
 		set {
-			if let newValue = newValue {
+			if let newValue {
 				set(newValue, forKey: key)
 			} else {
 				removeObject(forKey: key)
