@@ -9,7 +9,7 @@
 import Foundation
 
 /// Protocol that can be used to mark Objective-C classes as `Comparable`.
-/// Useful if they already have a compare function already.
+/// Useful if the class already have a `compare(_:)` function.
 public protocol CocoaComparable: NSObjectProtocol, Comparable {
 	func compare(_ rhs: Self) -> ComparisonResult
 }
