@@ -99,7 +99,7 @@ public extension CTFrame {
 		/// Value must be a `CGPath` specifying a clipping path.
 		case pathClippingPath
 		
-		public enum ClippingPathKeys: RawLosslessStringConvertibleCFString, @unchecked Sendable, Codable, Equatable {
+		public enum ClippingPathKey: RawLosslessStringConvertibleCFString, @unchecked Sendable, Codable, Equatable {
 			public typealias RawValue = CFString
 			
 			public init?(rawValue: CFString) {
@@ -195,8 +195,8 @@ public extension CTFrame {
 				}
 			case .clippingPaths:
 				if let val2 = value as? [NSString: Any] {
-					let val3 = val2.compactMap { (key: NSString, value: Any) -> (Attribute.ClippingPathKeys, Any)? in
-						guard let key4 = Attribute.ClippingPathKeys(rawValue: key) else {
+					let val3 = val2.compactMap { (key: NSString, value: Any) -> (Attribute.ClippingPathKey, Any)? in
+						guard let key4 = Attribute.ClippingPathKey(rawValue: key) else {
 							return nil
 						}
 						if key4 == .fillRule,
@@ -222,7 +222,7 @@ public extension CTFrame {
 	}
 	
 	/// An array of lines stored in the frame.
-	var lines: [CTLine] {
+	@inlinable var lines: [CTLine] {
 		return CTFrameGetLines(self) as! [CTLine]
 	}
 	

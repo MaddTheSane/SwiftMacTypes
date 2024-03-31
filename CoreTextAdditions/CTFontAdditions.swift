@@ -149,7 +149,7 @@ public extension CTFont {
 		}
 	}
 	
-	enum FontNameKey: RawLosslessStringConvertibleCFString, Hashable, Codable, @unchecked Sendable, CaseIterable {
+	@frozen enum FontNameKey: RawLosslessStringConvertibleCFString, Hashable, Codable, Sendable, CaseIterable {
 		public typealias RawValue = CFString
 		
 		/// Creates a `FontNameKey` from a supplied string.
@@ -1038,6 +1038,7 @@ public extension CTFont {
 	/// - parameter positions: The positions (origins) for each glyph. The positions are in user space. The
 	/// number of positions passed in must be equivalent to the number of glyphs.
 	@inlinable func draw(glyphs: [CGGlyph], atPositions positions: [CGPoint], in context: CGContext) {
+		precondition(glyphs.count == positions.count)
 		CTFontDrawGlyphs(self, glyphs, positions, glyphs.count, context)
 	}
 	

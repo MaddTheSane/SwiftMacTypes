@@ -73,9 +73,9 @@ public extension CTFramesetter {
 	/// - parameter attributes: Additional attributes that control the frame filling process
 	/// can be specified here.
 	/// - returns: This function will return a reference to a new `CTFrame` object.
-	func frame(withStringRange stringRange: CFRange, path: CGPath, attributes: [CTFrame.Attributes: Any]) -> CTFrame {
+	func frame(withStringRange stringRange: CFRange, path: CGPath, attributes: [CTFrame.Attribute: Any]) -> CTFrame {
 		//sanitize input
-		let preAttr = attributes.map { (key: CTFrame.Attributes, value: Any) -> (CFString, Any) in
+		let preAttr = attributes.map { (key: CTFrame.Attribute, value: Any) -> (CFString, Any) in
 			switch key {
 			case .progression:
 				if let value = value as? CTFrameProgression {
@@ -88,9 +88,9 @@ public extension CTFramesetter {
 			case .pathWidth:
 				break
 			case .clippingPaths:
-				if let value = value as? [[CTFrame.Attributes.ClippingPathKeys: Any]] {
+				if let value = value as? [[CTFrame.Attribute.ClippingPathKey: Any]] {
 					let mapped1 = value.map { val2 -> [CFString: Any] in
-						let mapped2 = val2.map { (key: CTFrame.Attributes.ClippingPathKeys, value: Any) -> (CFString, Any) in
+						let mapped2 = val2.map { (key: CTFrame.Attribute.ClippingPathKey, value: Any) -> (CFString, Any) in
 							switch key {
 							case .fillRule:
 								if let value = value as? CTFramePathFillRule {

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Based off of the ASCII code tables
-public enum ASCIICharacter: Int8, Comparable, Hashable, @unchecked Sendable {
+public enum ASCIICharacter: Int8, Comparable, Hashable, Sendable {
 	// MARK: non-visible characters
 	// TODO: add info for each value.
 	case nullCharacter = 0

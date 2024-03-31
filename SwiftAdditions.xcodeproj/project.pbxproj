@@ -359,6 +359,13 @@
 			remoteGlobalIDString = 55BE4B2C270BC16600100A7D;
 			remoteInfo = TISAdditions;
 		};
+		55D3DCCF2BBA089600A48BDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
+			remoteInfo = SwiftAdditions;
+		};
 		55E11DED1AE7114000815555 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 550FBAB519A7ADC500EFBD3D /* Project object */;
@@ -1238,6 +1245,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				55D3DCD02BBA089600A48BDE /* PBXTargetDependency */,
 				55BE4B27270BBED000100A7D /* PBXTargetDependency */,
 			);
 			name = CoreTextAdditions;
@@ -1526,7 +1534,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1530;
 				ORGANIZATIONNAME = "C.W. Betts";
 				TargetAttributes = {
 					550FBABD19A7ADC500EFBD3D = {
@@ -2165,6 +2173,11 @@
 			isa = PBXTargetDependency;
 			target = 55BE4B2C270BC16600100A7D /* TISAdditions */;
 			targetProxy = 55BE4B38270BC16600100A7D /* PBXContainerItemProxy */;
+		};
+		55D3DCD02BBA089600A48BDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 550FBABD19A7ADC500EFBD3D /* SwiftAdditions */;
+			targetProxy = 55D3DCCF2BBA089600A48BDE /* PBXContainerItemProxy */;
 		};
 		55E11DEE1AE7114000815555 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
