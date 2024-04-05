@@ -664,17 +664,8 @@ public extension OSType {
 	/// The string value may be formatted as a hexadecimal string.
 	/// Only the first four characters are read.
 	/// The string's characters must be present in the Mac Roman string encoding.
-	init(stringValue toInit: String) {
+	init(osTypeStringValue toInit: String) {
 		self = toOSType(toInit, detectHex: true)
-	}
-	
-	/// Encodes the passed string literal value to an `OSType`.
-	///
-	/// The string value may be formatted as a hexadecimal string.
-	/// Only the first four characters are read.
-	/// The strings' characters must be present in the Mac Roman string encoding.
-	init(stringLiteral toInit: String) {
-		self.init(stringValue: toInit)
 	}
 	
 	/// Creates an `OSType` from a tuple with five characters, ignoring the fifth.
@@ -737,7 +728,8 @@ public protocol OSTypeIconConvertable: RawRepresentable where RawValue == OSType
 	/// The icon representation of the `OSType`.
 	///
 	/// Note that some icons might not be present on modern versions of macOS, as some icons were
-	/// used for pre-Mac OS X versions of Mac OS.
+	/// used for pre-Mac OS X versions of Mac OS. Instead, the returned icon might be a generic icon, usually a
+	/// blank document icon, but might return a Finder icon.
 	var iconRepresentation: NSImage { get }
 }
 
