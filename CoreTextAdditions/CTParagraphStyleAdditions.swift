@@ -88,3 +88,216 @@ public extension CTParagraphStyle {
 		return CTParagraphStyleGetValueForSpecifier(self, specifier, valueBufferSize, valueBuffer)
 	}
 }
+
+public extension CTParagraphStyle {
+	/// Obtains the current value for a single setting specifier.
+	/// - parameter specifier: The setting specifier that you want to get the value for.
+	/// - parameter valueBuffer: The buffer where the requested setting value will be
+	/// written upon successful completion. The buffer's size must be at least as large as the size the
+	/// required by the `Specifier` value set in the "spec" parameter.
+	/// - returns: This function will return "true" if the `valueBuffer` had been
+	/// successfully filled. Otherwise, this function will return `false`,
+	/// indicating that one or more of the parameters is not valid.
+	///
+	/// This function will return the current value of the specifier
+	/// whether or not the user had actually set it. If the user has
+	/// not set it, this function will return the default value.
+	///
+	/// If an invalid paragraph style setting specifier is passed into
+	/// the "spec" parameter, nothing bad will happen and the buffer
+	/// value will simply be zeroed out. This is to allow backwards
+	/// compatibility with style setting specifier that may be introduced
+	/// in future versions.
+	@inlinable func value(for specifier: Specifier, buffer valueBuffer: UnsafeMutableRawBufferPointer) -> Bool {
+		return CTParagraphStyleGetValueForSpecifier(self, specifier, valueBuffer.count, valueBuffer.baseAddress!)
+	}
+	
+	/// The text alignment. Natural text alignment is realized as
+	/// left or right alignment, depending on the line sweep direction
+	/// of the first script contained in the paragraph.
+	///
+	/// Default: `CTTextAlignment.natural`
+	/// Application: CTFramesetter
+	var alignment: Alignment {
+		var toRet = Alignment.natural
+		let success = CTParagraphStyleGetValueForSpecifier(self, .alignment, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+	
+	/// The distance in points from the leading margin of a frame to
+	/// the beginning of the paragraph's first line. This value is always
+	/// nonnegative.
+	///
+	/// Default: 0.0
+	/// Application: CTFramesetter
+	var firstLineHeadIndent: CGFloat {
+		var toRet = CGFloat(0)
+		let success = CTParagraphStyleGetValueForSpecifier(self, .firstLineHeadIndent, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+	
+	/// The distance in points from the leading margin of a text
+	/// container to the beginning of lines other than the first.
+	/// This value is always nonnegative.
+	///
+	/// Default: 0.0
+	/// Application: CTFramesetter
+	var headIndent: CGFloat {
+		var toRet = CGFloat(0)
+		let success = CTParagraphStyleGetValueForSpecifier(self, .headIndent, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+	
+	/// The distance in points from the margin of a frame to the end of
+	/// lines. If positive, this value is the distance from the leading
+	/// margin (for example, the left margin in left-to-right text).
+	/// If 0 or negative, it's the distance from the trailing margin.
+	///
+	/// Default: 0.0
+	/// Application: CTFramesetter
+	var tailIndent: CGFloat {
+		var toRet = CGFloat(0)
+		let success = CTParagraphStyleGetValueForSpecifier(self, .tailIndent, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+
+	/// The CTTextTab objects, sorted by location, that define the tab
+	/// stops for the paragraph style.
+	///
+	/// Default: 12 left-aligned tabs, spaced by 28.0 points
+	/// Application: CTFramesetter, CTTypesetter
+	var tabStops: [CTTextTab] {
+		var toRet: Unmanaged<CFArray>? = nil
+		let success = CTParagraphStyleGetValueForSpecifier(self, .tabStops, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet?.takeUnretainedValue() as? [CTTextTab] ?? []
+	}
+	
+	/// The document-wide default tab interval. Tabs after the last
+	/// specified by `tabStops` are placed at
+	/// integer multiples of this distance (if positive).
+	///
+	/// Default: 0.0
+	/// Application: CTFramesetter, CTTypesetter
+	var defaultTabInterval: CGFloat {
+		var toRet = CGFloat(0)
+		let success = CTParagraphStyleGetValueForSpecifier(self, .defaultTabInterval, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+
+	/// The mode that should be used to break lines when laying out
+	/// the paragraph's text.
+	///
+	/// Default: kCTLineBreakByWordWrapping
+	/// Application: CTFramesetter
+	var lineBreakMode: LineBreakMode {
+		var toRet = LineBreakMode.byWordWrapping
+		let success = CTParagraphStyleGetValueForSpecifier(self, .alignment, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+	
+	/// The maximum height that any line in the frame will occupy,
+	/// regardless of the font size or size of any attached graphic.
+	/// Glyphs and graphics exceeding this height will overlap
+	/// neighboring lines. A maximum height of 0 implies
+	/// no line height limit. This value is always nonnegative.
+	///
+	/// Default: 0.0
+	/// Application: CTFramesetter
+	var maximumLineHeight: CGFloat {
+		var toRet = CGFloat(0)
+		let success = CTParagraphStyleGetValueForSpecifier(self, .maximumLineHeight, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+	
+	/// The minimum height that any line in the frame will occupy,
+	/// regardless of the font size or size of any attached graphic.
+	/// This value is always nonnegative.
+	///
+	/// Default: 0.0
+	/// Application: CTFramesetter
+	var minimumLineHeight: CGFloat {
+		var toRet = CGFloat(0)
+		let success = CTParagraphStyleGetValueForSpecifier(self, .minimumLineHeight, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+
+	/// The space added at the end of the paragraph to separate it from
+	/// the following paragraph. This value is always nonnegative and is
+	/// determined by adding the previous paragraph's
+	/// `.paragraphSpacing` setting and the
+	/// current paragraph's `.paragraphSpacingBefore`
+	/// setting.
+	///
+	/// Default: 0.0
+	/// Application: CTFramesetter
+	var paragraphSpacing: CGFloat {
+		var toRet = CGFloat(0)
+		let success = CTParagraphStyleGetValueForSpecifier(self, .paragraphSpacing, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+
+	/// The distance between the paragraph's top and the beginning of
+	/// its text content.
+	///
+	/// Default: 0.0
+	/// Application: CTFramesetter
+	var paragraphSpacingBefore: CGFloat {
+		var toRet = CGFloat(0)
+		let success = CTParagraphStyleGetValueForSpecifier(self, .paragraphSpacingBefore, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+
+	/// The base writing direction of the lines.
+	///
+	/// Default: `WritingDirection.natural`
+	/// Application: CTFramesetter, CTTypesetter
+	var baseWritingDirection: WritingDirection {
+		var toRet = WritingDirection.natural
+		let success = CTParagraphStyleGetValueForSpecifier(self, .baseWritingDirection, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+	
+	/// The maximum space in points between lines within the paragraph
+	/// (commonly known as leading).
+	///
+	/// Default: some large number.
+	/// Application: CTFramesetter
+	var maximumLineSpacing: CGFloat {
+		var toRet = CGFloat(0)
+		let success = CTParagraphStyleGetValueForSpecifier(self, .maximumLineSpacing, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+
+	/// The minimum space in points between lines within the paragraph
+	/// (commonly known as leading).
+	///
+	/// Default: 0.0
+	/// Application: CTFramesetter
+	var minimumLineSpacing: CGFloat {
+		var toRet = CGFloat(0)
+		let success = CTParagraphStyleGetValueForSpecifier(self, .minimumLineSpacing, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+
+	/// The space in points added between lines within the paragraph
+	/// (commonly known as leading).
+	///
+	/// Default: 0.0
+	/// Application: CTFramesetter
+	var lineSpacingAdjustment: CGFloat {
+		var toRet = CGFloat(0)
+		let success = CTParagraphStyleGetValueForSpecifier(self, .lineSpacingAdjustment, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+
+	/// The options controlling the alignment of the line edges with
+	/// the leading and trailing margins.
+	///
+	/// Default: `[]` (no options)
+	/// Application: CTTypesetter
+	var lineBoundsOptions: CTLineBoundsOptions {
+		var toRet: CTLineBoundsOptions = []
+		let success = CTParagraphStyleGetValueForSpecifier(self, .lineSpacingAdjustment, MemoryLayout.size(ofValue: toRet), &toRet)
+		return toRet
+	}
+}

@@ -189,7 +189,7 @@ public extension CTFontDescriptor {
 		///
 		/// This key is used to specify the font transformation matrix when creating a font. The default
 		/// value is `CGAffineTransformIdentity`. The value for this key is a `CFDataRef` containing
-		/// a `CGAffineTransform`, of which only the *a*, *b*, *c*, and d fields are used.
+		/// a `CGAffineTransform`, of which only the *a*, *b*, *c*, and *d* fields are used.
 		case matrix
 		
 		/// The font cascade list.
