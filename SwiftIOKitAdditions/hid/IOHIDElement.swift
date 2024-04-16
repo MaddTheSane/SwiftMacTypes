@@ -53,7 +53,7 @@ public extension IOHIDElement {
 	///
 	/// This is useful for grouping HID elements with related functionality.
 	/// - parameter toAttach: The element to be attached.
-	@inlinable func attach(_ toAttach: IOHIDElement) {
+	@inlinable func attach(to toAttach: IOHIDElement) {
 		IOHIDElementAttach(self, toAttach)
 	}
 	
@@ -61,7 +61,7 @@ public extension IOHIDElement {
 	///
 	/// This is useful for grouping HID elements with related functionality.
 	/// - parameter toDetach: The element to be detached.
-	@inlinable func detatch(_ toDetach: IOHIDElement) {
+	@inlinable func detatch(from toDetach: IOHIDElement) {
 		return IOHIDElementDetach(self, toDetach)
 	}
 	

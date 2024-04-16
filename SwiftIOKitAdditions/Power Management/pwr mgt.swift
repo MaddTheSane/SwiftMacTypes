@@ -178,7 +178,8 @@ public enum PowerManagement {
 		}
 		
 		let preDict2 = dict1.compactMap { (k, v) -> (SystemLoadAdvisoryLevelKey, SystemLoadAdvisoryLevel)? in
-			guard let k2 = SystemLoadAdvisoryLevelKey(rawValue: k), let v2 = SystemLoadAdvisoryLevel(rawValue: v) else {
+			guard let k2 = SystemLoadAdvisoryLevelKey(rawValue: k), 
+					let v2 = SystemLoadAdvisoryLevel(rawValue: v) else {
 				return nil
 			}
 			return (k2, v2)

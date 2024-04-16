@@ -295,9 +295,9 @@ public extension CTParagraphStyle {
 	///
 	/// Default: `[]` (no options)
 	/// Application: CTTypesetter
-	var lineBoundsOptions: CTLineBoundsOptions {
+	var lineBoundsOptions: CTLine.BoundsOptions {
 		var toRet: CTLineBoundsOptions = []
-		let success = CTParagraphStyleGetValueForSpecifier(self, .lineSpacingAdjustment, MemoryLayout.size(ofValue: toRet), &toRet)
+		let success = CTParagraphStyleGetValueForSpecifier(self, .lineBoundsOptions, MemoryLayout.size(ofValue: toRet), &toRet)
 		return toRet
 	}
 }
