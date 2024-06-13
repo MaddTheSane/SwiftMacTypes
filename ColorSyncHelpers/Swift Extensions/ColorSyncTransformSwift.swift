@@ -73,7 +73,7 @@ public extension ColorSyncTransform {
 }
 
 @available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
-extension ColorSyncTransform: CFTypeProtocol {
+extension ColorSyncTransform: @retroactive CFTypeProtocol {
 	/// The type identifier of all `ColorSyncTransform` instances.
 	@inlinable public static var typeID: CFTypeID {
 		return ColorSyncTransformGetTypeID()

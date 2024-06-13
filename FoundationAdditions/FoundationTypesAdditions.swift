@@ -247,7 +247,7 @@ public extension NSMutableData {
 
 #if os(OSX)
 @available(OSX, introduced: 10.10)
-extension NSEdgeInsets: Equatable {
+extension NSEdgeInsets: @retroactive Equatable {
 	@inlinable public static var zero: NSEdgeInsets {
 		return NSEdgeInsetsZero
 	}

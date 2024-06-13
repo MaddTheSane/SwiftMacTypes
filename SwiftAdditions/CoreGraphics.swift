@@ -57,27 +57,27 @@ public extension CGBitmapInfo {
 	}
 }
 
-extension CGFont: CFTypeProtocol {}
-extension CGImage: CFTypeProtocol {}
-extension CGLayer: CFTypeProtocol {}
-extension CGPath: CFTypeProtocol {}
-extension CGPattern: CFTypeProtocol {}
-extension CGShading: CFTypeProtocol {}
-extension CGColor: CFTypeProtocol {}
-extension CGColorConversionInfo: CFTypeProtocol {}
-extension CGColorSpace: CFTypeProtocol {}
-extension CGContext: CFTypeProtocol {}
-extension CGDataConsumer: CFTypeProtocol {}
-extension CGDataProvider: CFTypeProtocol {}
-extension CGFunction: CFTypeProtocol {}
-extension CGGradient: CFTypeProtocol {}
-extension CGPDFPage: CFTypeProtocol {}
-extension CGPDFDocument: CFTypeProtocol {}
+extension CGFont: @retroactive CFTypeProtocol {}
+extension CGImage: @retroactive CFTypeProtocol {}
+extension CGLayer: @retroactive CFTypeProtocol {}
+extension CGPath: @retroactive CFTypeProtocol {}
+extension CGPattern: @retroactive CFTypeProtocol {}
+extension CGShading: @retroactive CFTypeProtocol {}
+extension CGColor: @retroactive CFTypeProtocol {}
+extension CGColorConversionInfo: @retroactive CFTypeProtocol {}
+extension CGColorSpace: @retroactive CFTypeProtocol {}
+extension CGContext: @retroactive CFTypeProtocol {}
+extension CGDataConsumer: @retroactive CFTypeProtocol {}
+extension CGDataProvider: @retroactive CFTypeProtocol {}
+extension CGFunction: @retroactive CFTypeProtocol {}
+extension CGGradient: @retroactive CFTypeProtocol {}
+extension CGPDFPage: @retroactive CFTypeProtocol {}
+extension CGPDFDocument: @retroactive CFTypeProtocol {}
 
 #if os(OSX)
-extension CGPSConverter: CFTypeProtocol {}
-extension CGEventSource: CFTypeProtocol {}
-extension CGDisplayMode: CFTypeProtocol {}
-extension CGDisplayStream: CFTypeProtocol {}
-extension CGEvent: CFTypeProtocol {}
+extension CGPSConverter: @retroactive CFTypeProtocol {}
+extension CGEventSource: @retroactive CFTypeProtocol {}
+extension CGDisplayMode: @retroactive CFTypeProtocol {}
+extension CGDisplayStream: @retroactive CFTypeProtocol {}
+extension CGEvent: @retroactive CFTypeProtocol {}
 #endif

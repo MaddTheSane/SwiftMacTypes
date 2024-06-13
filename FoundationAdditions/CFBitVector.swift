@@ -150,7 +150,8 @@ public extension CFMutableBitVector {
 	}
 }
 
-extension CFBitVector: Collection {
+extension CFBitVector: @retroactive Sequence {}
+extension CFBitVector: @retroactive Collection {
 	public typealias Element = CFBit
 
 	public func index(after i: CFIndex) -> CFIndex {

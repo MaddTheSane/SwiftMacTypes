@@ -136,7 +136,7 @@ public extension CATransform3D {
 	}
 }
 
-extension CATransform3D: Equatable {
+extension CATransform3D: @retroactive Equatable {
 	/// Concatenate `rhs` to `lhs` and sets `lhs` to the result: **lhs = lhs * rhs**.
 	@inlinable public static func +=(lhs: inout CATransform3D, rhs: CATransform3D) {
 		lhs = CATransform3DConcat(lhs, rhs)

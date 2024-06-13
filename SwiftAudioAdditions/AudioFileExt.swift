@@ -777,7 +777,7 @@ private func CAStringForOSType(_ val: OSType) -> String {
 	return toRet
 }
 
-extension AudioStreamBasicDescription: CustomStringConvertible {
+extension AudioStreamBasicDescription: @retroactive CustomStringConvertible {
 	public var description: String {
 		let formatID = CAStringForOSType(mFormatID)
 		var buffer = String(format: "%2d ch, %6.0f Hz, \(formatID) (0x%08X) ", mChannelsPerFrame, mSampleRate, mFormatFlags)
@@ -896,7 +896,8 @@ private func matchFormatFlags(_ x: AudioStreamBasicDescription, _ y: AudioStream
 	return xFlags == yFlags
 }
 
-extension AudioStreamBasicDescription: Comparable {
+extension AudioStreamBasicDescription: @retroactive Equatable {}
+extension AudioStreamBasicDescription: @retroactive Comparable {
 	/// Returns `true` if both `AudioStreamBasicDescription`s are exactly the same.
 	public static func ===(lhs: AudioStreamBasicDescription, rhs: AudioStreamBasicDescription) -> Bool {
 		if lhs.mBytesPerFrame != rhs.mBytesPerFrame {
