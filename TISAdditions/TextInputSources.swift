@@ -15,7 +15,7 @@ import SwiftAdditions
 #error("TISInputSource is a Mac-only class: it makes no sense to add extensions for a Mac class on a non-Mac platform")
 #endif
 
-extension TISInputSource: CFTypeProtocol {
+extension TISInputSource: @retroactive CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for `TISInputSource`.
 	@inlinable public class var typeID: CFTypeID {
 		return TISInputSourceGetTypeID()

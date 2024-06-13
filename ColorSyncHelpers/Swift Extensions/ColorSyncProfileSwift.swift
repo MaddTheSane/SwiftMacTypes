@@ -144,7 +144,7 @@ public extension ColorSyncProfile {
 }
 
 @available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
-extension ColorSyncProfile: CFTypeProtocol {
+extension ColorSyncProfile: @retroactive CFTypeProtocol {
 	/// The type identifier of all `ColorSyncProfile` instances.
 	@inlinable public static var typeID: CFTypeID {
 		return ColorSyncProfileGetTypeID()

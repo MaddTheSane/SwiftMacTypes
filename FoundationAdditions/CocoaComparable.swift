@@ -38,5 +38,6 @@ public extension CocoaComparable {
 	//}
 }
 
+extension NSNumber: @retroactive Comparable {}
 extension NSNumber: CocoaComparable {
 }

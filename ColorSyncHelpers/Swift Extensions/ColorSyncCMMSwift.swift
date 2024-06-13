@@ -33,7 +33,7 @@ public extension ColorSyncCMM {
 }
 
 @available(macOS 10.4, iOS 16.0, macCatalyst 16.0, *)
-extension ColorSyncCMM: CFTypeProtocol {
+extension ColorSyncCMM: @retroactive CFTypeProtocol {
 	/// The type identifier of all `ColorSyncCMM` instances.
 	@inlinable public static var typeID: CFTypeID {
 		return ColorSyncCMMGetTypeID()

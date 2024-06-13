@@ -10,98 +10,98 @@ import Foundation
 import FoundationAdditions
 import CoreText
 
-extension CTFont: CFTypeProtocol {
+extension CTFont: @retroactive CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for for the opaque type `CTFont`.
 	@inlinable public class var typeID: CFTypeID {
 		return CTFontGetTypeID()
 	}
 }
 
-extension CTFontCollection: CFTypeProtocol {
+extension CTFontCollection: @retroactive CFTypeProtocol {
 	/// The Core Foundation type identifier for the opaque type `CTFontCollection`.
 	@inlinable public class var typeID: CFTypeID {
 		return CTFontCollectionGetTypeID()
 	}
 }
 
-extension CTFontDescriptor: CFTypeProtocol {
+extension CTFontDescriptor: @retroactive CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for the opaque type `CTFontDescriptor`.
 	@inlinable public class var typeID: CFTypeID {
 		return CTFontDescriptorGetTypeID()
 	}
 }
 
-extension CTFrame: CFTypeProtocol {
+extension CTFrame: @retroactive CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for the opaque type `CTFrame`.
 	@inlinable public class var typeID: CFTypeID {
 		return CTFrameGetTypeID()
 	}
 }
 
-extension CTFramesetter: CFTypeProtocol {
+extension CTFramesetter: @retroactive CFTypeProtocol {
 	/// Returns the Core Foundation type identifier the opaque type `CTFramesetter`.
 	@inlinable public class var typeID: CFTypeID {
 		return CTFramesetterGetTypeID()
 	}
 }
 
-extension CTLine: CFTypeProtocol {
+extension CTLine: @retroactive CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for the opaque type `CTLineRef`.
 	@inlinable public class var typeID: CFTypeID {
 		return CTLineGetTypeID()
 	}
 }
 
-extension CTParagraphStyle: CFTypeProtocol {
+extension CTParagraphStyle: @retroactive CFTypeProtocol {
 	/// Returns the Core Foundation type identifier of the paragraph style object.
 	@inlinable public class var typeID: CFTypeID {
 		return CTParagraphStyleGetTypeID()
 	}
 }
 
-extension CTRubyAnnotation: CFTypeProtocol {
+extension CTRubyAnnotation: @retroactive CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for the opaque type `CTRubyAnnotation`.
 	@inlinable public class var typeID: CFTypeID {
 		return CTRubyAnnotationGetTypeID()
 	}
 }
 
-extension CTRun: CFTypeProtocol {
+extension CTRun: @retroactive CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for the opaque type `CTRun`.
 	@inlinable public class var typeID: CFTypeID {
 		return CTRunGetTypeID()
 	}
 }
 
-extension CTRunDelegate: CFTypeProtocol {
+extension CTRunDelegate: @retroactive CFTypeProtocol {
 	/// The Core Foundation type identifier for the opaque type `CTRunDelegate`.
 	@inlinable public static var typeID: CFTypeID {
 		return CTRunDelegateGetTypeID()
 	}
 }
 
-extension CTTextTab: CFTypeProtocol {
+extension CTTextTab: @retroactive CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for the opaque type `CTTextTab`.
 	@inlinable public class var typeID: CFTypeID {
 		return CTTextTabGetTypeID()
 	}
 }
 
-extension CTTypesetter: CFTypeProtocol {
+extension CTTypesetter: @retroactive CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for the opaque type `CTTypesetter`.
 	@inlinable public static var typeID: CFTypeID {
 		return CTTypesetterGetTypeID()
 	}
 }
 
-extension CTGlyphInfo: CFTypeProtocol {
+extension CTGlyphInfo: @retroactive CFTypeProtocol {
 	/// Returns the Core Foundation type identifier for the opaque type `CTGlyphInfo`.
 	@inlinable public static var typeID: CFTypeID {
 		return CTGlyphInfoGetTypeID()
 	}
 }
 
-extension CTUnderlineStyle: Hashable {
+extension CTUnderlineStyle: @retroactive Hashable {
 	
 }
 

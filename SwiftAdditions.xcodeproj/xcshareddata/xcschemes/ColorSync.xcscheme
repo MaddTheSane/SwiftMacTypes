@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1600"
-   version = "1.3">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5527AC121FAE7CB1009CC7FC"
-               BuildableName = "CoreTextAdditions.framework"
-               BlueprintName = "CoreTextAdditions"
-               ReferencedContainer = "container:SwiftAdditions.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5527AC1A1FAE7CB1009CC7FC"
-               BuildableName = "CoreTextAdditionsTests.xctest"
-               BlueprintName = "CoreTextAdditionsTests"
+               BlueprintIdentifier = "554FE7A728C74A3400418258"
+               BuildableName = "ColorSyncHelpers.framework"
+               BlueprintName = "ColorSyncHelpers"
                ReferencedContainer = "container:SwiftAdditions.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -40,15 +26,16 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5527AC1A1FAE7CB1009CC7FC"
-               BuildableName = "CoreTextAdditionsTests.xctest"
-               BlueprintName = "CoreTextAdditionsTests"
+               BlueprintIdentifier = "554FE7AE28C74A3400418258"
+               BuildableName = "ColorSyncHelpersTests.xctest"
+               BlueprintName = "ColorSyncHelpersTests"
                ReferencedContainer = "container:SwiftAdditions.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -74,9 +61,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5527AC121FAE7CB1009CC7FC"
-            BuildableName = "CoreTextAdditions.framework"
-            BlueprintName = "CoreTextAdditions"
+            BlueprintIdentifier = "554FE7A728C74A3400418258"
+            BuildableName = "ColorSyncHelpers.framework"
+            BlueprintName = "ColorSyncHelpers"
             ReferencedContainer = "container:SwiftAdditions.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
