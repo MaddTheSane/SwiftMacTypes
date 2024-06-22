@@ -596,3 +596,68 @@ public extension IOHIDDevice {
 		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as CFString)
 	}
 }
+
+public extension IOHIDDevice {
+	var productKey: String? {
+		return getProperty(forKey: kIOHIDProductKey) as? String
+	}
+	
+	var vendorID: UInt32? {
+		let val = getProperty(forKey: kIOHIDVendorIDKey)
+		return val as? UInt32
+	}
+	
+	var productID: UInt32? {
+		let val = getProperty(forKey: kIOHIDProductIDKey)
+		return val as? UInt32
+	}
+	
+	var locationID: UInt32? {
+		let val = getProperty(forKey: kIOHIDLocationIDKey)
+		return val as? UInt32
+	}
+
+	var usage: UInt32? {
+		let val = getProperty(forKey: kIOHIDPrimaryUsageKey)
+		return val as? UInt32
+	}
+
+	var builtIn: Bool? {
+		let val = getProperty(forKey: kIOHIDBuiltInKey)
+		return val as? Bool
+	}
+
+	var transport: UInt32? {
+		let val = getProperty(forKey: kIOHIDTransportKey) 
+		return val as? UInt32
+	}
+
+	var isMouse: Bool {
+		guard let usage else {
+			return false
+		}
+		return usage == kHIDUsage_GD_Mouse
+	}
+	
+	var usageDescription: String? {
+		if let usage {
+			switch Int(usage) {
+			case kHIDUsage_GD_Mouse:
+				return "Mouse"
+			case kHIDUsage_GD_Joystick:            
+				return "Joystick"
+			case kHIDUsage_GD_GamePad:            
+				return "GamePad"
+			case kHIDUsage_GD_Keyboard:          
+				return "Keyboard"
+			case kHIDUsage_GD_Keypad:      
+				return "Keypad"
+			case kHIDUsage_GD_MultiAxisController: 
+				return "Multi axis controller"
+			default: 
+				break
+			}
+		}
+		return nil
+	}
+}
