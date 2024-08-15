@@ -253,8 +253,6 @@ public extension String.Encoding {
 	static let macOSHFS = convertToStrEnc(from: .macHFS)
 	
 	/* ISO 8-bit and 7-bit encodings begin at 0x200 */
-	/// ISO 8859-2.
-	static let isoLatin2 = convertToStrEnc(from: .isoLatin2)
 	
 	/// ISO 8859-3.
 	static let isoLatin3 = convertToStrEnc(from: .isoLatin3)
@@ -425,8 +423,6 @@ public extension String.Encoding {
 	static let EUC_KR = convertToStrEnc(from: .EUC_KR)
 
 			/* Misc standards begin at 0xA00 */
-	/// plain Shift-JIS.
-	static let shiftJIS = convertToStrEnc(from: .shiftJIS)
 	
 	/// Russian internet standard.
 	static let KOI8_R = convertToStrEnc(from: .KOI8_R)
