@@ -53,7 +53,7 @@ public enum ReflectError: Error {
 /// If passed `nil`, no object will be put on the end of the array. Default is `nil`.
 /// - returns: an array of `X` objects.
 /// - throws: `ReflectError` if any of the types don't match `X`.
-@inlinable public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X? = nil) throws -> [X] {
+@inlinable public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X? = nil) throws(ReflectError) -> [X] {
 	var anArray = [X]()
 	let mirror = Mirror(reflecting: obj)
 	let children = mirror.children
@@ -91,7 +91,7 @@ public func runOnMainThreadSync(_ block: () -> Void) {
 ///
 /// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
 /// - parameter block: The block to execute asyncronously on the main thread.
-public func runOnMainThreadAsync(_ block: @escaping () -> Void) {
+public func runOnMainThreadAsync(_ block: @Sendable @escaping () -> Void) {
 	if Thread.isMainThread {
 		block()
 	} else {
@@ -262,7 +262,7 @@ public extension UnsafeBufferPointer {
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
 	/// - parameter toCheck: The current element to check.
-	@inlinable init(start: UnsafePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
+	@inlinable init<E>(start: UnsafePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) throws(E) -> Bool) rethrows {
 		var toIterate = start
 		
 		while !(try sentinelChecker(toIterate.pointee)) {
@@ -286,7 +286,7 @@ public extension UnsafeBufferPointer {
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
 	/// - parameter toCheck: The current element to check.
-	@inlinable init(start: UnsafePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
+	@inlinable init<E>(start: UnsafePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws(E) -> Bool) rethrows {
 		var toIterate = start
 		
 		while !(try sentinelChecker(toIterate.pointee)) && start.distance(to: toIterate) > maximum {
@@ -309,7 +309,7 @@ public extension UnsafeMutableBufferPointer {
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
 	/// - parameter toCheck: The current element to check.
-	@inlinable init(start: UnsafeMutablePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
+	@inlinable init<E>(start: UnsafeMutablePointer<Element>, sentinel sentinelChecker: (_ toCheck: Element) throws(E) -> Bool) rethrows {
 		var toIterate = start
 		
 		while !(try sentinelChecker(toIterate.pointee)) {
@@ -333,7 +333,7 @@ public extension UnsafeMutableBufferPointer {
 	/// is the sentinel, or last object in an array. Return `true` if `toCheck`
 	/// matches the characteristic of the sentinal.
 	/// - parameter toCheck: The current element to check.
-	@inlinable init(start: UnsafeMutablePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws -> Bool) rethrows {
+	@inlinable init<E>(start: UnsafeMutablePointer<Element>, maximum: Int, sentinel sentinelChecker: (_ toCheck: Element) throws(E) -> Bool) rethrows {
 		var toIterate = start
 		
 		while !(try sentinelChecker(toIterate.pointee)) && start.distance(to: toIterate) > maximum {

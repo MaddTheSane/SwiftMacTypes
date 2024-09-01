@@ -41,11 +41,10 @@ extension AudioStreamBasicDescription: @retroactive Hashable {
 	}
 }
 
-public class AudioFileFormats {
-	// TODO: find correct way to mark this.
-	nonisolated(unsafe) public static let shared = AudioFileFormats()
+public final class AudioFileFormats {
+	@MainActor public static let shared = AudioFileFormats()
 	
-	public struct DataFormatInfo: CustomDebugStringConvertible, Hashable {
+	public struct DataFormatInfo: CustomDebugStringConvertible, Hashable, Sendable {
 		public internal(set) var formatID: OSType = 0
 		public internal(set) var variants = [AudioStreamBasicDescription]()
 		public internal(set) var readable = false
@@ -69,7 +68,7 @@ public class AudioFileFormats {
 		}
 	}
 	
-	public struct FileFormatInfo: CustomDebugStringConvertible {
+	public struct FileFormatInfo: CustomDebugStringConvertible, Sendable {
 		public var fileTypeID = AudioFileTypeID()
 		public var fileTypeName = ""
 		public var extensions = [String]()
