@@ -323,7 +323,7 @@ public extension ColorSyncTransform {
 		
 		case extendedRange
 		
-		/// ColorSyncCMMRef of the preferred CMM
+		/// `ColorSyncCMM` of the preferred CMM
 		@available(iOS, unavailable)
 		@available(tvOS, unavailable)
 		@available(macCatalyst, unavailable)
