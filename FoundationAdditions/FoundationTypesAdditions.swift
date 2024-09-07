@@ -506,7 +506,7 @@ public extension UserDefaults {
 			return nil
 		}
 		set {
-			if let newValue = newValue {
+			if let newValue {
 				set(newValue, forKey: key)
 			} else {
 				removeObject(forKey: key)
@@ -522,7 +522,7 @@ public extension Bundle {
 	/// the value past the current scope.
 	///
 	/// Implementation note: While `NSBundle` (and thus `Bundle`) has an internal reference to a `CFBundle`,
-	/// there is no public getter: This creates a new `CFBundle` object from the current bundle's URL.
+	/// there is no public getter: This getter creates a new `CFBundle` object from the current bundle's URL.
 	@objc(CFBundle) var cfBundle: CFBundle {
 		return CFBundleCreate(kCFAllocatorDefault, bundleURL as NSURL)
 	}

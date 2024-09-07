@@ -966,8 +966,8 @@ public extension TISInputSource {
 		guard let rawDat = TISGetInputSourceProperty(self, kTISPropertyUnicodeKeyLayoutData) else {
 			return nil
 		}
-		let theDat = Unmanaged<CFData>.fromOpaque(rawDat).takeUnretainedValue()
-		return theDat as Data
+		let theDat = Unmanaged<NSData>.fromOpaque(rawDat).takeUnretainedValue()
+		return Data(theDat)
 	}
 	
 	/// The value indicating the file containing the image (typically *TIFF*) to be used as the

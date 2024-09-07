@@ -463,7 +463,7 @@ public extension AudioStreamBasicDescription {
 		}
 	}
 	
-	mutating func changeCountOfChannels(nChannels: UInt32, interleaved: Bool) throws {
+	mutating func changeCountOfChannels(nChannels: UInt32, interleaved: Bool) throws(ASBDError) {
 		guard isPCM else {
 			throw ASBDError.reqiresPCMFormat
 		}
@@ -508,7 +508,7 @@ public extension AudioStreamBasicDescription {
 	///	format[@sample_rate_hz][/format_flags][#frames_per_packet][:LHbytesPerFrame][,channelsDI].
 	///
 	/// Format for PCM is *[-][BE|LE]{F|I|UI}{bitdepth}*; else a 4-char format code (e.g. `aac`, `alac`).
-	init(fromText: String) throws {
+	init(fromText: String) throws(ASBDError) {
 		var charIterator = fromText.startIndex
 		
 		func numFromCurrentChar() -> Int? {
