@@ -521,8 +521,8 @@ public extension Bundle {
 	/// Make sure you `CFRetain` the returned `CFBundleRef` if you use this getter in Objective-C and you want to keep
 	/// the value past the current scope.
 	///
-	/// Implementation note: While `NSBundle` (and thus `Bundle`) has an internal reference to a `CFBundle`,
-	/// there is no public getter: This getter creates a new `CFBundle` object from the current bundle's URL.
+	/// - Note: While `NSBundle` (and thus `Bundle`) has an internal reference to a `CFBundle`,
+	/// there is not a public way to access it: This getter creates a new `CFBundle` object from the current bundle's URL.
 	@objc(CFBundle) var cfBundle: CFBundle {
 		return CFBundleCreate(kCFAllocatorDefault, bundleURL as NSURL)
 	}

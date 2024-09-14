@@ -39,7 +39,7 @@ import Foundation
 /// the data type.
 public enum ReflectError: Error {
 	/// The type encountered wasn't the expected type.
-	case unexpectedType(type: Any.Type, named: String?)
+	case unexpectedType(_ type: any Any.Type, named: String?)
 }
 
 /// Creates an array of type `X` by reflecting `obj`.
@@ -60,7 +60,7 @@ public enum ReflectError: Error {
 	anArray.reserveCapacity(children.count + 1)
 	for val in children {
 		guard let aChar = val.value as? X else {
-			throw ReflectError.unexpectedType(type: type(of: val.value), named: val.label)
+			throw ReflectError.unexpectedType(type(of: val.value), named: val.label)
 		}
 		anArray.append(aChar)
 	}
@@ -141,7 +141,7 @@ public extension Dictionary {
 
 // MARK: - Array additions
 
-public extension Array {
+public extension RangeReplaceableCollection where Index == Int, Self: MutableCollection {
 	/// Removes objects at indexes that are in the specified `NSIndexSet`.
 	/// - parameter indexes: the index set containing the indexes of objects that will be removed
 	@inlinable mutating func remove(indexes: NSIndexSet) {
@@ -215,7 +215,7 @@ public extension String {
 		var toRet = String(pref)
 		var len2 = len
 		while len2 > 0 {
-			if let toRet = toRet {
+			if let toRet {
 				return toRet
 			}
 			len2 -= 1
@@ -238,7 +238,7 @@ public extension String {
 		var toRet = String(pref)
 		var len2 = len
 		while len2 > 0 {
-			if let toRet = toRet {
+			if let toRet {
 				return toRet
 			}
 			len2 -= 1
