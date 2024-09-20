@@ -92,6 +92,7 @@ public extension CTTypesetter {
 	
 	// MARK: -
 	
+	/// Typesetter options.
 	enum Options: RawLosslessStringConvertibleCFString, Hashable, @unchecked Sendable {
 		public typealias RawValue = CFString
 	 
@@ -107,9 +108,9 @@ public extension CTTypesetter {
 		
 		/// Specifies the embedding level.
 		///
-		/// Value must be a CFNumberRef. Default is unset. Normally,
+		/// Value must be a `CFNumberRef`. Default is unset. Normally,
 		/// typesetting applies the Unicode Bidirectional Algorithm as
-		/// described in UAX #9. If present, this specifies the embedding
+		/// described in *UAX #9*. If present, this specifies the embedding
 		/// level and any directional control characters are ignored.
 		case forcedEmbeddingLevel
 		

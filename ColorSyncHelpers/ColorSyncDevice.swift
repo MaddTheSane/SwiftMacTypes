@@ -218,13 +218,13 @@ public enum CSDevice {
 		let hostScopeStr = devInfo.removeValue(forKey: kColorSyncDeviceHostScope.takeUnretainedValue() as String) as? NSString
 		let userScope: UserScope
 		let hostScope: HostScope
-		if let userScopeStr = userScopeStr {
+		if let userScopeStr {
 			userScope = UserScope(rawValue: userScopeStr) ?? .current
 		} else {
 			userScope = .current
 		}
-		if let userScopeStr = hostScopeStr {
-			hostScope = HostScope(rawValue: userScopeStr) ?? .current
+		if let hostScopeStr {
+			hostScope = HostScope(rawValue: hostScopeStr) ?? .current
 		} else {
 			hostScope = .current
 		}

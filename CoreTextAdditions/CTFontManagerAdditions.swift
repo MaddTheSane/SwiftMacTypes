@@ -15,6 +15,9 @@ public enum FontManager {
 	public typealias AutoActivationSetting = CTFontManagerAutoActivationSetting
 	
 	/// These constants define the scope for font registration.
+	///
+	/// On macOS, a user session refers to a login session. On
+	/// iOS, a user session refers to the current booted session.
 	public typealias Scope = CTFontManagerScope
 	
 	/// An array of unique PostScript font names.
