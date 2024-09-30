@@ -74,7 +74,7 @@ class MacAdditionsTests: XCTestCase {
 									 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 									 0)
 		/// A pascal string that is 16 bytes long, containing at least 15 characters.
-		let pStr15: String.PStr15 = (2, 72, 105, 0, 0, 0, 0,
+		let pStr15: String.PStr15 = (4, 72, 105, 88, 32, 0, 0,
 									 0, 0, 0, 0, 0, 0, 0, 0, 0)
 		/// A pascal string that is 34 bytes long, containing at least 32 characters.
 		///

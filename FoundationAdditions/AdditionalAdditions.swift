@@ -64,7 +64,7 @@ public enum ReflectError: Error {
 		}
 		anArray.append(aChar)
 	}
-	if let lastObj = lastObj {
+	if let lastObj {
 		anArray.append(lastObj)
 	}
 	return anArray

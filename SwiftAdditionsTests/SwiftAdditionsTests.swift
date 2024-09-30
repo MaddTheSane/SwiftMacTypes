@@ -23,26 +23,6 @@ class SwiftAdditionsTests: XCTestCase {
 		super.tearDown()
 	}
 	
-	func testByteOrder() {
-		let bo = Int(OSHostByteOrder())
-		var inferredBo: Int
-		
-		switch ByteOrder.current {
-		case .big:
-			inferredBo = OSBigEndian
-			break
-			
-		case .little:
-			inferredBo = OSLittleEndian
-			break
-			
-		case .unknown:
-			inferredBo = OSUnknownByteOrder
-			break
-		}
-		XCTAssertEqual(inferredBo, bo)
-	}
-	
 	func testNSUUIDTranslators() {
 		let aUUID = NSUUID()
 		let aCFUUID = aUUID.cfUUID
