@@ -285,5 +285,15 @@ extension NSAttributedString.Key {
 		public static var writingDirection: NSAttributedString.Key {
 			return NSAttributedString.Key(rawValue: kCTWritingDirectionAttributeName as String)
 		}
+		
+		/// Provide the image for an emoji-like text attachment.
+		///
+		/// The attribute value must be an object conforming to the `CTAdaptiveImageProviding` protocol.
+		/// The range this attribute is applied to should be one or more *U+FFFC* characters, each of which will be drawn as the provided image,
+		/// and the font attribute applied to that range will be used to determine properties such as point size.
+		@available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, *)
+		public static var adaptiveImageProvider: NSAttributedString.Key {
+			return NSAttributedString.Key(rawValue: kCTAdaptiveImageProviderAttributeName as String)
+		}
 	}
 }

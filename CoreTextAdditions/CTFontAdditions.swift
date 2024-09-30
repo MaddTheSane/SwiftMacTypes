@@ -1294,6 +1294,32 @@ public extension CTFont {
 		}
 	}
 	
+	/// Returns metrics needed by clients performing their own typesetting of an adaptive image glyph.
+	///
+	/// Adaptive image glyphs are handled automatically when using an attributed string with system frameworks.
+	/// Clients performing their own typesetting can use this function to calculate the appropriate metrics for an adaptive image glyph,
+	/// including the ascent and descent to be used instead of those applicable to the font on its own.
+	/// - parameter provider: An object conforming to the `CTAdaptiveImageProviding` protocol. Default results will be returned in the absence of a provider, on the assumption an image is not yet available.
+	/// - returns: The typographic bounds in points expressed as a rect whose width corresponds to the advance width, maximum Y corresponds to the ascent (above the baseline), and minimum Y corresponds to the descent (below the baseline).
+	/// - seealso: CTAdaptiveImageProviding
+	@available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, *)
+	@inlinable func typographicBounds(for provider: (any CTAdaptiveImageProviding)?) -> CGRect {
+		return CTFontGetTypographicBoundsForAdaptiveImageProvider(self, provider)
+	}
+	
+	/// Draws the image for a font and adaptive image provider.
+	///
+	/// Adaptive image glyphs are handled automatically when using an attributed string with system frameworks.
+	/// Clients performing their own typesetting can use this function to display an adaptive image glyph at the given point.
+	/// - parameter provider: An object conforming to the `CTAdaptiveImageProviding` protocol.
+	/// - parameter point: The position relative to which the adaptive image glyph will be drawn.
+	/// - parameter context: The context in which the adaptive image glyph will be drawn.
+	/// - seealso: CTAdaptiveImageProviding
+	@available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, *)
+	@inlinable func drawImage(from provider: any CTAdaptiveImageProviding, at point: CGPoint, in context: CGContext) {
+		CTFontDrawImageFromAdaptiveImageProviderAtPoint(self, provider, point, context)
+	}
+	
 	/// Common font tables.
 	enum TableTags: CTFontTableTag {
 		/// Baseline data
