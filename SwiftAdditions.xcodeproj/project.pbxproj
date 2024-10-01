@@ -61,6 +61,7 @@
 		5518F076251D5DB900528AED /* SIMD2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518F075251D5DB900528AED /* SIMD2.swift */; };
 		5518F078251D5DC400528AED /* SIMD3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518F077251D5DC400528AED /* SIMD3.swift */; };
 		5518F07A251D5DCE00528AED /* SIMD4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5518F079251D5DCE00528AED /* SIMD4.swift */; };
+		5523499A2CAB8F03001238EE /* CFMessagePortAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552349992CAB8F03001238EE /* CFMessagePortAdditions.swift */; };
 		552627A11BDF52A4005AAF63 /* Characters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552627A01BDF52A4005AAF63 /* Characters.swift */; };
 		5527AC1C1FAE7CB1009CC7FC /* CoreTextAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5527AC131FAE7CB1009CC7FC /* CoreTextAdditions.framework */; };
 		5527AC211FAE7CB1009CC7FC /* CoreTextAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527AC201FAE7CB1009CC7FC /* CoreTextAdditionsTests.swift */; };
@@ -400,6 +401,7 @@
 		5518F077251D5DC400528AED /* SIMD3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIMD3.swift; sourceTree = "<group>"; };
 		5518F079251D5DCE00528AED /* SIMD4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIMD4.swift; sourceTree = "<group>"; };
 		551BFC31265EF46A00554FAA /* TextInputSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputSources.swift; sourceTree = "<group>"; };
+		552349992CAB8F03001238EE /* CFMessagePortAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFMessagePortAdditions.swift; sourceTree = "<group>"; };
 		55251E2B24937417007BC863 /* CFBitVector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFBitVector.swift; sourceTree = "<group>"; };
 		552627A01BDF52A4005AAF63 /* Characters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Characters.swift; sourceTree = "<group>"; };
 		5527AC131FAE7CB1009CC7FC /* CoreTextAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreTextAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -887,6 +889,7 @@
 				55251E2B24937417007BC863 /* CFBitVector.swift */,
 				55D373E826B8949500BFBCB4 /* CFBinaryHeap.swift */,
 				554536E826621C420097DD71 /* CFTypeProtocol.swift */,
+				552349992CAB8F03001238EE /* CFMessagePortAdditions.swift */,
 				5560389626BF2CC800CD1984 /* FoundationAdditions.h */,
 				5560389726BF2CC800CD1984 /* Info.plist */,
 			);
@@ -1917,6 +1920,7 @@
 			files = (
 				556038AB26BF2D1200CD1984 /* FoundationTypesAdditions.swift in Sources */,
 				556038AF26BF2D1200CD1984 /* Endianness.swift in Sources */,
+				5523499A2CAB8F03001238EE /* CFMessagePortAdditions.swift in Sources */,
 				555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */,
 				5540780E26C5E7440054E0B6 /* AdditionalAdditions.swift in Sources */,
 				556038AE26BF2D1200CD1984 /* CFBitVector.swift in Sources */,
