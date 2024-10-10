@@ -578,7 +578,41 @@ public extension String {
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
 	init?(pascalString pStr: PStr255, encoding: String.Encoding = .macOSRoman) {
-		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
+		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7, pStr.8,
+								  pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14, pStr.15, pStr.16,
+								  pStr.17, pStr.18, pStr.19, pStr.20, pStr.21, pStr.22, pStr.23, pStr.24,
+								  pStr.25, pStr.26, pStr.27, pStr.28, pStr.29, pStr.30, pStr.31, pStr.32,
+								  pStr.33, pStr.34, pStr.35, pStr.36, pStr.37, pStr.38, pStr.39, pStr.40,
+								  pStr.41, pStr.42, pStr.43, pStr.44, pStr.45, pStr.46, pStr.47, pStr.48,
+								  pStr.49, pStr.50, pStr.51, pStr.52, pStr.53, pStr.54, pStr.55, pStr.56,
+								  pStr.57, pStr.58, pStr.59, pStr.60, pStr.61, pStr.62, pStr.63, pStr.64,
+								  pStr.65, pStr.66, pStr.67, pStr.68, pStr.69, pStr.70, pStr.71, pStr.72,
+								  pStr.73, pStr.74, pStr.75, pStr.76, pStr.77, pStr.78, pStr.79, pStr.80,
+								  pStr.81, pStr.82, pStr.83, pStr.84, pStr.85, pStr.86, pStr.87, pStr.88,
+								  pStr.89, pStr.90, pStr.91, pStr.92, pStr.93, pStr.94, pStr.95, pStr.96,
+								  pStr.97, pStr.98, pStr.99, pStr.100, pStr.101, pStr.102, pStr.103,
+								  pStr.104, pStr.105, pStr.106, pStr.107, pStr.108, pStr.109, pStr.110,
+								  pStr.111, pStr.112, pStr.113, pStr.114, pStr.115, pStr.116, pStr.117,
+								  pStr.118, pStr.119, pStr.120, pStr.121, pStr.122, pStr.123, pStr.124,
+								  pStr.125, pStr.126, pStr.127, pStr.128, pStr.129, pStr.130, pStr.131,
+								  pStr.132, pStr.133, pStr.134, pStr.135, pStr.136, pStr.137, pStr.138,
+								  pStr.139, pStr.140, pStr.141, pStr.142, pStr.143, pStr.144, pStr.145,
+								  pStr.146, pStr.147, pStr.148, pStr.149, pStr.150, pStr.151, pStr.152,
+								  pStr.153, pStr.154, pStr.155, pStr.156, pStr.157, pStr.158, pStr.159,
+								  pStr.160, pStr.161, pStr.162, pStr.163, pStr.164, pStr.165, pStr.166,
+								  pStr.167, pStr.168, pStr.169, pStr.170, pStr.171, pStr.172, pStr.173,
+								  pStr.174, pStr.175, pStr.176, pStr.177, pStr.178, pStr.179, pStr.180,
+								  pStr.181, pStr.182, pStr.183, pStr.184, pStr.185, pStr.186, pStr.187,
+								  pStr.188, pStr.189, pStr.190, pStr.191, pStr.192, pStr.193, pStr.194,
+								  pStr.195, pStr.196, pStr.197, pStr.198, pStr.199, pStr.200, pStr.201,
+								  pStr.202, pStr.203, pStr.204, pStr.205, pStr.206, pStr.207, pStr.208,
+								  pStr.209, pStr.210, pStr.211, pStr.212, pStr.213, pStr.214, pStr.215,
+								  pStr.216, pStr.217, pStr.218, pStr.219, pStr.220, pStr.221, pStr.222,
+								  pStr.223, pStr.224, pStr.225, pStr.226, pStr.227, pStr.228, pStr.229,
+								  pStr.230, pStr.231, pStr.232, pStr.233, pStr.234, pStr.235, pStr.236,
+								  pStr.237, pStr.238, pStr.239, pStr.240, pStr.241, pStr.242, pStr.243,
+								  pStr.244, pStr.245, pStr.246, pStr.247, pStr.248, pStr.249, pStr.250,
+								  pStr.251, pStr.252, pStr.253, pStr.254, pStr.255]
 		// a UInt8 can't reference any number greater than 255,
 		// so we just pass it to the main initializer
 		self.init(pascalString: unwrapped, encoding: encoding)
@@ -590,7 +624,15 @@ public extension String {
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
 	init?(pascalString pStr: PStr63, encoding: String.Encoding = .macOSRoman) {
-		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
+		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7,
+								  pStr.8, pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14,
+								  pStr.15, pStr.16, pStr.17, pStr.18, pStr.19, pStr.20, pStr.21,
+								  pStr.22, pStr.23, pStr.24, pStr.25, pStr.26, pStr.27, pStr.28,
+								  pStr.29, pStr.30, pStr.31, pStr.32, pStr.33, pStr.34, pStr.35,
+								  pStr.36, pStr.37, pStr.38, pStr.39, pStr.40, pStr.41, pStr.42,
+								  pStr.43, pStr.44, pStr.45, pStr.46, pStr.47, pStr.48, pStr.49,
+								  pStr.50, pStr.51, pStr.52, pStr.53, pStr.54, pStr.55, pStr.56,
+								  pStr.57, pStr.58, pStr.59, pStr.60, pStr.61, pStr.62, pStr.63]
 		
 		self.init(pascalString: unwrapped, encoding: encoding, maximumLength: 63)
 	}
@@ -601,7 +643,11 @@ public extension String {
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
 	init?(pascalString pStr: PStr32, encoding: String.Encoding = .macOSRoman) {
-		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
+		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7,
+								  pStr.8, pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14,
+								  pStr.15, pStr.16, pStr.17, pStr.18, pStr.19, pStr.20, pStr.21,
+								  pStr.22, pStr.23, pStr.24, pStr.25, pStr.26, pStr.27, pStr.28,
+								  pStr.29, pStr.30, pStr.31, pStr.32]
 		
 		self.init(pascalString: unwrapped, encoding: encoding, maximumLength: 32)
 	}
@@ -612,7 +658,11 @@ public extension String {
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
 	init?(pascalString pStr: PStr31, encoding: String.Encoding = .macOSRoman) {
-		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
+		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7,
+								  pStr.8, pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14,
+								  pStr.15, pStr.16, pStr.17, pStr.18, pStr.19, pStr.20, pStr.21,
+								  pStr.22, pStr.23, pStr.24, pStr.25, pStr.26, pStr.27, pStr.28,
+								  pStr.29, pStr.30, pStr.31]
 		
 		self.init(pascalString: unwrapped, encoding: encoding, maximumLength: 31)
 	}
@@ -623,7 +673,10 @@ public extension String {
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
 	init?(pascalString pStr: PStr27, encoding: String.Encoding = .macOSRoman) {
-		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
+		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7,
+								  pStr.8, pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14,
+								  pStr.15, pStr.16, pStr.17, pStr.18, pStr.19, pStr.20, pStr.21,
+								  pStr.22, pStr.23, pStr.24, pStr.25, pStr.26, pStr.27]
 		
 		self.init(pascalString: unwrapped, encoding: encoding, maximumLength: 27)
 	}
@@ -634,7 +687,9 @@ public extension String {
 	/// - parameter encoding: The encoding of the Pascal string.
 	/// The default is `String.Encoding.macOSRoman`.
 	init?(pascalString pStr: PStr15, encoding: String.Encoding = .macOSRoman) {
-		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
+		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7,
+								  pStr.8, pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14,
+								  pStr.15]
 		
 		self.init(pascalString: unwrapped, encoding: encoding, maximumLength: 15)
 	}
@@ -648,7 +703,11 @@ public extension String {
 	/// The last byte in a `Str32Field` is unused,
 	/// so the last byte isn't read.
 	init?(pascalString pStr: PStr32Field, encoding: String.Encoding = .macOSRoman) {
-		let unwrapped: [UInt8] = try! arrayFromObject(reflecting: pStr)
+		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7,
+								  pStr.8, pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14,
+								  pStr.15, pStr.16, pStr.17, pStr.18, pStr.19, pStr.20, pStr.21,
+								  pStr.22, pStr.23, pStr.24, pStr.25, pStr.26, pStr.27, pStr.28,
+								  pStr.29, pStr.30, pStr.31, pStr.32, pStr.33]
 		
 		self.init(pascalString: unwrapped, encoding: encoding, maximumLength: 32)
 	}
