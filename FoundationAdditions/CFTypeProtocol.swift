@@ -35,7 +35,7 @@ extension CFNumber: CFTypeProtocol {
 extension CFBoolean: CFTypeProtocol {
 	/// Core Foundation type identifier for the `CFBoolean` opaque type.
 	@inlinable public static var typeID: CFTypeID {
-		CFBooleanGetTypeID()
+		return CFBooleanGetTypeID()
 	}
 }
 

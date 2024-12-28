@@ -161,6 +161,7 @@
 		55E6D08D23A9988D009BF006 /* IOHIDElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6D08C23A9988D009BF006 /* IOHIDElement.swift */; };
 		55E6D08F23A9CC8B009BF006 /* IOHIDQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6D08E23A9CC8B009BF006 /* IOHIDQueue.swift */; };
 		55E6D09123A9D92A009BF006 /* IOHIDTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E6D09023A9D92A009BF006 /* IOHIDTransaction.swift */; };
+		55FEDB1A2D20B46D00C34474 /* KextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FEDB192D20B46800C34474 /* KextManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -511,6 +512,7 @@
 		55E6D08C23A9988D009BF006 /* IOHIDElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOHIDElement.swift; sourceTree = "<group>"; };
 		55E6D08E23A9CC8B009BF006 /* IOHIDQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDQueue.swift; sourceTree = "<group>"; };
 		55E6D09023A9D92A009BF006 /* IOHIDTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDTransaction.swift; sourceTree = "<group>"; };
+		55FEDB192D20B46800C34474 /* KextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KextManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -908,6 +910,7 @@
 		55706D901A1EC2440000FD93 /* SwiftIOKitAdditions */ = {
 			isa = PBXGroup;
 			children = (
+				55FEDB192D20B46800C34474 /* KextManager.swift */,
 				557D49CA27CF764A006C2C69 /* Power Management */,
 				559398E623A61C270052B4E9 /* hid */,
 				55706D931A1EC2440000FD93 /* SwiftIOKitAdditions.h */,
@@ -1947,6 +1950,7 @@
 				5563E584239F453F007A1600 /* IOHIDDevice.swift in Sources */,
 				55E5D0C4267801D0000355FE /* misc.swift in Sources */,
 				5563E586239F4C8F007A1600 /* IOHIDValue.swift in Sources */,
+				55FEDB1A2D20B46D00C34474 /* KextManager.swift in Sources */,
 				55E6D09123A9D92A009BF006 /* IOHIDTransaction.swift in Sources */,
 				55E6D08F23A9CC8B009BF006 /* IOHIDQueue.swift in Sources */,
 			);

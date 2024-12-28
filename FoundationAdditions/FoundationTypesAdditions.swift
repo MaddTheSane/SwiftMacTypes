@@ -366,7 +366,7 @@ public extension UserDefaults {
 	/// - parameter key: the user default key to get/set.
 	///
 	/// When getting, if the value is not an `Int` type, the following will be attempted to convert it to an `Int`:
-	/// * If the value is a `Bool`, `0` will be returned if the value is *false*, `1` if *true*.
+	/// * If the value is a `Bool`, `0` will be returned; if the value is *false*, `1` if *true*.
 	/// * If the value is a `String`, it will attempt to convert it to an `Int` value. If unsuccessful, returns `nil`.
 	/// * If the value is absent or can't be converted to an `Int`, `nil` will be returned.
 	@nonobjc subscript(key: String) -> Int? {
