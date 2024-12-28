@@ -62,11 +62,11 @@ public enum FontManager {
 	/// handler should return `false` if the operation is to be stopped. This may be
 	/// desirable after receiving an error.
 	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-	public static func register(fontURLs: [URL], scope: Scope, enabled: Bool, registrationHandler: ((_ errors: [Error], _ done: Bool) -> Bool)?) {
+	public static func register(fontURLs: [URL], scope: Scope, enabled: Bool, registrationHandler: ((_ errors: [any Error], _ done: Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
-				return newHand(errs as! [Error], isDone)
+				return newHand(errs as! [any Error], isDone)
 			}
 		} else {
 			regHand = nil
@@ -94,11 +94,11 @@ public enum FontManager {
 	/// return `false` if the operation is to be stopped. This may be desirable after
 	/// receiving an error.
 	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-	public static func unregister(fontURLs: [URL], scope: Scope, registrationHandler: ((_ errors: [Error], _ done: Bool) -> Bool)?) {
+	public static func unregister(fontURLs: [URL], scope: Scope, registrationHandler: ((_ errors: [any Error], _ done: Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
-				return newHand(errs as! [Error], isDone)
+				return newHand(errs as! [any Error], isDone)
 			}
 		} else {
 			regHand = nil
@@ -136,11 +136,11 @@ public enum FontManager {
 	/// completed. The handler should return `false` if the operation is to be stopped. This
 	/// may be desirable after receiving an error.
 	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-	public static func register(fontDescriptors: [CTFontDescriptor], scope: Scope, enabled: Bool, registrationHandler: ((_ errors: [Error], _ done: Bool) -> Bool)?) {
+	public static func register(fontDescriptors: [CTFontDescriptor], scope: Scope, enabled: Bool, registrationHandler: ((_ errors: [any Error], _ done: Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
-				return newHand(errs as! [Error], isDone)
+				return newHand(errs as! [any Error], isDone)
 			}
 		} else {
 			regHand = nil
@@ -166,11 +166,11 @@ public enum FontManager {
 	/// handler should return `false` if the operation is to be stopped. This may be
 	/// desirable after receiving an error.
 	@available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
-	public static func unregister(fontDescriptors: [CTFontDescriptor], scope: Scope, registrationHandler: ((_ errors: [Error], _ done: Bool) -> Bool)?) {
+	public static func unregister(fontDescriptors: [CTFontDescriptor], scope: Scope, registrationHandler: ((_ errors: [any Error], _ done: Bool) -> Bool)?) {
 		let regHand: ((CFArray, Bool) -> Bool)?
 		if let newHand = registrationHandler {
 			regHand = { (errs, isDone) -> Bool in
-				return newHand(errs as! [Error], isDone)
+				return newHand(errs as! [any Error], isDone)
 			}
 		} else {
 			regHand = nil

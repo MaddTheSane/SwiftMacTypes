@@ -20,7 +20,7 @@ public enum KextManager {
 	/// loaded, or if its bundle is not at the location it was originally loaded from, the returned URL will locate the latest version
 	/// of the desired kext, if one can be found within the system extensions folder. If no version of the kext can be found,
 	/// `nil` is returned.
-	@inlinable static func URLForBundleIdentifier(_ ident: String) -> URL? {
+	@inlinable public static func URLForBundleIdentifier(_ ident: String) -> URL? {
 		return KextManagerCreateURLForBundleIdentifier(kCFAllocatorDefault, ident as NSString).takeRetainedValue() as URL
 	}
 	
@@ -34,7 +34,7 @@ public enum KextManager {
 	///
 	/// Either the calling process must have an effective user id of 0 (superuser), or the kext being loaded and all its dependencies
 	/// must reside in */System* and have an *OSBundleAllowUserLoad* property of `true`.
-	@inlinable static func loadKextWithIdentifier(_ kextIdentifier: String, dependencies: [URL]) -> OSReturn {
+	@inlinable public static func loadKextWithIdentifier(_ kextIdentifier: String, dependencies: [URL]) -> OSReturn {
 		return KextManagerLoadKextWithIdentifier(kextIdentifier as NSString, dependencies as NSArray)
 	}
 	
@@ -47,7 +47,7 @@ public enum KextManager {
 	///
 	/// Either the calling process must have an effective user id of 0 (superuser), or the kext being loaded and all
 	/// its dependencies must reside in /System and have an *OSBundleAllowUserLoad* property of `true`.
-	@inlinable static func loadKext(with kextURL: URL, dependencies: [URL]) -> OSReturn {
+	@inlinable public static func loadKext(with kextURL: URL, dependencies: [URL]) -> OSReturn {
 		return KextManagerLoadKextWithURL(kextURL as NSURL, dependencies as NSArray)
 	}
 	
@@ -57,7 +57,7 @@ public enum KextManager {
 	/// See */usr/include/libkern/OSKextLib.h* for error codes.
 	///
 	/// The calling process must have an effective user id of 0 (superuser).
-	@inlinable static func unloadKext(with identifier: CFString) -> OSReturn {
+	@inlinable public static func unloadKext(with identifier: CFString) -> OSReturn {
 		return KextManagerUnloadKextWithIdentifier(identifier as CFString)
 	}
 	
@@ -95,7 +95,7 @@ public enum KextManager {
 	/// * * `OSMetaClassSuperclassName` - CFString, absent for root classes
 	/// * * `OSMetaClassTrackingCount` - CFNumber giving the instance count
 	/// of the class itself, *plus* 1 for each direct subclass with any instances
-	static func loadedKextInfo(forIdentifiers identifiers: [String]?, infoKeys: [String]?) -> [String: [String: Any]]? {
+	static public func loadedKextInfo(forIdentifiers identifiers: [String]?, infoKeys: [String]?) -> [String: [String: Any]]? {
 		return KextManagerCopyLoadedKextInfo(identifiers as NSArray?, infoKeys as NSArray?)?.takeRetainedValue() as? [String: [String: Any]]
 	}
 }
