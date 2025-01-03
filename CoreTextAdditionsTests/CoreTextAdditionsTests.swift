@@ -98,7 +98,6 @@ class CoreTextAdditionsTests: XCTestCase {
 				print("Table “\(osVal)”: data is \(tableDat.count) bytes long!")
 			} else {
 				XCTFail("Table for \(osVal) was not found.")
-
 			}
 		}
 		print(tables)

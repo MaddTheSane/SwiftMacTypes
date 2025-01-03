@@ -12,6 +12,9 @@
 #import <Foundation/Foundation.h>
 #include <CoreText/CTFont.h>
 
+//! Returns an array of font table tags.
+//!
+//! Calls `CTFontCopyAvailableTables` and returns the values as `OSType`-encoded `NSNumber`s.
 //! Needed because `CTFontCopyAvailableTables` returns a `CFArrayRef` with unboxed values, which Swift does not like **at all**.
 NSArray<NSNumber*> *__nullable CTAFontCopyAvailableTables(CTFontRef __nonnull font, CTFontTableOptions options) NS_RETURNS_RETAINED;
 
