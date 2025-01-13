@@ -16,7 +16,7 @@ public extension CTLine {
 	/// including typographic leading and shifts.
 	typealias BoundsOptions = CTLineBoundsOptions
 	
-	/// Truncation types required by `CTLine.truncate(width:, type:, token:)`. These
+	/// Truncation types required by `CTLine.truncate(width:type:token:)`. These
 	/// will tell truncation engine which type of truncation is being
 	/// requested.
 	typealias TruncationType = CTLineTruncationType

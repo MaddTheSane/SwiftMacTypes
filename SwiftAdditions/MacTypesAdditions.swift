@@ -12,6 +12,7 @@ import Darwin.MacTypes
 import CoreServices
 import AppKit.NSWorkspace
 import AppKit.NSImage
+import Carbon
 #endif
 import CoreGraphics
 import FoundationAdditions
@@ -140,6 +141,29 @@ public extension String.Encoding {
 		let toRet = String.Encoding(rawValue: nsEnc)
 		return toRet
 	}
+	
+#if os(OSX)
+	/// Returns the application's primary text encoding.
+	///
+	/// The application text encoding is used when you create a
+	/// `CFString` from text stored in Resource Manager resources, which
+	/// typically uses one of the Mac encodings such as *MacRoman* or
+	/// *MacJapanese*. The encoding is determined by:
+	/// 1. if your app is
+	/// bundled, the encoding of the .lproj directory chosen by CFBundle,
+	/// 2. else if your plist has a *CFBundleDevelopmentRegionKey*, the
+	/// encoding specified by that key,
+	/// 3. else if your app has a `'vers'`
+	/// resource, the encoding for the region field in the `'vers'`,
+	/// 4.  else the current localization of the operating system.
+	///
+	/// Usage is pretty much discouraged. Use if you are loading Resource Manager resources in your own app.
+	static var applicationTextEncoding: String.Encoding {
+		let textEnc = GetApplicationTextEncoding()
+		let nsEnc = CFStringConvertEncodingToNSStringEncoding(textEnc)
+		return String.Encoding(rawValue: nsEnc)
+	}
+#endif
 	
 	/// Converts the current encoding to the equivalent `CFStringEncoding`.
 	@inlinable var cfStringEncoding: CFStringEncoding {
