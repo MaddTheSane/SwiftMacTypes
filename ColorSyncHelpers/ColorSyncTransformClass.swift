@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ColorSync
+@preconcurrency import ColorSync
 
 /// A class that references a ColorSync transform.
 ///

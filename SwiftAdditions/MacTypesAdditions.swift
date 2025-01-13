@@ -819,7 +819,7 @@ public extension OSTypeIconConvertable {
 }
 
 /// Toolbar icons
-public enum CarbonToolbarIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
+public enum CarbonToolbarIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, Sendable {
 	case customize = 0x74637573
 	case delete = 0x7464656C
 	case favorite = 0x74666176
@@ -841,7 +841,7 @@ public enum CarbonToolbarIcons: OSType, OSTypeConvertable, OSTypeIconConvertable
 }
 
 /// Folders
-public enum CarbonFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
+public enum CarbonFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, Sendable {
 	case generic = 0x666C6472
 	case drop = 0x64626F78
 	case mounted = 0x6D6E7464
@@ -852,7 +852,7 @@ public enum CarbonFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable,
 }
 
 /// Sharing Privileges icons
-public enum CarbonSharingPrivilegesIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable, CaseIterable {
+public enum CarbonSharingPrivilegesIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, Sendable, CaseIterable {
 	case notApplicable = 0x73686e61
 	case readOnly = 0x7368726f
 	case readWrite = 0x73687277
@@ -861,7 +861,7 @@ public enum CarbonSharingPrivilegesIcons: OSType, OSTypeConvertable, OSTypeIconC
 }
 
 /// Users and Groups icons
-public enum CarbonUserAndGroupIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
+public enum CarbonUserAndGroupIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, Sendable {
 	case userFolder = 0x75666c64
 	case workgroupFolder = 0x77666c64
 	case guestUser = 0x67757372
@@ -871,7 +871,7 @@ public enum CarbonUserAndGroupIcons: OSType, OSTypeConvertable, OSTypeIconConver
 }
 
 /// Badges
-public enum CarbonBadgeIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
+public enum CarbonBadgeIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, Sendable {
 	case appleScript = 0x73637270
 	case locked = 0x6c626467
 	case mounted = 0x6d626467
@@ -881,14 +881,14 @@ public enum CarbonBadgeIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, 
 }
 
 /// Alert icons
-public enum CarbonAlertIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable, CaseIterable {
+public enum CarbonAlertIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, Sendable, CaseIterable {
 	case note = 0x6e6f7465
 	case caution = 0x63617574
 	case stop = 0x73746f70
 }
 
 /// Networking icons
-public enum CarbonNetworkingIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
+public enum CarbonNetworkingIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, Sendable {
 	case appleTalk = 0x61746c6b
 	case appleTalkZone = 0x61747a6e
 	case afpServer = 0x61667073
@@ -899,7 +899,7 @@ public enum CarbonNetworkingIcons: OSType, OSTypeConvertable, OSTypeIconConverta
 }
 
 /// Other icons
-public enum CarbonOtherIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
+public enum CarbonOtherIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, Sendable {
 	case appleLogo = 0x6361706c
 	case appleMenu = 0x7361706c
 	case backwardArrow = 0x6261726f
@@ -931,7 +931,7 @@ public enum CarbonOtherIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, 
 /// Special folders
 ///
 /// This was created back in the Mac OS 8/9 days: most of these don't have a modern macOS version.
-public enum CarbonSpecialFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
+public enum CarbonSpecialFolderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, Sendable {
 	case appearance = 0x61707072
 	case appleMenu = 0x616d6e75
 	case applications = 0x61707073
@@ -981,7 +981,7 @@ public enum CarbonSpecialFolderIcons: OSType, OSTypeConvertable, OSTypeIconConve
 /// Generic Finder icons
 ///
 /// This was created back in the Mac OS 8/9 days: most of these don't have a modern macOS version.
-public enum CarbonGenericFinderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, @unchecked Sendable {
+public enum CarbonGenericFinderIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, Sendable {
 	case clipboard = 0x434c4950
 	case clippingUnknownType = 0x636c7075
 	case clippingPictureType = 0x636c7070

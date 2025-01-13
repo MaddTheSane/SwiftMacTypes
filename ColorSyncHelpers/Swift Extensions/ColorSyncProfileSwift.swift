@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ColorSync
+@preconcurrency import ColorSync
 import FoundationAdditions
 
 @available(macOS 10.4, tvOS 16.0, iOS 16.0, macCatalyst 16.0, *)
@@ -68,7 +68,10 @@ public extension ColorSyncProfile {
 	
 	/// `Data` containing the header data in host endianess.
 	@inlinable var header: Data? {
-		return ColorSyncProfileCopyHeader(self)?.takeRetainedValue() as Data?
+		guard let dat = ColorSyncProfileCopyHeader(self)?.takeRetainedValue() else {
+			return nil
+		}
+		return Data(referencing: dat)
 	}
 	
 #if os(macOS)
@@ -96,7 +99,7 @@ public extension ColorSyncProfile {
 			}
 			throw errStuff
 		}
-		return aDat as Data
+		return Data(referencing: aDat)
 	}
 	
 #if os(macOS)
@@ -104,7 +107,10 @@ public extension ColorSyncProfile {
 	/// each of size `samplesPerChannel`, packed into contiguous memory contained in the `Data`
 	/// to be returned from the `vcgt` tag of the profile (if `vcgt` tag exists in the profile).
 	@inlinable final func displayTransferTablesFromVCGT(_ samplesPerChannel: inout Int) -> Data? {
-		return ColorSyncProfileCreateDisplayTransferTablesFromVCGT(self, &samplesPerChannel)?.takeRetainedValue() as Data?
+		guard let dat = ColorSyncProfileCreateDisplayTransferTablesFromVCGT(self, &samplesPerChannel)?.takeRetainedValue() else {
+			return nil
+		}
+		return Data(referencing: dat)
 	}
 	
 	/// A utility function converting `vcgt` tag (if `vcgt` tag exists in the profile and

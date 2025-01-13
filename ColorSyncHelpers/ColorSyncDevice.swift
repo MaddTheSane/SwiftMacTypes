@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ColorSync
+@preconcurrency import ColorSync
 import FoundationAdditions
 
 public enum CSDevice {

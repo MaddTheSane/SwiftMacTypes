@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ColorSync
+@preconcurrency import ColorSync
 
 func sanitize(options: [String: Any]?) -> [String: Any]? {
 	guard var options = options else {

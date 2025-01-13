@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ColorSync
+@preconcurrency import ColorSync
 import FoundationAdditions
 
 @available(macOS 10.4, iOS 16.0, macCatalyst 16.0, *)
