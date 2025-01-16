@@ -286,7 +286,10 @@ public enum FontManager {
 	/// memory. A graphics font is obtained by calling `CGFontCreateWithDataProvider`. Fonts that are
 	/// backed by files should be registered using `FontManager.registerFonts(at:scope:)`.
 	/// - parameter font: Graphics font to be registered.
-	@available(OSX 10.8, iOS 4.1, watchOS 2.0, tvOS 9.0, *)
+	@available(macOS, introduced: 10.8, deprecated: 15, message: "Use fontDescriptors(from:) or registerFonts(at:scope:)")
+	@available(iOS, introduced: 4.1, deprecated: 18, message: "Use fontDescriptors(from:) or registerFonts(at:scope:)")
+	@available(watchOS, introduced: 2.0, deprecated: 11, message: "Use fontDescriptors(from:) or registerFonts(at:scope:)")
+	@available(tvOS, introduced: 9.0, deprecated: 18, message: "Use fontDescriptors(from:) or registerFonts(at:scope:)")
 	public static func register(_ font: CGFont) throws {
 		var maybeErr: Unmanaged<CFError>? = nil
 		let toRet = CTFontManagerRegisterGraphicsFont(font, &maybeErr)
@@ -302,7 +305,13 @@ public enum FontManager {
 	/// Unregisters the specified graphics font with the font manager. Unregistered fonts do not participate in
 	/// font descriptor matching.
 	/// - parameter font: Graphics font to be unregistered.
-	@available(OSX 10.8, iOS 4.1, watchOS 2.0, tvOS 9.0, *)
+	///
+	/// Unregistered fonts are no longer discoverable through font descriptor matching.
+	/// Fonts that are backed by files should be unregistered using `unregister(fontURLs:scope:registrationHandler:)`.
+	@available(macOS, introduced: 10.8, deprecated: 15, message: "Use the API corresponding to the one used to register the font")
+	@available(iOS, introduced: 4.1, deprecated: 18, message: "Use the API corresponding to the one used to register the font")
+	@available(watchOS, introduced: 2.0, deprecated: 11, message: "Use the API corresponding to the one used to register the font")
+	@available(tvOS, introduced: 9.0, deprecated: 18, message: "Use the API corresponding to the one used to register the font")
 	public static func unregister(_ font: CGFont) throws {
 		var maybeErr: Unmanaged<CFError>? = nil
 		let toRet = CTFontManagerUnregisterGraphicsFont(font, &maybeErr)
@@ -398,7 +407,7 @@ public enum FontManager {
 	@group Manager Auto-Activation
 	*/
 	//--------------------------------------------------------------------------
-	//MARK:- Manager Auto-Activation
+	//MARK: - Manager Auto-Activation
 
 	/// Creates a `CFRunLoopSource` that will be used to convey font requests from `CTFontManager`.
 	/// - parameter sourceOrder: The order of the created run loop source.

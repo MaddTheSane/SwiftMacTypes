@@ -54,11 +54,10 @@ class CoreTextAdditionsTests: XCTestCase {
 	}
 	
 	@available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
-	func testAttributeScopes() {
+	func testAttributeScopes() throws {
 		var attrStr = AttributedString("Color")
 		attrStr.foregroundColor = CGColor(srgbRed: 1, green: 0, blue: 0, alpha: 1)
 		
-		do {
 			let nsAttr = try NSAttributedString(attrStr, including: AttributeScopes.CoreTextAttributes.self)
 			print(nsAttr)
 			attrStr.foregroundColor = nil
@@ -71,9 +70,6 @@ class CoreTextAdditionsTests: XCTestCase {
 			print(attrStr2)
 //			XCTAssertNotEqual(attrStr1, attrStr)
 //			XCTAssertEqual(attrStr1, attrStr2)
-		} catch {
-			XCTFail("")
-		}
 	}
 	
 	func testFeatures() {
@@ -86,10 +82,10 @@ class CoreTextAdditionsTests: XCTestCase {
 		print(aFeat)
 	}
 	
-	func testTables() {
+	func testTables() throws {
 		let aFont = CTFont("Times New Roman" as NSString, size: 12)
 		guard let tables = aFont.availableTables() else {
-			XCTFail("Times should at least have tables...")
+			XCTFail("Times New Roman should at least have tables...")
 			return
 		}
 		for table in tables {
@@ -107,16 +103,14 @@ class CoreTextAdditionsTests: XCTestCase {
 	///
 	/// As there's no reliable way to store an old, Mac-style PostScript outlines on git,
 	/// let's use the PC's way of storing PostScript outlines
-	func testNoTables() {
+	func testNoTables() throws {
 		guard let PCURL = Bundle(for: type(of: self)).url(forResource: "PostCrypt", withExtension: "pfb") else {
-			XCTFail("PostCrypt should at least be findable...")
-			return
+			throw XCTSkip("PostCrypt should at least be findable...")
 		}
 
 		guard let datProvid = CGDataProvider(url: PCURL as NSURL),
 			  let cgFont = CGFont(datProvid) else {
-			XCTFail("Creation of the PostScript CGFont failed...")
-			return
+			throw XCTSkip("Creation of the PostScript CGFont failed...")
 		}
 		let graphFont = CTFont.create(graphicsFont: cgFont, size: 12)
 		
