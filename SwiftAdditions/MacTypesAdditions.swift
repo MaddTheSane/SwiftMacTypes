@@ -117,7 +117,7 @@ public var currentCFMacStringEncoding: CFStringEncoding {
 
 /// The current system encoding that is the most like a Mac Classic encoding.
 ///
-/// Deprecated, use ``String.Encoding.currentCompatibleClassic`` instead
+/// Deprecated, use ``Swift/String/Encoding/currentCompatibleClassic`` instead
 @available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "String.Encoding.currentCompatibleClassic")
 public var currentMacStringEncoding: String.Encoding {
 	return String.Encoding.currentCompatibleClassic
@@ -265,7 +265,7 @@ public extension String.Encoding {
 	
 	static let macOSGaelic = convertToStrEnc(from: .macGaelic)
 	/* The following use script code 4, smArabic */
-	/// Like `.macOSArabic` but uses Farsi digits.
+	/// Like ``macOSArabic`` but uses Farsi digits.
 	static let macOSFarsi = convertToStrEnc(from: .macFarsi)
 	/// The following use script code 7, `smCyrillic`.
 	static let macOSUkrainian = convertToStrEnc(from: .macUkrainian)
@@ -486,10 +486,10 @@ public extension String.Encoding {
 	/// code page 037, extended EBCDIC (Latin-1 set) for US, Canada.
 	static let EBCDIC_CP037 = convertToStrEnc(from: .EBCDIC_CP037)
 	
-	/// `kTextEncodingUnicodeDefault` + `kUnicodeUTF7Format` RFC2152.
+	/// `kTextEncodingUnicodeDefault` + `kUnicodeUTF7Format`, RFC2152.
 	static let UTF7 = convertToStrEnc(from: .UTF7)
 	
-	/// UTF-7 (IMAP folder variant) RFC3501.
+	/// UTF-7 (IMAP folder variant), RFC3501.
 	static let UTF7_IMAP = convertToStrEnc(from: .UTF7_IMAP)
 }
 
