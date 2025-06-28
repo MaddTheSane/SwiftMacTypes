@@ -68,7 +68,7 @@ public extension CTFrame {
 		
 		/// Specifies progression for a frame.
 		///
-		/// Value must be a `CTFrame.Progression` or a `CFNumberRef` containing a `CTFrame.Progression`.
+		/// Value must be a ``CTFrame/Progression`` or a `CFNumberRef` containing a ``CTFrame/Progression``.
 		/// Default is `.topToBottom`. This value determines
 		/// the line stacking behavior for a frame and does not affect the
 		/// appearance of the glyphs within that frame.
@@ -90,7 +90,7 @@ public extension CTFrame {
 		///
 		/// Value must be a `CFArray` containing `CFDictionary`s or `CGPath`s.  (`CGPath` is allowed on 10.8 or later.)
 		/// Each dictionary should have a `kCTFramePathClippingPathAttributeName` key-value pair, and can have a `kCTFramePathFillRuleAttributeName` key-value pair
-		/// and `kCTFramePathFillRuleAttributeName` key-value pair as optional parameters.  In case of CGPathRef, default fill rule (`CTFrame.PathFillRule.evenOdd`) and width (`0.0`) are used.
+		/// and `kCTFramePathFillRuleAttributeName` key-value pair as optional parameters.  In case of `CGPathRef`, default fill rule (`CTFrame.PathFillRule.evenOdd`) and width (`0.0`) are used.
 		case clippingPaths
 
 		/// Specifies clipping path.  This attribute is valid in a dictionary contained in an array specified by kCTFrameClippingPathsAttributeName.
@@ -233,7 +233,7 @@ public extension CTFrame {
 	///
 	/// This function will copy a range of `CGPoint` structures. Each
 	/// `CGPoint` is the origin of the corresponding line in the array of
-	/// lines returned by `CTFrame.lines`, relative to the origin of the
+	/// lines returned by ``CTFrame/lines``, relative to the origin of the
 	/// frame's path. The maximum number of line origins returned by
 	/// this function is the count of the array of lines.
 	func lineOrigins(in range: CFRange) -> [CGPoint] {
@@ -255,7 +255,7 @@ public extension CTFrame {
 	///
 	/// This function will copy a range of `CGPoint` structures. Each
 	/// CGPoint is the origin of the corresponding line in the array of
-	/// lines returned by `CTFrame.lines`, relative to the origin of the
+	/// lines returned by ``CTFrame/lines``, relative to the origin of the
 	/// frame's path. The maximum number of line origins returned by
 	/// this function is the count of the array of lines.
 	func lineOrigins(in range: NSRange) -> [CGPoint] {

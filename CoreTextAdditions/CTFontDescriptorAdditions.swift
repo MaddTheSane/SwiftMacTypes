@@ -299,8 +299,8 @@ public extension CTFontDescriptor {
 	/// normalized descriptors.
 	func descriptorMatching(attributes: Set<AttributeKey>?) -> CTFontDescriptor? {
 		var attrSet: NSSet?
-		if let attrs = attributes {
-			let preset = Set(attrs.map({$0.rawValue}))
+		if let attributes {
+			let preset = Set(attributes.map({$0.rawValue}))
 			attrSet = preset as NSSet
 		} else {
 			attrSet = nil
@@ -320,8 +320,8 @@ public extension CTFontDescriptor {
 	/// existing fonts are the returned normalized descriptors.
 	func descriptorsMatching(attributes: Set<AttributeKey>?) -> [CTFontDescriptor]? {
 		var attrSet: NSSet?
-		if let attrs = attributes {
-			let preset = Set(attrs.map({$0.rawValue}))
+		if let attributes {
+			let preset = Set(attributes.map({$0.rawValue}))
 			attrSet = preset as NSSet
 		} else {
 			attrSet = nil

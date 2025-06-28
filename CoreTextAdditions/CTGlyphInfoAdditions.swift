@@ -19,7 +19,7 @@ public extension CTGlyphInfo {
 	///
 	/// - parameter name: The name of the glyph.
 	/// - parameter font: The font to be associated with the returned `CTGlyphInfo` object.
-	/// - parameter baseString: The part of the string the returned object is intended to override.
+	/// - parameter base: The part of the string the returned object is intended to override.
 	/// - Returns: A valid reference to an immutable `CTGlyphInfo` object if glyph info creation was successful; otherwise, `nil`.
 	@inlinable static func create(glyphName name: String, font: CTFont, baseString base: String) -> CTGlyphInfo? {
 		return CTGlyphInfoCreateWithGlyphName(name as NSString, font, base as NSString)

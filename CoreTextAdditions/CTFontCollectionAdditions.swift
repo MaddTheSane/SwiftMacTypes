@@ -104,7 +104,7 @@ public extension CTFontCollection {
 
 	#if os(macOS)
 	/// Returns an array of font descriptors matching the specified family, one descriptor for each style in the collection.
-	/// - parameter collection: The font collection reference.
+	/// - Parameter familyName: The font family name to match.
 	/// - parameter options: The options dictionary. See constant option keys. If `nil`, uses the
 	/// options passed in when the collection was created.
 	/// - returns: An array of `CTFontDescriptor`s matching the collection definition or `nil` if there are none.
@@ -124,7 +124,7 @@ public extension CTFontCollection {
 	/// - parameter options: Options to alter the return value.
 	/// - returns: An array containing one value for each descriptor. With
 	/// `kCTFontCollectionCopyDefaultOptions`, the values will be in the same order as the results from
-	/// `CTFontCollectionCreateMatchingFontDescriptors` and `NULL` values will be transformed to
+	/// ``CTFontCollection/matchingFontDescriptors`` and `NULL` values will be transformed to
 	/// `nil`. When the `CTFontCollection.CopyOptions.unique` is set, duplicate values will be removed.
 	/// When `CTFontCollection.CopyOptions.standardSort` is set, the values will be sorted in standard
 	/// UI order.
@@ -144,12 +144,20 @@ public extension CTFontCollection {
 	///
 	/// - returns: An array containing one `Dictionary` value for each descriptor mapping the requested
 	/// attribute names. With `kCTFontCollectionCopyDefaultOptions`, the values will be in the same
-	/// order as the results from `matchingFontDescriptors()`. When the
+	/// order as the results from ``CTFontCollection/matchingFontDescriptors``. When the
 	/// `CTFontCollection.CopyOptions.unique` is set, duplicate values will be removed. When
 	/// `CTFontCollection.CopyOptions.standardSort` is set, the values will be sorted in standard UI order.
 	@available(macOS 10.7, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
 	func fontAttributes(names attributeNames: Set<String>, options: CopyOptions) -> [[String: Any]] {
 		return CTFontCollectionCopyFontAttributes(self, attributeNames as NSSet, options) as! [[String: Any]]
+	}
+	
+	/// An array of font descriptors matching this collection.
+	///
+	/// Will be `nil` if there are no matching `CTFontDescriptor`s.
+	@available(macOS 10.5, iOS 3.2, watchOS 2.0, tvOS 9.0, *)
+	var matchingFontDescriptors: [CTFontDescriptor]? {
+		CTFontCollectionCreateMatchingFontDescriptors(self) as! [CTFontDescriptor]?
 	}
 }
 

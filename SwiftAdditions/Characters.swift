@@ -203,7 +203,7 @@ public extension ASCIICharacter {
 }
 
 public extension String {
-	/// Creates a string from a sequence of `ASCIICharacter`s.
+	/// Creates a string from a sequence of ``ASCIICharacter``s.
 	@inlinable init<A: Sequence>(asciiCharacters: A) where A.Element == ASCIICharacter {
 		let asciiCharMap = asciiCharacters.map { (cha) -> Character in
 			return cha.characterValue
@@ -211,11 +211,11 @@ public extension String {
 		self = String(asciiCharMap)
 	}
 	
-	/// Converts the string to an array of `ASCIICharacter`s.
+	/// Converts the string to an array of ``ASCIICharacter``s.
 	/// - parameter encodeInvalid: If `true`, any character that can't be represented as
-	/// an ASCII character is instead replaced with `ASCIICharacter.invalid`
+	/// an ASCII character is instead replaced with ``ASCIICharacter/invalid``
 	/// instead of stopping and returning `nil`.
-	/// - returns: An array of `ASCIICharacter`s, or `nil` if there is a non-ASCII
+	/// - returns: An array of ``ASCIICharacter``s, or `nil` if there is a non-ASCII
 	/// character and `encodeInvalid` is `false`.
 	func toASCIICharacters(encodeInvalid: Bool = false) -> [ASCIICharacter]? {
 		if encodeInvalid {

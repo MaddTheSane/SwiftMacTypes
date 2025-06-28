@@ -161,7 +161,7 @@ public extension CTParagraphStyle {
 		return toRet
 	}
 
-	/// The CTTextTab objects, sorted by location, that define the tab
+	/// The `CTTextTab` objects, sorted by location, that define the tab
 	/// stops for the paragraph style.
 	///
 	/// Default: 12 left-aligned tabs, spaced by 28.0 points
@@ -187,7 +187,7 @@ public extension CTParagraphStyle {
 	/// The mode that should be used to break lines when laying out
 	/// the paragraph's text.
 	///
-	/// Default: kCTLineBreakByWordWrapping
+	/// Default: `kCTLineBreakByWordWrapping`
 	/// Application: CTFramesetter
 	var lineBreakMode: LineBreakMode {
 		var toRet = LineBreakMode.byWordWrapping

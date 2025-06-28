@@ -10,7 +10,7 @@ import Foundation
 import CoreText
 
 public extension CTRun {
-	/// A bitfield passed back by the `CTRun.status` getter that is used to indicate the disposition of the
+	/// A bitfield passed back by the ``CTRun/status`` getter that is used to indicate the disposition of the
 	/// run.
 	typealias Status = CTRunStatus
 	
@@ -51,7 +51,7 @@ public extension CTRun {
 	/// All the glyphs in the run.
 	///
 	/// The glyph array will have a length equal to the value returned by
-	/// `CTRun.glyphCount`.
+	/// ``CTRun/glyphCount``.
 	///
 	/// The returned value might reference internal memory used by the `CTRun`
 	/// object. If you want to keep the buffer beyond the scope of the run, copy
@@ -71,7 +71,7 @@ public extension CTRun {
 	/// Copies a range of glyphs.
 	/// - parameter range:
 	/// The range of glyphs to be copied, with the entire range having a
-	/// location of `0` and a length of `CTRun.glyphCount`. If the length
+	/// location of `0` and a length of ``CTRun/glyphCount``. If the length
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
 	/// - returns: The glyphs in the specified range.
@@ -95,7 +95,7 @@ public extension CTRun {
 	///
 	/// The glyph positions in a run are relative to the origin of the
 	/// line containing the run. The position array will have a length
-	/// equal to the value returned by `CTRun.glyphCount`.
+	/// equal to the value returned by ``CTRun/glyphCount``.
 	///
 	/// The returned value might reference internal memory used by the `CTRun`
 	/// object. If you want to keep the buffer beyond the scope of the run, copy
@@ -137,7 +137,7 @@ public extension CTRun {
 	/// The glyph advance array used in the run.
 	///
 	/// The advance array will have a length equal to the value returned
-	/// by `CTRun.glyphCount`.
+	/// by ``CTRun/glyphCount``.
 	/// Note that advances alone are not sufficient for correctly
 	/// positioning glyphs in a line, as a run may have a non-identity
 	/// matrix or the initial glyph in a line may have a non-zero origin;
@@ -161,7 +161,7 @@ public extension CTRun {
 	/// Copies a range of glyph advances.
 	/// - parameter range:
 	/// The range of glyph advances to be copied, with the entire range
-	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// having a location of `0` and a length of ``CTRun/glyphCount``. If the
 	/// length of the range is set to `0`, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: An array of glyph advances.
@@ -186,7 +186,7 @@ public extension CTRun {
 	/// glyphs that make up the run. They can be used to map the glyphs in
 	/// the run back to the characters in the backing store. The string
 	/// indices array will have a length equal to the value returned by
-	/// `CTRun.glyphCount`.
+	/// ``CTRun/glyphCount``.
 	///
 	/// The returned value might reference internal memory used by the `CTRun`
 	/// object. If you want to keep the buffer beyond the scope of the run, copy
@@ -206,7 +206,7 @@ public extension CTRun {
 	/// Copies a range of string indices.
 	/// - parameter range:
 	/// The range of string indices to be copied, with the entire range
-	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// having a location of `0` and a length of ``CTRun/glyphCount``. If the
 	/// length of the range is set to `0`, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: The string indices in the specified range.
@@ -241,7 +241,7 @@ public extension CTRun {
 	/// Gets the typographic bounds of the run.
 	/// - parameter range:
 	/// The range of glyphs to be measured, with the entire range having
-	/// a location of `0` and a length of `CTRun.glyphCount`. If the length
+	/// a location of `0` and a length of ``CTRun/glyphCount``. If the length
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
 	func typographicBounds(in range: CFRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
@@ -294,7 +294,7 @@ public extension CTRun {
 	/// - parameter context: The context to draw the run to.
 	/// - parameter range:
 	/// The range of glyphs to be drawn, with the entire range having a
-	/// location of `0` and a length of `CTRun.glyphCount`. If the length
+	/// location of `0` and a length of ``CTRun/glyphCount``. If the length
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
 	///
@@ -317,7 +317,7 @@ public extension CTRun {
 	/// Copies a range of glyphs.
 	/// - parameter range:
 	/// The range of glyphs to be copied, with the entire range having a
-	/// location of `0` and a length of `CTRun.glyphCount`. If the length
+	/// location of `0` and a length of ``CTRun/glyphCount``. If the length
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
 	/// - returns: The glyphs in the specified range.
@@ -328,7 +328,7 @@ public extension CTRun {
 	/// Copies a range of glyphs.
 	/// - parameter range:
 	/// The range of glyphs to be copied, with the entire range having a
-	/// location of `0` and a length of `CTRun.glyphCount`. If the length
+	/// location of `0` and a length of ``CTRun/glyphCount``. If the length
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
 	/// - returns: The glyphs in the specified range.
@@ -340,7 +340,7 @@ public extension CTRun {
 	/// Gets the typographic bounds of the run.
 	/// - parameter range:
 	/// The range of glyphs to be measured, with the entire range having
-	/// a location of `0` and a length of `CTRun.glyphCount`. If the length
+	/// a location of `0` and a length of ``CTRun/glyphCount``. If the length
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
 	func typographicBounds(in range: NSRange) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
@@ -350,7 +350,7 @@ public extension CTRun {
 	/// Gets the typographic bounds of the run.
 	/// - parameter range:
 	/// The range of glyphs to be measured, with the entire range having
-	/// a location of `0` and a length of `CTRun.glyphCount`. If the length
+	/// a location of `0` and a length of ``CTRun/glyphCount``. If the length
 	/// of the range is set to `0`, then the operation will continue from
 	/// the range's start index to the end of the run.
 	func typographicBounds(in range: Range<Int>) -> (width: Double, ascent: CGFloat, descent: CGFloat, leading: CGFloat) {
@@ -360,7 +360,7 @@ public extension CTRun {
 	/// Copies a range of string indices.
 	/// - parameter range:
 	/// The range of string indices to be copied, with the entire range
-	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// having a location of `0` and a length of ``CTRun/glyphCount``. If the
 	/// length of the range is set to `0`, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: The string indices in the specified range.
@@ -375,7 +375,7 @@ public extension CTRun {
 	/// Copies a range of string indices.
 	/// - parameter range:
 	/// The range of string indices to be copied, with the entire range
-	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// having a location of `0` and a length of ``CTRun/glyphCount``. If the
 	/// length of the range is set to `0`, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: The string indices in the specified range.
@@ -390,7 +390,7 @@ public extension CTRun {
 	/// Copies a range of glyph advances.
 	/// - parameter range:
 	/// The range of glyph advances to be copied, with the entire range
-	/// having a location of 0 and a length of CTRunGetGlyphCount. If the
+	/// having a location of 0 and a length of ``CTRun/glyphCount``. If the
 	/// length of the range is set to 0, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: An array of glyph advances.
@@ -401,7 +401,7 @@ public extension CTRun {
 	/// Copies a range of glyph advances.
 	/// - parameter range:
 	/// The range of glyph advances to be copied, with the entire range
-	/// having a location of 0 and a length of CTRunGetGlyphCount. If the
+	/// having a location of 0 and a length of ``CTRun/glyphCount``. If the
 	/// length of the range is set to 0, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: An array of glyph advances.
@@ -412,7 +412,7 @@ public extension CTRun {
 	/// Copies a range of glyph positions.
 	/// - parameter range:
 	/// The range of glyph positions to be copied, with the entire range
-	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// having a location of `0` and a length of ``CTRun/glyphCount``. If the
 	/// length of the range is set to `0`, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: The glyph positions.
@@ -423,7 +423,7 @@ public extension CTRun {
 	/// Copies a range of glyph positions.
 	/// - parameter range:
 	/// The range of glyph positions to be copied, with the entire range
-	/// having a location of `0` and a length of `CTRun.glyphCount`. If the
+	/// having a location of `0` and a length of ``CTRun/glyphCount``. If the
 	/// length of the range is set to `0`, then the operation will continue
 	/// from the range's start index to the end of the run.
 	/// - returns: The glyph positions.

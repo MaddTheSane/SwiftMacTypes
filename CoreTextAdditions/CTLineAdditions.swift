@@ -10,13 +10,13 @@ import Foundation
 import CoreText
 
 public extension CTLine {
-	/// Options for `CTLine.bounds(with:)`.
+	/// Options for ``CTLine/bounds(with:)``.
 	///
 	/// Passing `[]` (no options) returns the typographic bounds,
 	/// including typographic leading and shifts.
 	typealias BoundsOptions = CTLineBoundsOptions
 	
-	/// Truncation types required by `CTLine.truncate(width:type:token:)`. These
+	/// Truncation types required by ``CTLine/truncate(width:type:token:)``. These
 	/// will tell truncation engine which type of truncation is being
 	/// requested.
 	typealias TruncationType = CTLineTruncationType
@@ -213,7 +213,7 @@ public extension CTLine {
 	/// may be adjusted for any relative indentation of the two lines;
 	/// a `CGPoint` constructed with the adjusted offset for its x value
 	/// and `0.0` for its y value is suitable for passing to
-	/// `CTLine.stringIndex(forPosition:)`. In either case, the primary
+	/// ``CTLine/stringIndex(forPosition:)``. In either case, the primary
 	/// offset corresponds to the portion of the caret that represents
 	/// the visual insertion location for a character whose direction
 	/// matches the line's writing direction.

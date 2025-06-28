@@ -131,9 +131,9 @@ public extension TISInputSource {
 	/// Input sources may have additional properties beyond those listed here,
 	/// and some input sources do not have values for some of the properties
 	/// listed here. The property value for a particular input source can be
-	/// obtained using `TISInputSource.value(for:)`. A set of specific property
+	/// obtained using ``TISInputSource/value(for:)``. A set of specific property
 	/// key-value pairs can also be used as a filter when creating a list of
-	/// input sources using `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
+	/// input sources using ``TISInputSource/inputSourceList(matching:includeAllInstalled:)``.
 	enum Property: RawLosslessStringConvertibleCFString, Hashable, @unchecked Sendable {
 		public typealias RawValue = CFString
 
@@ -154,7 +154,7 @@ public extension TISInputSource {
 		/// input source, the value is `nil`.
 		///
 		/// NOTE: This key (and a corresponding value) may not be used in the
-		/// filter dictionary passed to `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
+		/// filter dictionary passed to ``TISInputSource/inputSourceList(matching:includeAllInstalled:)``.
 		///
 		/// `IconRef`s are very deprecated and are a pain to use under Swift:
 		/// Use `.imageURL` to get the icon URL instead.
@@ -293,7 +293,7 @@ public extension TISInputSource {
 		/// is not critical for the System to find and display the image properly.
 		///
 		/// NOTE: This key (and a corresponding value) may not be used in the
-		/// filter dictionary passed to `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
+		/// filter dictionary passed to ``TISInputSource/inputSourceList(matching:includeAllInstalled:)``.
 		case imageURL
 		
 		/// The property key constant for a `CFBooleanRef` value that indicates
@@ -312,7 +312,7 @@ public extension TISInputSource {
 		/// empty string.
 		///
 		/// NOTE: This key (and a corresponding value) may not be used in the
-		/// filter dictionary passed to `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
+		/// filter dictionary passed to ``TISInputSource/inputSourceList(matching:includeAllInstalled:)``.
 		case languages
 		
 		/// The property key constant for a value which is a `CFData` that
@@ -324,7 +324,7 @@ public extension TISInputSource {
 		/// '`KCHR` data' is available, the value is `nil`.
 		///
 		/// NOTE: This key (and a corresponding value) may not be used in the
-		/// filter dictionary passed to `TISInputSource.inputSourceList(matching:includeAllInstalled:)`.
+		/// filter dictionary passed to ``TISInputSource/inputSourceList(matching:includeAllInstalled:)``.
 		case unicodeKeyLayoutData
 		
 		/// catch-all for non-default and/or non-documented values.
@@ -450,14 +450,14 @@ public extension TISInputSource {
 		case keyboard
 		
 		/// The property value constant for one input source category value
-		/// associated with the property key `Properties.category`.
+		/// associated with the property key ``Property/category``.
 		///
 		/// This category includes character palettes and keyboard viewers.
 		/// Zero or more of these can be selected.
 		case palette
 		
 		/// The property value constant for one input source category value
-		/// associated with the property key `Properties.category`.
+		/// associated with the property key ``Property/category``.
 		///
 		/// Zero or one ink input sources can be installed and selected.
 		case ink
@@ -692,7 +692,7 @@ public extension TISInputSource {
 	/// input source available in UI for selection.
 	///
 	/// For `enable()` to succeed, the input source must be
-	/// capable of being enabled (`.isEnableCapable`
+	/// capable of being enabled (``isEnableCapable``
 	/// must be `true`). Furthermore, if the input source is an input mode,
 	/// its parent must already be enabled for the mode to become enabled.
 	/// - throws: `paramErr` if the input source cannot be enabled.
@@ -726,10 +726,10 @@ public extension TISInputSource {
 	///
 	/// When an input method or mode is the selected input source, TSM
 	/// will by default use the most-recently-used ASCII-capable keyboard
-	/// layout to translate key events* (this keyboard layout is also the
+	/// layout to translate key events[^1] (this keyboard layout is also the
 	/// one that will appear in Keyboard Viewer); an input source for
 	/// this keyboard layout is returned by
-	/// `TISInputSource.keyboardLayoutOverride`. If a different keyboard
+	/// ``TISInputSource/keyboardLayoutOverride``. If a different keyboard
 	/// layout should be used for a particular input method or mode, then
 	/// when that input method/mode is activated it should call
 	/// `setAsOverride()` to specify the desired
@@ -752,7 +752,7 @@ public extension TISInputSource {
 	/// is included in an input method bundle and automatically
 	/// registered.
 	///
-	/// *The default behavior is new for Mac OS X 10.5, and is meant to
+	/// [^1]: The default behavior is new for Mac OS X 10.5, and is meant to
 	/// eliminate the necessity for input methods to have UI for setting
 	/// which ASCII-capable keyboard to use for latin-character-based
 	/// phonetic input.
@@ -854,7 +854,7 @@ public extension CFNotificationName {
 public extension TISInputSource {
 	/// The value that indicates the category of input source.
 	///
-	/// The possible values are specified by the Swift enum `TISInputSource.SourceCategory`.
+	/// The possible values are specified by the Swift enum ``TISInputSource/SourceCategory``.
 	var category: SourceCategory {
 		let rawDat = TISGetInputSourceProperty(self, kTISPropertyInputSourceCategory)!
 		let theDat = Unmanaged<CFString>.fromOpaque(rawDat).takeUnretainedValue()
@@ -1096,7 +1096,7 @@ public extension TISInputSource {
 
 	/// The value that indicates the specific type of input source.
 	///
-	/// See `TISInputSource.SourceType` for the available values.
+	/// See ``TISInputSource/SourceType`` for the available values.
 	var sourceType: SourceType {
 		let rawDat = TISGetInputSourceProperty(self, kTISPropertyInputSourceType)!
 		let theDat = Unmanaged<CFString>.fromOpaque(rawDat).takeUnretainedValue()

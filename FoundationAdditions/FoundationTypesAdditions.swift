@@ -58,14 +58,13 @@ public extension NSRange {
 
 public extension CGPoint {
 	/// Creates a point from a text-based representation.
-	/// - parameter string: A string of the form *"{x, y}"*.
+	/// - parameter string: The string to decode the point from.
 	///
 	/// If `string` is of the form *"{x, y}"*, the `CGPoint` structure
 	/// uses *x* and *y* as the `x` and `y` coordinates, in that order.<br>
 	/// If `string` only contains a single number, it is used as the `x` coordinate.
 	/// If `string` does not contain any numbers, creates an `CGPoint` object whose
 	/// `x` and `y` coordinates are both `0`.
-	/// - parameter string: The string to decode the point from.
 	@inlinable init(string: String) {
 		#if os(OSX)
 			self = NSPointFromString(string)

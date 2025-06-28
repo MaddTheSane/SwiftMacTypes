@@ -52,7 +52,7 @@ public enum ReflectError: Error {
 /// Best used for a fixed-size C array that expects to be NULL-terminated, like a C string.
 /// If passed `nil`, no object will be put on the end of the array. Default is `nil`.
 /// - returns: an array of `X` objects.
-/// - throws: `ReflectError` if any of the types don't match `X`.
+/// - throws: ``ReflectError`` if any of the types don't match `X`.
 @inlinable public func arrayFromObject<X>(reflecting obj: Any, appendLastObject lastObj: X? = nil) throws(ReflectError) -> [X] {
 	var anArray = [X]()
 	let mirror = Mirror(reflecting: obj)
@@ -78,7 +78,7 @@ public enum ReflectError: Error {
 ///
 /// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
 /// - parameter block: The block to execute syncronously on the main thread.
-public func runOnMainThreadSync(_ block: () -> Void) {
+public func runOnMainThreadSync(_ block: @convention(block) () -> Void) {
 	if Thread.isMainThread {
 		block()
 	} else {
@@ -91,7 +91,7 @@ public func runOnMainThreadSync(_ block: () -> Void) {
 ///
 /// This assumes that `NSThread`'s main thread is the same as GCD's main queue.
 /// - parameter block: The block to execute asyncronously on the main thread.
-public func runOnMainThreadAsync(_ block: @Sendable @escaping () -> Void) {
+public func runOnMainThreadAsync(_ block: @Sendable @escaping @convention(block) () -> Void) {
 	if Thread.isMainThread {
 		block()
 	} else {

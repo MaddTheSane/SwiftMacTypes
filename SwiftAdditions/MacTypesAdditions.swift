@@ -42,6 +42,8 @@ public func OSTypeToString(_ theType: OSType) -> String? {
 
 /// Converts an `OSType` to a `String` value. May return a hexadecimal representation.
 /// - parameter theType: The `OSType` to convert to a string representation.
+/// - parameter useHexIfInvalid: Use this if you want to return a value as a hexadecimal representation if it couldn't
+/// be decoded as a Mac OS Roman.
 /// - returns: A string representation of `theType`, or the hexadecimal representation of `theType` if it can't be converted.
 public func OSTypeToString(_ theType: OSType, useHexIfInvalid: ()) -> String {
 	if let ourStr = OSTypeToString(theType), ourStr.count == 4 {
@@ -115,7 +117,7 @@ public var currentCFMacStringEncoding: CFStringEncoding {
 
 /// The current system encoding that is the most like a Mac Classic encoding.
 ///
-/// Deprecated, use `String.Encoding.currentCompatibleClassic` instead
+/// Deprecated, use ``String.Encoding.currentCompatibleClassic`` instead
 @available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "String.Encoding.currentCompatibleClassic")
 public var currentMacStringEncoding: String.Encoding {
 	return String.Encoding.currentCompatibleClassic
@@ -172,7 +174,7 @@ public extension String.Encoding {
 	
 	/// Converts the current encoding to the equivalent `CFStringEncoding`.
 	///
-	/// Deprecated. Use `cfStringEncoding` instead.
+	/// Deprecated. Use ``cfStringEncoding`` instead.
 	@available(swift, introduced: 2.0, deprecated: 5.0, obsoleted: 6.0, renamed: "cfStringEncoding")
 	var toCFStringEncoding: CFStringEncoding {
 		return cfStringEncoding
@@ -446,7 +448,7 @@ public extension String.Encoding {
 	/// ISO 646, KS C 5601-1987.
 	static let EUC_KR = convertToStrEnc(from: .EUC_KR)
 
-			/* Misc standards begin at 0xA00 */
+	/* Misc standards begin at 0xA00 */
 	
 	/// Russian internet standard.
 	static let KOI8_R = convertToStrEnc(from: .KOI8_R)
@@ -818,7 +820,7 @@ public extension OSTypeIconConvertable {
 	}
 }
 
-/// Toolbar icons
+/// Carbon toolbar icons
 public enum CarbonToolbarIcons: OSType, OSTypeConvertable, OSTypeIconConvertable, Hashable, Sendable {
 	case customize = 0x74637573
 	case delete = 0x7464656C

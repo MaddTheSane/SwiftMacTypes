@@ -22,7 +22,8 @@ public extension CTFont {
 	
 	/// These constants represent the specific user interface purpose to specify for font creation.
 	///
-	/// Use these constants with `CTFont.create(uiType:size:forLanguage:)` to indicate the intended
+	/// Use these constants with ``CTFont/create(uiType:size:forLanguage:)``, `CTFont(_:size:language:)`, or
+	/// `CTFont(_:size:)` to indicate the intended
 	/// user interface usage of the font reference to be created.
 	typealias UIFontType = CTFontUIFontType
 	
@@ -991,7 +992,7 @@ public extension CTFont {
 	/// Returns an array of font table tags.
 	/// - parameter options: The options used when copying font tables.<br>
 	/// Default is no options.
-	/// - returns: An array of `CTFont.TableTag` values for the given font and the
+	/// - returns: An array of ``CTFont/TableTag`` values for the given font and the
 	/// supplied options.
 	func availableTables(options: TableOptions = []) -> [TableTag]? {
 		guard let numArr = CTAFontCopyAvailableTables(self, options) else {
@@ -1005,7 +1006,7 @@ public extension CTFont {
 	///
 	/// - returns: A data of the font table as `Data` or `nil` if the table is not
 	/// present.
-	/// - parameter table: The font table identifier as a `CTFont.TableTag`.
+	/// - parameter table: The font table identifier as a ``CTFont/TableTag``.
 	/// - parameter options: The options used when copying font table.<br>
 	/// Default is no options.
 	func data(for table: TableTag, options: TableOptions = []) -> Data? {
@@ -1017,7 +1018,7 @@ public extension CTFont {
 	/// This method will modify the `CGContext`'s font, text size, and text matrix if specified in the
 	/// `Font`. These attributes will not be restored.
 	/// The given glyphs should be the result of proper Unicode text layout operations (such as `CTLine`).
-	/// Results from `glyphs(forCharacters:)` (or similar APIs) do not perform any Unicode text layout.
+	/// Results from ``CTFont/glyphs(forCharacters:)`` (or similar APIs) do not perform any Unicode text layout.
 	/// - parameter context: `CGContext` used to render the glyphs.
 	/// - parameter gp: The glyphs and positions (origins) to be rendered. The positions are in user space.
 	func draw(glyphsAndPositions gp: [(glyph: CGGlyph, position: CGPoint)], in context: CGContext) {
@@ -1031,7 +1032,7 @@ public extension CTFont {
 	/// This method will modify the `CGContext`'s font, text size, and text matrix if specified in the
 	/// `Font`. These attributes will not be restored.
 	/// The given glyphs should be the result of proper Unicode text layout operations (such as `CTLine`).
-	/// Results from `glyphs(for:)` (or similar APIs) do not perform any Unicode text layout.
+	/// Results from ``CTFont/glyphs(forCharacters:)`` (or similar APIs) do not perform any Unicode text layout.
 	/// - parameter context: `CGContext` used to render the glyphs.
 	/// - parameter glyphs: The glyphs to be rendered. See above discussion of how the glyphs should be
 	/// derived.

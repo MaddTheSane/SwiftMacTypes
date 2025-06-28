@@ -258,7 +258,7 @@ public enum FontManager {
 	/// Unregisters fonts from the specified font URL with the font manager. Unregistered fonts do not
 	/// participate in font descriptor matching.
 	///
-	/// iOS note: only fonts registered with `FontManager.registerFonts(for:)` or
+	/// iOS note: only fonts registered with ``FontManager/registerFonts(for:)`` or
 	/// `CTFontManagerRegisterFontsForURLs` can be unregistered with this API.
 	/// - parameter fontURL: Font URL.
 	/// - parameter scope: Scope constant defining the availability and lifetime of the registration. Should
@@ -284,7 +284,7 @@ public enum FontManager {
 	///
 	/// This functionality is useful for fonts that may be embedded in documents or present/constructed in
 	/// memory. A graphics font is obtained by calling `CGFontCreateWithDataProvider`. Fonts that are
-	/// backed by files should be registered using `FontManager.registerFonts(at:scope:)`.
+	/// backed by files should be registered using ``FontManager/registerFonts(at:scope:)``.
 	/// - parameter font: Graphics font to be registered.
 	@available(macOS, introduced: 10.8, deprecated: 15, message: "Use fontDescriptors(from:) or registerFonts(at:scope:)")
 	@available(iOS, introduced: 4.1, deprecated: 18, message: "Use fontDescriptors(from:) or registerFonts(at:scope:)")
@@ -307,7 +307,7 @@ public enum FontManager {
 	/// - parameter font: Graphics font to be unregistered.
 	///
 	/// Unregistered fonts are no longer discoverable through font descriptor matching.
-	/// Fonts that are backed by files should be unregistered using `unregister(fontURLs:scope:registrationHandler:)`.
+	/// Fonts that are backed by files should be unregistered using ``unregister(fontURLs:scope:registrationHandler:)``.
 	@available(macOS, introduced: 10.8, deprecated: 15, message: "Use the API corresponding to the one used to register the font")
 	@available(iOS, introduced: 4.1, deprecated: 18, message: "Use the API corresponding to the one used to register the font")
 	@available(watchOS, introduced: 2.0, deprecated: 11, message: "Use the API corresponding to the one used to register the font")
@@ -428,7 +428,7 @@ public enum FontManager {
 	
 	/// Sets the auto-activation for the specified bundle identifier.
 	/// - parameter bundleIdentifier: The bundle identifier. Used to specify a particular application
-	/// bundle. If `nil`, the current application bundle will be used. If `FontManager.bundleIdentifier`
+	/// bundle. If `nil`, the current application bundle will be used. If ``FontManager/bundleIdentifier``
 	/// is specified, will set the global auto-activation settings.
 	/// - parameter setting: The new setting.
 	///
@@ -440,7 +440,7 @@ public enum FontManager {
 	
 	/// Accessor for the auto-activation setting.
 	/// - parameter bundleIdentifier: The bundle identifier. Used to specify a particular application bundle.
-	/// If `nil`, the current application bundle will be used. If `FontManager.bundleIdentifier` is specified,
+	/// If `nil`, the current application bundle will be used. If ``FontManager/bundleIdentifier`` is specified,
 	/// will get the global auto-activation settings.
 	/// - returns: Will return the auto-activation setting for specified bundle identifier.
 	@available(OSX 10.6,*) @inlinable

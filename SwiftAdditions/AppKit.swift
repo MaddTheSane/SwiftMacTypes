@@ -10,26 +10,32 @@
 import Cocoa
 
 	// MARK: CGWindowLevel values
+/// The base key used to define window levels. Do not use.
 	@inlinable public var kCGBaseWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.baseWindow)
 	}
 
+/// The lowest available window level.
 	@inlinable public var kCGMinimumWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.minimumWindow)
 	}
 
+/// The level for the desktop.
 	@inlinable public var kCGDesktopWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.desktopWindow)
 	}
 
+/// The highest allowed window level.
 	@inlinable public var kCGMaximumWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.maximumWindow)
 	}
 
+/// The level for desktop icons.
 	@inlinable public var kCGDesktopIconWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.desktopIconWindow)
 	}
 
+/// The level for the cursor.
 	@inlinable public var kCGCursorWindowLevel: CGWindowLevel {
 		return CGWindowLevelForKey(CGWindowLevelKey.cursorWindow)
 	}
