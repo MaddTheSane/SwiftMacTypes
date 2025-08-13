@@ -189,7 +189,7 @@ public extension SAMacError {
 	/// empty dictionary.
 	/// - parameter status: The `OSStatus` to create an error in the `NSOSStatusErrorDomain` error domain.
 	/// - returns: An object conforming to the `Error` protocol, either `SAMacError` or `NSError`.
-	static func osStatus(_ status: OSStatus, userInfo: [String: Any] = [:]) -> Error {
+	static func osStatus(_ status: OSStatus, userInfo: [String: Any] = [:]) -> any Error {
 		if let saCode = SAMacError.Code(rawValue: status) {
 			return SAMacError(saCode, userInfo: userInfo)
 		}
@@ -208,7 +208,7 @@ public extension SAMacError {
 	/// blank dictionary.
 	/// - parameter status: The `OSErr` to create an error in the `NSOSStatusErrorDomain` error domain.
 	/// - returns: An object conforming to the `Error` protocol, either `SAMacError` or `NSError`.
-	static func osErr(_ status: OSErr, userInfo: [String: Any] = [:]) -> Error {
+	static func osErr(_ status: OSErr, userInfo: [String: Any] = [:]) -> any Error {
 		if let saCode = SAMacError.Code(osErrValue: status) {
 			return SAMacError(saCode, userInfo: userInfo)
 		}

@@ -547,6 +547,24 @@ public extension IOHIDDevice {
 		}
 	}
 	
+	/// Sends a report to the device.
+	///
+	/// This method behaves synchronously and will block until the
+	/// report has been issued to the device.  It is only relevent for
+	/// either output or feature type reports.
+	/// - parameter reportType: Type of report being sent.
+	/// - parameter reportID: ID of the report being sent.  If the device supports
+	/// multiple reports, this should also be set in the first byte of
+	/// the report.
+	/// - parameter span: The report data to be sent to the device.
+	/// - returns: Returns `kIOReturnSuccess` if successful.
+	@available(macOS 10.14.4, *)
+	func setReport(type reportType: IOHIDReportType, id reportID: CFIndex, span: Span<UInt8>) -> IOReturn {
+		return span.withUnsafeBytes { (rbp) -> IOReturn in
+			IOHIDDeviceSetReport(self, reportType, reportID, rbp.bindMemory(to: UInt8.self).baseAddress!, rbp.count)
+		}
+	}
+	
 	/// Obtains a report from the device.
 	///
 	/// This method behaves synchronously and will block until the

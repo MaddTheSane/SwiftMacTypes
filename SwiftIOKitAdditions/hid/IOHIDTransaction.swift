@@ -133,7 +133,7 @@ public extension IOHIDTransaction {
 	/// set.  If neither are set, that element will be omitted from the
 	/// commit. After a transaction is committed, transaction element
 	/// values will be cleared and default values preserved.
-	/// - returns: Returns `kIOReturnSuccess` if successful or a kern_return_t if
+	/// - returns: Returns `kIOReturnSuccess` if successful or a `kern_return_t` if
 	/// unsuccessful.
 	@inlinable func commit() -> IOReturn {
 		return IOHIDTransactionCommit(self)
@@ -182,7 +182,7 @@ public extension IOHIDTransaction {
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
 	func schedule(with runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as CFString)
+		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as NSString)
 	}
 
 	/// Unschedules transaction with run loop.
@@ -193,6 +193,6 @@ public extension IOHIDTransaction {
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
 	func unschedule(from runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
-		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as CFString)
+		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as NSString)
 	}
 }

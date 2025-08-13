@@ -29,7 +29,7 @@ public extension UTType {
 	 for the given type, according to its declaration. The value of this
 	 property is equivalent to:
 	 
-	 ```
+	 ```swift
 	 type.tags[.osType]?.first
 	 ```
 	 */
@@ -53,7 +53,7 @@ public extension UTType {
 	
 			This method is equivalent to:
 	
-			```
+			```swift
 			UTType(tag: osType, tagClass: .osType, conformingTo: supertype)
 			```
 	

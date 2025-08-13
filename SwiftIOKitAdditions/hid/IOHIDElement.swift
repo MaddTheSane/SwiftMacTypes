@@ -10,6 +10,9 @@ import Foundation
 import IOKit.hid
 
 public extension IOHIDElement {
+	/// Describes different types of HID collections.
+	///
+	/// Collections identify a relationship between two or more elements.
 	typealias CollectionType = IOHIDElementCollectionType
 	
 	/// Represent a unique identifier for an element within a device.
@@ -17,7 +20,7 @@ public extension IOHIDElement {
 	
 	/// Describes different types of HID elements.
 	///
-	/// Used by the IOHIDFamily to identify the type of element processed. Represented by the key `kIOHIDElementTypeKey` in the dictionary describing the element.
+	/// Used by the `IOHIDFamily` to identify the type of element processed. Represented by the key `kIOHIDElementTypeKey` in the dictionary describing the element.
 	typealias ElementType = IOHIDElementType
 	
 	/// Creates an element from a dictionary.

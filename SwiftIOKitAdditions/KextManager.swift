@@ -34,7 +34,7 @@ public enum KextManager {
 	///
 	/// Either the calling process must have an effective user id of 0 (superuser), or the kext being loaded and all its dependencies
 	/// must reside in */System* and have an *OSBundleAllowUserLoad* property of `true`.
-	@inlinable public static func loadKextWithIdentifier(_ kextIdentifier: String, dependencies: [URL]) -> OSReturn {
+	@inlinable public static func loadKext(identifier kextIdentifier: String, dependencies: [URL]) -> OSReturn {
 		return KextManagerLoadKextWithIdentifier(kextIdentifier as NSString, dependencies as NSArray)
 	}
 	
@@ -47,7 +47,7 @@ public enum KextManager {
 	///
 	/// Either the calling process must have an effective user id of 0 (superuser), or the kext being loaded and all
 	/// its dependencies must reside in /System and have an *OSBundleAllowUserLoad* property of `true`.
-	@inlinable public static func loadKext(with kextURL: URL, dependencies: [URL]) -> OSReturn {
+	@inlinable public static func loadKext(at kextURL: URL, dependencies: [URL]) -> OSReturn {
 		return KextManagerLoadKextWithURL(kextURL as NSURL, dependencies as NSArray)
 	}
 	

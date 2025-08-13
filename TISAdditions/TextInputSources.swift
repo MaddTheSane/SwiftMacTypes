@@ -530,10 +530,10 @@ public extension TISInputSource {
 	/// - returns: Returns an `Array` for a list of `TISInputSource`s that match
 	/// the specified properties.
 	static func inputSourceList(matching properties: [Property: Any]?, includeAllInstalled: Bool = false) -> [TISInputSource] {
-		if let props = properties {
+		if let properties {
 			var prop2: [CFString: Any] = [:]
-			prop2.reserveCapacity(props.count)
-			for (key, val) in props {
+			prop2.reserveCapacity(properties.count)
+			for (key, val) in properties {
 				if key == .category, let aVal = val as? SourceCategory {
 					prop2[kTISPropertyInputSourceCategory] = aVal.rawValue
 				} else if key == .sourceType, let aVal = val as? SourceType {

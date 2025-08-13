@@ -72,7 +72,7 @@ public extension IOHIDValue {
 		return IOHIDValueGetBytePtr(self)
 	}
 	
-	/// an integer representaion of the value contained in this `IOHIDValue`.
+	/// An integer representaion of the value contained in this `IOHIDValue`.
 	///
 	/// The value is based on the logical element value contained in the report returned by the device.
 	@inlinable var integer: Int {
@@ -100,6 +100,11 @@ public extension IOHIDValue {
 public extension IOHIDValue {
 	var data: Data {
 		return Data(bytes: bytePtr, count: length)
+	}
+	
+	@available(macOS 10.14.4, *)
+	func withSpan<T>(_ body: (Span<UInt8>) throws -> T) rethrows -> T {
+		return try body(Span<UInt8>(_unsafeStart: IOHIDValueGetBytePtr(self), byteCount: IOHIDValueGetLength(self)))
 	}
 	
 	/// Creates a new element value using byte data.

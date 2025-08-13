@@ -1030,7 +1030,7 @@ public extension CTFont {
 	/// Renders the given glyphs from the CTFont at the given positions in the CGContext.
 	///
 	/// This method will modify the `CGContext`'s font, text size, and text matrix if specified in the
-	/// `Font`. These attributes will not be restored.
+	/// font. These attributes will not be restored.
 	/// The given glyphs should be the result of proper Unicode text layout operations (such as `CTLine`).
 	/// Results from ``CTFont/glyphs(forCharacters:)`` (or similar APIs) do not perform any Unicode text layout.
 	/// - parameter context: `CGContext` used to render the glyphs.
