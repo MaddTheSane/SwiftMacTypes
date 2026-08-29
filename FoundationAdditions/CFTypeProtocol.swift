@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreFoundation
 
 /// For classes that are Core Foundation objects (Can be passed to `CFRetain`, `CFRelease`, etc.)
 /// and have a `*GetTypeID()` function.

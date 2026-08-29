@@ -98,6 +98,8 @@
 		555BB493288E458C00A255E0 /* CGColorSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555BB491288E447A00A255E0 /* CGColorSpace.swift */; };
 		555C0269294296AA00587A40 /* FoundationAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5560389426BF2CC800CD1984 /* FoundationAdditions.framework */; };
 		555C026A294296B800587A40 /* FoundationAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5560389426BF2CC800CD1984 /* FoundationAdditions.framework */; };
+		555D30D63041521600C505B0 /* CFPlugIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D30D53041521300C505B0 /* CFPlugIn.swift */; };
+		555D30D8304162A400C505B0 /* CFBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D30D7304162A000C505B0 /* CFBundle.swift */; };
 		555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */; };
 		5560389D26BF2CC800CD1984 /* FoundationAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5560389426BF2CC800CD1984 /* FoundationAdditions.framework */; };
 		556038A226BF2CC800CD1984 /* FoundationAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556038A126BF2CC800CD1984 /* FoundationAdditionsTests.swift */; };
@@ -442,6 +444,8 @@
 		554FE7C428C74AC000418258 /* ColorSyncDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSyncDevice.swift; sourceTree = "<group>"; };
 		554FE7C528C74AC000418258 /* ColorSyncTransformClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSyncTransformClass.swift; sourceTree = "<group>"; };
 		555BB491288E447A00A255E0 /* CGColorSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGColorSpace.swift; sourceTree = "<group>"; };
+		555D30D53041521300C505B0 /* CFPlugIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFPlugIn.swift; sourceTree = "<group>"; };
+		555D30D7304162A000C505B0 /* CFBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFBundle.swift; sourceTree = "<group>"; };
 		555D85E91D26F29E004EA8E7 /* CocoaComparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaComparable.swift; sourceTree = "<group>"; };
 		5560389426BF2CC800CD1984 /* FoundationAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FoundationAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5560389626BF2CC800CD1984 /* FoundationAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FoundationAdditions.h; sourceTree = "<group>"; };
@@ -891,6 +895,8 @@
 				55251E2B24937417007BC863 /* CFBitVector.swift */,
 				55D373E826B8949500BFBCB4 /* CFBinaryHeap.swift */,
 				554536E826621C420097DD71 /* CFTypeProtocol.swift */,
+				555D30D53041521300C505B0 /* CFPlugIn.swift */,
+				555D30D7304162A000C505B0 /* CFBundle.swift */,
 				552349992CAB8F03001238EE /* CFMessagePortAdditions.swift */,
 				5560389626BF2CC800CD1984 /* FoundationAdditions.h */,
 				5560389726BF2CC800CD1984 /* Info.plist */,
@@ -1923,7 +1929,9 @@
 			files = (
 				556038AB26BF2D1200CD1984 /* FoundationTypesAdditions.swift in Sources */,
 				556038AF26BF2D1200CD1984 /* Endianness.swift in Sources */,
+				555D30D8304162A400C505B0 /* CFBundle.swift in Sources */,
 				5523499A2CAB8F03001238EE /* CFMessagePortAdditions.swift in Sources */,
+				555D30D63041521600C505B0 /* CFPlugIn.swift in Sources */,
 				555D85EA1D26F29E004EA8E7 /* CocoaComparable.swift in Sources */,
 				5540780E26C5E7440054E0B6 /* AdditionalAdditions.swift in Sources */,
 				556038AE26BF2D1200CD1984 /* CFBitVector.swift in Sources */,
