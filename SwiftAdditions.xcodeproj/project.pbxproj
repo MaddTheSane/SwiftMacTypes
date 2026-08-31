@@ -83,7 +83,6 @@
 		5540780E26C5E7440054E0B6 /* AdditionalAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1A6AE1A07223B00C7A733 /* AdditionalAdditions.swift */; };
 		554536EB266222EC0097DD71 /* CTMisc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554536EA266222EC0097DD71 /* CTMisc.swift */; };
 		554536ED266235F40097DD71 /* CTFramesetterAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554536EC266235F40097DD71 /* CTFramesetterAdditions.swift */; };
-		554FE7A228C4028900418258 /* CTAttributedStringAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554FE7A128C4028900418258 /* CTAttributedStringAdditions.swift */; };
 		554FE7B028C74A3400418258 /* ColorSyncHelpers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 554FE7A828C74A3400418258 /* ColorSyncHelpers.framework */; };
 		554FE7B528C74A3400418258 /* ColorSyncHelpersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554FE7B428C74A3400418258 /* ColorSyncHelpersTests.swift */; };
 		554FE7B628C74A3400418258 /* ColorSyncHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 554FE7AA28C74A3400418258 /* ColorSyncHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -430,7 +429,6 @@
 		554536E826621C420097DD71 /* CFTypeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFTypeProtocol.swift; sourceTree = "<group>"; };
 		554536EA266222EC0097DD71 /* CTMisc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTMisc.swift; sourceTree = "<group>"; };
 		554536EC266235F40097DD71 /* CTFramesetterAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTFramesetterAdditions.swift; sourceTree = "<group>"; };
-		554FE7A128C4028900418258 /* CTAttributedStringAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTAttributedStringAdditions.swift; sourceTree = "<group>"; };
 		554FE7A828C74A3400418258 /* ColorSyncHelpers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ColorSyncHelpers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		554FE7AA28C74A3400418258 /* ColorSyncHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorSyncHelpers.h; sourceTree = "<group>"; };
 		554FE7AF28C74A3400418258 /* ColorSyncHelpersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColorSyncHelpersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -827,7 +825,6 @@
 				5527AC341FAE7CE8009CC7FC /* CTRunAdditions.swift */,
 				558D71CD26DF54E8002F5255 /* CTRunDelegateAdditions.swift */,
 				5527AC2E1FAE7CE7009CC7FC /* CTStringAttributesAdditions.swift */,
-				554FE7A128C4028900418258 /* CTAttributedStringAdditions.swift */,
 				5527AC2A1FAE7CE7009CC7FC /* CTTextTabAdditions.swift */,
 				554536EA266222EC0097DD71 /* CTMisc.swift */,
 				5527AC161FAE7CB1009CC7FC /* Info.plist */,
@@ -1876,7 +1873,6 @@
 				558D71CE26DF54E8002F5255 /* CTRunDelegateAdditions.swift in Sources */,
 				5527AC3A1FAE7CE8009CC7FC /* CTRubyAnnotationAdditions.swift in Sources */,
 				5527AC431FAE7CE8009CC7FC /* CTFontAdditions.swift in Sources */,
-				554FE7A228C4028900418258 /* CTAttributedStringAdditions.swift in Sources */,
 				5515E14628D07CFF00FE6EEA /* CTTypesetterAdditions.swift in Sources */,
 				5527AC441FAE7CE8009CC7FC /* CTFontCollectionAdditions.swift in Sources */,
 				5527AC451FAE7CE8009CC7FC /* CTFontManagerAdditions.swift in Sources */,
