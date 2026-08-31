@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import IOKit
 import IOKit.kext
 
 /// Namespace for Kext Manager functions
@@ -33,7 +34,7 @@ public enum KextManager {
 	/// `dependencies`. Any non-kext URLs in `dependencies` are scanned at the top level for kexts and plugins of kexts.
 	///
 	/// Either the calling process must have an effective user id of 0 (superuser), or the kext being loaded and all its dependencies
-	/// must reside in */System* and have an *OSBundleAllowUserLoad* property of `true`.
+	/// must reside in *\/System* and have an *OSBundleAllowUserLoad* property of `true`.
 	@inlinable public static func loadKext(identifier kextIdentifier: String, dependencies: [URL]) -> OSReturn {
 		return KextManagerLoadKextWithIdentifier(kextIdentifier as NSString, dependencies as NSArray)
 	}

@@ -62,15 +62,15 @@ public extension IOHIDDevice {
 	/// and `usage`.
 	///
 	/// Examples of Application Collection usages pairs are:
-	/// ````
+	/// ```
 	/// usagePage = kHIDPage_GenericDesktop
 	/// usage = kHIDUsage_GD_Mouse
-	/// ````
+	/// ```
 	/// **or**
-	/// ````
+	/// ```
 	/// usagePage = kHIDPage_GenericDesktop
 	/// usage = kHIDUsage_GD_Keyboard
-	/// ````
+	/// ```
 	/// - parameter usagePage: Device usage page
 	/// - parameter usage: Device usage
 	/// - returns: Returns `true` if device conforms to provided usage.
@@ -170,7 +170,7 @@ public extension IOHIDDevice {
 	/// The `IOHIDDevice` should only be released after the device has been
 	/// cancelled, and the cancel handler has been called. This is to ensure all
 	/// asynchronous objects are released. For example:
-	///````
+	/// ```swift
 	/// let deviceRetained = Unmanaged.passRetained(device)
 	/// let cancelHandler = {
 	///     deviceRetained.release()
@@ -178,7 +178,7 @@ public extension IOHIDDevice {
 	/// device.setCancelHandler(cancelHandler)
 	/// device.activate()
 	/// device.cancel()
-	///````
+	/// ```
 	/// - parameter handler: The cancellation handler block to be associated with
 	/// the dispatch queue.
 	@available(OSX 10.15, *)
@@ -490,7 +490,7 @@ public extension IOHIDDevice {
 	/// report has been received from the device.  This is only intended
 	/// for feature reports because of sporadic devicesupport for
 	/// polling input reports.  Please defer to using
-	/// `registerInputReport(_:length:callback:context:)` for obtaining input
+	/// ``registerInputReport(_:length:callback:context:)`` for obtaining input
 	/// reports.
 	/// - parameter reportType: Type of report being requested.
 	/// - parameter reportID: ID of the report being requested.
@@ -510,7 +510,7 @@ public extension IOHIDDevice {
 	/// report has been received from the device.  This is only intended
 	/// for feature reports because of sporadic devicesupport for
 	/// polling input reports.  Please defer to using
-	/// `registerInputReport(_:length:callback:context:)` for obtaining input
+	/// ``registerInputReport(_:length:callback:context:)`` for obtaining input
 	/// reports.
 	/// - parameter reportType: Type of report being requested.
 	/// - parameter reportID: ID of the report being requested.
@@ -571,7 +571,7 @@ public extension IOHIDDevice {
 	/// report has been received from the device.  This is only intended
 	/// for feature reports because of sporadic devicesupport for
 	/// polling input reports.  Please defer to using
-	/// `registerInputReport(_:length:callback:context:)` for obtaining input
+	/// ``registerInputReport(_:length:callback:context:)`` for obtaining input
 	/// reports.
 	/// - parameter reportType: Type of report being requested.
     /// - parameter reportID: ID of the report being requested.

@@ -126,7 +126,7 @@ public extension IOHIDManager {
 	/// The `IOHIDManager` should only be released after the manager has been
 	/// cancelled, and the cancel handler has been called. This is to ensure
 	/// all asynchronous objects are released. For example:
-	///````
+	/// ```swift
 	/// let managerRetained = Unmanaged.passRetained(manager)
 	/// let cancelHandler = {
 	///     managerRetained.release()
@@ -134,7 +134,7 @@ public extension IOHIDManager {
 	/// manager.setCancelHandler(cancelHandler)
 	/// manager.activate()
 	/// manager.cancel()
-	///````
+	/// ```
 	/// - parameter handler: The cancellation handler block to be associated
 	/// with the dispatch queue.
 	@available(OSX 10.15, *)
@@ -221,7 +221,7 @@ public extension IOHIDManager {
 	/// Only device matching the set criteria will be enumerated.
 	/// If a dispatch queue is set, this call must occur before activation.
 	/// Devices provided in the callback will be scheduled with the same
-	/// runloop/dispatch queue as the IOHIDManagerRef, and should not be
+	/// runloop/dispatch queue as the `IOHIDManager`, and should not be
 	/// rescheduled.
 	/// - parameter callback: Pointer to a callback method of type
 	/// `IOHIDDeviceCallback`.

@@ -135,7 +135,7 @@ public extension IOHIDQueue {
 	/// The `IOHIDQueue` should only be released after the queue has been
 	/// cancelled, and the cancel handler has been called. This is to ensure all
 	/// asynchronous objects are released. For example:
-	///````
+	/// ```swift
 	/// let queueRetained = Unmanaged.passRetained(queue)
 	/// let cancelHandler = {
 	///     queueRetained.release()
@@ -143,7 +143,7 @@ public extension IOHIDQueue {
 	/// queue.setCancelHandler(cancelHandler)
 	/// queue.activate()
 	/// queue.cancel()
-	///````
+	/// ```
 	/// - parameter handler: The cancellation handler block to be associated with the dispatch queue.
 	@available(OSX 10.15, *)
 	@inlinable func setCancelHandler(_ handler: @escaping () -> Void) {

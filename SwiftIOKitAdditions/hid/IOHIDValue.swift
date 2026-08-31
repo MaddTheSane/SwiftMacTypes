@@ -82,9 +82,9 @@ public extension IOHIDValue {
 	/// Returns an scaled representaion of the value contained in this `IOHIDValue` based on the scale type.
 	///
 	/// The scaled value is based on the range described by the scale type's min and max, such that:
-	/// ````
+	/// ```c
 	/// scaledValue = ((value - min) * (scaledMax - scaledMin) / (max - min)) + scaledMin
-	/// ````
+	/// ```
 	/// **Note:**
 	///
 	/// There are currently two types of scaling that can be applied:

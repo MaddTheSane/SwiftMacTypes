@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import IOKit
 import IOKit.hid
 
 public extension IOHIDTransaction {
@@ -80,6 +81,7 @@ public extension IOHIDTransaction {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
+	@available(*, deprecated, message: "Avoid - inherits device's scheduling context, explicit scheduling causes unpredictable behavior")
 	@inlinable func schedule(with runLoop: CFRunLoop, mode runLoopMode: CFString) {
 		IOHIDTransactionScheduleWithRunLoop(self, runLoop, runLoopMode)
 	}
@@ -91,6 +93,7 @@ public extension IOHIDTransaction {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
+	@available(*, deprecated, message: "Avoid - inherits device's scheduling context, explicit scheduling causes unpredictable behavior")
 	@inlinable func unschedule(from runLoop: CFRunLoop, mode runLoopMode: CFString) {
 		IOHIDTransactionUnscheduleFromRunLoop(self, runLoop, runLoopMode)
 	}
@@ -181,6 +184,7 @@ public extension IOHIDTransaction {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
+	@available(*, deprecated, message: "Avoid - inherits device's scheduling context, explicit scheduling causes unpredictable behavior")
 	func schedule(with runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
 		schedule(with: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as NSString)
 	}
@@ -192,6 +196,7 @@ public extension IOHIDTransaction {
 	/// activity.
 	/// - parameter runLoopMode: Run loop mode to be used when scheduling any
 	/// asynchronous activity.
+	@available(*, deprecated, message: "Avoid - inherits device's scheduling context, explicit scheduling causes unpredictable behavior")
 	func unschedule(from runLoop: RunLoop, mode runLoopMode: RunLoop.Mode) {
 		unschedule(from: runLoop.getCFRunLoop(), mode: runLoopMode.rawValue as NSString)
 	}
