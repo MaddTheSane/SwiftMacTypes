@@ -493,7 +493,7 @@ public extension CTFont {
 	/// Individual traits can be accessed with the trait key constants. See *CTFontTraits.h* for a definition
 	/// of the font traits.
 	var traits: [String: Any] {
-		return CTFontCopyTraits(self) as NSDictionary as! [String: Any]
+		return CTFontCopyTraits(self) as! [String: Any]
 	}
 	
 	// MARK: - Font Names
