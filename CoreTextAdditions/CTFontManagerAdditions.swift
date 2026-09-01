@@ -258,8 +258,8 @@ public enum FontManager {
 	/// Unregisters fonts from the specified font URL with the font manager. Unregistered fonts do not
 	/// participate in font descriptor matching.
 	///
-	/// iOS note: only fonts registered with ``FontManager/registerFonts(for:)`` or
-	/// `CTFontManagerRegisterFontsForURLs` can be unregistered with this API.
+	/// iOS note: only fonts registered with ``FontManager/registerFonts(at:scope:)`` or
+	/// ``register(fontURLs:scope:enabled:registrationHandler:)`` can be unregistered with this API.
 	/// - parameter fontURL: Font URL.
 	/// - parameter scope: Scope constant defining the availability and lifetime of the registration. Should
 	/// match the scope the fonts are registered in. See scope constants for more details.

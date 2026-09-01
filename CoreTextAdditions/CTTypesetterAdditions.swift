@@ -146,35 +146,3 @@ public extension CTTypesetter {
 		}
 	}
 }
-
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 9.0, *)
-public extension CTTypesetter {
-	/// Creates an immutable typesetter object using an attributed
-	/// string and a dictionary of options.
-	///
-	/// The resultant typesetter can be used to create lines, perform
-	/// line breaking, and do other contextual analysis based on the
-	/// characters in the string.
-	/// - parameter string: The `AttributedString` that you want to typeset.
-	/// This parameter must be scoped  with `CoreTextAttributes`.
-	/// - parameter options: A `Dictionary` of typesetter options, or `nil` if there are none.
-	/// - returns: This class method will return either a reference to a `CTTypesetter`
-	/// or `nil` if layout cannot be performed due to an attributed
-	/// string that would require unreasonable effort.
-	///
-	/// - seeAlso: kCTTypesetterOptionAllowUnboundedLayout
-	static func create(with string: AttributedString, options: [Options: Any]? = nil) throws -> CTTypesetter? {
-		let preOpt = options?.map({ (key: Options, value: Any) -> (NSString, Any) in
-			return (key.rawValue, value)
-		})
-		var dict: NSDictionary?
-		if let preOpt {
-			let dict2 = Dictionary(uniqueKeysWithValues: preOpt)
-			dict = dict2 as NSDictionary
-		} else {
-			dict = nil
-		}
-		let nsAttrStr = try NSAttributedString(string, including: AttributeScopes.CoreTextAttributes.self)
-		return self.create(with: nsAttrStr, options:dict)
-	}
-}

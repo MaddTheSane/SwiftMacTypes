@@ -519,7 +519,7 @@ public extension IOHIDDevice {
 	/// - parameter pReportLength: Pointer to length of preallocated buffer.  This
 	/// value will be modified to refect the length of the returned
 	/// report.
-	/// - parameter callback Pointer to a callback method of type
+	/// - parameter callback: Pointer to a callback method of type
 	/// `IOHIDReportCallback`.
 	/// - parameter context: Pointer to data to be passed to the callback.
 	/// - returns: Returns kIOReturnSuccess if successful.

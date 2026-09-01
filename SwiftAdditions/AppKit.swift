@@ -66,13 +66,13 @@ public extension NSAffineTransform {
 		/// Returns a buffer of all available compression types that can be used when writing
 		/// a TIFF image.
 		///
-		/// This is an `UnsafeBufferPointer` of `NSBitmapImageRep.TIFFCompression` constants.
+		/// This is an `UnsafeBufferPointer` of ``NSBitmapImageRep.TIFFCompression`` constants.
 		/// This buffer belongs to the `NSBitmapImageRep` class; it shouldn’t be freed or
 		/// altered. See `NSBitmapImageRep.TIFFCompression` for the supported TIFF
 		/// compression types.
 		///
 		/// Note that not all compression types can be used for all images:
-		/// `NSBitmapImageRep.TIFFCompression.next` can be used only to retrieve image data.
+		/// ``NSBitmapImageRep.TIFFCompression.next`` can be used only to retrieve image data.
 		/// Because future releases may include other compression types, always use this
 		/// method to get the available compression types—for example, when you implement a
 		/// user interface for selecting compression types.

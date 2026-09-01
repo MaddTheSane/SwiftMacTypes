@@ -241,6 +241,7 @@ public extension IOHIDElement {
 	/// Sets an element property.
 	///
 	/// This method can be used to set arbitrary element properties, such as application specific references.
+	/// - Parameter property: The property to set.
 	/// - parameter key: The key to be used when querying the element.
 	/// - returns: Returns `true` if successful.
 	func setProperty(_ property: Any, forKey key: String) -> Bool {

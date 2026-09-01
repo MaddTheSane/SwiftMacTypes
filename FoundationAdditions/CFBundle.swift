@@ -183,8 +183,8 @@ public extension CFBundle {
 	/// and bug fix version numbers are each restricted to a single BCD digit (0-9).
 	///
 	/// This function is only supported for the vers resource style version numbers. Where other version number styles—namely X,
-	/// or X.Y, or X.Y.Z—are used, you can use ``value(forInfoDictionaryKey:)`` with the key `kCFBundleVersionKey`
-	/// to extract the version number as a string from the bundle's information dictionary.
+	/// or X.Y, or X.Y.Z—are used, you can use ``value(forInfoDictionaryKey:)-(CFString)`` with the key
+	/// `kCFBundleVersionKey` to extract the version number as a string from the bundle's information dictionary.
 	///
 	/// Some version numbers of the form X, X.Y, and X.Y.Z may work with this function, if X <= 99, Y <= 9, and Z <= 9.
 	/// Thus a version number 76.5.4 will work, but 76.12 will not work.
@@ -251,7 +251,6 @@ public extension CFBundle {
 	@inlinable var executableURL: URL? {
 		return CFBundleCopyExecutableURL(self) as URL?
 	}
-
 	
 	// MARK: -
 	
@@ -356,7 +355,7 @@ public extension CFBundle {
 	///
 	/// This is the base function from which the other localized string macros are derived. In general you should not use this
 	/// function because the *genstrings* development tool only recognizes the macro version of this call when generating strings
-	/// files. See ``CFCopyLocalizedString`` for details on how to use these macros.
+	/// files. See `CFCopyLocalizedString` for details on how to use these macros.
 	@inlinable func localizedString(for key: String, value: String? = nil, table: String? = nil) -> String {
 		CFBundleCopyLocalizedString(self, key as CFString, value as CFString?, table as CFString?) as String
 	}
@@ -468,7 +467,7 @@ public extension CFBundle {
 	}
 	
 	/// Returns a bundle's package type and creator without having to create a `CFBundle` object.
-	/// - parameter url: The location of a bundle.
+	/// - parameter bundleURL: The location of a bundle.
 	/// - returns: The four-letter type code for the bundle, the four-letter “creator” code for the bundle;
 	/// or `nil` if the package type and creator were not found.
 	///
@@ -507,11 +506,11 @@ public extension CFBundle {
 	}
 	
 	/// Returns the location of a resource contained in the specified bundle directory without requiring the creation of a CFBundle object.
-	/// - parameter bundleURL: The bundle to examine.
-	/// - parameter resourceName: The name of the requested resource.
-	/// - parameter resourceType: The abstract type of the requested resource. The type is expressed as a
+	/// - parameter url: The bundle to examine.
+	/// - parameter resource: The name of the requested resource.
+	/// - parameter type: The abstract type of the requested resource. The type is expressed as a
 	/// filename extension, such as *jpg*. Pass `nil` if you don't need to search by type.
-	/// - parameter subDirName: The name of the subdirectory of the bundle's resources directory to search. Pass
+	/// - parameter subdirectory: The name of the subdirectory of the bundle's resources directory to search. Pass
 	/// `nil` to search the standard CFBundle resource locations.
 	/// - returns: A `URL` describing the location of the requested resource, or `nil` if the resource cannot be found.
 	static func resourceURL(for url: URL, resource: String, type: String? = nil, subdirectory: String? = nil) -> URL? {
@@ -520,7 +519,7 @@ public extension CFBundle {
 	
 	/// Returns an array of `URL`s describing the locations of all resources in a bundle of the specified type without
 	/// needing to create a `CFBundle` object.
-	/// - parameter bundleURL: The location of a bundle to examine.
+	/// - parameter url: The location of a bundle to examine.
 	/// - parameter resourceType: The abstract type of the resources to locate. The type is expressed as a filename
 	/// extension, such as *jpg*.
 	/// - parameter subDirName: The name of the subdirectory of the bundle's resources directory to search. Pass

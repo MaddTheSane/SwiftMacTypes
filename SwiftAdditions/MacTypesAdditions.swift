@@ -583,12 +583,12 @@ public extension String {
 	/// - parameter pStr: a pointer to the Pascal string in question. You may need 
 	/// to use `arrayFromObject(reflecting:)` if the value is a tuple.
 	/// - parameter encoding: The encoding of the Pascal string.
-	/// The default is `String.Encoding.macOSRoman`.
-	/// - parameter maximumLength: The maximum length of the Pascal string. 
+	/// The default is ``String.Encoding.macOSRoman``.
+	/// - parameter maximumLength: The maximum length of the Pascal string.
 	/// If the first byte contains a value higher than this, the constructor returns
 	/// `nil`. The default is *255*, the largest value a `UInt8` can hold.
 	///
-	/// The main initializer. Converts the encoding to a `CFStringEncoding` for use
+	/// The main initializer. Converts the encoding to a ``CFStringEncoding`` for use
 	/// in the base initializer.
 	init?(pascalString pStr: UnsafePointer<UInt8>, encoding: String.Encoding = .macOSRoman, maximumLength: UInt8 = 255) {
 		let CFEncoding = encoding.cfStringEncoding
@@ -602,7 +602,7 @@ public extension String {
 	///
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
-	/// The default is `String.Encoding.macOSRoman`.
+	/// The default is ``String.Encoding.macOSRoman``.
 	init?(pascalString pStr: PStr255, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7, pStr.8,
 								  pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14, pStr.15, pStr.16,
@@ -648,7 +648,7 @@ public extension String {
 	///
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
-	/// The default is `String.Encoding.macOSRoman`.
+	/// The default is ``String.Encoding.macOSRoman``.
 	init?(pascalString pStr: PStr63, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7,
 								  pStr.8, pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14,
@@ -667,7 +667,7 @@ public extension String {
 	///
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
-	/// The default is `String.Encoding.macOSRoman`.
+	/// The default is ``String.Encoding.macOSRoman``.
 	init?(pascalString pStr: PStr32, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7,
 								  pStr.8, pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14,
@@ -682,7 +682,7 @@ public extension String {
 	///
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
-	/// The default is `String.Encoding.macOSRoman`.
+	/// The default is ``String.Encoding.macOSRoman``.
 	init?(pascalString pStr: PStr31, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7,
 								  pStr.8, pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14,
@@ -697,7 +697,7 @@ public extension String {
 	///
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
-	/// The default is `String.Encoding.macOSRoman`.
+	/// The default is ``String.Encoding.macOSRoman``.
 	init?(pascalString pStr: PStr27, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7,
 								  pStr.8, pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14,
@@ -711,7 +711,7 @@ public extension String {
 	///
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
-	/// The default is `String.Encoding.macOSRoman`.
+	/// The default is ``String.Encoding.macOSRoman``.
 	init?(pascalString pStr: PStr15, encoding: String.Encoding = .macOSRoman) {
 		let unwrapped: [UInt8] = [pStr.0, pStr.1, pStr.2, pStr.3, pStr.4, pStr.5, pStr.6, pStr.7,
 								  pStr.8, pStr.9, pStr.10, pStr.11, pStr.12, pStr.13, pStr.14,
@@ -724,7 +724,7 @@ public extension String {
 	///
 	/// - parameter pStr: a tuple of the Pascal string in question.
 	/// - parameter encoding: The encoding of the Pascal string.
-	/// The default is `String.Encoding.macOSRoman`.
+	/// The default is ``String.Encoding.macOSRoman``.
 	///
 	/// The last byte in a `Str32Field` is unused,
 	/// so the last byte isn't read.
